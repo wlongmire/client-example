@@ -1,44 +1,43 @@
 
 'use strict';
 
-// Dependencies
-
 import React from 'react';
 import { render } from 'react-dom';
-import $ from 'jquery';
+import { createHashHistory } from 'history';
+import { Provider } from 'react-redux';
+import onReady from './utils/onReady';
+import store from './store';
+import routes from './routes';
 
-// Components
+import {
+  Router,
+  browserHistory
+} from 'react-router';
 
-import { LandingApp } from './components/LandingApp';
+import {
+  syncHistoryWithStore,
+  routerReducer
+} from 'react-router-redux';
 
-// JavaScript container for the project
-
-window.Argo = {};
-
-// JS app object
-
-function AppFactory () {
-  return {
-    start: function start () {
-      console.log('Start: Argo Group');
-      return this;
-    },
-
-    store: null
-  };
-};
+const history = syncHistoryWithStore(
+  browserHistory,
+  store
+);
 
 // Initialize the app
 
-$(document).ready(() => {
-  window.Argo = {
-    app: AppFactory().start()
-  };
+onReady(() => {
+  const container = document.getElementsByClassName(
+    'app-container'
+  )[0];
 
   render(
-    <div>
-      <LandingApp />
-    </div>,
-    $('.app-container')[0]
+    <Provider store={ store }>
+      <Router
+        history={ history }
+        routes={ routes }
+      />
+    </Provider>,
+    container
   );
 });

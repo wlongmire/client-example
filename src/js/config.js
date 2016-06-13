@@ -1,4 +1,4 @@
-export default {
+var config = {
   argoBlue1: '#0079FF',
   argoBlue1RGB: '0, 121, 255',
   argoBlue2: '#0050AC',
@@ -7,3 +7,5 @@ export default {
   argoBlue3RGB: '0, 43, 87',
   desktopWidth: 768
 };
+
+export default config;

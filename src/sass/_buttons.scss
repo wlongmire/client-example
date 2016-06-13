@@ -1,20 +1,10 @@
-.landing-app {
-  button {
-    background-color: $argoLightBlue;
+.app-container {
+   button {
+    background-color: $lightBlue;
     color: #fff;
 
     &:last-of-type {
       margin: 0;
     }
-
-    // @media (min-width: $screen-sm-min) {
-      // font-size: 1.6vw;
-      font-size: 20px;
-    // }
-
-    // @media (min-width: $screen-md-min) {
-      // font-size: 1.4vw;
-      // font-size: 20px;
-    // }
   }
 }

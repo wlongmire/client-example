@@ -1,8 +1,7 @@
 {
-  "name": "argosite",
+  "name": "skonkworks",
   "version": "1.0.0",
-  "description": "For developing ideas with the argo team.",
-  "homepage": "https://github.com/jasonhargrove/argosite#readme",
+  "description": "For developing new ventures at Argo.",
   "dependencies": {
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",
@@ -39,6 +38,8 @@
     "react-redux-ephemeral": "0.0.1-alpha-1",
     "redux": "^3.3.1",
     "redux-devtools": "^3.1.1",
+    "redux-devtools-dock-monitor": "^1.1.0",
+    "redux-devtools-log-monitor": "^1.0.5",
     "run-sequence": "^1.1.5",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
@@ -52,5 +53,13 @@
   "scripts": {
     "postinstall": "gulp build",
     "start": "node herokuServer"
+  },
+  "devDependencies": {
+    "react-ga": "^2.1.0",
+    "react-router": "^2.4.1",
+    "react-router-redux": "^4.0.5",
+    "redux-connect": "^2.4.0",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0"
   }
 }

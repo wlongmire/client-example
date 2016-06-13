@@ -1,56 +1,6 @@
 
 /* COLORS */
 
-// via Annual Report 2015 tabs
-
-$argoLightBlue: #32A4D8;
-$argoMediumBlue: #094779;
-$argoDarkBlue: #00011D;
-
-$argoLightGreen: #7BC027;
-$argoMediumGreen: #338F2A;
-
-$argoPurple1: #4A1170;
-$argoPurple2: #6B328B;
-
-// via Annual Report 2015 charts
-
-$argoChartBlue1: #0079FF;
-$argoChartBlue2: #0050AC;
-$argoChartBlue3: #002B57;
-
-// via Logo
-
-$argoLogoBlue1: #3C6BA0;
-$argoLogoBlue2: #003E77;
-$argoLogoGrey1: #F0F2F8;
-$argoLogoGrey2: #D3D2D6;
-
-// via Brand Standards Guide
-
-$argoLightYellow: #FED80B;
-$argoMediumYellow: #FAAB13;
-$argoLightTeal: #15A4A0;
-
-// Responsive
-
-$desktopMinWidth: $screen-sm-min;
-$mobileMaxWidth: $desktopMinWidth;
-
-// Layout
-// // somewhat convoluted; may refactor
-$mainModalPadding: 25px;
-$mainModalPaddingSide: 50px;
-$topBarPaddingTop: $mainModalPadding;
-$topBarHeight: 50px;
-$contentPaddingTop: ($mainModalPadding * 2) + $topBarHeight;
-
-// Nav
-$hoverHighlight1: rgba(255, 255, 255, 0.25);
-$hoverHighlight2: rgba(255, 255, 255, 0.1);
-
-$hoverHighlightMedium1: rgba(180, 180, 180, 0.25);
-$hoverHighlightMedium2: rgba(180, 180, 180, 0.1);
-
-$hoverHighlightDark1: rgba(100, 100, 100, 0.25);
-$hoverHighlightDark2: rgba(100, 100, 100, 0.1);
+$lightBlue: #32A4D8;
+$mediumBlue: #094779;
+$darkBlue: #00011D;

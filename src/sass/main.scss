@@ -14,16 +14,16 @@
 
 // Global
 @import './config';
-@import './htmlBody';
-@import './appContainer';
+@import './typography';
+@import './buttons';
 
 // Fullpage.js
-@import './fullpage';
+// @import './fullpage';
 
-// App
+// Components
+
 .app-container {
-  @import './typography';
-  @import './buttons';
-  @import '../js/components/LandingApp/LandingApp';
-}
+  position: relative;
 
+  // @import '../js/components/App/App';
+}
