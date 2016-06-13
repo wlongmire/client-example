@@ -1,0 +1,86 @@
+.topbar {
+  @import './MainNav/MainNav';
+
+  left: 0;
+  height: $topBarHeight;
+  position: absolute;
+  right: 0;
+  top: $mainModalPadding;
+  z-index: 1000;
+
+  .column {
+    text-align: center;
+
+    @media (min-width: $desktopMinWidth) {
+      text-align: right;
+
+      &:nth-of-type(1) {
+        padding: 0;
+        padding-left: $mainModalPaddingSide;
+        text-align: left;
+      }
+
+      &:nth-of-type(2) {
+        padding: 0;
+        text-align: center;
+      }
+
+      &:nth-of-type(3) {
+        padding: 0;
+        padding-right: $mainModalPaddingSide;
+        text-align: right;
+      }
+    }
+  }
+
+  .menu-btn,
+  .search-btn {
+    background: none;
+    background-color: none;
+    border: none;
+    color: #fff;
+    outline: none;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .logo {
+    background-image: url('/images/logo-argo-icon.svg');
+    background-position: 50% 45%;
+    background-size: 50px;
+    background-repeat: no-repeat;
+    height: 43px;
+    width: 100%;
+
+    @media (min-width: $screen-sm-min) {
+      background-image: url('/images/logo-argo-white.svg');
+      background-position: ($mainModalPaddingSide - 15) 48%;
+      background-size: 250px;
+      margin: 0 auto;
+      width: 300px;
+    }
+
+    @media (min-width: $desktopMinWidth) {
+      background-position: ($mainModalPaddingSide - 15) 48%;
+      margin: 0 auto;
+      width: 300px;
+    }
+  }
+
+  .menu-btn,
+  .search-btn,
+  .logo {
+    &:hover {
+      background-color: $hoverHighlight2;
+      border-radius: 6px;
+      cursor: pointer;
+
+      @media (min-width: $desktopMinWidth) {
+        background-color: $hoverHighlight1;
+      }
+    }
+  }
+}

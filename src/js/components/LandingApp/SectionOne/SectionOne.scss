@@ -1,0 +1,97 @@
+
+.section-one {
+  color: #eee;
+  height: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.section-one img {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+
+  @media (max-width: 1250px) {
+    height: 100%;
+    margin-left: -50vw;
+  }
+
+  @media (min-width: 1250px) {
+    width: 100%;
+  }
+}
+
+// Big copywriting container
+
+.section-one .copy {
+  left: 15vw;
+  position: absolute;
+  right: 15vw;
+  top: 20vh;
+  z-index: 100;
+
+  @media (min-width: $screen-sm-min) {
+    left: 25vw;
+    padding-top: 12vh;
+    right: 25vw;
+    top: $contentPaddingTop;
+    z-index: 100;
+  }
+
+  @media (min-width: $screen-md-min) {
+    padding-top: 14vh;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    left: 25vw;
+    padding-top: 20vh;
+    right: 25vw;
+
+    i {
+      display: inline;
+      font-size: 28px;
+      padding-top: 10vw;
+    }
+  }
+
+  $marginBottom: 20px;
+
+  h1 {
+    color: #fff;
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: $marginBottom;
+
+    @media (min-width: $screen-md-min) {
+      font-size: 48px;
+      line-height: 53px;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 23px;
+
+    &:first-of-type {
+      margin-bottom: $marginBottom;
+    }
+
+    @media (min-width: $screen-md-min) {
+      font-size: 19px;
+      line-height: 26px;
+    }
+  }
+
+  button {
+    background: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+    border-top: 1px solid rgba(255, 255, 255, 0);
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    padding: 12px 24px;
+
+    &:hover {
+      border: 1px solid #fff;
+    }
+  }
+}

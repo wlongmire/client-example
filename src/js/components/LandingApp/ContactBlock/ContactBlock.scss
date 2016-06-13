@@ -1,0 +1,28 @@
+
+.contact-block {
+  background: #fff;
+  padding: 50px 50px;
+  // padding-top: 100px;
+
+  h2 {
+    font-size: 25px;
+  }
+
+  h2, p {
+    margin-bottom: 20px;
+  }
+
+  p:first-of-type {
+    margin-bottom: 30px;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  address, p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

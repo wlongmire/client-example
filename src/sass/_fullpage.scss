@@ -1,0 +1,38 @@
+
+// Module Styles
+
+@import '../../node_modules/fullpage.js/jquery.fullPage.scss';
+
+// Custom Styles
+
+#fp-nav ul li .fp-tooltip {
+  color: #111;
+}
+
+#fp-nav {
+  top: 20%;
+
+  &.right {
+    right: 40px;
+  }
+}
+
+.fp-controlArrow {
+  $arrowColor: #63A097;
+  $arrowHalfHeight: 28.5px;
+  $arrowWidth: 35px;
+
+  &.fp-next {
+    border-color: transparent transparent transparent $arrowColor;
+    border-width: $arrowHalfHeight 0 $arrowHalfHeight $arrowWidth;
+  }
+
+  &.fp-prev {
+    border-color: transparent $arrowColor transparent transparent;
+    border-width: $arrowHalfHeight $arrowWidth $arrowHalfHeight 0;
+  }
+}
+
+.fp-slide {
+  padding: 0 70px;
+}

@@ -1,0 +1,45 @@
+
+.section-three {
+  color: #333;
+  text-align: center;
+}
+
+// Big copywriting container
+
+.section-three .copy {
+  width: 65vw;
+
+  @media (min-width: $screen-sm-min) {
+    width: 45vw;
+  }
+
+  $marginBottom: 20px;
+
+  h1 {
+    font-size: 23px;
+    line-height: 27px;
+    margin-bottom: $marginBottom;
+    text-align: left;
+
+    @media (min-width: $screen-md-min) {
+      font-size: 33px;
+      line-height: 43px;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 23px;
+    text-align: left;
+
+    &:first-of-type {
+      margin-bottom: $marginBottom;
+    }
+
+    @media (min-width: $screen-md-min) {
+      font-size: 19px;
+      line-height: 27px;
+      text-align: justify;
+    }
+  }
+}
