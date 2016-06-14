@@ -4,11 +4,11 @@ For developing new properties.
 
 ## Deploying New Apps
 
-######## Install Node.js and npm:
+###### Install Node.js and npm:
 
 https://nodejs.org
 
-######## Make a new repository for your new app:
+###### Make a new repository for your new app:
 
 http://github.com
 
