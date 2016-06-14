@@ -15,12 +15,10 @@ export default (
     component={ App }>
 
     <IndexRoute
-      component={ Home }
-      onEnter={ handleRouteChange } />
+      component={ Home } />
 
     <Route
       path='/test'
-      component={ Test }
-      onEnter={ handleRouteChange } />
+      component={ Test } />
   </Route>
 );
