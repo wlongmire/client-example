@@ -7,6 +7,7 @@ var cssnano = require('gulp-cssnano');
 var del = require('del');
 var eslint = require('gulp-eslint');
 var gulp = require('gulp');
+var historyApiFallback = require('connect-history-api-fallback');
 var htmlmin = require('gulp-htmlmin');
 var htmlreplace = require('gulp-html-replace');
 var shell = require('gulp-shell');
@@ -83,6 +84,7 @@ gulp.task('sass', function () {
 gulp.task('serve', ['build'], function () {
   browserSync.init({
     server: './dist',
+    middleware: [historyApiFallback()],
     port: 8885,
     ui: {
       weinre: {

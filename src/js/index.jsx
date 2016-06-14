@@ -24,6 +24,10 @@ const history = syncHistoryWithStore(
   store
 );
 
+history.listen(() => {
+  console.log('route change', new Date());
+});
+
 // Initialize the app
 
 onReady(() => {
