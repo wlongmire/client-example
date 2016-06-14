@@ -2,25 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-// import config from '../'
+import config from '../config';
 
 const App = React.createClass({
   render() {
     let baseMeta = [
       {
         'name': 'description',
-        'content': 'Skonk Works U1 App'
+        'content': config.description
       },
       {
         'property': 'og:type',
         'content': 'site'
       }
     ];
+    let titleTemplate = config.title + ' | %s';
     return (
       <div className='app'>
         <Helmet
-          titleTemplate='Skonk Works U1 | %s'
-          meta={baseMeta}
+          titleTemplate={ titleTemplate }
+          meta={ baseMeta }
         />
         { this.props.children }
       </div>
