@@ -29,13 +29,12 @@ $ git push --mirror https://github.com/exampleuser/new-repository.git
 Check your new repo and confirm it worked. If so, go ahead and delete the source clone:
 
 ```
-
 $ cd ..
 
 $ rm -rf gulp-webpack-dev-seed.git
 ```
 
-Clone your new repo:
+Finally, clone your new repo and start using it:
 
 ```
 $ git clone https://github.com/exampleuser/new-repository.git
@@ -45,13 +44,13 @@ $ cd new-repository
 
 ## Running Locally
 
-### Install the modules:
+#### Install the modules:
 
 ```
 $ npm install
 ```
 
-### Start the BrowserSync Dev Server:
+#### Start the BrowserSync Dev Server:
 
 ```
 $ gulp serve
@@ -61,11 +60,11 @@ This should open your browser automatically.
 
 The server will watch for changes, injecting SASS or causing browser reload as needed.
 
-### Manually you can access the site here:
+#### Manually you can access the site here:
 
 http://localhost:5888
 
-### Manually build site for deployment:
+#### Manually build site for deployment:
 
 ```
 $ gulp build
