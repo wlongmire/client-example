@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import onReady from './utils/onReady';
 import store from './store';
 import routes from './routes';
+// import ga from 'react-ga';
 
 import {
   Router,
@@ -24,8 +25,12 @@ const history = syncHistoryWithStore(
   store
 );
 
+// Routing middleware
+
 history.listen(() => {
   console.log('route change', new Date());
+  window.scrollTo(0, 0);
+  // ga.pageview(nextState.location.pathname);
 });
 
 // Initialize the app
