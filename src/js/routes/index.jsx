@@ -7,7 +7,6 @@ import {
 
 import App from '../App';
 import Home from '../components/Home';
-import Test from '../components/Test';
 import DevSandbox from '../components/DevSandbox';
 import Http404 from '../components/Http404';
 
