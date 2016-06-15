@@ -20,10 +20,6 @@ export default (
       component={ Home } />
 
     <Route
-      path='/test'
-      component={ Test } />
-
-    <Route
       path='/dev-sandbox'
       component={ DevSandbox } />
 
