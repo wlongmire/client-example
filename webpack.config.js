@@ -26,6 +26,8 @@ module.exports = {
     alias: {
       app: 'src/js/App',
       components: 'src/js/components',
+      config: 'src/js/config',
+      content: 'src/content',
       routes: 'src/js/routes',
       src: 'src'
     }

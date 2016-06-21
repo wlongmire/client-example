@@ -29,7 +29,7 @@ const history = syncHistoryWithStore(
 
 history.listen(() => {
   console.log('route change', new Date());
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   // ga.pageview(nextState.location.pathname);
 });
 

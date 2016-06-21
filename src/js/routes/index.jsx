@@ -5,10 +5,10 @@ import {
   IndexRoute
 } from 'react-router';
 
-import App from '../App';
-import Home from '../components/Home';
-import DevSandbox from '../components/DevSandbox';
-import Http404 from '../components/Http404';
+import App from 'app';
+import Home from 'routes/Home';
+import DevSandbox from 'routes/DevSandbox';
+import Http404 from 'routes/Http404';
 
 export default (
   <Route
