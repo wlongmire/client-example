@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
   module: {
@@ -13,10 +14,21 @@ module.exports = {
     {
       test: /\.scss$/,
       loader: 'style!css!sass'
+    },
+    {
+      test: /\.json$/,
+      loader: 'json'
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.json'],
+    root: path.resolve(__dirname),
+    alias: {
+      app: 'src/js/App',
+      components: 'src/js/components',
+      routes: 'src/js/routes',
+      src: 'src'
+    }
   },
   plugins: [
     new webpack.DefinePlugin({
