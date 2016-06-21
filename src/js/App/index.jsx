@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import config from '../config';
+import config from 'config';
+import Logo from 'components/Logo';
 
 const App = React.createClass({
   render() {
@@ -23,6 +24,7 @@ const App = React.createClass({
           titleTemplate={ titleTemplate }
           meta={ baseMeta }
         />
+        <Logo />
         { this.props.children }
       </div>
     );
