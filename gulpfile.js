@@ -10,12 +10,13 @@ var gulp = require('gulp');
 var historyApiFallback = require('connect-history-api-fallback');
 var htmlmin = require('gulp-htmlmin');
 var htmlreplace = require('gulp-html-replace');
-var shell = require('gulp-shell');
-var uglify = require('gulp-uglify');
+var nodemon = require('gulp-nodemon');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
+var shell = require('gulp-shell');
 var symlink = require('gulp-sym');
+var uglify = require('gulp-uglify');
 var webpack = require('webpack-stream');
 var webpackConfig = require('./webpack.config');
 
@@ -82,6 +83,9 @@ gulp.task('sass', function () {
 });
 
 gulp.task('serve', ['build'], function () {
+  // Use this by default,
+  // if you do not need to run your own node server.
+  // It will perform a bit better than the alternative.
   browserSync.init({
     server: './dist',
     middleware: [historyApiFallback()],
@@ -98,6 +102,26 @@ gulp.task('serve', ['build'], function () {
     },
     notify: false
   });
+
+  // // Use this if you need to run our node server locally.
+  // // See /server
+  // // If you need that, disable the browserSync.init above.
+  // var started = false;
+
+  // nodemon({
+  //   script: 'server/index.js'
+  // }).on('start', function () {
+  //   if (!started) {
+  //     cb();
+  //     started = true;
+  //   }
+  // });
+
+  // browserSync.init(null, {
+  //   proxy: 'http://localhost:8999',
+  //   files: ['dist/*'],
+  //   port: 8885
+  // });
 
   gulp.watch([
     'src/index.html'
