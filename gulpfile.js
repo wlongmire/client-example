@@ -85,7 +85,6 @@ gulp.task('sass', function () {
 gulp.task('serve', ['build'], function () {
   // Use this by default,
   // if you do not need to run our own node server.
-  // For example, if you need to use it as an API.
   // It will perform a bit better than the alternative.
   browserSync.init({
     server: './dist',
@@ -105,6 +104,7 @@ gulp.task('serve', ['build'], function () {
   });
 
   // // Use this if you need to run our node server locally.
+  // // For example, if you need to use it as an API.
   // // See /server
   // // If you need that, disable the browserSync.init above.
   // var started = false;
