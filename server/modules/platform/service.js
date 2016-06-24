@@ -22,7 +22,6 @@ module.exports = {
 // Functions
 
 function postUser (user) {
-  console.log(user);
   return new Promise(function (resolve, reject) {
     var ref = firebase.database().ref();
     var newKey = ref.child('users').push().key;
@@ -43,7 +42,6 @@ function postUser (user) {
 }
 
 function putUser (user) {
-  console.log(user);
   return new Promise(function (resolve, reject) {
     var ref = firebase.database().ref();
 
