@@ -5,6 +5,8 @@
  */
 
 var firebase = require('firebase');
+
+// Download this file from Firebase; create service account
 var private = require('./Airflows-Dev-72d85da469f6.json');
 
 firebase.initializeApp({
