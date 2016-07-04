@@ -28,17 +28,17 @@ function postUser (user) {
     var ref = firebase.database().ref();
     var newKey = ref.child('users').push().key;
 
-    var updates = {};
+    var newUser = {
+      email: user.email,
+      uid: newKey
+    };
 
-    updates['users/' + newKey] = {
-      email: user.email
-    }; 
+    var updates = {};
+    updates['users/' + newKey] = newUser; 
 
     ref.update(updates)
     .then(function () {
-      resolve({
-        uid: newKey
-      });
+      resolve(newUser);
     });
   });
 }
