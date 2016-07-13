@@ -2,39 +2,30 @@
  * dependencies
  */
 
-var browserSync = require('browser-sync').create();
-var cssnano = require('gulp-cssnano');
 var del = require('del');
 var eslint = require('gulp-eslint');
 var gulp = require('gulp');
-var historyApiFallback = require('connect-history-api-fallback');
 var htmlmin = require('gulp-htmlmin');
 var htmlreplace = require('gulp-html-replace');
-var nodemon = require('gulp-nodemon');
+var shell = require('gulp-shell');
+var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
-var sass = require('gulp-sass');
-var shell = require('gulp-shell');
 var symlink = require('gulp-sym');
-var uglify = require('gulp-uglify');
-var webpack = require('webpack-stream');
-var webpackConfig = require('./webpack.config');
-
-/*
- * functions
- */
-
-function errorGraceful (error) {
-  console.log(error.toString());
-  this.emit('end');
-}
+var webpack = require('webpack');
+var webpackConfigDev = require('./webpack.config');
+var webpackConfigProd = require('./webpack.config.prod');
+var webpackDevServer = require('webpack-dev-server');
+var webpackStream = require('webpack-stream');
 
 /*
  * tasks
  */
 
 gulp.task('build', function (cb) {
-  runSequence('clean', ['html', 'images', 'js', 'sass', 'fonts'], cb);
+  runSequence('clean',
+    ['html', 'images', 'js', 'fonts'],
+    cb);
 });
 
 gulp.task('clean', function () {
@@ -46,8 +37,7 @@ gulp.task('default', ['build']);
 gulp.task('lint', function () {
   return gulp.src('src/js/**/*.js')
     .pipe(eslint())
-    .pipe(eslint.format())
-    .on('error', errorGraceful);
+    .pipe(eslint.format());
 });
 
 gulp.task('html', function () {
@@ -67,74 +57,41 @@ gulp.task('fonts', function () {
 
 gulp.task('js', ['lint'], function () {
   return gulp.src('src/js/index.jsx')
-    .pipe(webpack(webpackConfig))
+    .pipe(webpackStream(webpackConfigProd))
     .on('error', errorGraceful)
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest('dist/js'))
-    .pipe(browserSync.reload({ stream: true }));
-});
-
-gulp.task('sass', function () {
-  return gulp.src('src/sass/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(rename('bundle.css'))
-    .pipe(gulp.dest('dist/css'))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('serve', ['build'], function () {
-  // Use this by default,
-  // if you do not need to run our own node server for local dev.
-  // It will perform a bit better than the alternative.
-  browserSync.init({
-    server: './dist',
-    middleware: [historyApiFallback()],
-    port: 8885,
-    ui: {
-      weinre: {
-        port: 9995
-      }
-    },
-    ghostMode: {
-      // clicks: false,
-      // forms: false,
-      scroll: false
-    },
-    notify: false
+  var started = false;
+
+  nodemon({
+    script: 'server/index.js'
+  }).on('start', function () {
+    if (!started) {
+      cb();
+      started = true;
+    }
   });
-
-  // // Use this if you need to run our node server locally.
-  // // For example, if you need to use it as an API.
-  // // See /server
-  // // If you need that, disable the browserSync.init above.
-  // var started = false;
-
-  // nodemon({
-  //   script: 'server/index.js'
-  // }).on('start', function () {
-  //   if (!started) {
-  //     cb();
-  //     started = true;
-  //   }
-  // });
-
-  // browserSync.init(null, {
-  //   proxy: 'http://localhost:8999',
-  //   files: ['dist/*'],
-  //   port: 8885
-  // });
-
-  gulp.watch([
-    'src/index.html'
-  ], ['build']);
-
-  gulp.watch([
-    'src/js/**/*.js',
-    'src/js/**/*.jsx'
-  ], ['js']);
-
-  gulp.watch([
-    'src/sass/**/*',
-    'src/js/**/*.scss'
-  ], ['sass']);
 });
+
+gulp.task('serve:dev', ['build'], function () {
+  new webpackDevServer(webpack(webpackConfigDev), {
+    publicPath: webpackConfigDev.output.publicPath,
+    hot: true,
+    historyApiFallback: true,
+    contentBase: './src'
+  }).listen(7777, 'localhost', function (err, result) {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log('Listening at http://localhost:7777/');
+  });
+});
+
+function errorGraceful (error) {
+  console.log(error.toString());
+  this.emit('end');
+}

@@ -1,6 +1,9 @@
 
 'use strict';
 
+require('../sass/main.scss');
+require('font-awesome-sass-loader');
+
 import React from 'react';
 import { render } from 'react-dom';
 import { createHashHistory } from 'history';
