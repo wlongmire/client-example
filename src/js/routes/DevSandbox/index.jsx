@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import content from 'content';
-
 const DevSandbox = React.createClass({
   render() {
     return (
@@ -16,9 +14,13 @@ const DevSandbox = React.createClass({
     );
   },
 
+  contextTypes: {
+    content: React.PropTypes.object.isRequired
+  },
+
   getInitialState () {
     return {
-      content: content.DevSandbox
+      content: this.context.content.DevSandbox
     };
   }
 });

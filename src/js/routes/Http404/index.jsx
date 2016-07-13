@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import content from 'content';
-
 const Http404 = React.createClass({
   render() {
     return (
@@ -16,9 +14,13 @@ const Http404 = React.createClass({
     );
   },
 
+  contextTypes: {
+    content: React.PropTypes.object.isRequired
+  },
+
   getInitialState () {
     return {
-      content: content.Http404
+      content: this.context.content.Http404
     };
   }
 });

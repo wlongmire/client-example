@@ -50,24 +50,34 @@ $ cd new-repository
 $ npm install
 ```
 
-###### Start the BrowserSync Dev Server:
+###### Start the Webpack Dev Server
 
 ```
-$ gulp serve
+$ gulp serve:dev
 ```
 
-This should open your browser automatically.
+The server will watch for changes, injecting SASS  and JavaScript changes as you save.
 
-The server will watch for changes, injecting SASS or causing browser reload as needed.
+You can access the site here:
 
-###### Manually you can access the site here:
+http://localhost:7777
 
-http://localhost:5888
+###### Run the Production Server:
 
-###### Manually build site for deployment:
+```
+$ gulp serve:dev
+```
+
+The site will build and you can access it here:
+
+http://localhost:8999
+
+You can manually build the site in another terminal window as this server is running.
+
+###### Manually build site:
 
 ```
 $ gulp build
 ```
 
-The site will be built in `/test`.
+The site will be built in `/dist`.

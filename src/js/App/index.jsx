@@ -5,6 +5,8 @@ import Helmet from 'react-helmet';
 import config from 'config';
 import Logo from 'components/Logo';
 
+import content from 'content';
+
 const App = React.createClass({
   render() {
     let baseMeta = [
@@ -17,7 +19,9 @@ const App = React.createClass({
         'content': 'site'
       }
     ];
+
     let titleTemplate = config.title + ' | %s';
+
     return (
       <div className='app'>
         <Helmet
@@ -28,6 +32,16 @@ const App = React.createClass({
         { this.props.children }
       </div>
     );
+  },
+
+  childContextTypes: {
+    content: React.PropTypes.object
+  },
+
+  getChildContext () {
+    return {
+      content: content
+    };
   }
 
 });
