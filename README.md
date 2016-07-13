@@ -65,7 +65,7 @@ http://localhost:7777
 ###### Run the Production Server:
 
 ```
-$ gulp serve:dev
+$ gulp serve:prod
 ```
 
 The site will build and you can access it here:

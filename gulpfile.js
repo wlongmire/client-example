@@ -64,7 +64,7 @@ gulp.task('js', ['lint'], function () {
     .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('serve', ['build'], function () {
+gulp.task('serve:prod', ['build'], function () {
   var started = false;
 
   nodemon({
