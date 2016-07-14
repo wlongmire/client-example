@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
+import config from 'config';
+
 const Http404 = React.createClass({
   render() {
     return (
