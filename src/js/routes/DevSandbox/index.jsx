@@ -15,6 +15,7 @@ const DevSandbox = React.createClass({
   },
 
   contextTypes: {
+    config: React.PropTypes.object.isRequired,
     content: React.PropTypes.object.isRequired
   },
 
