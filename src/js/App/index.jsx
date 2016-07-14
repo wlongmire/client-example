@@ -35,11 +35,13 @@ const App = React.createClass({
   },
 
   childContextTypes: {
-    content: React.PropTypes.object
+    config: React.PropTypes.object.isRequired,
+    content: React.PropTypes.object.isRequired
   },
 
   getChildContext () {
     return {
+      config: config,
       content: content
     };
   }
