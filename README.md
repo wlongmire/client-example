@@ -109,7 +109,7 @@ $ npm run start
 
 The server can be extended to be used as a local API. Just extend the Express app as you normally would.
 
-It's likely best practice to contain as much of your code within components for maintenance, scalability, and shareability.
+It's likely best practice to contain your code within components for maintenance, scalability, and shareability.
 
 Included are some optional, only mildly opinionated patterns for components. See the example `Platform` component.
 
