@@ -5,7 +5,7 @@ import {
   IndexRoute
 } from 'react-router';
 
-import App from 'app';
+import App from 'components/app';
 import Home from 'routes/Home';
 import DevSandbox from 'routes/DevSandbox';
 import Http404 from 'routes/Http404';

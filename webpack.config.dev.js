@@ -3,9 +3,10 @@ var path = require('path');
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     'webpack-dev-server/client?http://localhost:7777',
     'webpack/hot/only-dev-server',
-    './src/js/index'
+    './src/app/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -39,12 +40,12 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.json'],
     root: path.resolve(__dirname),
     alias: {
-      components: 'src/js/components',
-      app: 'src/js/App',
-      routes: 'src/js/routes',
-      src: 'src',
+      app: 'src/app/App',
+      components: 'src/app/components',
+      config: 'src/app/config',
       content: 'src/content',
-      config: 'src/js/config'
+      routes: 'src/app/routes',
+      src: 'src'
     }
   },
   plugins: [

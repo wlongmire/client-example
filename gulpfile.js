@@ -36,7 +36,7 @@ gulp.task('clean', function () {
 gulp.task('default', ['build']);
 
 gulp.task('lint', function () {
-  return gulp.src('src/js/**/*.js')
+  return gulp.src('src/app/**/*.js')
     .pipe(eslint())
     .pipe(eslint.format());
 });
@@ -57,27 +57,29 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('js', ['lint'], function () {
-  return gulp.src('src/js/index.jsx')
+  return gulp.src('src/app/index.jsx')
     .pipe(webpackStream(webpackConfigProd))
     .on('error', errorGraceful)
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('serve:prod', ['build'], function () {
-  var started = false;
+gulp.task('dev', ['serve:dev']);
+gulp.task('d', ['serve:dev']);
+gulp.task('s', ['serve:dev']);
+gulp.task('serve', ['serve:dev']);
+gulp.task('serve:dev', ['serve:development']);
 
-  nodemon({
-    script: 'server/index.js'
-  }).on('start', function () {
-    if (!started) {
-      cb();
-      started = true;
-    }
-  });
-});
+  // By default we don't run the Node server here
+  // to save resources. It is used in production
+  // for example on Heroku, to serve the static dir.
+  // To use it, uncomment serve:node:development
 
-gulp.task('serve:dev', ['build'], function () {
+gulp.task('serve:development', [
+  'build',
+  // 'serve:node:development'
+],
+function () {
   new webpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
     hot: true,
@@ -88,11 +90,22 @@ gulp.task('serve:dev', ['build'], function () {
       return console.log(err);
     }
 
-    console.log('Listening at http://localhost:7777/');
+    console.log('Listening at http://localhost:7777');
   });
 });
 
+gulp.task('serve:node:development', shell.task([
+  'NODE_ENV="development" nodemon --debug src/server/index.js --exec babel-node'
+]));
+
+gulp.task('serve:production', ['serve:node:production']);
+
+gulp.task('serve:node:production', shell.task([
+  'NODE_ENV="production" node src/server/index.js'
+]));
+
 function errorGraceful (error) {
   console.log(error.toString());
+
   this.emit('end');
 }

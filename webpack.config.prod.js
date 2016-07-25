@@ -3,6 +3,10 @@ var path = require('path');
 
 module.exports = {
   module: {
+    entry: [
+      'babel-polyfill',
+      './src/client/index'
+    ],
     loaders: [{
       test: /\.jsx?$/,
       loader: 'babel',
@@ -32,11 +36,11 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.json'],
     root: path.resolve(__dirname),
     alias: {
-      app: 'src/js/App',
-      components: 'src/js/components',
-      config: 'src/js/config',
+      app: 'src/app/App',
+      components: 'src/app/components',
+      config: 'src/app/config',
       content: 'src/content',
-      routes: 'src/js/routes',
+      routes: 'src/app/routes',
       src: 'src'
     }
   },
