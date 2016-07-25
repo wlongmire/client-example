@@ -43,7 +43,7 @@ app.use(express.static('dist'));
 /** Components **/
 
 import platforms from './components/Platform';
-platforms.use(app, config);
+platforms.use(app);
 
 /** Serve **/
 
