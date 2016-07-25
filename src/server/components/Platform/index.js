@@ -37,4 +37,4 @@ class Platform extends Component {
   }
 }
 
-export default new Demo();
+export default new Platform();

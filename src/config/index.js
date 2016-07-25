@@ -1,9 +1,18 @@
 const config = {
-  cors: {
-    origin: 'http://localhost:7777'
-  },
   env: process.env.NODE_ENV,
-  port: 7888
+  name: 'skonkworks',
+
+  app: {
+
+  },
+
+  server: {
+    cors: {
+      origin: 'http://localhost:7777'
+    },
+
+    port: 7888
+  }
 };
 
 if (config.env === 'development') {
