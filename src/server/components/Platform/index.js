@@ -5,6 +5,13 @@ import service from './service'
 
 class Platform extends Component {
   routes (router) {
+
+    // Note that in this example component
+    // it is optionally using prefixed routes; see server file
+
+    // Can be tested here:
+    // http://localhost:8888/platform/test
+
     router.get('/test',
       this.handleGetTest
     );
