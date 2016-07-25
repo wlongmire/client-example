@@ -38,7 +38,7 @@ app.use(cors(config.cors));
 
 app.use(json());
 
-app.use(express.static('dist'));
+app.use(express.static('dist/public'));
 
 /** Components **/
 

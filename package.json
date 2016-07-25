@@ -79,8 +79,10 @@
     "postinstall": "gulp build",
     "serve:development": "NODE_ENV='development' nodemon --debug src/server/index.js --exec babel-node",
     "serve:debug": "NODE_ENV='debug' nodemon --debug src/server/index.js --exec babel-node",
-    "build": "babel src -d lib",
-    "start": "NODE_ENV='production' node src/server/index.js"
+    "build": "babel src/server -d dist/server; babel src/config -d dist/config",
+    "start": "NODE_ENV='production' node dist/server/index.js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.9.0"
+  }
 }

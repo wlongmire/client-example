@@ -7,6 +7,7 @@ const Home = React.createClass({
     return (
       <div className='home'>
         <Helmet title={ this.state.content.title } />
+
         <p>
           { this.state.content.p }
         </p>

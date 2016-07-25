@@ -23,9 +23,13 @@ var webpackStream = require('webpack-stream');
  * tasks
  */
 
+gulp.task('build:node', shell.task([
+  'npm run build'
+]));
+
 gulp.task('build', function (cb) {
   runSequence('clean',
-    ['html', 'images', 'js', 'fonts'],
+    ['html', 'images', 'js', 'fonts', 'build:node'],
     cb);
 });
 
@@ -43,17 +47,17 @@ gulp.task('lint', function () {
 
 gulp.task('html', function () {
   return gulp.src('src/index.html')
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/public'));
 });
 
 gulp.task('images', function () {
   return gulp.src('src/images/**/*')
-    .pipe(gulp.dest('dist/images'));
+    .pipe(gulp.dest('dist/public/images'));
 });
 
 gulp.task('fonts', function () {
   return gulp.src('src/fonts/**/*')
-    .pipe(gulp.dest('dist/fonts'));
+    .pipe(gulp.dest('dist/public/fonts'));
 });
 
 gulp.task('js', ['lint'], function () {
@@ -61,7 +65,7 @@ gulp.task('js', ['lint'], function () {
     .pipe(webpackStream(webpackConfigProd))
     .on('error', errorGraceful)
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest('dist/js'));
+    .pipe(gulp.dest('dist/public/js'));
 });
 
 gulp.task('dev', ['serve:dev']);
