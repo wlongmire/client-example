@@ -4,20 +4,22 @@ import Component from '../';
 import service from './service'
 
 class Platform extends Component {
-  routes (app) {
-    app.get('/platform/test',
+  routes (router) {
+    router.get('/test',
       this.handleGetTest
     );
 
-    app.post(
-      '/platform/user',
+    router.post(
+      '/user',
       this.handlePostUser
     );
 
-    app.put(
-      '/platform/user',
+    router.put(
+      '/user',
       this.handlePutUser
     );
+
+    return router;
   }
 
   async handlePostUser (req, res) {
@@ -32,8 +34,14 @@ class Platform extends Component {
     res.json(await service.getTest());
   }
 
-  componentDidMount (app) {
-    console.log('Platform: component mounted');
+  // Functions included for demo purposes
+
+  componentWillMount () {
+    return;
+  }
+
+  componentDidMount () {
+    return;
   }
 }
 
