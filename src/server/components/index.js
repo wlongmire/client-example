@@ -1,13 +1,13 @@
  /** Component Class **/
 
 class Component {
-  constructor (config) {
-    if (config) {
-      this.config = config;
+  constructor (props) {
+    if (props) {
+      this.props = props;
     }
   }
 
-  async use (app, config) {
+  async use (app, props) {
     if (!app) {
       return console.log({
         error: true,
@@ -17,8 +17,8 @@ class Component {
 
     this.app = app;
 
-    if (config) {
-      this.config = config;
+    if (props) {
+      this.props = props;
     }
 
     if (this.componentWillMount) {
