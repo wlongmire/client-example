@@ -42,8 +42,8 @@ app.use(express.static('dist'));
 
 /** Components **/
 
-import platforms from './components/Platform';
-platforms.use(app);
+import platform from './components/Platform';
+platform.use(app);
 
 /** Serve **/
 
