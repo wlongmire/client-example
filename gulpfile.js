@@ -64,18 +64,7 @@ gulp.task('js', ['lint'], function () {
     .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('serve:prod', ['build'], function () {
-  var started = false;
-
-  nodemon({
-    script: 'server/index.js'
-  }).on('start', function () {
-    if (!started) {
-      cb();
-      started = true;
-    }
-  });
-});
+gulp.task('serve', ['serve:dev']);
 
 gulp.task('serve:dev', ['build'], function () {
   new webpackDevServer(webpack(webpackConfigDev), {
@@ -89,6 +78,19 @@ gulp.task('serve:dev', ['build'], function () {
     }
 
     console.log('Listening at http://localhost:7777/');
+  });
+});
+
+gulp.task('serve:prod', ['build'], function () {
+  var started = false;
+
+  nodemon({
+    script: 'server/index.js'
+  }).on('start', function () {
+    if (!started) {
+      cb();
+      started = true;
+    }
   });
 });
 
