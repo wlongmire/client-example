@@ -64,11 +64,13 @@ gulp.task('js', ['lint'], function () {
     .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('dev', ['serve:dev']);
+gulp.task('d', ['serve:dev']);
 gulp.task('s', ['serve:dev']);
-
 gulp.task('serve', ['serve:dev']);
+gulp.task('serve:dev', ['serve:development']);
 
-gulp.task('serve:dev', ['build'], function () {
+gulp.task('serve:development', ['build'], function () {
   new webpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
     hot: true,
@@ -83,7 +85,7 @@ gulp.task('serve:dev', ['build'], function () {
   });
 });
 
-gulp.task('serve:prod', ['build'], function () {
+gulp.task('serve:production', ['build'], function () {
   var started = false;
 
   nodemon({
