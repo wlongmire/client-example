@@ -118,7 +118,7 @@ To enable a component, in the server file, at a minimum add this:
 ```
 import example from './components/Example';
 
-example.use(app));
+example.use(app);
 
 ```
 
@@ -137,7 +137,9 @@ class Example extends Component {
 
 // http://localhost:8888/example/test
 ```
-Optionally can have routes automatically prefixed by passing some configuration in the server file. This is recommended for safety and efficiency.
+Optionally can have routes automatically prefixed by passing some configuration in the server file. 
+
+This approach is recommended for safety and efficiency.
 
 ```
 import example from './components/Example';
@@ -152,6 +154,8 @@ class Example extends Component {
     router.get('/test',
       this.handleGetTest
     );
+
+    return router;
   }
 }
 
