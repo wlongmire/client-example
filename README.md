@@ -105,7 +105,7 @@ $ npm run serve:debug
 $ npm run start
 ````
 
-### Components
+### Server Components
 
 The server can be extended to be used as a local API. Just extend the Express app as you normally would.
 
