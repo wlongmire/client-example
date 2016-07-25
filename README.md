@@ -164,11 +164,11 @@ class Example extends Component {
 The server configuration can also include an optional Component name. At present this only affects the console output when the component is mounted.
 
 ```
-
 example.use(app, {
   name: 'Example',
   routePrefix: 'example'
 });
+```
 
 As well as routing, the component class offers a couple other simple functions which are inspired by React.
 
