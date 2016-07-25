@@ -119,7 +119,6 @@ To enable a component, in the server file, at a minimum add this:
 import example from './components/Example';
 
 example.use(app);
-
 ```
 
 You can add your Express routes anywhere you like, but the Component class does have some options for that if you prefer a separation of concerns.
