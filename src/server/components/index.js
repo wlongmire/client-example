@@ -1,6 +1,12 @@
  /** Component Class **/
 
 class Component {
+  constructor (config) {
+    if (config) {
+      this.config = config;
+    }
+  }
+
   async use (app, config) {
     if (!app) {
       return console.log({
