@@ -76,11 +76,11 @@
     "node": "5.4.1"
   },
   "scripts": {
-    "postinstalls": "gulp build",
-    "serve:development": "NODE_ENV='development' nodemon --debug server/index.js --exec babel-node",
-    "serve:debug": "NODE_ENV='debug' nodemon --debug server/index.js --exec babel-node",
+    "postinstall": "gulp build",
+    "serve:development": "NODE_ENV='development' nodemon --debug src/server/index.js --exec babel-node",
+    "serve:debug": "NODE_ENV='debug' nodemon --debug src/server/index.js --exec babel-node",
     "build": "babel src -d lib",
-    "start": "NODE_ENV='production' node server/index.js"
+    "start": "NODE_ENV='production' node src/server/index.js"
   },
   "devDependencies": {}
 }

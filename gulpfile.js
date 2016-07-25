@@ -36,7 +36,7 @@ gulp.task('clean', function () {
 gulp.task('default', ['build']);
 
 gulp.task('lint', function () {
-  return gulp.src('src/js/**/*.js')
+  return gulp.src('src/app/**/*.js')
     .pipe(eslint())
     .pipe(eslint.format());
 });
@@ -57,12 +57,14 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('js', ['lint'], function () {
-  return gulp.src('src/js/index.jsx')
+  return gulp.src('src/app/index.jsx')
     .pipe(webpackStream(webpackConfigProd))
     .on('error', errorGraceful)
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('dist/js'));
 });
+
+gulp.task('s', ['serve:dev']);
 
 gulp.task('serve', ['serve:dev']);
 
