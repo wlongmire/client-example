@@ -11,7 +11,7 @@ const config = {
       origin: 'http://localhost:7777'
     },
 
-    port: 7888
+    port: 8888
   }
 };
 

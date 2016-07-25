@@ -33,7 +33,7 @@ class Platform extends Component {
   }
 
   componentDidMount (app) {
-    console.log('Demo: component mounted');
+    console.log('Platform: component mounted');
   }
 }
 
