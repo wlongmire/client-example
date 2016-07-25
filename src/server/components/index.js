@@ -54,6 +54,10 @@ class Component {
         let router = require('express').Router();
         let routerDecorated = this.routes(router);
 
+        if (!routerDecorated) {
+          return console.log('███ ' + this.componentName + ' Component Error: the routes function must return the router when using prefixedRoute option');
+        }
+
         app.use(
           prefixedRoute,
           routerDecorated
