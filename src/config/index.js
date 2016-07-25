@@ -6,6 +6,8 @@ const config = {
 
   },
 
+  // The CORS support needs more attention
+
   server: {
     cors: {
       origin: 'http://localhost:7777'
