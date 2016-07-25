@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
   entry: [
-    'babel-polyfill',
+    // 'babel-polyfill', // resolved with .babelrc plugin
     'webpack-dev-server/client?http://localhost:7777',
     'webpack/hot/only-dev-server',
     './src/app/index'
@@ -40,9 +40,9 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.json'],
     root: path.resolve(__dirname),
     alias: {
-      app: 'src/app/App',
+      app: 'src/app',
       components: 'src/app/components',
-      config: 'src/app/config',
+      config: 'src/config',
       content: 'src/content',
       routes: 'src/app/routes',
       src: 'src'

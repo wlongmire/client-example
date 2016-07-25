@@ -13,7 +13,7 @@ class Component {
     if (!app) {
       return console.log({
         error: true,
-        msg: 'Express app required. example: mycomponent.use(app);'
+        msg: 'Express app required. Example: mycomponent.use(app);'
       });
     }
 

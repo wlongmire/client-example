@@ -28,7 +28,9 @@ const App = React.createClass({
           titleTemplate={ titleTemplate }
           meta={ baseMeta }
         />
+
         <Logo />
+
         { this.props.children }
       </div>
     );

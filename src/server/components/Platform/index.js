@@ -12,7 +12,8 @@ class Platform extends Component {
     // Can be tested here:
     // http://localhost:8888/platform/test
 
-    router.get('/test',
+    router.get(
+      '/test',
       this.handleGetTest
     );
 

@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
   module: {
     entry: [
-      'babel-polyfill',
+      // 'babel-polyfill', // resolved with .babelrc plugin
       './src/client/index'
     ],
     loaders: [{
@@ -36,9 +36,9 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.json'],
     root: path.resolve(__dirname),
     alias: {
-      app: 'src/app/App',
+      app: 'src/app',
       components: 'src/app/components',
-      config: 'src/app/config',
+      config: 'src/config',
       content: 'src/content',
       routes: 'src/app/routes',
       src: 'src'
