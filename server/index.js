@@ -1,10 +1,9 @@
 
-var express = require('express');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-// var cors = require( 'cors' );
+import express from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
-var app = express();
+const app = express();
 
 app.set('port', (process.env.PORT || 8999));
 
@@ -22,13 +21,13 @@ app.use(express.static('dist'));
  * Modules
  */
 
-var modules = [
+// var modules = [
   // './modules/platform/module.js'
-];
+// ];
 
-for (var i = 0; i < modules.length; i++) {
-  require(modules[i])(app);
-}
+// for (var i = 0; i < modules.length; i++) {
+//   require(modules[i])(app);
+// }
 
 /**
  * Serve

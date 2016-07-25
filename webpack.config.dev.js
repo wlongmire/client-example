@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     'webpack-dev-server/client?http://localhost:7777',
     'webpack/hot/only-dev-server',
     './src/js/index'
