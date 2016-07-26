@@ -34,7 +34,9 @@ if (config.env === 'debug') {
   app.use(morgan('combined'));
 }
 
-app.use(cors(config.cors));
+if (config.server.cors) {
+  app.use(cors(config.server.cors));  
+}
 
 app.use(json());
 
