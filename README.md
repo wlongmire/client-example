@@ -91,10 +91,7 @@ As such, when you run the `webpack` dev server using the `gulp` commands describ
 To enable it, edit the `gulpfile`, uncommenting the relevant line:
 
 ```
-gulp.task('serve:development', [
-  'build',
-  // 'serve:node:development'
-],
+// gulp.run('serve:node:development');
 ```
 
 Alternatively, you can launch the Node server manually with one the following `npm` commands:
