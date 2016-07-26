@@ -19,6 +19,8 @@ var webpackConfigProd = require('./webpack.config.prod');
 var webpackDevServer = require('webpack-dev-server');
 var webpackStream = require('webpack-stream');
 
+var config = require('./src/config');
+
 /*
  * tasks
  */
@@ -74,32 +76,37 @@ gulp.task('s', ['serve:dev']);
 gulp.task('serve', ['serve:dev']);
 gulp.task('serve:dev', ['serve:development']);
 
-  // By default we don't run the Node server here
-  // to save resources. It is used in production
-  // for example on Heroku, to serve the static dir.
-  // To use it, uncomment serve:node:development
-
-gulp.task('serve:development', [
-  'build',
-  // 'serve:node:development'
-],
+gulp.task('serve:development', ['build'],
 function () {
   new webpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
     hot: true,
     historyApiFallback: true,
-    contentBase: './src'
-  }).listen(7777, 'localhost', function (err, result) {
+    contentBase: './src',
+    stats: {
+      colors: true,
+      chunks: false
+    }
+  }).listen(config.webpackserver.port, 'localhost', function (err, result) {
     if (err) {
       return console.log(err);
     }
 
-    console.log('Listening at http://localhost:7777');
+    // By default we don't run the Node server here
+    // to save resources. It is used in production
+    // for example on Heroku, to serve the static dir.
+    // To use it, uncomment the next line
+
+    // gulp.run('serve:node:development');
+
+    setTimeout(function () {
+      console.log('███ ███ WebPack Dev Server at http://localhost:' + config.webpackserver.port);
+    }, 5000);
   });
 });
 
 gulp.task('serve:node:development', shell.task([
-  'NODE_ENV="development" nodemon --debug src/server/index.js --exec babel-node'
+  "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node"
 ]));
 
 gulp.task('serve:production', ['serve:node:production']);

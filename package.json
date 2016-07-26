@@ -77,8 +77,8 @@
   },
   "scripts": {
     "postinstall": "gulp build",
-    "serve:development": "NODE_ENV='development' nodemon --debug src/server/index.js --exec babel-node",
-    "serve:debug": "NODE_ENV='debug' nodemon --debug src/server/index.js --exec babel-node",
+    "serve:development": "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
+    "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/server -d dist/server; babel src/config -d dist/config",
     "start": "NODE_ENV='production' node dist/server/index.js"
   },
