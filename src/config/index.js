@@ -6,18 +6,20 @@ const config = {
 
   server: {
     port: 8888
+  },
+
+  webpackserver: {
+    port: 7777
   }
 };
 
 if (config.env === 'development') {
-  config.foo = 'bar:development';
-
   config.server.cors = {
-    origin: 'http://localhost:7777'
+    origin: 'http://localhost:' + config.webpackserver.port
   };
 
 } else if (config.env === 'production') {
   config.foo = 'bar:production';
 }
 
-export default config;
+module.exports = config;
