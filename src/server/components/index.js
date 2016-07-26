@@ -3,11 +3,11 @@
 class Component {
   constructor (props) {
     if (props) {
-      this.props = props;
+      this.props = props || {};
     }
   }
 
-  async use (app, options, props) {
+  async use (app, props) {
     let router = app;
 
     if (!app) {
@@ -19,20 +19,16 @@ class Component {
 
     this.app = app;
 
-    this.options = options || {};
-
-    if (props) {
-      this.props = props;
-    }
+    this.props = props || {};
 
     // -----------------------------------
 
-    if (this.options.name) {
-      this.componentName = this.options.name;
+    if (this.props.name) {
+      this.componentName = this.props.name;
 
     } else {
-      if (this.options.routePrefix) {
-        this.componentName = this.options.routePrefix;
+      if (this.props.routePrefix) {
+        this.componentName = this.props.routePrefix;
 
       } else {
         this.componentName = 'Unnamed';
@@ -47,15 +43,15 @@ class Component {
 
     // -----------------------------------
 
-    if (this.options.routePrefix) {
+    if (this.props.routePrefix) {
       if (this.routes) {
-        let prefixedRoute = '/' + this.options.routePrefix;
+        let prefixedRoute = '/' + this.props.routePrefix;
 
         let router = require('express').Router();
         let routerDecorated = this.routes(router);
 
         if (!routerDecorated) {
-          return console.log('███ ' + this.componentName + ' Component Error: the routes function must return the router when using prefixedRoute option');
+          return console.log('███ ' + this.componentName + ' Express Component Error: the routes function must return the router when using prefixedRoute option');
         }
 
         app.use(
@@ -74,7 +70,7 @@ class Component {
       this.componentDidMount(app);
     }
 
-    console.log('███ ' + this.componentName + ' component mounted');
+    console.log('███ ' + this.componentName + ' Express component mounted');
   }
 }
 
