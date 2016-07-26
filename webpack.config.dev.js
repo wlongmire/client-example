@@ -3,7 +3,6 @@ var path = require('path');
 
 module.exports = {
   entry: [
-    // 'babel-polyfill', // resolved with .babelrc plugin
     'webpack-dev-server/client?http://localhost:7777',
     'webpack/hot/only-dev-server',
     './src/app/index'
