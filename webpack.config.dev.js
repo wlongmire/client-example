@@ -8,11 +8,13 @@ module.exports = {
     'webpack/hot/only-dev-server',
     './src/app/index'
   ],
+
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/js'
   },
+
   module: {
     loaders: [{
       test: /\.jsx?/,
@@ -48,6 +50,7 @@ module.exports = {
       src: 'src'
     }
   },
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
