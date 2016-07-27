@@ -97,7 +97,7 @@ function () {
     // for example on Heroku, to serve the static dir.
     // To use it, uncomment the next line
 
-    gulp.run('serve:node:development', function () {});
+    gulp.run('serve:node:development');
 
     setTimeout(function () {
       console.log('███ ███ WebPack Dev Server at http://localhost:' + config.webpackserver.port);
