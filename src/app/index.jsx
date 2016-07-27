@@ -13,6 +13,12 @@ import store from './store';
 import routes from './routes';
 // import ga from 'react-ga';
 
+import config from 'config';
+
+// if (config.env === 'production') {
+//   ga.initialize(config.analytics.ua);
+// }
+
 import {
   Router,
   browserHistory
@@ -31,9 +37,15 @@ const history = syncHistoryWithStore(
 // Routing middleware
 
 history.listen(() => {
-  console.log('route change', new Date());
-  // window.scrollTo(0, 0);
-  // ga.pageview(nextState.location.pathname);
+  window.scrollTo(0, 0);
+
+  let route = window.location.pathname;
+
+  // if (config.env === 'production') {
+  //   ga.pageview(route);
+  // }
+
+  console.log('route change:', route);
 });
 
 // Initialize the app
