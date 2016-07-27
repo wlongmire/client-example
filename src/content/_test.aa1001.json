@@ -1,0 +1,16 @@
+{
+  "Home": {
+    "title": "Home - B",
+    "p": "This is the home route."
+  },
+
+  "DevSandbox": {
+    "title": "Dev Sandbox",
+    "p": "This is the dev-sandbox route."
+  },
+
+  "Http404": {
+    "title": "404 Not found",
+    "p": "HTTP 404 Not Found"
+  }
+}

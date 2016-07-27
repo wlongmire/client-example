@@ -15,11 +15,7 @@ if (query.t) {
 
   switch (query.t) {
     case 'aa1001':
-      // content = require('content/_test.aa1001');
-    break;
-
-    case 'aa1002':
-      // content = require('content/_test.aa1002');
+      content = require('content/_test.aa1001');
     break;
 
     default:
