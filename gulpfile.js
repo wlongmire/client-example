@@ -97,7 +97,7 @@ function () {
     // for example on Heroku, to serve the static dir.
     // To use it, uncomment the next line
 
-    // gulp.run('serve:node:development');
+    gulp.run('serve:node:development');
 
     setTimeout(function () {
       console.log('███ ███ WebPack Dev Server at http://localhost:' + config.webpackserver.port);
@@ -106,7 +106,7 @@ function () {
 });
 
 gulp.task('serve:node:development', shell.task([
-  "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node"
+  'NODE_ENV="development" nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node'
 ]));
 
 gulp.task('serve:production', ['serve:node:production']);
