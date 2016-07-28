@@ -15,8 +15,17 @@ http://github.com
 #### Clone this seed kit repo:
 
 ```
-$ git clone --bare https://github.com/Argo-DigitalVentures/SkonkWorksU1.git
+$ git clone --bare git@github.com:Argo-DigitalVentures/SkonkWorksU1.git
+```
 
+or if you don't use SSH keys:
+
+```
+$ git clone --bare https://github.com/Argo-DigitalVentures/SkonkWorksU1.git
+```
+Enter the cloned directory:
+
+```
 $ cd SkonkWorksU1.git
 ```
 

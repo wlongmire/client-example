@@ -10,6 +10,9 @@ let query = querystring.parse(window.location.search.slice(1));
 
 // For AB Testing Content // In progress here; see Airflows
 
+let content;
+let testString = '';
+
 if (query.t) {
   testString = query.t;
 
@@ -21,6 +24,7 @@ if (query.t) {
     default:
       content = require('content');
   }
+
 } else {
   testString = 'default';
   content = require('content');
