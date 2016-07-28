@@ -16,7 +16,7 @@ import firebase from 'firebase';
 exports.getTest = async function getTest () {
   return new Promise(function (resolve, reject) {
     resolve({
-      name: 'Platform Service',
+      name: 'Example Component',
       test: true
     });
   });
