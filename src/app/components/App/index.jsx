@@ -35,7 +35,7 @@ const App = React.createClass({
     let baseMeta = [
       {
         'name': 'description',
-        'content': config.description
+        'content': content.description
       },
       {
         'property': 'og:type',
@@ -43,7 +43,7 @@ const App = React.createClass({
       }
     ];
 
-    let titleTemplate = config.title + ' | %s';
+    let titleTemplate = content.title + ' | %s';
 
     return (
       <div className='app'>

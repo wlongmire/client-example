@@ -1,4 +1,7 @@
 {
+  "title": "SkonkworksU1",
+  "description": "A react-redux seed kit for quickly building apps.",
+
   "Home": {
     "title": "Home - B",
     "p": "This is the home route."
