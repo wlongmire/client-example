@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var config = require('./src/config');
 
@@ -11,19 +12,18 @@ module.exports = {
   ],
 
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/js'
+    path: path.join(__dirname, 'dist/public'),
+    filename: 'js/bundle.js',
+    publicPath: '/'
   },
-
   module: {
     loaders: [{
       test: /\.jsx?/,
       loaders: ['react-hot', 'babel'],
       include: path.join(__dirname, 'src')
     }, {
-      test: /\.scss$/,
-      loader: 'style!css!sass'
+      test: /\.s?css$/,
+      loader: 'style?name=css/bundle.css!css?sourceMap!sass?sourceMap'
     },
     {
       test: /\.json$/,
@@ -31,16 +31,16 @@ module.exports = {
     },
     {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]'
     },
     {
       test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: 'file-loader'
+      loader: 'file-loader?name=fonts/[name].[ext]'
     }]
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json'],
+    extensions: ['', '.js', '.jsx', '.json', '.css', '.scss'],
     root: path.resolve(__dirname),
     alias: {
       app: 'src/app',
@@ -60,6 +60,5 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
-
   devtool: 'cheap-module-eval-source-map'
 };

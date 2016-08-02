@@ -31,7 +31,7 @@ gulp.task('build:node', shell.task([
 
 gulp.task('build', function (cb) {
   runSequence('clean',
-    ['html', 'images', 'js', 'fonts', 'build:node'],
+    ['html', 'images', 'webpack:build', 'fonts', 'build:node'],
     cb);
 });
 
@@ -62,12 +62,14 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest('dist/public/fonts'));
 });
 
-gulp.task('js', ['lint'], function () {
-  return gulp.src('src/app/index.jsx')
-    .pipe(webpackStream(webpackConfigProd))
-    .on('error', errorGraceful)
-    .pipe(rename('bundle.js'))
-    .pipe(gulp.dest('dist/public/js'));
+gulp.task('webpack:build', ['lint'], function (callback) {
+  return webpack(webpackConfigProd, function (err, stats) {
+    if (err) throw err;
+    console.log('[webpack:build]', stats.toString({
+      colors: true
+    }));
+    callback();
+  });
 });
 
 gulp.task('dev', ['serve:dev']);
@@ -76,13 +78,13 @@ gulp.task('s', ['serve:dev']);
 gulp.task('serve', ['serve:dev']);
 gulp.task('serve:dev', ['serve:development']);
 
-gulp.task('serve:development', ['build'],
+gulp.task('serve:development', ['html', 'images', 'fonts', 'build:node'],
 function () {
   new webpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
     hot: true,
     historyApiFallback: true,
-    contentBase: './src',
+    contentBase: './dist/public',
     stats: {
       colors: true,
       chunks: false
