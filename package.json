@@ -65,6 +65,7 @@
     "redux-devtools-log-monitor": "^1.0.5",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
+    "request-promise-native": "^1.0.2",
     "run-sequence": "^1.1.5",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
