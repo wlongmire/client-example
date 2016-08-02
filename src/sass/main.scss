@@ -5,25 +5,22 @@
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type';
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';
+// @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';
+// @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';
 // @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
 // Font Awesome
-@import '../../node_modules/font-awesome/scss/font-awesome';
+// @import '../../node_modules/font-awesome/scss/font-awesome';
 
 // Global
 @import './config';
 @import './typography';
 @import './buttons';
 
-// Fullpage.js
-// @import './fullpage';
-
 // Components
 
 .app-container {
   position: relative;
 
-  @import '../app/components/Logo/styles';
+  @import '../app/components/styles';
 }

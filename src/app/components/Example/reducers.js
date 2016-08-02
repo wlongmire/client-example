@@ -2,7 +2,9 @@ import {
   UPDATE_USER
 } from './actions';
 
-function user (state = {}, action) {
+exports.example = function (state = {
+  hello: 'world'
+}, action) {
   switch (action.type) {
     case UPDATE_USER:
       return Object.assign({}, state, action.user);
@@ -11,5 +13,3 @@ function user (state = {}, action) {
       return state;
   }
 }
-
-export default user;
