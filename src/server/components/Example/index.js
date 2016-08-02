@@ -1,9 +1,9 @@
 /** Platform Module **/
 
 import Component from '../';
-import service from './service'
+import actions from './actions'
 
-class Platform extends Component {
+class Example extends Component {
   routes (router) {
 
     // Note that in this example component
@@ -31,15 +31,15 @@ class Platform extends Component {
   }
 
   async handlePostUser (req, res) {
-    res.json(await service.postUser());
+    res.json(await actions.postUser());
   }
 
   async handlePutUser (req, res) {
-    res.json(await service.putUser());
+    res.json(await actions.putUser());
   }
 
   async handleGetTest (req, res) {
-    res.json(await service.getTest());
+    res.json(await actions.getTest());
   }
 
   // Functions included for demo purposes
@@ -53,4 +53,4 @@ class Platform extends Component {
   }
 }
 
-export default new Platform();
+export default new Example();

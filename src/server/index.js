@@ -44,13 +44,13 @@ app.use(express.static('dist/public'));
 
 /** Components **/
 
-import platform from './components/Platform';
+import Example from './components/Example';
 
 // Name and routePrefix are optional
 
-platform.use(app, {
-  name: 'Platform',
-  routePrefix: 'platform'
+Example.use(app, {
+  name: 'Example',
+  routePrefix: 'example'
 });
 
 /** Serve **/
