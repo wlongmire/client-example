@@ -10,15 +10,16 @@ import {
 
 import { routerReducer } from 'react-router-redux';
 
-// import user from 'components/User/reducers';
+// Add your component reducers
+// in this linked file.
+import components from 'components/reducers';
 
 let store;
 
 if (process.env.NODE_ENV === 'production') {
   store = createStore(
     combineReducers({
-      // reducers,
-      // user,
+      ...components,
       routing: routerReducer
     }),
     applyMiddleware(
@@ -31,8 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 
   store = createStore(
     combineReducers({
-      // reducers,
-      // user,
+      ...components,
       routing: routerReducer
     }),
     window.devToolsExtension ? window.devToolsExtension() : f => f,
