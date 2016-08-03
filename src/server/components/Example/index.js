@@ -4,6 +4,12 @@ import Component from '../';
 import actions from './actions'
 
 class Example extends Component {
+  getInitialState () {
+    return {
+      some: 'setting'
+    };
+  }
+
   routes (router) {
 
     // Note that in this example component
@@ -45,10 +51,16 @@ class Example extends Component {
   // Functions included for demo purposes
 
   componentWillMount () {
+    this.setState({
+      another: 'setting'
+    });
+
     return;
   }
 
   componentDidMount () {
+    console.log(this.state);
+
     return;
   }
 }
