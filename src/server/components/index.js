@@ -5,9 +5,15 @@ class Component {
     if (props) {
       this.props = props || {};
     }
+
+    this.state = {};
   }
 
-  async use (app, props) {
+  setState (state) {
+    this.state = Object.assign({}, this.state, state);
+  }
+
+  use (app, props) {
     let router = app;
 
     if (!app) {
@@ -33,6 +39,12 @@ class Component {
       } else {
         this.componentName = 'Unnamed';
       }
+    }
+
+    // -----------------------------------
+
+    if (this.getInitialState) {
+      this.state = this.getInitialState();
     }
 
     // -----------------------------------
