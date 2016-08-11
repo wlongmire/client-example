@@ -9,6 +9,7 @@ import json from 'express-json';
 import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 /** Config Node **/
 
@@ -26,6 +27,7 @@ if (config.env === 'debug') {
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(session({secret: 'very secret'}));
 
 app.set('name', config.name);
@@ -35,7 +37,7 @@ if (config.env === 'debug') {
 }
 
 if (config.server.cors) {
-  app.use(cors(config.server.cors));  
+  app.use(cors(config.server.cors));
 }
 
 app.use(json());
@@ -43,14 +45,13 @@ app.use(json());
 app.use(express.static('dist/public'));
 
 /** Components **/
-
-import Example from './components/Example';
+import OwnersEdgeAPI from './components/OwnersEdgeAPI'
 
 // Name and routePrefix are optional
 
-Example.use(app, {
-  name: 'Example',
-  routePrefix: 'example'
+OwnersEdgeAPI.use(app, {
+  name: 'OwnersEdgeAPI',
+  routePrefix: 'api'
 });
 
 /** Serve **/
@@ -60,4 +61,3 @@ app.listen(port, function () {
 });
 
 // :-)
-  

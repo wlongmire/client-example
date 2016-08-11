@@ -1,6 +1,8 @@
 const config = {
   env: process.env.NODE_ENV,
-  name: 'skonkworks',
+  name: 'ownersEdge',
+  appId: process.env.appID || '57ab6abcf36d2840aa667f6e',
+  argoEmail: process.env.argoEmail || 'justin.steranko@argogroupus.com',
 
   analytics: {
     ua: 'xxxxx-xxxxx',
@@ -27,7 +29,7 @@ if (config.env === 'development') {
   };
 
 } else if (config.env === 'production') {
-  config.server.url = 'http://www.domain.com'
+  config.server.url = 'http://www.ownersedge.us'
 }
 
 module.exports = config;
