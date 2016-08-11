@@ -1,0 +1,37 @@
+.RatingForm__container {
+  margin: 25px 0;
+
+  * + * {
+    margin-top: 1.5em;
+  }
+
+  input,
+  textarea,
+  select,
+  radiogroup,
+  small {
+    display: block;
+  }
+
+  input[type="radio"] {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  radiogroup {
+    > * + * {
+      margin-left: 10px;
+    }
+  }
+
+  > ol {
+
+    ol {
+      list-style: lower-alpha;
+
+      ol {
+        list-style: decimal;
+      }
+    }
+  }
+}

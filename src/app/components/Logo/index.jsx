@@ -1,15 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-const Logo = React.createClass({
-  render() {
-    return (
-      <div className='logo-type'>
-        SkonkWorks
-      </div>
-    );
-  }
+import styles from './styles';
 
-});
+function Logo(props) {
+  return (
+    <div className='logo-type'>
+      Owner's Edge
+    </div>
+  );
+}
 
 export default Logo;
