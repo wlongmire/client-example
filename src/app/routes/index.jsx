@@ -7,23 +7,24 @@ import {
 
 import App from 'components/app';
 import Home from 'routes/Home';
-import DevSandbox from 'routes/DevSandbox';
+import RatingResults from 'components/RatingResults';
 import Http404 from 'routes/Http404';
 
 export default (
   <Route
     path='/'
-    component={ App }>
-
+    component={App}
+  >
     <IndexRoute
-      component={ Home } />
-
+      component={Home}
+    />
     <Route
-      path='/dev-sandbox'
-      component={ DevSandbox } />
-
+      path='quote'
+      component={RatingResults}
+    />
     <Route
       path='*'
-      component={ Http404 } />
+      component={Http404}
+    />
   </Route>
 );
