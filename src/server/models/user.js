@@ -3,10 +3,14 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
 
+const Schema = mongoose.Schema;
+
 const user = new mongoose.Schema({
   username: { type: String, lowercase: true, unique: true },
   hash: String,
-  salt: String
+  salt: String,
+  _brokerId: {type: Schema.Types.ObjectId, ref: 'broker', default: null}
+  role: String
 });
 
 user.methods.setPassword = function (password) {
@@ -19,7 +23,7 @@ user.methods.validPassword = function (password) {
   return this.hash === hash;
 };
 
-user.methods.generateAdminToken = function () {
+user.methods.generateToken = function () {
   let today = new Date();
   let exp = new Date(today);
   exp.setMinutes(today.getMinutes() + 60);
@@ -28,7 +32,7 @@ user.methods.generateAdminToken = function () {
     _id: this._id,
     email: this.email,
     exp: parseInt(exp.getTime() / 1000),
-  }, this.salt + adminKey);
+  }, this.salt);
 }
 
 user.statics.fromAuthToken = function (token) {

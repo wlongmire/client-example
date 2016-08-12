@@ -24,17 +24,15 @@ function getRating(req, res) {
         let submission = createSubmissionObject(req.body, result);
         sendSubmissionEmailArgo(submission);
         sendSubmissionEmailClient(submission);
-        createNewSubmission(submission);
-        return res.status(response.statusCode).json({success: true, premium: result.premium});
-      }
+        createNewSubmission(submission)
+          .then(newSub => {
+            return res.status(response.statusCode).json({success: true, premium: result.premium, confirmation: newSub.confirmationNumber});
+          });
+        }
     });
   } catch (err) {
     return res.status(500)
   }
-}
-
-async function getAllSubmissions(req, res) {
-
 }
 
 function sendSubmissionEmailArgo(submission) {
