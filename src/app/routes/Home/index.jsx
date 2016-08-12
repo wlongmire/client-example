@@ -1,30 +1,24 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-const Home = React.createClass({
-  render() {
-    return (
-      <div className='home'>
-        <Helmet title={ this.state.content.title } />
+import RatingForm from 'components/RatingForm';
 
-        <p>
-          { this.state.content.p }
-        </p>
-      </div>
-    );
-  },
+function Home(props, context) {
+  const {
+    content
+  } = context;
+  return (
+    <div className='home'>
+      <Helmet title={content.title} />
+      <RatingForm />
+    </div>
+  );
+}
 
-  contextTypes: {
-    config: React.PropTypes.object.isRequired,
-    content: React.PropTypes.object.isRequired
-  },
-
-  getInitialState () {
-    return {
-      content: this.context.content.Home
-    };
-  }
-});
+Home.contextTypes = {
+  config: PropTypes.object.isRequired,
+  content: PropTypes.object.isRequired
+};
 
 export default Home;

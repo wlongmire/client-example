@@ -1,15 +1,14 @@
 
 'use strict';
 
-require('../sass/main.scss');
-require('font-awesome-sass-loader');
+import styles from '../sass/main.scss';
+import fontAwesome from 'font-awesome-sass-loader';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { createHashHistory } from 'history';
 import { Provider } from 'react-redux';
 import onReady from './utils/onReady';
-import store from './store';
+import configureStore from './store';
 import routes from './routes';
 // import ga from 'react-ga';
 
@@ -28,6 +27,8 @@ import {
   syncHistoryWithStore,
   routerReducer
 } from 'react-router-redux';
+
+const store = configureStore(browserHistory);
 
 const history = syncHistoryWithStore(
   browserHistory,
