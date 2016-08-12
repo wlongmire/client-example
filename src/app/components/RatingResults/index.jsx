@@ -22,7 +22,8 @@ function RatingResults(props) {
         render={() => (
           <div>
             <h1>Congratulations! You qualify for coverage.</h1>
-            <p>Your premium will be: <strong>{`$${commifyNumber(premium)}`}</strong></p>
+            <p>Your yearly premium will be: <strong>{`$${commifyNumber(premium)}`}</strong></p>
+            <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase</p>
           </div>
         )}
       />
@@ -31,7 +32,7 @@ function RatingResults(props) {
         render={() => (
           <div>
             <h1>An underwriter is reviewing your details.</h1>
-            <p>We couldn't provide you with an instant quote, but one of underwriters will send an e-mail to <strong>{email}</strong> soon with more information.</p>
+            <p>Based on your answers, we couldn't provide you with an instant quote. One of our underwriters will send an e-mail to <strong>{email}</strong> soon with more information.</p>
           </div>
         )}
       />

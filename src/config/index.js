@@ -3,6 +3,7 @@ const config = {
   name: 'ownersEdge',
   appId: process.env.appID || '57ab6abcf36d2840aa667f6e',
   argoEmail: process.env.argoEmail || 'justin.steranko@argogroupus.com',
+  mongoURI: process.env.mongoURI || 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
 
   analytics: {
     ua: 'xxxxx-xxxxx',

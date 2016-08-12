@@ -51,10 +51,26 @@ async function createNewSubmission(submission) {
 
 function createSubmissionObject(subInfo, quoteInfo) {
   let premium;
-
+  const today = new Date();
+  if (quoteInfo.premium > 0) {
+    premium = quoteInfo.premium;
+  }
   let submission = {
-    costs: subInfo.costs,
-    premium: premium
+  primaryNamedInsured: subInfo.primaryNamedInsured,
+  hasOtherNamedInsured: subInfo.hasOtherNamedInsured,
+  otherNamedInsured: subInfo.otherNamedInsured,
+  address: subInfo.address,
+  scope: subInfo.scope,
+  term: subInfo.term,
+  costs: subInfo.costs,
+  generalContractorInfo: subInfo.generalContractorInfo,
+  occupancyDetails: subInfo.occupancyDetails,
+  workDetails: subInfo.workDetails,
+  contactInfo: subInfo.contactInfo,
+  quotedPremium: premium,
+  status: 'submitted',
+  createdAt: today,
+  updatedAt: today
   }
   return submission;
 }
