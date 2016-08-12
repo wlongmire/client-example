@@ -1,6 +1,6 @@
 import request from 'request';
 import config from '../../../config';
-import { emailService } from '../../services';
+import { emailService, submissionService } from '../../services';
 
 const appId = config.appId;
 const argoEmail = config.argoEmail;
@@ -21,7 +21,10 @@ function getRating(req, res) {
       }
       else {
         const result = JSON.parse(body);
-        sendSubmissionEmailArgo(req.body, result);
+        let submission = createSubmissionObject(req.body, result);
+        sendSubmissionEmailArgo(submission);
+        sendSubmissionEmailClient(submission);
+        createNewSubmission(submission);
         return res.status(response.statusCode).json({success: true, premium: result.premium});
       }
     });
@@ -30,14 +33,31 @@ function getRating(req, res) {
   }
 }
 
-function sendSubmissionEmailArgo(info, quote) {
+async function getAllSubmissions(req, res) {
 
 }
 
-function sendSubmissionEmailClient(info, quote) {
+function sendSubmissionEmailArgo(info, quote) {
+  emailService.sendSubmissionEmail(argoEmail, submission, config.argoSubEmailId);
+}
 
+function sendSubmissionEmailClient(submission) {
+  emailService.sendSubmissionEmail(submission.email, submission, config.clientSubEmailId);
+}
+
+async function createNewSubmission(submission) {
+  return await submissionService.createSubmission(submission);
+}
+
+function createSubmissionObject(subInfo, quoteInfo) {
+  let premium;
+
+  return {
+    costs: subInfo.costs,
+    premium: premium
+  }
 }
 
 export default {
-  getRating
+  getRating,
 }

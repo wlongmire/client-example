@@ -15,3 +15,7 @@ function setSubstitutions(personalization) {
   });
   return personalization;
 }
+
+export default {
+  sendSubmissionEmail
+}

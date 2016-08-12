@@ -2,6 +2,7 @@
 
 import Component from '../';
 import actions from './actions'
+import {auth} from '../../'
 
 class OwnersEdge extends Component {
 
@@ -9,6 +10,8 @@ class OwnersEdge extends Component {
 
     router.route('/getRating')
       .post(actions.getRating)
+    router.route('/')
+      .get()
     return router;
   }
 
