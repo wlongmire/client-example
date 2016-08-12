@@ -2,7 +2,7 @@
 
 import Component from '../';
 import actions from './actions'
-import {auth} from '../../'
+import {auth} from '../../utils';
 
 class OwnersEdge extends Component {
 
