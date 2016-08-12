@@ -37,7 +37,7 @@ async function getAllSubmissions(req, res) {
 
 }
 
-function sendSubmissionEmailArgo(info, quote) {
+function sendSubmissionEmailArgo(submission) {
   emailService.sendSubmissionEmail(argoEmail, submission, config.argoSubEmailId);
 }
 
@@ -52,10 +52,11 @@ async function createNewSubmission(submission) {
 function createSubmissionObject(subInfo, quoteInfo) {
   let premium;
 
-  return {
+  let submission = {
     costs: subInfo.costs,
     premium: premium
   }
+  return submission;
 }
 
 export default {

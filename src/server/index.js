@@ -4,12 +4,17 @@
 import express from 'express';
 import morgan from 'morgan';
 import session from 'express-session';
+import mongoose from 'mongoose';
 
 import json from 'express-json';
 import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+
+/** Config Dependencies */
+
+mongoose.Promise = Promise;
 
 /** Config Node **/
 
