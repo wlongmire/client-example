@@ -1,5 +1,6 @@
 
 /** Dependencies **/
+import config from '../config';
 
 import express from 'express';
 import morgan from 'morgan';
@@ -15,10 +16,9 @@ import bodyParser from 'body-parser';
 /** Config Dependencies */
 
 mongoose.Promise = Promise;
+mongoose.connect(config.mongoURI);
 
 /** Config Node **/
-
-import config from '../config';
 
 global.__root = __dirname + '/';
 
