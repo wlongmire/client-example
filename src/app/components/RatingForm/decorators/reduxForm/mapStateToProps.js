@@ -19,6 +19,7 @@ export default function mapStateToProps() {
       scope: '',
       term: null,
       costs: null,
+      towerCraneUse: '',
       generalContractor: {
         isKnown: '',
         name: '',

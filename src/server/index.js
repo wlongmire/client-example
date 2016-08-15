@@ -59,9 +59,10 @@ OwnersEdgeAPI.use(app, {
   routePrefix: 'api'
 });
 
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../dist/public/index.html'))
-});
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../dist/public/index.html'))
+  });
+
 
 /** Serve **/
 

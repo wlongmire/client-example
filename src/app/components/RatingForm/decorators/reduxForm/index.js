@@ -16,6 +16,7 @@ const fields = [
   'scope',
   'term',
   'costs',
+  'towerCraneUse',
   'generalContractor.isKnown',
   'generalContractor.name',
   'generalContractor.glCarrier',

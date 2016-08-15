@@ -18,7 +18,9 @@ const submissionSchema = new mongoose.Schema({
   quotedPremium: Number,
   status: String,
   createdAt: Date,
-  updatedAt: Date
+  updatedAt: Date,
+  brokerName: String,
+  submittedBy: String
 });
 
 mongoose.model('submission', submissionSchema);
