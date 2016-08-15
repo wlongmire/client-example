@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
+import randomstring from 'randomstring'
 
 const submissionSchema = new mongoose.Schema({
+  confirmationNumber: String,
   primaryNamedInsured: String,
+  primaryNamedInsuredAddress: Boolean,
   hasOtherNamedInsured: Boolean,
   otherNamedInsured: Object,
-  address: Object,
+  projectAddress: Object,
   scope: String,
   term: Number,
   costs: Number,
@@ -15,7 +18,9 @@ const submissionSchema = new mongoose.Schema({
   quotedPremium: Number,
   status: String,
   createdAt: Date,
-  updatedAt: Date
+  updatedAt: Date,
+  brokerName: String,
+  submittedBy: String
 });
 
 mongoose.model('submission', submissionSchema);

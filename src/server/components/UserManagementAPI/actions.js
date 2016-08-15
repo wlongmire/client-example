@@ -28,10 +28,11 @@ async function verifyUser(req, res) {
 }
 
 async function register(req, res) {
-
+  const user = req.body.user;
 }
 
 export default {
   login,
-  verifyUser
+  verifyUser,
+  register
 }

@@ -39,6 +39,7 @@ function formatRequestBody(values) {
     supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',
     demoRequired: values.demoDetails.willHave === 'yes',
     occupancy: values.occupancyDetails.willHave === 'yes',
-    workStarted: values.workDetails.hasStarted === 'yes'
+    workStarted: values.workDetails.hasStarted === 'yes',
+    towerCrane: values.towerCraneUse === 'yes'
   });
 }
