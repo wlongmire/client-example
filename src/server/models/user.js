@@ -9,8 +9,10 @@ const user = new mongoose.Schema({
   username: { type: String, lowercase: true, unique: true },
   hash: String,
   salt: String,
-  _brokerId: {type: Schema.Types.ObjectId, ref: 'broker', default: null}
-  role: String
+  _brokerId: {type: Schema.Types.ObjectId, ref: 'broker', default: null},
+  role: String,
+  firstName: String,
+  lastName: String
 });
 
 user.methods.setPassword = function (password) {

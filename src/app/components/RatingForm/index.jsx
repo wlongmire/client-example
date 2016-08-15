@@ -28,6 +28,7 @@ function RatingForm(props) {
       scope,
       term,
       costs,
+      towerCraneUse,
       generalContractor,
       occupancyDetails,
       demoDetails,
@@ -97,13 +98,32 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           What are the hard costs of this project, in millions of dollars?*
-           <small>Please input numbers only - (e.g., $5,500,000 -- 5.5)</small>
+           What are the hard costs of this project, in of dollars?*
+           <small>Please input numbers only - (e.g., $5,500,000 -- 5500000)</small>
             <PureInput
               type="number"
               field={costs}
             />
           </label>
+        </li>
+        <li>
+          Will there be use of a tower crane on this project?*
+          <radiogroup>
+            <label>
+              <PureRadio
+                value="yes"
+                field={towerCraneUse}
+              />
+              Yes
+            </label>
+            <label>
+              <PureRadio
+                value="no"
+                field={towerCraneUse}
+              />
+              No
+            </label>
+          </radiogroup>
         </li>
         <li>
           Is the General Contractor known?*

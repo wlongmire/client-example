@@ -5,7 +5,16 @@ import { emailService, submissionService } from '../../services';
 const appId = config.appId;
 const argoEmail = config.argoEmail;
 
+async function getSubmissions(req, res) {
+
+}
+
+async function getSingleSubmission(req, res) {
+  const id = req.params.id || '';
+}
+
 function getRating(req, res) {
+
   try {
     const params = JSON.stringify(req.body);
     request({
@@ -23,7 +32,7 @@ function getRating(req, res) {
         const result = JSON.parse(body);
         let submission = createSubmissionObject(req.body, result);
         sendSubmissionEmailArgo(submission);
-        sendSubmissionEmailClient(submission);
+        //sendSubmissionEmailClient(submission);
         createNewSubmission(submission)
           .then(newSub => {
             return res.status(response.statusCode).json({success: true, premium: result.premium, confirmation: newSub.confirmationNumber});
@@ -75,4 +84,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 
 export default {
   getRating,
+  getSubmissions,
+  getSingleSubmission
 }
