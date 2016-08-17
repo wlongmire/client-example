@@ -1,6 +1,6 @@
 import passport from 'passport';
-import {userSvc} from '../services';
-import {passport as passportLocal} from '../..utils'
+import {userSvc} from '../../services';
+import {passport as passportLocal} from '../../utils';
 
 function login(req, res, next) {
   if (!req.body.username || !req.body.password) {
@@ -21,6 +21,10 @@ function login(req, res, next) {
   })(req, res, next);
 }
 
+function ping(req, res, next) {
+  return res.status(200).json({ message: 'OK'});
+}
+
 async function verifyUser(req, res) {
   const userId = req.params.id;
   let updatedUser = await userSvc.verifyUser(userId);
@@ -33,6 +37,7 @@ async function register(req, res) {
 
 export default {
   login,
+  ping,
   verifyUser,
   register
 }

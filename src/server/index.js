@@ -50,13 +50,19 @@ app.use(json());
 app.use(express.static('dist/public'));
 
 /** Components **/
-import OwnersEdgeAPI from './components/OwnersEdgeAPI'
+import OwnersEdgeAPI from './components/OwnersEdgeAPI';
+import UserManagementAPI from './components/UserManagementAPI';
 
 // Name and routePrefix are optional
 
 OwnersEdgeAPI.use(app, {
   name: 'OwnersEdgeAPI',
   routePrefix: 'api'
+});
+
+UserManagementAPI.use(app, {
+    name: 'UserManagementAPI',
+    routePrefix: 'um'
 });
 
   app.get('*', function (req, res) {
