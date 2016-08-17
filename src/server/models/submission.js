@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
 import randomstring from 'randomstring'
 
+const Schema = mongoose.Schema;
+
 const submissionSchema = new mongoose.Schema({
   confirmationNumber: String,
   primaryNamedInsured: String,
+  namedInsuredAddress: Object,
   primaryNamedInsuredAddress: Boolean,
   hasOtherNamedInsured: Boolean,
   otherNamedInsured: Object,
@@ -19,8 +22,8 @@ const submissionSchema = new mongoose.Schema({
   status: String,
   createdAt: Date,
   updatedAt: Date,
-  brokerName: String,
-  submittedBy: String
+  submittedBy: {type: Schema.Types.ObjectId, ref: 'user', default: null},
+  broker: {type: Schema.Types.ObjectId, ref: 'broker', default: null}
 });
 
 mongoose.model('submission', submissionSchema);
