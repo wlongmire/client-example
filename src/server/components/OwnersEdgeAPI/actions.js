@@ -67,7 +67,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
   namedInsuredAddress: subInfo.namedInsuredAddress,
   hasOtherNamedInsured: subInfo.hasOtherNamedInsured,
   otherNamedInsured: subInfo.otherNamedInsured,
-  projectAccress: subInfo.address,
+  projectAddress: subInfo.address,
   scope: subInfo.scope,
   term: subInfo.term,
   costs: subInfo.costs,
