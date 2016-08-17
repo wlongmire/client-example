@@ -64,9 +64,10 @@ function createSubmissionObject(subInfo, quoteInfo) {
   }
   let submission = {
   primaryNamedInsured: subInfo.primaryNamedInsured,
+  namedInsuredAddress: subInfo.namedInsuredAddress,
   hasOtherNamedInsured: subInfo.hasOtherNamedInsured,
   otherNamedInsured: subInfo.otherNamedInsured,
-  address: subInfo.address,
+  projectAddress: subInfo.address,
   scope: subInfo.scope,
   term: subInfo.term,
   costs: subInfo.costs,

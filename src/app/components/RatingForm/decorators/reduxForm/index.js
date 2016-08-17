@@ -5,6 +5,10 @@ import handleSubmit from './handleSubmit';
 
 const fields = [
   'primaryNamedInsured',
+  'namedInsuredAddress.street',
+  'namedInsuredAddress.city',
+  'namedInsuredAddress.state',
+  'namedInsuredAddress.zip',
   'hasOtherNamedInsured',
   'otherNamedInsured.name',
   'otherNamedInsured.relationship',

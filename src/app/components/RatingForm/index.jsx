@@ -22,6 +22,7 @@ function RatingForm(props) {
   const {
     fields: {
       primaryNamedInsured,
+      namedInsuredAddress,
       hasOtherNamedInsured,
       otherNamedInsured,
       address,
@@ -48,6 +49,9 @@ function RatingForm(props) {
               field={primaryNamedInsured}
             />
           </label>
+        </li>
+        <li>
+          <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
         <li>
           Any other requested Named Insured?*
@@ -77,7 +81,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          <AddressFieldSet address={address} />
+          <AddressFieldSet address={address} type='project' />
         </li>
         <li>
           <label>

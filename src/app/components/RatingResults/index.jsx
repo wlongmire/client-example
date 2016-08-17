@@ -21,9 +21,14 @@ function RatingResults(props) {
         show={isDefined(premium) && premium !== null}
         render={() => (
           <div>
+          <div>
             <h1>Congratulations! You qualify for coverage.</h1>
             <p>Your yearly premium will be: <strong>{`$${commifyNumber(premium)}`}</strong></p>
             <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase</p>
+          </div>
+          <div class='legalText'>
+            <p>The "pricing indication" is issued as a matter of information only  and does not  confer any  rights upon the insured or constitute a contract between  Colony Specialty and the authorized representative or producer of the insured or the insured.</p>
+          </div>
           </div>
         )}
       />

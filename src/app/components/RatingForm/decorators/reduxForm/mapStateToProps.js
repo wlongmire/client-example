@@ -2,6 +2,12 @@ export default function mapStateToProps() {
   return {
     initialValues: {
       primaryNamedInsured: '',
+      namedInsuredAddress: {
+        street: '',
+        city: '',
+        state: '',
+        zip: null
+      },
       hasOtherNamedInsured: null,
       otherNamedInsureds: [
         {
