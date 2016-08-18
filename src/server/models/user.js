@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
+import passportLocalMongoose from 'passport-local-mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -50,6 +51,9 @@ user.statics.fromAuthToken = function (token) {
       return Promise.resolve(null);
     });
 };
+
+// Include passport related functionality
+user.plugin(passportLocalMongoose);
 
 mongoose.model('user', user);
 

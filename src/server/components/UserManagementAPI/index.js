@@ -14,8 +14,8 @@ class UserManagement extends Component {
       .get(actions.ping)
     router.route('/verifyUser')
       .post(actions.verifyUser)
-    // router.route('/register')
-    //   .post(actions.register)
+    router.route('/register')
+      .post(actions.register)
     router.route('/')
       .get()
     return router;
