@@ -7,16 +7,20 @@ import {
 
 import App from 'components/App';
 import Home from 'routes/Home';
+import SignIn from 'routes/SignIn';
 import RatingResults from 'components/RatingResults';
 import Http404 from 'routes/Http404';
 
 export default (
-  <Route
+  <Route 
     path='/'
-    component={App}
-  >
+    component={App}>
     <IndexRoute
       component={Home}
+    />
+    <Route 
+      path='signin'
+      component={SignIn}
     />
     <Route
       path='quote'
