@@ -16,7 +16,7 @@ export default function handleSubmit(values, dispatch) {
         if (!res.success) return Promise.reject(res.message);
         const { premium } = res;
         return dispatch(push({
-          pathname: '/',
+          pathname: '/form',
           state: {
             premium
           }
@@ -29,12 +29,10 @@ export default function handleSubmit(values, dispatch) {
 }
 
 function formatRequestBody(values) {
-  let result = JSON.stringify({
+  return JSON.stringify({
     ...values,
     username: values.credentials.username,
     password: values.credentials.password,
     retypePassword: values.credentials.retypePassword
   });
-
-  return result;
 }

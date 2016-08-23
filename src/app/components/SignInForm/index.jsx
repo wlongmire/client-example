@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+    createStore,
+    applyMiddleware,
+    compose
+} from 'redux';
+import thunk from 'redux-thunk';
 
 import PureInput from 'components/shared/PureInput';
 import PureRadio from 'components/shared/PureRadio';
@@ -11,6 +17,8 @@ import styles from './styles';
 import CredentialsFieldSet from './CredentialsFieldSet';
 
 import decorator from './decorators';
+import handleSubmit from './decorators/reduxForm/handleSubmit';
+
 
 function SignInForm(props) {
     const {
@@ -19,9 +27,9 @@ function SignInForm(props) {
         },
         handleSubmit
     } = props;
-
+    
     return (
-    <form className="RatingForm__container" onSubmit={handleSubmit}>
+    <form className="RatingForm__container" onSubmit={props.handleSubmit}>
         <CredentialsFieldSet field={credentials} />
         <button type="submit">Sign In</button>
     </form>

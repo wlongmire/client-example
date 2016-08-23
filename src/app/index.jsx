@@ -5,14 +5,13 @@ import styles from '../sass/main.scss';
 import fontAwesome from 'font-awesome-sass-loader';
 
 import React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+
 import onReady from './utils/onReady';
 
-import {reducer as formReducer} from 'redux-form';
-
-// import configureStore from './store';
+import configureStore from './store';
 import routes from './routes';
 
 // import ga from 'react-ga';
@@ -30,22 +29,13 @@ import {
 } from 'react-router';
 
 import {
-  syncHistoryWithStore,
-  routerReducer
+  syncHistoryWithStore
 } from 'react-router-redux';
 
-const reducers = {
-  form: formReducer
-};
+// const routingMiddleware = routerMiddleware(browserHistory);
 
-
-// const store = configureStore(browserHistory);
-const store = createStore(
-  combineReducers({
-    ...reducers,
-    routing: routerReducer
-  })
-);
+// We have our reducer setup handled by our configureStore() method.
+const store = configureStore(browserHistory);
 
 const history = syncHistoryWithStore(
   browserHistory,

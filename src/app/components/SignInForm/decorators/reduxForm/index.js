@@ -14,6 +14,6 @@ const mapDispatchToProps = {
 };
 
 export default reduxForm({
-  form: 'SignUpForm',
+  form: 'signupform',
   fields
 }, mapStateToProps, mapDispatchToProps);

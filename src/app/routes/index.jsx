@@ -5,26 +5,38 @@ import {
   IndexRoute
 } from 'react-router';
 
+import { routerActions } from 'react-router-redux'
+
+
+import { UserAuthWrapper } from 'redux-auth-wrapper';
+
 import App from 'components/App';
 import Home from 'routes/Home';
 import SignIn from 'routes/SignIn';
 import RatingResults from 'components/RatingResults';
 import Http404 from 'routes/Http404';
 
+const UserIsAuthenticated = UserAuthWrapper({
+  authSelector: state => state.user,
+  redirectAction: routerActions.replace,
+  wrapperDisplayName: 'UserIsAuthenticated',
+  failureRedirectPath: '/'
+});
+
 export default (
   <Route 
     path='/'
     component={App}>
     <IndexRoute
-      component={Home}
-    />
-    <Route 
-      path='signin'
       component={SignIn}
     />
     <Route
+      path='form'
+      component={UserIsAuthenticated(Home)}
+    />
+    <Route
       path='quote'
-      component={RatingResults}
+      component={UserIsAuthenticated(RatingResults)}
     />
     <Route
       path='*'
