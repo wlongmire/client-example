@@ -1,40 +1,50 @@
 import config from '../../config';
+import {utilities} from '../utils';
 
 const helper = require('sendgrid').mail;
 
 
 async function sendSubmissionEmail(toAddress, mergeVars, templateId) {
-  console.log(mergeVars);
   let mail = new helper.Mail()
   let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
   mail.setFrom(fromEmail);
-  mail.setSubject("Hello World from the SendGrid Node.js Library")
+  mail.setSubject("Submission Received")
   let personalization = new helper.Personalization()
   let toEmail = new helper.Email(toAddress);
   personalization.addTo(toEmail);
-  let content = new helper.Content("text/html", "<html><body></body></html>")
-  mail.addContent(content);
   const subArray = [
-    {original: '-costs-', replacement: mergeVars.costs},
-    {original: '-namedInsured-', replacement: mergeVars.namedInsured},
+    {original: '-costs-', replacement: `$${utilities.commifyNumber(mergeVars.costs)}`},
+    {original: '-namedInsured-', replacement: mergeVars.primaryNamedInsured},
+    {original: '-confirmationNumber-', replacement: mergeVars.confirmationNumber},
+    {original: '-hasOtherNamedInsured-', replacement: mergeVars.hasOtherNamedInsured.toString()},
+    {original: '-insuredAddress-', replacement: mergeVars.namedInsuredAddress.street},
+    {original: '-insuredCity-', replacement: mergeVars.namedInsuredAddress.city},
+    {original: '-insurecState-', replacement: mergeVars.namedInsuredAddress.state},
+    {original: '-insuredZip-', replacement: mergeVars.namedInsuredAddress.zip},
+    {original: '-otherInsuredName-', replacement: mergeVars.hasOtherNamedInsured === true ? mergeVars.otherNamedInsured.name : ''},
+    {original: '-otherInsuredRole-', replacement: mergeVars.hasOtherNamedInsured === true ? mergeVars.otherNamedInsured.role : ''},
+    {original: '-otherInsuredRelationship-', replacement: mergeVars.hasOtherNamedInsured === true ? mergeVars.otherNamedInsured.relationship : ''},
+    {original: '-projectAddress-', replacement: mergeVars.projectAddress.street},
+    {original: '-projectCity-', replacement: mergeVars.projectAddress.city},
+    {original: '-projectState-', replacement: mergeVars.projectAddress.state},
+    {original: '-projectZip-', replacement: mergeVars.projectAddress.zip},
+    {original: '-scope-', replacement: mergeVars.scope},
+    {original: '-term-', replacement: `${mergeVars.term} months`},
+    // {original: '-generalContractor-', replacement: mergeVars.primaryNamedInsured},
+    {original: '-quotedPremium-', replacement: `$${utilities.commifyNumber(mergeVars.quotedPremium)}`}
   ]
   subArray.forEach(sub => {
-    if (sub.replacement && sub.replacement !== '');
-    let substitution = new helper.Substitution(sub.original, sub.replacement);
+    let substitution;
+    if (sub.replacement !== '') {
+      substitution = new helper.Substitution(sub.original, sub.replacement);
+    } else {
+      substitution = new helper.Substitution(sub.original, `N/A`);
+    }
+    console.log(substitution);
     personalization.addSubstitution(substitution);
   });
   mail.addPersonalization(personalization);
-  mail.setTemplateId('21b98629-1c78-4de5-81a0-431f6666bc98');
-  console.log(mail.toJSON());
-
-
-  // let from_email = new helper.Email("test@example.com")
-  // let to_email = new helper.Email("test@example.com")
-  // let subject = "Hello World from the SendGrid Node.js Library"
-  // let content = new helper.Content("text/plain", "some text here")
-  // let mail = new helper.Mail(from_email, subject, to_email, content)
-  // let email = new helper.Email("test2@example.com")
-  // mail.personalizations[0].addTo(email)
+  mail.setTemplateId(templateId);
 
   send(mail);
 }
@@ -47,7 +57,6 @@ function send(mail){
   requestPost.method = 'POST'
   requestPost.path = '/v3/mail/send'
   requestPost.body = requestBody
-  // requestpost.headers['Content-Type'] = 'application/json'
   sg.API(requestPost, function (error, response) {
     if (error) {
      console.log(JSON.stringify(error))
