@@ -14,7 +14,6 @@ async function getSingleSubmission(req, res) {
 }
 
 function getRating(req, res) {
-
   try {
     const params = JSON.stringify(req.body);
     request({
@@ -31,10 +30,10 @@ function getRating(req, res) {
       else {
         const result = JSON.parse(body);
         let submission = createSubmissionObject(req.body, result);
-        sendSubmissionEmailArgo(submission);
-        //sendSubmissionEmailClient(submission);
         createNewSubmission(submission)
           .then(newSub => {
+            sendSubmissionEmailArgo(newSub);
+            //sendSubmissionEmailClient(newSub);
             return res.status(response.statusCode).json({success: true, premium: result.premium, confirmation: newSub.confirmationNumber});
           });
         }
@@ -45,11 +44,11 @@ function getRating(req, res) {
 }
 
 function sendSubmissionEmailArgo(submission) {
-  emailService.sendSubmissionEmail(argoEmail, submission, config.argoSubEmailId);
+  emailService.sendSubmissionEmail(argoEmail, submission, config.argoTemplateId);
 }
 
 function sendSubmissionEmailClient(submission) {
-  emailService.sendSubmissionEmail(submission.email, submission, config.clientSubEmailId);
+  emailService.sendSubmissionEmail(submission.email, submission, config.brokerTemplateId);
 }
 
 async function createNewSubmission(submission) {
@@ -65,7 +64,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
   let submission = {
   primaryNamedInsured: subInfo.primaryNamedInsured,
   namedInsuredAddress: subInfo.namedInsuredAddress,
-  hasOtherNamedInsured: subInfo.hasOtherNamedInsured,
+  hasOtherNamedInsured: subInfo.otherNamedInsuredBoolean,
   otherNamedInsured: subInfo.otherNamedInsured,
   projectAddress: subInfo.address,
   scope: subInfo.scope,
