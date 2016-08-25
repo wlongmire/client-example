@@ -35,6 +35,7 @@ function CredentialFieldSet(props) {
               type="text"
               field={username}
             />
+            {username.touched && username.error && <div>{username.error}</div>}
           </label>
         </li>
         {passwordFields}

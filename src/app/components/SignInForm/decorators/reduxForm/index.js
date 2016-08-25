@@ -2,6 +2,7 @@ import { reduxForm } from 'redux-form';
 
 import mapStateToProps from './mapStateToProps';
 import handleSubmit from './handleSubmit';
+import handleValidate from './handleValidate';
 
 const fields = [
   'credentials.username',
@@ -15,5 +16,6 @@ const mapDispatchToProps = {
 
 export default reduxForm({
   form: 'signupform',
-  fields
+  fields,
+  handleValidate
 }, mapStateToProps, mapDispatchToProps);

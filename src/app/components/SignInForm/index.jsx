@@ -18,6 +18,7 @@ import CredentialsFieldSet from './CredentialsFieldSet';
 
 import decorator from './decorators';
 import handleSubmit from './decorators/reduxForm/handleSubmit';
+import handleValidate from './decorators/reduxForm/handleValidate';
 
 
 function SignInForm(props) {
@@ -25,13 +26,16 @@ function SignInForm(props) {
         fields: {
             credentials
         },
-        handleSubmit
+        handleSubmit,
+        handleValidate
     } = props;
     
     return (
-    <form className="RatingForm__container" onSubmit={props.handleSubmit}>
+    <form className="RatingForm__container" onSubmit={handleSubmit}>
         <CredentialsFieldSet field={credentials} />
         <button type="submit">Sign In</button>
+        <button type="register">Register</button>
+        <button>Forgot Password</button>
     </form>
     );
 }
