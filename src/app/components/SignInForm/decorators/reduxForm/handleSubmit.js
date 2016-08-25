@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
-
+import config from '../../../../../config';
+let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+console.log("Base URL for API call is %s", baseURL);
 export default function handleSubmit(values, dispatch) {
   return () => {
-    return fetch('/um/login', {
+    return fetch(baseURL + '/um/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

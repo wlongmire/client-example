@@ -20,6 +20,11 @@ const config = {
 
   webpackserver: {
     port: 7777
+  },
+
+  apiserver: {
+    url: 'http://localhost',
+    port: 8888
   }
 };
 
