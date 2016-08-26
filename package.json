@@ -44,6 +44,8 @@
     "gulp-shell": "^0.5.2",
     "gulp-sym": "0.0.14",
     "gulp-uglify": "^1.5.2",
+    "handlebars": "^4.0.5",
+    "html-pdf": "^2.1.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.2.3",
     "json-loader": "^0.5.4",
@@ -81,6 +83,7 @@
     "sendgrid": "^4.0.1",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
+    "uuid": "^2.0.2",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1",
     "webpack-stream": "^3.1.0"
