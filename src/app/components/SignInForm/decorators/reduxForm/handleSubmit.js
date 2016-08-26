@@ -18,8 +18,14 @@ export default function handleSubmit(values, dispatch) {
     })
       .then(res => res.json())
       .then((res) => {
-        if (!res.success) return Promise.reject(res.message);
+
+        if (!res.success) {
+          console.log("NOT success");
+          return Promise.reject(res.message);
+        }
+
         const { premium } = res;
+
         return dispatch(push({
           pathname: '/form',
           state: {
@@ -28,8 +34,8 @@ export default function handleSubmit(values, dispatch) {
         }));
       })
       .catch((error) => {
-
-        return Promise.reject({ _error: error.message });
+        console.log("Got ERROR", error);
+        return Promise.reject({ _error: error });
       });
   };
 }

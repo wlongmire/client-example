@@ -1,6 +1,7 @@
 export default function validate(values) {
     const errors = {
-        credentials: {}
+        credentials: {},
+        account: {}
     };
 
     if (!values.credentials.username) {
@@ -20,6 +21,12 @@ export default function validate(values) {
     if (values.credentials.password && values.credentials.password !== values.credentials.retypePassword) {
         errors.credentials.retypePassword = 'Passwords do not match.';
     }
+
+    if (!values.account.firstName) {
+        errors.account.firstName = 'First name is required.';
+    }
+
+    // ...Don't bother enforcing a last name. Not everyone has one.
 
     return errors;
 };

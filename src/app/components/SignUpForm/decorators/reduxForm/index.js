@@ -7,7 +7,9 @@ import validate from './validate';
 const fields = [
   'credentials.username',
   'credentials.password',
-  'credentials.retypePassword'
+  'credentials.retypePassword',
+  'account.firstName',
+  'account.lastName'
 ];
 
 const mapDispatchToProps = {

@@ -15,6 +15,7 @@ import ToggleDisplay from 'components/shared/ToggleDisplay';
 import styles from './styles';
 
 import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
+import AccountFieldSet from './AccountFieldSet';
 
 import decorator from './decorators';
 import handleSubmit from './decorators/reduxForm/handleSubmit';
@@ -24,7 +25,8 @@ function SignUpForm(props) {
 
     const {
         fields: {
-            credentials
+            credentials,
+            account,
         },
         handleSubmit
     } = props;
@@ -32,6 +34,7 @@ function SignUpForm(props) {
     return (
     <form className="SignUpForm__container" onSubmit={handleSubmit}>
         <CredentialsFieldSet field={credentials} type="signUp" />
+        <AccountFieldSet field={account} />
         <div className="formFooter">
             <button type="submit">Register</button>
             <a href="/">Back to Sign In</a>

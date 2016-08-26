@@ -6,6 +6,10 @@ export default function mapStateToProps() {
         username: null,
         password: null,
         retypePassword: null
+      },
+      account: {
+        firstName: null,
+        lastName: null
       }
     }
   };

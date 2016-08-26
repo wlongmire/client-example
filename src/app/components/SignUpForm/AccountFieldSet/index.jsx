@@ -7,7 +7,7 @@ function AccountFieldSet(props) {
   let title = 'Account Information';
 
   const {
-    account: {
+    field: {
       firstName,
       lastName
     }
@@ -15,7 +15,7 @@ function AccountFieldSet(props) {
   return (
     <fieldset>
       {title}
-      <ol>
+      <ul>
         <li>
           <label>
             First Name*
@@ -27,14 +27,14 @@ function AccountFieldSet(props) {
         </li>
         <li>
           <label>
-            Last Name*
+            Last Name
             <PureInput
               type="text"
               field={lastName}
             />
           </label>
         </li>
-      </ol>
+      </ul>
     </fieldset>
   );
 }

@@ -8,7 +8,7 @@ let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apise
 
 export default function handleSubmit(values, dispatch) {
   return () => {
-    return fetch(baseURL + '/um/signup', {
+    return fetch(baseURL + '/um/register', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -36,9 +36,11 @@ export default function handleSubmit(values, dispatch) {
 
 function formatRequestBody(values) {
   return JSON.stringify({
-    ...values,
+    
     username: values.credentials.username,
     password: values.credentials.password,
-    retypePassword: values.credentials.retypePassword
+    retypePassword: values.credentials.retypePassword,
+    firstName: values.account.firstName,
+    lastName: values.account.lastName
   });
 }

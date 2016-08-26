@@ -60,10 +60,6 @@ async function register(req, res) {
     return res.status(400).json({ message: 'Please provide a last name.', field: 'lastName' });
   }
 
-  if (!req.body.lastName) {
-    return res.status(400).json({ message: 'Please provide a last name.', field: 'lastName' });
-  }  
-
   //const user = req.body.user;
 
   //user.isAdmin = false;
@@ -78,6 +74,7 @@ async function register(req, res) {
   // Assert password length and complexity
 
   // Register!
+  // console.log("Attemting to register...");
   models.User.register(
     new models.User({
       username: req.body.username
@@ -86,7 +83,7 @@ async function register(req, res) {
       if (err) {
         return res.status(400).json({ message: 'Sorry, that user name is not available. Please try something else.'});
       }
-
+      // console.log("Authenticating!");
       passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err); }
         if (user) {
@@ -106,7 +103,7 @@ async function register(req, res) {
 
   // E-Mail new user.
 
-
+  return res.status(500).json({message: 'what'});
 }
 
 export default {
