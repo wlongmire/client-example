@@ -28,18 +28,18 @@ function CredentialFieldSet(props) {
               field={username}
             />
           </label>
-          {username.touched && username.error ? <div className="error">{username.error}</div> : ''}
+          {username.touched && username.error && <div className="error">{username.error}</div>}
         </li>
 
         <li>
           <label>Password*<PurePassword field={password} /></label>
-          {password.touched && password.error ? <div className="error">{password.error}</div> : ''}
+          {password.touched && password.error && <div className="error">{password.error}</div>}
         </li>
-        { type == 'signUp' ? 
+        { type == 'signUp' &&
         <li>
           <label>Re-Type Password*<PurePassword field={retypePassword} /></label>
-          {retypePassword.touched && retypePassword.error ? <div className="error">{retypePassword.error}</div> : ''}
-        </li> : ''
+          {retypePassword.touched && retypePassword.error && <div className="error">{retypePassword.error}</div>}
+        </li>
         }
       </ul>
     </fieldset>
