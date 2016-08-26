@@ -27,6 +27,7 @@ function CredentialFieldSet(props) {
   return (
     <fieldset>
       {title}
+      
       <ul>
         <li>
           <label>
@@ -35,8 +36,8 @@ function CredentialFieldSet(props) {
               type="text"
               field={username}
             />
-            {username.touched && username.error && <div>{username.error}</div>}
           </label>
+          {username.touched && username.error ? <div>{username.error}</div> : ''}
         </li>
         {passwordFields}
       </ul>

@@ -9,6 +9,7 @@ class PureInput extends Component {
 
   render() {
     const { field, ...rest } = this.props;
+    
     return (
       <input
         { ...onlyDomProps(field) }

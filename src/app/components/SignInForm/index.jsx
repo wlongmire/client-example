@@ -18,7 +18,6 @@ import CredentialsFieldSet from './CredentialsFieldSet';
 
 import decorator from './decorators';
 import handleSubmit from './decorators/reduxForm/handleSubmit';
-import handleValidate from './decorators/reduxForm/handleValidate';
 
 
 function SignInForm(props) {
@@ -26,8 +25,7 @@ function SignInForm(props) {
         fields: {
             credentials
         },
-        handleSubmit,
-        handleValidate
+        handleSubmit
     } = props;
     
     return (
