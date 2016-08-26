@@ -16,5 +16,10 @@ export default function validate(values) {
         errors.credentials.password = 'Invalid password. Must be eight (8) characters or longer.';
     }
 
+    // Assert password == retypePassword
+    if (values.credentials.password && values.credentials.password !== values.credentials.retypePassword) {
+        errors.credentials.retypePassword = 'Passwords do not match.';
+    }
+
     return errors;
 };

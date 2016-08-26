@@ -13,6 +13,7 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 import App from 'components/App';
 import Home from 'routes/Home';
 import SignIn from 'routes/SignIn';
+import SignUp from 'routes/SignUp';
 import RatingResults from 'components/RatingResults';
 import Http404 from 'routes/Http404';
 
@@ -29,6 +30,10 @@ export default (
     component={App}>
     <IndexRoute
       component={SignIn}
+    />
+    <Route
+      path='signup'
+      component={SignUp}
     />
     <Route
       path='form'

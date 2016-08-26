@@ -20,7 +20,7 @@ import decorator from './decorators';
 import handleSubmit from './decorators/reduxForm/handleSubmit';
 
 
-function SignInForm(props) {
+function SignUpForm(props) {
 
     const {
         fields: {
@@ -30,14 +30,14 @@ function SignInForm(props) {
     } = props;
     
     return (
-    <form className="SignInForm__container" onSubmit={handleSubmit}>
-        <CredentialsFieldSet field={credentials} />
+    <form className="SignUpForm__container" onSubmit={handleSubmit}>
+        <CredentialsFieldSet field={credentials} type="signUp" />
         <div className="formFooter">
-            <button type="submit">Sign In</button>
-            <a href="/signup">Register</a>
+            <button type="submit">Register</button>
+            <a href="/">Back to Sign In</a>
         </div>
     </form>
     );
 }
 
-export default decorator(SignInForm);
+export default decorator(SignUpForm);

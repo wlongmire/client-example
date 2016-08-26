@@ -5,7 +5,7 @@ export default function mapStateToProps() {
       credentials: {
         username: null,
         password: null,
-        type: null
+        retypePassword: null
       }
     }
   };

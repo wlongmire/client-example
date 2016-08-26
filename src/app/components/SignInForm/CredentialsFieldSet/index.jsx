@@ -5,10 +5,8 @@ import PurePassword from 'components/shared/PurePassword';
 
 function CredentialFieldSet(props) {
   let title = 'User name and Password:';
-  let provideRetypePassword = props.type == "signUp";
-
-  let passwordFields;
-
+  let type = props.type;
+  
   const {
     field: {
       username,
@@ -17,17 +15,10 @@ function CredentialFieldSet(props) {
     }
   } = props;
 
-  if (provideRetypePassword) {
-    passwordFields = <li><label>Password*<PurePassword field={password} /></label></li>;
-    passwordFields += <li><label>Re-Type Password*<PurePassword field={retypePassword} /></label></li>;
-  } else {
-    passwordFields = <li><label>Password*<PurePassword field={password} /></label></li>;
-  }
 
   return (
     <fieldset>
       {title}
-      
       <ul>
         <li>
           <label>
@@ -37,9 +28,19 @@ function CredentialFieldSet(props) {
               field={username}
             />
           </label>
-          {username.touched && username.error ? <div>{username.error}</div> : ''}
+          {username.touched && username.error ? <div className="error">{username.error}</div> : ''}
         </li>
-        {passwordFields}
+
+        <li>
+          <label>Password*<PurePassword field={password} /></label>
+          {password.touched && password.error ? <div className="error">{password.error}</div> : ''}
+        </li>
+        { type == 'signUp' ? 
+        <li>
+          <label>Re-Type Password*<PurePassword field={retypePassword} /></label>
+          {retypePassword.touched && retypePassword.error ? <div className="error">{retypePassword.error}</div> : ''}
+        </li> : ''
+        }
       </ul>
     </fieldset>
   );
