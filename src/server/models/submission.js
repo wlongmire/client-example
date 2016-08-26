@@ -20,11 +20,11 @@ const submissionSchema = new mongoose.Schema({
   contactInfo: Object,
   quotedPremium: Number,
   status: String,
-  createdAt: Date,
-  updatedAt: Date,
+  commission: {type: Number, default: 17.5},
+  pdfToken: String,
   submittedBy: {type: Schema.Types.ObjectId, ref: 'user', default: null},
   broker: {type: Schema.Types.ObjectId, ref: 'broker', default: null}
-});
+}, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);
 

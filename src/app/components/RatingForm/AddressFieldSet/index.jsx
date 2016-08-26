@@ -61,7 +61,7 @@ function AddressFieldSet(props) {
           <label>
             Zip*
             <PureInput
-              type="number"
+              type="text"
               field={zip}
             />
           </label>
