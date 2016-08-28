@@ -1,4 +1,6 @@
-
+/**
+ * @TODO Sanitize input! See https://www.npmjs.com/package/content-filter
+ */
 /** Dependencies **/
 import config from '../config';
 

@@ -8,7 +8,7 @@ import {
   createStore
 } from 'redux';
 
-import { userReducer } from '../reducers/userReducer';
+import userReducer from '../reducers/userReducer';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 
 // NOTE: Alias is required to get the formReducer reducer working correctly.

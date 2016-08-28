@@ -13,7 +13,8 @@ const user = new mongoose.Schema({
   _brokerId: {type: Schema.Types.ObjectId, ref: 'broker', default: null},
   role: String,
   firstName: String,
-  lastName: String
+  lastName: String,
+  accountPending: {type: Boolean, default: true}
 });
 
 user.methods.setPassword = function (password) {

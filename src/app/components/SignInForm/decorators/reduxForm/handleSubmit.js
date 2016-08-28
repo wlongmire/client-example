@@ -16,27 +16,35 @@ export default function handleSubmit(values, dispatch) {
       },
       body: formatRequestBody(values)
     })
-      .then(res => res.json())
-      .then((res) => {
+    .then(res => res.json())
+    .then((res) => {
+      
+      if (!res.status == 200) {
+        return Promise.reject(res.message);
+      }
+      const {user, token} = res;
+      // console.log("Dispatching (push)");
+      // console.log(user);
 
-        if (!res.success) {
-          console.log("NOT success");
-          return Promise.reject(res.message);
+      localStorage.setItem('token', token);
+
+      /**
+       * @TODO Properly set up react redux authentication
+       * See https://github.com/mjrussell/react-redux-jwt-auth-example/tree/react-router-redux
+       */
+      return dispatch(push({
+        pathname: '/form',
+        state: {
+          type: 'USER_LOGGED_IN',
+          payload: res,
+          user,
+          token
         }
-
-        const { premium } = res;
-
-        return dispatch(push({
-          pathname: '/form',
-          state: {
-            premium
-          }
-        }));
-      })
-      .catch((error) => {
-        console.log("Got ERROR", error);
-        return Promise.reject({ _error: error });
-      });
+      }));
+    })
+    .catch((error) => {
+      return Promise.reject({ _error: error });
+    });
   };
 }
 
