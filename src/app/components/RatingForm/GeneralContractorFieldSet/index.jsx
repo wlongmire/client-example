@@ -44,7 +44,7 @@ function GeneralContractorFieldSet(props) {
           </label>
         </li>
         <li>
-          Is the GC paying contracting/supervising all subs?
+          Is the owner paying, contracting, or supervising any subcontractors other than the GC?
           <radiogroup>
             <label>
               <PureRadio

@@ -40,6 +40,7 @@ function formatRequestBody(values) {
     demoRequired: values.demoDetails.willHave === 'yes',
     occupancy: values.occupancyDetails.willHave === 'yes',
     workStarted: values.workDetails.hasStarted === 'yes',
-    towerCrane: values.towerCraneUse === 'yes'
+    towerCrane: values.towerCraneUse === 'yes',
+    otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes'
   });
 }
