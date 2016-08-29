@@ -1,6 +1,15 @@
+$lightBlue: #80A1C1;
+$mediumBlue: #08415C;
+$darkBlue: #172A3A;
+$lightGrey: #CFD2CD;
+$warmBlack: #004346;
+
 .RatingForm__container {
-  margin: 25px 0;
+  margin: 25px;
   font-family: 'Lato';
+  font-size: 16px;
+  line-height: 20px;
+  font
   * + * {
     margin-top: 1.5em;
   }
@@ -11,6 +20,7 @@
   radiogroup,
   small {
     display: block;
+    color: $warmBlack;
   }
 
   input[type="radio"] {
