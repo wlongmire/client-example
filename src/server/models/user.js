@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
+import passportLocalMongoose from 'passport-local-mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -12,7 +13,8 @@ const user = new mongoose.Schema({
   _brokerId: {type: Schema.Types.ObjectId, ref: 'broker', default: null},
   role: String,
   firstName: String,
-  lastName: String
+  lastName: String,
+  accountPending: {type: Boolean, default: true}
 });
 
 user.methods.setPassword = function (password) {
@@ -50,6 +52,9 @@ user.statics.fromAuthToken = function (token) {
       return Promise.resolve(null);
     });
 };
+
+// Include passport related functionality
+user.plugin(passportLocalMongoose);
 
 mongoose.model('user', user);
 
