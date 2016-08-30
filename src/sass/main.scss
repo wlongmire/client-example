@@ -16,11 +16,10 @@
 @import './config';
 @import './typography';
 @import './buttons';
+@import './layout';
 
 // Components
 
 .app-container {
   position: relative;
-
-  @import '../app/components/styles';
 }

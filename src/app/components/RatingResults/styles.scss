@@ -1,0 +1,36 @@
+.RatingResults__container {
+  margin: 25px 0;
+  text-align: center;
+
+  > div > * + * {
+    margin-top: 1em;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  .legalText {
+    p {
+      font-size: .5rem;
+    }
+  }
+}
+
+.formFooter, .formFooter .list {
+  display: inline-block;
+  position: relative;
+
+  button, a {
+    display: inline;
+    margin: 0 10px;
+  }
+}

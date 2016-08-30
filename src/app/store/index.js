@@ -8,39 +8,53 @@ import {
   createStore
 } from 'redux';
 
-import { routerReducer } from 'react-router-redux';
+import userReducer from '../reducers/userReducer';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+
+// NOTE: Alias is required to get the formReducer reducer working correctly.
+import { reducer as formReducer } from 'redux-form';
 
 // Add your component reducers
 // in this linked file.
 import components from 'components/reducers';
 
-let store;
+const appReducers = combineReducers({
+  ...components,
+  user: userReducer,
+  form: formReducer,
+  routing: routerReducer
+});
+
+let configureStore;
 
 if (process.env.NODE_ENV === 'production') {
-  store = createStore(
-    combineReducers({
-      ...components,
-      routing: routerReducer
-    }),
-    applyMiddleware(
-      thunkMiddleware
-    )
-  );
 
+  /* PRODUCTION */
+  configureStore = (history, initialState) => {
+    return createStore(
+      appReducers,
+      applyMiddleware(
+        routerMiddleware(history),
+        thunkMiddleware
+      ),
+      initialState
+    );
+  };
 } else {
   const loggerMiddleware = createLogger();
 
-  store = createStore(
-    combineReducers({
-      ...components,
-      routing: routerReducer
-    }),
-    window.devToolsExtension ? window.devToolsExtension() : f => f,
-    applyMiddleware(
-      // loggerMiddleware,
-      thunkMiddleware
-    )
-  );
+  /* NON-PRODUCTION (Dev, Debug, etc) */
+  configureStore = (history, initialState) => {
+    return createStore(
+      appReducers,
+      window.devToolsExtension ? window.devToolsExtension() : f => f,
+      applyMiddleware(
+        // loggerMiddleware,
+        routerMiddleware(history),
+        thunkMiddleware
+      )
+    );
+  };
 }
 
-export default store;
+export default configureStore;

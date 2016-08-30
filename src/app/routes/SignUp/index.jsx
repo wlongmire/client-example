@@ -2,23 +2,23 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import RatingForm from 'components/RatingForm';
+import SignUpForm from 'components/SignUpForm';
 
-function Home(props, context) {
+function SignUp(props, context) {
   const {
     content
   } = context;
   return (
-    <div className='home'>
+    <div className='signup'>
       <Helmet title={content.title} />
-      <RatingForm />
+      <SignUpForm />
     </div>
   );
 }
 
-Home.contextTypes = {
+SignUp.contextTypes = {
   config: PropTypes.object.isRequired,
   content: PropTypes.object.isRequired
 };
 
-export default Home;
+export default SignUp;
