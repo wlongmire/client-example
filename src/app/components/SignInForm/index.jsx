@@ -26,7 +26,8 @@ function SignInForm(props) {
         fields: {
             credentials
         },
-        handleSubmit
+        handleSubmit,
+        store
     } = props;
     
     return (

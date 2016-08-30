@@ -4,10 +4,11 @@ import config from '../../../../../config';
 
 let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 
+let handleSubmit =  (values, dispatch) => {
 
+  return (dispatch, store) => {
+    let scopeStore = store;
 
-export default function handleSubmit(values, dispatch) {
-  return () => {
     return fetch(baseURL + '/um/login', {
       method: 'POST',
       headers: {
@@ -34,11 +35,11 @@ export default function handleSubmit(values, dispatch) {
        */
       return dispatch(push({
         pathname: '/form',
+
         state: {
           type: 'USER_LOGGED_IN',
           payload: res,
-          user,
-          token
+          user: user
         }
       }));
     })
@@ -55,3 +56,5 @@ function formatRequestBody(values) {
     password: values.credentials.password
   });
 }
+
+export default handleSubmit;

@@ -1,9 +1,13 @@
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
 
+import config from '../../../../../config';
+
+let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+
 export default function handleSubmit(values, dispatch) {
   return () => {
-    return fetch('/api/getRating', {
+    return fetch(baseURL + '/api/getRating', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
