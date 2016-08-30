@@ -1,9 +1,6 @@
-export default function mapStateToProps(state) {
-    // console.log("state");
-    // console.log(state);
+export default function mapStateToProps() {
   return {
     initialValues: {
-      user: null,
       credentials: {
         username: null,
         password: null,
