@@ -6,8 +6,7 @@ let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apise
 
 let handleSubmit =  (values, dispatch) => {
 
-  return (dispatch, store) => {
-    let scopeStore = store;
+  return () => {
 
     return fetch(baseURL + '/um/login', {
       method: 'POST',
