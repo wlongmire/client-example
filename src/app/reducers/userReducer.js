@@ -1,14 +1,11 @@
-const USER_LOGGED_IN = 'USER_LOGGED_IN';
-const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
+import * as constants from '../constants';
 
 const userReducer = (state = {}, {type, payload}) => {
-    console.log("type: %s", type);
-    console.log(state);
     
-    if (type === USER_LOGGED_IN) {
+    if (payload && payload.state && payload.state.type === constants.USER_LOGGED_IN) {
         return payload;
     }
-    if (type === USER_LOGGED_OUT) {
+    if (payload && payload.state && payload.state.type === constants.USER_LOGGED_OUT) {
         return {}
     }
 
