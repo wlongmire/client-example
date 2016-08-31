@@ -25,3 +25,13 @@
     }
   }
 }
+
+.formFooter, .formFooter .list {
+  display: inline-block;
+  position: relative;
+
+  button, a {
+    display: inline;
+    margin: 0 10px;
+  }
+}

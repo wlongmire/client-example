@@ -2,17 +2,17 @@ import React, { Component, PropTypes } from 'react';
 
 import { onlyDomProps } from 'app/utils/reduxForm';
 
-class PureInput extends Component {
+class PurePassword extends Component {
   shouldComponentUpdate(nextProps) {
     return this.props.field !== nextProps.field;
   }
 
   render() {
     const { field, ...rest } = this.props;
-    
     return (
       <input
         { ...onlyDomProps(field) }
+        type="password"
         value={field.value || ''}
         { ...rest }
       />
@@ -20,8 +20,8 @@ class PureInput extends Component {
   }
 }
 
-PureInput.propTypes = {
+PurePassword.propTypes = {
   field: PropTypes.object.isRequired
 };
 
-export default PureInput;
+export default PurePassword;

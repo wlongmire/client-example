@@ -78,5 +78,6 @@ function send(mail){
 }
 
 export default {
-  sendSubmissionEmail
+  sendSubmissionEmail,
+  send
 }

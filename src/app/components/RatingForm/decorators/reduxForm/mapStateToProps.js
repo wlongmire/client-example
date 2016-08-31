@@ -1,4 +1,5 @@
-export default function mapStateToProps() {
+export default function mapStateToProps(state) {
+  
   return {
     initialValues: {
       primaryNamedInsured: '',
