@@ -16,14 +16,10 @@
 @import './config';
 @import './typography';
 @import './buttons';
+@import './layout';
 
 // Components
 
 .app-container {
   position: relative;
-}
-
-body {
-  background-color: $mediumBlue;
-  color: $lightGrey;
 }
