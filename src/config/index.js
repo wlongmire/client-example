@@ -53,8 +53,10 @@ if (config.env === 'development') {
     origin: 'http://localhost:' + config.webpackserver.port
   };
 
+} else if (config.env === 'deploydev') {
+  config.server.url = 'http://dev.ownersedge.us'
 } else if (config.env === 'production') {
-  config.server.url = 'http://www.ownersedge.us'
+  config.server.url = 'http://ownersedge.us'
 }
 
 module.exports = config;
