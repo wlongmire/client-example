@@ -55,8 +55,12 @@ if (config.env === 'development') {
 
 } else if (config.env === 'deploydev') {
   config.server.url = 'http://dev.ownersedge.us'
+  config.apiserver.url = 'http://dev.ownersedge.us'
+  config.apiserver.port = null
 } else if (config.env === 'production') {
   config.server.url = 'http://ownersedge.us'
+  config.apiserver.url = 'http://dev.ownersedge.us'
+    config.apiserver.port = null
 }
 
 module.exports = config;
