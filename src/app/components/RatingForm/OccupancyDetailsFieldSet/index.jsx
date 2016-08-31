@@ -22,10 +22,10 @@ function OccupancyDetailsFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      Yes? Ok we'll need some more info
-      <ol>
+      <span className="area-label-sub">Yes? Ok we'll need some more info.</span>
+      <ul>
         <li>
-          Is coverage for occupancy desired?
+          <span className="area-label-sub">Is coverage for occupancy desired?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -47,7 +47,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              What type of occupancy?
+              <span className="area-label-sub">What type of occupancy?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -72,7 +72,7 @@ function OccupancyDetailsFieldSet(props) {
           render={() => (
             <li>
               <label>
-                How many units?
+                <span className="area-label-sub">How many units?</span>
                 <PureInput
                   type="number"
                   field={numberOfUnits}
@@ -86,7 +86,7 @@ function OccupancyDetailsFieldSet(props) {
           render={() => (
             <li>
               <label>
-                What is the total square footage?
+                <span className="area-label-sub">What is the total square footage?</span>
                 <PureInput
                   type="number"
                   field={squareFootage}
@@ -99,7 +99,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              Any losses in the last 5 years?
+              <span className="area-label-sub">Any losses in the last 5 years?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -123,7 +123,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              Will tenants and workers use different stairwells?
+              <span className="area-label-sub">Will tenants and workers use different stairwells?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -147,7 +147,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              Will there be separate entry?
+              <span className="area-label-sub">Will there be separate entry?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -171,7 +171,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              Security Personnel?
+              <span className="area-label-sub">Security Personnel?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -195,7 +195,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              Is there a doorman?
+              <span className="area-label-sub">Is there a doorman?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -219,7 +219,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              Are security cameras installed?
+              <span className="area-label-sub">Are security cameras installed?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -243,7 +243,7 @@ function OccupancyDetailsFieldSet(props) {
           show={isCoverageDesired.value === 'yes'}
           render={() => (
             <li>
-              Is building access limited via keys or card access?
+             <span className="area-label-sub">Is building access limited via keys or card access?</span>
               <radiogroup>
                 <label>
                   <PureRadio
@@ -263,9 +263,8 @@ function OccupancyDetailsFieldSet(props) {
             </li>
           )}
         />
-      </ol>
+      </ul>
     </fieldset>
   );
 }
-
 export default OccupancyDetailsFieldSet;

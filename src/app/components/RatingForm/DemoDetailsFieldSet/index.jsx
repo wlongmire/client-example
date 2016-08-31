@@ -15,9 +15,9 @@ function DemoDetailsFieldSet(props) {
   return (
     <fieldset>
       Ok, we're going to need some specifics on that
-      <ol>
+      <ul>
         <li>
-          Is the GC hiring a demo subcontractor?
+          <span className="area-label-sub">Is the GC hiring a demo subcontractor?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -37,7 +37,7 @@ function DemoDetailsFieldSet(props) {
         </li>
         <li>
           <label>
-            What are the total demo costs?
+            <span className="area-label-sub">What are the total demo costs?</span>
             <PureInput
               type="number"
               field={costs}
@@ -46,7 +46,7 @@ function DemoDetailsFieldSet(props) {
         </li>
         <li>
           <label>
-            How long, in months, will demo take?
+            <span className="area-label-sub">How long, in months, will demo take?</span>
             <PureInput
               type="number"
               field={duration}
@@ -55,16 +55,15 @@ function DemoDetailsFieldSet(props) {
         </li>
         <li>
           <label>
-            What safety precautions, if any, are in place to protect pedestrians?
+            <span className="area-label-sub">What safety precautions, if any, are in place to protect pedestrians?</span>
             <PureInput
               type="text"
               field={pedestrianSafetyPrecautions}
             />
           </label>
         </li>
-      </ol>
+      </ul>
     </fieldset>
   );
 }
-
 export default DemoDetailsFieldSet;

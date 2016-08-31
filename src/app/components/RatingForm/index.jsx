@@ -40,13 +40,14 @@ function RatingForm(props) {
   } = props;
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
-      <ol>
+      <ul className="no-bullets">
         <li>
           <label>
-            Who is the Primary Named Insured?*
+            <span className="area-label">Who is the Primary Named Insured?*</span>
             <PureInput
               type="text"
               field={primaryNamedInsured}
+              placeholder="Input Value"
             />
           </label>
         </li>
@@ -54,7 +55,7 @@ function RatingForm(props) {
           <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
         <li>
-          Any other requested Named Insured?*
+          <span className="area-label">Any other requested named insured?*</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -85,7 +86,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           Please describe the scope of work for this project (include end use)*
+           <span className="area-label">Please describe the scope of work for this project (include end use)*</span>
             <PureTextArea
               field={scope}
             />
@@ -93,7 +94,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           What is the term of the project, in months?*
+          <span className="area-label"> What is the term of the project, in months?*</span>
             <PureInput
               type="number"
               field={term}
@@ -102,7 +103,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           What are the hard costs of this project, in of dollars?*
+           <span className="area-label">What are the hard costs of this project, in of dollars?*</span>
            <small>Please input numbers only - (e.g., $5,500,000 -- 5500000)</small>
             <PureInput
               type="number"
@@ -111,7 +112,7 @@ function RatingForm(props) {
           </label>
         </li>
         <li>
-          Will there be use of a tower crane on this project?*
+         <span className="area-label"> Will there be use of a tower crane on this project?*</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -130,7 +131,7 @@ function RatingForm(props) {
           </radiogroup>
         </li>
         <li>
-          Is the General Contractor known?*
+         <span className="area-label">Is the General Contractor known?*</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -157,7 +158,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          Will there be occupancy during the project?*
+         <span className="area-label"> Will there be occupancy during the project?*</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -184,7 +185,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          Will there be demo of exterior walls or roof?*
+          <span className="area-label">Will there be demo of exterior walls or roof?*</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -211,7 +212,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          Has work started on this project?*
+          <span className="area-label">Has work started on this project?*</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -240,8 +241,8 @@ function RatingForm(props) {
         <li>
           <ContactInfoFieldSet contactInfo={contactInfo} />
         </li>
-      </ol>
-      <button type="submit">Get Quote</button>
+      </ul>
+      <button className="button" type="submit">Get Quote</button>
     </form>
   );
 }

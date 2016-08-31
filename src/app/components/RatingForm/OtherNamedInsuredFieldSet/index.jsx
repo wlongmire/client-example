@@ -12,36 +12,36 @@ function OtherNamedInsuredFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      Yes? Tell us about them.
-      <ol>
+      <span className="area-label-sub">Tell us about them.</span>
+      <ul>
         <li>
           <label>
-            Name?
             <PureInput
               type="text"
               field={name}
+              placeholder="Name"
             />
           </label>
         </li>
         <li>
           <label>
-            Relationship to Primary?
             <PureInput
               type="text"
               field={relationship}
+              placeholder="Relationship to Primary"
             />
           </label>
         </li>
         <li>
           <label>
-            Role on Project?
             <PureInput
               type="text"
               field={role}
+              placeholder="Role on Project?"
             />
           </label>
         </li>
-      </ol>
+      </ul>
     </fieldset>
   );
 }
