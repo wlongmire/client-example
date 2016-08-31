@@ -1,8 +1,3 @@
-import React from 'react';
-
-import PureInput from 'components/shared/PureInput';
-import PureRadio from 'components/shared/PureRadio';
-
 function GeneralContractorFieldSet(props) {
   const {
     generalContractor: {
@@ -14,37 +9,37 @@ function GeneralContractorFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      Yes? Yes? Great! Let's get some more information
-      <ol>
+      <span className="area-label-sub">Yes? Great! Let's get some more information</span>
+      <ul>
         <li>
           <label>
-            Name of general contractor?
             <PureInput
               type="text"
               field={name}
+              placeholder="Name of General Contractor"
             />
           </label>
         </li>
         <li>
           <label>
-            General Liability carrier:
             <PureInput
               type="text"
               field={glCarrier}
+              placeholder="General Liability Carrier"
             />
           </label>
         </li>
         <li>
           <label>
-            Total GL limits required:
             <PureInput
               type="text"
               field={glLimits}
+              placeholder="Total GL Limits Required"
             />
           </label>
         </li>
         <li>
-          Is the owner paying, contracting, or supervising any subcontractors other than the GC?
+           <span className="area-label-sub">Is the owner paying, contracting, or supervising any subcontractors other than the GC?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -62,9 +57,8 @@ function GeneralContractorFieldSet(props) {
             </label>
           </radiogroup>
         </li>
-      </ol>
+      </ul>
     </fieldset>
   );
 }
-
 export default GeneralContractorFieldSet;

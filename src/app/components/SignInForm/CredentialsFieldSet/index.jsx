@@ -4,9 +4,9 @@ import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 
 function CredentialFieldSet(props) {
-  let title = 'User name and Password:';
+  let title = 'Coming Back?';
   let type = props.type;
-  
+
   const {
     field: {
       username,
@@ -18,21 +18,22 @@ function CredentialFieldSet(props) {
 
   return (
     <fieldset>
-      {title}
-      <ul>
+      <h1>{title}</h1>
+      <ul className="no-bullets">
         <li>
           <label>
-            User Name*
+
             <PureInput
               type="text"
               field={username}
+              placeholder="Username (Email)"
             />
           </label>
           {username.touched && username.error && <div className="error">{username.error}</div>}
         </li>
 
         <li>
-          <label>Password*<PurePassword field={password} /></label>
+          <label><PurePassword field={password} placeholder="Password" /></label>
           {password.touched && password.error && <div className="error">{password.error}</div>}
         </li>
         { type == 'signUp' &&

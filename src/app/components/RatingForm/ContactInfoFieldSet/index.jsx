@@ -11,29 +11,28 @@ function ContactInfoFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      Last but not least, let's get some contact info:
-      <ol>
+      <span className="area-label">Last but not least, let's get some contact info:</span>
+      <ul className="no-bullets">
         <li>
           <label>
-            email:*
             <PureInput
               type="email"
               field={email}
+              placeholder="Email"
             />
           </label>
         </li>
         <li>
           <label>
-            phone:*
             <PureInput
               type="tel"
               field={phone}
+              placeholder="Phone"
             />
           </label>
         </li>
-      </ol>
+      </ul>
     </fieldset>
   );
 }
-
 export default ContactInfoFieldSet;

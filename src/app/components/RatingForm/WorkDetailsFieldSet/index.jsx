@@ -14,11 +14,11 @@ function WorkDetailsFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      Ok, we're going to need some specifics on that
-      <ol>
+      <span className="area-label-sub">Ok, we're going to need some specifics on that</span>
+      <ul>
         <li>
           <label>
-            When did work begin?
+           <span className="area-label-sub"> When did work begin?</span>
             <PureInput
               type="date"
               field={startDate}
@@ -27,7 +27,7 @@ function WorkDetailsFieldSet(props) {
         </li>
         <li>
           <label>
-            What has been completed?
+            <span className="area-label-sub">What has been completed?</span>
             <PureTextArea
               field={whatsCompleted}
             />
@@ -44,16 +44,15 @@ function WorkDetailsFieldSet(props) {
         </li>
         <li>
           <label>
-            What is the name of the GC responsible for prior work?
+            <span className="area-label-sub">What is the name of the GC responsible for prior work?</span>
             <PureInput
               type="text"
               field={generalContractor}
             />
           </label>
         </li>
-      </ol>
+      </ul>
     </fieldset>
   );
 }
-
 export default WorkDetailsFieldSet;

@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
@@ -22,51 +23,51 @@ function AddressFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      {title}
-      <ol>
+      <span className="area-label">{title}</span>
+      <ul>
         <li>
           <label>
-            Street Address*
             <PureInput
               type="text"
               field={street}
+              placeholder="Street"
             />
           </label>
         </li>
         <li>
           <label>
-            City*
             <PureInput
               type="text"
               field={city}
+              placeholder="City"
             />
           </label>
         </li>
         <li>
-          <label>
-            State*
+
             <PureOptionSelect
               field={state}
             >
-              <option value="" disabled>Select a state</option>
+              <option value="" disabled>State</option>
               {
                 states.map((state) => (
                   <option key={state} value={state}>{state}</option>
                 ))
               }
             </PureOptionSelect>
-          </label>
-        </li>
-        <li>
-          <label>
-            Zip*
+
+
+
+
             <PureInput
               type="text"
               field={zip}
+              placeholder="Zip"
+              className="zip-input"
             />
-          </label>
+
         </li>
-      </ol>
+      </ul>
     </fieldset>
   );
 }
