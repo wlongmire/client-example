@@ -1,3 +1,8 @@
+import React from 'react';
+
+import PureInput from 'components/shared/PureInput';
+import PureRadio from 'components/shared/PureRadio';
+
 function GeneralContractorFieldSet(props) {
   const {
     generalContractor: {
