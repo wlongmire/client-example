@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-
-import { onlyDomProps } from 'app/utils/reduxForm';
+import styles from './styles';
 
 class SearchBar extends Component {
   shouldComponentUpdate(nextProps) {

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-
-import { onlyDomProps } from 'app/utils/reduxForm';
+import styles from './styles';
 
 class Paginator extends Component {
   shouldComponentUpdate(nextProps) {
@@ -20,15 +19,21 @@ class Paginator extends Component {
       ...rest } = this.props;
     
     return (
-      <div
+      <div className="paginator"
         
         { ...rest }
       >
-        <button>Previous</button>
-        <ul>
-          <li><button>1</button></li>
-        </ul>
-        <button>Next</button>
+        <div className="paginator__container">
+          <button>Previous</button>
+          <div className="paginator__list_container">
+            <ul>
+              <li><button>1</button></li>
+              <li><button>2</button></li>
+              <li><button>3</button></li>
+            </ul>
+          </div>
+          <button>Next</button>
+        </div>
       </div>
     );
   }

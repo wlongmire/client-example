@@ -1,0 +1,19 @@
+.paginator {
+    display: table;
+
+    .paginator__container {
+        display: table-row;
+
+        button, .paginator__list_container {
+            display: table-cell;
+            min-height: 40px;
+            min-width: 40px;
+        }
+
+        .paginator__list_container {
+            ul, ul > li {
+                display: inline-block;
+            }
+        }
+    }
+}

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-
-import { onlyDomProps } from 'app/utils/reduxForm';
+import styles from './styles';
 
 class ListTable extends Component {
   shouldComponentUpdate(nextProps) {
@@ -24,7 +23,7 @@ class ListTable extends Component {
         
         { ...rest }
       >
-        <table>
+        <table className="listTable">
           <tbody>
             <tr>
               <td>(No Results)</td>
