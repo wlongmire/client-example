@@ -11,12 +11,19 @@ class ListTable extends Component {
   }
 
   render() {
+
+    // if (!this.props.columns) {
+    //   this.props.columns = ['Results'];
+    // }
     const {
+      columns,
       pageIndex,
       pageCountPerPage,
       query,
       queryTotal,
+      data,
       ...rest } = this.props;
+    
     
     return (
       <div
@@ -24,10 +31,29 @@ class ListTable extends Component {
         { ...rest }
       >
         <table className="listTable">
-          <tbody>
+          <thead>
             <tr>
-              <td>(No Results)</td>
+            {[...columns].map((col, colIndex) => 
+              <th key={colIndex} data-key={col.key} className={'header header-' + col.key}>{col.value}</th>
+            )}
             </tr>
+          </thead>
+          <tbody>
+            {data && data.length > 0 ?
+
+              [...data].map((datum, row) => 
+                <tr key={row} className="dataRow">
+                  
+                  {[...columns].map((col, colIndex) => 
+                    <td key={colIndex} data-key={col.key}>{datum[col.key]}</td>
+                  )}
+                </tr>
+              )
+            :
+            <tr>
+              <td className="noResultsCell" colSpan={columns.length}>(No Results)</td>
+            </tr>
+            }
           </tbody>
         </table>
       </div>

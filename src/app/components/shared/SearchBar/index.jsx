@@ -20,10 +20,11 @@ class SearchBar extends Component {
     
     return (
       <div
-        
+        className="searchBar"
         { ...rest }
       >
-        <input type="text" value={ query || ''} /><button>Search</button>
+        <input className="query" type="text" value={ query || ''} />
+        <button className="go">Search</button>
       </div>
     );
   }
