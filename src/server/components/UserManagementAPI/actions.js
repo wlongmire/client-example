@@ -46,6 +46,15 @@ function login(req, res, next) {
   // });
 }
 
+function listBrokers(req, res, next) {
+  // Display a list of Brokers by query
+  // @TODO enforce min-char for query execution.
+  // @TODO enforce throttle (max API calls per second)
+  // @TODO enforce query sanitization!!!!111one
+  
+
+}
+
 function ping(req, res, next) {
   return res.status(200).json({ message: 'OK'});
 }
@@ -84,6 +93,10 @@ function register(req, res, next) {
     return res.status(400).json({ message: 'Please provide a last name.', field: 'lastName' });
   }
 
+  if (!req.body._brokerId) {
+    return res.status(400).json({ message: 'Please select a Broker.'});
+  }
+
   passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
@@ -103,7 +116,8 @@ function register(req, res, next) {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       accountPending: true,
-      role: 'user'
+      role: 'user',
+      _brokerId: req.body._brokerId
     }),
     req.body.password, 
     function (err, user) {
@@ -112,7 +126,7 @@ function register(req, res, next) {
         return res.status(400).json({ message: 'Sorry, that user name is not available. Please try something else.'});
       }
 
-      return res.status(200).json({ message: 'Registartion complete!'});
+      return res.status(200).json({ message: 'Registration complete!'});
 
     });
 }

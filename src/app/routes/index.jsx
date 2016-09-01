@@ -14,6 +14,7 @@ import App from 'components/App';
 import Home from 'routes/Home';
 import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
+import PowerConsole from 'routes/PowerConsole';
 import RatingResults from 'components/RatingResults';
 import Http404 from 'routes/Http404';
 
@@ -42,6 +43,10 @@ export default (
     <Route
       path='quote'
       component={UserIsAuthenticated(RatingResults)}
+    />
+    <Route
+      path='powerconsole'
+      component={PowerConsole}
     />
     <Route
       path='*'

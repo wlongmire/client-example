@@ -4,7 +4,7 @@ import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 
 function CredentialFieldSet(props) {
-  let title = 'Coming Back?';
+  let title = props.title ? props.title : 'Coming Back?';
   let type = props.type;
 
   const {
