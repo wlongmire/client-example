@@ -37,7 +37,7 @@ class PowerConsole extends Component {
       data: [],
       columns: [
         {key: 'createdAt', value: 'Date', postProcessor: formatToNiceDate},
-        {key: '', value: ''},
+        {key: 'primaryNamedInsured', value: 'Primary Named Insured'},
         {key: 'status', value: 'Status'}
       ]
     };
