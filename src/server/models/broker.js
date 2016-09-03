@@ -6,3 +6,7 @@ const brokerSchema = new mongoose.Schema({
   logoPath: String,
   brokerNumber: String,
 });
+
+mongoose.model('broker', brokerSchema);
+
+export default mongoose.model('broker');

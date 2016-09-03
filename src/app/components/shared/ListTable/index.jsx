@@ -45,7 +45,7 @@ class ListTable extends Component {
                 <tr key={row} className="dataRow">
                   
                   {[...columns].map((col, colIndex) => 
-                    <td key={colIndex} data-key={col.key}>{datum[col.key]}</td>
+                    <td key={colIndex} data-key={col.key}>{col.postProcessor ? col.postProcessor(datum[col.key]) : datum[col.key]}</td>
                   )}
                 </tr>
               )

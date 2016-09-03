@@ -1,7 +1,7 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import {userService, emailService} from '../../services';
-import {User, Broker} from '../../models';
+import {User, Broker, Submission} from '../../models';
 import {passport as passportLocal} from '../../utils';
 
 function login(req, res, next) {
@@ -51,7 +51,24 @@ function listBrokers(req, res, next) {
   // @TODO enforce min-char for query execution.
   // @TODO enforce throttle (max API calls per second)
   // @TODO enforce query sanitization!!!!111one
-  
+
+  Broker.find().limit(10).sort('-name').exec(function (err, brokers) {
+    return res.status(200).json({
+      success: true,
+      brokers: brokers
+    });
+  });
+}
+
+function listSubmissions(req, res, next) {
+  // Display a list of submissions associated with power user
+
+  Submission.find().limit(10).sort('-createdAt').exec(function (err, submissions) {
+    return res.status(200).json({
+      success: true,
+      submissions: submissions
+    });
+  });
 
 }
 
@@ -105,9 +122,9 @@ function register(req, res, next) {
    * @TODO Validate and process user registration.
    */
 
-  // Check for existing user!
+  // Check for existing user - Handled by passport enhanced User model .register()
 
-  // Assert password length and complexity
+  // @TODO Assert password length and complexity
 
   // Register!  
   User.register(
@@ -135,5 +152,7 @@ export default {
   login,
   ping,
   verifyUser,
-  register
+  register,
+  listBrokers,
+  listSubmissions
 }

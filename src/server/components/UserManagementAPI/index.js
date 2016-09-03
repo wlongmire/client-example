@@ -16,6 +16,10 @@ class UserManagement extends Component {
       .post(actions.verifyUser)
     router.route('/register')
       .post(actions.register)
+    router.route('/listBrokers')
+      .get(actions.listBrokers)
+    router.route('/listSubmissions')
+      .get(actions.listSubmissions)
     router.route('/')
       .get()
     return router;
