@@ -48,7 +48,7 @@ textarea, input[type="text"], input[type="password"], input[type="number"], inpu
 	color:#656565;
 }
 
-::-webkit-input-placeholder, :-ms-input-placeholder {  
+::-webkit-input-placeholder, :-ms-input-placeholder {
    font-weight:100;
    color:#656565;
    opacity:1;
@@ -56,9 +56,10 @@ textarea, input[type="text"], input[type="password"], input[type="number"], inpu
 
 .nav-bar{
 	max-width:1366px;
-	margin:0 auto 20px;	
+	margin:0 auto 20px;
 	width:80%;
-	padding-top:10px;	
+	padding-top:10px;
+
 	.logo-type{
 		background: url("http://assets.ownersedge.us/images/main/logo.svg");
 		height:70px;
@@ -98,7 +99,7 @@ textarea, input[type="text"], input[type="password"], input[type="number"], inpu
 label{
 	input{
 		margin-top:5px;
-	}	
+	}
 }
 
 select{

@@ -1,0 +1,32 @@
+.loading {
+  padding-top: 8.2rem;
+  background-color: $mediumBlue;
+  color: $lightGrey;
+  padding-bottom: 0.3rem;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 2rem;
+
+  background: linear-gradient(257deg, $darkBlue, $mediumblue);
+  background-size: 600% 600%;
+
+  -webkit-animation: AnimationName 5s ease infinite;
+  -moz-animation: AnimationName 5s ease infinite;
+  animation: AnimationName 5s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}

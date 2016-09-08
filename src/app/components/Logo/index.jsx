@@ -9,10 +9,10 @@ function Logo(props) {
       Owner's Edge
     </div>
     <div className="links">
-    <a href="#">Submit New</a>
-    <a href="#">My Account (Log in)</a>
+      <a href="#">Submit New</a>
+      <a href="#">My Account (Log in)</a>
     </div>
-    </div>
+  </div>
   );
 }
 

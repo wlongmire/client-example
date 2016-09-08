@@ -6,7 +6,7 @@ import PurePassword from 'components/shared/PurePassword';
 function CredentialFieldSet(props) {
   let title = 'Coming Back?';
   let type = props.type;
-  
+
   const {
     field: {
       username,
@@ -22,7 +22,6 @@ function CredentialFieldSet(props) {
       <ul className="no-bullets">
         <li>
           <label>
-            
             <PureInput
               type="text"
               field={username}

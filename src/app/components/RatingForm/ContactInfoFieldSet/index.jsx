@@ -14,7 +14,7 @@ function ContactInfoFieldSet(props) {
       <span className="area-label">Last but not least, let's get some contact info:</span>
       <ul className="no-bullets">
         <li>
-          <label>           
+          <label>
             <PureInput
               type="email"
               field={email}
@@ -23,7 +23,8 @@ function ContactInfoFieldSet(props) {
           </label>
         </li>
         <li>
-          <label>            
+
+          <label>
             <PureInput
               type="tel"
               field={phone}

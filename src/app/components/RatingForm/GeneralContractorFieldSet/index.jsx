@@ -17,7 +17,7 @@ function GeneralContractorFieldSet(props) {
       <span className="area-label-sub">Yes? Great! Let's get some more information</span>
       <ul>
         <li>
-          <label>            
+          <label>
             <PureInput
               type="text"
               field={name}
@@ -26,7 +26,7 @@ function GeneralContractorFieldSet(props) {
           </label>
         </li>
         <li>
-          <label>            
+          <label>
             <PureInput
               type="text"
               field={glCarrier}
@@ -35,7 +35,7 @@ function GeneralContractorFieldSet(props) {
           </label>
         </li>
         <li>
-          <label>           
+          <label>
             <PureInput
               type="text"
               field={glLimits}

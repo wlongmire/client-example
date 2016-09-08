@@ -15,7 +15,7 @@ function OtherNamedInsuredFieldSet(props) {
       <span className="area-label-sub">Tell us about them.</span>
       <ul>
         <li>
-          <label>            
+          <label>
             <PureInput
               type="text"
               field={name}
@@ -24,7 +24,7 @@ function OtherNamedInsuredFieldSet(props) {
           </label>
         </li>
         <li>
-          <label>            
+          <label>
             <PureInput
               type="text"
               field={relationship}
@@ -33,7 +33,7 @@ function OtherNamedInsuredFieldSet(props) {
           </label>
         </li>
         <li>
-          <label>           
+          <label>
             <PureInput
               type="text"
               field={role}

@@ -25,7 +25,8 @@ function AddressFieldSet(props) {
       <span className="area-label">{title}</span>
       <ul>
         <li>
-          <label>            
+
+          <label>
             <PureInput
               type="text"
               field={street}
@@ -34,7 +35,7 @@ function AddressFieldSet(props) {
           </label>
         </li>
         <li>
-          <label>            
+          <label>
             <PureInput
               type="text"
               field={city}
@@ -43,7 +44,6 @@ function AddressFieldSet(props) {
           </label>
         </li>
         <li>
-               
             <PureOptionSelect
               field={state}
             >
@@ -54,17 +54,13 @@ function AddressFieldSet(props) {
                 ))
               }
             </PureOptionSelect>
-         
-        
-        
-              
+
             <PureInput
               type="text"
               field={zip}
               placeholder="Zip"
               className="zip-input"
             />
-          
         </li>
       </ul>
     </fieldset>
