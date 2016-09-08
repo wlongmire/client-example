@@ -41,13 +41,23 @@ user.methods.generateToken = function () {
 
 user.statics.fromAuthToken = function (token) {
   var viewer = jwt.decode(token);
+
   if (!viewer || !viewer._id) {
     return Promise.resolve(null);
   }
-  return this.findById(viewer._id)
+
+  return this.findOne({_id: viewer._id})
+    .select({
+      _id: 1,
+      salt: 1,
+      role: 1,
+      username: 1,
+      accountPending: 1,
+      _brokerId: 1})
     .then(function (user) {
       if (jwt.verify(token, user.salt)) {
-        return Promise.resolve(viewer);
+        console.log("resolving!");
+        return Promise.resolve({viewer, user});
       }
       return Promise.resolve(null);
     });

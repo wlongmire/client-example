@@ -22,7 +22,7 @@ function login(req, res, next) {
       if (user.accountPending) {
         return res.status(400).json({message: `Your account has not been verified. Please contact your administrator.`})
       }
-      
+
       return res.json({
         token: user.generateToken(),
         user: {
@@ -61,13 +61,36 @@ function listBrokers(req, res, next) {
 }
 
 function listSubmissions(req, res, next) {
-  // Display a list of submissions associated with power user
+  
+  if (!req.headers['x-token']) {
+    return res.status(401).json('Authorization token required');
 
-  Submission.find().limit(10).sort('-createdAt').exec(function (err, submissions) {
-    return res.status(200).json({
-      success: true,
-      submissions: submissions
-    });
+  }
+
+  // Display a list of submissions associated with power user
+  passport.use(new LocalStrategy(User.authenticate()));
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+
+  User.fromAuthToken(req.headers['x-token']).then((result) => {
+    // Assert 'poweruser' or 'admin' role.
+    
+    if ( userService.assertRole(result.user, ['admin', 'poweruser']) ) {
+      // Ok!
+      Submission.find().limit(10).sort('-createdAt').exec(function (err, submissions) {
+        return res.status(200).json({
+          success: true,
+          submissions: submissions
+        });
+      });
+
+    } else {
+      // Nope.
+      res.status(403).json("Access forbidden. Insufficient role access.");
+    }
+
+  }).catch((e) => {
+    console.log(e);
   });
 
 }

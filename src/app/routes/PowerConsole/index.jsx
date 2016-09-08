@@ -57,12 +57,14 @@ class PowerConsole extends Component {
   }
 
   componentDidMount() {
+    let token = localStorage.getItem('token');
     
     return fetch(baseURL + '/um/listSubmissions', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-token': token
       }
     })
     .then(res => res.json())

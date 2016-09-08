@@ -8,7 +8,16 @@ async function verifyUser(id)
     let user = models.User.findById(userId);
 
 }
+// Check to see if user.role is included within roles array (indexed)
+function assertRole(user, roles) {
+    if (roles.includes(user.role)) {
+        return true;
+    }
+
+    
+}
 
 export default {
-    verifyUser
+    verifyUser,
+    assertRole
 };
