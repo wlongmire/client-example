@@ -4,7 +4,7 @@ import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 
 function AccountFieldSet(props) {
-  let title = 'Account Information';
+  let title = props.title ? props.title : 'Here for the first time?';
 
   const {
     field: {

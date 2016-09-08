@@ -1,7 +1,7 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import {userService, emailService} from '../../services';
-import {User, Broker} from '../../models';
+import {User, Broker, Submission} from '../../models';
 import {passport as passportLocal} from '../../utils';
 
 function login(req, res, next) {
@@ -22,7 +22,7 @@ function login(req, res, next) {
       if (user.accountPending) {
         return res.status(400).json({message: `Your account has not been verified. Please contact your administrator.`})
       }
-      
+
       return res.json({
         token: user.generateToken(),
         user: {
@@ -44,6 +44,89 @@ function login(req, res, next) {
 
   //   return res.status(200).json();
   // });
+}
+
+function listBrokers(req, res, next) {
+  // Display a list of Brokers by query
+  // @TODO enforce min-char for query execution.
+  // @TODO enforce throttle (max API calls per second)
+  // @TODO enforce query sanitization!!!!111one
+
+  Broker.find().limit(10).sort('-name').exec(function (err, brokers) {
+    return res.status(200).json({
+      success: true,
+      brokers
+    });
+  });
+}
+
+function listPowerUsers(req, res, next) {
+  let brokerId;
+  // Display a list of Power Users associated with the provided brokerId parameter.
+  // @TODO Sanitize user input!
+  // @TODO enforce throttle (max API calls per second)
+  if (!(req.params.brokerId || req.query.brokerId) ) {
+    return res.status(400).json({ message: "Missing brokerId parameter."});
+  }
+
+  brokerId = req.params.brokerId || req.query.brokerId;
+
+
+  User.find({
+    _brokerId: brokerId,
+    // role: 'poweruser'
+  }).sort('-username').exec(function (err, powerUsers) {
+    return res.status(200).json({
+      success: true,
+      powerUsers
+    });
+  });
+}
+
+
+
+function listSubmissions(req, res, next) {
+
+  if (!req.headers['x-token']) {
+    return res.status(401).json('Authorization token required');
+
+  }
+
+  // Display a list of submissions associated with power user
+  passport.use(new LocalStrategy(User.authenticate()));
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+
+  User.fromAuthToken(req.headers['x-token']).then((result) => {
+    // Assert 'poweruser' or 'admin' role.
+    
+    if ( userService.assertRole(result.user, ['admin', 'poweruser']) ) {
+      // Ok!
+      Submission.find({
+        or: [{submittedBy: result.user}, {broker: result.user.broker}]
+      }).limit(10).sort('-createdAt').exec(function (err, submissions) {
+        return res.status(200).json({
+          success: true,
+          submissions: submissions
+        });
+      });
+
+    } else {
+      // Nope.
+      res.status(403).json( {type: "AclInsufficientPermissionError", message: "Access forbidden. Insufficient role permission."} );
+    }
+
+  }).catch((e) => {
+    // console.log(e);
+
+    if (e.name === 'TokenExpiredError') {
+      // Authenticate once again, so as to create a new token.
+      res.status(401).json( {type: e.name, message: "Authorization required. Token Expired"} );
+    } else {
+      res.status(500).json( {message: e.message });
+    }
+  });
+
 }
 
 function ping(req, res, next) {
@@ -84,6 +167,10 @@ function register(req, res, next) {
     return res.status(400).json({ message: 'Please provide a last name.', field: 'lastName' });
   }
 
+  if (!req.body._brokerId) {
+    return res.status(400).json({ message: 'Please select a Broker.'});
+  }
+
   passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
@@ -92,9 +179,9 @@ function register(req, res, next) {
    * @TODO Validate and process user registration.
    */
 
-  // Check for existing user!
+  // Check for existing user - Handled by passport enhanced User model .register()
 
-  // Assert password length and complexity
+  // @TODO Assert password length and complexity
 
   // Register!  
   User.register(
@@ -103,7 +190,8 @@ function register(req, res, next) {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       accountPending: true,
-      role: 'user'
+      role: 'user',
+      _brokerId: req.body._brokerId
     }),
     req.body.password, 
     function (err, user) {
@@ -112,7 +200,7 @@ function register(req, res, next) {
         return res.status(400).json({ message: 'Sorry, that user name is not available. Please try something else.'});
       }
 
-      return res.status(200).json({ message: 'Registartion complete!'});
+      return res.status(200).json({ message: 'Registration complete!'});
 
     });
 }
@@ -121,5 +209,8 @@ export default {
   login,
   ping,
   verifyUser,
-  register
+  register,
+  listBrokers,
+  listPowerUsers,
+  listSubmissions
 }

@@ -33,7 +33,7 @@ function SignUpForm(props) {
 
     return (
     <form className="SignUpForm__container" onSubmit={handleSubmit}>
-        <CredentialsFieldSet field={credentials} type="signUp" />
+        <CredentialsFieldSet field={credentials} type="signUp" title="Here for the first time?" />
         <AccountFieldSet field={account} />
         <div className="formFooter">
             <button type="submit">Register</button>

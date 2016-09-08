@@ -1,0 +1,17 @@
+.searchBar
+{
+    width: 100%;
+    margin: 10px auto;
+
+    input, button {
+        min-height: 40px;
+    }
+
+    input.query {
+        border-radius: 5px 0 0 5px;
+    }
+
+    button.go {
+        border-radius: 0 5px 5px 0;
+    }
+}
