@@ -56,7 +56,7 @@ user.statics.fromAuthToken = function (token) {
       _brokerId: 1})
     .then(function (user) {
       if (jwt.verify(token, user.salt)) {
-        console.log("resolving!");
+        
         return Promise.resolve({viewer, user});
       }
       return Promise.resolve(null);

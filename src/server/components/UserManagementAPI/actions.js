@@ -55,13 +55,38 @@ function listBrokers(req, res, next) {
   Broker.find().limit(10).sort('-name').exec(function (err, brokers) {
     return res.status(200).json({
       success: true,
-      brokers: brokers
+      brokers
     });
   });
 }
 
+function listPowerUsers(req, res, next) {
+  let brokerId;
+  // Display a list of Power Users associated with the provided brokerId parameter.
+  // @TODO Sanitize user input!
+  // @TODO enforce throttle (max API calls per second)
+  if (!(req.params.brokerId || req.query.brokerId) ) {
+    return res.status(400).json({ message: "Missing brokerId parameter."});
+  }
+
+  brokerId = req.params.brokerId || req.query.brokerId;
+
+
+  User.find({
+    _brokerId: brokerId,
+    // role: 'poweruser'
+  }).sort('-username').exec(function (err, powerUsers) {
+    return res.status(200).json({
+      success: true,
+      powerUsers
+    });
+  });
+}
+
+
+
 function listSubmissions(req, res, next) {
-  
+
   if (!req.headers['x-token']) {
     return res.status(401).json('Authorization token required');
 
@@ -77,7 +102,9 @@ function listSubmissions(req, res, next) {
     
     if ( userService.assertRole(result.user, ['admin', 'poweruser']) ) {
       // Ok!
-      Submission.find().limit(10).sort('-createdAt').exec(function (err, submissions) {
+      Submission.find({
+        or: [{submittedBy: result.user}, {broker: result.user.broker}]
+      }).limit(10).sort('-createdAt').exec(function (err, submissions) {
         return res.status(200).json({
           success: true,
           submissions: submissions
@@ -86,11 +113,18 @@ function listSubmissions(req, res, next) {
 
     } else {
       // Nope.
-      res.status(403).json("Access forbidden. Insufficient role access.");
+      res.status(403).json( {type: "AclInsufficientPermissionError", message: "Access forbidden. Insufficient role permission."} );
     }
 
   }).catch((e) => {
-    console.log(e);
+    // console.log(e);
+
+    if (e.name === 'TokenExpiredError') {
+      // Authenticate once again, so as to create a new token.
+      res.status(401).json( {type: e.name, message: "Authorization required. Token Expired"} );
+    } else {
+      res.status(500).json( {message: e.message });
+    }
   });
 
 }
@@ -177,5 +211,6 @@ export default {
   verifyUser,
   register,
   listBrokers,
+  listPowerUsers,
   listSubmissions
 }
