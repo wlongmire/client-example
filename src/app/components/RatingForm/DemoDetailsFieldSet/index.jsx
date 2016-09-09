@@ -13,8 +13,8 @@ function DemoDetailsFieldSet(props) {
     }
   } = props;
   return (
-    <fieldset>
-      Ok, we're going to need some specifics on that
+    <fieldset className="sub-questions">
+       <span className="area-label-sub">Ok, we're going to need some specifics on that</span>
       <ul>
         <li>
           <span className="area-label-sub">Is the GC hiring a demo subcontractor?</span>

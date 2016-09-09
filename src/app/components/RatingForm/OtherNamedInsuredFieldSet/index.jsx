@@ -11,7 +11,7 @@ function OtherNamedInsuredFieldSet(props) {
     }
   } = props;
   return (
-    <fieldset>
+    <fieldset className="sub-questions">
       <span className="area-label-sub">Tell us about them.</span>
       <ul>
         <li>

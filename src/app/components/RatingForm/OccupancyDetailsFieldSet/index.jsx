@@ -21,7 +21,7 @@ function OccupancyDetailsFieldSet(props) {
     }
   } = props;
   return (
-    <fieldset>
+    <fieldset className="sub-questions">
       <span className="area-label-sub">Yes? Ok we'll need some more info.</span>
       <ul>
         <li>

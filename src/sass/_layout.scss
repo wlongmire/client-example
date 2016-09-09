@@ -4,6 +4,10 @@ body, html{
 	font-family:"Lato", sans-serif;
 }
 
+body{
+	padding-bottom:100px;
+}
+
 .signin{
 	max-width:1366px;
 	width:80%;
@@ -18,7 +22,7 @@ body, html{
 	}
 }
 
-.RatingForm__container{
+.RatingForm__container, .RatingResults__container{
 	max-width:1366px;
 	width:80%;
 	margin: 8em auto 0 !important;
@@ -115,4 +119,64 @@ select{
 
 radiogroup{
 	margin-top:0 !important;
+}
+
+.sub-questions{
+	// -webkit-transform: scaleY(0);
+	// -o-transform: scaleY(0);
+	// -ms-transform: scaleY(0);
+	// transform: scaleY(0);
+
+	// -webkit-transform-origin: top;
+	// -o-transform-origin: top;
+	// -ms-transform-origin: top;
+	// transform-origin: top;
+
+	// -webkit-transition: -webkit-transform 0.26s ease-out;
+	// -o-transition: -o-transform 0.26s ease;
+	// -ms-transition: -ms-transform 0.26s ease;
+	// transition: transform 0.26s ease;
+
+	background:#FFFFFF;
+	border-radius:5px;
+	color:$darkBlue;
+	padding:20px;
+	box-shadow:0 0 4px #000000;
+
+	.area-label-sub{
+		font-weight:400;
+	}
+
+	textarea, input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"]{
+		border-color:$mediumBlue;
+	}
+}
+
+.premium-details{
+	border:1px solid #FFFFFF;
+	border-radius:10px;
+	padding:20px;
+	margin-bottom:20px;
+	.premium-number{
+		display:inline-block;
+		width:20%;
+		text-align:center;
+		font-weight:300;
+		font-size:1.5em;
+			span{
+				font-size:1.7em;
+				font-weight:700;
+				display:block;
+				margin-top:20px;
+			}
+	}
+}
+
+.RatingResults__container{
+	text-align:left !important;
+}
+
+.legalText{
+	font-size:.8em;
+	text-align:center;
 }
