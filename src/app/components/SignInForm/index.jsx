@@ -28,7 +28,6 @@ function SignInForm(props) {
         },
         handleSubmit
     } = props;
-
     return (
     <form className="SignInForm__container" onSubmit={handleSubmit}>
         <CredentialsFieldSet field={credentials} />

@@ -23,6 +23,7 @@ function ContactInfoFieldSet(props) {
           </label>
         </li>
         <li>
+
           <label>
             <PureInput
               type="tel"
@@ -35,4 +36,5 @@ function ContactInfoFieldSet(props) {
     </fieldset>
   );
 }
+
 export default ContactInfoFieldSet;
