@@ -13,7 +13,7 @@ function GeneralContractorFieldSet(props) {
     }
   } = props;
   return (
-    <fieldset>
+    <fieldset className="sub-questions">
       <span className="area-label-sub">Yes? Great! Let's get some more information</span>
       <ul>
         <li>
@@ -66,4 +66,5 @@ function GeneralContractorFieldSet(props) {
     </fieldset>
   );
 }
+
 export default GeneralContractorFieldSet;

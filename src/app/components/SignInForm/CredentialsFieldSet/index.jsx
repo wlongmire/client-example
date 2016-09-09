@@ -22,7 +22,6 @@ function CredentialFieldSet(props) {
       <ul className="no-bullets">
         <li>
           <label>
-
             <PureInput
               type="text"
               field={username}
