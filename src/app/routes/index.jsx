@@ -19,10 +19,26 @@ import RatingResults from 'components/RatingResults';
 import Http404 from 'routes/Http404';
 
 const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: state => state.user,
-  redirectAction: routerActions.replace,
-  wrapperDisplayName: 'UserIsAuthenticated',
-  failureRedirectPath: '/' // Go back to sign in page at /
+
+  authSelector:         state => state.user,
+  redirectAction:       routerActions.replace,
+  wrapperDisplayName:   'UserIsAuthenticated',
+  failureRedirectPath:  '/' // Go back to sign in page at /
+
+});
+
+const UserRolePowerUser = UserAuthWrapper({
+
+  authSelector:         state => state.user,
+  // redirectAction:       routerActions.replace,
+  wrapperDisplayName:   'UserRolePowerUser',
+  failureRedirectPath:  '/',
+  predicate:            (props) => {
+    
+    return props.state.user.role === 'poweruser';
+  },
+  allowRedirectBack:    false
+
 });
 
 export default (
@@ -46,7 +62,7 @@ export default (
     />
     <Route
       path='powerconsole'
-      component={PowerConsole}
+      component={UserIsAuthenticated(UserRolePowerUser(PowerConsole))}
     />
     <Route
       path='*'
