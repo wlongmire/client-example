@@ -1,3 +1,12 @@
+ export function formatDollars(value) {
+  if (!value) return '$';
+  return `$${commifyNumber(onlyNums(value))}`;
+ }
+
+ export function onlyNums(value) {
+   return value.replace(/[^\d]/g, '');
+ }
+
 export function commifyNumber(number) {
   let numberString = number.toString();
   let numberArray = numberString.split('.');

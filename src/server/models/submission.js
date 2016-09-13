@@ -20,8 +20,14 @@ const submissionSchema = new mongoose.Schema({
   contactInfo: Object,
   quotedPremium: Number,
   status: String,
-  commission: {type: Number, default: 17.5},
+  commission: {type: Number, default: 15},
   pdfToken: String,
+  terrorPremium: Number,
+  additionalCoverage: Number,
+  totalPremium: Number,
+  totalCost: Number,
+  excessPremium: Number,
+  excessDetails: Object,
   submittedBy: {type: Schema.Types.ObjectId, ref: 'user', default: null},
   broker: {type: Schema.Types.ObjectId, ref: 'broker', default: null}
 }, {timestamps: true});

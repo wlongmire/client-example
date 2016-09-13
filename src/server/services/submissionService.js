@@ -111,6 +111,7 @@ async function generatePDFData(submissionIdentifier) {
     otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'N/A',
     commissionRate: `${submission.commission} %`
   }
+  console.log('successfully generated PDF');
   return pdfData;
 }
  catch (err) {

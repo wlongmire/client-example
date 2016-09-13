@@ -32,22 +32,14 @@ async function getRating(req, res) {
         let submission = createSubmissionObject(req.body, result);
         createNewSubmission(submission)
           .then(newSub => {
-            console.log(newSub.quotedPremium)
-            if (newSub.quotedPremium > 0)
-            {
-            generateSubmissionPDF(newSub.pdfToken)
-            .then(pdf => {
-            sendSubmissionEmailArgo(newSub, pdf);
+            if (newSub.quotedPremium > 0) {
+            sendSubmissionEmailArgo(newSub);
             //sendSubmissionEmailClient(newSub);
-            return res.status(response.statusCode).json({success: true, premium: result.premium, confirmation: newSub.confirmationNumber});
-          })
-          .catch(err => {
-            console.log(err.message);
-          });
-            }
+            return res.status(response.statusCode).json({success: true, submission: newSub});
+          }
             else {
               sendNonQuoteEmailArgo(newSub)
-              return res.status(response.statusCode).json({success: true, premium: result.premium, confirmation: newSub.confirmationNumber});
+              return res.status(response.statusCode).json({success: true, submission: newSub});
             }
           });
         }
@@ -57,16 +49,30 @@ async function getRating(req, res) {
   }
 }
 
-function sendSubmissionEmailArgo(submission, pdf) {
-  emailService.sendSubmissionEmail(argoEmail, submission, config.argoTemplateId, pdf);
+function sendSubmissionEmailArgo(submission) {
+  let pdfArray = [];
+  console.log(submission.pdfToken)
+  generateSubmissionPDF(submission.pdfToken)
+    .then(glpdf => {
+      pdfArray.push({title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`, content: glpdf})
+      if (submission.excessPremium > 0){
+        //generateExcessPDF(submission.pdfToken)
+        //.then(excessPdf => {
+        //  pdfArray.push({title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`, content: excessPdf})
+          emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+        //})
+      }
+      else
+        emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+    });
 }
 
-function sendSubmissionEmailClient(submission, pdf) {
-  emailService.sendSubmissionEmail(submission.email, submission, config.brokerTemplateId);
+function sendSubmissionEmailClient(submission) {
+  emailService.sendSubmissionEmail('quotedBroker', submission.email, submission, config.brokerTemplateId);
 }
 
 function sendNonQuoteEmailArgo(submission){
-  emailService.sendSubmissionEmail(argoEmail, submission, '', null);
+  emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, '', null);
 }
 
 async function createNewSubmission(submission) {
@@ -78,12 +84,35 @@ async function generateSubmissionPDF(token) {
   return pdf;
 }
 
+// async function generateExcessPDF(token) {
+//   let pdf = await submissionService.generateExcessPDF(token);
+//   return pdf;
+// }
+
 function createSubmissionObject(subInfo, quoteInfo) {
+  console.log(quoteInfo);
   let premium;
+  let terrorismPremium;
+  let additionalCoverage;
+  let totalPremium;
+  let totalCost;
   const today = new Date();
+
   if (quoteInfo.premium > 0) {
     premium = quoteInfo.premium;
+    terrorismPremium = Math.round(0.05 * premium);
+    if (premium< 25000) {
+      additionalCoverage = 125;
+    } else {
+      additionalCoverage = 250
+    }
+
+    totalPremium = terrorismPremium + premium + additionalCoverage;
+    const inspectionCost = 325
+    totalCost = totalPremium + inspectionCost
   }
+
+
   let submission = {
   primaryNamedInsured: subInfo.primaryNamedInsured,
   namedInsuredAddress: subInfo.namedInsuredAddress,
@@ -98,7 +127,13 @@ function createSubmissionObject(subInfo, quoteInfo) {
   workDetails: subInfo.workDetails,
   contactInfo: subInfo.contactInfo,
   quotedPremium: premium,
-  status: 'submitted'
+  status: 'submitted',
+  terrorPremium: terrorismPremium,
+  additionalCoverage: additionalCoverage,
+  totalPremium: totalPremium,
+  totalCost: totalCost,
+  excessPremium: quoteInfo.excessPremium,
+  excessDetails: subInfo.excessDetails
   }
   return submission;
 }

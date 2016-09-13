@@ -49,7 +49,9 @@ const fields = [
   'workDetails.totalSpend',
   'workDetails.generalContractor',
   'contactInfo.email',
-  'contactInfo.phone'
+  'contactInfo.phone',
+  'excessDetails.required',
+  'excessDetails.limits'
 ];
 
 const mapDispatchToProps = {
