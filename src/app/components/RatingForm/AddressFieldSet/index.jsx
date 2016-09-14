@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
@@ -26,6 +25,7 @@ function AddressFieldSet(props) {
       <span className="area-label">{title}</span>
       <ul>
         <li>
+
           <label>
             <PureInput
               type="text"
@@ -44,7 +44,6 @@ function AddressFieldSet(props) {
           </label>
         </li>
         <li>
-
             <PureOptionSelect
               field={state}
             >
@@ -56,16 +55,12 @@ function AddressFieldSet(props) {
               }
             </PureOptionSelect>
 
-
-
-
             <PureInput
               type="text"
               field={zip}
               placeholder="Zip"
               className="zip-input"
             />
-
         </li>
       </ul>
     </fieldset>

@@ -13,7 +13,7 @@ function WorkDetailsFieldSet(props) {
     }
   } = props;
   return (
-    <fieldset>
+    <fieldset className="sub-questions">
       <span className="area-label-sub">Ok, we're going to need some specifics on that</span>
       <ul>
         <li>
@@ -55,4 +55,5 @@ function WorkDetailsFieldSet(props) {
     </fieldset>
   );
 }
+
 export default WorkDetailsFieldSet;
