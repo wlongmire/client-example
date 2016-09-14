@@ -72,6 +72,10 @@ class PowerConsole extends Component {
 
       if (!res.success) return Promise.reject(res.message);
 
+      // Update the auth token.
+      // @TODO switch to auth and refresh token model
+      localStorage.setItem('token', res.authToken);
+      
       this.setState({
         data: res.submissions
       });

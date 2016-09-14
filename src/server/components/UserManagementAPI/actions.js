@@ -31,6 +31,7 @@ function login(req, res, next) {
           firstName: user.firstName,
           lastName: user.lastName,
           role: user.role,
+          _brokerId: user._brokerId,
           accountPending: user.accountPending
         }
       });
@@ -45,6 +46,43 @@ function login(req, res, next) {
   //   return res.status(200).json();
   // });
 }
+
+/**
+ * Token end-point (HTTP POST only)
+ * Returns the following:
+ * {
+ *   "access_token": "...", // New access token
+ *   "expires_in": ""
+ * }
+ */
+// function token(req, res, next) {
+//   // Grant type: 
+//   //   - "refresh_token", requires refresh_token parameter, grant_type="refresh_token" parameter
+//   //
+//   //
+//   // 
+//   // We exclude "password" grant type, as the login() action handles this for us
+//   if (!req.body.refresh_token) {
+//     return res.status(401).json({type: "AuthError", message: "Invalid refresh token."});
+//   }
+
+//   if (req.body.grant_type === "refresh_token") {
+//     // Check the refresh token. Is it still valid?
+
+//     User.refreshToken(req.body.refresh_token)
+//     .then((result) => {
+
+//     }).catch((e) => {
+//       console.log("token API end-point ERROR");
+//       console.log(e);
+//     });
+//     // Yes, return new Authorization token
+//   } else {
+//     // Error. Invalid grant type
+//     return res.status(401).json({type: "AuthError", message: "Invalid grant type."});
+//   }
+
+// }
 
 function listBrokers(req, res, next) {
   // Display a list of Brokers by query
@@ -63,6 +101,7 @@ function listBrokers(req, res, next) {
 function listPowerUsers(req, res, next) {
   let brokerId;
   // Display a list of Power Users associated with the provided brokerId parameter.
+  // @TODO enforce ACL!
   // @TODO Sanitize user input!
   // @TODO enforce throttle (max API calls per second)
   if (!(req.params.brokerId || req.query.brokerId) ) {
@@ -99,7 +138,10 @@ function listSubmissions(req, res, next) {
 
   User.fromAuthToken(req.headers['x-token']).then((result) => {
     // Assert 'poweruser' or 'admin' role.
-    
+    if (!result || !result.user) {
+      return res.status(403).json({ type: "AuthError", message: "Access forbidden. Invalid user token." });
+    }
+
     if ( userService.assertRole(result.user, ['admin', 'poweruser']) ) {
       // Ok!
       Submission.find({
@@ -107,13 +149,14 @@ function listSubmissions(req, res, next) {
       }).limit(10).sort('-createdAt').exec(function (err, submissions) {
         return res.status(200).json({
           success: true,
-          submissions: submissions
+          submissions: submissions,
+          authToken: result.authToken
         });
       });
 
     } else {
       // Nope.
-      res.status(403).json( {type: "AclInsufficientPermissionError", message: "Access forbidden. Insufficient role permission."} );
+      return res.status(403).json( {type: "AclInsufficientPermissionError", message: "Access forbidden. Insufficient role permission."} );
     }
 
   }).catch((e) => {
@@ -121,15 +164,19 @@ function listSubmissions(req, res, next) {
 
     if (e.name === 'TokenExpiredError') {
       // Authenticate once again, so as to create a new token.
-      res.status(401).json( {type: e.name, message: "Authorization required. Token Expired"} );
+      return res.status(401).json( {type: e.name, message: "Authorization required. Token Expired"} );
     } else {
-      res.status(500).json( {message: e.message });
+      return res.status(500).json( {type: "error", message: e.message });
     }
   });
 
 }
 
 function ping(req, res, next) {
+
+  // if (req.headers['x-token']) {
+
+  // }
   return res.status(200).json({ message: 'OK'});
 }
 

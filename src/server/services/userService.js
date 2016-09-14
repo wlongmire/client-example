@@ -17,6 +17,10 @@ function assertRole(user, roles) {
     
 }
 
+// function refreshSession(token) {
+//       
+// }
+
 export default {
     verifyUser,
     assertRole
