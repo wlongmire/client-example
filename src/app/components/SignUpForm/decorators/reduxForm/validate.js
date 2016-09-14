@@ -28,5 +28,9 @@ export default function validate(values) {
 
     // ...Don't bother enforcing a last name. Not everyone has one.
 
+    if (!values.account.broker) {
+        errors.account.broker = 'Invalid Broker selected.';
+    }
+
     return errors;
 };

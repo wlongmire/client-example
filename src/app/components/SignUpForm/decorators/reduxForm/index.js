@@ -9,7 +9,8 @@ const fields = [
   'credentials.password',
   'credentials.retypePassword',
   'account.firstName',
-  'account.lastName'
+  'account.lastName',
+  'account.broker'
 ];
 
 const mapDispatchToProps = {

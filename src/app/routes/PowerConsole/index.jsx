@@ -72,6 +72,10 @@ class PowerConsole extends Component {
 
       if (!res.success) return Promise.reject(res.message);
 
+      // Update the auth token.
+      // @TODO switch to auth and refresh token model
+      localStorage.setItem('token', res.authToken);
+      
       this.setState({
         data: res.submissions
       });
@@ -82,30 +86,6 @@ class PowerConsole extends Component {
       return Promise.reject({ _error: error.message });
     });
   }
-
-  // contextTypes: {
-  //   config: React.PropTypes.object.isRequired,
-  //   content: React.PropTypes.object.isRequired
-  // },
-  // getInitialState() {
-  //     return {
-  //       content: {
-  //         title: 'Power Console'
-  //       },
-  //       pageIndex: 1,
-  //       pageCountPerPage: 5,
-  //       query: '',
-  //       queryTotal: 0,
-  //       data: [
-  //         {date: moment().format('MMMM Do YYYY, h:mm:ss a'), isApproved: 'Yes'},
-  //         {date: moment().format('MMMM Do YYYY, h:mm:ss a'), isApproved: 'No'}
-  //       ],
-  //       columns: [
-  //         {key: 'date', value: 'Date'}, 
-  //         {key: 'isApproved', value: 'Approved?'}
-  //       ]
-  //     };
-  // }
 };
 
 export default connect()(PowerConsole);
