@@ -4,6 +4,7 @@ import styles from './styles';
 class SearchBar extends Component {
   shouldComponentUpdate(nextProps) {
     return this.props.pageIndex         !== nextProps.pageIndex || 
+           this.props.pageCount         !== nextProps.pageCount ||
            this.props.pageCountPerPage  !== nextProps.pageCountPerPage ||
            this.props.query             !== nextProps.query || 
            this.props.queryTotal        !== nextProps.queryTotal ||
@@ -13,6 +14,7 @@ class SearchBar extends Component {
   render() {
     const {
       pageIndex,
+      pageCount,
       pageCountPerPage,
       query,
       queryTotal,

@@ -14,6 +14,12 @@
             ul, ul > li {
                 display: inline-block;
             }
+
+            li.selected {
+                button {
+                    border: none;
+                }
+            }
         }
     }
 }

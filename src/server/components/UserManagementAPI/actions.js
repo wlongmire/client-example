@@ -144,13 +144,23 @@ function listSubmissions(req, res, next) {
 
     if ( userService.assertRole(result.user, ['admin', 'poweruser']) ) {
       // Ok!
-      Submission.find({
+      let count = 0;
+      let logical = {
         or: [{submittedBy: result.user}, {broker: result.user.broker}]
-      }).limit(10).sort('-createdAt').exec(function (err, submissions) {
-        return res.status(200).json({
-          success: true,
-          submissions: submissions,
-          authToken: result.authToken
+      };
+
+      Submission.count(logical, function (err, c) {
+        count = parseInt(c) || 1;
+        
+        let pageCount = Math.ceil(count / parseInt(req.params.pageCountPerPage) || 1);
+        
+        Submission.find(logical).limit(10).sort('-createdAt').exec(function (err, submissions) {
+          return res.status(200).json({
+            success: true,
+            pageCount: pageCount,
+            submissions: submissions,
+            authToken: result.authToken
+          });
         });
       });
 
