@@ -122,6 +122,14 @@ function listPowerUsers(req, res, next) {
   });
 }
 
+function listUsers(req, res, next) {
+  User.find().sort('-username').exec(function (err, users) {
+    return res.status(200).json({
+      success: true,
+      users
+    });
+  });
+}
 
 
 function listSubmissions(req, res, next) {
@@ -269,5 +277,6 @@ export default {
   register,
   listBrokers,
   listPowerUsers,
+  listUsers,
   listSubmissions
 }
