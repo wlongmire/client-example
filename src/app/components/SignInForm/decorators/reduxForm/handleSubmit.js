@@ -23,6 +23,7 @@ let handleSubmit =  (values, dispatch) => {
         return Promise.reject(res.message);
       }
       const {user, token} = res;
+      let newPath = user.role === 'poweruser' ? '/powerconsole' : '/form';
       // console.log("Dispatching (push)");
       // console.log(user);
 
@@ -33,7 +34,7 @@ let handleSubmit =  (values, dispatch) => {
        * See https://github.com/mjrussell/react-redux-jwt-auth-example/tree/react-router-redux
        */
       return dispatch(push({
-        pathname: '/form',
+        pathname: newPath,
 
         state: {
           type: 'USER_LOGGED_IN',
@@ -42,8 +43,8 @@ let handleSubmit =  (values, dispatch) => {
         }
       }));
     })
-    .catch((error) => {
-      return Promise.reject({ _error: error });
+    .catch((e) => {
+      return Promise.reject({ _error: e });
     });
   };
 }

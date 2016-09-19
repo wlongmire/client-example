@@ -19,12 +19,8 @@ export default function handleSubmit(values, dispatch) {
       .then(res => res.json())
       .then((res) => {
         if (!res.success) return Promise.reject(res.message);
-        const { premium } = res;
         return dispatch(push({
-          pathname: '/form',
-          state: {
-            premium
-          }
+          pathname: '/form'
         }));
       })
       .catch((error) => {
@@ -35,12 +31,14 @@ export default function handleSubmit(values, dispatch) {
 }
 
 function formatRequestBody(values) {
+  
   return JSON.stringify({
     
     username: values.credentials.username,
     password: values.credentials.password,
     retypePassword: values.credentials.retypePassword,
     firstName: values.account.firstName,
-    lastName: values.account.lastName
+    lastName: values.account.lastName,
+    _brokerId: values.account.broker
   });
 }

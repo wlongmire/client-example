@@ -56,12 +56,28 @@ user.statics.fromAuthToken = function (token) {
       _brokerId: 1})
     .then(function (user) {
       if (jwt.verify(token, user.salt)) {
+
+        // @TODO switch to auth and refresh tokens, instead of just generating new tokens on call.
+        let authToken = user.generateToken();
         
-        return Promise.resolve({viewer, user});
+        return Promise.resolve({viewer, user, authToken});
       }
       return Promise.resolve(null);
     });
 };
+
+// user.statics.refreshToken = function (token) {
+//   var viewer = jwt.decode(token);
+
+//   if (!viewer || !viewer) {
+//     return Promise.reject(null);
+//   }
+
+//   let accessToken = {};
+//   let refreshToken = {};
+
+//   return Promise.resolve({viewer, accessToken, refreshToken});
+// }
 
 // Include passport related functionality
 user.plugin(passportLocalMongoose);

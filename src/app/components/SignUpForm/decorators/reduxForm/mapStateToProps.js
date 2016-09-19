@@ -9,7 +9,8 @@ export default function mapStateToProps() {
       },
       account: {
         firstName: null,
-        lastName: null
+        lastName: null,
+        broker: null
       }
     }
   };
