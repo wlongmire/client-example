@@ -50,17 +50,19 @@ async function getRating(req, res) {
 }
 
 function sendSubmissionEmailArgo(submission) {
+  console.log('---generating GL PDF---')
   let pdfArray = [];
   console.log(submission.pdfToken)
   generateSubmissionPDF(submission.pdfToken)
     .then(glpdf => {
       pdfArray.push({title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`, content: glpdf})
       if (submission.excessPremium > 0){
-        //generateExcessPDF(submission.pdfToken)
-        //.then(excessPdf => {
-        //  pdfArray.push({title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`, content: excessPdf})
+        console.log('---generating Excess PDF---')
+        generateExcessPDF(submission.pdfToken)
+        .then(excessPdf => {
+          pdfArray.push({title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`, content: excessPdf})
           emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-        //})
+        })
       }
       else
         emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
@@ -84,10 +86,10 @@ async function generateSubmissionPDF(token) {
   return pdf;
 }
 
-// async function generateExcessPDF(token) {
-//   let pdf = await submissionService.generateExcessPDF(token);
-//   return pdf;
-// }
+async function generateExcessPDF(token) {
+  let pdf = await submissionService.generateExcessPDF(token);
+  return pdf;
+}
 
 function createSubmissionObject(subInfo, quoteInfo) {
   console.log(quoteInfo);

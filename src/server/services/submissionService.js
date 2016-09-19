@@ -36,16 +36,17 @@ function generateSubmissionPDF(token){
 return new Promise((resolve,reject) => {
   try {
     generatePDFData({token: token})
-    .then(pdfData => {
-    request({
-      url: config.submissionPDFUrl,
-      method: 'GET'
-    }, function(err, response, body) {
-        let handleTemplate = handlebars.compile(body);
-        let html = handleTemplate(Object.assign({}, pdfData));
-        pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
-          return resolve(buffer);
-        });
+     .then(pdfData => {
+        request({
+          url: config.submissionPDFUrl,
+          method: 'GET'
+        }, function(err, response, body) {
+            let handleTemplate = handlebars.compile(body);
+            let html = handleTemplate(Object.assign({}, pdfData));
+            pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
+                console.log('successfully generated PDF');
+              return resolve(buffer);
+            });
         });
       });
   }
@@ -53,6 +54,59 @@ return new Promise((resolve,reject) => {
     return reject(err);
   }
   })
+}
+
+function generateExcessPDF(token) {
+  return new Promise((resolve, reject) => {
+    try {
+    generateExcessPDFData({token: token})
+      .then(pdfData => {
+        request({
+          url: config.excessPDFUrl,
+          method: 'GET'
+        }, function(err, response, body) {
+            let handleTemplate = handlebars.compile(body);
+            let html = handleTemplate(Object.assign({}, pdfData));
+            pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
+                console.log('successfully generated Excess PDF');
+              return resolve(buffer);
+            });
+          });
+        });
+    }
+    catch (err) {
+      console.log(err.message);
+      return reject(err);
+    }
+  })
+}
+
+async function generateExcessPDFData(submissionIdentifier) {
+  try {
+  let submission;
+  if (submissionIdentifier.token) {
+    submission = await getSubmissionByToken(submissionIdentifier.token);
+  } else {
+    submission = await getSubmissionById(submissionIdentifier.token)
+  }
+  let terrorExcess = Math.round(0.05 * submission.excessPremium);
+  let totalExcess = submission.excessPremium + terrorExcess
+
+  const pdfData = {
+    namedInsured: submission.primaryNamedInsured,
+    excessLimits: `$ ${utilities.commifyNumber(submission.excessDetails.limits)}`,
+    baseExcess: `$ ${utilities.commifyNumber(submission.excessPremium)}`,
+    terrorExcess: `$ ${utilities.commifyNumber(terrorExcess)}`,
+    totalExcess: `$ ${utilities.commifyNumber(totalExcess)}`
+  }
+
+  return pdfData;
+
+  }
+  catch (err){
+    console.log(err.message)
+  }
+
 }
 
 async function generatePDFData(submissionIdentifier) {
@@ -79,8 +133,6 @@ async function generatePDFData(submissionIdentifier) {
   let gcInfo = submission.generalContractorInfo.isKnown === 'yes'
 
   const pdfData = {
-    userName: 'Justin Steranko',
-    brokerName: 'Broker Insurance',
     namedInsured: submission.primaryNamedInsured,
     quotedPremium: `$${utilities.commifyNumber(submission.quotedPremium)}`,
     terrorPremium: `$${utilities.commifyNumber(terrorismPremium)}`,
@@ -111,7 +163,7 @@ async function generatePDFData(submissionIdentifier) {
     otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'N/A',
     commissionRate: `${submission.commission} %`
   }
-  console.log('successfully generated PDF');
+
   return pdfData;
 }
  catch (err) {
@@ -139,5 +191,6 @@ export default {
   getAllSubmissions,
   getSubmissionById,
   updateSubmission,
-  generateSubmissionPDF
+  generateSubmissionPDF,
+  generateExcessPDF
 }

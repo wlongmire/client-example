@@ -3,7 +3,6 @@ import {utilities} from '../utils';
 
 const helper = require('sendgrid').mail;
 
-
 async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()
   let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
@@ -18,8 +17,12 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
       personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.namedInsured));
     break;
     case 'quotedBroker':
+          personalization.addSubstitution(new helper.Substitution('{{brokerName}}', 'Marsh Phrixus'));
+      personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.namedInsured));
     break;
     case 'nonQuoteArgo':
+          personalization.addSubstitution(new helper.Substitution('{{brokerName}}', 'Marsh Phrixus'));
+      personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.namedInsured));
     break;
     }
   mail.addPersonalization(personalization);

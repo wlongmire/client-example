@@ -47,6 +47,21 @@ function RatingResults(props) {
               </div>
             </div>
             <p>* $325 inspection fee not included</p>
+            <ToggleDisplay
+              show={isDefined(submission.excessPremium) && submission.excessPremium !== null}
+              render={ () => (
+                <div className="premium-details">
+                <div className="premium-number">
+                  Excess Limits Requested
+                  <span>{`$${commifyNumber(submission.excessDetails.limits)}`}</span>
+                </div>
+                <div className="premium-number">
+                  Excess Premium
+                  <span>{`$${commifyNumber(submission.excessPremium)}`}</span>
+                </div>
+            </div>
+        )}
+            />
 
             <p>Please check your email for a more detailed pricing indication and review it for accuracy.</p>
 
@@ -75,30 +90,3 @@ function RatingResults(props) {
 
 export default RatingResults;
 
-            // <ToggleDisplay
-            //   show={isDefined(submission.excessPremium) && submission.excessPremium !== null}
-            //   render={ () => {
-            //     <div className="premium-details">
-            //     <div className="premium-number">
-            //       Total Premium
-            //       <span>{`$${commifyNumber(submission.totalPremium)}`}</span>
-            //     </div>
-            //     <div className="premium-number">
-            //       Base Premium
-            //       <span>{`$${commifyNumber(submission.quotedPremium)}`}</span>
-            //     </div>
-            //     <div className="premium-number">
-            //       Additional Coverage
-            //       <span>{`$${commifyNumber(submission.additionalCoverage)}`}</span>
-            //     </div>
-            //     <div className="premium-number">
-            //       Terrorism Coverage
-            //       <span>{`$${commifyNumber(submission.terrorPremium)}`}</span>
-            //     </div>
-            //     <div className="premium-number">
-            //       Commission
-            //       <span>{`${submission.commission.toFixed(2)} %`}</span>
-            //     </div>
-            // </div>
-            //   }}
-            // />
