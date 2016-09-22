@@ -30,7 +30,7 @@ export default function handleSubmit(values, dispatch) {
         return dispatch(push({
           pathname: '/quote',
           state: {
-            premium,
+            submission: res.submission,
             email: values.contactInfo.email
           }
         }));
@@ -53,6 +53,7 @@ function formatRequestBody(values) {
     occupancy: values.occupancyDetails.willHave === 'yes',
     workStarted: values.workDetails.hasStarted === 'yes',
     towerCrane: values.towerCraneUse === 'yes',
-    otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes'
+    otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes',
+    excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0
   });
 }

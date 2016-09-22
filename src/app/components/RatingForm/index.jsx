@@ -15,6 +15,7 @@ import OccupancyDetailsFieldSet from './OccupancyDetailsFieldSet';
 import DemoDetailsFieldSet from './DemoDetailsFieldSet';
 import WorkDetailsFieldSet from './WorkDetailsFieldSet';
 import ContactInfoFieldSet from './ContactInfoFieldSet';
+import ExcessDetailsFieldSet from './ExcessDetailsFieldSet'
 
 import decorator from './decorators';
 
@@ -34,6 +35,7 @@ function RatingForm(props) {
       occupancyDetails,
       demoDetails,
       workDetails,
+      excessDetails,
       contactInfo
     },
     handleSubmit
@@ -235,6 +237,33 @@ function RatingForm(props) {
           render={() => (
             <li>
               <WorkDetailsFieldSet workDetails={workDetails} />
+            </li>
+          )}
+        />
+        <li>
+          <span className="area-label">Does this project require excess coverage?</span>
+          <radiogroup>
+            <label>
+              <PureRadio
+                value="yes"
+                field={excessDetails.required}
+              />
+              Yes
+            </label>
+            <label>
+              <PureRadio
+                value="no"
+                field={excessDetails.required}
+              />
+              No
+            </label>
+          </radiogroup>
+        </li>
+        <ToggleDisplay
+          show={excessDetails.required.value === 'yes'}
+          render={() => (
+            <li>
+              <ExcessDetailsFieldSet excessDetails={excessDetails} />
             </li>
           )}
         />
