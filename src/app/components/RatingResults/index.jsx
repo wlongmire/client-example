@@ -10,7 +10,7 @@ function RatingResults(props) {
   const {
     location: {
       state: {
-        premium,
+        submission,
         email
       }
     }
@@ -18,7 +18,7 @@ function RatingResults(props) {
   return (
     <div className="RatingResults__container">
       <ToggleDisplay
-        show={isDefined(premium) && premium !== null}
+        show={isDefined(submission.quotedPremium) && submission.quotedPremium !== null}
         render={() => (
           <div>
           <div>
@@ -27,28 +27,42 @@ function RatingResults(props) {
             <div className="premium-details">
               <div className="premium-number">
                 Total Premium
-                <span>{`$${commifyNumber(premium)}`}</span>
+                <span>{`$${commifyNumber(submission.totalPremium)}`}</span>
               </div>
               <div className="premium-number">
                 Base Premium
-                <span>{`$${commifyNumber(premium)}`}</span>
+                <span>{`$${commifyNumber(submission.quotedPremium)}`}</span>
               </div>
               <div className="premium-number">
                 Additional Coverage
-                <span>{`$${commifyNumber(premium)}`}</span>
+                <span>{`$${commifyNumber(submission.additionalCoverage)}`}</span>
               </div>
               <div className="premium-number">
                 Terrorism Coverage
-                <span>{`$${commifyNumber(premium)}`}</span>
+                <span>{`$${commifyNumber(submission.terrorPremium)}`}</span>
               </div>
                <div className="premium-number">
                 Commission
-                <span>{`$${commifyNumber(premium)}`}</span>
+                <span>{`${submission.commission.toFixed(2)} %`}</span>
               </div>
             </div>
-
             <p>* $325 inspection fee not included</p>
-  
+            <ToggleDisplay
+              show={isDefined(submission.excessPremium) && submission.excessPremium !== null}
+              render={ () => (
+                <div className="premium-details">
+                <div className="premium-number">
+                  Excess Limits Requested
+                  <span>{`$${commifyNumber(submission.excessDetails.limits)}`}</span>
+                </div>
+                <div className="premium-number">
+                  Excess Premium
+                  <span>{`$${commifyNumber(submission.excessPremium)}`}</span>
+                </div>
+            </div>
+        )}
+            />
+
             <p>Please check your email for a more detailed pricing indication and review it for accuracy.</p>
 
             <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase</p>
@@ -61,7 +75,7 @@ function RatingResults(props) {
         )}
       />
       <ToggleDisplay
-        show={!isDefined(premium) || premium === null}
+        show={!isDefined(submission.quotedPremium) || submission.quotedPremium === null || submission.quotedPremium <= 0}
         render={() => (
           <div>
             <h1 className="header-larger">We’re reviewing your submission!</h1>
@@ -75,3 +89,4 @@ function RatingResults(props) {
 }
 
 export default RatingResults;
+

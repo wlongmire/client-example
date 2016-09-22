@@ -1,5 +1,5 @@
 export default function mapStateToProps(state) {
-  
+
   return {
     initialValues: {
       primaryNamedInsured: '',
@@ -61,6 +61,10 @@ export default function mapStateToProps(state) {
         whatsCompleted: '',
         totalSpend: null,
         generalContractor: ''
+      },
+      excessDetails: {
+        required: '',
+        limits: 0
       },
       contactInfo: {
         email: '',
