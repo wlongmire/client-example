@@ -64,7 +64,7 @@ export default function mapStateToProps(state) {
       },
       excessDetails: {
         required: '',
-        limits: null
+        limits: 0
       },
       contactInfo: {
         email: '',

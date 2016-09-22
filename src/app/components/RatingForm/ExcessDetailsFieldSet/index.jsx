@@ -33,7 +33,7 @@ function ExcessDetailsFieldSet(props) {
             <PureOptionSelect
               field={limits}
             >
-              <option value=" " disabled>Limit</option>
+              <option value='0' disabled>Limit</option>
               {
                 limitsArray.map((limit) => (
                   <option key={limit} value={limit}>$ {commifyNumber(limit)}</option>
