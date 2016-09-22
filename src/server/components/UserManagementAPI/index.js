@@ -20,6 +20,8 @@ class UserManagement extends Component {
       .get(actions.listBrokers)
     router.route('/listPowerUsers')
       .get(actions.listPowerUsers)
+    router.route('/listUsers')
+      .get(actions.listUsers)
     router.route('/listSubmissions')
       .get(actions.listSubmissions)
     router.route('/')

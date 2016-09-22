@@ -122,6 +122,14 @@ function listPowerUsers(req, res, next) {
   });
 }
 
+function listUsers(req, res, next) {
+  User.find().sort('-username').exec(function (err, users) {
+    return res.status(200).json({
+      success: true,
+      users
+    });
+  });
+}
 
 
 function listSubmissions(req, res, next) {
@@ -132,9 +140,9 @@ function listSubmissions(req, res, next) {
   }
 
   // Display a list of submissions associated with power user
-  passport.use(new LocalStrategy(User.authenticate()));
-  passport.serializeUser(User.serializeUser());
-  passport.deserializeUser(User.deserializeUser());
+  // passport.use(new LocalStrategy(User.authenticate()));
+  // passport.serializeUser(User.serializeUser());
+  // passport.deserializeUser(User.deserializeUser());
 
   User.fromAuthToken(req.headers['x-token']).then((result) => {
     // Assert 'poweruser' or 'admin' role.
@@ -142,15 +150,36 @@ function listSubmissions(req, res, next) {
       return res.status(403).json({ type: "AuthError", message: "Access forbidden. Invalid user token." });
     }
 
-    if ( userService.assertRole(result.user, ['admin', 'poweruser']) ) {
-      // Ok!
-      Submission.find({
-        or: [{submittedBy: result.user}, {broker: result.user.broker}]
-      }).limit(10).sort('-createdAt').exec(function (err, submissions) {
-        return res.status(200).json({
-          success: true,
-          submissions: submissions,
-          authToken: result.authToken
+    
+    // Ok!
+    let count = 0;
+    let logical = {
+      $or: [{submittedBy: result.user._id}, {broker: result.user._brokerId}]
+    };
+
+    // Assert allowed roles
+    if ( userService.assertRole(result.user, ['admin', 'poweruser', 'user']) ) {
+      // If it's only a regular user, show only their submissions.
+      if (userService.assertRole(result.user, ['user'])) {
+        logical = {
+          submittedBy: result.user._id
+        };
+      }
+
+      Submission.count(logical, function (err, c) {
+        // console.log(err);
+        // console.log("Got %d", c);
+        count = parseInt(c) || 1;
+        
+        let pageCount = Math.ceil(count / parseInt(req.params.pageCountPerPage) || 1);
+        
+        Submission.find(logical).limit(10).sort('-createdAt').exec(function (err, submissions) {
+          return res.status(200).json({
+            success: true,
+            pageCount: pageCount,
+            submissions: submissions,
+            authToken: result.authToken
+          });
         });
       });
 
@@ -181,16 +210,19 @@ function ping(req, res, next) {
 }
 
 // Allow Admin or Power user to set user account as verified.
-async function verifyUser(req, res, next) {
+function verifyUser(req, res, next) {
 
-  if (!req.params.id) {
+  console.log('query: ', req.query);
+  console.log('body: ', req.body);
+  console.log('params: ', req.params);
+  if (!req.query.id) {
     return res.status(400).json({ message: 'Missing ID parameter.' });
   }
 
-  const userId = req.params.id;
-  let updatedUser = await userService.verifyUser(userId);
+  const userId = req.query.id;
+  let updatedUser = userService.verifyUser(userId);
 
-  return res.json({success: true, user: updatedUser});
+  return res.json({success: true});
 }
 
 function register(req, res, next) {
@@ -259,5 +291,6 @@ export default {
   register,
   listBrokers,
   listPowerUsers,
+  listUsers,
   listSubmissions
 }

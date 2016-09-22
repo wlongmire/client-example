@@ -1,5 +1,6 @@
 import request from 'request';
 import config from '../../../config';
+import {User, Broker} from '../../models';
 import { emailService, submissionService } from '../../services';
 
 const appId = config.appId;
@@ -15,35 +16,70 @@ async function getSingleSubmission(req, res) {
 
 async function getRating(req, res) {
   try {
-    const params = JSON.stringify(req.body);
-    request({
-      method: 'POST',
-      uri: `http://ratingsapi-dev.herokuapp.com/api/rating/${appId}/calcRating`,
-      body: params,
-      headers: {
-        'Content-Type': 'application/json'
+
+    // console.log("checking for token...");
+    if (!req.headers['x-token']) {
+      return res.status(401).json('Authorization token required');
+    }
+    // console.log("auth from token...");
+
+    User.fromAuthToken(req.headers['x-token']).then((result) => {
+      // console.log("fromAuthToken result is");
+      // console.log(result);
+
+      if (!result || !result.user) {
+        // console.log("Invalid token!");
+        return res.status(403).json({ type: "AuthError", message: "Access forbidden. Invalid user token." });
       }
-    }, function (err, response, body) {
-      if (err) {
-        return res.status(response.statusCode).json({success: false, type: err.type, message: err.message});
-      }
-      else {
-        const result = JSON.parse(body);
-        let submission = createSubmissionObject(req.body, result);
-        createNewSubmission(submission)
-          .then(newSub => {
-            if (newSub.quotedPremium > 0) {
-            sendSubmissionEmailArgo(newSub);
-            //sendSubmissionEmailClient(newSub);
-            return res.status(response.statusCode).json({success: true, submission: newSub});
-          }
-            else {
-              sendNonQuoteEmailArgo(newSub)
-              return res.status(response.statusCode).json({success: true, submission: newSub});
-            }
-          });
+
+      const params = JSON.stringify(req.body);
+      const user = result.user;
+      const newAuthToken = result.authToken;
+      let broker;
+
+      Broker.findById(user._brokerId).exec((err, brkr) => {
+        // console.log("err?");
+        // console.log(err);
+        // console.log("found broker");
+
+        broker = brkr;
+      });
+      // console.log("Broker is");
+      // console.log(broker);
+      // console.log("Sending request!");
+      request({
+        method: 'POST',
+        uri: `http://ratingsapi-dev.herokuapp.com/api/rating/${appId}/calcRating`,
+        body: params,
+        headers: {
+          'Content-Type': 'application/json'
         }
+      }, function (err, response, body) {
+        if (err) {
+          return res.status(response.statusCode).json({success: false, type: err.type, message: err.message});
+        } else {
+          const result = JSON.parse(body);
+          let submission = createSubmissionObject(req.body, result);
+
+          submission.broker = broker;
+          submission.submittedBy = user;
+
+          createNewSubmission(submission)
+            .then(newSub => {
+              if (newSub.quotedPremium > 0) {
+              sendSubmissionEmailArgo(newSub);
+              //sendSubmissionEmailClient(newSub);
+              return res.status(response.statusCode).json({success: true, submission: newSub, authToken: newAuthToken});
+            }
+              else {
+                sendNonQuoteEmailArgo(newSub)
+                return res.status(response.statusCode).json({success: true, submission: newSub, authToken: newAuthToken});
+              }
+            });
+        }
+      }).bind(this);  
     });
+    
   } catch (err) {
     return res.status(500)
   }

@@ -1,9 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import styles from './styles';
 
 class Paginator extends Component {
+
   shouldComponentUpdate(nextProps) {
     return this.props.pageIndex         !== nextProps.pageIndex || 
+           this.props.pageCount         !== nextProps.pageCount || 
            this.props.pageCountPerPage  !== nextProps.pageCountPerPage ||
            this.props.query             !== nextProps.query || 
            this.props.queryTotal        !== nextProps.queryTotal ||
@@ -14,25 +18,41 @@ class Paginator extends Component {
     const {
       pageIndex,
       pageCountPerPage,
+      pageCount,
       query,
       queryTotal,
       ...rest } = this.props;
-    
+    let pageButtons = [];
+
+    const generatePageButtons = () => {
+      let result;
+
+      pageButtons = [];
+
+      for (let i = 1; i <= pageCount; i++) {
+        pageButtons.push(
+          <li key={'page_' + i} className={i==pageIndex ? 'selected' : ''}>
+            <button data-page-index={i} onClick={this.props.onClick}>{i}</button>
+          </li>
+        );
+      }
+    };
+
+    generatePageButtons();
+
     return (
-      <div className="paginator"
-        
-        { ...rest }
-      >
+      <div className="paginator">
         <div className="paginator__container">
-          <button>Previous</button>
+          <button onClick={this.props.handlePrevious}>Previous</button>
           <div className="paginator__list_container">
+
             <ul>
-              <li><button>1</button></li>
-              <li><button>2</button></li>
-              <li><button>3</button></li>
+              {
+                pageButtons
+              }
             </ul>
           </div>
-          <button>Next</button>
+          <button onClick={this.props.handleNext}>Next</button>
         </div>
       </div>
     );
@@ -43,4 +63,4 @@ Paginator.propTypes = {
   // query: PropTypes.object.isRequired
 };
 
-export default Paginator;
+export default connect()(Paginator);

@@ -32,6 +32,7 @@ class PowerConsole extends Component {
       },
       pageIndex: 1,
       pageCountPerPage: 5,
+      pageCount: 5,
       query: '',
       queryTotal: 0,
       data: [],
@@ -42,24 +43,93 @@ class PowerConsole extends Component {
       ]
     };
   }
+
+  handlePaginator(ev)
+  {
+    let savedIndex = parseInt(this.state.pageIndex);
+    let index = parseInt(ev.target.dataset.pageIndex);
+    
+    if (savedIndex !== index) {
+      this.state.pageIndex = index;
+      this.setState({
+        pageIndex: index
+      });
+
+      this.loadData();
+    }
+  }
+
+  handlePaginatorPrevious()
+  {
+    let savedIndex = parseInt(this.state.pageIndex);
+    let previousIndex = parseInt(this.state.pageIndex) - 1 > 1 ? 
+                          parseInt(this.state.pageIndex) - 1 : 
+                          1;
+    
+    if (savedIndex !== previousIndex) {
+      this.setState({
+        pageIndex: previousIndex
+      });
+      this.loadData();
+    }
+  }
+
+  handlePaginatorNext()
+  {
+    let savedIndex = parseInt(this.state.pageIndex);
+    let nextIndex = parseInt(this.state.pageIndex) + 1 <= parseInt(this.state.pageCount) ? 
+                      parseInt(this.state.pageIndex) + 1 : 
+                      parseInt(this.state.pageCount);
+    
+    if (savedIndex !== nextIndex) {
+      this.setState({
+        pageIndex: nextIndex
+      });
+
+      this.loadData();
+    }
+  }
+
   render() {
     
-    let state = this.state;
+    let self = this;
 
     return (
       <div className='powerconsole'>
-        <Helmet title={state.content.title} />
-        <SearchBar pageIndex={state.pageIndex} pageCountPerPage={state.pageCountPerPage} query={state.query} queryTotal={state.queryTotal} data={state.data} />
-        <ListTable pageIndex={state.pageIndex} pageCountPerPage={state.pageCountPerPage} query={state.query} queryTotal={state.queryTotal} data={state.data} columns={state.columns} />
-        <Paginator pageIndex={state.pageIndex} pageCountPerPage={state.pageCountPerPage} query={state.query} queryTotal={state.queryTotal} data={state.data} />
+        <Helmet title={this.state.content.title} />
+        <SearchBar pageIndex={this.state.pageIndex} pageCount={this.state.pageCount} pageCountPerPage={this.state.pageCountPerPage} query={this.state.query} queryTotal={this.state.queryTotal} data={this.state.data} />
+        <ListTable pageIndex={this.state.pageIndex} pageCount={this.state.pageCount} pageCountPerPage={this.state.pageCountPerPage} query={this.state.query} queryTotal={this.state.queryTotal} data={this.state.data} columns={this.state.columns} />
+        { this.state.pageCount > 1 ? 
+          <Paginator 
+            onClick={this.handlePaginator.bind(self)} 
+            handlePrevious={this.handlePaginatorPrevious.bind(self)} 
+            handleNext={this.handlePaginatorNext.bind(self)}
+            pageIndex={this.state.pageIndex} 
+            pageCount={this.state.pageCount} 
+            pageCountPerPage={this.state.pageCountPerPage} 
+            query={this.state.query} 
+            queryTotal={this.state.queryTotal} 
+            data={this.state.data} />
+            : '' 
+        }
       </div>
     );
   }
 
   componentDidMount() {
-    let token = localStorage.getItem('token');
+      this.loadData();
+  }
+
+  loadData() {
     
-    return fetch(baseURL + '/um/listSubmissions', {
+    let token = localStorage.getItem('token');
+    let self = this;
+    
+    return fetch(baseURL + '/um/listSubmissions?' 
+      + 'pageCountPerPage=' + encodeURIComponent(this.state.pageCountPerPage)
+      + 'pageIndex=' + encodeURIComponent(this.state.pageIndex)
+      + 'query=' + encodeURIComponent(this.state.query),
+    {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -67,17 +137,37 @@ class PowerConsole extends Component {
         'x-token': token
       }
     })
-    .then(res => res.json())
-    .then((res) => {
+    .then(res => {
+      // Authorization HTTP status codes
+      if (res.status > 400) {
+        // Session expired
+        if (res.status == 401) {
+          // Go back to sign in.
+          return self.props.dispatch(push({
+            pathname: '/'
+          }));
+        }
 
-      if (!res.success) return Promise.reject(res.message);
+        // Insufficient permission(s)
+        if (res.status == 403) {
+          // @TODO handle insufficient permissions status
+        }
+        
+      }
+
+      return res.json();
+    })
+    .then((data) => {
+      
+      if (!data.success) return Promise.reject(data.message);
 
       // Update the auth token.
       // @TODO switch to auth and refresh token model
-      localStorage.setItem('token', res.authToken);
+      localStorage.setItem('token', data.authToken);
       
       this.setState({
-        data: res.submissions
+        pageCount: data.pageCount,
+        data: data.submissions
       });
       
       Promise.resolve(true);

@@ -7,17 +7,26 @@ let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apise
 
 export default function handleSubmit(values, dispatch) {
   return () => {
+
+    let token = localStorage.getItem('token');
+
     return fetch(baseURL + '/api/getRating', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-token': token
       },
       body: formatRequestBody(values)
     })
       .then(res => res.json())
       .then((res) => {
         if (!res.success) return Promise.reject(res.message);
+        const { premium, authToken } = res;
+
+        if (authToken) {
+          localStorage.setItem('token', authToken);
+        }
         return dispatch(push({
           pathname: '/quote',
           state: {

@@ -4,6 +4,7 @@ import styles from './styles';
 class ListTable extends Component {
   shouldComponentUpdate(nextProps) {
     return this.props.pageIndex         !== nextProps.pageIndex || 
+           this.props.pageCount         !== nextProps.pageCount ||
            this.props.pageCountPerPage  !== nextProps.pageCountPerPage ||
            this.props.query             !== nextProps.query || 
            this.props.queryTotal        !== nextProps.queryTotal ||
@@ -18,6 +19,7 @@ class ListTable extends Component {
     const {
       columns,
       pageIndex,
+      pageCount,
       pageCountPerPage,
       query,
       queryTotal,
