@@ -68,18 +68,19 @@ async function getRating(req, res) {
             .then(newSub => {
               if (newSub.quotedPremium > 0) {
               sendSubmissionEmailArgo(newSub);
-              //sendSubmissionEmailClient(newSub);
+              sendSubmissionEmailClient(newSub);
               return res.status(response.statusCode).json({success: true, submission: newSub, authToken: newAuthToken});
             }
               else {
                 sendNonQuoteEmailArgo(newSub)
+                sendNonQuoteEmailBroker(newSub)
                 return res.status(response.statusCode).json({success: true, submission: newSub, authToken: newAuthToken});
               }
             });
         }
-      }).bind(this);  
+      }).bind(this);
     });
-    
+
   } catch (err) {
     return res.status(500)
   }
@@ -106,12 +107,34 @@ function sendSubmissionEmailArgo(submission) {
 }
 
 function sendSubmissionEmailClient(submission) {
-  emailService.sendSubmissionEmail('quotedBroker', submission.email, submission, config.brokerTemplateId);
+  console.log('---generating GL PDF---')
+  let pdfArray = [];
+  console.log(submission.pdfToken)
+  generateSubmissionPDF(submission.pdfToken)
+    .then(glpdf => {
+      pdfArray.push({title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`, content: glpdf})
+      if (submission.excessPremium > 0){
+        console.log('---generating Excess PDF---')
+        generateExcessPDF(submission.pdfToken)
+        .then(excessPdf => {
+          pdfArray.push({title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`, content: excessPdf})
+          emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+        })
+      }
+      else
+        emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+    });
 }
 
 function sendNonQuoteEmailArgo(submission){
-  emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, '', null);
+  emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, null);
 }
+
+function sendNonQuoteEmailBroker(submission){
+  emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.gubrokerNonQuoteTemplate, null);
+}
+
+
 
 async function createNewSubmission(submission) {
   return await submissionService.createSubmission(submission);

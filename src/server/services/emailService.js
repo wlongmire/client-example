@@ -13,15 +13,16 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
   personalization.addTo(toEmail);
   switch (type) {
     case 'quotedArgo':
-      personalization.addSubstitution(new helper.Substitution('{{brokerName}}', 'Marsh Phrixus'));
+      personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.namedInsured));
     break;
     case 'quotedBroker':
-          personalization.addSubstitution(new helper.Substitution('{{brokerName}}', 'Marsh Phrixus'));
-      personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.namedInsured));
+          personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
+      personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.primaryNamedInsured));
+      personalization.addSubstitution(new helper.Substitution('{{confirmationNumber}}', submission.confirmationNumber))
     break;
     case 'nonQuoteArgo':
-          personalization.addSubstitution(new helper.Substitution('{{brokerName}}', 'Marsh Phrixus'));
+          personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.namedInsured));
     break;
     }

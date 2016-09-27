@@ -13,7 +13,8 @@ async function createSubmission(submission) {
   let confNumber = await generateConfirmationNumber();
   sub.pdfToken = uuid.v4();
   sub.confirmationNumber = confNumber;
-  return await sub.save();
+  let newSub = await sub.save();
+  return getSubmissionById(newSub._id);
 }
 
 async function getAllSubmissions() {
@@ -21,7 +22,9 @@ async function getAllSubmissions() {
 }
 
 async function getSubmissionById(id) {
-  return await models.Submission.findById(id).exec();
+  return await models.Submission.findById(id)
+                .populate('broker submittedBy')
+                .exec();
 }
 
 async function updateSubmission(id, submission) {
