@@ -5,7 +5,8 @@ import {
 from 'react-router-redux';
 import config from '../../../../../config';
 import {
-	SIGNUP_ERROR
+	SIGNUP_STATUS,
+	USER_LOGGED_IN
 }
 from '../../../../constants';
 
@@ -15,7 +16,7 @@ let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apise
 
 export default function handleSubmit(values, dispatch) {
 	return () => {
-		return fetch(baseURL + '/um/register', {
+		fetch(baseURL + '/um/register', {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
@@ -25,18 +26,32 @@ export default function handleSubmit(values, dispatch) {
 			})
 			.then(res => res.json())
 			.then((res) => {
-				if (!res.success) {
-					// basically handling any signup rejection from server
-					return dispatch({
-						type: SIGNUP_ERROR,
-						payload: res.message
-					})
 
-					//return Promise.reject(res.message);
+				dispatch({
+					type: SIGNUP_STATUS,
+					payload: res.message
+				})
+
+				if (res.token) {
+
+					const {
+						user, token
+					} = res;
+
+					localStorage.setItem('token', token);
+
+					return dispatch(push({
+						pathname: '/form',
+
+						state: {
+							type: 'USER_LOGGED_IN',
+							payload: res,
+							user: user
+						}
+
+					}));
 				}
-				return dispatch(push({
-					pathname: '/form'
-				}));
+
 			})
 			.catch((error) => {
 
