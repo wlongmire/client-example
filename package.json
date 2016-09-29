@@ -104,5 +104,8 @@
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/server -d dist/server --copy-files; babel src/config -d dist/config --copy-files",
     "start": "NODE_ENV='production' node dist/server/index.js"
+  },
+  "devDependencies": {
+    "redux-logger": "^2.6.1"
   }
 }
