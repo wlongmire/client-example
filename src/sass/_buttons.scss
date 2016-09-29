@@ -1,13 +1,14 @@
 .app-container {
-   button {
-    background-color: $lightBlue;
-    color: #fff;
-  }
+	button {
+		background-color: $lightBlue;
+		color: #fff;
+		border: 1px solid $lightBlue;
+	}
 }
 
 .button {
 	background: #e0e0e0;
-	display:inline-block !important;
+	display: inline-block !important;
 	background-image: -webkit-linear-gradient(top, #EEEEEE, #999999);
 	background-image: -ms-linear-gradient(top, #EEEEEE, #999999);
 	background-image: linear-gradient(to bottom, #EEEEEE, #999999);
@@ -19,20 +20,19 @@
 	font-size: 15px;
 	padding: 7px 35px;
 	text-decoration: none;
-	border:1px solid #999999;
-	font-weight:bold;
+	border: 1px solid #999999;
+	font-weight: bold;
 	-webkit-transition: background-image 0.3s ease-in-out 0s;
 	-ms-transition: background-image 0.3s ease-in-out 0s;
 	transition: background-image 0.3s ease-in-out 0s;
-
-	&:hover{
-	  	background: #D0D0D0;
-	  	background-image: -webkit-linear-gradient(top, #EEEEEE, #aaaaaa);
- 		background-image: -ms-linear-gradient(top, #EEEEEE, #aaaaaa);
-  		background-image: linear-gradient(to bottom, #EEEEEE, #aaaaaa);
-	  	text-decoration: none;
-	    -webkit-transition: background-image 0.3s ease-in-out 0s;
+	&:hover {
+		background: #D0D0D0;
+		background-image: -webkit-linear-gradient(top, #EEEEEE, #aaaaaa);
+		background-image: -ms-linear-gradient(top, #EEEEEE, #aaaaaa);
+		background-image: linear-gradient(to bottom, #EEEEEE, #aaaaaa);
+		text-decoration: none;
+		-webkit-transition: background-image 0.3s ease-in-out 0s;
 		-ms-transition: background-image 0.3s ease-in-out 0s;
 		transition: background-image 0.3s ease-in-out 0s;
-  	}
+	}
 }
