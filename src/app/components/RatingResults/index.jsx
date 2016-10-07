@@ -22,7 +22,7 @@ function RatingResults(props) {
         render={() => (
           <div>
           <div>
-            <h1 className="header-larger">This submission qualifies for instant coverage</h1>
+            <h1 className="header-larger">This submission qualifies for coverage</h1>
 
             <div className="premium-details">
               <div className="premium-number">
@@ -48,7 +48,7 @@ function RatingResults(props) {
             </div>
             <p>* $325 inspection fee not included</p>
             <ToggleDisplay
-              show={isDefined(submission.excessPremium) && submission.excessPremium !== null}
+              show={isDefined(submission.excessPremium) && submission.excessPremium !== null && submission.excessPremium > 0}
               render={ () => (
                 <div className="premium-details">
                 <div className="premium-number">
