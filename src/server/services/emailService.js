@@ -2,6 +2,7 @@ import config from '../../config';
 import {utilities} from '../utils';
 
 const helper = require('sendgrid').mail;
+const fs = require('fs');
 
 async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()
@@ -28,6 +29,18 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
     }
   mail.addPersonalization(personalization);
   mail.setTemplateId(templateId);
+
+// Add Bind Order Sheet as the cover pdf
+let attachment = new helper.Attachment();
+let file = fs.readFileSync(`${__dirname}/Owners_Bind_Order.pdf`);
+let base64File = new Buffer(file).toString('base64');
+attachment.setContent(base64File);
+attachment.setType('application/pdf');
+attachment.setFilename('Owners Bind Order.pdf');
+attachment.setDisposition('attachment');
+mail.addAttachment(attachment);
+
+
   if (pdfArray.length > 0) {
       pdfArray.forEach(pdf => {
         let attachment = new helper.Attachment()
@@ -38,6 +51,7 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
         mail.addAttachment(attachment)
     });
   }
+
   send(mail);
 }
 

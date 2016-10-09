@@ -15,7 +15,7 @@ import OccupancyDetailsFieldSet from './OccupancyDetailsFieldSet';
 import DemoDetailsFieldSet from './DemoDetailsFieldSet';
 import WorkDetailsFieldSet from './WorkDetailsFieldSet';
 import ContactInfoFieldSet from './ContactInfoFieldSet';
-import ExcessDetailsFieldSet from './ExcessDetailsFieldSet'
+import ExcessDetailsFieldSet from './ExcessDetailsFieldSet';
 
 import decorator from './decorators';
 
@@ -271,7 +271,7 @@ function RatingForm(props) {
           <ContactInfoFieldSet contactInfo={contactInfo} />
         </li>
       </ul>
-      <button className="button" type="submit">Get Quote</button>
+      <button className="button getQuote" type="submit">Get Quote</button>
     </form>
   );
 }
