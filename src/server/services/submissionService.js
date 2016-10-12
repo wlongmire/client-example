@@ -35,6 +35,13 @@ async function getSubmissionByToken(token) {
   return await models.Submission.findOne({pdfToken: token}).exec();
 }
 
+function generateHTML(body, pdfData){
+    let handleTemplate = handlebars.compile(body);
+    let html = handleTemplate(Object.assign({}, pdfData));
+    console.log('finished generating html');
+    return html;
+}
+
 function generateSubmissionPDF(token){
 return new Promise((resolve,reject) => {
   try {
@@ -44,10 +51,31 @@ return new Promise((resolve,reject) => {
           url: config.submissionPDFUrl,
           method: 'GET'
         }, function(err, response, body) {
-            let handleTemplate = handlebars.compile(body);
-            let html = handleTemplate(Object.assign({}, pdfData));
+            let html = generateHTML(body, pdfData);
             pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
                 console.log('successfully generated PDF');
+              return resolve(buffer);
+            });
+        });
+      });
+  }
+  catch (err) {
+    return reject(err);
+  }
+  })
+}
+
+function generateBindOrderPDF(token){
+return new Promise((resolve,reject) => {
+  try {
+    generatePDFData({token: token})
+     .then(pdfData => {
+        request({
+          url: config.ownersBindOrderPDFUrl,
+          method: 'GET'
+        }, function(err, response, body) {
+            let html = generateHTML(body, pdfData);
+            pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
               return resolve(buffer);
             });
         });
@@ -161,10 +189,13 @@ async function generatePDFData(submissionIdentifier) {
     gcLimit: gcInfo ? submission.generalContractorInfo.name : 'N/A',
     gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
     argoEmail: config.argoEmail,
-    otherRole: submission.hasOtherNamedInsured ? submission.otherNamedInsured.role : 'N/A',
+    otherRole: submission.hasOtherNamedInsured ? submission.otherNamedInsured.role : 'No other Named Insured entities submitted',
     otherRelationship: submission.hasOtherNamedInsured ? submission.otherNamedInsured.relationship: 'N/A',
     otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'N/A',
     commissionRate: `${submission.commission} %`
+  }
+  if(submission.hasOtherNamedInsured){
+    pdfData.hasOtherNamedInsuredExist = true;
   }
 
   return pdfData;
@@ -195,5 +226,6 @@ export default {
   getSubmissionById,
   updateSubmission,
   generateSubmissionPDF,
-  generateExcessPDF
+  generateExcessPDF,
+  generateBindOrderPDF
 }
