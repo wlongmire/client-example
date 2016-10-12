@@ -158,7 +158,7 @@ async function generatePDFData(submissionIdentifier) {
   }
 
   let aggregateLimit;
-  halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);
+  let halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);
   if (halvedCost < 5000000) {
     aggregateLimit = 5000000
   } else if (aggregateLimit > 50000000) {
@@ -212,7 +212,7 @@ async function generatePDFData(submissionIdentifier) {
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;
   }
-
+  console.log(pdfData);
   return pdfData;
 }
  catch (err) {
