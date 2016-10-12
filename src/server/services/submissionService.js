@@ -157,6 +157,19 @@ async function generatePDFData(submissionIdentifier) {
     additionalCoverage = 250
   }
 
+  let aggregateLimit;
+  halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);
+  if (halvedCost < 5000000) {
+    aggregateLimit = 5000000
+  } else if (aggregateLimit > 50000000) {
+    aggregateLimit = 50000000
+  } else {
+    aggregateLimit = halvedCost;
+  }
+
+  let occAggLimit = aggregateLimit + 1000000
+  let genAggLimit = aggregateLimit + 2000000
+
   let totalPremium = terrorismPremium + submission.quotedPremium + additionalCoverage;
   const inspectionCost = 325
   let totalCost = totalPremium + inspectionCost
@@ -192,7 +205,9 @@ async function generatePDFData(submissionIdentifier) {
     otherRole: submission.hasOtherNamedInsured ? submission.otherNamedInsured.role : 'No other Named Insured entities submitted',
     otherRelationship: submission.hasOtherNamedInsured ? submission.otherNamedInsured.relationship: 'N/A',
     otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'N/A',
-    commissionRate: `${submission.commission} %`
+    commissionRate: `${submission.commission} %`,
+    occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
+    aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`
   }
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;
