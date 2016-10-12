@@ -102,10 +102,18 @@ async function getRating(req, res) {
 }
 
 function sendSubmissionEmailArgo(submission) {
-	console.log('---generating GL PDF---')
+	console.log('---generating GL PDF sendSubmissionEmailArgo---')
 	let pdfArray = [];
 	console.log(submission.pdfToken)
-	generateSubmissionPDF(submission.pdfToken)
+
+	generateBindOrderPDF(submission.pdfToken)
+	.then(bindpdf => {
+		pdfArray.push({
+			title: 'Owners Bind Order.pdf',
+			content: bindpdf
+		})
+
+		generateSubmissionPDF(submission.pdfToken)
 		.then(glpdf => {
 			pdfArray.push({
 				title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
@@ -124,12 +132,20 @@ function sendSubmissionEmailArgo(submission) {
 			} else
 				emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
 		});
+	});	
 }
 
+
 function sendSubmissionEmailClient(submission) {
-	console.log('---generating GL PDF---')
+	console.log('---generating GL PDF sendSubmissionEmailClient---')
 	let pdfArray = [];
-	generateSubmissionPDF(submission.pdfToken)
+	generateBindOrderPDF(submission.pdfToken)
+	.then(bindpdf => {
+		pdfArray.push({
+			title: 'Owners Bind Order.pdf',
+			content: bindpdf
+		})
+		generateSubmissionPDF(submission.pdfToken)
 		.then(glpdf => {
 			pdfArray.push({
 				title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
@@ -148,6 +164,8 @@ function sendSubmissionEmailClient(submission) {
 			} else
 				emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 		});
+		
+	});
 }
 
 function sendNonQuoteEmailArgo(submission) {
@@ -166,6 +184,11 @@ async function createNewSubmission(submission) {
 
 async function generateSubmissionPDF(token) {
 	let pdf = await submissionService.generateSubmissionPDF(token);
+	return pdf;
+}
+
+async function generateBindOrderPDF(token) {
+	let pdf = await submissionService.generateBindOrderPDF(token);
 	return pdf;
 }
 

@@ -10,6 +10,7 @@ const config = {
     argoNonQuoteTemplate: '52173414-ee4e-42cd-a609-38b3c180ddfe',
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
     submissionPDFUrl: 'http://assets.ownersedge.us/templates/submission_v2.html',
+    ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
 
     analytics: {
