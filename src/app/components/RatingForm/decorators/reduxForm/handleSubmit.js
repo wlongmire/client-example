@@ -5,6 +5,7 @@ import {
 from 'react-router-redux';
 
 import config from '../../../../../config';
+import { onlyNums } from '../../../../utils/utilities';
 
 let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 
@@ -54,7 +55,7 @@ function formatRequestBody(values) {
 		...values,
 		state: values.address.state,
 			term: values.term,
-			costs: values.costs,
+			costs: onlyNums(values.costs),
 			contractorKnown: values.generalContractor.isKnown === 'yes',
 			supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',
 			demoRequired: values.demoDetails.willHave === 'yes',

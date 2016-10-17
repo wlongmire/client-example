@@ -51,7 +51,8 @@ const fields = [
   'contactInfo.email',
   'contactInfo.phone',
   'excessDetails.required',
-  'excessDetails.limits'
+  'excessDetails.limits',
+  'generalComments'
 ];
 
 const mapDispatchToProps = {
