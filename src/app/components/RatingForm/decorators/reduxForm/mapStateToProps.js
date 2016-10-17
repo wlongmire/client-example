@@ -69,7 +69,8 @@ export default function mapStateToProps(state) {
       contactInfo: {
         email: '',
         phone: ''
-      }
+      },
+      generalComments: ''
     }
   }
 }

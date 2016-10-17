@@ -36,7 +36,8 @@ function RatingForm(props) {
       demoDetails,
       workDetails,
       excessDetails,
-      contactInfo
+      contactInfo,
+      generalComments
     },
     handleSubmit
   } = props;
@@ -45,7 +46,7 @@ function RatingForm(props) {
       <ul className="no-bullets">
         <li>
           <label>
-            <span className="area-label">Who is the Primary Named Insured?*</span>
+            <span className="area-label">Who is the First Named Insured?*</span>
             <PureInput
               type="text"
               field={primaryNamedInsured}
@@ -57,7 +58,7 @@ function RatingForm(props) {
           <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
         <li>
-          <span className="area-label">Any other requested named insured?*</span>
+          <span className="area-label">Any additional Insured?*</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -105,10 +106,10 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">What are the hard costs of this project, in of dollars?*</span>
-           <small>Please input numbers only - (e.g., $5,500,000 -- 5500000)</small>
+           <span className="area-label">What are the hard costs of this project, in dollars?*</span>
+           <small>(ie. tools, equipment, materials)</small>
             <PureInput
-              type="number"
+              type="text"
               field={costs}
             />
           </label>
@@ -268,8 +269,17 @@ function RatingForm(props) {
           )}
         />
         <li>
+          <label>
+           <span className="area-label">General Comments*</span>
+            <PureTextArea
+              field={generalComments}
+            />
+          </label>
+        </li>
+        <li>
           <ContactInfoFieldSet contactInfo={contactInfo} />
         </li>
+
       </ul>
       <button className="button getQuote" type="submit">Get Quote</button>
     </form>
