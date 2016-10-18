@@ -37,7 +37,7 @@ user.methods.generateToken = function () {
     email: this.email,
     exp: parseInt(exp.getTime() / 1000),
   }, this.salt);
-}
+};
 
 user.statics.fromAuthToken = function (token) {
   var viewer = jwt.decode(token);

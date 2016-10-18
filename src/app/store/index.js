@@ -11,10 +11,8 @@ from 'redux';
 
 import userReducer from '../reducers/userReducer';
 import errorReducer from '../reducers/errorReducer';
-import {
-    routerReducer, routerMiddleware
-}
-from 'react-router-redux';
+import submissionsReducer from '../components/Home/reducer';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
 
 // NOTE: Alias is required to get the formReducer reducer working correctly.
 import {
@@ -24,14 +22,14 @@ from 'redux-form';
 
 // Add your component reducers
 // in this linked file.
-import components from 'components/reducers';
+//import components from 'components/reducers';
 
 const appReducers = combineReducers({
-    ...components,
-    user: userReducer,
-        form: formReducer,
-        routing: routerReducer,
-        error: errorReducer
+  user: userReducer,
+  form: formReducer,
+  routing: routerReducer,
+  error: errorReducer,
+  submissions: submissionsReducer
 });
 
 

@@ -23,3 +23,18 @@
 .app-container {
   position: relative;
 }
+
+.home{
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid;
+    h3{
+      padding-left: 20px;
+    }
+    ul{
+      padding: 20px;
+      li{
+        list-style: none;
+      }
+    }
+}
