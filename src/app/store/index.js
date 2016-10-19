@@ -15,6 +15,10 @@ import errorReducer from '../reducers/errorReducer';
 import submissionsReducer from '../components/Home/reducer';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import submissionReducer from '../reducers/submissionReducer';
+import {
+    reducer as formReducer
+}
+from 'redux-form';
 
 // NOTE: Alias is required to get the formReducer reducer working correctly.
 

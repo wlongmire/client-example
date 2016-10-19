@@ -4,7 +4,8 @@
  }
 
  export function onlyNums(value) {
-   return value.replace(/[^\d]/g, '');
+   const valueToString = value.toString();
+   return valueToString.replace(/[^\d]/g, '');
  }
 
 export function commifyNumber(number) {

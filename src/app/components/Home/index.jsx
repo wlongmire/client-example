@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import * as actions from './actions';
 import { connect } from 'react-redux';
+import Moment from 'moment';
+import * as actions from './actions';
+import { formatDollars } from '../../utils/utilities';
 
 class Home extends Component{
   componentWillMount(){
@@ -21,10 +23,10 @@ class Home extends Component{
       return (
         <tr key={key}>
           <td onClick={()=> this.goToPage(submission)} className="link">{submission.confirmationNumber}</td>
-          <td>{submission.quotedPremium}</td>
-          <td>{submission.totalCost}</td>
-          <td>{submission.totalPremium}</td>
-          <td>{submission.createdAt}</td>
+          <td>{formatDollars(submission.quotedPremium)}</td>
+          <td>{formatDollars(submission.totalCost)}</td>
+          <td>{formatDollars(submission.totalPremium)}</td>
+          <td>{Moment(submission.createdAt).format('MMMM Do YYYY')}</td>
         </tr>
       );
     });

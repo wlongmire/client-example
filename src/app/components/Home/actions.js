@@ -13,8 +13,8 @@ export function getSubmissions(brokerId) {
     fetch(baseURL + '/api/getSubmissions', {
       method: 'GET',
       headers: {
-        //'Accept': 'application/json',
-        //'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'x-token': localStorage.getItem('token')
       }
     })
