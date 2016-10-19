@@ -18,15 +18,21 @@ class Home extends Component{
     if(!this.props.submissions.data){
       return (<div>Loading submissions...</div>);
     }
-    const submissions = this.props.submissions.data.submissions;
+    let submissions = this.props.submissions.data.submissions;
+
+    submissions = submissions.sort(function(a, b) {
+      return a.createdAt < b.createdAt ? 1 : -1;
+    });
+    
     const list = submissions.map((submission, key)=>{
       return (
         <tr key={key}>
-          <td onClick={()=> this.goToPage(submission)} className="link">{submission.confirmationNumber}</td>
+          <td>{submission.primaryNamedInsured}</td>
           <td>{formatDollars(submission.quotedPremium)}</td>
           <td>{formatDollars(submission.totalCost)}</td>
           <td>{formatDollars(submission.totalPremium)}</td>
           <td>{Moment(submission.createdAt).format('MMMM Do YYYY')}</td>
+          <td onClick={()=> this.goToPage(submission)} className="link">Edit</td>
         </tr>
       );
     });
@@ -36,11 +42,12 @@ class Home extends Component{
       <table className="u-full-width">
           <thead>
             <tr>
-              <th>Confirmation Number</th>
+              <th>Primary Named Insured</th>
               <th>Quoted Premium</th>
               <th>Total Cost</th>
               <th>Total Premium</th>
               <th>Date Created</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>

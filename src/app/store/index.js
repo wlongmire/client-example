@@ -14,11 +14,7 @@ import userReducer from '../reducers/userReducer';
 import errorReducer from '../reducers/errorReducer';
 import submissionsReducer from '../components/Home/reducer';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import submissionReducer from '../reducers/submissionReducer';
-import {
-    reducer as formReducer
-}
-from 'redux-form';
+import submissionFormReducer from '../reducers/submissionReducer';
 
 // NOTE: Alias is required to get the formReducer reducer working correctly.
 
@@ -29,7 +25,7 @@ from 'redux-form';
 
 const appReducers = combineReducers({
   user: userReducer,
-  form: formReducer,
+  form: submissionFormReducer,
   routing: routerReducer,
   error: errorReducer,
   submissions: submissionsReducer
@@ -41,8 +37,8 @@ let configureStore;
 if (process.env.NODE_ENV === 'production') {
 
     /* PRODUCTION */
-    configureStore = (history, initialState) => {
-        return createStore(
+  configureStore = (history, initialState) => {
+    return createStore(
             appReducers,
             applyMiddleware(
                 routerMiddleware(history),
@@ -50,13 +46,13 @@ if (process.env.NODE_ENV === 'production') {
             ),
             initialState
         );
-    };
+  };
 } else {
-    const loggerMiddleware = createLogger();
+  const loggerMiddleware = createLogger();
 
     /* NON-PRODUCTION (Dev, Debug, etc) */
-    configureStore = (history, initialState) => {
-        return createStore(
+  configureStore = (history, initialState) => {
+    return createStore(
             appReducers,
             window.devToolsExtension ? window.devToolsExtension() : f => f,
             applyMiddleware(
@@ -65,7 +61,7 @@ if (process.env.NODE_ENV === 'production') {
                 thunkMiddleware
             )
         );
-    };
+  };
 }
 
 export default configureStore;
