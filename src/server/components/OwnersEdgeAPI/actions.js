@@ -233,7 +233,6 @@ async function generateExcessPDF(token) {
 }
 
 function createSubmissionObject(subInfo, quoteInfo) {
-	console.log(quoteInfo);
 	let premium;
 	let terrorismPremium;
 	let additionalCoverage;

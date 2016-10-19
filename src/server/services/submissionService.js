@@ -216,7 +216,6 @@ async function generatePDFData(submissionIdentifier) {
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;
   }
-  console.log(pdfData);
   return pdfData;
 }
  catch (err) {
