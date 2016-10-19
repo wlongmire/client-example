@@ -21,6 +21,10 @@ async function getAllSubmissions() {
   return await models.Submission.findAll().exec();
 }
 
+async function getAllSubmissionsByBroker(brokerId) {
+  return await models.Submission.find({broker: brokerId}).exec();
+}
+
 async function getSubmissionById(id) {
   return await models.Submission.findById(id)
                 .populate('broker submittedBy')
@@ -212,7 +216,6 @@ async function generatePDFData(submissionIdentifier) {
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;
   }
-  console.log(pdfData);
   return pdfData;
 }
  catch (err) {
@@ -242,5 +245,6 @@ export default {
   updateSubmission,
   generateSubmissionPDF,
   generateExcessPDF,
-  generateBindOrderPDF
+  generateBindOrderPDF,
+  getAllSubmissionsByBroker
 }

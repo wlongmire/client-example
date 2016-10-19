@@ -6,4 +6,4 @@ export {
   Broker,
   Submission,
   User
-}
+};

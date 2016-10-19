@@ -12,25 +12,23 @@ from 'redux';
 
 import userReducer from '../reducers/userReducer';
 import errorReducer from '../reducers/errorReducer';
-import submissionReducer from '../reducers/submissionReducer'
-import {
-    routerReducer, routerMiddleware
-}
-from 'react-router-redux';
+import submissionsReducer from '../components/Home/reducer';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+import submissionFormReducer from '../reducers/submissionReducer';
 
 // NOTE: Alias is required to get the formReducer reducer working correctly.
 
 
 // Add your component reducers
 // in this linked file.
-import components from 'components/reducers';
+//import components from 'components/reducers';
 
 const appReducers = combineReducers({
-    ...components,
-    user: userReducer,
-        form: submissionReducer,
-        routing: routerReducer,
-        error: errorReducer
+  user: userReducer,
+  form: submissionFormReducer,
+  routing: routerReducer,
+  error: errorReducer,
+  submissions: submissionsReducer
 });
 
 
@@ -39,8 +37,8 @@ let configureStore;
 if (process.env.NODE_ENV === 'production') {
 
     /* PRODUCTION */
-    configureStore = (history, initialState) => {
-        return createStore(
+  configureStore = (history, initialState) => {
+    return createStore(
             appReducers,
             applyMiddleware(
                 routerMiddleware(history),
@@ -48,13 +46,13 @@ if (process.env.NODE_ENV === 'production') {
             ),
             initialState
         );
-    };
+  };
 } else {
-    const loggerMiddleware = createLogger();
+  const loggerMiddleware = createLogger();
 
     /* NON-PRODUCTION (Dev, Debug, etc) */
-    configureStore = (history, initialState) => {
-        return createStore(
+  configureStore = (history, initialState) => {
+    return createStore(
             appReducers,
             window.devToolsExtension ? window.devToolsExtension() : f => f,
             applyMiddleware(
@@ -63,7 +61,7 @@ if (process.env.NODE_ENV === 'production') {
                 thunkMiddleware
             )
         );
-    };
+  };
 }
 
 export default configureStore;

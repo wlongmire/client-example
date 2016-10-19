@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import randomstring from 'randomstring'
+import randomstring from 'randomstring';
 
 const Schema = mongoose.Schema;
 

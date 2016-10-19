@@ -23,7 +23,7 @@ let handleSubmit =  (values, dispatch) => {
         return Promise.reject(res.message);
       }
       const {user, token} = res;
-      let newPath = user.role === 'poweruser' ? '/powerconsole' : '/form';
+      let newPath = user.role === 'poweruser' ? '/powerconsole' : '/home';
       // console.log("Dispatching (push)");
       // console.log(user);
 

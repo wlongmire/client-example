@@ -1,19 +1,50 @@
 import request from 'request';
 import config from '../../../config';
-import {
-	User, Broker
-}
-from '../../models';
-import {
-	emailService, submissionService
-}
-from '../../services';
+import { User, Broker } from '../../models';
+import { emailService, submissionService } from '../../services';
 
 const appId = config.appId;
 const argoEmail = config.argoEmail;
 
 async function getSubmissions(req, res) {
+     	try {
 
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+
+		User.fromAuthToken(req.headers['x-token']).then((result) => {
+			console.log("fromAuthToken result is");
+
+			if (!result || !result.user) {
+				return res.status(403).json({
+					type: "AuthError",
+					message: "Access forbidden. Invalid user token."
+				});
+			}
+
+			const user = result.user;
+
+			getAllSubmissionsByBroker(user._brokerId)
+			.then(function(submissions){
+				return res.status(200).json({
+					success: true,
+					submissions: submissions,
+					//authToken: newAuthToken
+				});
+			})
+
+		})
+		.catch(error => { 
+			return res.status(403).json({
+				type: 'TokenExpired',
+				message: 're-login to get new token',
+			});
+		})
+
+	} catch (err) {
+		return res.status(500)
+	}
 }
 
 async function getSingleSubmission(req, res) {
@@ -182,6 +213,10 @@ async function createNewSubmission(submission) {
 	return await submissionService.createSubmission(submission);
 }
 
+async function getAllSubmissionsByBroker(brokerId) {
+	return await submissionService.getAllSubmissionsByBroker(brokerId);
+}
+
 async function generateSubmissionPDF(token) {
 	let pdf = await submissionService.generateSubmissionPDF(token);
 	return pdf;
@@ -198,7 +233,6 @@ async function generateExcessPDF(token) {
 }
 
 function createSubmissionObject(subInfo, quoteInfo) {
-	console.log(quoteInfo);
 	let premium;
 	let terrorismPremium;
 	let additionalCoverage;
