@@ -1,5 +1,6 @@
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+import { formatDollars } from '../utils/utilities';
 
 import {
     applyMiddleware,
@@ -13,12 +14,10 @@ import userReducer from '../reducers/userReducer';
 import errorReducer from '../reducers/errorReducer';
 import submissionsReducer from '../components/Home/reducer';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
+import submissionReducer from '../reducers/submissionReducer';
 
 // NOTE: Alias is required to get the formReducer reducer working correctly.
-import {
-    reducer as formReducer
-}
-from 'redux-form';
+
 
 // Add your component reducers
 // in this linked file.

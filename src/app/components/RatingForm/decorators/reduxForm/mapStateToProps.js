@@ -74,7 +74,8 @@ otherwise a new submission is taking place
       contactInfo: {
         email: submission && submission.contactInfo ? submission.contactInfo.email: '',
         phone: submission && submission.contactInfo ? submission.contactInfo.phone: '',
-      }
+      },
+      generalComments: submission ? submission.generalComments: ''
     }
   };
 }

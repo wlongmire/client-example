@@ -163,7 +163,7 @@ function sendSubmissionEmailArgo(submission) {
 			} else
 				emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
 		});
-	});	
+	});
 }
 
 
@@ -195,7 +195,7 @@ function sendSubmissionEmailClient(submission) {
 			} else
 				emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 		});
-		
+
 	});
 }
 
@@ -275,7 +275,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		totalPremium: totalPremium,
 		totalCost: totalCost,
 		excessPremium: quoteInfo.excessPremium,
-		excessDetails: subInfo.excessDetails
+		excessDetails: subInfo.excessDetails,
+		generalComments: subInfo.generalComments
 	}
 	return submission;
 }
