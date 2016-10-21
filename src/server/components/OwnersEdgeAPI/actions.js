@@ -144,24 +144,33 @@ function sendSubmissionEmailArgo(submission) {
 			content: bindpdf
 		})
 
-		generateSubmissionPDF(submission.pdfToken)
-		.then(glpdf => {
+		generateColonyOwnersInterestQuestionnairePDF(submission.pdfToken)
+		.then(bindpdf => {
+
 			pdfArray.push({
-				title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
-				content: glpdf
+				title: 'Colony Owners Interest Questionnaire.pdf',
+				content: bindpdf
 			})
-			if (submission.excessPremium > 0) {
-				console.log('---generating Excess PDF---')
-				generateExcessPDF(submission.pdfToken)
-					.then(excessPdf => {
-						pdfArray.push({
-							title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-							content: excessPdf
-						})
-						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+
+			generateSubmissionPDF(submission.pdfToken)
+				.then(glpdf => {
+					pdfArray.push({
+						title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
+						content: glpdf
 					})
-			} else
-				emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+					if (submission.excessPremium > 0) {
+						console.log('---generating Excess PDF---')
+						generateExcessPDF(submission.pdfToken)
+							.then(excessPdf => {
+								pdfArray.push({
+									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+									content: excessPdf
+								})
+								emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+							})
+					} else
+						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+				});
 		});
 	});
 }
@@ -176,24 +185,32 @@ function sendSubmissionEmailClient(submission) {
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		})
-		generateSubmissionPDF(submission.pdfToken)
-		.then(glpdf => {
+		generateColonyOwnersInterestQuestionnairePDF(submission.pdfToken)
+		.then(bindpdf => {
 			pdfArray.push({
-				title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
-				content: glpdf
+				title: 'Colony Owners Interest Questionnaire.pdf',
+				content: bindpdf
 			})
-			if (submission.excessPremium > 0) {
-				console.log('---generating Excess PDF---')
-				generateExcessPDF(submission.pdfToken)
-					.then(excessPdf => {
-						pdfArray.push({
-							title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-							content: excessPdf
-						})
-						emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+
+			generateSubmissionPDF(submission.pdfToken)
+				.then(glpdf => {
+					pdfArray.push({
+						title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
+						content: glpdf
 					})
-			} else
-				emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+					if (submission.excessPremium > 0) {
+						console.log('---generating Excess PDF---')
+						generateExcessPDF(submission.pdfToken)
+							.then(excessPdf => {
+								pdfArray.push({
+									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+									content: excessPdf
+								})
+								emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+							})
+					} else
+						emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+				});
 		});
 
 	});
@@ -224,6 +241,11 @@ async function generateSubmissionPDF(token) {
 
 async function generateBindOrderPDF(token) {
 	let pdf = await submissionService.generateBindOrderPDF(token);
+	return pdf;
+}
+
+async function generateColonyOwnersInterestQuestionnairePDF(token) {
+	let pdf = await submissionService.generateColonyOwnersInterestQuestionnairePDF(token);
 	return pdf;
 }
 
@@ -276,7 +298,9 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		totalCost: totalCost,
 		excessPremium: quoteInfo.excessPremium,
 		excessDetails: subInfo.excessDetails,
-		generalComments: subInfo.generalComments
+		generalComments: subInfo.generalComments,
+		demoDetails: subInfo.demoDetails,
+        towerCraneUse: subInfo.towerCraneUse
 	}
 	return submission;
 }

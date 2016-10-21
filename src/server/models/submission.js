@@ -30,7 +30,9 @@ const submissionSchema = new mongoose.Schema({
   excessDetails: Object,
   submittedBy: {type: Schema.Types.ObjectId, ref: 'user', default: null},
   broker: {type: Schema.Types.ObjectId, ref: 'broker', default: null},
-  generalComments: String
+  generalComments: String,
+  demoDetails: Object,
+  towerCraneUse: String
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);
