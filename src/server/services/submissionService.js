@@ -246,6 +246,8 @@ async function generatePDFData(submissionIdentifier) {
     occupancySquareFootage:submission.occupancyDetails ? submission.occupancyDetails.squareFootage : 'N/A',
     occupancyNumberOfUnits:submission.occupancyDetails ? submission.occupancyDetails.numberOfUnits : 'N/A',
     occupancyType:submission.occupancyDetails ? submission.occupancyDetails.type : 'N/A',
+    occupancyTypeCommercial: submission.occupancyDetails && submission.occupancyDetails.type === 'commercial' ? true : false,
+    occupancyTypeResidential: submission.occupancyDetails && submission.occupancyDetails.type === 'residential' ? true : false,
     occupancyIsCoverageDesired:submission.occupancyDetails && submission.occupancyDetails.isCoverageDesired === 'yes' ? true : false,
     willHaveDemoDetails:submission.demoDetails && submission.demoDetails.willHave === 'yes' ? true : false,
     demoDetailsPedestrianSafetyPrecautions:submission.demoDetails ? submission.demoDetails.pedestrianSafetyPrecautions : 'N/A',
