@@ -91,6 +91,28 @@ return new Promise((resolve,reject) => {
   })
 }
 
+function generateColonyOwnersInterestQuestionnairePDF(token){
+return new Promise((resolve,reject) => {
+  try {
+    generatePDFData({token: token})
+     .then(pdfData => {
+        request({
+          url: config.colonyOwnersInterestQuestionnairePDFUrl,
+          method: 'GET'
+        }, function(err, response, body) {
+            let html = generateHTML(body, pdfData);
+            pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
+              return resolve(buffer);
+            });
+        });
+      });
+  }
+  catch (err) {
+    return reject(err);
+  }
+  })
+}
+
 function generateExcessPDF(token) {
   return new Promise((resolve, reject) => {
     try {
@@ -202,16 +224,40 @@ async function generatePDFData(submissionIdentifier) {
     projectCosts: `$${utilities.commifyNumber(submission.costs)}`,
     gcKnown: submission.generalContractorInfo.isKnown,
     gcName: gcInfo ? submission.generalContractorInfo.name : 'N/A',
-    gcCarrier: gcInfo ? submission.generalContractorInfo.name : 'N/A',
-    gcLimit: gcInfo ? submission.generalContractorInfo.name : 'N/A',
+    gcCarrier: gcInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
+    gcLimit: gcInfo ? submission.generalContractorInfo.glLimits : 'N/A',
     gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
+    gcSupervisingSubs: gcInfo ? submission.generalContractorInfo.isSupervisingSubs : 'N/A',
     argoEmail: config.argoEmail,
     otherRole: submission.hasOtherNamedInsured ? submission.otherNamedInsured.role : 'No other Named Insured entities submitted',
     otherRelationship: submission.hasOtherNamedInsured ? submission.otherNamedInsured.relationship: 'N/A',
     otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'N/A',
     commissionRate: `${submission.commission} %`,
     occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
-    aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`
+    aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
+    willHaveOccupancy:submission.occupancyDetails && submission.occupancyDetails.willHave === 'yes' ? true : false,
+    occupancyBuildingAccessLimited:submission.occupancyDetails && submission.occupancyDetails.buildingAccessLimited === 'yes' ? true : false,
+    occupancySecurityCameras:submission.occupancyDetails && submission.occupancyDetails.securityCameras === 'yes' ? true : false,
+    occupancyDoorman:submission.occupancyDetails && submission.occupancyDetails.doorman === 'yes' ? true : false,
+    occupancySecurityPersonnel:submission.occupancyDetails && submission.occupancyDetails.securityPersonnel === 'yes' ? true : false,
+    occupancySeparateEntry:submission.occupancyDetails && submission.occupancyDetails.separateEntry === 'yes' ? true : false,
+    occupancySeparateStairwells:submission.occupancyDetails && submission.occupancyDetails.separateStairwells === 'yes' ? true : false,
+    occupancyLossesInLastFiveYears:submission.occupancyDetails && submission.occupancyDetails.lossesInLastFiveYears === 'yes' ? true : false,
+    occupancySquareFootage:submission.occupancyDetails ? submission.occupancyDetails.squareFootage : 'N/A',
+    occupancyNumberOfUnits:submission.occupancyDetails ? submission.occupancyDetails.numberOfUnits : 'N/A',
+    occupancyType:submission.occupancyDetails ? submission.occupancyDetails.type : 'N/A',
+    occupancyTypeCommercial: submission.occupancyDetails && submission.occupancyDetails.type === 'commercial' ? true : false,
+    occupancyTypeResidential: submission.occupancyDetails && submission.occupancyDetails.type === 'residential' ? true : false,
+    occupancyIsCoverageDesired:submission.occupancyDetails && submission.occupancyDetails.isCoverageDesired === 'yes' ? true : false,
+    willHaveDemoDetails:submission.demoDetails && submission.demoDetails.willHave === 'yes' ? true : false,
+    demoDetailsPedestrianSafetyPrecautions:submission.demoDetails ? submission.demoDetails.pedestrianSafetyPrecautions : 'N/A',
+    demoDetailsDuration:submission.demoDetails ? submission.demoDetails.duration : 'N/A',
+    demoDetailsCosts:submission.demoDetails ? submission.demoDetails.costs : 'N/A',
+    demoDetailsSubcontractor:submission.demoDetails ? submission.demoDetails.subcontractor : 'N/A',
+    towerCraneUse: submission.towerCraneUse && submission.towerCraneUse === 'yes'  ? true : false,
+    anyWorkCompleted: submission.workDetails && submission.workDetails.whatsCompleted !== ''  ? true : false,
+    workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
+    whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A'
   }
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;
@@ -246,5 +292,6 @@ export default {
   generateSubmissionPDF,
   generateExcessPDF,
   generateBindOrderPDF,
-  getAllSubmissionsByBroker
+  getAllSubmissionsByBroker,
+  generateColonyOwnersInterestQuestionnairePDF
 }
