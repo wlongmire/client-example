@@ -1,5 +1,7 @@
 'use strict';
 
+console.log('Parker is debugging', process.env);
+
 var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
@@ -58,7 +60,7 @@ if (config.env === 'development') {
     config.server.cors = {
         origin: 'http://localhost:' + config.webpackserver.port
     };
-} else if (config.env === 'devDeploy') {
+} else if (config.env === 'devdeploy') {
     config.server.url = 'http://dev.ownersedge.us';
     config.apiserver.url = 'http://dev.ownersedge.us';
     config.apiserver.port = null;
