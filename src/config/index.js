@@ -61,9 +61,14 @@ if (config.env === 'development') {
     config.server.url = 'http://dev.ownersedge.us'
     config.apiserver.url = 'http://dev.ownersedge.us'
     config.apiserver.port = null
-} else if (config.env === 'production') {
+} else if (config.env === 'deployqa') {
+    config.server.url = 'http://beta.ownersedge.us'
+    config.apiserver.url = 'http://beta.ownersedge.us'
+    config.apiserver.port = null
+}
+ else if (config.env === 'production') {
     config.server.url = 'http://ownersedge.us'
-    config.apiserver.url = 'http://dev.ownersedge.us'
+    config.apiserver.url = 'http://ownersedge.us'
     config.apiserver.port = null
 }
 
