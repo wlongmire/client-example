@@ -14,7 +14,7 @@ var config = {
     submissionPDFUrl: 'http://assets.ownersedge.us/templates/submission_v2.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
-    hosted_env: process.env.hosted_env || 'development',
+    //hosted_env: process.env.hosted_env || 'development',
 
     analytics: {
         ua: 'xxxxx-xxxxx',
@@ -52,21 +52,21 @@ var config = {
     }
 };
 
-if (config.hosted_env === 'development') {
+if (config.env === 'development') {
     config.server.url += ':' + config.server.port;
 
     config.server.cors = {
         origin: 'http://localhost:' + config.webpackserver.port
     };
-} else if (config.hosted_env === 'devDeploy') {
+} else if (config.env === 'devDeploy') {
     config.server.url = 'http://dev.ownersedge.us';
     config.apiserver.url = 'http://dev.ownersedge.us';
     config.apiserver.port = null;
-} else if (config.hosted_env === 'production') {
+} else if (config.env === 'production') {
     config.server.url = 'http://ownersedge.us';
     config.apiserver.url = 'http://ownersedge.us';
     config.apiserver.port = null;
-} else if (config.hosted_env === 'qaDeploy') {
+} else if (config.env === 'qaDeploy') {
     config.server.url = 'http://beta.ownersedge.us';
     config.apiserver.url = 'http://beta.ownersedge.us';
     config.apiserver.port = null;
