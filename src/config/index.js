@@ -1,5 +1,5 @@
 const config = {
-    env: process.env.NODE_ENV,
+    env: process.env.hostevironment || 'development',
     name: 'ownersEdge',
     appId: process.env.appID || '57ab6abcf36d2840aa667f6e',
     argoEmail: process.env.argoEmail || 'parkerproject@gmail.com',
