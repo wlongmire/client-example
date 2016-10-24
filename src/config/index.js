@@ -1,5 +1,7 @@
-const config = {
-    env: process.env.hostevironment || 'development',
+'use strict';
+
+var config = {
+    env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: process.env.appID || '57ab6abcf36d2840aa667f6e',
     argoEmail: process.env.argoEmail || 'parkerproject@gmail.com',
@@ -11,8 +13,8 @@ const config = {
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
     submissionPDFUrl: 'http://assets.ownersedge.us/templates/submission_v2.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
-    colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
+    hosted_env: process.env.hosted_env || 'development',
 
     analytics: {
         ua: 'xxxxx-xxxxx',
@@ -50,26 +52,24 @@ const config = {
     }
 };
 
-if (config.env === 'development') {
+if (config.hosted_env === 'development') {
     config.server.url += ':' + config.server.port;
 
     config.server.cors = {
         origin: 'http://localhost:' + config.webpackserver.port
     };
-
-} else if (config.env === 'deploydev') {
-    config.server.url = 'http://dev.ownersedge.us'
-    config.apiserver.url = 'http://dev.ownersedge.us'
-    config.apiserver.port = null
-} else if (config.env === 'deployqa') {
-    config.server.url = 'http://beta.ownersedge.us'
-    config.apiserver.url = 'http://beta.ownersedge.us'
-    config.apiserver.port = null
-}
- else if (config.env === 'production') {
-    config.server.url = 'http://ownersedge.us'
-    config.apiserver.url = 'http://ownersedge.us'
-    config.apiserver.port = null
+} else if (config.hosted_env === 'devDeploy') {
+    config.server.url = 'http://dev.ownersedge.us';
+    config.apiserver.url = 'http://dev.ownersedge.us';
+    config.apiserver.port = null;
+} else if (config.hosted_env === 'production') {
+    config.server.url = 'http://ownersedge.us';
+    config.apiserver.url = 'http://ownersedge.us';
+    config.apiserver.port = null;
+} else if (config.hosted_env === 'qaDeploy') {
+    config.server.url = 'http://beta.ownersedge.us';
+    config.apiserver.url = 'http://beta.ownersedge.us';
+    config.apiserver.port = null;
 }
 
 module.exports = config;
