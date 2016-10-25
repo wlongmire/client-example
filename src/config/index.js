@@ -1,5 +1,4 @@
 'use strict';
-require('dotenv').load();
 
 var config = {
     env: process.env.NODE_ENV,
@@ -15,7 +14,8 @@ var config = {
     submissionPDFUrl: 'http://assets.ownersedge.us/templates/submission_v2.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
-    hosted_env: process.env.DEVHOST,
+    colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
+    //hosted_env: process.env.DEVHOST,
 
     analytics: {
         ua: 'xxxxx-xxxxx',
