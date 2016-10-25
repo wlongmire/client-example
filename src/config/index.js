@@ -1,7 +1,5 @@
 'use strict';
 
-console.log('Parker is debugging', process.env);
-
 var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
