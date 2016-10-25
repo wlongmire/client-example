@@ -14,7 +14,7 @@ var config = {
     submissionPDFUrl: 'http://assets.ownersedge.us/templates/submission_v2.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
-    //hosted_env: process.env.hosted_env || 'development',
+    hosted_env: process.env.DEVHOST,
 
     analytics: {
         ua: 'xxxxx-xxxxx',
