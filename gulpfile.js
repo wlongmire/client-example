@@ -19,6 +19,7 @@ var webpackConfigProd = require('./webpack.config.prod');
 var webpackDevServer = require('webpack-dev-server');
 var webpackStream = require('webpack-stream');
 var replace = require('gulp-replace');
+var config = require('./src/config');
 
 gulp.task('transform:prod', function(){
   gulp.src('configTemplate/*')

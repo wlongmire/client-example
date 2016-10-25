@@ -56,6 +56,7 @@ if (config.env === 'development') {
     config.server.port = 8888
     config.apiserver.port = 8888
     config.server.url += ':' + config.server.port;
+    config.apiserver.url += ':' + config.apiserver.port;
 
     config.server.cors = {
         origin: 'http://localhost:' + config.webpackserver.port
