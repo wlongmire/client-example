@@ -40,7 +40,7 @@ gulp.task('transform:dev', function(){
 
 gulp.task('transform:beta', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@argoEmail', 'intake.ownersedge.us'))
+  .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
   .pipe(replace('@serverUrl', 'http://beta.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
