@@ -30,8 +30,6 @@ if (config.env === 'debug') {
   console.log('Config', config);
 }
 
-console.log('debugging', process.env);
-
 /** Config Express **/
 
 const app = express();
