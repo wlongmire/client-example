@@ -4,7 +4,7 @@ var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: process.env.appID || '57ab6abcf36d2840aa667f6e',
-    argoEmail: env.argoEmail || 'parkerproject@gmail.com',
+    argoEmail: process.env.ARGO_EMAIL || 'parkerproject@gmail.com',
     mongoURI: process.env.mongoURI || 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: process.env.sendGridKey || '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
@@ -38,7 +38,7 @@ var config = {
     app: {},
 
     server: {
-        url: env.server || 'http://localhost',
+        url: process.env.SERVER || 'http://localhost',
         port: null
     },
 
@@ -47,7 +47,7 @@ var config = {
     },
 
     apiserver: {
-        url: env.apiserver || 'http://localhost',
+        url: process.env.API_SERVER || 'http://localhost',
         port:  null
     }
 };
