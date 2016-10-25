@@ -39,7 +39,7 @@ var config = {
 
     server: {
         url: process.env.server || 'http://localhost',
-        port: config.env === 'development' ? 8888 : null
+        port: null
     },
 
     webpackserver: {
@@ -48,11 +48,13 @@ var config = {
 
     apiserver: {
         url: process.env.apiserver || 'http://localhost',
-        port: config.env === 'development' ? 8888 : null
+        port:  null
     }
 };
 
 if (config.env === 'development') {
+    config.server.port = 8888
+    config.apiserver.port = 8888
     config.server.url += ':' + config.server.port;
 
     config.server.cors = {
