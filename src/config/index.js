@@ -15,7 +15,6 @@ var config = {
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
-    //hosted_env: process.env.DEVHOST,
 
     analytics: {
         ua: 'xxxxx-xxxxx',
@@ -39,8 +38,8 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
-        port: 8888
+        url: process.env.server || 'http://localhost',
+        port: config.env === 'development' ? 8888 : null
     },
 
     webpackserver: {
@@ -48,8 +47,8 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
-        port: 8888
+        url: process.env.apiserver || 'http://localhost',
+        port: config.env === 'development' ? 8888 : null
     }
 };
 
@@ -59,18 +58,20 @@ if (config.env === 'development') {
     config.server.cors = {
         origin: 'http://localhost:' + config.webpackserver.port
     };
-} else if (config.env === 'devdeploy') {
-    config.server.url = 'http://dev.ownersedge.us';
-    config.apiserver.url = 'http://dev.ownersedge.us';
-    config.apiserver.port = null;
-} else if (config.env === 'production') {
-    config.server.url = 'http://ownersedge.us';
-    config.apiserver.url = 'http://ownersedge.us';
-    config.apiserver.port = null;
-} else if (config.env === 'qaDeploy') {
-    config.server.url = 'http://beta.ownersedge.us';
-    config.apiserver.url = 'http://beta.ownersedge.us';
-    config.apiserver.port = null;
 }
+
+// else if (config.env === 'devdeploy') {
+//     config.server.url = 'http://dev.ownersedge.us';
+//     config.apiserver.url = 'http://dev.ownersedge.us';
+//     config.apiserver.port = null;
+// } else if (config.env === 'production') {
+//     config.server.url = 'http://ownersedge.us';
+//     config.apiserver.url = 'http://ownersedge.us';
+//     config.apiserver.port = null;
+// } else if (config.env === 'qaDeploy') {
+//     config.server.url = 'http://beta.ownersedge.us';
+//     config.apiserver.url = 'http://beta.ownersedge.us';
+//     config.apiserver.port = null;
+// }
 
 module.exports = config;
