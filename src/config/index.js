@@ -76,4 +76,6 @@ if (config.env === 'development') {
 //     config.apiserver.port = null;
 // }
 
+console.log(config.argoEmail);
+
 module.exports = config;
