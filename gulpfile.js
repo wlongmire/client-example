@@ -18,8 +18,43 @@ var webpackConfigDev = require('./webpack.config.dev');
 var webpackConfigProd = require('./webpack.config.prod');
 var webpackDevServer = require('webpack-dev-server');
 var webpackStream = require('webpack-stream');
+var replace = require('gulp-replace');
 
-var config = require('./src/config');
+gulp.task('transform:prod', function(){
+  gulp.src('configTemplate/*')
+  .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
+  .pipe(replace('@serverUrl', 'http://ownersedge.us'))
+  .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
+  .pipe(replace('@mongoURI', 'mongodb://apiuser:JcXB1kheM9Kyyw33@ds057196-a0.mlab.com:57196,ds057196-a1.mlab.com:57196/ownersedge?replicaSet=rs-ds057196'))
+  .pipe(gulp.dest('src/config/'))
+})
+
+gulp.task('transform:dev', function(){
+  gulp.src('configTemplate/*')
+  .pipe(replace('@argoEmail', 'justin.steranko@gmail.com'))
+  .pipe(replace('@serverUrl', 'http://dev.ownersedge.us'))
+  .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
+  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
+  .pipe(gulp.dest('src/config/'))
+})
+
+gulp.task('transform:beta', function(){
+  gulp.src('configTemplate/*')
+  .pipe(replace('@argoEmail', 'intake.ownersedge.us'))
+  .pipe(replace('@serverUrl', 'http://beta.ownersedge.us'))
+  .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
+  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
+  .pipe(gulp.dest('src/config/'))
+})
+
+gulp.task('transform:local', function(){
+  gulp.src('configTemplate/*')
+  .pipe(replace('@argoEmail', 'justin.steranko@gmail.com'))
+  .pipe(replace('@serverUrl', 'http://localhost'))
+  .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
+  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
+  .pipe(gulp.dest('src/config/'))
+})
 
 /*
  * tasks
@@ -78,7 +113,7 @@ gulp.task('s', ['serve:dev']);
 gulp.task('serve', ['serve:dev']);
 gulp.task('serve:dev', ['serve:development']);
 
-gulp.task('serve:development', ['html', 'images', 'fonts', 'build:node'],
+gulp.task('serve:development', ['transform:local','html', 'images', 'fonts', 'build:node'],
 function () {
   new webpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
@@ -89,7 +124,7 @@ function () {
       colors: true,
       chunks: false
     }
-  }).listen(config.webpackserver.port, 'localhost', function (err, result) {
+  }).listen(7777, 'localhost', function (err, result) {
     if (err) {
       return console.log(err);
     }
@@ -116,6 +151,9 @@ gulp.task('serve:production', ['serve:node:production']);
 gulp.task('serve:node:production', shell.task([
   'NODE_ENV="production" node src/server/index.js'
 ]));
+
+
+
 
 function errorGraceful (error) {
   console.log(error.toString());
