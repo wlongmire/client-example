@@ -3,7 +3,9 @@ import { push } from 'react-router-redux';
 import config from '../../../config';
 import { FETCH_SUBMISSIONS, USER_LOGGED_OUT, EDIT_SUBMISSION } from '../../constants';
 
-let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+
+let baseURL = config.apiserver.url;
 
 
 export function getSubmissions(brokerId) {

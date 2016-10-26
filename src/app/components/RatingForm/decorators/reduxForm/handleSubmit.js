@@ -7,7 +7,9 @@ from 'react-router-redux';
 import config from '../../../../../config';
 import { onlyNums } from '../../../../utils/utilities';
 
-let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+
+let baseURL = config.apiserver.url;
 
 export default function handleSubmit(values, dispatch) {
 	return () => {

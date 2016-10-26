@@ -155,7 +155,7 @@ function sendSubmissionEmailArgo(submission) {
 			generateSubmissionPDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
-						title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
+						title: `Owners EDGE Quotation - General Liability.pdf`,
 						content: glpdf
 					})
 					if (submission.excessPremium > 0) {
@@ -195,7 +195,7 @@ function sendSubmissionEmailClient(submission) {
 			generateSubmissionPDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
-						title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
+						title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
 						content: glpdf
 					})
 					if (submission.excessPremium > 0) {

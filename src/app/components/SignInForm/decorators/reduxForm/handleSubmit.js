@@ -2,7 +2,8 @@ import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
 import config from '../../../../../config';
 
-let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+let baseURL = config.apiserver.url;
 
 let handleSubmit =  (values, dispatch) => {
 

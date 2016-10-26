@@ -10,8 +10,8 @@ import {
 }
 from '../../../../constants';
 
-let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
-
+//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+let baseURL = config.apiserver.url;
 
 
 export default function handleSubmit(values, dispatch) {
