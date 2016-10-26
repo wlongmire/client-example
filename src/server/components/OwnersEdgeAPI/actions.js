@@ -35,7 +35,7 @@ async function getSubmissions(req, res) {
 			})
 
 		})
-		.catch(error => { 
+		.catch(error => {
 			return res.status(403).json({
 				type: 'TokenExpired',
 				message: 're-login to get new token',
@@ -282,6 +282,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		namedInsuredAddress: subInfo.namedInsuredAddress,
 		hasOtherNamedInsured: subInfo.otherNamedInsuredBoolean,
 		otherNamedInsured: subInfo.otherNamedInsured,
+		hasAdditionalInsured: subInfo.additionalInsuredBoolean,
+		additionalInsured: subInfo.additionalInsured,
 		projectAddress: subInfo.address,
 		scope: subInfo.scope,
 		term: subInfo.term,
