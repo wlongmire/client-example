@@ -1,6 +1,6 @@
 export default function mapStateToProps(state) {
 /*
-if the form have initialValues, it means an edit is taking place 
+if the form have initialValues, it means an edit is taking place
 otherwise a new submission is taking place
 */
   const submission = state.submissions.selectedSubmission;
@@ -15,11 +15,20 @@ otherwise a new submission is taking place
         zip: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.zip :  null
       },
       hasOtherNamedInsured: submission ? submission.hasOtherNamedInsured : null,
-      otherNamedInsureds: [
+      otherNamedInsured: {
+        name: submission && submission.otherNamedInsured ? submission.otherNamedInsured[0].name : '',
+        relationship: submission && submission.otherNamedInsured ? submission.otherNamedInsured[0].relationship : '',
+        street: submission && submission.otherNamedInsuredAddress ? submission.otherNamedInsuredAddress.street :  '',
+        city: submission && submission.otherNamedInsuredAddress ? submission.otherNamedInsuredAddress.city :  '',
+        state: submission && submission.otherNamedInsuredAddress ? submission.otherNamedInsuredAddress.state :  '',
+        zip: submission && submission.otherNamedInsuredAddress ? submission.otherNamedInsuredAddress.zip :  null
+      },
+      hasAdditionalInsured: submission ? submission.hasAdditionalInsured : null,
+      additionalInsured: [
         {
-          name: submission && submission.otherNamedInsureds ? submission.otherNamedInsureds[0].name : '',
-          relationship: submission && submission.otherNamedInsureds ? submission.otherNamedInsureds[0].relationship : '',
-          role: submission && submission.otherNamedInsureds ? submission.otherNamedInsureds[0].role : ''
+          name: submission && submission.additionalInsured ? submission.additionalInsured[0].name : '',
+          relationship: submission && submission.additionalInsured ? submission.additionalInsured[0].relationship : '',
+          role: submission && submission.additionalInsured ? submission.additionalInsured[0].role : ''
         }
       ],
       address: {

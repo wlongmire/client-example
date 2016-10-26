@@ -10,6 +10,8 @@ const submissionSchema = new mongoose.Schema({
   primaryNamedInsuredAddress: Boolean,
   hasOtherNamedInsured: Boolean,
   otherNamedInsured: Object,
+  hasAdditionalInsured: Boolean,
+  additionalInsured: Object,
   projectAddress: Object,
   scope: String,
   term: Number,

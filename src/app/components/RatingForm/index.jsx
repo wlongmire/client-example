@@ -8,7 +8,7 @@ import ToggleDisplay from 'components/shared/ToggleDisplay';
 
 import styles from './styles';
 
-import OtherNamedInsuredFieldSet from './OtherNamedInsuredFieldSet';
+import AdditionalInsuredFieldSet from './AdditionalInsuredFieldSet';
 import AddressFieldSet from './AddressFieldSet';
 import GeneralContractorFieldSet from './GeneralContractorFieldSet';
 import OccupancyDetailsFieldSet from './OccupancyDetailsFieldSet';
@@ -16,6 +16,7 @@ import DemoDetailsFieldSet from './DemoDetailsFieldSet';
 import WorkDetailsFieldSet from './WorkDetailsFieldSet';
 import ContactInfoFieldSet from './ContactInfoFieldSet';
 import ExcessDetailsFieldSet from './ExcessDetailsFieldSet';
+import OtherNamedFieldSet from './OtherNamedFieldSet';
 
 import decorator from './decorators';
 
@@ -26,6 +27,8 @@ function RatingForm(props) {
       namedInsuredAddress,
       hasOtherNamedInsured,
       otherNamedInsured,
+      hasAdditionalInsured,
+      additionalInsured,
       address,
       scope,
       term,
@@ -58,7 +61,7 @@ function RatingForm(props) {
           <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
         <li>
-          <span className="area-label">Any additional Insured?*</span>
+          <span className="area-label">Is there another named Insured?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -80,7 +83,34 @@ function RatingForm(props) {
           show={hasOtherNamedInsured.value === 'yes'}
           render={() => (
             <li>
-              <OtherNamedInsuredFieldSet otherNamedInsured={otherNamedInsured} />
+              <OtherNamedFieldSet otherNamedInsured={otherNamedInsured} />
+            </li>
+          )}
+        />
+        <li>
+          <span className="area-label">Any additional Insured?</span>
+          <radiogroup>
+            <label>
+              <PureRadio
+                value="yes"
+                field={hasAdditionalInsured}
+              />
+              Yes
+            </label>
+            <label>
+              <PureRadio
+                value="no"
+                field={hasAdditionalInsured}
+              />
+              No
+            </label>
+          </radiogroup>
+        </li>
+        <ToggleDisplay
+          show={hasAdditionalInsured.value === 'yes'}
+          render={() => (
+            <li>
+              <AdditionalInsuredFieldSet additionalInsured={additionalInsured} />
             </li>
           )}
         />
