@@ -2,7 +2,7 @@ import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
 
-function OtherNamedInsuredFieldSet(props) {
+function AdditionalInsuredFieldSet(props) {
   const {
     otherNamedInsured: {
       name,
@@ -46,4 +46,4 @@ function OtherNamedInsuredFieldSet(props) {
   );
 }
 
-export default OtherNamedInsuredFieldSet;
+export default AdditionalInsuredFieldSet;
