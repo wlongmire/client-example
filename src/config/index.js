@@ -11,10 +11,11 @@ var config = {
     brokerTemplateId: '365b9c92-9e3d-4699-88ff-d9ea688e769b',
     argoNonQuoteTemplate: '52173414-ee4e-42cd-a609-38b3c180ddfe',
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
-    submissionPDFUrl: 'http://assets.ownersedge.us/templates/submission_v2.html',
+    submissionPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
+
 
     analytics: {
         ua: 'xxxxx-xxxxx',
@@ -38,7 +39,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://dev.ownersedge.us',
+        url: 'http://localhost',
         port: null
     },
 
@@ -47,7 +48,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://dev.ownersedge.us',
+        url: 'http://localhost',
         port:  null
     }
 };
