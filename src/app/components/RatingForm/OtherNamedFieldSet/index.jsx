@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
+import PureRadio from 'components/shared/PureRadio';
 import PureOptionSelect from 'components/shared/PureOptionSelect';
 
 const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
@@ -14,7 +15,8 @@ function OtherNamedFieldSet(props) {
       street,
       city,
       state,
-      zip
+      zip,
+      greaterThanTwoNamed
     }
   } = props;
   return (
@@ -76,6 +78,25 @@ function OtherNamedFieldSet(props) {
               className="zip-input"
             />
         </li>
+        <li>
+        <span className="area-label-sub">Any other named insured?</span>
+        <radiogroup>
+            <label>
+              <PureRadio
+                value="yes"
+                field={greaterThanTwoNamed}
+              />
+              Yes
+            </label>
+            <label>
+              <PureRadio
+                value="no"
+                field={greaterThanTwoNamed}
+              />
+              No
+            </label>
+          </radiogroup>
+          </li>
       </ul>
     </fieldset>
   );

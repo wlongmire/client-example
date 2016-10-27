@@ -34,7 +34,9 @@ const submissionSchema = new mongoose.Schema({
   broker: {type: Schema.Types.ObjectId, ref: 'broker', default: null},
   generalComments: String,
   demoDetails: Object,
-  towerCraneUse: String
+  towerCraneUse: String,
+  greaterThanTwoNamed: Boolean,
+  greaterThanTwoAdditional: Boolean
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);
