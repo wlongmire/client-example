@@ -1,13 +1,15 @@
 import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
+import PureRadio from 'components/shared/PureRadio';
 
 function AdditionalInsuredFieldSet(props) {
   const {
-    otherNamedInsured: {
+    additionalInsured: {
       name,
       relationship,
-      role
+      role,
+      greaterThanTwoAdditional
     }
   } = props;
   return (
@@ -41,6 +43,25 @@ function AdditionalInsuredFieldSet(props) {
             />
           </label>
         </li>
+        <li>
+        <span className="area-label-sub">Any other additional insured?</span>
+        <radiogroup>
+            <label>
+              <PureRadio
+                value="yes"
+                field={greaterThanTwoAdditional}
+              />
+              Yes
+            </label>
+            <label>
+              <PureRadio
+                value="no"
+                field={greaterThanTwoAdditional}
+              />
+              No
+            </label>
+          </radiogroup>
+          </li>
       </ul>
     </fieldset>
   );

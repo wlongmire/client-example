@@ -65,6 +65,8 @@ function formatRequestBody(values) {
 			workStarted: values.workDetails.hasStarted === 'yes',
 			towerCrane: values.towerCraneUse === 'yes',
 			otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes',
-			excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0
+			excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0,
+			greaterThanTwoNamedBoolean: values.otherNamedInsured.greaterThanTwoNamed === 'yes',
+			greaterThanTwoAdditionalBoolean: values.additionalInsured.greaterThanTwoAdditional === 'yes'
 	});
 }

@@ -302,7 +302,9 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		excessDetails: subInfo.excessDetails,
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-        towerCraneUse: subInfo.towerCraneUse
+        towerCraneUse: subInfo.towerCraneUse,
+		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
+		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 	}
 	return submission;
 }

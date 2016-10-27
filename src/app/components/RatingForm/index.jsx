@@ -27,7 +27,9 @@ function RatingForm(props) {
       namedInsuredAddress,
       hasOtherNamedInsured,
       otherNamedInsured,
+      greaterThanTwoNamed,
       hasAdditionalInsured,
+      greaterThanTwoAdditional,
       additionalInsured,
       address,
       scope,
@@ -49,7 +51,7 @@ function RatingForm(props) {
       <ul className="no-bullets">
         <li>
           <label>
-            <span className="area-label">Who is the First Named Insured?*</span>
+            <span className="area-label">Who is the First Named Insured?</span>
             <PureInput
               type="text"
               field={primaryNamedInsured}
@@ -61,7 +63,7 @@ function RatingForm(props) {
           <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
         <li>
-          <span className="area-label">Is there another named Insured?</span>
+          <span className="area-label">Is there a secondary Named Insured?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -83,7 +85,7 @@ function RatingForm(props) {
           show={hasOtherNamedInsured.value === 'yes'}
           render={() => (
             <li>
-              <OtherNamedFieldSet otherNamedInsured={otherNamedInsured} />
+              <OtherNamedFieldSet otherNamedInsured={otherNamedInsured} greaterThanTwoNamed={greaterThanTwoNamed} />
             </li>
           )}
         />
@@ -110,7 +112,7 @@ function RatingForm(props) {
           show={hasAdditionalInsured.value === 'yes'}
           render={() => (
             <li>
-              <AdditionalInsuredFieldSet additionalInsured={additionalInsured} />
+              <AdditionalInsuredFieldSet additionalInsured={additionalInsured} greaterThanTwoAdditional={greaterThanTwoAdditional} />
             </li>
           )}
         />
@@ -119,7 +121,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">Please describe the scope of work for this project (include end use)*</span>
+           <span className="area-label">Please describe the scope of work for this project (include end use) </span>
             <PureTextArea
               field={scope}
             />
@@ -136,7 +138,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">What is the total construction value of this project?*</span>
+           <span className="area-label">What is the total construction value of this project? </span>
            <small>(ie. tools, equipment, materials)</small>
             <PureInput
               type="text"
@@ -145,7 +147,7 @@ function RatingForm(props) {
           </label>
         </li>
         <li>
-         <span className="area-label"> Will there be use of a tower crane on this project?*</span>
+         <span className="area-label"> Will there be use of a tower crane on this project? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -164,7 +166,7 @@ function RatingForm(props) {
           </radiogroup>
         </li>
         <li>
-         <span className="area-label">Is the General Contractor known?*</span>
+         <span className="area-label">Is the General Contractor known? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -191,7 +193,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-         <span className="area-label"> Will there be occupancy during the project?*</span>
+         <span className="area-label"> Will there be occupancy during the project? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -218,7 +220,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          <span className="area-label">Will there be demo of exterior walls or roof?*</span>
+          <span className="area-label">Will there be demo of exterior walls or roof? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -245,7 +247,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          <span className="area-label">Has work started on this project?*</span>
+          <span className="area-label">Has work started on this project? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -300,7 +302,7 @@ function RatingForm(props) {
         />
         <li>
           <label>
-           <span className="area-label">General Comments*</span>
+           <span className="area-label">General Comments</span>
             <PureTextArea
               field={generalComments}
             />
