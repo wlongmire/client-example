@@ -136,7 +136,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">What are the hard costs of this project, in dollars?*</span>
+           <span className="area-label">What is the total construction value of this project?*</span>
            <small>(ie. tools, equipment, materials)</small>
             <PureInput
               type="text"

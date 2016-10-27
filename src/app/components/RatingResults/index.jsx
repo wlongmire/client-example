@@ -67,6 +67,18 @@ function RatingResults(props) {
 
             <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase</p>
 
+            <ul>
+              <li>Jessica Buelow – Supervisor – New York - 212-607-8829</li>
+
+              <li>Donna Dolan – Sr. Underwriter – Richmond, VA - 804-560-2099</li>
+
+              <li>Chris Townsend – Underwriter – New York – 212-607-8845</li>
+
+              <li>Santo Pezzotti – Underwriting Trainee – Scottsdale, AZ – 480-889-5647</li>
+
+              <li>Andreanne Frederick – Sr. Underwriting Assistant – New York – 212-607-8806 </li>
+            </ul>
+
           </div>
           <div className="legalText">
             The "pricing indication" is issued as a matter of information only  and does not confer any rights upon the insured or constitute a contract between <br/> Colony Specialty and the authorized representative or producer of the insured or the insured.
