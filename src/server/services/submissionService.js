@@ -232,7 +232,12 @@ async function generatePDFData(submissionIdentifier) {
     willHaveOtherNamed: submission.hasOtherNamedInsured && submission.otherNamedInsured.name ? true: false,
     otherRole: submission.hasOtherNamedInsured ? submission.otherNamedInsured.role : 'No other Named Insured entities submitted',
     otherRelationship: submission.hasOtherNamedInsured ? submission.otherNamedInsured.relationship: 'N/A',
+    otherContractors: gcInfo && submission.generalContractorInfo.isSupervisingSubs === 'yes' ? true :false,
     otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'No AI Entities Submitted',
+    greaterThanTwoAdditional: submission.greaterThanTwoAdditional,
+    additionalName: submission.hasAdditionalInsured ? submission.additionalInsured.name : 'No Additional Insured',
+    additionalRole: submission.hasAdditionalInsured ? submission.additionalInsured.role : 'N/A',
+    additionalRelationship: submission.hasAdditionalInsured ? submission.additionalInsured.relationship : 'N/A',
     commissionRate: `${submission.commission} %`,
     occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
     aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
@@ -262,6 +267,9 @@ async function generatePDFData(submissionIdentifier) {
   }
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;
+  }
+  if (submission.hasAdditionalInsured) {
+    pdfData.hasAdditionalEnsuredExist = true
   }
   return pdfData;
 }
