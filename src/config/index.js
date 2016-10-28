@@ -28,6 +28,12 @@ var config = {
         "width": "8.5in", // allowed units: mm, cm, in, px
         "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
         "orientation": "portrait", // portrait or landscape
+        "border": {
+            "top": "12mm", // default is 0, units: mm, cm, in, px
+            "right": "6mm",
+            "bottom": "12mm",
+            "left": "6mmin"
+        }
     },
 
     app: {},
