@@ -23,13 +23,12 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
       personalization.addSubstitution(new helper.Substitution('{{confirmationNumber}}', submission.confirmationNumber))
     break;
     case 'nonQuoteArgo':
-          personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
-      personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.namedInsured));
+          personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
     break;
     }
   mail.addPersonalization(personalization);
   mail.setTemplateId(templateId);
-
+ console.log('---set Personalization---')
   if (pdfArray.length > 0) {
       pdfArray.forEach(pdf => {
         let attachment = new helper.Attachment()
