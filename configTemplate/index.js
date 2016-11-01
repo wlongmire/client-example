@@ -29,10 +29,10 @@ var config = {
         "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
         "orientation": "portrait", // portrait or landscape
         "border": {
-            "top": "1in", // default is 0, units: mm, cm, in, px
-            "right": "0.5in",
-            "bottom": "1in",
-            "left": "0.5in"
+            "top": "12mm", // default is 0, units: mm, cm, in, px
+            "right": "6mm",
+            "bottom": "12mm",
+            "left": "6mm"
         }
     },
 

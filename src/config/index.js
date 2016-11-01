@@ -32,7 +32,7 @@ var config = {
             "top": "12mm", // default is 0, units: mm, cm, in, px
             "right": "6mm",
             "bottom": "12mm",
-            "left": "6mmin"
+            "left": "6mm"
         }
     },
 

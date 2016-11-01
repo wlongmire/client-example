@@ -216,12 +216,30 @@ function sendSubmissionEmailClient(submission) {
 	});
 }
 
-function sendNonQuoteEmailArgo(submission) {
-	emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, null);
+function sendNonQuoteEmailArgo(submission) {generateSubmissionPDF(submission.pdfToken)
+				.then(glpdf => {
+					pdfArray.push({
+						title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
+						content: glpdf
+					})
+					if (submission.excessPremium > 0) {
+						console.log('---generating Excess PDF---')
+						generateExcessPDF(submission.pdfToken)
+							.then(excessPdf => {
+								pdfArray.push({
+									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+									content: excessPdf
+								})
+								emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
+							})
+					} else
+							emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+				});
+
 }
 
 function sendNonQuoteEmailBroker(submission) {
-	emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.gubrokerNonQuoteTemplate, null);
+	emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.brokerNonQuoteTemplate, null);
 }
 
 
