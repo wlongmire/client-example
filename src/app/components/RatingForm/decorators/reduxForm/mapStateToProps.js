@@ -14,7 +14,7 @@ otherwise a new submission is taking place
         state: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.state :  '',
         zip: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.zip :  null
       },
-      hasOtherNamedInsured: submission ? submission.hasOtherNamedInsured : null,
+      hasOtherNamedInsured: submission ? 'yes' : '',
       otherNamedInsured: {
         name: submission && submission.otherNamedInsured ? submission.otherNamedInsured.name : '',
         relationship: submission && submission.otherNamedInsured ? submission.otherNamedInsured.relationship : '',
@@ -24,7 +24,7 @@ otherwise a new submission is taking place
         zip: submission && submission.otherNamedInsured ? submission.otherNamedInsured.zip :  null,
         geaterThanTwoNamed: submission && submission.otherNamedInsured ? submission.otherNamedInsured.greaterThanTwoNamed : null
       },
-      hasAdditionalInsured: submission && submission.hasAdditionalInsured ? submission.hasAdditionalInsured : null,
+      hasAdditionalInsured: submission && submission.hasAdditionalInsured ? 'yes' : '',
       additionalInsured: {
           name: submission && submission.additionalInsured ? submission.additionalInsured.name : '',
           relationship: submission && submission.additionalInsured ? submission.additionalInsured.relationship : '',
