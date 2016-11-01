@@ -57,7 +57,7 @@ return new Promise((resolve,reject) => {
         }, function(err, response, body) {
             let html = generateHTML(body, pdfData);
             pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
-                console.log('successfully generated PDF');
+              console.log('successfully generated PDF');
               return resolve(buffer);
             });
         });
@@ -174,10 +174,13 @@ async function generatePDFData(submissionIdentifier) {
   } else {
     submission = await getSubmissionById(submissionIdentifier.token)
   }
-
-  let terrorismPremium = Math.round(0.05 * submission.quotedPremium);
+  let premium = 0;
+  if (utilities.isDefined(submission.quotedPremium)) {
+    premium = submission.quotedPremium;
+  }
+  let terrorismPremium = Math.round(0.05 * premium);
   let additionalCoverage;
-  if (submission.quotedPremium < 25000) {
+  if (premium < 25000) {
     additionalCoverage = 125;
   } else {
     additionalCoverage = 250
@@ -196,7 +199,7 @@ async function generatePDFData(submissionIdentifier) {
   let occAggLimit = aggregateLimit + 1000000
   let genAggLimit = aggregateLimit + 2000000
 
-  let totalPremium = terrorismPremium + submission.quotedPremium + additionalCoverage;
+  let totalPremium = terrorismPremium + premium + additionalCoverage;
   const inspectionCost = 325
   let totalCost = totalPremium + inspectionCost
 
@@ -204,7 +207,7 @@ async function generatePDFData(submissionIdentifier) {
 
   const pdfData = {
     namedInsured: submission.primaryNamedInsured,
-    quotedPremium: `$${utilities.commifyNumber(submission.quotedPremium)}`,
+    quotedPremium: `$${utilities.commifyNumber(premium)}`,
     terrorPremium: `$${utilities.commifyNumber(terrorismPremium)}`,
     addtlPremium: `$${utilities.commifyNumber(additionalCoverage)}`,
     totalPremium: `$${utilities.commifyNumber(totalPremium)}`,

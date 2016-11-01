@@ -18,7 +18,7 @@ function RatingResults(props) {
   return (
     <div className="RatingResults__container">
       <ToggleDisplay
-        show={isDefined(submission.quotedPremium) && submission.quotedPremium !== null}
+        show={isDefined(submission.quotedPremium) && submission.quotedPremium !== null && submission.quotedPremium > 0}
         render={() => (
           <div>
           <div>
@@ -58,6 +58,10 @@ function RatingResults(props) {
                 <div className="premium-number">
                   Excess Premium
                   <span>{`$${commifyNumber(submission.excessPremium)}`}</span>
+                </div>
+                <div className="premium-number">
+                  Terrorism Coverage
+                  <span>{`$${commifyNumber(submission.excessTerror)}`}</span>
                 </div>
             </div>
         )}

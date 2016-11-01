@@ -115,7 +115,7 @@ async function getRating(req, res) {
 								});
 							} else {
 								sendNonQuoteEmailArgo(newSub)
-								sendNonQuoteEmailBroker(newSub)
+								//sendNonQuoteEmailBroker(newSub)
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
@@ -216,12 +216,15 @@ function sendSubmissionEmailClient(submission) {
 	});
 }
 
-function sendNonQuoteEmailArgo(submission) {generateSubmissionPDF(submission.pdfToken)
+function sendNonQuoteEmailArgo(submission) {
+	let pdfArray = [];
+	generateSubmissionPDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
 						title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
 						content: glpdf
-					})
+					});
+					console.log('--finished generating GL PDF---');
 					if (submission.excessPremium > 0) {
 						console.log('---generating Excess PDF---')
 						generateExcessPDF(submission.pdfToken)
@@ -230,6 +233,7 @@ function sendNonQuoteEmailArgo(submission) {generateSubmissionPDF(submission.pdf
 									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
 									content: excessPdf
 								})
+								console.log('---sending non-quoted email---')
 								emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
 							})
 					} else
@@ -278,6 +282,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	let additionalCoverage;
 	let totalPremium;
 	let totalCost;
+	let excessTerror;
 	const today = new Date();
 
 	if (quoteInfo.premium > 0) {
@@ -292,6 +297,10 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		totalPremium = terrorismPremium + premium + additionalCoverage;
 		const inspectionCost = 325
 		totalCost = totalPremium + inspectionCost
+	}
+
+	if (quoteInfo.excessPremium > 0) {
+		excessTerror = Math.round(0.05 * quoteInfo.excessPremium)
 	}
 
 
@@ -317,6 +326,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		totalPremium: totalPremium,
 		totalCost: totalCost,
 		excessPremium: quoteInfo.excessPremium,
+		excessTerror: excessTerror,
 		excessDetails: subInfo.excessDetails,
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,

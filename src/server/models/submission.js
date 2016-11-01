@@ -36,7 +36,8 @@ const submissionSchema = new mongoose.Schema({
   demoDetails: Object,
   towerCraneUse: String,
   greaterThanTwoNamed: Boolean,
-  greaterThanTwoAdditional: Boolean
+  greaterThanTwoAdditional: Boolean,
+  excessTerror: Number
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);
