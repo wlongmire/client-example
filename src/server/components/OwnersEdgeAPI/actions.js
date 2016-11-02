@@ -143,15 +143,6 @@ function sendSubmissionEmailArgo(submission) {
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		})
-
-		generateColonyOwnersInterestQuestionnairePDF(submission.pdfToken)
-		.then(bindpdf => {
-
-			pdfArray.push({
-				title: 'Colony Owners Interest Questionnaire.pdf',
-				content: bindpdf
-			})
-
 			generateSubmissionPDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
@@ -172,7 +163,6 @@ function sendSubmissionEmailArgo(submission) {
 						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
 				});
 		});
-	});
 }
 
 
@@ -185,13 +175,6 @@ function sendSubmissionEmailClient(submission) {
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		})
-		generateColonyOwnersInterestQuestionnairePDF(submission.pdfToken)
-		.then(bindpdf => {
-			pdfArray.push({
-				title: 'Colony Owners Interest Questionnaire.pdf',
-				content: bindpdf
-			})
-
 			generateSubmissionPDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
@@ -212,8 +195,6 @@ function sendSubmissionEmailClient(submission) {
 						emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 				});
 		});
-
-	});
 }
 
 function sendNonQuoteEmailArgo(submission) {
