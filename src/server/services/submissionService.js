@@ -274,7 +274,7 @@ async function generatePDFData(submissionIdentifier) {
     pdfData.hasOtherNamedInsuredExist = true;
   }
   if (submission.hasAdditionalInsured) {
-    pdfData.hasAdditionalEnsuredExist = true
+    pdfData.hasAdditionalInsuredExist = true
   }
   return pdfData;
 }
