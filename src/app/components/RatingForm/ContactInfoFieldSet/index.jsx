@@ -11,7 +11,7 @@ function ContactInfoFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      <span className="area-label">Last but not least, let's get some contact info:</span>
+      <span className="area-label">Please provide your contact info to receive your indication:</span>
       <ul className="no-bullets">
         <li>
           <label>

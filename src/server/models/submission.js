@@ -10,6 +10,8 @@ const submissionSchema = new mongoose.Schema({
   primaryNamedInsuredAddress: Boolean,
   hasOtherNamedInsured: Boolean,
   otherNamedInsured: Object,
+  hasAdditionalInsured: Boolean,
+  additionalInsured: Object,
   projectAddress: Object,
   scope: String,
   term: Number,
@@ -32,7 +34,10 @@ const submissionSchema = new mongoose.Schema({
   broker: {type: Schema.Types.ObjectId, ref: 'broker', default: null},
   generalComments: String,
   demoDetails: Object,
-  towerCraneUse: String
+  towerCraneUse: String,
+  greaterThanTwoNamed: Boolean,
+  greaterThanTwoAdditional: Boolean,
+  excessTerror: Number
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);

@@ -18,7 +18,7 @@ function RatingResults(props) {
   return (
     <div className="RatingResults__container">
       <ToggleDisplay
-        show={isDefined(submission.quotedPremium) && submission.quotedPremium !== null}
+        show={isDefined(submission.quotedPremium) && submission.quotedPremium !== null && submission.quotedPremium > 0}
         render={() => (
           <div>
           <div>
@@ -59,6 +59,10 @@ function RatingResults(props) {
                   Excess Premium
                   <span>{`$${commifyNumber(submission.excessPremium)}`}</span>
                 </div>
+                <div className="premium-number">
+                  Terrorism Coverage
+                  <span>{`$${commifyNumber(submission.excessTerror)}`}</span>
+                </div>
             </div>
         )}
             />
@@ -66,6 +70,18 @@ function RatingResults(props) {
             <p>Please check your email for a more detailed pricing indication and review it for accuracy.</p>
 
             <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase</p>
+
+            <ul>
+              <li>Jessica Buelow – Supervisor – New York - 212-607-8829</li>
+
+              <li>Donna Dolan – Sr. Underwriter – Richmond, VA - 804-560-2099</li>
+
+              <li>Chris Townsend – Underwriter – New York – 212-607-8845</li>
+
+              <li>Santo Pezzotti – Underwriting Trainee – Scottsdale, AZ – 480-889-5647</li>
+
+              <li>Andreanne Frederick – Sr. Underwriting Assistant – New York – 212-607-8806 </li>
+            </ul>
 
           </div>
           <div className="legalText">

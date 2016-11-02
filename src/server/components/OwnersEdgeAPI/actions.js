@@ -35,7 +35,7 @@ async function getSubmissions(req, res) {
 			})
 
 		})
-		.catch(error => { 
+		.catch(error => {
 			return res.status(403).json({
 				type: 'TokenExpired',
 				message: 're-login to get new token',
@@ -115,7 +115,7 @@ async function getRating(req, res) {
 								});
 							} else {
 								sendNonQuoteEmailArgo(newSub)
-								sendNonQuoteEmailBroker(newSub)
+								//sendNonQuoteEmailBroker(newSub)
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
@@ -155,7 +155,7 @@ function sendSubmissionEmailArgo(submission) {
 			generateSubmissionPDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
-						title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
+						title: `Owners EDGE Quotation - General Liability.pdf`,
 						content: glpdf
 					})
 					if (submission.excessPremium > 0) {
@@ -195,7 +195,7 @@ function sendSubmissionEmailClient(submission) {
 			generateSubmissionPDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
-						title: `Owners Edge-Submission ${submission.confirmationNumber}.pdf`,
+						title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
 						content: glpdf
 					})
 					if (submission.excessPremium > 0) {
@@ -217,11 +217,33 @@ function sendSubmissionEmailClient(submission) {
 }
 
 function sendNonQuoteEmailArgo(submission) {
-	emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, null);
+	let pdfArray = [];
+	generateSubmissionPDF(submission.pdfToken)
+				.then(glpdf => {
+					pdfArray.push({
+						title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
+						content: glpdf
+					});
+					console.log('--finished generating GL PDF---');
+					if (submission.excessPremium > 0) {
+						console.log('---generating Excess PDF---')
+						generateExcessPDF(submission.pdfToken)
+							.then(excessPdf => {
+								pdfArray.push({
+									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+									content: excessPdf
+								})
+								console.log('---sending non-quoted email---')
+								emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
+							})
+					} else
+							emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+				});
+
 }
 
 function sendNonQuoteEmailBroker(submission) {
-	emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.gubrokerNonQuoteTemplate, null);
+	emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.brokerNonQuoteTemplate, null);
 }
 
 
@@ -260,6 +282,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	let additionalCoverage;
 	let totalPremium;
 	let totalCost;
+	let excessTerror;
 	const today = new Date();
 
 	if (quoteInfo.premium > 0) {
@@ -276,12 +299,18 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		totalCost = totalPremium + inspectionCost
 	}
 
+	if (quoteInfo.excessPremium > 0) {
+		excessTerror = Math.round(0.05 * quoteInfo.excessPremium)
+	}
+
 
 	let submission = {
 		primaryNamedInsured: subInfo.primaryNamedInsured,
 		namedInsuredAddress: subInfo.namedInsuredAddress,
 		hasOtherNamedInsured: subInfo.otherNamedInsuredBoolean,
 		otherNamedInsured: subInfo.otherNamedInsured,
+		hasAdditionalInsured: subInfo.additionalInsuredBoolean,
+		additionalInsured: subInfo.additionalInsured,
 		projectAddress: subInfo.address,
 		scope: subInfo.scope,
 		term: subInfo.term,
@@ -297,10 +326,13 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		totalPremium: totalPremium,
 		totalCost: totalCost,
 		excessPremium: quoteInfo.excessPremium,
+		excessTerror: excessTerror,
 		excessDetails: subInfo.excessDetails,
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-        towerCraneUse: subInfo.towerCraneUse
+    towerCraneUse: subInfo.towerCraneUse,
+		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
+		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 	}
 	return submission;
 }

@@ -8,7 +8,7 @@ import ToggleDisplay from 'components/shared/ToggleDisplay';
 
 import styles from './styles';
 
-import OtherNamedInsuredFieldSet from './OtherNamedInsuredFieldSet';
+import AdditionalInsuredFieldSet from './AdditionalInsuredFieldSet';
 import AddressFieldSet from './AddressFieldSet';
 import GeneralContractorFieldSet from './GeneralContractorFieldSet';
 import OccupancyDetailsFieldSet from './OccupancyDetailsFieldSet';
@@ -16,6 +16,7 @@ import DemoDetailsFieldSet from './DemoDetailsFieldSet';
 import WorkDetailsFieldSet from './WorkDetailsFieldSet';
 import ContactInfoFieldSet from './ContactInfoFieldSet';
 import ExcessDetailsFieldSet from './ExcessDetailsFieldSet';
+import OtherNamedFieldSet from './OtherNamedFieldSet';
 
 import decorator from './decorators';
 
@@ -26,6 +27,10 @@ function RatingForm(props) {
       namedInsuredAddress,
       hasOtherNamedInsured,
       otherNamedInsured,
+      greaterThanTwoNamed,
+      hasAdditionalInsured,
+      greaterThanTwoAdditional,
+      additionalInsured,
       address,
       scope,
       term,
@@ -46,7 +51,7 @@ function RatingForm(props) {
       <ul className="no-bullets">
         <li>
           <label>
-            <span className="area-label">Who is the First Named Insured?*</span>
+            <span className="area-label">Who is the First Named Insured?</span>
             <PureInput
               type="text"
               field={primaryNamedInsured}
@@ -58,7 +63,7 @@ function RatingForm(props) {
           <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
         <li>
-          <span className="area-label">Any additional Insured?*</span>
+          <span className="area-label">Is there a secondary Named Insured?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -80,7 +85,34 @@ function RatingForm(props) {
           show={hasOtherNamedInsured.value === 'yes'}
           render={() => (
             <li>
-              <OtherNamedInsuredFieldSet otherNamedInsured={otherNamedInsured} />
+              <OtherNamedFieldSet otherNamedInsured={otherNamedInsured} greaterThanTwoNamed={greaterThanTwoNamed} />
+            </li>
+          )}
+        />
+        <li>
+          <span className="area-label">Any Additional Insured?</span>
+          <radiogroup>
+            <label>
+              <PureRadio
+                value="yes"
+                field={hasAdditionalInsured}
+              />
+              Yes
+            </label>
+            <label>
+              <PureRadio
+                value="no"
+                field={hasAdditionalInsured}
+              />
+              No
+            </label>
+          </radiogroup>
+        </li>
+        <ToggleDisplay
+          show={hasAdditionalInsured.value === 'yes'}
+          render={() => (
+            <li>
+              <AdditionalInsuredFieldSet additionalInsured={additionalInsured} greaterThanTwoAdditional={greaterThanTwoAdditional} />
             </li>
           )}
         />
@@ -89,7 +121,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">Please describe the scope of work for this project (include end use)*</span>
+           <span className="area-label">Please describe the scope of work for this project (as much detail as possible - include end use) </span>
             <PureTextArea
               field={scope}
             />
@@ -97,7 +129,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-          <span className="area-label"> What is the term of the project, in months?*</span>
+          <span className="area-label"> What is the term of the project, in months? </span>
             <PureInput
               type="number"
               field={term}
@@ -106,7 +138,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">What are the hard costs of this project, in dollars?*</span>
+           <span className="area-label">What is the total construction value of this project? </span>
            <small>(ie. tools, equipment, materials)</small>
             <PureInput
               type="text"
@@ -115,7 +147,7 @@ function RatingForm(props) {
           </label>
         </li>
         <li>
-         <span className="area-label"> Will there be use of a tower crane on this project?*</span>
+         <span className="area-label"> Will there be use of a tower crane on this project? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -134,7 +166,7 @@ function RatingForm(props) {
           </radiogroup>
         </li>
         <li>
-         <span className="area-label">Is the General Contractor known?*</span>
+         <span className="area-label">Is the General Contractor known? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -161,7 +193,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-         <span className="area-label"> Will there be occupancy during the project?*</span>
+         <span className="area-label"> Will there be occupancy during the project? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -188,7 +220,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          <span className="area-label">Will there be demo of exterior walls or roof?*</span>
+          <span className="area-label">Will there be demo of exterior walls or roof? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -215,7 +247,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          <span className="area-label">Has work started on this project?*</span>
+          <span className="area-label">Has work started on this project? </span>
           <radiogroup>
             <label>
               <PureRadio
@@ -270,7 +302,7 @@ function RatingForm(props) {
         />
         <li>
           <label>
-           <span className="area-label">General Comments*</span>
+           <span className="area-label">General Comments</span>
             <PureTextArea
               field={generalComments}
             />

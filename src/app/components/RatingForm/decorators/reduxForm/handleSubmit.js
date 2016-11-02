@@ -7,7 +7,9 @@ from 'react-router-redux';
 import config from '../../../../../config';
 import { onlyNums } from '../../../../utils/utilities';
 
-let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+
+let baseURL = config.apiserver.url;
 
 export default function handleSubmit(values, dispatch) {
 	return () => {
@@ -63,6 +65,9 @@ function formatRequestBody(values) {
 			workStarted: values.workDetails.hasStarted === 'yes',
 			towerCrane: values.towerCraneUse === 'yes',
 			otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes',
-			excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0
+			additionalInsuredBoolean: values.hasAdditionalInsured === 'yes',
+			excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0,
+			greaterThanTwoNamedBoolean: values.otherNamedInsured.greaterThanTwoNamed === 'yes',
+			greaterThanTwoAdditionalBoolean: values.additionalInsured.greaterThanTwoAdditional === 'yes'
 	});
 }

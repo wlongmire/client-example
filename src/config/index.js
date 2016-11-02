@@ -11,10 +11,11 @@ var config = {
     brokerTemplateId: '365b9c92-9e3d-4699-88ff-d9ea688e769b',
     argoNonQuoteTemplate: '52173414-ee4e-42cd-a609-38b3c180ddfe',
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
-    submissionPDFUrl: 'http://assets.ownersedge.us/templates/submission_v2.html',
+    submissionPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
-    excessPDFUrl: 'http://assets.ownersedge.us/templates/excess.html',
+    excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
+
 
     analytics: {
         ua: 'xxxxx-xxxxx',
@@ -28,10 +29,10 @@ var config = {
         "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
         "orientation": "portrait", // portrait or landscape
         "border": {
-            "top": "1in", // default is 0, units: mm, cm, in, px
-            "right": "0.5in",
-            "bottom": "1in",
-            "left": "0.5in"
+            "top": "12mm", // default is 0, units: mm, cm, in, px
+            "right": "6mm",
+            "bottom": "12mm",
+            "left": "6mm"
         }
     },
 
@@ -56,6 +57,7 @@ if (config.env === 'development') {
     config.server.port = 8888
     config.apiserver.port = 8888
     config.server.url += ':' + config.server.port;
+    config.apiserver.url += ':' + config.apiserver.port;
 
     config.server.cors = {
         origin: 'http://localhost:' + config.webpackserver.port

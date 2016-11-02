@@ -36,7 +36,9 @@ async function updateSubmission(id, submission) {
 }
 
 async function getSubmissionByToken(token) {
-  return await models.Submission.findOne({pdfToken: token}).exec();
+  return await models.Submission.findOne({pdfToken: token})
+                .populate('broker submittedBy')
+                .exec();
 }
 
 function generateHTML(body, pdfData){
@@ -57,7 +59,7 @@ return new Promise((resolve,reject) => {
         }, function(err, response, body) {
             let html = generateHTML(body, pdfData);
             pdf.create(html, config.pdfOptions).toBuffer(function(err, buffer){
-                console.log('successfully generated PDF');
+              console.log('successfully generated PDF');
               return resolve(buffer);
             });
         });
@@ -154,7 +156,8 @@ async function generateExcessPDFData(submissionIdentifier) {
     excessLimits: `$ ${utilities.commifyNumber(submission.excessDetails.limits)}`,
     baseExcess: `$ ${utilities.commifyNumber(submission.excessPremium)}`,
     terrorExcess: `$ ${utilities.commifyNumber(terrorExcess)}`,
-    totalExcess: `$ ${utilities.commifyNumber(totalExcess)}`
+    totalExcess: `$ ${utilities.commifyNumber(totalExcess)}`,
+    brokerName: submission.broker.name
   }
 
   return pdfData;
@@ -174,10 +177,13 @@ async function generatePDFData(submissionIdentifier) {
   } else {
     submission = await getSubmissionById(submissionIdentifier.token)
   }
-
-  let terrorismPremium = Math.round(0.05 * submission.quotedPremium);
+  let premium = 0;
+  if (utilities.isDefined(submission.quotedPremium)) {
+    premium = submission.quotedPremium;
+  }
+  let terrorismPremium = Math.round(0.05 * premium);
   let additionalCoverage;
-  if (submission.quotedPremium < 25000) {
+  if (premium < 25000) {
     additionalCoverage = 125;
   } else {
     additionalCoverage = 250
@@ -196,7 +202,7 @@ async function generatePDFData(submissionIdentifier) {
   let occAggLimit = aggregateLimit + 1000000
   let genAggLimit = aggregateLimit + 2000000
 
-  let totalPremium = terrorismPremium + submission.quotedPremium + additionalCoverage;
+  let totalPremium = terrorismPremium + premium + additionalCoverage;
   const inspectionCost = 325
   let totalCost = totalPremium + inspectionCost
 
@@ -204,7 +210,7 @@ async function generatePDFData(submissionIdentifier) {
 
   const pdfData = {
     namedInsured: submission.primaryNamedInsured,
-    quotedPremium: `$${utilities.commifyNumber(submission.quotedPremium)}`,
+    quotedPremium: `$${utilities.commifyNumber(premium)}`,
     terrorPremium: `$${utilities.commifyNumber(terrorismPremium)}`,
     addtlPremium: `$${utilities.commifyNumber(additionalCoverage)}`,
     totalPremium: `$${utilities.commifyNumber(totalPremium)}`,
@@ -223,15 +229,21 @@ async function generatePDFData(submissionIdentifier) {
     projectTerm: `${submission.term} months`,
     projectCosts: `$${utilities.commifyNumber(submission.costs)}`,
     gcKnown: submission.generalContractorInfo.isKnown,
-    gcName: gcInfo ? submission.generalContractorInfo.name : 'N/A',
+    gcName: gcInfo ? submission.generalContractorInfo.name : 'GC Pending',
     gcCarrier: gcInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
     gcLimit: gcInfo ? submission.generalContractorInfo.glLimits : 'N/A',
     gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
     gcSupervisingSubs: gcInfo ? submission.generalContractorInfo.isSupervisingSubs : 'N/A',
     argoEmail: config.argoEmail,
+    willHaveOtherNamed: submission.hasOtherNamedInsured && submission.otherNamedInsured.name ? true: false,
     otherRole: submission.hasOtherNamedInsured ? submission.otherNamedInsured.role : 'No other Named Insured entities submitted',
     otherRelationship: submission.hasOtherNamedInsured ? submission.otherNamedInsured.relationship: 'N/A',
-    otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'N/A',
+    otherContractors: gcInfo && submission.generalContractorInfo.isSupervisingSubs === 'yes' ? true :false,
+    otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'No AI Entities Submitted',
+    greaterThanTwoAdditional: submission.greaterThanTwoAdditional,
+    additionalName: submission.hasAdditionalInsured ? submission.additionalInsured.name : 'No Additional Insured',
+    additionalRole: submission.hasAdditionalInsured ? submission.additionalInsured.role : 'N/A',
+    additionalRelationship: submission.hasAdditionalInsured ? submission.additionalInsured.relationship : 'N/A',
     commissionRate: `${submission.commission} %`,
     occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
     aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
@@ -257,10 +269,14 @@ async function generatePDFData(submissionIdentifier) {
     towerCraneUse: submission.towerCraneUse && submission.towerCraneUse === 'yes'  ? true : false,
     anyWorkCompleted: submission.workDetails && submission.workDetails.whatsCompleted !== ''  ? true : false,
     workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
-    whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A'
+    whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A',
+    brokerName: submission.broker.name
   }
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;
+  }
+  if (submission.hasAdditionalInsured) {
+    pdfData.hasAdditionalInsuredExist = true
   }
   return pdfData;
 }

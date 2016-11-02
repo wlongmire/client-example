@@ -1,6 +1,6 @@
 export default function mapStateToProps(state) {
 /*
-if the form have initialValues, it means an edit is taking place 
+if the form have initialValues, it means an edit is taking place
 otherwise a new submission is taking place
 */
   const submission = state.submissions.selectedSubmission;
@@ -14,14 +14,24 @@ otherwise a new submission is taking place
         state: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.state :  '',
         zip: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.zip :  null
       },
-      hasOtherNamedInsured: submission ? submission.hasOtherNamedInsured : null,
-      otherNamedInsureds: [
-        {
-          name: submission && submission.otherNamedInsureds ? submission.otherNamedInsureds[0].name : '',
-          relationship: submission && submission.otherNamedInsureds ? submission.otherNamedInsureds[0].relationship : '',
-          role: submission && submission.otherNamedInsureds ? submission.otherNamedInsureds[0].role : ''
+      hasOtherNamedInsured: submission && submission.hasOtherNamedInsured ? 'yes' : '',
+      otherNamedInsured: {
+        name: submission && submission.otherNamedInsured ? submission.otherNamedInsured.name : '',
+        relationship: submission && submission.otherNamedInsured ? submission.otherNamedInsured.relationship : '',
+        street: submission && submission.otherNamedInsured ? submission.otherNamedInsured.street :  '',
+        city: submission && submission.otherNamedInsured ? submission.otherNamedInsured.city :  '',
+        state: submission && submission.otherNamedInsured ? submission.otherNamedInsured.state :  '',
+        zip: submission && submission.otherNamedInsured ? submission.otherNamedInsured.zip :  null,
+        geaterThanTwoNamed: submission && submission.otherNamedInsured ? submission.otherNamedInsured.greaterThanTwoNamed : null
+      },
+      hasAdditionalInsured: submission && submission.hasAdditionalInsured ? 'yes' : '',
+      additionalInsured: {
+          name: submission && submission.additionalInsured ? submission.additionalInsured.name : '',
+          relationship: submission && submission.additionalInsured ? submission.additionalInsured.relationship : '',
+          role: submission && submission.additionalInsured ? submission.additionalInsured.role : '',
+                greaterThanTwoAdditional: submission && submission.additionalInsured ? submission.additionalInsured.greaterThanTwoAdditional : null
         }
-      ],
+      ,
       address: {
         street: submission && submission.projectAddress ? submission.projectAddress.street :  '',
         city: submission && submission.projectAddress ? submission.projectAddress.city :  '',
