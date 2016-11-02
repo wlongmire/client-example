@@ -106,8 +106,10 @@ async function getRating(req, res) {
 					createNewSubmission(submission)
 						.then(newSub => {
 							if (newSub.quotedPremium > 0) {
+								if (submission.broker.name.toLowerCase.includes('marsh')) {
+										sendSubmissionEmailClient(newSub);
+									}
 								sendSubmissionEmailArgo(newSub);
-								sendSubmissionEmailClient(newSub);
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
@@ -115,7 +117,7 @@ async function getRating(req, res) {
 								});
 							} else {
 								sendNonQuoteEmailArgo(newSub)
-								//sendNonQuoteEmailBroker(newSub)
+								sendNonQuoteEmailBroker(newSub)
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
