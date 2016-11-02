@@ -36,7 +36,9 @@ async function updateSubmission(id, submission) {
 }
 
 async function getSubmissionByToken(token) {
-  return await models.Submission.findOne({pdfToken: token}).exec();
+  return await models.Submission.findOne({pdfToken: token})
+                .populate('broker submittedBy')
+                .exec();
 }
 
 function generateHTML(body, pdfData){
