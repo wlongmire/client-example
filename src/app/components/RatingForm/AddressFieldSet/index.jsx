@@ -10,7 +10,7 @@ function AddressFieldSet(props) {
   if (props.type === 'project') {
     title = 'What is the address of this project?'
   } else if (props.type === 'named') {
-    title = 'What is the address of the named insured?'
+    title = 'What is the address of the Named Insured?'
   } else if (props.type === 'other') {
     title = ''
   }

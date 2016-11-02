@@ -154,7 +154,8 @@ async function generateExcessPDFData(submissionIdentifier) {
     excessLimits: `$ ${utilities.commifyNumber(submission.excessDetails.limits)}`,
     baseExcess: `$ ${utilities.commifyNumber(submission.excessPremium)}`,
     terrorExcess: `$ ${utilities.commifyNumber(terrorExcess)}`,
-    totalExcess: `$ ${utilities.commifyNumber(totalExcess)}`
+    totalExcess: `$ ${utilities.commifyNumber(totalExcess)}`,
+    brokerName: submission.broker.name
   }
 
   return pdfData;
@@ -266,7 +267,8 @@ async function generatePDFData(submissionIdentifier) {
     towerCraneUse: submission.towerCraneUse && submission.towerCraneUse === 'yes'  ? true : false,
     anyWorkCompleted: submission.workDetails && submission.workDetails.whatsCompleted !== ''  ? true : false,
     workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
-    whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A'
+    whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A',
+    brokerName: submission.broker.name
   }
   if(submission.hasOtherNamedInsured){
     pdfData.hasOtherNamedInsuredExist = true;

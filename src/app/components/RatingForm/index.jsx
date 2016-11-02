@@ -90,7 +90,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          <span className="area-label">Any additional Insured?</span>
+          <span className="area-label">Any Additional Insured?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -121,7 +121,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">Please describe the scope of work for this project (include end use) </span>
+           <span className="area-label">Please describe the scope of work for this project (as much detail as possible - include end use) </span>
             <PureTextArea
               field={scope}
             />
@@ -129,7 +129,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-          <span className="area-label"> What is the term of the project, in months?*</span>
+          <span className="area-label"> What is the term of the project, in months? </span>
             <PureInput
               type="number"
               field={term}
