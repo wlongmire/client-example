@@ -106,7 +106,8 @@ async function getRating(req, res) {
 					createNewSubmission(submission)
 						.then(newSub => {
 							if (newSub.quotedPremium > 0) {
-								if (submission.broker.name.toLowerCase.includes('marsh')) {
+								console.log(newSub.broker.name);
+								if (newSub.broker.name.includes('Marsh')) {
 										sendSubmissionEmailClient(newSub);
 									}
 								sendSubmissionEmailArgo(newSub);
