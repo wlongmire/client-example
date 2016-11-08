@@ -22,3 +22,32 @@
     margin: 0 10px;
   }
 }
+
+.confirmation__container{
+  margin-left: 30px;
+  font-size: 16px;
+  .title{
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .item{
+    padding: 20px 0;
+  }
+  .left{
+    float: left;
+    display: block;
+    font-weight: bold;
+  }
+  .text{
+    overflow: hidden;
+    display: block;
+    padding: 0 0 5px 10px;
+  }
+  .buttonWrapper{
+    width: 500px;
+  }
+
+  .pull-right{
+    float: right;
+  }
+}

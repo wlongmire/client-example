@@ -1,7 +1,7 @@
 import { reduxForm } from 'redux-form';
 
 import mapStateToProps from './mapStateToProps';
-import handleSubmit from './handleSubmit';
+import { handleConfirmation } from './handleSubmit';
 
 const fields = [
   'primaryNamedInsured',
@@ -65,7 +65,7 @@ const fields = [
 ];
 
 const mapDispatchToProps = {
-  onSubmit: handleSubmit
+  onSubmit: handleConfirmation
 };
 
 export default reduxForm({
