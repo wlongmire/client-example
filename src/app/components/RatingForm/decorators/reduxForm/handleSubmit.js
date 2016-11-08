@@ -4,6 +4,8 @@ import {
 }
 from 'react-router-redux';
 
+import { CONFIRMATION } from '../../../../constants';
+
 import config from '../../../../../config';
 import { onlyNums } from '../../../../utils/utilities';
 
@@ -11,8 +13,22 @@ import { onlyNums } from '../../../../utils/utilities';
 
 let baseURL = config.apiserver.url;
 
-export default function handleSubmit(values, dispatch) {
-	return () => {
+export function handleConfirmation(values){
+	return (dispatch) => {
+     
+		dispatch(push({
+			pathname: '/confirmation',
+			state: {
+				type: 'CONFIRMATION',
+				payload: values
+			}
+		}));
+
+	}
+}
+
+export function handleSubmit(values) {
+	return (dispatch) => {
 
 		let token = localStorage.getItem('token');
 		document.querySelector('.getQuote').textContent = 'Processing quote...';

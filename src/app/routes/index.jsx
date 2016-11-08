@@ -5,7 +5,7 @@ import {
   IndexRoute
 } from 'react-router';
 
-import { routerActions } from 'react-router-redux'
+import { routerActions } from 'react-router-redux';
 
 
 import { UserAuthWrapper } from 'redux-auth-wrapper';
@@ -17,6 +17,7 @@ import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
 import PowerConsole from 'routes/PowerConsole';
 import RatingResults from 'components/RatingResults';
+import Confirmation from 'components/RatingResults/confirmation';
 import Http404 from 'routes/Http404';
 
 const UserIsAuthenticated = UserAuthWrapper({
@@ -60,6 +61,10 @@ export default (
     <Route
       path='form'
       component={UserIsAuthenticated(Rating)}
+    />
+    <Route
+      path='confirmation'
+      component={UserIsAuthenticated(Confirmation)}
     />
     <Route
       path='quote'
