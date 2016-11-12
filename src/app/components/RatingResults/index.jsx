@@ -47,22 +47,26 @@ function RatingResults(props) {
               </div>
             </div>
             <p>* $325 inspection fee not included</p>
+
             <ToggleDisplay
               show={isDefined(submission.excessPremium) && submission.excessPremium !== null && submission.excessPremium > 0}
               render={ () => (
+                <div>
+                <span>Excess Limits Requested - {`$${commifyNumber(submission.excessDetails.limits)}`}</span>
                 <div className="premium-details">
                 <div className="premium-number">
-                  Excess Limits Requested
-                  <span>{`$${commifyNumber(submission.excessDetails.limits)}`}</span>
+                  Total Premium
+                  <span>{`$${commifyNumber(submission.excessPremium+submission.excessTerror)}`}</span>
                 </div>
                 <div className="premium-number">
-                  Excess Premium
+                  Base Premium
                   <span>{`$${commifyNumber(submission.excessPremium)}`}</span>
                 </div>
                 <div className="premium-number">
-                  Terrorism Coverage
+                  TRIAA
                   <span>{`$${commifyNumber(submission.excessTerror)}`}</span>
                 </div>
+            </div>
             </div>
         )}
             />

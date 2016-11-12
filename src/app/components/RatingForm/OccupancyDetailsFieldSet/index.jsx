@@ -86,7 +86,7 @@ function OccupancyDetailsFieldSet(props) {
           render={() => (
             <li>
               <label>
-                <span className="area-label-sub">What is the total square footage?</span>
+                <span className="area-label-sub">What is the total square footage or number of occupied units?</span>
                 <PureInput
                   type="number"
                   field={squareFootage}
