@@ -8,11 +8,11 @@ const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL'
 function AddressFieldSet(props) {
   let title;
   if (props.type === 'project') {
-    title = 'What is the address of this project?'
+    title = 'What is the address of this project?';
   } else if (props.type === 'named') {
-    title = 'What is the address of the Named Insured?'
+    title = 'What is the address of the Named Insured?';
   } else if (props.type === 'other') {
-    title = ''
+    title = '';
   }
   const {
     address: {
@@ -24,7 +24,7 @@ function AddressFieldSet(props) {
   } = props;
   return (
     <fieldset>
-      <span className="area-label">{title}</span>
+      <span className="area-label">{title}{props.type === 'project' && <sup data-tip="Please provide as descriptive of a street address as possible.">What is this?</sup>}</span>
       <ul>
         <li>
 
