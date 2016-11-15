@@ -34,4 +34,26 @@
       }
     }
   }
+
+  .__react_component_tooltip{
+    width: 400px;
+    padding: 10px;
+    line-height: 20px;
+    background: #08415C!important;
+    border: 1px solid #CFD2CD;
+    color: #CFD2CD!important;
+    &:after{
+      border-top-color: #CFD2CD!important;
+    }
+  }
+
+  sup{
+    font-size: 10px;
+    padding-left: 4px;
+    top: -0.8em;
+  }
+
+  .double{
+    line-height: 30px;
+  }
 }
