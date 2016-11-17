@@ -52,7 +52,7 @@ function RatingForm(props) {
       <ul className="no-bullets">
         <li>
           <label>
-            <span className="area-label" >Who is the First Named Insured?<sup data-tip="This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">What is this?</sup></span>
+            <span className="area-label" data-tip="This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Who is the First Named Insured?</span>
             <PureInput
               type="text"
               field={primaryNamedInsured}
@@ -64,7 +64,7 @@ function RatingForm(props) {
           <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
         <li>
-          <span className="area-label">Is there a secondary Named Insured?<sup data-tip="Qualified entities must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">What is this?</sup></span>
+          <span className="area-label" data-tip="Qualified entities must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Is there a secondary Named Insured?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -91,7 +91,7 @@ function RatingForm(props) {
           )}
         />
         <li>
-          <span className="area-label">Any Additional Insured?<sup data-tip="Qualified Additional Insureds must also be named as an Additional Insured on the General Contractor’s General Liability in order to be approved">What is this?</sup></span>
+          <span className="area-label" data-tip="Qualified Additional Insureds must also be named as an Additional Insured on the General Contractor’s General Liability in order to be approved">Any Additional Insured?</span>
           <radiogroup>
             <label>
               <PureRadio
@@ -122,7 +122,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label double">Please describe the scope of work for this project (as much detail as possible - include end use)<sup data-tip="Please provide as descriptive of a scope of work as possible including end use.">What is this?</sup> </span>
+           <span className="area-label double" data-tip="Please provide as descriptive of a scope of work as possible including end use.">Please describe the scope of work for this project (as much detail as possible - include end use)</span>
             <PureTextArea
               field={scope}
             />
@@ -130,7 +130,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-          <span className="area-label"> What is the term of the project, in months?<sup data-tip="provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months.">What is this?</sup> </span>
+          <span className="area-label" data-tip="provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."> What is the term of the project, in months?</span>
             <PureInput
               type="number"
               field={term}
@@ -139,7 +139,7 @@ function RatingForm(props) {
         </li>
         <li>
           <label>
-           <span className="area-label">What is the total construction value of this project?<sup data-tip="Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due.">What is this?</sup> </span>
+           <span className="area-label" data-tip="Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due.">What is the total construction value of this project?</span>
            <small>(ie. tools, equipment, materials)</small>
             <PureInput
               type="text"
@@ -167,7 +167,7 @@ function RatingForm(props) {
           </radiogroup>
         </li>
         <li>
-         <span className="area-label">Is the General Contractor known?<sup data-tip="Note: Coverage will be quoted subject to form U658 until the General Contractor is reviewed and approved. To approve the General Contractor we will need at a minimum, fully executed contract, certificate of insurance, and endorsement listing from the GC’s General Liability.">What is this?</sup> </span>
+         <span className="area-label" data-tip="Note: Coverage will be quoted subject to form U658 until the General Contractor is reviewed and approved. To approve the General Contractor we will need at a minimum, fully executed contract, certificate of insurance, and endorsement listing from the GC’s General Liability.">Is the General Contractor known?</span>
           <radiogroup>
             <label>
               <PureRadio
