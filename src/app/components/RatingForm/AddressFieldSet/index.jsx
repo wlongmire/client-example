@@ -6,13 +6,14 @@ import PureOptionSelect from 'components/shared/PureOptionSelect';
 const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
 function AddressFieldSet(props) {
-  let title;
+  //let title;
+  let titleTag;
   if (props.type === 'project') {
-    title = 'What is the address of this project?';
+    titleTag = '<span data-tip="Please provide as descriptive of a street address as possible.">What is the address of this project?</span>';
   } else if (props.type === 'named') {
-    title = 'What is the address of the Named Insured?';
+    titleTag = '<span data-tip="Please provide as descriptive of a street address as possible.">What is the address of the Named Insured?</span>';
   } else if (props.type === 'other') {
-    title = '';
+    titleTag = '<span></span>';
   }
   const {
     address: {
@@ -22,10 +23,16 @@ function AddressFieldSet(props) {
       zip
     }
   } = props;
+
+  function createMarkup() {
+    return {__html: titleTag};
+  }
+ 
   return (
     <fieldset>
-      <span className="area-label">{title}{props.type === 'project' && <sup data-tip="Please provide as descriptive of a street address as possible.">What is this?</sup>}</span>
-      <ul>
+  
+      <span className="area-label" dangerouslySetInnerHTML={createMarkup()} />
+      <ul className="no-padding">
         <li>
 
           <label>

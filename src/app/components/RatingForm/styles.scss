@@ -47,13 +47,20 @@
     }
   }
 
-  sup{
-    font-size: 10px;
-    padding-left: 4px;
-    top: -0.8em;
-  }
+.question-mark{
+  margin-left: 2px;
+  cursor: pointer;
+}
 
   .double{
     line-height: 30px;
+  }
+
+  .no-padding{
+    padding: 0;
+  }
+
+  .area-label{
+    display: inline-block;
   }
 }
