@@ -18,11 +18,11 @@ function ConfirmationView(props) {
        <h2 className="title">Review Details</h2>
        <hr />
        <div className="item"><span className="left">Named Insured:</span><span className="text"> { submission.primaryNamedInsured }</span></div>
-       <div className="item"><span className="left">Address:</span><span className="text"> { submission.namedInsuredAddress.street } { submission.namedInsuredAddress.state }, { submission.namedInsuredAddress.zip }</span>
+       <div className="item"><span className="left">Address:</span><span className="text"> { submission.namedInsuredAddress.street } { submission.namedInsuredAddress.city }, { submission.namedInsuredAddress.state } { submission.namedInsuredAddress.zip }</span>
        </div>
-       <div className="item"><span className="left">Second Named Insured:</span><span className="text">{ submission.hasOtherNamedInsured }</span></div>
+       <div className="item"><span className="left">Second Named Insured:</span><span className="text">{ submission.otherNamedInsured.name }</span></div>
        <div className="item"><span className="left">Additional Insured:</span><span className="text">{ submission.additionalInsured.name }</span></div>
-       <div className="item"><span className="left">Project Address:</span> <span className="text">{ submission.address.street }</span></div>
+       <div className="item"><span className="left">Project Address:</span> <span className="text">{ submission.address.street } { submission.address.city }, { submission.address.state } { submission.address.zip } </span></div>
        <div className="item"><span className="left">Project Scope:</span> <span className="text">{ submission.scope }</span></div>
        <div className="item"><span className="left">Project Length:</span><span className="text">{ submission.term }</span></div>
        <div className="item"><span className="left">Construction Costs:</span> <span className="text">{ submission.costs }</span></div>

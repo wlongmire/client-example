@@ -24,6 +24,7 @@ function RatingResults(props) {
           <div>
             <h1 className="header-larger">This submission qualifies for coverage</h1>
 
+            <span>General Liability</span>
             <div className="premium-details">
               <div className="premium-number">
                 Total Premium
@@ -41,10 +42,6 @@ function RatingResults(props) {
                 Terrorism Coverage
                 <span>{`$${commifyNumber(submission.terrorPremium)}`}</span>
               </div>
-               <div className="premium-number">
-                Commission
-                <span>{`${submission.commission.toFixed(2)} %`}</span>
-              </div>
             </div>
             <p>* $325 inspection fee not included</p>
 
@@ -52,7 +49,7 @@ function RatingResults(props) {
               show={isDefined(submission.excessPremium) && submission.excessPremium !== null && submission.excessPremium > 0}
               render={ () => (
                 <div>
-                <span>Excess Limits Requested - {`$${commifyNumber(submission.excessDetails.limits)}`}</span>
+                <span> {`$${commifyNumber(submission.excessDetails.limits)}`} Excess</span>
                 <div className="premium-details">
                 <div className="premium-number">
                   Total Premium
@@ -63,7 +60,7 @@ function RatingResults(props) {
                   <span>{`$${commifyNumber(submission.excessPremium)}`}</span>
                 </div>
                 <div className="premium-number">
-                  TRIAA
+                  Terrorism Coverage
                   <span>{`$${commifyNumber(submission.excessTerror)}`}</span>
                 </div>
             </div>
@@ -78,7 +75,7 @@ function RatingResults(props) {
             <ul>
               <li>Jessica Buelow – Supervisor – New York - 212-607-8829</li>
 
-              <li>Donna Dolan – Sr. Underwriter – Richmond, VA - 804-560-2099</li>
+              <li>Donna Dolan – Team Lead – Richmond, VA - 804-560-2099</li>
 
               <li>Chris Townsend – Underwriter – New York – 212-607-8845</li>
 
