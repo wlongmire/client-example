@@ -290,7 +290,10 @@ async function generatePDFData(submissionIdentifier) {
       pdfData.hasOtherNamedInsuredExist = true;
     }
     if (submission.hasAdditionalInsured) {
-      pdfData.hasAdditionalInsuredExist = true
+      pdfData.hasAdditionalInsuredExist = true;
+    }
+    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
+      pdfData.marshBroker = true;
     }
     return pdfData;
   } catch (err) {

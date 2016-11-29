@@ -70,21 +70,28 @@ async function getRating(req, res) {
 				});
 			}
 
-			const params = JSON.stringify(req.body);
 			const user = result.user;
 			const newAuthToken = result.authToken;
-			let broker;
+			Broker.findById(user._brokerId).exec()
+				.then(broker => {
 
-			Broker.findById(user._brokerId).exec((err, brkr) => {
-				// console.log("err?");
-				// console.log(err);
+			// Broker.findById(user._brokerId).exec((err, brkr) => {
+			// 	// console.log("err?");
+			// 	// console.log(err);
 
-				broker = brkr;
-			});
-			// console.log("Broker is");
+			// 	broker = brkr;
+			// });
+			let paramsObject = req.body;
+			console.log(paramsObject);
+			console.log(broker);
+			paramsObject.broker = broker;
+			console.log('broker is '+ paramsObject.broker);
+			const params = JSON.stringify(paramsObject);
+			console.log(params);
+
 			request({
 				method: 'POST',
-				uri: `http://ratingsapi-dev.herokuapp.com/api/rating/${appId}/calcRating`,
+				uri: `http://localhost:3000/api/rating/${appId}/calcRating`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'
@@ -129,7 +136,7 @@ async function getRating(req, res) {
 				}
 			}).bind(this);
 		});
-
+	});
 	} catch (err) {
 		return res.status(500)
 	}
