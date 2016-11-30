@@ -91,7 +91,7 @@ async function getRating(req, res) {
 
 			request({
 				method: 'POST',
-				uri: `http://localhost:3000/api/rating/${appId}/calcRating`,
+				uri: `http://ratingsapi-dev.herokuapp.com/api/rating/${appId}/calcRating`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'
