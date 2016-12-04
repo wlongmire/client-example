@@ -29,7 +29,7 @@ class Logo extends Component{
       </div>
        <div className="links">
         <Link to='/home' >Submissions </Link>
-        <a onClick={this.resetForm}>Submit New </a>
+        <Link to='/choicepage'>Submit New </Link>
         <a onClick={this.logout}>Log out</a>
       </div>
     </div>
