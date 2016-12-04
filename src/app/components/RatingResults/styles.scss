@@ -1,0 +1,53 @@
+.RatingResults__container {
+  margin: 25px 0;
+  text-align: center;
+
+  > div > * + * {
+    margin-top: 1em;
+  }
+
+  .legalText {
+    p {
+      font-size: .5rem;
+    }
+  }
+}
+
+.formFooter, .formFooter .list {
+  display: inline-block;
+  position: relative;
+
+  button, a {
+    display: inline;
+    margin: 0 10px;
+  }
+}
+
+.confirmation__container{
+  margin-left: 30px;
+  font-size: 16px;
+  .title{
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .item{
+    padding: 20px 0;
+  }
+  .left{
+    float: left;
+    display: block;
+    font-weight: bold;
+  }
+  .text{
+    overflow: hidden;
+    display: block;
+    padding: 0 0 5px 10px;
+  }
+  .buttonWrapper{
+    width: 500px;
+  }
+
+  .pull-right{
+    float: right;
+  }
+}

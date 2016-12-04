@@ -1,0 +1,182 @@
+body, html{
+	background:$darkBlue;
+	color:$accent;
+	font-family:"Lato", sans-serif;
+}
+
+body{
+	padding-bottom:100px;
+}
+
+.signin{
+	max-width:1366px;
+	width:80%;
+	margin: 0 auto;
+
+	.SignInForm__container{
+		border: 3px dashed $accent;
+		max-width:45%;
+		margin:0 auto;
+		padding:8em 2em;
+		border-radius:5px;
+	}
+}
+
+.RatingForm__container, .RatingResults__container{
+	max-width:1366px;
+	width:80%;
+	margin: 8em auto 0 !important;
+}
+
+fieldset{
+	border:none;
+	padding: .35em 0;
+}
+
+ul{
+	margin: 0;
+	padding:0;
+}
+
+.no-bullets{
+	li{list-style-type:none;}
+}
+
+
+textarea, input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"]  {
+	padding:8px 5px;
+	font-weight:300;
+	border-radius:3px;
+	border:1px solid #CCCCCC;
+	min-width:275px;
+	color:#656565;
+}
+
+::-webkit-input-placeholder, :-ms-input-placeholder {
+   font-weight:100;
+   color:#656565;
+   opacity:1;
+}
+
+.nav-bar{
+	max-width:1366px;
+	margin:0 auto 20px;
+	width:80%;
+	padding-top:10px;
+
+	.logo-type{
+		background: '';
+		height:70px;
+		width:120px;
+		background-size:contain;
+		text-indent:-9999px;
+		background-repeat:no-repeat;
+		display:inline-block;
+	}
+	.links{
+		display:inline-block;
+		float:right;
+
+		a{
+			color:$accent;
+			margin-right:25px;
+			line-height:60px;
+			font-size:20px;
+		}
+	}
+}
+
+.area-label{
+	font-size:20px;
+	font-weight:300;
+	margin:40px 0 15px;
+	display:block;
+}
+
+.area-label-sub{
+	font-size:14px;
+	font-weight:300;
+	margin:5px 0 5px;
+	display:block;
+}
+
+label{
+	input{
+		margin-top:5px;
+	}
+}
+
+select{
+	display:inline-block !important;
+}
+
+.zip-input{
+	min-width:200px !important;
+	margin-left:15px;
+	margin-top:0 !important;
+	display:inline-block !important;
+}
+
+radiogroup{
+	margin-top:0 !important;
+}
+
+.sub-questions{
+	// -webkit-transform: scaleY(0);
+	// -o-transform: scaleY(0);
+	// -ms-transform: scaleY(0);
+	// transform: scaleY(0);
+
+	// -webkit-transform-origin: top;
+	// -o-transform-origin: top;
+	// -ms-transform-origin: top;
+	// transform-origin: top;
+
+	// -webkit-transition: -webkit-transform 0.26s ease-out;
+	// -o-transition: -o-transform 0.26s ease;
+	// -ms-transition: -ms-transform 0.26s ease;
+	// transition: transform 0.26s ease;
+
+	background:#FFFFFF;
+	border-radius:5px;
+	color:$darkBlue;
+	padding:20px;
+	box-shadow:0 0 4px #000000;
+
+	.area-label-sub{
+		font-weight:400;
+	}
+
+	textarea, input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"]{
+		border-color:$mediumBlue;
+	}
+}
+
+.premium-details{
+	border:1px solid #FFFFFF;
+	border-radius:10px;
+	padding:20px;
+	margin-bottom:20px;
+	.premium-number{
+		display:inline-block;
+		width:20%;
+		text-align:center;
+		font-weight:300;
+		font-size:1.5em;
+			span{
+				font-size:1.7em;
+				font-weight:700;
+				display:block;
+				margin-top:20px;
+			}
+	}
+}
+
+.RatingResults__container{
+	text-align:left !important;
+}
+
+.legalText{
+	font-size:.8em;
+	text-align:center;
+}
