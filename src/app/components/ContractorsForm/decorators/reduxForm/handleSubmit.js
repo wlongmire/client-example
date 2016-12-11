@@ -28,11 +28,15 @@ export function handleConfirmation(values){
 }
 
 export function handleSubmit(values) {
-	console.log('here');
+
 	return (dispatch) => {
 
 		let token = localStorage.getItem('token');
 		document.querySelector('.getQuote').textContent = 'Processing quote...';
+
+		//const test = formatRequestBody(values);
+
+		console.log(values);
 
 		return fetch(baseURL + '/api/getRating', {
 				method: 'POST',
@@ -41,7 +45,7 @@ export function handleSubmit(values) {
 					'Content-Type': 'application/json',
 					'x-token': token
 				},
-				body: formatRequestBody(values)
+				body: values
 			})
 			.then(res => res.json())
 			.then((res) => {
@@ -77,14 +81,5 @@ function formatRequestBody(values) {
 			costs: onlyNums(values.costs),
 			contractorKnown: values.generalContractor.isKnown === 'yes',
 			supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',
-			demoRequired: values.demoDetails.willHave === 'yes',
-			occupancy: values.occupancyDetails.willHave === 'yes',
-			workStarted: values.workDetails.hasStarted === 'yes',
-			towerCrane: values.towerCraneUse === 'yes',
-			otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes',
-			additionalInsuredBoolean: values.hasAdditionalInsured === 'yes',
-			excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0,
-			greaterThanTwoNamedBoolean: values.otherNamedInsured.greaterThanTwoNamed === 'yes',
-			greaterThanTwoAdditionalBoolean: values.additionalInsured.greaterThanTwoAdditional === 'yes'
-	});
+		});
 }

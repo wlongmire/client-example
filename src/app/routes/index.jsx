@@ -13,7 +13,7 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 import App from 'components/App';
 import Home from 'routes/Home';
 import Rating from 'routes/Rating';
-import ContractorsForm from 'components/ContractorsForm';
+import ContractorsForm from 'routes/Contractors';
 import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
 import PowerConsole from 'routes/PowerConsole';

@@ -7,6 +7,7 @@ otherwise a new submission is taking place
 
   return {
     initialValues: {
+      type: 'oi',
       primaryNamedInsured: submission ? submission.primaryNamedInsured :  '',
       namedInsuredAddress: {
         street: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.street :  '',

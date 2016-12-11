@@ -43,7 +43,8 @@ function RatingForm(props) {
       workDetails,
       excessDetails,
       contactInfo,
-      generalComments
+      generalComments,
+      type
     },
     handleSubmit
   } = props;
