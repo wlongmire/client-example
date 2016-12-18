@@ -52,6 +52,7 @@ async function getSubmissionByToken(token) {
 }
 
 function generateHTML(body, pdfData) {
+  console.log('body=>' + JSON.stringify(pdfData));
   let handleTemplate = handlebars.compile(body);
   let html = handleTemplate(Object.assign({}, pdfData));
   console.log('finished generating html');
@@ -229,19 +230,19 @@ async function generatePDFData(submissionIdentifier) {
       totalPremium: `$${utilities.commifyNumber(totalPremium)}`,
       totalCost: `$${utilities.commifyNumber(totalCost)}`,
       inspectionAmount: `$${utilities.commifyNumber(inspectionCost)}`,
-      insuredAddress: submission.namedInsuredAddress.street,
-      insuredCity: submission.namedInsuredAddress.city,
-      insuredState: submission.namedInsuredAddress.state,
-      insuredZip: submission.namedInsuredAddress.zip,
-      projectAddress: submission.projectAddress.street,
-      projectCity: submission.projectAddress.city,
-      projectState: submission.projectAddress.state,
-      projectZip: submission.projectAddress.zip,
-      createdDate: submission.createdAt.toLocaleDateString(),
+      insuredAddress: submission.namedInsuredAddress ? submission.namedInsuredAddress.street: '',
+      insuredCity: submission.namedInsuredAddress ? submission.namedInsuredAddress.city: '',
+      insuredState: submission.namedInsuredAddress ? submission.namedInsuredAddress.state : '',
+      insuredZip: submission.namedInsuredAddress ? submission.namedInsuredAddress.zip: '',
+      projectAddress: submission.projectAddress ? submission.projectAddress.street: '',
+      projectCity: submission.projectAddress ? submission.projectAddress.city: '',
+      projectState: submission.projectAddress ? submission.projectAddress.state: '',
+      projectZip: submission.projectAddress ? submission.projectAddress.zip: '',
+      createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
       projectScope: submission.scope,
       projectTerm: `${submission.term} months`,
       projectCosts: `$${utilities.commifyNumber(submission.costs)}`,
-      gcKnown: submission.generalContractorInfo.isKnown,
+      gcKnown: submission.generalContractorInfo ? submission.generalContractorInfo.isKnown: '',
       gcName: gcInfo ? submission.generalContractorInfo.name : 'GC Pending',
       gcCarrier: gcInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
       gcLimit: gcInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
@@ -283,8 +284,8 @@ async function generatePDFData(submissionIdentifier) {
       anyWorkCompleted: submission.workDetails && submission.workDetails.whatsCompleted !== '' ? true : false,
       workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
       whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A',
-      brokerName: submission.broker.name,
-      deductibleText: submission.namedInsuredAddress.state === 'NY' ? '$10,0000' : '$2,500'
+      brokerName: submission.broker ? submission.broker.name: '',
+      deductibleText: submission.namedInsuredAddress && submission.namedInsuredAddress.state === 'NY' ? '$10,0000' : '$2,500'
     }
     if (submission.hasOtherNamedInsured) {
       pdfData.hasOtherNamedInsuredExist = true;

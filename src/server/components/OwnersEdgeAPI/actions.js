@@ -52,16 +52,14 @@ async function getSingleSubmission(req, res) {
 }
 
 async function getRating(req, res) {
+
 	try {
 
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
-		//console.log("auth from token...");
 
 		User.fromAuthToken(req.headers['x-token']).then((result) => {
-			console.log("fromAuthToken result is");
-			// console.log(result);
 
 			if (!result || !result.user) {
 				return res.status(403).json({
@@ -75,19 +73,10 @@ async function getRating(req, res) {
 			Broker.findById(user._brokerId).exec()
 				.then(broker => {
 
-			// Broker.findById(user._brokerId).exec((err, brkr) => {
-			// 	// console.log("err?");
-			// 	// console.log(err);
-
-			// 	broker = brkr;
-			// });
 			let paramsObject = req.body;
-			console.log(paramsObject);
-			console.log(broker);
 			paramsObject.broker = broker;
-			console.log('broker is '+ paramsObject.broker);
 			const params = JSON.stringify(paramsObject);
-			console.log(params);
+
 
 			request({
 				method: 'POST',
@@ -96,7 +85,7 @@ async function getRating(req, res) {
 				headers: {
 					'Content-Type': 'application/json'
 				}
-			}, function (err, response, body) {
+			}, (err, response, body)=> {
 				if (err) {
 					return res.status(response.statusCode).json({
 						success: false,
@@ -113,7 +102,6 @@ async function getRating(req, res) {
 					createNewSubmission(submission)
 						.then(newSub => {
 							if (newSub.quotedPremium > 0) {
-								console.log(newSub.broker.name);
 								if (newSub.broker.name.includes('Marsh')) {
 										sendSubmissionEmailClient(newSub);
 									}
@@ -134,7 +122,7 @@ async function getRating(req, res) {
 							}
 						});
 				}
-			}).bind(this);
+			});
 		});
 	});
 	} catch (err) {
@@ -145,7 +133,6 @@ async function getRating(req, res) {
 function sendSubmissionEmailArgo(submission) {
 	console.log('---generating GL PDF sendSubmissionEmailArgo---')
 	let pdfArray = [];
-	console.log(submission.pdfToken)
 
 	generateBindOrderPDF(submission.pdfToken)
 	.then(bindpdf => {
