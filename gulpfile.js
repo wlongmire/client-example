@@ -50,7 +50,7 @@ gulp.task('transform:beta', function(){
 
 gulp.task('transform:local', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@argoEmail', 'parkerproject@gmail.com'))
+  .pipe(replace('@argoEmail', 'justin.steranko@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
