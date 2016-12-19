@@ -281,6 +281,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		excessTerror = Math.round(0.05 * quoteInfo.excessPremium)
 	}
 
+	console.log(subInfo);
+
 
 	let submission = {
 		primaryNamedInsured: subInfo.primaryNamedInsured,
@@ -291,6 +293,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		additionalInsured: subInfo.additionalInsured,
 		projectAddress: subInfo.address,
 		scope: subInfo.scope,
+		type:subInfo.type,
 		term: subInfo.term,
 		costs: subInfo.costs,
 		generalContractorInfo: subInfo.generalContractor,

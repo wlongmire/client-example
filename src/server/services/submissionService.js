@@ -52,7 +52,6 @@ async function getSubmissionByToken(token) {
 }
 
 function generateHTML(body, pdfData) {
-  console.log('body=>' + JSON.stringify(pdfData));
   let handleTemplate = handlebars.compile(body);
   let html = handleTemplate(Object.assign({}, pdfData));
   console.log('finished generating html');

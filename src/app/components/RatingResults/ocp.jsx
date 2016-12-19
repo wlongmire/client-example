@@ -1,7 +1,8 @@
 import React from 'react';
 
 export default (props) => {
-  const submission = props.submission;
+  
+  const { submission, submit } = props;
 
   return (
     <div className="confirmation__container">
@@ -63,7 +64,7 @@ export default (props) => {
         </div>
        <div className="buttonWrapper">
         <button className="button" onClick={()=>window.history.back()}>Go back</button>
-        <button className="button pull-right getQuote" onClick={()=> props.submit(submission)}>Get Quote</button>
+        <button className="button pull-right getQuote" onClick={()=> submit(submission)}>Get Quote</button>
         </div>
     </div>
   );

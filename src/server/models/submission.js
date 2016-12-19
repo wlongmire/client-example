@@ -35,6 +35,7 @@ const submissionSchema = new mongoose.Schema({
   generalComments: String,
   demoDetails: Object,
   towerCraneUse: String,
+  type: String,
   greaterThanTwoNamed: Boolean,
   greaterThanTwoAdditional: Boolean,
   excessTerror: Number
