@@ -28,6 +28,7 @@ export function handleConfirmation(values){
 }
 
 export function handleSubmit(values) {
+
 	return (dispatch) => {
 
 		let token = localStorage.getItem('token');
@@ -40,7 +41,7 @@ export function handleSubmit(values) {
 					'Content-Type': 'application/json',
 					'x-token': token
 				},
-				body: formatRequestBody(values)
+				body: (values.type === 'ocp')? values: formatRequestBody(values)
 			})
 			.then(res => res.json())
 			.then((res) => {

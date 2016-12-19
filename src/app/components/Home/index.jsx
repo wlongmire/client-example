@@ -31,6 +31,7 @@ class Home extends Component{
           <td>{formatDollars(submission.quotedPremium)}</td>
           <td>{formatDollars(submission.totalCost)}</td>
           <td>{formatDollars(submission.totalPremium)}</td>
+          <td>{submission.type}</td>
           <td>{Moment(submission.createdAt).format('MMMM Do YYYY')}</td>
           <td onClick={()=> this.goToPage(submission)} className="link">Edit</td>
         </tr>
@@ -46,6 +47,7 @@ class Home extends Component{
               <th>Quoted Premium</th>
               <th>Total Cost</th>
               <th>Total Premium</th>
+               <th>Type</th>
               <th>Date Created</th>
               <th></th>
             </tr>

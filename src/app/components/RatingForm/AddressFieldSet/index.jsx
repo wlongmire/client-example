@@ -15,6 +15,7 @@ function AddressFieldSet(props) {
   } else if (props.type === 'other') {
     titleTag = '<span></span>';
   }
+
   const {
     address: {
       street,

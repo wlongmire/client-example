@@ -79,6 +79,19 @@ export function resetForm() {
   };
 }
 
+export function resetContractorsForm() {
+  return (dispatch) => {
+
+    dispatch({
+      type: EDIT_SUBMISSION,
+      payload: {}
+    });
+
+    dispatch(push('/contractorsform'));
+
+  };
+}
+
 export function logout() {
   return (dispatch) => {
 
