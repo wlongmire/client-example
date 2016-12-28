@@ -29,6 +29,8 @@ export function handleConfirmation(values){
 
 export function handleSubmit(values) {
 
+	const body = (values.type === 'ocp')? JSON.stringify(values): formatRequestBody(values);
+
 	return (dispatch) => {
 
 		let token = localStorage.getItem('token');
@@ -41,7 +43,7 @@ export function handleSubmit(values) {
 					'Content-Type': 'application/json',
 					'x-token': token
 				},
-				body: (values.type === 'ocp')? values: formatRequestBody(values)
+				body
 			})
 			.then(res => res.json())
 			.then((res) => {
@@ -73,18 +75,18 @@ function formatRequestBody(values) {
 	return JSON.stringify({
 		...values,
 		state: values.address.state,
-			term: values.term,
-			costs: onlyNums(values.costs),
-			contractorKnown: values.generalContractor.isKnown === 'yes',
-			supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',
-			demoRequired: values.demoDetails.willHave === 'yes',
-			occupancy: values.occupancyDetails.willHave === 'yes',
-			workStarted: values.workDetails.hasStarted === 'yes',
-			towerCrane: values.towerCraneUse === 'yes',
-			otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes',
-			additionalInsuredBoolean: values.hasAdditionalInsured === 'yes',
-			excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0,
-			greaterThanTwoNamedBoolean: values.otherNamedInsured.greaterThanTwoNamed === 'yes',
-			greaterThanTwoAdditionalBoolean: values.additionalInsured.greaterThanTwoAdditional === 'yes'
+		term: values.term,
+		costs: onlyNums(values.costs),
+		contractorKnown: values.generalContractor.isKnown === 'yes',
+		supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',
+		demoRequired: values.demoDetails.willHave === 'yes',
+		occupancy: values.occupancyDetails.willHave === 'yes',
+		workStarted: values.workDetails.hasStarted === 'yes',
+		towerCrane: values.towerCraneUse === 'yes',
+		otherNamedInsuredBoolean: values.hasOtherNamedInsured === 'yes',
+		additionalInsuredBoolean: values.hasAdditionalInsured === 'yes',
+		excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0,
+		greaterThanTwoNamedBoolean: values.otherNamedInsured.greaterThanTwoNamed === 'yes',
+		greaterThanTwoAdditionalBoolean: values.additionalInsured.greaterThanTwoAdditional === 'yes'
 	});
 }

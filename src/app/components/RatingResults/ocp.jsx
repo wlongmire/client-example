@@ -62,6 +62,10 @@ export default (props) => {
             <span className="left">What limits are being requested for this OCP?</span>
             <span className="text">{submission.limitsRequested}</span>
         </div>
+        <div className="item">
+            <span className="left">Contact info to receive your indication</span>
+            <span className="text">{submission.contactInfo.email}</span>
+        </div>
        <div className="buttonWrapper">
         <button className="button" onClick={()=>window.history.back()}>Go back</button>
         <button className="button pull-right getQuote" onClick={()=> submit(submission)}>Get Quote</button>

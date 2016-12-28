@@ -21,7 +21,9 @@ const fields = [
   'isSupervisingSubs',
   'projectRequirements',
   'limitsRequested',
-  'type'
+  'type',
+  'contactInfo.email',
+  'contactInfo.phone',
 ];
 
 const mapDispatchToProps = {

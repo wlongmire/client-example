@@ -14,7 +14,6 @@ async function getSubmissions(req, res) {
 		}
 
 		User.fromAuthToken(req.headers['x-token']).then((result) => {
-			console.log("fromAuthToken result is");
 
 			if (!result || !result.user) {
 				return res.status(403).json({
@@ -281,8 +280,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		excessTerror = Math.round(0.05 * quoteInfo.excessPremium)
 	}
 
-	console.log(subInfo);
-
 
 	let submission = {
 		primaryNamedInsured: subInfo.primaryNamedInsured,
@@ -314,6 +311,11 @@ function createSubmissionObject(subInfo, quoteInfo) {
     towerCraneUse: subInfo.towerCraneUse,
 		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
+	}
+
+	if(subInfo.type === 'ocp'){
+		submission.anticipatedFinishDate = subInfo.anticipatedFinishDate,
+		submission.projectDefinedAreaScope = subInfo.projectDefinedAreaScope
 	}
 	return submission;
 }
