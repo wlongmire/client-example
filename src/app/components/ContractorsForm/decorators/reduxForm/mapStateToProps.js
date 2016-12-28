@@ -1,15 +1,14 @@
 export default function mapStateToProps(state) {
-/*
-if the form have initialValues, it means an edit is taking place
-otherwise a new submission is taking place
-*/
 
   const submission = state.submissions.selectedSubmission;
+  console.log(submission);
 
   return {
     initialValues: {
       type: 'ocp',
       primaryNamedInsured: submission ? submission.primaryNamedInsured :  '',
+      anticipatedFinishDate: submission && submission.anticipatedFinishDate? submission.anticipatedFinishDate : '',
+      projectDefinedAreaScope: submission && submission.projectDefinedAreaScope? submission.projectDefinedAreaScope : '',
       address: {
         street: submission && submission.projectAddress ? submission.projectAddress.street :  '',
         city: submission && submission.projectAddress ? submission.projectAddress.city :  '',
@@ -20,10 +19,14 @@ otherwise a new submission is taking place
       term: submission ? submission.term : null,
       costs: submission ? submission.costs : null,
       generalContractor: {
-        name: submission && submission.generalContractor ? submission.generalContractor.name: '',
-        glCarrier: submission && submission.generalContractor ? submission.generalContractor.glCarrier: '',
-        glLimits: submission && submission.generalContractor ? submission.generalContractor.null: '',
-        isSupervisingSubs: submission && submission.generalContractor ? submission.generalContractor.isSupervisingSubs: ''
+        name: submission && submission.generalContractorInfo ? submission.generalContractorInfo.name: '',
+        glCarrier: submission && submission.generalContractorInfo ? submission.generalContractorInfo.glCarrier: '',
+        glLimits: submission && submission.generalContractorInfo ? submission.generalContractorInfo.null: '',
+        isSupervisingSubs: submission && submission.generalContractorInfo ? submission.generalContractorInfo.isSupervisingSubs: ''
+      },
+      contactInfo: {
+        email: submission && submission.contactInfo ? submission.contactInfo.email: '',
+        phone: submission && submission.contactInfo ? submission.contactInfo.phone: '',
       }
     }
   };

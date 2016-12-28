@@ -11,6 +11,7 @@ import styles from './styles';
 
 import AddressFieldSet from 'components/RatingForm/AddressFieldSet';
 import GeneralContractorFieldSet from 'components/RatingForm/GeneralContractorFieldSet';
+import ContactInfoFieldSet from 'components/RatingForm/ContactInfoFieldSet';
 
 import decorator from './decorators';
 
@@ -36,7 +37,8 @@ function ContractorForm(props) {
         glLimits,
         glExpirationDate
       },
-      type
+      type,
+      contactInfo
     },
     handleSubmit
   } = props;
@@ -200,6 +202,9 @@ function ContractorForm(props) {
               }
             </PureOptionSelect>
            </label>
+        </li>
+        <li>
+          <ContactInfoFieldSet contactInfo={contactInfo} />
         </li>
       </ul>
       <button className="button getQuote" type="submit">Get Quote</button>

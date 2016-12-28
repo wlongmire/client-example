@@ -60,8 +60,12 @@ export function editSubmission(submission) {
       type: EDIT_SUBMISSION,
       payload: submission
     });
-
-    dispatch(push('/form'));
+  
+    if(submission.type === 'ocp'){
+      dispatch(push('/contractorsform'));
+    }else{
+      dispatch(push('/form'));
+    }
 
   };
 }
