@@ -58,7 +58,7 @@ function generateHTML(body, pdfData) {
   return html;
 }
 
-function generateSubmissionPDF(token) {
+function generateOwnersEdgeQuotationPDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
@@ -66,7 +66,7 @@ function generateSubmissionPDF(token) {
         })
         .then(pdfData => {
           request({
-            url: config.submissionPDFUrl,
+            url: config.ownersEdgeQuotationPDFUrl,
             method: 'GET'
           }, function (err, response, body) {
             let html = generateHTML(body, pdfData);
@@ -91,6 +91,30 @@ function generateBindOrderPDF(token) {
         .then(pdfData => {
           request({
             url: config.ownersBindOrderPDFUrl,
+            method: 'GET'
+          }, function (err, response, body) {
+            let html = generateHTML(body, pdfData);
+            pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
+              return resolve(buffer);
+            });
+          });
+        });
+    } catch (err) {
+      return reject(err);
+    }
+  })
+}
+
+
+function generateOwnersContractorsProtectivePDF(token) {
+  return new Promise((resolve, reject) => {
+    try {
+      generatePDFData({
+          token: token
+        })
+        .then(pdfData => {
+          request({
+            url: config.ownersContractorsProtectivePDFUrl,
             method: 'GET'
           }, function (err, response, body) {
             let html = generateHTML(body, pdfData);
@@ -322,9 +346,10 @@ export default {
   getAllSubmissions,
   getSubmissionById,
   updateSubmission,
-  generateSubmissionPDF,
+  generateOwnersEdgeQuotationPDF,
   generateExcessPDF,
   generateBindOrderPDF,
   getAllSubmissionsByBroker,
-  generateColonyOwnersInterestQuestionnairePDF
+  generateColonyOwnersInterestQuestionnairePDF,
+  generateOwnersContractorsProtectivePDF
 }
