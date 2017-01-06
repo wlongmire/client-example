@@ -1,8 +1,12 @@
 import React from 'react';
+import map from 'lodash/map';
+
+const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
 
 export default (props) => {
   
   const { submission, submit } = props;
+  
 
   return (
     <div className="confirmation__container">
@@ -60,7 +64,7 @@ export default (props) => {
         </div>
         <div className="item">
             <span className="left">What limits are being requested for this OCP?</span>
-            <span className="text">{submission.limitsRequested}</span>
+            <span className="text">{map(limits, submission.limitsRequested)}</span>
         </div>
         <div className="item">
             <span className="left">Contact info to receive your indication</span>
