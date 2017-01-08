@@ -362,16 +362,15 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		excessDetails: subInfo.excessDetails,
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-    towerCraneUse: subInfo.towerCraneUse,
+        towerCraneUse: subInfo.towerCraneUse,
 		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
+		anticipatedFinishDate: subInfo.anticipatedFinishDate,
+		projectDefinedAreaScope: subInfo.projectDefinedAreaScope,
+		projectRequirements: subInfo.projectRequirements,
+		limitsRequested: subInfo.limitsRequested
 	}
 
-	if(subInfo.type === 'ocp'){
-		submission.anticipatedFinishDate = subInfo.anticipatedFinishDate,
-		submission.projectDefinedAreaScope = subInfo.projectDefinedAreaScope,
-		submission.projectRequirements = subInfo.projectRequirements
-	}
 	return submission;
 }
 

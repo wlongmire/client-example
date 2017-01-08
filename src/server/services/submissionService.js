@@ -5,6 +5,7 @@ import pdf from 'html-pdf';
 import handlebars from 'handlebars';
 import config from '../../config'
 import uuid from 'uuid';
+import filter from 'lodash/filter';
 import {
   utilities
 } from '../utils'
@@ -245,6 +246,16 @@ async function generatePDFData(submissionIdentifier) {
 
     let gcInfo = submission.generalContractorInfo.isKnown === 'yes'
 
+    const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
+    let limitsRequested;
+    
+    if(submission.limitsRequested){
+        limitsRequested = filter(limits, function(o) { 
+        let key = Object.keys(o);
+        return key[0] === String(submission.limitsRequested); 
+      });
+    }
+
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
       quotedPremium: `$${utilities.commifyNumber(premium)}`,
@@ -266,9 +277,10 @@ async function generatePDFData(submissionIdentifier) {
       projectTerm: `${submission.term} months`,
       projectCosts: `$${utilities.commifyNumber(submission.costs)}`,
       gcKnown: submission.generalContractorInfo ? submission.generalContractorInfo.isKnown: '',
-      gcName: gcInfo ? submission.generalContractorInfo.name : 'GC Pending',
-      gcCarrier: gcInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
-      gcLimit: gcInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
+      gcName: submission.generalContractorInfo ? submission.generalContractorInfo.name : 'GC Pending',
+      gcCarrier: submission.generalContractorInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
+      gcLimit: submission.generalContractorInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
+      glExpirationDate: submission.generalContractorInfo ? submission.generalContractorInfo.glExpirationDate : 'N/A',
       gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
       gcSupervisingSubs: gcInfo ? submission.generalContractorInfo.isSupervisingSubs : 'N/A',
       argoEmail: config.argoEmail,
@@ -308,7 +320,11 @@ async function generatePDFData(submissionIdentifier) {
       workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
       whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A',
       brokerName: submission.broker ? submission.broker.name: '',
-      deductibleText: submission.namedInsuredAddress && submission.namedInsuredAddress.state === 'NY' ? '$10,0000' : '$2,500'
+      deductibleText: submission.namedInsuredAddress && submission.namedInsuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
+      anticipatedFinishDate: submission.anticipatedFinishDate,
+      projectDefinedAreaScope: submission.projectDefinedAreaScope,
+      projectRequirements: submission.projectRequirements,
+      limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A'
     }
     if (submission.hasOtherNamedInsured) {
       pdfData.hasOtherNamedInsuredExist = true;
@@ -319,6 +335,7 @@ async function generatePDFData(submissionIdentifier) {
     if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
       pdfData.marshBroker = true;
     }
+
     return pdfData;
   } catch (err) {
     console.log(err.message)
