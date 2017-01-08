@@ -335,7 +335,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		excessTerror = Math.round(0.05 * quoteInfo.excessPremium)
 	}
 
-
 	let submission = {
 		primaryNamedInsured: subInfo.primaryNamedInsured,
 		namedInsuredAddress: subInfo.namedInsuredAddress,
@@ -370,7 +369,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 
 	if(subInfo.type === 'ocp'){
 		submission.anticipatedFinishDate = subInfo.anticipatedFinishDate,
-		submission.projectDefinedAreaScope = subInfo.projectDefinedAreaScope
+		submission.projectDefinedAreaScope = subInfo.projectDefinedAreaScope,
+		submission.projectRequirements = subInfo.projectRequirements
 	}
 	return submission;
 }
