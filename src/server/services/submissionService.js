@@ -187,8 +187,8 @@ async function generateExcessPDFData(submissionIdentifier) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    let terrorExcess = Math.round(0.05 * submission.excessPremium);
-    let totalExcess = submission.excessPremium + terrorExcess
+    let terrorExcess = Math.round(0.05 * submission.ocp.excessPremium);
+    let totalExcess = submission.ocp.excessPremium + terrorExcess
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
@@ -216,8 +216,8 @@ async function generatePDFData(submissionIdentifier) {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
     let premium = 0;
-    if (utilities.isDefined(submission.quotedPremium)) {
-      premium = submission.quotedPremium;
+    if (utilities.isDefined(submission.oiPremium.quotedPremium)) {
+      premium = submission.oiPremium.quotedPremium;
     }
     let terrorismPremium = Math.round(0.05 * premium);
     let additionalCoverage;
@@ -248,13 +248,18 @@ async function generatePDFData(submissionIdentifier) {
 
     const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
     let limitsRequested;
-    
+
     if(submission.limitsRequested){
-        limitsRequested = filter(limits, function(o) { 
+        limitsRequested = filter(limits, function(o) {
         let key = Object.keys(o);
-        return key[0] === String(submission.limitsRequested); 
+        return key[0] === String(submission.limitsRequested);
       });
     }
+
+    let ocpPremium = 0
+    if (utilities.isDefined(submission.ocpPremium.premium)) {
+      ocpPremium = submission.ocpPremium.premium;
+    };
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
@@ -324,7 +329,8 @@ async function generatePDFData(submissionIdentifier) {
       anticipatedFinishDate: submission.anticipatedFinishDate,
       projectDefinedAreaScope: submission.projectDefinedAreaScope,
       projectRequirements: submission.projectRequirements,
-      limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A'
+      limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
+      ocpPremium: ''
     }
     if (submission.hasOtherNamedInsured) {
       pdfData.hasOtherNamedInsuredExist = true;

@@ -79,7 +79,7 @@ async function getRating(req, res) {
 
 			request({
 				method: 'POST',
-				uri: `http://ratingsapi-dev.herokuapp.com/api/rating/${appId}/calcRating`,
+				uri: `http://localhost:3000/api/rating/${appId}/calcRating`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ async function getRating(req, res) {
 					createNewSubmission(submission)
 						.then(newSub => {
 							if (newSub.quotedPremium > 0) {
-								if (newSub.broker.name.includes('Marsh')) {
+								if (newSub.broker.name.includes('Marsh') || newSub.broker.name.includes('test')) {
 										sendSubmissionEmailClient(newSub);
 									}
 								sendSubmissionEmailArgo(newSub);
@@ -139,7 +139,7 @@ function sendSubmissionEmailArgo(submission) {
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		})
-		
+
 			if(submission.type === 'ocp') {
 
 				generateOwnersContractorsProtectivePDF(submission.pdfToken)
@@ -148,12 +148,28 @@ function sendSubmissionEmailArgo(submission) {
 							title: 'Owners and Contractors Protective - General Liability',
 							content: glpdf
 						})
-						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+						generateOwnersEdgeQuotationPDF(submission.pdfToken)
+							.then(glpdf => {
+								pdfArray.push({
+									title: 'Owners EDGE Quotation - General Liability.pdf',
+									content: glpdf
+								})
+								if (submission.excessPremium > 0) {
+									console.log('---generating Excess PDF---')
+									generateExcessPDF(submission.pdfToken)
+										.then(excessPdf => {
+											pdfArray.push({
+												title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+												content: excessPdf
+											})
+											emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+										})
+								} else
+									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+							});
 					});
-
-
 			}else{
-				
+
 				generateOwnersEdgeQuotationPDF(submission.pdfToken)
 					.then(glpdf => {
 						pdfArray.push({
@@ -189,39 +205,56 @@ function sendSubmissionEmailClient(submission) {
 			content: bindpdf
 		})
 
-		if(submission.type === 'ocp') {
+			if(submission.type === 'ocp') {
 
-			generateOwnersContractorsProtectivePDF(submission.pdfToken)
-				.then(glpdf => {
-					pdfArray.push({
-						title: 'Owners and Contractors Protective - General Liability',
-						content: glpdf
-					})
-					emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-			});
-
-		}else{
-            
-			generateOwnersEdgeQuotationPDF(submission.pdfToken)
-				.then(glpdf => {
-					pdfArray.push({
-						title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
-						content: glpdf
-					})
-					if (submission.excessPremium > 0) {
-						console.log('---generating Excess PDF---')
-						generateExcessPDF(submission.pdfToken)
-							.then(excessPdf => {
+				generateOwnersContractorsProtectivePDF(submission.pdfToken)
+					.then(glpdf => {
+						pdfArray.push({
+							title: 'Owners and Contractors Protective - General Liability',
+							content: glpdf
+						})
+						generateOwnersEdgeQuotationPDF(submission.pdfToken)
+							.then(glpdf => {
 								pdfArray.push({
-									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-									content: excessPdf
+									title: 'Owners EDGE Quotation - General Liability.pdf',
+									content: glpdf
 								})
-								emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
-							})
-					} else
-						emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
-				});
-		}
+								if (submission.excessPremium > 0) {
+									console.log('---generating Excess PDF---')
+									generateExcessPDF(submission.pdfToken)
+										.then(excessPdf => {
+											pdfArray.push({
+												title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+												content: excessPdf
+											})
+											emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+										})
+								} else
+									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+							});
+					});
+			}else{
+
+				generateOwnersEdgeQuotationPDF(submission.pdfToken)
+					.then(glpdf => {
+						pdfArray.push({
+							title: 'Owners EDGE Quotation - General Liability.pdf',
+							content: glpdf
+						})
+						if (submission.excessPremium > 0) {
+							console.log('---generating Excess PDF---')
+							generateExcessPDF(submission.pdfToken)
+								.then(excessPdf => {
+									pdfArray.push({
+										title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+										content: excessPdf
+									})
+									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+								})
+						} else
+							emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+					});
+			}
 
 		});
 }
@@ -315,10 +348,11 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	let totalPremium;
 	let totalCost;
 	let excessTerror;
+	let ocpTerror
 	const today = new Date();
 
-	if (quoteInfo.premium > 0) {
-		premium = quoteInfo.premium;
+	if (quoteInfo.oi.premium > 0) {
+		premium = quoteInfo.oi.premium;
 		terrorismPremium = Math.round(0.05 * premium);
 		if (premium < 25000) {
 			additionalCoverage = 125;
@@ -331,9 +365,15 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		totalCost = totalPremium + inspectionCost
 	}
 
-	if (quoteInfo.excessPremium > 0) {
-		excessTerror = Math.round(0.05 * quoteInfo.excessPremium)
+	if (quoteInfo.oi.excessPremium > 0) {
+		excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
 	}
+
+	if (quoteInfo.ocp.premium > 0) {
+		ocpTerror = Math.round(0.05 * quoteInfo.ocp.premium)
+	}
+
+
 
 	let submission = {
 		primaryNamedInsured: subInfo.primaryNamedInsured,
@@ -351,18 +391,24 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		occupancyDetails: subInfo.occupancyDetails,
 		workDetails: subInfo.workDetails,
 		contactInfo: subInfo.contactInfo,
-		quotedPremium: premium,
+		oiPremium: {
+			quotedPremium: premium,
+			terrorPremium: terrorismPremium,
+			additionalCoverage: additionalCoverage,
+			totalPremium: totalPremium,
+			totalCost: totalCost,
+			excessPremium: quoteInfo.excessPremium,
+			excessTerror: excessTerror,
+			excessDetails: subInfo.excessDetails
+			},
+		ocpPremium: {
+			quotedPremium: quoteInfo.ocp.premium,
+			terrorPremium: ocpTerror
+		},
 		status: 'submitted',
-		terrorPremium: terrorismPremium,
-		additionalCoverage: additionalCoverage,
-		totalPremium: totalPremium,
-		totalCost: totalCost,
-		excessPremium: quoteInfo.excessPremium,
-		excessTerror: excessTerror,
-		excessDetails: subInfo.excessDetails,
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-        towerCraneUse: subInfo.towerCraneUse,
+    towerCraneUse: subInfo.towerCraneUse,
 		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 		anticipatedFinishDate: subInfo.anticipatedFinishDate,

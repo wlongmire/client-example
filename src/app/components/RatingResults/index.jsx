@@ -18,50 +18,73 @@ function RatingResults(props) {
   return (
     <div className="RatingResults__container">
       <ToggleDisplay
-        show={isDefined(submission.quotedPremium) && submission.quotedPremium !== null && submission.quotedPremium > 0}
+        show={isDefined(submission.oiPremium.quotedPremium) && submission.oiPremium.quotedPremium !== null && submission.oiPremium.quotedPremium > 0}
         render={() => (
           <div>
           <div>
             <h1 className="header-larger">This submission qualifies for coverage</h1>
 
-            <span>General Liability</span>
+            <span>General Liability - Owner's Interest</span>
             <div className="premium-details">
               <div className="premium-number">
                 Total Premium
-                <span>{`$${commifyNumber(submission.totalPremium)}`}</span>
+                <span>{`$${commifyNumber(submission.oiPremium.totalPremium)}`}</span>
               </div>
               <div className="premium-number">
                 Base Premium
-                <span>{`$${commifyNumber(submission.quotedPremium)}`}</span>
+                <span>{`$${commifyNumber(submission.oiPremium.quotedPremium)}`}</span>
               </div>
               <div className="premium-number">
                 Additional Coverage
-                <span>{`$${commifyNumber(submission.additionalCoverage)}`}</span>
+                <span>{`$${commifyNumber(submission.oiPremium.additionalCoverage)}`}</span>
               </div>
               <div className="premium-number">
                 Terrorism Coverage
-                <span>{`$${commifyNumber(submission.terrorPremium)}`}</span>
+                <span>{`$${commifyNumber(submission.oiPremium.terrorPremium)}`}</span>
               </div>
             </div>
             <p>* $325 inspection fee not included</p>
 
             <ToggleDisplay
-              show={isDefined(submission.excessPremium) && submission.excessPremium !== null && submission.excessPremium > 0}
+              show={isDefined(submission.oiPremium.excessPremium) && submission.oiPremium.excessPremium !== null && submission.oiPremium.excessPremium > 0}
               render={ () => (
                 <div>
                 <span> {`$${commifyNumber(submission.excessDetails.limits)}`} Excess</span>
                 <div className="premium-details">
                 <div className="premium-number">
                   Total Premium
-                  <span>{`$${commifyNumber(submission.excessPremium+submission.excessTerror)}`}</span>
+                  <span>{`$${commifyNumber(submission.oiPremium.excessPremium+submission.oiPremium.excessTerror)}`}</span>
                 </div>
                 <div className="premium-number">
                   Base Premium
-                  <span>{`$${commifyNumber(submission.excessPremium)}`}</span>
+                  <span>{`$${commifyNumber(submission.oiPremium.excessPremium)}`}</span>
                 </div>
                 <div className="premium-number">
                   Terrorism Coverage
-                  <span>{`$${commifyNumber(submission.excessTerror)}`}</span>
+                  <span>{`$${commifyNumber(submission.oiPremium.excessTerror)}`}</span>
+                </div>
+            </div>
+            </div>
+        )}
+            />
+
+            <ToggleDisplay
+              show={isDefined(submission.ocpPremium.quotedPremium) && submission.ocpPremium.quotedPremium !== null && submission.ocpPremium.quotedPremium > 0}
+              render={ () => (
+                <div>
+                <span> OCP - General Liability</span>
+                <div className="premium-details">
+                <div className="premium-number">
+                  Total Premium
+                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium+submission.ocpPremium.terrorPremium)}`}</span>
+                </div>
+                <div className="premium-number">
+                  Base Premium
+                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
+                </div>
+                <div className="premium-number">
+                  Terrorism Coverage
+                  <span>{`$${commifyNumber(submission.ocpPremium.terrorPremium)}`}</span>
                 </div>
             </div>
             </div>
