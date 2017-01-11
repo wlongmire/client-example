@@ -373,6 +373,21 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		ocpTerror = Math.round(0.05 * quoteInfo.ocp.premium)
 	}
 
+	  const limits = [{12:'$1,000,000/2,000,000'},
+										{22:'$2,000,000/2,000,000'},
+										{24:'$2,000,000/4,000,000'},
+										{33:'$3,000,000/3,000,000'},
+										{44:'$4,000,000/4,000,000'},
+										{55:'$5,000,000/5,000,000'} ];
+    let limitsRequested;
+
+    if(submission.limitsRequested){
+        limitsRequested = filter(limits, function(o) {
+        let key = Object.keys(o);
+        return key[0] === String(submission.limitsRequested);
+      });
+    }
+
 
 
 	let submission = {
@@ -403,7 +418,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			},
 		ocpPremium: {
 			quotedPremium: quoteInfo.ocp.premium,
-			terrorPremium: ocpTerror
+			terrorPremium: ocpTerror,
+			limits: limitsRequested
 		},
 		status: 'submitted',
 		generalComments: subInfo.generalComments,

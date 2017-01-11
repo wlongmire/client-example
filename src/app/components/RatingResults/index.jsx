@@ -20,11 +20,36 @@ function RatingResults(props) {
       <ToggleDisplay
         show={isDefined(submission.oiPremium.quotedPremium) && submission.oiPremium.quotedPremium !== null && submission.oiPremium.quotedPremium > 0}
         render={() => (
-          <div>
-          <div>
-            <h1 className="header-larger">This submission qualifies for coverage</h1>
+        <div>
+        <h1 className="header-larger">This submission qualifies for coverage</h1>
+        <ToggleDisplay
+              show={isDefined(submission.ocpPremium.quotedPremium) && submission.ocpPremium.quotedPremium !== null && submission.ocpPremium.quotedPremium > 0}
+              render={ () => (
+                <div>
+                <span> Owners/Contractors - {`${submission.ocpPremium.limits}`}</span>
+                <div className="premium-details">
+                <div className="premium-number">
+                  Total Premium
+                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium+submission.ocpPremium.terrorPremium)}`}</span>
+                </div>
+                <div className="premium-number">
+                  Base Premium
+                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
+                </div>
+                <div className="premium-number">
+                  Terrorism Coverage
+                  <span>{`$${commifyNumber(submission.ocpPremium.terrorPremium)}`}</span>
+                </div>
+            </div>
+            <p>for more comprehensive coverage, an Owner's Interest policy might fit your needs. For your convenience, see your pricing below:</p>
+            </div>
 
-            <span>General Liability - Owner's Interest</span>
+        )}
+            />
+
+          <div>
+          <div>
+            <span>Owner's Interest - $1,000,000/2,000,000/2,000,000</span>
             <div className="premium-details">
               <div className="premium-number">
                 Total Premium
@@ -68,29 +93,6 @@ function RatingResults(props) {
         )}
             />
 
-            <ToggleDisplay
-              show={isDefined(submission.ocpPremium.quotedPremium) && submission.ocpPremium.quotedPremium !== null && submission.ocpPremium.quotedPremium > 0}
-              render={ () => (
-                <div>
-                <span> OCP - General Liability</span>
-                <div className="premium-details">
-                <div className="premium-number">
-                  Total Premium
-                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium+submission.ocpPremium.terrorPremium)}`}</span>
-                </div>
-                <div className="premium-number">
-                  Base Premium
-                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
-                </div>
-                <div className="premium-number">
-                  Terrorism Coverage
-                  <span>{`$${commifyNumber(submission.ocpPremium.terrorPremium)}`}</span>
-                </div>
-            </div>
-            </div>
-        )}
-            />
-
             <p>Please check your email for a more detailed pricing indication and review it for accuracy.</p>
 
             <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase</p>
@@ -110,6 +112,7 @@ function RatingResults(props) {
           </div>
           <div className="legalText">
             The "pricing indication" is issued as a matter of information only  and does not confer any rights upon the insured or constitute a contract between <br/> Colony Specialty and the authorized representative or producer of the insured or the insured.
+          </div>
           </div>
           </div>
         )}
