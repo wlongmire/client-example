@@ -42,7 +42,9 @@ const submissionSchema = new mongoose.Schema({
   projectDefinedAreaScope: String,
   projectRequirements: String,
   limitsRequested: String,
-  excessTerror: Number
+  excessTerror: Number,
+  ocpPremium: Object,
+  oiPremium: Object
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);
