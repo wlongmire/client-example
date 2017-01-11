@@ -79,7 +79,7 @@ async function getRating(req, res) {
 
 			request({
 				method: 'POST',
-				uri: `http://localhost:3000/api/rating/${appId}/calcRating`,
+				uri: `http://ratings-dev.argodigitalventures.com/api/rating/${appId}/calcRating`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'

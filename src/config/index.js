@@ -40,7 +40,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
+        url: 'http://dev.ownersedge.us',
         port: null
     },
 
@@ -49,7 +49,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
+        url: 'http://dev.ownersedge.us',
         port:  null
     }
 };
