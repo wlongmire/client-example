@@ -25,12 +25,13 @@ class Home extends Component{
     });
     
     const list = submissions.map((submission, key)=>{
+      const premiumType = submission[`${submission.type}Premium`];
       return (
         <tr key={key}>
           <td>{submission.primaryNamedInsured}</td>
-          <td>{formatDollars(submission.quotedPremium)}</td>
-          <td>{formatDollars(submission.totalCost)}</td>
-          <td>{formatDollars(submission.totalPremium)}</td>
+          <td>{premiumType && formatDollars(premiumType.quotedPremium)}</td>
+          <td>{premiumType && formatDollars(premiumType.totalCost)}</td>
+          <td>{premiumType && formatDollars(premiumType.totalPremium)}</td>
           <td>{submission.type}</td>
           <td>{Moment(submission.createdAt).format('MMMM Do YYYY')}</td>
           <td onClick={()=> this.goToPage(submission)} className="link">Edit</td>

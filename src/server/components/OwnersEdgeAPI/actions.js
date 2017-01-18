@@ -1,4 +1,5 @@
 import request from 'request';
+import filter from 'lodash/filter';
 import config from '../../../config';
 import { User, Broker } from '../../models';
 import { emailService, submissionService } from '../../services';
@@ -381,13 +382,13 @@ function createSubmissionObject(subInfo, quoteInfo) {
 										{55:'$5,000,000/5,000,000'} ];
     let limitsRequested;
 
-    if(submission.limitsRequested){
+    if(subInfo.limitsRequested){
         limitsRequested = filter(limits, function(o) {
         let key = Object.keys(o);
-        return key[0] === String(submission.limitsRequested);
+        return key[0] === String(subInfo.limitsRequested);
       });
     }
-
+   //console.log(subInfo);
 
 
 	let submission = {
@@ -424,7 +425,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		status: 'submitted',
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-    towerCraneUse: subInfo.towerCraneUse,
+        towerCraneUse: subInfo.towerCraneUse,
 		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 		anticipatedFinishDate: subInfo.anticipatedFinishDate,
