@@ -94,6 +94,7 @@ async function getRating(req, res) {
 					});
 				} else {
 					const result = JSON.parse(body);
+					console.log(result);
 					let submission = createSubmissionObject(req.body, result);
 
 					submission.broker = broker;
@@ -101,9 +102,8 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
-							const quotedPremium = (newSub.type === 'oi') ?
-							newSub.oiPremium.quotedPremium : newSub.ocpPremium.quotedPremium;
-							if (quotedPremium > 0) {
+							//default is oi because both submissions have that.
+							if (newSub.oiPremium.quotedPremium > 0) {
 								if (newSub.broker.name.includes('Marsh') || newSub.broker.name.includes('test')) {
 										sendSubmissionEmailClient(newSub);
 									}
@@ -372,29 +372,36 @@ function calcPremium(premium){
 }
 
 function createSubmissionObject(subInfo, quoteInfo) {
-	const premium = (subInfo.type === 'oi') ? quoteInfo.oi.premium : quoteInfo.ocp.premium;
-	let terrorismPremium;
-	let additionalCoverage;
-	let totalPremium;
-	let totalCost;
-	let excessTerror;
-	let ocpTerror
+	let oiPremium = {};
+	let ocpPremium = {};
 	const today = new Date();
 
-	if (premium > 0 ) {
-	    totalPremium = calcPremium(premium).totalPremium;
-		totalCost = calcPremium(premium).totalCost;
-		additionalCoverage = calcPremium(premium).additionalCoverage;
-        terrorismPremium = calcPremium(premium).terrorismPremium;
+	if (quoteInfo.oi.premium > 0 ) {
+
+		oiPremium = {
+			quotedPremium: quoteInfo.oi.premium,
+			terrorPremium: calcPremium(quoteInfo.oi.premium).terrorismPremium,
+			additionalCoverage: calcPremium(quoteInfo.oi.premium).additionalCoverage,
+			totalPremium: calcPremium(quoteInfo.oi.premium).totalPremium,
+			totalCost: calcPremium(quoteInfo.oi.premium).totalCost,
+			excessPremium: quoteInfo.excessPremium,
+			excessDetails: subInfo.excessDetails
+		}
 	}
 
 	if (quoteInfo.oi.excessPremium > 0) {
-		excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
+		oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
 	}
 
-	if (quoteInfo.ocp.premium > 0) {
-		ocpTerror = Math.round(0.05 * quoteInfo.ocp.premium)
+	if (quoteInfo.ocp.premium > 0 ) {
+		ocpPremium = {
+			quotedPremium: quoteInfo.ocp.premium,
+			totalPremium: calcPremium(quoteInfo.ocp.premium).totalPremium,
+			totalCost: calcPremium(quoteInfo.ocp.premium).totalCost,
+			terrorPremium: calcPremium(quoteInfo.ocp.premium).terrorismPremium
+		}
 	}
+
 
 	  const limits = [{12:'$1,000,000/2,000,000'},
 					{22:'$2,000,000/2,000,000'},
@@ -405,7 +412,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
     let limitsRequested;
 
     if(subInfo.limitsRequested){
-        limitsRequested = filter(limits, function(o) {
+        ocpPremium.limitsRequested = filter(limits, function(o) {
         let key = Object.keys(o);
         return key[0] === String(subInfo.limitsRequested);
       });
@@ -437,26 +444,11 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		projectDefinedAreaScope: subInfo.projectDefinedAreaScope,
 		projectRequirements: subInfo.projectRequirements,
 		limitsRequested: subInfo.limitsRequested,
-		oiPremium:{
-			quotedPremium: premium,
-			terrorPremium: terrorismPremium,
-			additionalCoverage: additionalCoverage,
-			totalPremium: totalPremium,
-			totalCost: totalCost,
-			excessPremium: quoteInfo.excessPremium,
-			excessTerror: excessTerror,
-			excessDetails: subInfo.excessDetails
-		}
+		oiPremium: oiPremium
 	}
 
 	if(subInfo.type === 'ocp'){
-		submission.ocpPremium = {
-			quotedPremium: quoteInfo.ocp.premium,
-			terrorPremium: ocpTerror,
-			limits: limitsRequested,
-			totalPremium: totalPremium,
-			totalCost: totalCost
-		};
+		submission.ocpPremium = ocpPremium;
 	}
 
 	return submission;

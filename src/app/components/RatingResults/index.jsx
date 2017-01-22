@@ -16,13 +16,11 @@ function RatingResults(props) {
     }
   } = props;
 
-  console.log(submission);
-
   return (
     <div className="RatingResults__container">
       {submission.ocpPremium &&
         <div>
-          <span> Owners/Contractors - {`${JSON.stringify(submission.ocpPremium.limits)}`}</span>
+          <span> Owners/Contractors - {`${JSON.stringify(submission.ocpPremium.limitsRequested[0])}`}</span>
           <div className="premium-details">
           <div className="premium-number">
             Total Premium
