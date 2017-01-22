@@ -216,9 +216,16 @@ async function generatePDFData(submissionIdentifier) {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
     let premium = 0;
-    if (utilities.isDefined(submission.oiPremium.quotedPremium)) {
-      premium = submission.oiPremium.quotedPremium;
-    }
+    // if (utilities.isDefined(submission.oiPremium.quotedPremium)) {
+    //   premium = submission.oiPremium.quotedPremium;
+    // }
+
+    // if (utilities.isDefined(submission.ocpPremium.quotedPremium)) {
+    //   premium = submission.ocpPremium.quotedPremium;
+    // };
+
+   premium = (submission.type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
+
     let terrorismPremium = Math.round(0.05 * premium);
     let additionalCoverage;
     if (premium < 25000) {
@@ -255,11 +262,6 @@ async function generatePDFData(submissionIdentifier) {
         return key[0] === String(submission.limitsRequested);
       });
     }
-
-    let ocpPremium = 0
-    if (utilities.isDefined(submission.ocpPremium.premium)) {
-      ocpPremium = submission.ocpPremium.premium;
-    };
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
@@ -330,7 +332,6 @@ async function generatePDFData(submissionIdentifier) {
       projectDefinedAreaScope: submission.projectDefinedAreaScope,
       projectRequirements: submission.projectRequirements,
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
-      ocpPremium: ''
     }
     if (submission.hasOtherNamedInsured) {
       pdfData.hasOtherNamedInsuredExist = true;
@@ -341,7 +342,6 @@ async function generatePDFData(submissionIdentifier) {
     if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
       pdfData.marshBroker = true;
     }
-
     return pdfData;
   } catch (err) {
     console.log(err.message)
