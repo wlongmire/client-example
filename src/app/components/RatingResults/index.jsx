@@ -15,38 +15,32 @@ function RatingResults(props) {
       }
     }
   } = props;
+
+  console.log(submission);
+
   return (
     <div className="RatingResults__container">
-      <ToggleDisplay
-        show={isDefined(submission.oiPremium.quotedPremium) && submission.oiPremium.quotedPremium !== null && submission.oiPremium.quotedPremium > 0}
-        render={() => (
+      {submission.ocpPremium &&
         <div>
-        <h1 className="header-larger">This submission qualifies for coverage</h1>
-        <ToggleDisplay
-              show={isDefined(submission.ocpPremium.quotedPremium) && submission.ocpPremium.quotedPremium !== null && submission.ocpPremium.quotedPremium > 0}
-              render={ () => (
-                <div>
-                <span> Owners/Contractors - {`${submission.ocpPremium.limits}`}</span>
-                <div className="premium-details">
-                <div className="premium-number">
-                  Total Premium
-                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium+submission.ocpPremium.terrorPremium)}`}</span>
-                </div>
-                <div className="premium-number">
-                  Base Premium
-                  <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
-                </div>
-                <div className="premium-number">
-                  Terrorism Coverage
-                  <span>{`$${commifyNumber(submission.ocpPremium.terrorPremium)}`}</span>
-                </div>
-            </div>
-            <p>for more comprehensive coverage, an Owner's Interest policy might fit your needs. For your convenience, see your pricing below:</p>
-            </div>
+          <span> Owners/Contractors - {`${JSON.stringify(submission.ocpPremium.limits)}`}</span>
+          <div className="premium-details">
+          <div className="premium-number">
+            Total Premium
+            <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium+submission.ocpPremium.terrorPremium)}`}</span>
+          </div>
+          <div className="premium-number">
+            Base Premium
+            <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
+          </div>
+          <div className="premium-number">
+            Terrorism Coverage
+            <span>{`$${commifyNumber(submission.ocpPremium.terrorPremium)}`}</span>
+          </div>
+        </div>
+        <p>for more comprehensive coverage, an Owner's Interest policy might fit your needs. For your convenience, see your pricing below:</p>
+        </div>}
 
-        )}
-            />
-
+        {submission.oiPremium &&
           <div>
           <div>
             <span>Owner's Interest - $1,000,000/2,000,000/2,000,000</span>
@@ -69,29 +63,24 @@ function RatingResults(props) {
               </div>
             </div>
             <p>* $325 inspection fee not included</p>
-
-            <ToggleDisplay
-              show={isDefined(submission.oiPremium.excessPremium) && submission.oiPremium.excessPremium !== null && submission.oiPremium.excessPremium > 0}
-              render={ () => (
-                <div>
-                <span> {`$${commifyNumber(submission.excessDetails.limits)}`} Excess</span>
-                <div className="premium-details">
-                <div className="premium-number">
-                  Total Premium
-                  <span>{`$${commifyNumber(submission.oiPremium.excessPremium+submission.oiPremium.excessTerror)}`}</span>
+            {submission.oiPremium.excessDetails &&
+              <div>
+                  <span> {`$${commifyNumber(submission.oiPremium.excessDetails.limits[0])}`} Excess</span>
+                  <div className="premium-details">
+                    <div className="premium-number">
+                      Total Premium
+                      <span>{`$${commifyNumber(submission.oiPremium.totalPremium)}`}</span>
+                    </div>
+                    <div className="premium-number">
+                      Base Premium
+                      <span>{`$${commifyNumber(submission.oiPremium.quotedPremium)}`}</span>
+                    </div>
+                    <div className="premium-number">
+                      Terrorism Coverage
+                      <span>{`$${commifyNumber(submission.oiPremium.excessTerror)}`}</span>
+                    </div>
                 </div>
-                <div className="premium-number">
-                  Base Premium
-                  <span>{`$${commifyNumber(submission.oiPremium.excessPremium)}`}</span>
-                </div>
-                <div className="premium-number">
-                  Terrorism Coverage
-                  <span>{`$${commifyNumber(submission.oiPremium.excessTerror)}`}</span>
-                </div>
-            </div>
-            </div>
-        )}
-            />
+              </div>}
 
             <p>Please check your email for a more detailed pricing indication and review it for accuracy.</p>
 
@@ -113,23 +102,20 @@ function RatingResults(props) {
           <div className="legalText">
             The "pricing indication" is issued as a matter of information only  and does not confer any rights upon the insured or constitute a contract between <br/> Colony Specialty and the authorized representative or producer of the insured or the insured.
           </div>
-          </div>
-          </div>
-        )}
-      />
-      <ToggleDisplay
-        show={!isDefined(submission.quotedPremium) || submission.quotedPremium === null || submission.quotedPremium <= 0}
-        render={() => (
-          <div>
-            <h1 className="header-larger">We’re reviewing your submission!</h1>
-            <p>Based on your answers, we couldn't provide you with an instant quote.</p>
-            <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
-          </div>
-        )}
-      />
+          </div>}
+
+          <ToggleDisplay
+            show={!isDefined(submission.oiPremium.quotedPremium) || submission.oiPremium.quotedPremium == null || submission.oiPremium.quotedPremium <= 0}
+            render={() => (
+              <div>
+                <h1 className="header-larger">We’re reviewing your submission!</h1>
+                <p>Based on your answers, we couldn't provide you with an instant quote.</p>
+                <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+              </div>
+            )}
+          />
     </div>
   );
 }
 
 export default RatingResults;
-

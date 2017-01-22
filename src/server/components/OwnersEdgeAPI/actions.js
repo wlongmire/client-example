@@ -101,10 +101,13 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
-							if (newSub.quotedPremium > 0) {
+							const quotedPremium = (newSub.type === 'oi') ?
+							newSub.oiPremium.quotedPremium : newSub.ocpPremium.quotedPremium;
+							if (quotedPremium > 0) {
 								if (newSub.broker.name.includes('Marsh') || newSub.broker.name.includes('test')) {
 										sendSubmissionEmailClient(newSub);
 									}
+
 								sendSubmissionEmailArgo(newSub);
 								return res.status(response.statusCode).json({
 									success: true,
@@ -230,8 +233,10 @@ function sendSubmissionEmailClient(submission) {
 											})
 											emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
 										})
-								} else
-									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+								} else{
+                                   emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+								}
+
 							});
 					});
 			}else{
@@ -252,8 +257,10 @@ function sendSubmissionEmailClient(submission) {
 									})
 									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
 								})
-						} else
-							emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+						} else{
+                emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+						}
+
 					});
 			}
 
@@ -294,8 +301,10 @@ function sendNonQuoteEmailArgo(submission) {
 							console.log('---sending non-quoted email---')
 							emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
 						})
-				} else
-						emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+				} else{
+                  emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+				}
+
 			});
 
 	}
@@ -342,8 +351,28 @@ async function generateExcessPDF(token) {
 	return pdf;
 }
 
+function calcPremium(premium){
+  let additionalCoverage;
+  const terrorismPremium = Math.round(0.05 * premium);
+  if (premium < 25000) {
+    additionalCoverage = 125;
+  } else {
+    additionalCoverage = 250;
+  }
+  const totalPremium = terrorismPremium + premium + additionalCoverage;
+  const inspectionCost = 325;
+  const totalCost = totalPremium + inspectionCost;
+
+  return {
+    totalPremium,
+    totalCost,
+    additionalCoverage,
+    terrorismPremium
+  };
+}
+
 function createSubmissionObject(subInfo, quoteInfo) {
-	let premium;
+	const premium = (subInfo.type === 'oi') ? quoteInfo.oi.premium : quoteInfo.ocp.premium;
 	let terrorismPremium;
 	let additionalCoverage;
 	let totalPremium;
@@ -352,18 +381,11 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	let ocpTerror
 	const today = new Date();
 
-	if (quoteInfo.oi.premium > 0) {
-		premium = quoteInfo.oi.premium;
-		terrorismPremium = Math.round(0.05 * premium);
-		if (premium < 25000) {
-			additionalCoverage = 125;
-		} else {
-			additionalCoverage = 250
-		}
-
-		totalPremium = terrorismPremium + premium + additionalCoverage;
-		const inspectionCost = 325
-		totalCost = totalPremium + inspectionCost
+	if (premium > 0 ) {
+	    totalPremium = calcPremium(premium).totalPremium;
+		totalCost = calcPremium(premium).totalCost;
+		additionalCoverage = calcPremium(premium).additionalCoverage;
+        terrorismPremium = calcPremium(premium).terrorismPremium;
 	}
 
 	if (quoteInfo.oi.excessPremium > 0) {
@@ -375,11 +397,11 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	}
 
 	  const limits = [{12:'$1,000,000/2,000,000'},
-										{22:'$2,000,000/2,000,000'},
-										{24:'$2,000,000/4,000,000'},
-										{33:'$3,000,000/3,000,000'},
-										{44:'$4,000,000/4,000,000'},
-										{55:'$5,000,000/5,000,000'} ];
+					{22:'$2,000,000/2,000,000'},
+					{24:'$2,000,000/4,000,000'},
+					{33:'$3,000,000/3,000,000'},
+					{44:'$4,000,000/4,000,000'},
+					{55:'$5,000,000/5,000,000'} ];
     let limitsRequested;
 
     if(subInfo.limitsRequested){
@@ -388,8 +410,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
         return key[0] === String(subInfo.limitsRequested);
       });
     }
-   //console.log(subInfo);
-
 
 	let submission = {
 		primaryNamedInsured: subInfo.primaryNamedInsured,
@@ -407,21 +427,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		occupancyDetails: subInfo.occupancyDetails,
 		workDetails: subInfo.workDetails,
 		contactInfo: subInfo.contactInfo,
-		oiPremium: {
-			quotedPremium: premium,
-			terrorPremium: terrorismPremium,
-			additionalCoverage: additionalCoverage,
-			totalPremium: totalPremium,
-			totalCost: totalCost,
-			excessPremium: quoteInfo.excessPremium,
-			excessTerror: excessTerror,
-			excessDetails: subInfo.excessDetails
-			},
-		ocpPremium: {
-			quotedPremium: quoteInfo.ocp.premium,
-			terrorPremium: ocpTerror,
-			limits: limitsRequested
-		},
 		status: 'submitted',
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
@@ -431,7 +436,27 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		anticipatedFinishDate: subInfo.anticipatedFinishDate,
 		projectDefinedAreaScope: subInfo.projectDefinedAreaScope,
 		projectRequirements: subInfo.projectRequirements,
-		limitsRequested: subInfo.limitsRequested
+		limitsRequested: subInfo.limitsRequested,
+		oiPremium:{
+			quotedPremium: premium,
+			terrorPremium: terrorismPremium,
+			additionalCoverage: additionalCoverage,
+			totalPremium: totalPremium,
+			totalCost: totalCost,
+			excessPremium: quoteInfo.excessPremium,
+			excessTerror: excessTerror,
+			excessDetails: subInfo.excessDetails
+		}
+	}
+
+	if(subInfo.type === 'ocp'){
+		submission.ocpPremium = {
+			quotedPremium: quoteInfo.ocp.premium,
+			terrorPremium: ocpTerror,
+			limits: limitsRequested,
+			totalPremium: totalPremium,
+			totalCost: totalCost
+		};
 	}
 
 	return submission;
