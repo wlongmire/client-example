@@ -442,6 +442,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 		anticipatedFinishDate: subInfo.anticipatedFinishDate,
 		projectDefinedAreaScope: subInfo.projectDefinedAreaScope,
+		projectDefinedAreaScopeDetails: subInfo.projectDefinedAreaScopeDetails,
 		projectRequirements: subInfo.projectRequirements,
 		limitsRequested: subInfo.limitsRequested,
 		oiPremium: oiPremium

@@ -40,6 +40,7 @@ const submissionSchema = new mongoose.Schema({
   greaterThanTwoAdditional: Boolean,
   anticipatedFinishDate: String,
   projectDefinedAreaScope: String,
+  projectDefinedAreaScopeDetails: String,
   projectRequirements: String,
   limitsRequested: String,
   excessTerror: Number,
