@@ -27,6 +27,7 @@ function ContractorForm(props) {
       costs,
       address,
       projectDefinedAreaScope,
+      projectDefinedAreaScopeDetails,
       isSupervisingSubs,
       projectRequirements,
       limitsRequested,
@@ -130,16 +131,44 @@ function ContractorForm(props) {
         <li>
           <AddressFieldSet address={address} type='project' />
         </li>
-        <li>
-          <label>
-          <span className="area-label" data-tip="Defined area of project Scope"> What is the defined area of project Scope?</span>
-            <PureInput
-              type="text"
-              field={projectDefinedAreaScope}
-              placeholder="Defined area of project Scope"
-            />
-          </label>
+
+      <li>
+        <span className="area-label" data-tip="Is project limited to specific floors?">Is project limited to specific floors?</span>
+          <radiogroup>
+            <label>
+              <PureRadio
+                value="yes"
+                field={projectDefinedAreaScope}
+              />
+              Yes
+            </label>
+            <label>
+              <PureRadio
+                value="no"
+                field={projectDefinedAreaScope}
+              />
+              No
+            </label>
+          </radiogroup>
         </li>
+      <ToggleDisplay
+          show={projectDefinedAreaScope.value === 'yes'}
+          render={() => (
+            <fieldset className="sub-questions">
+            <span className="area-label-sub">Give details.</span>
+            <ul>
+              <li>
+              <label>
+                <PureTextArea 
+                field={projectDefinedAreaScopeDetails}
+                />
+                </label>
+              </li>
+            </ul>
+            </fieldset>
+          )}
+        />
+
          <li>
           <label>
            <span className="area-label double" data-tip="Please provide as descriptive of a scope of work as possible including end use.">What is the scope of work for this project?</span>

@@ -330,6 +330,7 @@ async function generatePDFData(submissionIdentifier) {
       deductibleText: submission.namedInsuredAddress && submission.namedInsuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
       anticipatedFinishDate: submission.anticipatedFinishDate,
       projectDefinedAreaScope: submission.projectDefinedAreaScope,
+      projectDefinedAreaScopeDetails: submission.projectDefinedAreaScopeDetails,
       projectRequirements: submission.projectRequirements,
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
     }

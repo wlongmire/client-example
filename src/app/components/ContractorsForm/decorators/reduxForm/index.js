@@ -17,6 +17,7 @@ const fields = [
   'address.state',
   'address.zip',
   'projectDefinedAreaScope',
+  'projectDefinedAreaScopeDetails',
   'scope',
   'isSupervisingSubs',
   'projectRequirements',

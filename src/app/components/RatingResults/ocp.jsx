@@ -47,7 +47,7 @@ export default (props) => {
             </span>
         </div>
         <div className="item">
-            <span className="left">Defined area of project Scope:</span>
+            <span className="left">Is project limited to specific floors:</span>
             <span className="text">{submission.projectDefinedAreaScope}</span>
         </div>
         <div className="item">

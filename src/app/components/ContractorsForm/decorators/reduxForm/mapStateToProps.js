@@ -9,6 +9,7 @@ export default function mapStateToProps(state) {
       primaryNamedInsured: submission ? submission.primaryNamedInsured :  '',
       anticipatedFinishDate: submission && submission.anticipatedFinishDate? submission.anticipatedFinishDate : '',
       projectDefinedAreaScope: submission && submission.projectDefinedAreaScope? submission.projectDefinedAreaScope : '',
+      projectDefinedAreaScopeDetails: submission && submission.projectDefinedAreaScopeDetails ? submission.projectDefinedAreaScopeDetails : '',
       address: {
         street: submission && submission.projectAddress ? submission.projectAddress.street :  '',
         city: submission && submission.projectAddress ? submission.projectAddress.city :  '',
