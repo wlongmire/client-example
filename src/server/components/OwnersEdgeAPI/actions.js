@@ -104,10 +104,9 @@ async function getRating(req, res) {
 						.then(newSub => {
 							//default is oi because both submissions have that.
 							if (newSub.oiPremium.quotedPremium > 0) {
-								if (newSub.broker.name.includes('Marsh') || newSub.broker.name.includes('test')) {
+								if (newSub.broker.type ==='Retail A') {
 										sendSubmissionEmailClient(newSub);
 									}
-
 								sendSubmissionEmailArgo(newSub);
 								return res.status(response.statusCode).json({
 									success: true,
