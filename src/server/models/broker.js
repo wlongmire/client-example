@@ -5,6 +5,7 @@ const brokerSchema = new mongoose.Schema({
   address: Object,
   logoPath: String,
   brokerNumber: String,
+  type: String
 });
 
 mongoose.model('broker', brokerSchema);

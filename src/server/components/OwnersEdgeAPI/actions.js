@@ -102,6 +102,7 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
+							console.log(newSub.broker.type)
 							//default is oi because both submissions have that.
 							if (newSub.oiPremium.quotedPremium > 0) {
 								if (newSub.broker.type ==='Retail A') {
@@ -230,10 +231,10 @@ function sendSubmissionEmailClient(submission) {
 												title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
 												content: excessPdf
 											})
-											emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
+											emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 										})
 								} else{
-                emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
+                emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 								}
 
 							});
@@ -254,10 +255,10 @@ function sendSubmissionEmailClient(submission) {
 										title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
 										content: excessPdf
 									})
-									emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
+									emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 								})
 						} else{
-                emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
+                emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 						}
 
 					});
@@ -436,7 +437,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		status: 'submitted',
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-        towerCraneUse: subInfo.towerCraneUse,
+    towerCraneUse: subInfo.towerCraneUse,
 		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 		anticipatedFinishDate: subInfo.anticipatedFinishDate,
