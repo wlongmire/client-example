@@ -230,10 +230,10 @@ function sendSubmissionEmailClient(submission) {
 												title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
 												content: excessPdf
 											})
-											emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+											emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
 										})
 								} else{
-                                   emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+                emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
 								}
 
 							});
@@ -254,10 +254,10 @@ function sendSubmissionEmailClient(submission) {
 										title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
 										content: excessPdf
 									})
-									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+									emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
 								})
 						} else{
-                emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+                emailService.sendSubmissionEmail('quotedArgo', submission.contactInfo.email, submission, config.argoTemplateId, pdfArray);
 						}
 
 					});
