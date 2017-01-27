@@ -63,15 +63,15 @@ function RatingResults(props) {
             <p>* $325 inspection fee not included</p>
             {submission.oiPremium.excessDetails &&
               <div>
-                  <span> {`$${commifyNumber(submission.oiPremium.excessDetails.limits[0])}`} Excess</span>
+                  <span> {`$${commifyNumber(submission.oiPremium.excessDetails.limits)}`} Excess</span>
                   <div className="premium-details">
                     <div className="premium-number">
                       Total Premium
-                      <span>{`$${commifyNumber(submission.oiPremium.totalPremium)}`}</span>
+                      <span>{`$${commifyNumber(submission.oiPremium.excessTotalPremium)}`}</span>
                     </div>
                     <div className="premium-number">
                       Base Premium
-                      <span>{`$${commifyNumber(submission.oiPremium.quotedPremium)}`}</span>
+                      <span>{`$${commifyNumber(submission.oiPremium.excessQuotedPremium)}`}</span>
                     </div>
                     <div className="premium-number">
                       Terrorism Coverage

@@ -384,10 +384,13 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			additionalCoverage: calcPremium(quoteInfo.oi.premium).additionalCoverage,
 			totalPremium: calcPremium(quoteInfo.oi.premium).totalPremium,
 			totalCost: calcPremium(quoteInfo.oi.premium).totalCost,
-			excessPremium: quoteInfo.excessPremium,
+			excessQuotedPremium: quoteInfo.oi.excessPremium,
+			excessTerror: calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
+			excessTotalPremium: calcPremium(quoteInfo.oi.excessPremium).totalPremium,
 			excessDetails: subInfo.excessDetails
 		}
 	}
+	console.log(oiPremium);
 
 	if (quoteInfo.oi.excessPremium > 0) {
 		oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
