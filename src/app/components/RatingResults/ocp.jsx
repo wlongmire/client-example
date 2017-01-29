@@ -46,6 +46,20 @@ export default (props) => {
             <span className="text">{ submission.address.street } { submission.address.city }, { submission.address.state } { submission.address.zip } 
             </span>
         </div>
+        {submission.address.state === 'NY' &&
+                <div className="item">
+            <span className="left">
+            Is this a NYCHA Project?
+            </span>
+            <span className="text">{submission.nycha}</span>
+        </div>
+          }
+       <div className="item">
+            <span className="left">
+            Does the project include the addition of any stories or vertical expansion?
+            </span>
+            <span className="text">{submission.overFourFloors}</span>
+        </div>
         <div className="item">
             <span className="left">Is project limited to specific floors:</span>
             <span className="text">{submission.projectDefinedAreaScope}</span>

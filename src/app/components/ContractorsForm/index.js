@@ -1,4 +1,5 @@
 import React from 'react';
+import CurrencyInput from 'react-currency-masked-input';
 
 import PureInput from 'components/shared/PureInput';
 import PureRadio from 'components/shared/PureRadio';
@@ -32,6 +33,8 @@ function ContractorForm(props) {
       projectRequirements,
       limitsRequested,
       anticipatedFinishDate,
+      overFourFloors,
+      nycha,
       generalContractor: {
         name,
         glCarrier,
@@ -122,14 +125,36 @@ function ContractorForm(props) {
           <label>
           <span className="area-label" data-tip="Excess limits of the Contractor's primary Policy"> What are the Excess limits of the Contractor's primary Policy?</span>
             <PureInput
-              type="text"
+              type="number"
               field={glLimits}
               placeholder="Excess limits"
             />
           </label>
         </li>
         <li>
-          <AddressFieldSet address={address} type='project' />
+          <AddressFieldSet address={address} nycha={nycha} type='project' />
+        </li>
+
+        <li>
+          <span className="area-label" data-tip="Does the project include the addition of any stories or vertical expansion?">
+          Does the project include the addition of any stories or vertical expansion?
+          </span>
+            <radiogroup>
+              <label>
+                <PureRadio
+                  value="yes"
+                  field={overFourFloors}
+                />
+                Yes
+              </label>
+              <label>
+                <PureRadio
+                  value="no"
+                  field={overFourFloors}
+                />
+                No
+              </label>
+            </radiogroup>
         </li>
 
       <li>
