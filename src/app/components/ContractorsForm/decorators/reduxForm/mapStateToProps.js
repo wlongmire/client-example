@@ -1,12 +1,13 @@
 export default function mapStateToProps(state) {
 
   const submission = state.submissions.selectedSubmission;
-  console.log(submission);
 
   return {
     initialValues: {
       type: 'ocp',
       primaryNamedInsured: submission ? submission.primaryNamedInsured :  '',
+      overFourFloors: submission && submission.overFourFloors? submission.overFourFloors : '',
+      nycha: submission && submission.nycha? submission.nycha : '',
       anticipatedFinishDate: submission && submission.anticipatedFinishDate? submission.anticipatedFinishDate : '',
       projectDefinedAreaScope: submission && submission.projectDefinedAreaScope? submission.projectDefinedAreaScope : '',
       projectDefinedAreaScopeDetails: submission && submission.projectDefinedAreaScopeDetails ? submission.projectDefinedAreaScopeDetails : '',

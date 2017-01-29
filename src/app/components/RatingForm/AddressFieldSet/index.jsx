@@ -2,6 +2,8 @@ import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
 import PureOptionSelect from 'components/shared/PureOptionSelect';
+import ToggleDisplay from 'components/shared/ToggleDisplay';
+import PureRadio from 'components/shared/PureRadio';
 
 const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
@@ -17,6 +19,7 @@ function AddressFieldSet(props) {
   }
 
   const {
+    nycha,
     address: {
       street,
       city,
@@ -71,6 +74,32 @@ function AddressFieldSet(props) {
               placeholder="Zip"
               className="zip-input"
             />
+        </li>
+        <li>
+          <ToggleDisplay
+            show={state.value === 'NY'}
+            render={() => (
+              <div>
+              <span className="area-label">Is this a NYCHA Project?</span>
+              <radiogroup>
+                <label>
+                  <PureRadio
+                    value="yes"
+                    field={nycha}
+                  />
+                  Yes
+                </label>
+                <label>
+                  <PureRadio
+                    value="no"
+                    field={nycha}
+                  />
+                  No
+                </label>
+              </radiogroup>
+              </div>
+            )}
+          />
         </li>
       </ul>
     </fieldset>

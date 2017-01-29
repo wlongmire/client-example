@@ -25,6 +25,8 @@ const fields = [
   'type',
   'contactInfo.email',
   'contactInfo.phone',
+  'overFourFloors',
+  'nycha'
 ];
 
 const mapDispatchToProps = {

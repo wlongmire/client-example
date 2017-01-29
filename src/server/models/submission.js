@@ -45,7 +45,9 @@ const submissionSchema = new mongoose.Schema({
   limitsRequested: String,
   excessTerror: Number,
   ocpPremium: Object,
-  oiPremium: Object
+  oiPremium: Object,
+  overFourFloors: String,
+  nycha: String
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);

@@ -376,7 +376,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	let ocpPremium = {};
 	const today = new Date();
 
-	if (quoteInfo.oi.premium > 0 ) {
+	if (quoteInfo.oi && quoteInfo.oi.premium > 0 ) {
 
 		oiPremium = {
 			quotedPremium: quoteInfo.oi.premium,
@@ -392,11 +392,11 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	}
 	console.log(oiPremium);
 
-	if (quoteInfo.oi.excessPremium > 0) {
+	if (quoteInfo.oi && quoteInfo.oi.excessPremium > 0) {
 		oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
 	}
 
-	if (quoteInfo.ocp.premium > 0 ) {
+	if (quoteInfo.ocp && quoteInfo.ocp.premium > 0 ) {
 		ocpPremium = {
 			quotedPremium: quoteInfo.ocp.premium,
 			totalPremium: calcPremium(quoteInfo.ocp.premium).totalPremium,
@@ -453,8 +453,10 @@ function createSubmissionObject(subInfo, quoteInfo) {
 
 	if(subInfo.type === 'ocp'){
 		submission.ocpPremium = ocpPremium;
+		submission.overFourFloors = subInfo.overFourFloors;
+		submission.nycha = subInfo.nycha;
 	}
-
+    console.log(submission);
 	return submission;
 }
 
