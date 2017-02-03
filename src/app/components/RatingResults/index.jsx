@@ -67,7 +67,7 @@ function RatingResults(props) {
             <p>* $325 inspection fee not included</p>
 
           <ToggleDisplay
-            show={isDefined(submission.oiPremium.excessQuotedPremium) && submission.oiPremium.excessQuotedPremium >= 0}
+            show={isDefined(submission.oiPremium.excessQuotedPremium) && submission.oiPremium.excessQuotedPremium > 0}
             render={() => (
               <div>
                 <span> {`$${commifyNumber(submission.oiPremium.excessDetails.limits)}`} Excess</span>
