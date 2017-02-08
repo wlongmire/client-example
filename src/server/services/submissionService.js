@@ -63,8 +63,8 @@ function generateOwnersEdgeQuotationPDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
-          token: token
-        })
+          token: token,
+        }, 'oi')
         .then(pdfData => {
           request({
             url: config.ownersEdgeQuotationPDFUrl,
@@ -87,8 +87,8 @@ function generateBindOrderPDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
-          token: token
-        })
+          token: token,
+        }, 'oi')
         .then(pdfData => {
           request({
             url: config.ownersBindOrderPDFUrl,
@@ -111,8 +111,8 @@ function generateOwnersContractorsProtectivePDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
-          token: token
-        })
+          token: token,
+        }, 'ocp')
         .then(pdfData => {
           request({
             url: config.ownersContractorsProtectivePDFUrl,
@@ -134,7 +134,8 @@ function generateColonyOwnersInterestQuestionnairePDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
-          token: token
+          token: token,
+          type: 'oi'
         })
         .then(pdfData => {
           request({
@@ -207,7 +208,7 @@ async function generateExcessPDFData(submissionIdentifier) {
 
 }
 
-async function generatePDFData(submissionIdentifier) {
+async function generatePDFData(submissionIdentifier, type) {
   try {
     let submission;
     if (submissionIdentifier.token) {
@@ -216,15 +217,8 @@ async function generatePDFData(submissionIdentifier) {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
     let premium = 0;
-    // if (utilities.isDefined(submission.oiPremium.quotedPremium)) {
-    //   premium = submission.oiPremium.quotedPremium;
-    // }
 
-    // if (utilities.isDefined(submission.ocpPremium.quotedPremium)) {
-    //   premium = submission.ocpPremium.quotedPremium;
-    // };
-
-   premium = (submission.type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
+   premium = (type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
 
     let terrorismPremium = Math.round(0.05 * premium);
     let additionalCoverage;

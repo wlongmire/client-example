@@ -15,7 +15,7 @@ let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values){
 	return (dispatch) => {
-     
+
 		dispatch(push({
 			pathname: '/confirmation',
 			state: {

@@ -2,7 +2,10 @@ import request from 'request';
 import filter from 'lodash/filter';
 import config from '../../../config';
 import { User, Broker } from '../../models';
-import { emailService, submissionService } from '../../services';
+import { emailService, submissionService } from '../../services'
+import {
+  utilities
+} from '../../utils'
 
 const appId = config.appId;
 const argoEmail = config.argoEmail;
@@ -67,14 +70,16 @@ async function getRating(req, res) {
 					message: "Access forbidden. Invalid user token."
 				});
 			}
-
+			console.log('getting User Information')
 			const user = result.user;
 			const newAuthToken = result.authToken;
+
 			Broker.findById(user._brokerId).exec()
 				.then(broker => {
 
 			let paramsObject = req.body;
 			paramsObject.broker = broker;
+
 			const params = JSON.stringify(paramsObject);
 
 
@@ -94,7 +99,7 @@ async function getRating(req, res) {
 					});
 				} else {
 					const result = JSON.parse(body);
-					console.log(result);
+					console.log(result)
 					let submission = createSubmissionObject(req.body, result);
 
 					submission.broker = broker;
@@ -102,7 +107,6 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
-							console.log(newSub.broker.type)
 							//default is oi because both submissions have that.
 							if (newSub.oiPremium.quotedPremium > 0) {
 								if (newSub.broker.type ==='Retail A') {
@@ -128,24 +132,21 @@ async function getRating(req, res) {
 			});
 		});
 	});
-	} catch (err) {
+} catch (err) {
+		console.log(err.message)
 		return res.status(500)
 	}
 }
 
 function sendSubmissionEmailArgo(submission) {
-	console.log('---generating GL PDF sendSubmissionEmailArgo---')
-	let pdfArray = [];
-
+	let pdfArray = []
 	generateBindOrderPDF(submission.pdfToken)
 	.then(bindpdf => {
 		pdfArray.push({
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		})
-
 			if(submission.type === 'ocp') {
-
 				generateOwnersContractorsProtectivePDF(submission.pdfToken)
 					.then(glpdf => {
 						pdfArray.push({
@@ -173,7 +174,6 @@ function sendSubmissionEmailArgo(submission) {
 							});
 					});
 			}else{
-
 				generateOwnersEdgeQuotationPDF(submission.pdfToken)
 					.then(glpdf => {
 						pdfArray.push({
@@ -198,19 +198,15 @@ function sendSubmissionEmailArgo(submission) {
 		});
 }
 
-
 function sendSubmissionEmailClient(submission) {
-	console.log('---generating GL PDF sendSubmissionEmailClient---')
 	let pdfArray = [];
 	generateBindOrderPDF(submission.pdfToken)
 	.then(bindpdf => {
 		pdfArray.push({
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
-		})
-
+		});
 			if(submission.type === 'ocp') {
-
 				generateOwnersContractorsProtectivePDF(submission.pdfToken)
 					.then(glpdf => {
 						pdfArray.push({
@@ -233,14 +229,12 @@ function sendSubmissionEmailClient(submission) {
 											})
 											emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 										})
-								} else{
+								} else {
                 emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 								}
-
 							});
 					});
 			}else{
-
 				generateOwnersEdgeQuotationPDF(submission.pdfToken)
 					.then(glpdf => {
 						pdfArray.push({
@@ -269,9 +263,7 @@ function sendSubmissionEmailClient(submission) {
 
 function sendNonQuoteEmailArgo(submission) {
 	let pdfArray = [];
-
 	if(submission.type === 'ocp') {
-
 		generateOwnersContractorsProtectivePDF(submission.pdfToken)
 				.then(glpdf => {
 					pdfArray.push({
@@ -280,29 +272,24 @@ function sendNonQuoteEmailArgo(submission) {
 					})
 					emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
 			});
-
 	}else{
-
 		generateOwnersEdgeQuotationPDF(submission.pdfToken)
 			.then(glpdf => {
 				pdfArray.push({
 					title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
 					content: glpdf
 				});
-				console.log('--finished generating GL PDF---');
 				if (submission.excessPremium > 0) {
-					console.log('---generating Excess PDF---')
 					generateExcessPDF(submission.pdfToken)
 						.then(excessPdf => {
 							pdfArray.push({
 								title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
 								content: excessPdf
 							})
-							console.log('---sending non-quoted email---')
 							emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
 						})
-				} else{
-                  emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+				} else {
+          emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
 				}
 
 			});
@@ -390,7 +377,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			excessDetails: subInfo.excessDetails
 		}
 	}
-	console.log(oiPremium);
 
 	if (quoteInfo.oi && quoteInfo.oi.excessPremium > 0) {
 		oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
@@ -456,7 +442,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		submission.overFourFloors = subInfo.overFourFloors;
 		submission.nycha = subInfo.nycha;
 	}
-    console.log(submission);
 	return submission;
 }
 

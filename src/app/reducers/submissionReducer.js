@@ -7,6 +7,11 @@ import {formatDollars} from '../utils/utilities';
 
 export default formReducer.normalize({
   RatingForm: {
-    costs: formatDollars
+    costs: formatDollars,
+    'generalContractor.glLimits': formatDollars
+  },
+  ContractorsForm: {
+    costs: formatDollars,
+    'generalContractor.glLimits': formatDollars
   }
 });

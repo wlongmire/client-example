@@ -10,7 +10,7 @@ import ReactTooltip from 'react-tooltip';
 
 import styles from './styles';
 
-import AddressFieldSet from 'components/RatingForm/AddressFieldSet';
+import AddressFieldSet from 'components/ContractorsForm/AddressFieldSet';
 import GeneralContractorFieldSet from 'components/RatingForm/GeneralContractorFieldSet';
 import ContactInfoFieldSet from 'components/RatingForm/ContactInfoFieldSet';
 
@@ -19,7 +19,7 @@ import decorator from './decorators';
 const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
 
 function ContractorForm(props) {
-    
+
   const {
     fields: {
       primaryNamedInsured,
@@ -48,12 +48,12 @@ function ContractorForm(props) {
   } = props;
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
-   
+
       <ul className="no-bullets">
         <li>
           <label>
-            <span 
-            className="area-label" 
+            <span
+            className="area-label"
             data-tip="This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Who is the Primary Named Insured?</span>
             <PureInput
               type="text"
@@ -64,11 +64,11 @@ function ContractorForm(props) {
         </li>
         <li>
           <label>
-           <span 
-           className="area-label" 
+           <span
+           className="area-label"
            data-tip="Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due.">What is the total cost of this project?</span>
             <PureInput
-              type="number"
+              type="text"
               field={costs}
             />
           </label>
@@ -125,7 +125,7 @@ function ContractorForm(props) {
           <label>
           <span className="area-label" data-tip="Excess limits of the Contractor's primary Policy"> What are the Excess limits of the Contractor's primary Policy?</span>
             <PureInput
-              type="number"
+              type="text"
               field={glLimits}
               placeholder="Excess limits"
             />
@@ -184,7 +184,7 @@ function ContractorForm(props) {
             <ul>
               <li>
               <label>
-                <PureTextArea 
+                <PureTextArea
                 field={projectDefinedAreaScopeDetails}
                 />
                 </label>

@@ -15,7 +15,7 @@ let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values){
 	return (dispatch) => {
-     
+
 		dispatch(push({
 			pathname: '/confirmation',
 			state: {
@@ -29,7 +29,7 @@ export function handleConfirmation(values){
 
 export function handleSubmit(values) {
 
-	const body = (values.type === 'ocp')? JSON.stringify(values): formatRequestBody(values);
+	const body = (values.type === 'ocp')? formatRequestBodyOCP(values): formatRequestBody(values);
 
 	return (dispatch) => {
 
@@ -71,6 +71,12 @@ export function handleSubmit(values) {
 	};
 }
 
+function formatRequestBodyOCP(values) {
+	return JSON.stringify({
+		...values,
+		costs: onlyNums(values.costs),
+	});
+}
 
 function formatRequestBody(values) {
 	return JSON.stringify({
@@ -78,6 +84,7 @@ function formatRequestBody(values) {
 		state: values.address.state,
 		term: values.term,
 		costs: onlyNums(values.costs),
+		'generalContractor.glLimits': onlyNums(values.generalContractor.glLimits),
 		contractorKnown: values.generalContractor.isKnown === 'yes',
 		supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',
 		demoRequired: values.demoDetails.willHave === 'yes',
@@ -88,6 +95,6 @@ function formatRequestBody(values) {
 		additionalInsuredBoolean: values.hasAdditionalInsured === 'yes',
 		excessLimits: values.excessDetails.limits !== null ? values.excessDetails.limits : 0,
 		greaterThanTwoNamedBoolean: values.otherNamedInsured.greaterThanTwoNamed === 'yes',
-		greaterThanTwoAdditionalBoolean: values.additionalInsured.greaterThanTwoAdditional === 'yes'
+		greaterThanTwoAdditionalBoolean: values.additionalInsured.greaterThanTwoAdditional === 'yes',
 	});
 }

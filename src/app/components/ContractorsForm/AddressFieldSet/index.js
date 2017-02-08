@@ -75,6 +75,32 @@ function AddressFieldSet(props) {
               className="zip-input"
             />
         </li>
+        <li>
+          <ToggleDisplay
+            show={state.value === 'NY'}
+            render={() => (
+              <div>
+              <span className="area-label">Is this a NYCHA Project?</span>
+              <radiogroup>
+                <label>
+                  <PureRadio
+                    value="yes"
+                    field={nycha}
+                  />
+                  Yes
+                </label>
+                <label>
+                  <PureRadio
+                    value="no"
+                    field={nycha}
+                  />
+                  No
+                </label>
+              </radiogroup>
+              </div>
+            )}
+          />
+        </li>
       </ul>
     </fieldset>
   );

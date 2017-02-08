@@ -2,6 +2,11 @@ function isDefined (value) {
   return (typeof value !== 'undefined');
 }
 
+function onlyNums(value) {
+   const valueToString = value.toString();
+   return valueToString.replace(/[^\d]/g, '');
+ }
+
 function commifyNumber(number) {
   if(number){
     let numberString = number.toString();
@@ -23,5 +28,6 @@ function commifyNumber(number) {
 
 export default {
   isDefined,
-  commifyNumber
+  commifyNumber,
+  onlyNums
 };
