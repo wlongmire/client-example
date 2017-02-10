@@ -23,7 +23,7 @@ function RatingResults(props) {
         render={() => (
           <div>
             <ToggleDisplay
-              show={isDefined(submission.ocpPremium.quotedPremium) && submission.ocpPremium.quotedPremium >= 0}
+              show={isDefined(submission.ocpPremium) && isDefined(submission.ocpPremium.quotedPremium) && submission.ocpPremium.quotedPremium >= 0}
               render={() => (
                 <div>
                   <span> Owners/Contractors - {`${JSON.stringify(submission.ocpPremium.limitsRequested[0])}`}</span>

@@ -71,11 +71,11 @@ function login(req, res, next) {
  * }
  */
 // function token(req, res, next) {
-//   // Grant type: 
+//   // Grant type:
 //   //   - "refresh_token", requires refresh_token parameter, grant_type="refresh_token" parameter
 //   //
 //   //
-//   // 
+//   //
 //   // We exclude "password" grant type, as the login() action handles this for us
 //   if (!req.body.refresh_token) {
 //     return res.status(401).json({type: "AuthError", message: "Invalid refresh token."});
@@ -318,13 +318,13 @@ function register(req, res, next) {
 
 	// @TODO Assert password length and complexity
 
-	// Register!  
+	// Register!
 	User.register(
 		new User({
 			username: req.body.username,
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
-			accountPending: true,
+			accountPending: false,
 			role: 'user',
 			_brokerId: req.body._brokerId
 		}),
