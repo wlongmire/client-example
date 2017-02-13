@@ -19,7 +19,7 @@ function RatingResults(props) {
   return (
     <div className="RatingResults__container">
       <ToggleDisplay
-        show={isDefined(submission.oiPremium.quotedPremium) && submission.oiPremium.quotedPremium >= 0}
+        show={submission.instantQuote}
         render={() => (
           <div>
             <ToggleDisplay
@@ -110,15 +110,15 @@ function RatingResults(props) {
     )}/>
 
   < ToggleDisplay
-show = {!isDefined(submission.oiPremium.quotedPremium) || submission.oiPremium.quotedPremium == null || submission.oiPremium.quotedPremium <= 0}
-render = {() => (
-  <div>
-    <h1 className="header-larger">We’re reviewing your submission!</h1>
-    <p>Based on your answers, we couldn't provide you with an instant quote.</p>
-    <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
-  </div>
-)}
-/>
+    show = {!submission.instantQuote}
+    render = {() => (
+      <div>
+        <h1 className="header-larger">We’re reviewing your submission!</h1>
+        <p>Based on your answers, we couldn't provide you with an instant quote.</p>
+        <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+      </div>
+    )}
+  />
     </div >
   );
 }

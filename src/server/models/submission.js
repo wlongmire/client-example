@@ -47,7 +47,8 @@ const submissionSchema = new mongoose.Schema({
   ocpPremium: Object,
   oiPremium: Object,
   overFourFloors: String,
-  nycha: String
+  nycha: String,
+  instantQuote: Boolean
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);

@@ -9,6 +9,7 @@ import {
 
 const appId = config.appId;
 const argoEmail = config.argoEmail;
+const ratingsUrl = config.ratingsUrl;
 
 async function getSubmissions(req, res) {
      	try {
@@ -85,7 +86,7 @@ async function getRating(req, res) {
 
 			request({
 				method: 'POST',
-				uri: `http://ratings-dev.argodigitalventures.com/api/rating/${appId}/calcRating`,
+				uri: `${ratingsUrl}` + `/api/rating/${appId}/calcRating`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'
@@ -107,8 +108,10 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
+							console.log(newSub);
 							//default is oi because both submissions have that.
-							if (newSub.oiPremium.quotedPremium > 0) {
+							if (newSub.instantQuote) {
+								console.log('instantly Quoted')
 								if (newSub.broker.type ==='Retail A') {
 										sendSubmissionEmailClient(newSub);
 									}
@@ -119,6 +122,7 @@ async function getRating(req, res) {
 									authToken: newAuthToken
 								});
 							} else {
+								console.log('being reviewed')
 								sendNonQuoteEmailArgo(newSub)
 								sendNonQuoteEmailBroker(newSub)
 								return res.status(response.statusCode).json({
@@ -434,7 +438,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		projectDefinedAreaScopeDetails: subInfo.projectDefinedAreaScopeDetails,
 		projectRequirements: subInfo.projectRequirements,
 		limitsRequested: subInfo.limitsRequested,
-		oiPremium: oiPremium
+		oiPremium: oiPremium,
+		instantQuote: quoteInfo.instantQuote
 	}
 
 	if(subInfo.type === 'ocp'){
