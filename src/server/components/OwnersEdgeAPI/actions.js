@@ -9,6 +9,7 @@ import {
 
 const appId = config.appId;
 const argoEmail = config.argoEmail;
+const ratingsUrl = config.ratingsUrl;
 
 async function getSubmissions(req, res) {
      	try {
@@ -85,7 +86,7 @@ async function getRating(req, res) {
 
 			request({
 				method: 'POST',
-				uri: `http://ratings-dev.argodigitalventures.com/api/rating/${appId}/calcRating`,
+				uri: `${ratingsUrl}` + `/api/rating/${appId}/calcRating`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'
