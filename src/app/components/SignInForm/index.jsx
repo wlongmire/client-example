@@ -12,6 +12,8 @@ import PureOptionSelect from 'components/shared/PureOptionSelect';
 import PureTextArea from 'components/shared/PureTextArea';
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 
+import ValidationInput from 'components/shared/ValidationInput';
+
 import styles from './styles';
 
 import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
@@ -19,9 +21,7 @@ import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
 import decorator from './decorators';
 import handleSubmit from './decorators/reduxForm/handleSubmit';
 
-
 function SignInForm(props) {
-
     const {
         fields: {
             credentials
@@ -31,6 +31,15 @@ function SignInForm(props) {
     return (
     <form className="SignInForm__container" onSubmit={handleSubmit}>
         <CredentialsFieldSet field={credentials} />
+        
+        <ValidationInput
+          label="Name"
+          validation_status="error"
+          validation_message="Does not have correct Information."
+          placeholder="Enter Name"
+          type="text"
+        />
+
         <div className="formFooter">
             <button type="submit" className="button">Sign In</button>
             <a className="button" href="/signup">Register</a>

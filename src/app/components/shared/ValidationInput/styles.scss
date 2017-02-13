@@ -1,0 +1,60 @@
+.validation_component {
+
+  .validation_input {
+    margin-top:0;
+
+    &.default {
+      border: 1px black solid;
+    }
+
+    &.success {
+      border: 3px green solid;
+    }
+
+    &.error {
+      border: 1px #e74c3c solid;
+      background:#f9d3cf;
+    }
+  }
+
+  .validation_icon{
+    position:absolute;
+    top:33px;
+    right:5%;
+    height:0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s ease-in-out;
+    -webkit-transition: visibility 0.3s, opacity 0.3s ease-in-out;
+
+    &:after{
+      opacity: 0;
+      transition: visibility 0.3s, opacity 0.3s ease-in-out;
+      -webkit-transition: visibility 0.3s, opacity 0.3s ease-in-out;
+    }
+  }
+
+  .error + .validation_icon {
+    visibility: visible;
+    opacity: 1;
+
+    &:after {
+      content:"x";
+      color:red;
+      font-family: 'Arial';
+      visibility: visible;
+      opacity: 1
+    }
+  }
+
+  .validation_text {
+    font-weight: 100;
+    font-size:1em;
+    margin-top:0;
+
+    &.hide {
+      display:none;
+    }
+  }
+
+}

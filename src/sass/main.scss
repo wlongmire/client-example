@@ -12,6 +12,10 @@
 // Font Awesome
 // @import '../../node_modules/font-awesome/scss/font-awesome';
 
+//Components
+@import '../app/components/shared/ValidationInput/styles';
+
+
 // Global
 @import './config';
 @import './typography';
