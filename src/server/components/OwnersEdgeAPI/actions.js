@@ -108,8 +108,10 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
+							console.log(newSub);
 							//default is oi because both submissions have that.
-							if (newSub.oiPremium.quotedPremium > 0) {
+							if (newSub.instantQuote) {
+								console.log('instantly Quoted')
 								if (newSub.broker.type ==='Retail A') {
 										sendSubmissionEmailClient(newSub);
 									}
@@ -120,6 +122,7 @@ async function getRating(req, res) {
 									authToken: newAuthToken
 								});
 							} else {
+								console.log('being reviewed')
 								sendNonQuoteEmailArgo(newSub)
 								sendNonQuoteEmailBroker(newSub)
 								return res.status(response.statusCode).json({
@@ -435,7 +438,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		projectDefinedAreaScopeDetails: subInfo.projectDefinedAreaScopeDetails,
 		projectRequirements: subInfo.projectRequirements,
 		limitsRequested: subInfo.limitsRequested,
-		oiPremium: oiPremium
+		oiPremium: oiPremium,
+		instantQuote: quoteInfo.instantQuote
 	}
 
 	if(subInfo.type === 'ocp'){
