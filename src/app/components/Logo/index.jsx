@@ -30,14 +30,16 @@ class Logo extends Component{
        <div className="links">
         <Link to='/home' >Submissions </Link>
         <Link to='/choicepage'>Submit New </Link>
-        <a onClick={this.logout}>Log out</a>
+        {this.props.user.state && <a onClick={this.logout}>Log out</a>}
       </div>
     </div>
   );
   }
 }
 
-// function mapStateToProps(){
-//   return {};
-// }
-export default connect(null, actions)(Logo);
+function mapStateToProps(state){
+  return {
+    user: state.user
+  };
+}
+export default connect(mapStateToProps, actions)(Logo);
