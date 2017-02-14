@@ -16,7 +16,11 @@ var config = {
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
+<<<<<<< HEAD
     ratingsUrl:'http://localhost:3000',
+=======
+    ratingsUrl:'http://ratings-dev.argodigitalventures.com',
+>>>>>>> dev
 
 
     analytics: {
