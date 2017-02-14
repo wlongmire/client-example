@@ -30,7 +30,7 @@ class Home extends Component{
   }
 
   loadSubmissions(submissionsArray){
-    console.log("TEST456 SUBMISSIONS ARRAY", submissionsArray);
+
     let list = [];
 
     for (let item of submissionsArray){     
@@ -74,7 +74,6 @@ class Home extends Component{
           data={this.state.chartData}
           hover={true}
           condensed={true}
-          pagination={true}
           options={options}
           search
           multiColumnSearch
