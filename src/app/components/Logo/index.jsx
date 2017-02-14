@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../Home/actions';
+import { browserHistory } from 'react-router';
 
 import styles from './styles';
 
@@ -21,7 +22,18 @@ class Logo extends Component{
     this.props.resetForm();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.user.state){
+      browserHistory.push('/');
+    }
+  }
+
+
   render(){
+    // if(!this.props.user.state) {
+    //   browserHistory.push('/');
+    // }
+
     return (
     <div className="nav-bar">
       <div className='logo-type'>
