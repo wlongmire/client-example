@@ -4,7 +4,7 @@ import Moment from 'moment';
 import * as actions from './actions';
 import { formatDollars } from '../../utils/utilities';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Button } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 
 class Home extends Component{
   constructor(){
@@ -16,17 +16,12 @@ class Home extends Component{
 
   componentDidMount() {
     if(this.props.submissions.data){
-      console.log('TEST456 COMPONENT DID MOUNT', this.props.submissions.data);
       this.loadSubmissions(this.props.submissions.data.submissions);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('TEST456 NEXT PROPS', nextProps.submissions);
-    console.log('TEST456 THIS PROPS', this.props.submissions);
-
     if (nextProps.submissions.data && !this.props.submissions.data){
-      console.log('TEST456 next params', nextProps.submissions.data);
       this.loadSubmissions(nextProps.submissions.data.submissions);
     }
   }
@@ -61,7 +56,6 @@ class Home extends Component{
     this.props.editSubmission(submission);
   }
 
-
   render(){
     const selectFormatter = (cell, row) => {
       return (
@@ -69,56 +63,19 @@ class Home extends Component{
       );
     };
 
-    console.log('TEST456 chartData', this.state.chartData)
-
-    if(!this.props.submissions.data){
-      return (<div>Loading submissions...</div>);
-    }
-    let submissions = this.props.submissions.data.submissions;
-
-    submissions = submissions.sort(function(a, b) {
-      return a.createdAt < b.createdAt ? 1 : -1;
-    });
-    
-    const list = submissions.map((submission, key)=>{
-      const premiumType = submission[`${submission.type}Premium`];
-      return (
-        <tr key={key}>
-          <td>{submission.primaryNamedInsured}</td>
-          <td>{premiumType && formatDollars(premiumType.quotedPremium)}</td>
-          <td>{premiumType && formatDollars(premiumType.totalCost)}</td>
-          <td>{premiumType && formatDollars(premiumType.totalPremium)}</td>
-          <td>{submission.type}</td>
-          <td>{Moment(submission.createdAt).format('MMMM Do YYYY')}</td>
-          <td onClick={()=> this.goToPage(submission)} className="link">Edit</td>
-        </tr>
-      );
-    });
+    const options = {
+      defaultSortName: 'dateCreated',  // default sort column name
+      defaultSortOrder: 'desc'  // default sort order
+    };
     return (
       <div>
-      
-      <h3>Your submissions</h3>
-      <table className="u-full-width">
-          <thead>
-            <tr>
-              <th>Primary Named Insured</th>
-              <th>Quoted Premium</th>
-              <th>Total Cost</th>
-              <th>Total Premium</th>
-              <th>Type</th>
-              <th>Date Created</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {list}
-          </tbody>
-        </table>
+        <h3><b><u>Your Submissions</u></b></h3>
         <BootstrapTable
           data={this.state.chartData}
           hover={true}
           condensed={true}
           pagination={true}
+          options={options}
           search
           multiColumnSearch
           >
@@ -133,36 +90,36 @@ class Home extends Component{
             dataSort={true}
             width="100px"
             >Primary Named Insured</TableHeaderColumn>
-            <TableHeaderColumn
-              width="40px"
-              dataField="quotedPremium"
-              dataSort={true}
-              >Quoted <br/>Premium</TableHeaderColumn>
-            <TableHeaderColumn
-              width="30px"
-              dataField="totalCost"
-              dataSort={true}
-              >Total <br/>Cost</TableHeaderColumn>
-            <TableHeaderColumn
-              width="40px"
-              dataField="totalPremium"
-              dataSort={true}
-              >Total <br/>Premium</TableHeaderColumn>
-            <TableHeaderColumn
-              width="20px"
-              dataField="type"
-              dataSort={true}
-              >Type</TableHeaderColumn>
-            <TableHeaderColumn
-              width="50px"
-              dataField="dateCreated"
-              dataSort={true}
-              >Date <br/>Created</TableHeaderColumn>
-            <TableHeaderColumn
-                width="20px"
-                dataField="id"
-                dataFormat={ selectFormatter }
-                ></TableHeaderColumn>
+          <TableHeaderColumn
+            width="40px"
+            dataField="quotedPremium"
+            dataSort={true}
+            >Quoted <br/>Premium</TableHeaderColumn>
+          <TableHeaderColumn
+            width="30px"
+            dataField="totalCost"
+            dataSort={true}
+            >Total <br/>Cost</TableHeaderColumn>
+          <TableHeaderColumn
+            width="40px"
+            dataField="totalPremium"
+            dataSort={true}
+            >Total <br/>Premium</TableHeaderColumn>
+          <TableHeaderColumn
+            width="20px"
+            dataField="type"
+            dataSort={true}
+            >Type</TableHeaderColumn>
+          <TableHeaderColumn
+            width="50px"
+            dataField="dateCreated"
+            dataSort={true}
+            >Date <br/>Created</TableHeaderColumn>
+          <TableHeaderColumn
+            width="20px"
+            dataField="id"
+            dataFormat={ selectFormatter }
+            >Edit</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );

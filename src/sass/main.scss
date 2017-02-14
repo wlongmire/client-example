@@ -34,25 +34,25 @@
 .home{
     width: 80%;
     margin: 0 auto;
-    // table{
-    //   width: 100%;
-    //   text-align: left;
-    //   font-size: 14px;
-    //   th{
-    //     font-weight: bold;
-    //     padding: 10px 0;
-    //   }
-    //   tr{
-    //     border-bottom: 1px solid;
-    //   }
-    //   td{
-    //     padding: 10px 0;
-    //     &.link{
-    //       cursor: pointer;
-    //       color: lightskyblue;
-    //     }
-    //   }
-    // }
+    table{
+      width: 100%;
+      text-align: left;
+      font-size: 14px;
+      th{
+        font-weight: bold;
+        padding: 10px 0;
+      }
+      tr{
+        border-bottom: 1px solid;
+      }
+      td{
+        padding: 10px 0;
+        &.link{
+          cursor: pointer;
+          color: lightskyblue;
+        }
+      }
+    }
     h3{
       text-align: center;
       padding: 10px;
