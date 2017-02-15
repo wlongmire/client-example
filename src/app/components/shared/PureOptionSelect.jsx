@@ -4,10 +4,6 @@ import classNames from "classnames";
 import { onlyDomProps } from 'app/utils/reduxForm';
 
 class PureOptionSelect extends Component {
-  shouldComponentUpdate(nextProps) {
-    return this.props.field !== nextProps.field;
-  }
-
   render() {
     const { field, ...rest } = this.props;
     const domProps = onlyDomProps(field);
@@ -30,15 +26,6 @@ class PureOptionSelect extends Component {
 
       <div className="validation_text">{ this.props.validation_message }</div>
     </div>;
-
-    // return (
-    //   <select
-    //     { ...onlyDomProps(field) }
-    //     { ...rest }
-    //   >
-    //     {this.props.children}
-    //   </select>
-    // );
   }
 }
 

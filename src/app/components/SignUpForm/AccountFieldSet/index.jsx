@@ -72,8 +72,6 @@ class AccountFieldSet extends Component {
       errors
     } = this.props;
 
-    console.log(errors);
-
     let state = this.state;
 
     return (
@@ -120,16 +118,11 @@ class AccountFieldSet extends Component {
             <PureOptionSelect
               label="Broker"
               field={broker}
-              validation_status={
-                (()=> ((errors.broker)?"error":"default"))()
-              }
-              validation_message={
-                (errors.broker || '')
-              }>
+              validation_status={ (errors.broker)?"error":"default" }
+              validation_message={ (errors.broker || '') }>
 
               <option value="">Please Select a Broker</option>
               {
-
                 state.account.brokers.length > 0 ? state.account.brokers.map((brkr) => (
                   <option key={brkr.name} value={brkr._id}>{brkr.name}</option>
                 )) : ''

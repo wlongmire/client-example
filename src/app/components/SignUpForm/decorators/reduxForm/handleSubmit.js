@@ -20,17 +20,10 @@ let baseURL = config.apiserver.url;
 const handleSubmit = (values, dispatch) => {
 	const errors = validate(values);
 
-	dispatch({
-		type: 'SET_FORM_ERROR',
-		payload:{
-			'signup':{
-				credentials:{},
-				account:{}
-			}
-		}
-	});
-
-	if (!_.isEmpty(errors.credentials)) {
+	if (
+		!_.isEmpty(errors.credentials) ||
+		!_.isEmpty(errors.account)
+	) {
 		return dispatch({
 			type: 'SET_FORM_ERROR',
 			payload: {
@@ -52,12 +45,29 @@ const handleSubmit = (values, dispatch) => {
 			.then(res => res.json())
 			.then((res) => {
 
-				console.log(res);
-				
+				console.log(res.message);
+
 				dispatch({
 					type: SIGNUP_STATUS,
 					payload: res.message
 				})
+
+				switch(res.message) {
+
+	        case("Sorry, that user name is not available. Please try something else."):
+						return dispatch({
+							type: 'SET_FORM_ERROR',
+							payload: {
+								signup:{
+									credentials:{
+										username:"Username already in use."
+									}
+								}
+							}
+						});
+
+	      }
+
 
 				if (res.token) {
 
@@ -67,16 +77,16 @@ const handleSubmit = (values, dispatch) => {
 
 					localStorage.setItem('token', token);
 
-					// return dispatch(push({
-					// 	pathname: '/form',
-					//
-					// 	state: {
-					// 		type: 'USER_LOGGED_IN',
-					// 		payload: res,
-					// 		user: user
-					// 	}
-					//
-					// }));
+					return dispatch(push({
+						pathname: '/form',
+
+						state: {
+							type: 'USER_LOGGED_IN',
+							payload: res,
+							user: user
+						}
+
+					}));
 				}
 
 			})

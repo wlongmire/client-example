@@ -20,10 +20,8 @@ export default function validate(values) {
         errors.credentials.retypePassword = 'Password is required';
     }
 
-    console.log(values.credentials.password !== values.credentials.retypePassword);
     // Assert password == retypePassword
     if (values.credentials.password && values.credentials.password !== values.credentials.retypePassword) {
-      console.log("no match");
       errors.credentials.retypePassword = 'Passwords do not match';
     }
 
@@ -33,7 +31,7 @@ export default function validate(values) {
 
     // ...Don't bother enforcing a last name. Not everyone has one.
 
-    if (!values.account.broker) {
+    if (!values.account.broker || values.account.broker === "") {
         errors.account.broker = 'Invalid Broker selected';
     }
 
