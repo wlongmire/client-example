@@ -5,69 +5,68 @@ import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 import ValidationInput from 'components/shared/ValidationInput';
 
-function CredentialFieldSet(props) {
-  let title = props.title ? props.title : 'Coming Back?';
-  let type = props.type;
-
+function CredentialsRegisterFieldSet(props) {
   const {
+    title,
     field: {
       username,
       password,
-      password_retype
+      retypePassword
     },
     errors
   } = props;
 
   return (
     <fieldset>
+      <h3>Credential Details</h3>
+
       <ul className="no-bullets">
-        
         <li>
-          <label>
-            <PureInput
-              type="text"
-              field={username}
-              placeholder="Enter Email"
-              validation_status={
-                (()=> ((errors.username)?"error":"default"))()
-              }
-              validation_message={
-                (errors.username || '')
-              }
+
+          <PureInput
+            label="Username"
+            type="text"
+            field={username}
+            placeholder="Username (Email)"
+            validation_status={
+              (()=> ((errors.username)?"error":"default"))()
+            }
+            validation_message={
+              (errors.username || '')
+            }
+          />
+
+        </li>
+
+        <li>
+
+          <PurePassword
+            label="Password"
+            field={password}
+            placeholder="Password"
+            validation_status={
+              (()=> ((errors.password)?"error":"default"))()
+            }
+            validation_message={
+              (errors.password || '')
+            }
             />
-          </label>
+
         </li>
 
         <li>
 
-          <label>
-            <PurePassword
-              field={password}
-              placeholder="Password"
-              validation_status={
-                (()=> ((errors.password)?"error":"default"))()
-              }
-              validation_message={
-                (errors.password || '')
-              }
-              />
-          </label>
-        </li>
-
-        <li>
-
-          <label>
-            <PurePassword
-              field={password_retype}
-              placeholder="Retype Password"
-              validation_status={
-                (()=> ((errors.password)?"error":"default"))()
-              }
-              validation_message={
-                (errors.password || '')
-              }
-              />
-          </label>
+          <PurePassword
+            label="Retype Password"
+            field={retypePassword}
+            placeholder="Password"
+            validation_status={
+              (()=> ((errors.retypePassword)?"error":"default"))()
+            }
+            validation_message={
+              (errors.retypePassword || '')
+            }
+            />
 
         </li>
 
@@ -82,4 +81,4 @@ export default connect((state) => {
     errors: state.error.signup.credentials
   });
 
-})(CredentialFieldSet);
+})(CredentialsRegisterFieldSet);

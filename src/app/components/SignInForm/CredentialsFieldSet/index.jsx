@@ -7,7 +7,6 @@ import ValidationInput from 'components/shared/ValidationInput';
 
 function CredentialFieldSet(props) {
   let title = props.title ? props.title : 'Coming Back?';
-  let type = props.type;
 
   const {
     field: {

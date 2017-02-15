@@ -7,9 +7,9 @@ import validate from './validate';
 import _ from 'lodash';
 
 //let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
-let baseURL = config.apiserver.url;
+const baseURL = config.apiserver.url;
 
-let handleSubmit =  (values, dispatch) => {
+const handleSubmit = (values, dispatch) => {
   return () => {
     const errors = validate(values);
 

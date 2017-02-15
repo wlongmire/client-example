@@ -3,19 +3,44 @@ import {
 	push
 }
 from 'react-router-redux';
+
 import config from '../../../../../config';
+
 import {
 	SIGNUP_STATUS,
 	USER_LOGGED_IN
-}
-from '../../../../constants';
+} from '../../../../constants';
+
+import validate from './validate';
+import _ from 'lodash';
 
 //let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 let baseURL = config.apiserver.url;
 
+const handleSubmit = (values, dispatch) => {
+	const errors = validate(values);
 
-export default function handleSubmit(values, dispatch) {
+	dispatch({
+		type: 'SET_FORM_ERROR',
+		payload:{
+			'signup':{
+				credentials:{},
+				account:{}
+			}
+		}
+	});
+
+	if (!_.isEmpty(errors.credentials)) {
+		return dispatch({
+			type: 'SET_FORM_ERROR',
+			payload: {
+				signup:errors
+			}
+		});
+	}
+
 	return () => {
+
 		fetch(baseURL + '/um/register', {
 				method: 'POST',
 				headers: {
@@ -27,6 +52,8 @@ export default function handleSubmit(values, dispatch) {
 			.then(res => res.json())
 			.then((res) => {
 
+				console.log(res);
+				
 				dispatch({
 					type: SIGNUP_STATUS,
 					payload: res.message
@@ -40,16 +67,16 @@ export default function handleSubmit(values, dispatch) {
 
 					localStorage.setItem('token', token);
 
-					return dispatch(push({
-						pathname: '/form',
-
-						state: {
-							type: 'USER_LOGGED_IN',
-							payload: res,
-							user: user
-						}
-
-					}));
+					// return dispatch(push({
+					// 	pathname: '/form',
+					//
+					// 	state: {
+					// 		type: 'USER_LOGGED_IN',
+					// 		payload: res,
+					// 		user: user
+					// 	}
+					//
+					// }));
 				}
 
 			})
@@ -63,9 +90,7 @@ export default function handleSubmit(values, dispatch) {
 }
 
 function formatRequestBody(values) {
-
 	return JSON.stringify({
-
 		username: values.credentials.username,
 		password: values.credentials.password,
 		retypePassword: values.credentials.retypePassword,
@@ -74,3 +99,5 @@ function formatRequestBody(values) {
 		_brokerId: values.account.broker
 	});
 }
+
+export default handleSubmit;
