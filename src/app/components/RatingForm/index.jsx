@@ -50,6 +50,7 @@ function RatingForm(props) {
   } = props;
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
+      <h3><b><u>Owners Interest Form</u></b></h3>
       <ul className="no-bullets">
         <li>
           <label>

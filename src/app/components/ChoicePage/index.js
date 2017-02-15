@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../Home/actions';
 import styles from './styles';
+import { Button } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 
 const ChoicePage = (props) =>(
     <div className="wrapper">
@@ -23,7 +25,13 @@ const ChoicePage = (props) =>(
     </td>
     </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <td><br/><Button onClick={()=> {browserHistory.push('/home'); }}>Go Back To Submissions</Button></td>
+      </tr>  
+    </tfoot>
     </table>
+    
     </div>
 );
 
