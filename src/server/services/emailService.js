@@ -25,6 +25,11 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
     case 'nonQuoteArgo':
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
     break;
+    case 'nonQuoteBroker':
+      personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
+      let reasonsHTML = buildReasonsHTML(submission);
+      personalization.addSubstitution(new helper.Substitution('{{nonQuoteReasons}}', reasonsHTML));
+
     }
   mail.addPersonalization(personalization);
   mail.setTemplateId(templateId);
@@ -61,6 +66,22 @@ function send(mail){
     console.log(response.headers)
     }
   })
+}
+
+function buildReasonsHTML(submission){
+  let htmlString = `<div><table>`
+  let reasonsArray = [];
+  if (submission.costs > 30000000) {reasonsArray.push('Costs exceed $30,000,000')};
+  if (submission.isSupervisingSubs || submission.supervisingSubs) {reasonsArray.push('Owner is directly involved in supervising subcontractors')};
+  if (submission.demoRequired) {reasonsArray.push('Demolition is Required')};
+  if (submission.towerCraneUse === 'yes'){reasonsArray.push('Tower Crane is being used')};
+  if (submission.occupancy){reasonsArray.push('Coverage is being requested for occupancy')};
+  reasonsArray.forEach(reason => {
+    htmlString += `<tr><td>${reason}</td></tr>`
+  });
+  htmlString += `</table></div>`
+  console.log(htmlString);
+  return htmlString
 }
 
 export default {
