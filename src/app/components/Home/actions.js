@@ -103,7 +103,7 @@ export function logout() {
       type: USER_LOGGED_OUT
     });
 
-    // dispatch(push('/'));
+    dispatch(push('/'));
 
   };
 }
