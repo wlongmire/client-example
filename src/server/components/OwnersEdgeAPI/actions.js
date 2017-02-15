@@ -304,7 +304,14 @@ function sendNonQuoteEmailArgo(submission) {
 }
 
 function sendNonQuoteEmailBroker(submission) {
-	emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.brokerNonQuoteTemplate, null);
+	generateBindOrderPDF(submission.pdfToken)
+	.then(bindpdf => {
+		pdfArray.push({
+			title: 'Owners Bind Order.pdf',
+			content: bindpdf
+		});
+		emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.brokerNonQuoteTemplate, pdfArray);
+	});
 }
 
 
