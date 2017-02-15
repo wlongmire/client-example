@@ -1,13 +1,26 @@
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
+
 import config from '../../../../../config';
+import validate from './validate';
+
+import _ from 'lodash';
 
 //let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 let baseURL = config.apiserver.url;
 
 let handleSubmit =  (values, dispatch) => {
-
   return () => {
+    const errors = validate(values);
+
+    if (!_.isEmpty(errors.credentials)) {
+      return dispatch({
+        type: 'SET_FORM_ERROR',
+        payload: {
+          signin:errors
+        }
+      });
+    }
 
     return fetch(baseURL + '/um/login', {
       method: 'POST',
@@ -19,21 +32,49 @@ let handleSubmit =  (values, dispatch) => {
     })
     .then(res => res.json())
     .then((res) => {
-      
-      if (!res.status == 200) {
-        return Promise.reject(res.message);
+
+      let payload = {};
+
+      switch(res.message) {
+        case("Your account has not been verified. Please contact your administrator."):
+          return dispatch({
+            type: 'SET_FORM_ERROR',
+            payload:{
+              signin:{
+                  credentials:{
+                    'username':'Username Not Found'
+                  }
+              }
+            }
+          });
+
+        case("Password or username are incorrect"):
+          return dispatch({
+            type: 'SET_FORM_ERROR',
+            payload:{
+              signin:{
+                  credentials:{
+                    'password':'Password/Username are not correct'
+                  }
+              }
+            }
+          });
       }
+
       const {user, token} = res;
       let newPath = user.role === 'poweruser' ? '/powerconsole' : '/home';
-      // console.log("Dispatching (push)");
-      // console.log(user);
 
       localStorage.setItem('token', token);
 
-      /**
-       * @TODO Properly set up react redux authentication
-       * See https://github.com/mjrussell/react-redux-jwt-auth-example/tree/react-router-redux
-       */
+      dispatch({
+        type: 'SET_FORM_ERROR',
+        payload:{
+          'signin':{
+            credentials:{}
+          }
+        }
+      });
+
       return dispatch(push({
         pathname: newPath,
 

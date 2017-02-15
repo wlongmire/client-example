@@ -38,7 +38,7 @@ const UserRolePowerUser = UserAuthWrapper({
   wrapperDisplayName:   'UserRolePowerUser',
   failureRedirectPath:  '/',
   predicate:            (props) => {
-    
+
     return props.state.user.role === 'poweruser';
   },
   allowRedirectBack:    false
@@ -46,7 +46,7 @@ const UserRolePowerUser = UserAuthWrapper({
 });
 
 export default (
-  <Route 
+  <Route
     path='/'
     component={App}>
     <IndexRoute

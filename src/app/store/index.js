@@ -48,6 +48,7 @@ if (process.env.NODE_ENV === 'production') {
         );
   };
 } else {
+
   const loggerMiddleware = createLogger();
 
     /* NON-PRODUCTION (Dev, Debug, etc) */
@@ -56,7 +57,7 @@ if (process.env.NODE_ENV === 'production') {
             appReducers,
             window.devToolsExtension ? window.devToolsExtension() : f => f,
             applyMiddleware(
-                loggerMiddleware,
+                // loggerMiddleware,
                 routerMiddleware(history),
                 thunkMiddleware
             )

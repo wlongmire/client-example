@@ -7,7 +7,6 @@ import styles from './styles';
 
 class Logo extends Component{
   constructor(props){
-    console.log(props);
     super(props);
     this.logout = this.logout.bind(this);
     this.resetForm = this.resetForm.bind(this);

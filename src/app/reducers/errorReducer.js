@@ -1,13 +1,20 @@
-import {
-	SIGNUP_ERROR
-}
-from '../constants';
+const forms_structure = {
+	signin:{
+		credentials:{}
+	},
 
-export default function (state = {}, action) {
+	signup:{
+		credentials:{},
+		account:{}
+	}
+}
+
+export default function (state = forms_structure, action) {
+
 	switch (action.type) {
-	case SIGNUP_ERROR:
-		return { ...state, error: action.payload };
-	default:
+		case "SET_FORM_ERROR":
+			return action.payload;
+			default:
 	}
 
 	return state;

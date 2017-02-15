@@ -12,22 +12,22 @@ function CredentialFieldSet(props) {
   const {
     field: {
       username,
-      password
+      password,
+      password_retype
     },
     errors
   } = props;
 
   return (
     <fieldset>
-      <h1>{title}</h1>
-
       <ul className="no-bullets">
+        
         <li>
           <label>
             <PureInput
               type="text"
               field={username}
-              placeholder="Username (Email)"
+              placeholder="Enter Email"
               validation_status={
                 (()=> ((errors.username)?"error":"default"))()
               }
@@ -54,6 +54,23 @@ function CredentialFieldSet(props) {
           </label>
         </li>
 
+        <li>
+
+          <label>
+            <PurePassword
+              field={password_retype}
+              placeholder="Retype Password"
+              validation_status={
+                (()=> ((errors.password)?"error":"default"))()
+              }
+              validation_message={
+                (errors.password || '')
+              }
+              />
+          </label>
+
+        </li>
+
       </ul>
     </fieldset>
   );
@@ -62,7 +79,7 @@ function CredentialFieldSet(props) {
 export default connect((state) => {
 
   return ({
-    errors: state.error.signin.credentials
+    errors: state.error.signup.credentials
   });
 
 })(CredentialFieldSet);

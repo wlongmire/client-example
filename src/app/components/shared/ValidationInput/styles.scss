@@ -2,18 +2,21 @@
 
   .validation_input {
     margin-top:0;
+    border-radius: 0;
+    width:100%;
 
     &.default {
-      border: 1px black solid;
+      border: none;
     }
 
     &.success {
-      border: 3px green solid;
+      border: 2px green solid;
+      background-color: white !important;
     }
 
     &.error {
-      border: 1px #e74c3c solid;
-      background:#f9d3cf;
+      border: 2px #e74c3c solid;
+      background:#f9d3cf !important;
     }
   }
 
@@ -48,9 +51,12 @@
   }
 
   .validation_text {
-    font-weight: 100;
-    font-size:1em;
-    margin-top:0;
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-top: 3px;
+    margin-left: 5px;
+    text-align: right;
+    color:red;
 
     &.hide {
       display:none;

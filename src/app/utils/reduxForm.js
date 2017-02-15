@@ -11,7 +11,10 @@ export function onlyDomProps(field) {
     touched,
     visited,
     autofilled,
+    error,
+    value,
     ...domProps
   } = field;
+
   return domProps;
 }
