@@ -274,7 +274,7 @@ function sendNonQuoteEmailArgo(submission) {
 						title: 'Owners and Contractors Protective - General Liability',
 						content: glpdf
 					})
-					emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+					emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoNonQuoteTemplate , pdfArray);
 			});
 	}else{
 		generateOwnersEdgeQuotationPDF(submission.pdfToken)
@@ -297,19 +297,19 @@ function sendNonQuoteEmailArgo(submission) {
 				}
 
 			});
-
 	}
-
-
 }
 
 function sendNonQuoteEmailBroker(submission) {
+	console.log('starting non quote email to broker');
+	let pdfArray = [];
 	generateBindOrderPDF(submission.pdfToken)
 	.then(bindpdf => {
 		pdfArray.push({
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		});
+		console.log('calling email function');
 		emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.brokerNonQuoteTemplate, pdfArray);
 	});
 }
@@ -446,7 +446,10 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		projectRequirements: subInfo.projectRequirements,
 		limitsRequested: subInfo.limitsRequested,
 		oiPremium: oiPremium,
-		instantQuote: quoteInfo.instantQuote
+		instantQuote: quoteInfo.instantQuote,
+		supervisingSubs: subInfo.supervisingSubs,
+		demoRequired: subInfo.demoRequired,
+		occupancy: subInfo.occupancy
 	}
 
 	if(subInfo.type === 'ocp'){
