@@ -28,11 +28,7 @@ class Logo extends Component{
     }
   }
 
-
   render(){
-    // if(!this.props.user.state) {
-    //   browserHistory.push('/');
-    // }
 
     return (
     <div className="nav-bar">
@@ -40,9 +36,10 @@ class Logo extends Component{
         Owner's Edge
       </div>
        <div className="links">
-        <Link to='/home' >Submissions </Link>
-        <Link to='/choicepage'>Submit New </Link>
-        {this.props.user.state && <a onClick={this.logout}>Log out</a>}
+        {this.props.user.state && <Link to='/home' >Submissions </Link>}
+        {this.props.user.state && <Link to='/choicepage'>Submit New </Link>}
+        {!this.props.user.state && <Link to='/'>Log In </Link>}
+        {this.props.user.state && <a onClick={this.logout}>Log Out</a>}
       </div>
     </div>
   );
