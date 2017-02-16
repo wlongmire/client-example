@@ -100,9 +100,7 @@ export function logout() {
   return (dispatch) => {
 
     dispatch({
-      type: USER_LOGGED_OUT,
-      payload: {},
-      user: {}
+      type: USER_LOGGED_OUT
     });
 
     dispatch(push('/'));

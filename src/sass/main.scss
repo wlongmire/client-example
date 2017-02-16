@@ -16,6 +16,8 @@
 @import '../app/components/shared/ValidationInput/styles';
 @import '../app/components/SignUpForm/styles';
 
+// Required for react boostrap table
+@import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
 
 // Global
 @import './config';

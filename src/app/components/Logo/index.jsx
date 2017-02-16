@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../Home/actions';
+import { browserHistory } from 'react-router';
 
 import styles from './styles';
 
@@ -20,23 +21,33 @@ class Logo extends Component{
     this.props.resetForm();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.user.state){
+      browserHistory.push('/');
+    }
+  }
+
   render(){
+
     return (
     <div className="nav-bar">
       <div className='logo-type'>
         Owner's Edge
       </div>
        <div className="links">
-        <Link to='/home' >Submissions </Link>
-        <Link to='/choicepage'>Submit New </Link>
-        <a onClick={this.logout}>Log out</a>
+        {this.props.user.state && <Link to='/home' >Submissions </Link>}
+        {this.props.user.state && <Link to='/choicepage'>Submit New </Link>}
+        {!this.props.user.state && <Link to='/'>Log In </Link>}
+        {this.props.user.state && <a onClick={this.logout}>Log Out</a>}
       </div>
     </div>
   );
   }
 }
 
-// function mapStateToProps(){
-//   return {};
-// }
-export default connect(null, actions)(Logo);
+function mapStateToProps(state){
+  return {
+    user: state.user
+  };
+}
+export default connect(mapStateToProps, actions)(Logo);
