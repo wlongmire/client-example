@@ -7,8 +7,6 @@ import PureTextArea from 'components/shared/PureTextArea';
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 import ReactTooltip from 'react-tooltip';
 
-import styles from './styles';
-
 import AdditionalInsuredFieldSet from './AdditionalInsuredFieldSet';
 import AddressFieldSet from './AddressFieldSet';
 import GeneralContractorFieldSet from './GeneralContractorFieldSet';
@@ -51,6 +49,7 @@ function RatingForm(props) {
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
       <ul className="no-bullets">
+
         <li>
           <label>
             <span className="area-label" data-tip="This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Who is the First Named Insured?</span>
@@ -61,9 +60,11 @@ function RatingForm(props) {
             />
           </label>
         </li>
+
         <li>
           <AddressFieldSet address={namedInsuredAddress} type='named' />
         </li>
+
         <li>
           <span className="area-label" data-tip="Qualified entities must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Is there a secondary Named Insured?</span>
           <radiogroup>
@@ -83,6 +84,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <ToggleDisplay
           show={hasOtherNamedInsured.value === 'yes'}
           render={() => (
@@ -91,6 +93,7 @@ function RatingForm(props) {
             </li>
           )}
         />
+
         <li>
           <span className="area-label" data-tip="Qualified Additional Insureds must also be named as an Additional Insured on the General Contractor’s General Liability in order to be approved">Any Additional Insured?</span>
           <radiogroup>
@@ -110,6 +113,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <ToggleDisplay
           show={hasAdditionalInsured.value === 'yes'}
           render={() => (
@@ -118,9 +122,11 @@ function RatingForm(props) {
             </li>
           )}
         />
+
         <li>
           <AddressFieldSet address={address} type='project' />
         </li>
+
         <li>
           <label>
            <span className="area-label double" data-tip="Please provide as descriptive of a scope of work as possible including end use.">Please describe the scope of work for this project (as much detail as possible - include end use)</span>
@@ -129,6 +135,7 @@ function RatingForm(props) {
             />
           </label>
         </li>
+
         <li>
           <label>
           <span className="area-label" data-tip="provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."> What is the term of the project, in months?</span>
@@ -138,6 +145,7 @@ function RatingForm(props) {
             />
           </label>
         </li>
+
         <li>
           <label>
            <span className="area-label" data-tip="Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due.">What is the total construction value of this project?</span>
@@ -148,6 +156,7 @@ function RatingForm(props) {
             />
           </label>
         </li>
+
         <li>
          <span className="area-label"> Will there be use of a tower crane on this project? </span>
           <radiogroup>
@@ -167,6 +176,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <li>
          <span className="area-label" data-tip="Note: Coverage will be quoted subject to form U658 until the General Contractor is reviewed and approved. To approve the General Contractor we will need at a minimum, fully executed contract, certificate of insurance, and endorsement listing from the GC’s General Liability.">Is the General Contractor known?</span>
           <radiogroup>
@@ -186,6 +196,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <ToggleDisplay
           show={generalContractor.isKnown.value === 'yes'}
           render={() => (
@@ -194,6 +205,7 @@ function RatingForm(props) {
             </li>
           )}
         />
+
         <li>
          <span className="area-label"> Will there be occupancy during the project? </span>
           <radiogroup>
@@ -213,6 +225,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <ToggleDisplay
           show={occupancyDetails.willHave.value === 'yes'}
           render={() => (
@@ -221,6 +234,7 @@ function RatingForm(props) {
             </li>
           )}
         />
+
         <li>
           <span className="area-label">Will there be demo of exterior walls or roof? </span>
           <radiogroup>
@@ -240,6 +254,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <ToggleDisplay
           show={demoDetails.willHave.value === 'yes'}
           render={() => (
@@ -248,6 +263,7 @@ function RatingForm(props) {
             </li>
           )}
         />
+
         <li>
           <span className="area-label">Has work started on this project? </span>
           <radiogroup>
@@ -267,6 +283,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <ToggleDisplay
           show={workDetails.hasStarted.value === 'yes'}
           render={() => (
@@ -275,6 +292,7 @@ function RatingForm(props) {
             </li>
           )}
         />
+
         <li>
           <span className="area-label">Does this project require excess coverage?</span>
           <radiogroup>
@@ -294,6 +312,7 @@ function RatingForm(props) {
             </label>
           </radiogroup>
         </li>
+
         <ToggleDisplay
           show={excessDetails.required.value === 'yes'}
           render={() => (
@@ -302,6 +321,7 @@ function RatingForm(props) {
             </li>
           )}
         />
+
         <li>
           <label>
            <span className="area-label">General Comments</span>
@@ -310,6 +330,7 @@ function RatingForm(props) {
             />
           </label>
         </li>
+
         <li>
           <ContactInfoFieldSet contactInfo={contactInfo} />
         </li>

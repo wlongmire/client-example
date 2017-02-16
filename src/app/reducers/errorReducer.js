@@ -6,6 +6,10 @@ const forms_structure = {
 	signup:{
 		credentials:{},
 		account:{}
+	},
+
+	ratingOI:{
+		
 	}
 }
 
