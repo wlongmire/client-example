@@ -26,7 +26,9 @@ class Home extends Component{
     }
   }
   componentWillMount(){
-    this.props.getSubmissions(this.props.user['_brokerId']);
+    if(this.props.user.state.user) {
+      this.props.getSubmissions(this.props.user.state.user['_brokerId']);
+    }
   }
 
   loadSubmissions(submissionsArray){
@@ -39,14 +41,18 @@ class Home extends Component{
       list.push({
         ...item,
         primaryNamedInsured: item.primaryNamedInsured,
-        totalCost: premiumType ? formatDollars(premiumType.totalCost) : '',
-        quotedPremium: premiumType ? formatDollars(premiumType.quotedPremium) : '',
-        totalPremium: premiumType ? formatDollars(premiumType.totalPremium) : '',
+        totalCost: (premiumType && premiumType.totalCost) ? formatDollars(premiumType.totalCost) : 'n/a',
+        quotedPremium: (premiumType && premiumType.quotedPremium) ? formatDollars(premiumType.quotedPremium) : 'n/a',
+        totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
         type: item.type,
-        dateCreated: Moment(item.createdAt).format( 'MM/DD/YYYY')
+        dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
+        dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
+        quouteStatus: (premiumType && premiumType.quotedPremium) ? 'Yes' : 'No'
 
       });
+      console.log("item", (premiumType ? formatDollars(premiumType.quotedPremium) : 'n/a'));
     }
+    console.log("TEST456", list);
     this.setState({
       chartData: list
     });
@@ -64,25 +70,30 @@ class Home extends Component{
     };
 
     const options = {
-      defaultSortName: 'dateCreated',  // default sort column name
-      defaultSortOrder: 'desc'  // default sort order
+      defaultSortName: 'updatedAt',  // default sort column name
+      defaultSortOrder: 'desc'  // default sort order,
     };
+
     return (
       <div>
         <h3><b><u>Your Submissions</u></b></h3>
         <BootstrapTable
           data={this.state.chartData}
-          hover={true}
           condensed={true}
           options={options}
           search
+          trClassName="submissionHover"
+          //hover
           pagination
           multiColumnSearch
           >
           <TableHeaderColumn
             dataField="_id"
             isKey={true}
-            width="50px"
+            hidden
+            ></TableHeaderColumn>
+            <TableHeaderColumn
+            dataField="updatedAt"
             hidden
             ></TableHeaderColumn>
           <TableHeaderColumn
@@ -90,6 +101,11 @@ class Home extends Component{
             dataSort={true}
             width="100px"
             >Primary Named Insured</TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="quouteStatus"
+            dataSort={true}
+            width="35px"
+            >Was <br/>Submission<br/> Quouted?</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="quotedPremium"
@@ -115,6 +131,11 @@ class Home extends Component{
             dataField="dateCreated"
             dataSort={true}
             >Date <br/>Created</TableHeaderColumn>
+            <TableHeaderColumn
+            width="50px"
+            dataField="dateCreated"
+            dataSort={true}
+            >Date <br/>Updated</TableHeaderColumn>
           <TableHeaderColumn
             width="20px"
             dataField="id"
@@ -128,7 +149,7 @@ class Home extends Component{
 
 function mapStateToProps(state){
   return {
-    user: state.user.state.user,
+    user: state.user,
     submissions: state.submissions
   };
 }
