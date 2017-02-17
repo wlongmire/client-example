@@ -4,25 +4,30 @@ import { push } from 'react-router-redux';
 import config from '../../../../../config';
 import validate from './validate';
 
+import base_form_structure from 'content/formStructure';
+
 import _ from 'lodash';
 
 //let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 const baseURL = config.apiserver.url;
 
 const handleSubmit = (values, dispatch) => {
+  const errors = validate(values);
+  const async_errors = _.every(Object.keys(errors), (field)=>{
+    return(!_.isEmpty(errors[field]))
+  });
+
+  if (async_errors) {
+    return dispatch({
+      type: 'SET_FORM_ERROR',
+      payload: {
+        signup:errors
+      }
+    });
+  }
+
   return () => {
-    const errors = validate(values);
-
-    if (!_.isEmpty(errors.credentials)) {
-      return dispatch({
-        type: 'SET_FORM_ERROR',
-        payload: {
-          signin:errors
-        }
-      });
-    }
-
-    return fetch(baseURL + '/um/login', {
+    fetch(baseURL + '/um/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -32,8 +37,7 @@ const handleSubmit = (values, dispatch) => {
     })
     .then(res => res.json())
     .then((res) => {
-
-      let payload = {};
+      console.log(res);
 
       switch(res.message) {
         case("Your account has not been verified. Please contact your administrator."):
@@ -69,9 +73,7 @@ const handleSubmit = (values, dispatch) => {
       dispatch({
         type: 'SET_FORM_ERROR',
         payload:{
-          'signin':{
-            credentials:{}
-          }
+          base_form_structure
         }
       });
 

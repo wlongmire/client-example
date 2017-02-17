@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import CredentialsRegisterFieldSet from './CredentialsRegisterFieldSet';
 import AccountFieldSet from './AccountFieldSet';
@@ -11,13 +12,14 @@ function SignUpForm(props) {
             credentials,
             account,
         },
-        handleSubmit
+        handleSubmit,
+        errors
     } = props;
 
     return (
 				<form className="SignUpForm__container" onSubmit={handleSubmit}>
-						<CredentialsRegisterFieldSet field={credentials} title="Here for the first time?" />
-            <AccountFieldSet field={account} />
+						<CredentialsRegisterFieldSet field={credentials} errors={errors.credentials} title="Here for the first time?" />
+            <AccountFieldSet field={account} errors={errors.account}/>
 
 						<div className="formFooter">
 								<button type="submit" className="button">Register</button>
@@ -27,4 +29,12 @@ function SignUpForm(props) {
     );
 }
 
-export default decorator(SignUpForm);
+export default decorator(
+  connect((state) => {
+
+    return ({
+      errors: state.error.signup || {}
+    });
+
+  })(SignUpForm)
+);

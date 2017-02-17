@@ -1,0 +1,14 @@
+{
+	"signin":{
+		"credentials":{}
+	},
+
+	"signup":{
+		"credentials":{},
+		"account":{}
+	},
+
+	"ratingOI":{
+		"namedInsuredCredentials":{}
+	}
+}

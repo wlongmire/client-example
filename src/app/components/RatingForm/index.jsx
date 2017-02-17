@@ -7,6 +7,8 @@ import PureTextArea from 'components/shared/PureTextArea';
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 import ReactTooltip from 'react-tooltip';
 
+import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
+
 import AdditionalInsuredFieldSet from './AdditionalInsuredFieldSet';
 import AddressFieldSet from './AddressFieldSet';
 import GeneralContractorFieldSet from './GeneralContractorFieldSet';
@@ -50,21 +52,10 @@ function RatingForm(props) {
     <form className="RatingForm__container" onSubmit={handleSubmit}>
       <ul className="no-bullets">
 
-        <li>
-
-          <label>
-            <span className="area-label" data-tip="This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Who is the First Named Insured?</span>
-            <PureInput
-              type="text"
-              field={primaryNamedInsured}
-              placeholder="Input Value"
-            />
-          </label>
-        </li>
-
-        <li>
-          <AddressFieldSet address={namedInsuredAddress} type='named' />
-        </li>
+        <NamedInsuredCredentialsFieldSet
+          primaryNamedInsured={primaryNamedInsured}
+          namedInsuredAddress={namedInsuredAddress}
+        />
 
         <li>
           <span className="area-label" data-tip="Qualified entities must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Is there a secondary Named Insured?</span>

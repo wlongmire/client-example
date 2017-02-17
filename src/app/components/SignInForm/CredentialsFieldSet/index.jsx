@@ -1,9 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 import ValidationInput from 'components/shared/ValidationInput';
+
+import { validationStatus, validationMessage } from 'app/utils/reduxForm';
 
 function CredentialFieldSet(props) {
   let title = props.title ? props.title : 'Coming Back?';
@@ -27,12 +28,8 @@ function CredentialFieldSet(props) {
               type="text"
               field={username}
               placeholder="Username (Email)"
-              validation_status={
-                (()=> ((errors.username)?"error":"default"))()
-              }
-              validation_message={
-                (errors.username || '')
-              }
+              validation_status={ validationStatus(errors, "username") }
+              validation_message={ validationMessage(errors, "username") }
             />
           </label>
         </li>
@@ -43,12 +40,8 @@ function CredentialFieldSet(props) {
             <PurePassword
               field={password}
               placeholder="Password"
-              validation_status={
-                (()=> ((errors.password)?"error":"default"))()
-              }
-              validation_message={
-                (errors.password || '')
-              }
+              validation_status={ validationStatus(errors, "password") }
+              validation_message={ validationMessage(errors, "password") }
               />
           </label>
         </li>
@@ -58,10 +51,4 @@ function CredentialFieldSet(props) {
   );
 }
 
-export default connect((state) => {
-
-  return ({
-    errors: state.error.signin.credentials
-  });
-
-})(CredentialFieldSet);
+export default CredentialFieldSet;

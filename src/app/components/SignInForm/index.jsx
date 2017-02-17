@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
 
@@ -9,12 +10,13 @@ function SignInForm(props) {
         fields: {
             credentials
         },
-        handleSubmit
+        handleSubmit,
+        errors
     } = props;
 
     return (
     <form className="SignInForm__container" onSubmit={handleSubmit}>
-        <CredentialsFieldSet field={credentials}/>
+        <CredentialsFieldSet field={credentials} errors={errors.credentials}/>
 
         <div className="formFooter">
             <button type="submit" className="button">Sign In</button>
@@ -24,4 +26,12 @@ function SignInForm(props) {
     );
 }
 
-export default decorator(SignInForm);
+export default decorator(
+  connect((state) => {
+
+    return ({
+      errors: state.error.signin || {}
+    });
+
+  })(SignInForm)
+);

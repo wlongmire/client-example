@@ -1,20 +1,6 @@
-const forms_structure = {
-	signin:{
-		credentials:{}
-	},
+import formStructure from 'content/formStructure';
 
-	signup:{
-		credentials:{},
-		account:{}
-	},
-
-	ratingOI:{
-		
-	}
-}
-
-export default function (state = forms_structure, action) {
-
+export default function (state = formStructure, action) {
 	switch (action.type) {
 		case "SET_FORM_ERROR":
 			return action.payload;

@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
 
 import config from '../../../../config';
+import { validationStatus, validationMessage } from 'app/utils/reduxForm';
 
 import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
@@ -86,12 +86,8 @@ class AccountFieldSet extends Component {
               type="text"
               field={firstName}
               placeholder="Enter First Name"
-              validation_status={
-                (()=> ((errors.firstName)?"error":"default"))()
-              }
-              validation_message={
-                (errors.firstName || '')
-              }
+              validation_status={ validationStatus(errors, "firstName") }
+              validation_message={ validationMessage(errors, "firstName") }
             />
 
           </li>
@@ -103,12 +99,8 @@ class AccountFieldSet extends Component {
               type="text"
               field={lastName}
               placeholder="Enter Last Name"
-              validation_status={
-                (()=> ((errors.lastname)?"error":"default"))()
-              }
-              validation_message={
-                (errors.lastname || '')
-              }
+              validation_status={ validationStatus(errors, "lastName") }
+              validation_message={ validationMessage(errors, "lastName") }
             />
 
           </li>
@@ -118,8 +110,9 @@ class AccountFieldSet extends Component {
             <PureOptionSelect
               label="Broker"
               field={broker}
-              validation_status={ (errors.broker)?"error":"default" }
-              validation_message={ (errors.broker || '') }>
+              validation_status={ validationStatus(errors, "broker") }
+              validation_message={ validationMessage(errors, "broker") }
+              >
 
               <option value="">Please Select a Broker</option>
               {
@@ -137,10 +130,4 @@ class AccountFieldSet extends Component {
   }
 }
 
-export default connect((state) => {
-
-  return ({
-    errors: state.error.signup.account
-  });
-
-})(AccountFieldSet);
+export default AccountFieldSet;

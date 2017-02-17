@@ -18,3 +18,11 @@ export function onlyDomProps(field) {
 
   return domProps;
 }
+
+export function validationStatus(errors, field) {
+  return ((errors && errors[field])?"error":"default");
+}
+
+export function validationMessage(errors, field) {
+  return ((errors && errors[field])?errors[field]:"");
+}

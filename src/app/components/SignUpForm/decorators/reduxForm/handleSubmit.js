@@ -20,10 +20,8 @@ let baseURL = config.apiserver.url;
 const handleSubmit = (values, dispatch) => {
 	const errors = validate(values);
 
-	if (
-		!_.isEmpty(errors.credentials) ||
-		!_.isEmpty(errors.account)
-	) {
+	if (_.every(Object.keys(errors), (field)=>!_.isEmpty(errors[field]))) {
+
 		return dispatch({
 			type: 'SET_FORM_ERROR',
 			payload: {
@@ -33,7 +31,6 @@ const handleSubmit = (values, dispatch) => {
 	}
 
 	return () => {
-
 		fetch(baseURL + '/um/register', {
 				method: 'POST',
 				headers: {
@@ -44,8 +41,6 @@ const handleSubmit = (values, dispatch) => {
 			})
 			.then(res => res.json())
 			.then((res) => {
-
-				console.log(res.message);
 
 				dispatch({
 					type: SIGNUP_STATUS,
@@ -76,6 +71,13 @@ const handleSubmit = (values, dispatch) => {
 					} = res;
 
 					localStorage.setItem('token', token);
+
+					dispatch({
+						type: 'SET_FORM_ERROR',
+						payload:{
+							base_form_structure
+						}
+					});
 
 					return dispatch(push({
 						pathname: '/form',

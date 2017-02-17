@@ -13,6 +13,6 @@ const mapDispatchToProps = {
 };
 
 export default reduxForm({
-  form: 'SignInform',
+  form: 'SignInForm',
   fields
 }, mapStateToProps, mapDispatchToProps);

@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 import ValidationInput from 'components/shared/ValidationInput';
+import { validationStatus, validationMessage } from 'app/utils/reduxForm';
 
 function CredentialsRegisterFieldSet(props) {
   const {
@@ -28,12 +28,8 @@ function CredentialsRegisterFieldSet(props) {
             type="text"
             field={username}
             placeholder="Username (Email)"
-            validation_status={
-              (()=> ((errors.username)?"error":"default"))()
-            }
-            validation_message={
-              (errors.username || '')
-            }
+            validation_status={ validationStatus(errors, "username") }
+            validation_message={ validationMessage(errors, "username") }
           />
 
         </li>
@@ -44,12 +40,8 @@ function CredentialsRegisterFieldSet(props) {
             label="Password"
             field={password}
             placeholder="Password"
-            validation_status={
-              (()=> ((errors.password)?"error":"default"))()
-            }
-            validation_message={
-              (errors.password || '')
-            }
+            validation_status={ validationStatus(errors, "password") }
+            validation_message={ validationMessage(errors, "password") }
             />
 
         </li>
@@ -60,12 +52,8 @@ function CredentialsRegisterFieldSet(props) {
             label="Retype Password"
             field={retypePassword}
             placeholder="Password"
-            validation_status={
-              (()=> ((errors.retypePassword)?"error":"default"))()
-            }
-            validation_message={
-              (errors.retypePassword || '')
-            }
+            validation_status={ validationStatus(errors, "retypePassword") }
+            validation_message={ validationMessage(errors, "retypePassword") }
             />
 
         </li>
@@ -75,10 +63,4 @@ function CredentialsRegisterFieldSet(props) {
   );
 }
 
-export default connect((state) => {
-
-  return ({
-    errors: state.error.signup.credentials
-  });
-
-})(CredentialsRegisterFieldSet);
+export default CredentialsRegisterFieldSet;
