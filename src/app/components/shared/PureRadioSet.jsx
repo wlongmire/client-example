@@ -3,9 +3,10 @@ import classNames from "classnames";
 
 import { onlyDomProps } from 'app/utils/reduxForm';
 
-class PurePassword extends Component {
+class PureRadioSet extends Component {
+
   render() {
-    const { field, ...rest } = this.props;
+    const { field, options } = this.props;
     const domProps = onlyDomProps(field);
 
     return <div className={classNames("validation_component", this.props.className)} id={this.props.id}>
@@ -23,21 +24,33 @@ class PurePassword extends Component {
         })()
       }
 
-      <input
-        { ...domProps }
-        value={field.value || ''}
-        type="password"
-        className={ classNames("validation_input", this.props.validation_status) }
-        placeholder={this.props.placeholder}
-      />
+      <radiogroup
+        className={ classNames("validation_input", this.props.validation_status) }>
+        {
+          (()=>{
+            return options.map((option, idx)=>{
+
+              return(
+                <label key={idx}>
+                  <input
+                    { ...domProps }
+                    value={option.value}
+                    checked={option.value === field.value}
+                    type="radio"
+                  />
+                {option.text}
+                </label>
+              );
+
+            })
+          })()
+        }
+
+      </radiogroup>
 
       <div className="validation_text">{ this.props.validation_message }</div>
     </div>
   }
 }
 
-PurePassword.propTypes = {
-  field: PropTypes.object.isRequired
-};
-
-export default PurePassword;
+export default PureRadioSet;

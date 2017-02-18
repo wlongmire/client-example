@@ -13,15 +13,17 @@ const baseURL = config.apiserver.url;
 
 const handleSubmit = (values, dispatch) => {
   const errors = validate(values);
-  const async_errors = _.every(Object.keys(errors), (field)=>{
-    return(!_.isEmpty(errors[field]))
-  });
+  const async_errors =
+  _.every(
+    Object.keys(errors),
+    (field)=>(!_.isEmpty(errors[field]))
+  );
 
   if (async_errors) {
     return dispatch({
       type: 'SET_FORM_ERROR',
       payload: {
-        signup:errors
+        signin:errors
       }
     });
   }
@@ -37,8 +39,6 @@ const handleSubmit = (values, dispatch) => {
     })
     .then(res => res.json())
     .then((res) => {
-      console.log(res);
-
       switch(res.message) {
         case("Your account has not been verified. Please contact your administrator."):
           return dispatch({

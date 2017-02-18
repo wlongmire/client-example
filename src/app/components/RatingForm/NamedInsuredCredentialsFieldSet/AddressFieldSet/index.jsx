@@ -36,7 +36,7 @@ function AddressFieldSet(props) {
     <fieldset>
 
       <span className="area-label" dangerouslySetInnerHTML={createMarkup()} />
-      
+
       <ul className="no-padding">
 
         <li>
@@ -45,6 +45,8 @@ function AddressFieldSet(props) {
               type="text"
               field={street}
               placeholder="Street"
+              validation_status="default"
+              validation_message=''
             />
           </label>
         </li>
@@ -55,6 +57,8 @@ function AddressFieldSet(props) {
               type="text"
               field={city}
               placeholder="City"
+              validation_status="default"
+              validation_message=''
             />
           </label>
         </li>
@@ -73,6 +77,8 @@ function AddressFieldSet(props) {
             field={zip}
             placeholder="Zip"
             className="zip-input"
+            validation_status="default"
+            validation_message=''
           />
         </li>
 

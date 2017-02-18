@@ -7,20 +7,29 @@ class PureInput extends Component {
   render() {
     const { field, ...rest } = this.props;
     const domProps = onlyDomProps(field);
+    const type = this.props.type || "text";
 
     return <div className={classNames("validation_component", this.props.className)} id={this.props.id}>
       {
         (() => {
-          return (this.props.label) ? <label>{this.props.label}</label> : <label></label>;
+          return (this.props.label) ?
+            <span
+              className={(this.props.label.type==="subtitle")?
+                "area-label-sub":
+                "area-label"}
+              data-tip={this.props.data_tip}>
+              { this.props.label.text }
+            </span>
+            :<span></span>;
         })()
       }
 
       <input
         { ...domProps }
         value={field.value || ''}
-        type="text"
-        className={ classNames("validation_input", this.props.validation_status) }
+        type={type}
         placeholder={this.props.placeholder}
+        className={ classNames("validation_input", this.props.validation_status) }
       />
 
       <div className="validation_text">{ this.props.validation_message }</div>

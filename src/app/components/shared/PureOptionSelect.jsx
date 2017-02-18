@@ -5,13 +5,21 @@ import { onlyDomProps } from 'app/utils/reduxForm';
 
 class PureOptionSelect extends Component {
   render() {
-    const { field, ...rest } = this.props;
+    const { field, options } = this.props;
     const domProps = onlyDomProps(field);
 
     return <div className={classNames("validation_component", this.props.className)} id={this.props.id}>
       {
         (() => {
-          return (this.props.label) ? <label>{this.props.label}</label> : <label></label>;
+          return (this.props.label) ?
+            <span
+              className={(this.props.label.type==="subtitle")?
+                "area-label-sub":
+                "area-label"}
+              data-tip={this.props.data_tip}>
+              { this.props.label.text }
+            </span>
+            :<span></span>;
         })()
       }
 

@@ -11,7 +11,6 @@ import ReactTooltip from 'react-tooltip';
 import styles from './styles';
 
 import AddressFieldSet from 'components/ContractorsForm/AddressFieldSet';
-import GeneralContractorFieldSet from 'components/RatingForm/GeneralContractorFieldSet';
 import ContactInfoFieldSet from 'components/RatingForm/ContactInfoFieldSet';
 
 import decorator from './decorators';
@@ -268,4 +267,3 @@ function ContractorForm(props) {
 }
 
 export default decorator(ContractorForm);
-

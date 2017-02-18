@@ -9,6 +9,7 @@ import { routerActions } from 'react-router-redux';
 
 
 import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { browserHistory } from 'react-redux';
 
 import App from 'components/App';
 import Home from 'routes/Home';
@@ -31,18 +32,19 @@ const UserIsAuthenticated = UserAuthWrapper({
 
 });
 
+const requireSignIn = () => {
+  return browserHistory.push('/');
+};
+
 const UserRolePowerUser = UserAuthWrapper({
-
   authSelector:         state => state.user,
-  // redirectAction:       routerActions.replace,
   wrapperDisplayName:   'UserRolePowerUser',
-  failureRedirectPath:  '/',
+  redirectAction: requireSignIn,
+  // failureRedirectPath:  '/', // <-- old way of redirecting user
   predicate:            (props) => {
-
     return props.state.user.role === 'poweruser';
   },
   allowRedirectBack:    false
-
 });
 
 export default (
