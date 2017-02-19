@@ -44,7 +44,7 @@ class Logo extends Component{
             <Navbar.Toggle/>
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav>
+            <Nav pullRight>
                 {this.props.user.state &&
                   <IndexLinkContainer to="/home">
                     <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
@@ -58,7 +58,7 @@ class Logo extends Component{
                     <NavItem className="nav-link" eventKey={3}>Log In</NavItem>
                   </LinkContainer>}
                 {this.props.user.state &&
-                  <NavItem className="pullRight" onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
+                  <NavItem  onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

@@ -25,10 +25,9 @@ let handleSubmit =  (values, dispatch) => {
       }
       const {user, token} = res;
       let newPath = user.role === 'poweruser' ? '/powerconsole' : '/home';
-      // console.log("Dispatching (push)");
-      // console.log(user);
 
       localStorage.setItem('token', token);
+      localStorage.setItem('viewer', JSON.stringify(user));
 
       /**
        * @TODO Properly set up react redux authentication
