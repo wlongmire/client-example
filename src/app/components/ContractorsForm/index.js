@@ -10,12 +10,24 @@ import ReactTooltip from 'react-tooltip';
 
 import styles from './styles';
 
-import AddressFieldSet from 'components/ContractorsForm/AddressFieldSet';
-import ContactInfoFieldSet from 'components/RatingForm/ContactInfoFieldSet';
+import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
+import TotalCostFieldSet from               './TotalCostFieldSet';
+import TermFieldSet from                    './TermFieldSet';
+import FinishDateFieldSet from              './FinishDateFieldSet';
+import GeneralContractorFieldSet from       './GeneralContractorFieldSet';
+import GLCarrierFieldSet from               './GLCarrierFieldSet';
+import ExpirationDateFieldSet from          './ExpirationDateFieldSet';
+import ExcessLimitsFieldSet from            './ExcessLimitsFieldSet';
+import AddressFieldSet from                 './AddressFieldSet';
+import VerticalExpansionFieldSet from       './VerticalExpansionFieldSet';
+import SpecificFloorsFieldSet from          './SpecificFloorsFieldSet';
+import WorkDescriptionFieldSet from         './WorkDescriptionFieldSet';
+import InsuredInvolvedFieldSet from         './InsuredInvolvedFieldSet';
+import ProjectRequirementsFieldSet from     './ProjectRequirementsFieldSet';
+import LimitsFieldSet from                  './LimitsFieldSet';
+import ContactInfoFieldSet from             './ContactInfoFieldSet';
 
 import decorator from './decorators';
-
-const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
 
 function ContractorForm(props) {
 
@@ -43,221 +55,127 @@ function ContractorForm(props) {
       type,
       contactInfo
     },
-    handleSubmit
+    handleSubmit,
+    errors
   } = props;
+
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
       <h3><b><u>Owners & Contractors Protective Form</u></b></h3>
       <ul className="no-bullets">
+
         <li>
-          <label>
-            <span
-            className="area-label"
-            data-tip="This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor">Who is the Primary Named Insured?</span>
-            <PureInput
-              type="text"
-              field={primaryNamedInsured}
-              placeholder="Input Value"
+          <NamedInsuredCredentialsFieldSet
+            primaryNamedInsured={primaryNamedInsured}
+            errors={errors}
             />
-          </label>
-        </li>
-        <li>
-          <label>
-           <span
-           className="area-label"
-           data-tip="Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due.">What is the total cost of this project?</span>
-            <PureInput
-              type="text"
-              field={costs}
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-          <span className="area-label" data-tip="provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."> What is the term of the project, in months?</span>
-            <PureInput
-              type="number"
-              field={term}
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-          <span className="area-label" data-tip="provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."> What is the Anticipated Finish Date of Project?</span>
-            <PureInput
-              type="date"
-              field={anticipatedFinishDate}
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-          <span className="area-label" data-tip="Name of General Contractor"> What is the Name of the Designated Contractor?</span>
-            <PureInput
-              type="text"
-              field={name}
-              placeholder="Name of General Contractor"
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-          <span className="area-label" data-tip="Name of General Contractor"> Who is the GL Carrier of Contractor?</span>
-            <PureInput
-              type="text"
-              field={glCarrier}
-              placeholder="GL Carrier of Contractor"
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-          <span className="area-label" data-tip="Expiration Date of the Contractor's GL Policy"> When is the Expiration Date of the Contractor's GL Policy?</span>
-            <PureInput
-              type="date"
-              field={glExpirationDate}
-              placeholder="Expiration Date"
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-          <span className="area-label" data-tip="Excess limits of the Contractor's primary Policy"> What are the Excess limits of the Contractor's primary Policy?</span>
-            <PureInput
-              type="text"
-              field={glLimits}
-              placeholder="Excess limits"
-            />
-          </label>
-        </li>
-        <li>
-          <AddressFieldSet address={address} nycha={nycha} type='project' />
         </li>
 
         <li>
-          <span className="area-label" data-tip="Does the project include the addition of any stories or vertical expansion?">
-          Does the project include the addition of any stories or vertical expansion?
-          </span>
-            <radiogroup>
-              <label>
-                <PureRadio
-                  value="yes"
-                  field={overFourFloors}
-                />
-                Yes
-              </label>
-              <label>
-                <PureRadio
-                  value="no"
-                  field={overFourFloors}
-                />
-                No
-              </label>
-            </radiogroup>
-        </li>
-
-      <li>
-        <span className="area-label" data-tip="Is project limited to specific floors?">Is project limited to specific floors?</span>
-          <radiogroup>
-            <label>
-              <PureRadio
-                value="yes"
-                field={projectDefinedAreaScope}
-              />
-              Yes
-            </label>
-            <label>
-              <PureRadio
-                value="no"
-                field={projectDefinedAreaScope}
-              />
-              No
-            </label>
-          </radiogroup>
-        </li>
-      <ToggleDisplay
-          show={projectDefinedAreaScope.value === 'yes'}
-          render={() => (
-            <fieldset className="sub-questions">
-            <span className="area-label-sub">Give details.</span>
-            <ul>
-              <li>
-              <label>
-                <PureTextArea
-                field={projectDefinedAreaScopeDetails}
-                />
-                </label>
-              </li>
-            </ul>
-            </fieldset>
-          )}
-        />
-
-         <li>
-          <label>
-           <span className="area-label double" data-tip="Please provide as descriptive of a scope of work as possible including end use.">What is the scope of work for this project?</span>
-            <PureTextArea
-              field={scope}
+          <TotalCostFieldSet
+            costs={costs}
+            errors={errors}
             />
-          </label>
         </li>
+
         <li>
-           <span className="area-label">Will the named insured be involved with any supervision or oversight of the project?</span>
-          <radiogroup>
-            <label>
-              <PureRadio
-                value="yes"
-                field={isSupervisingSubs}
-              />
-              Yes
-            </label>
-            <label>
-              <PureRadio
-                value="no"
-                field={isSupervisingSubs}
-              />
-              No
-            </label>
-          </radiogroup>
+          <TermFieldSet
+            term={term}
+            errors={errors}
+            />
         </li>
+
         <li>
-           <span className="area-label">Does the project require any of the following:</span>
-           <small>Blasting, Airport Runways, Bridge Construction, Parking Garages/Decks, Dams, Underground Tunneling for Subways or Mines</small>
-          <radiogroup>
-            <label>
-              <PureRadio
-                value="yes"
-                field={projectRequirements}
-              />
-              Yes
-            </label>
-            <label>
-              <PureRadio
-                value="no"
-                field={projectRequirements}
-              />
-              No
-            </label>
-          </radiogroup>
+          <FinishDateFieldSet
+            anticipatedFinishDate={anticipatedFinishDate}
+            errors={errors}
+            />
         </li>
+
         <li>
-           <span className="area-label">What limits are being requested for this OCP?</span>
-            <label className="display">
-            <PureOptionSelect
-              field={limitsRequested}
-              className="select"
-            >
-              <option value=""></option>
-              {
-                limits.map((limit, key) => (
-                  <option key={key} value={Object.keys(limit)[0]}>{limit[Object.keys(limit)[0]]}</option>
-                ))
-              }
-            </PureOptionSelect>
-           </label>
+          <GeneralContractorFieldSet
+            name={name}
+            errors={errors}
+            />
         </li>
+
         <li>
-          <ContactInfoFieldSet contactInfo={contactInfo} />
+          <GLCarrierFieldSet
+            glCarrier={glCarrier}
+            errors={errors}
+            />
+        </li>
+
+        <li>
+          <ExpirationDateFieldSet
+            glExpirationDate={glExpirationDate}
+            errors={errors}
+            />
+        </li>
+
+        <li>
+          <ExcessLimitsFieldSet
+            glLimits={glLimits}
+            errors={errors}
+            />
+        </li>
+
+        <li>
+          <AddressFieldSet
+            address={address}
+            nycha={nycha}
+            errors={errors}
+          />
+        </li>
+
+        <li>
+          <VerticalExpansionFieldSet
+            overFourFloors={overFourFloors}
+            errors={errors}
+          />
+        </li>
+
+        <li>
+          <SpecificFloorsFieldSet
+            projectDefinedAreaScope={projectDefinedAreaScope}
+            projectDefinedAreaScopeDetails={projectDefinedAreaScopeDetails}
+            errors={errors}
+          />
+        </li>
+
+        <li>
+          <WorkDescriptionFieldSet
+            scope={scope}
+            errors={errors}
+          />
+        </li>
+
+        <li>
+          <InsuredInvolvedFieldSet
+            isSupervisingSubs={isSupervisingSubs}
+            errors={errors}
+          />
+        </li>
+
+        <li>
+          <ProjectRequirementsFieldSet
+            projectRequirements={projectRequirements}
+            errors={errors}
+          />
+        </li>
+
+        <li>
+          <LimitsFieldSet
+            limitsRequested={limitsRequested}
+            errors={errors}
+          />
+        </li>
+
+        <li>
+          <ContactInfoFieldSet
+            contactInfo={contactInfo}
+            errors={errors}
+          />
         </li>
       </ul>
       <button className="button getQuote" type="submit">Get Quote</button>
