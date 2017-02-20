@@ -26,8 +26,8 @@ class Home extends Component{
     }
   }
   componentWillMount(){
-    if(this.props.user.state.user) {
-      this.props.getSubmissions(this.props.user.state.user['_brokerId']);
+    if(this.props.user) {
+      this.props.getSubmissions(this.props.user['_brokerId']);
     }
   }
 
@@ -72,8 +72,6 @@ class Home extends Component{
       defaultSortName: 'updatedAt',  // default sort column name
       defaultSortOrder: 'desc'  // default sort order,
     };
-
-    console.log("TEST123 user", this.props.user);
 
     return (
       <div>
