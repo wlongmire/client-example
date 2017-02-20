@@ -13,6 +13,7 @@ const baseURL = config.apiserver.url;
 
 const handleSubmit = (values, dispatch) => {
   const errors = validate(values);
+  
   const async_errors =
   _.every(
     Object.keys(errors),

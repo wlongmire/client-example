@@ -2,9 +2,11 @@ import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
-import ValidationInput from 'components/shared/ValidationInput';
 
-import { validationStatus, validationMessage } from 'app/utils/reduxForm';
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
 
 function CredentialFieldSet(props) {
   let title = props.title ? props.title : 'Coming Back?';

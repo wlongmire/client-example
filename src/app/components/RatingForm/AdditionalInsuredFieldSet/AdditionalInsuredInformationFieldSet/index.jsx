@@ -3,6 +3,11 @@ import React from 'react';
 import PureInput from 'components/shared/PureInput';
 import PureRadioSet from 'components/shared/PureRadioSet';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function AdditionalInsuredInformationFieldSet(props) {
   const {
     additionalInsured: {
@@ -10,7 +15,8 @@ function AdditionalInsuredInformationFieldSet(props) {
       relationship,
       role,
       greaterThanTwoAdditional
-    }
+    },
+    errors
   } = props;
 
   const options = [
@@ -27,8 +33,8 @@ function AdditionalInsuredInformationFieldSet(props) {
             type="text"
             field={name}
             placeholder="Name"
-            validation_status="default"
-            validation_message=''
+            validation_status={ validationStatus(errors, "name") }
+            validation_message={ validationMessage(errors, "name") }
           />
         </label>
       </li>
@@ -39,8 +45,8 @@ function AdditionalInsuredInformationFieldSet(props) {
             type="text"
             field={relationship}
             placeholder="Relationship to Primary"
-            validation_status="default"
-            validation_message=''
+            validation_status={ validationStatus(errors, "relationship") }
+            validation_message={ validationMessage(errors, "relationship") }
           />
         </label>
       </li>
@@ -51,8 +57,8 @@ function AdditionalInsuredInformationFieldSet(props) {
             type="text"
             field={role}
             placeholder="Role on Project?"
-            validation_status="default"
-            validation_message=''
+            validation_status={ validationStatus(errors, "role") }
+            validation_message={ validationMessage(errors, "role") }
           />
         </label>
       </li>
@@ -62,29 +68,9 @@ function AdditionalInsuredInformationFieldSet(props) {
           label={{text:"Any other additional Insured?",type:"subtitle"}}
           field={greaterThanTwoAdditional}
           options={options}
-          validation_status='default'
-          validation_message=''
+          validation_status={ validationStatus(errors, "greaterThanTwoAdditional") }
+          validation_message={ validationMessage(errors, "greaterThanTwoAdditional") }
           />
-
-        {
-          // <span className="area-label-sub">Any other additional insured?</span>
-          // <radiogroup>
-          //   <label>
-          //     <PureRadio
-          //       value="yes"
-          //       field={greaterThanTwoAdditional}
-          //     />
-          //     Yes
-          //   </label>
-          //   <label>
-          //     <PureRadio
-          //       value="no"
-          //       field={greaterThanTwoAdditional}
-          //     />
-          //     No
-          //   </label>
-          // </radiogroup>
-        }
       </li>
 
     </ul>

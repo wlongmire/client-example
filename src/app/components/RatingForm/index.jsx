@@ -1,11 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import PureInput from 'components/shared/PureInput';
-import PureRadio from 'components/shared/PureRadio';
-import PureOptionSelect from 'components/shared/PureOptionSelect';
-import PureTextArea from 'components/shared/PureTextArea';
-import ToggleDisplay from 'components/shared/ToggleDisplay';
 import ReactTooltip from 'react-tooltip';
 
 import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
@@ -54,115 +49,117 @@ function RatingForm(props) {
     errors,
     handleSubmit
   } = props;
+
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
       <ul className="no-bullets">
 
-        <li>
+        <li key="1">
           <NamedInsuredCredentialsFieldSet
             primaryNamedInsured={primaryNamedInsured}
             namedInsuredAddress={namedInsuredAddress}
-            errors={errors}
+            errors={errors.primaryNamedCredentials}
             />
         </li>
 
 
-        <li>
+        <li key="2">
           <SecondaryNamedInsuredFieldSet
             otherNamedInsured={otherNamedInsured}
             hasOtherNamedInsured={hasOtherNamedInsured}
             greaterThanTwoNamed={greaterThanTwoNamed}
-            errors={errors}
+            errors={errors.secondaryNamedInsured}
             />
         </li>
 
-        <li>
+        <li key="3">
           <AdditionalInsuredFieldSet
             hasAdditionalInsured={hasAdditionalInsured}
             additionalInsured={additionalInsured}
-            errors={errors}
+            errors={errors.additionalInsured}
           />
         </li>
 
-        <li>
+        <li key="4">
           <ProjectAddressFieldSet
             address={address}
-            errors={errors}
+            errors={errors.projectAddress}
           />
         </li>
 
-        <li>
+        <li key="5">
           <ProjectScopeFieldSet
             scope={scope}
-            errors={errors}
+            errors={errors.projectScope}
           />
         </li>
 
-        <li>
+        <li key="6">
           <ProjectTermFieldSet
             term={term}
-            errors={errors}
+            errors={errors.projectTerm}
           />
         </li>
 
-        <li>
+        <li key="7">
           <ProjectValueFieldSet
             costs={costs}
-            errors={errors}
+            errors={errors.projectValue}
           />
         </li>
 
-        <li>
+        <li key="8">
           <TowerCraneFieldSet
             towerCraneUse={towerCraneUse}
-            errors={errors}
+            errors={errors.towerCrane}
           />
         </li>
 
-        <li>
+        <li key="9">
           <KnownContractorFieldSet
             generalContractor={generalContractor}
-            errors={errors}
+            errors={errors.knownContractor}
           />
         </li>
 
-        <li>
+        <li key="10">
           <OccupancyFieldSet
             occupancyDetails={occupancyDetails}
-            errors={errors}
+            errors={errors.occupancy}
           />
         </li>
 
-        <li>
+        <li key="11">
           <DemoFieldSet
             demoDetails={demoDetails}
-            errors={errors}
+            errors={errors.demo}
           />
         </li>
 
-        <li>
+        <li key="12">
           <HasWorkStartedFieldSet
             workDetails={workDetails}
-            errors={errors}
+            errors={errors.hadWorkStarted}
           />
         </li>
 
-        <li>
+        <li key="13">
           <ExcessFieldSet
             excessDetails={excessDetails}
-            errors={errors}
+            errors={errors.excess}
           />
         </li>
 
-        <li>
+        <li key="14">
           <GeneralCommentsFieldSet
             generalComments={generalComments}
-            errors={errors}
+            errors={errors.generalComments}
           />
         </li>
 
-        <li>
+        <li key="15">
           <ContactInfoFieldSet contactInfo={contactInfo} />
+          errors={errors.contactInfo}
         </li>
 
       </ul>

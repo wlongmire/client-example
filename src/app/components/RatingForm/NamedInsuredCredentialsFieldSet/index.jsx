@@ -3,6 +3,11 @@ import React from 'react';
 import PureInput from 'components/shared/PureInput';
 import AddressFieldSet from './AddressFieldSet';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function NamedInsuredCredentialsFieldSet(props) {
   const {
     primaryNamedInsured,
@@ -26,14 +31,17 @@ function NamedInsuredCredentialsFieldSet(props) {
               type="text"
               field={primaryNamedInsured}
               placeholder="Input Value"
-              validation_status="default"
-              validation_message=''
+              validation_status={ validationStatus(errors, "name") }
+              validation_message={ validationMessage(errors, "name") }
             />
           </label>
         </li>
 
         <li>
-          <AddressFieldSet address={namedInsuredAddress} type='named' />
+          <AddressFieldSet
+            address={namedInsuredAddress}
+            errors={errors}
+            type='named' />
         </li>
 
       </ul>

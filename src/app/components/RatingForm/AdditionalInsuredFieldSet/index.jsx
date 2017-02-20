@@ -1,8 +1,6 @@
 import React from 'react';
 
-import PureInput from 'components/shared/PureInput';
 import PureRadioSet from 'components/shared/PureRadioSet';
-
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 
 import AdditionalInsuredInformationFieldSet from './AdditionalInsuredInformationFieldSet';
@@ -14,7 +12,10 @@ function AdditionalInsuredFieldSet(props) {
     errors
   } = props;
 
-  const options = [{value:"yes", text:"Yes"}, {value:"no", text:"No"}];
+  const options = [
+    {value:"yes", text:"Yes"},
+    {value:"no", text:"No"}
+  ];
 
   return (
     <fieldset>

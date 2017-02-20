@@ -10,7 +10,8 @@ function SecondaryNamedInsuredFieldSet(props) {
   const {
     otherNamedInsured,
     hasOtherNamedInsured,
-    greaterThanTwoNamed
+    greaterThanTwoNamed,
+    errors
   } = props;
 
   const options = [
@@ -25,14 +26,16 @@ function SecondaryNamedInsuredFieldSet(props) {
       data_tip="Qualified entities must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor"
       field={hasOtherNamedInsured}
       options={options}
-      validation_status='default'
-      validation_message=''
       />
 
     <ToggleDisplay
       show={hasOtherNamedInsured.value === 'yes'}
       render={
-        () => (<OtherNamedFieldSet otherNamedInsured={otherNamedInsured}/>)
+        () => (
+          <OtherNamedFieldSet
+            otherNamedInsured={otherNamedInsured}
+            errors={errors}
+          />)
       }/>
 
   </fieldset>);

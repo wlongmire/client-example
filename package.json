@@ -94,6 +94,7 @@
     "request-promise-native": "^1.0.2",
     "run-sequence": "^1.1.5",
     "sass-loader": "^3.1.2",
+    "scroll-to": "0.0.2",
     "sendgrid": "^4.0.1",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
