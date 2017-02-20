@@ -32,7 +32,10 @@ function AdditionalInsuredFieldSet(props) {
       <ToggleDisplay
         show={hasAdditionalInsured.value === 'yes'}
         render={
-          () => (<AdditionalInsuredInformationFieldSet additionalInsured={additionalInsured}/>)
+          () => (<AdditionalInsuredInformationFieldSet
+            additionalInsured={additionalInsured}
+            errors={errors}
+            />)
         }/>
 
 

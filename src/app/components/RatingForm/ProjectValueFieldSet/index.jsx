@@ -1,6 +1,12 @@
 import React from 'react';
 import PureInput from 'components/shared/PureInput';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
+
 function ProjectValueFieldSet(props) {
   const {
     costs,
@@ -15,8 +21,8 @@ function ProjectValueFieldSet(props) {
       <PureInput
         type="text"
         field={costs}
-        validation_status='default'
-        validation_message=''
+        validation_status={ validationStatus(errors, "cost") }
+        validation_message={ validationMessage(errors, "cost") }
       />
 
     </fieldset>

@@ -51,7 +51,7 @@ class Home extends Component{
 
       });
     }
-    
+
     this.setState({
       chartData: list
     });
@@ -75,7 +75,7 @@ class Home extends Component{
 
     return (
       <div>
-        <h3><b><u>Your Submissions</u></b></h3>
+        <h3><b><u>Submissions for: </u></b></h3>
         <BootstrapTable
           data={this.state.chartData}
           condensed={true}
@@ -126,17 +126,17 @@ class Home extends Component{
             dataSort={true}
             >Type</TableHeaderColumn>
           <TableHeaderColumn
-            width="50px"
+            width="55px"
             dataField="dateCreated"
             dataSort={true}
             >Date <br/>Created</TableHeaderColumn>
             <TableHeaderColumn
-            width="50px"
+            width="55px"
             dataField="dateCreated"
             dataSort={true}
             >Date <br/>Updated</TableHeaderColumn>
           <TableHeaderColumn
-            width="20px"
+            width="25px"
             dataField="id"
             dataFormat={ selectFormatter }
             >Edit</TableHeaderColumn>

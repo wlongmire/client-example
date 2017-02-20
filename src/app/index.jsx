@@ -35,7 +35,9 @@ import {
 // const routingMiddleware = routerMiddleware(browserHistory);
 
 // We have our reducer setup handled by our configureStore() method.
-const store = configureStore(browserHistory);
+const store = configureStore(browserHistory, {
+  user: localStorage.getItem('viewer') && JSON.parse(localStorage.getItem('viewer')),
+});
 
 const history = syncHistoryWithStore(
   browserHistory,

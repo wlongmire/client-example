@@ -19,12 +19,12 @@ export default function validate(values) {
 		"contactInfo": {}
 	};
 
-	console.log(values);
-
+	//Who is the named insured?
 	if (!values.primaryNamedInsured) {
 		errors.primaryNamedCredentials.name = 'First Insured Name is required';
 	}
 
+	//What is the address of the named insured?
 	if (!values.namedInsuredAddress.city) {
 		errors.primaryNamedCredentials.city = 'First Insured City is required';
 	}
@@ -41,6 +41,7 @@ export default function validate(values) {
 		errors.primaryNamedCredentials.zip = 'First Insured Zipcode is required';
 	}
 
+	//Is there a Secondary Named Insured?
 	if (values.hasOtherNamedInsured === "yes") {
 		if (values.otherNamedInsured.name === "") {
 			errors.secondaryNamedInsured.name = 'Name is required';
@@ -51,7 +52,7 @@ export default function validate(values) {
 		}
 
 		if (values.otherNamedInsured.street === "") {
-			errors.secondaryNamedInsured.street = 'Street is required';
+			errors.secondaryNamedInsured.street = 'Address is required';
 		}
 
 		if (values.otherNamedInsured.city === "") {
@@ -70,23 +71,75 @@ export default function validate(values) {
 			errors.secondaryNamedInsured.greaterThanTwoNamed = 'Please check if there is another named insured';
 		}
 	}
-	
+
+	//Any Additional Insured?
 	if (values.hasAdditionalInsured === "yes") {
 		if (values.additionalInsured.name === "") {
 			errors.additionalInsured.name = 'Name is required';
 		}
 
-		if (values.otherNamedInsured.relationship === "") {
+		if (values.additionalInsured.relationship === "") {
 			errors.additionalInsured.relationship = 'Relationship is required';
 		}
 
-		if (values.otherNamedInsured.role === "") {
+		if (values.additionalInsured.role === "") {
 			errors.additionalInsured.role = 'Role is required';
 		}
 
-		if (!values.otherNamedInsured.greaterThanTwoAdditional) {
+		if (!values.additionalInsured.greaterThanTwoAdditional) {
 			errors.additionalInsured.greaterThanTwoAdditional = 'Please check if there are additional insured';
 		}
+	}
+
+	//Address of project
+	if (values.address.city === "") {
+		errors.projectAddress.city = 'City is required';
+	}
+
+	if (values.address.state === "") {
+		errors.projectAddress.state = 'State is required';
+	}
+
+	if (values.address.street === "") {
+		errors.projectAddress.street = 'Street Address is required';
+	}
+
+	if (!values.address.zip) {
+		errors.projectAddress.zip = 'Zipcode is required';
+	}
+
+	//What is the term of the project
+	if (!values.term) {
+		errors.projectTerm.term = 'Term is required';
+	}
+
+	//What is the total construction
+	if (values.costs === "$") {
+		errors.projectValue.cost = 'Project value is required';
+	}
+
+	//Will there be use of a tower crane
+	if (!values.towerCraneUse) {
+		errors.towerCrane.tower = 'Please identify if there is crane use.';
+	}
+
+	//Does this project require excess coverage?
+	if (values.excessDetails.required === "") {
+		errors.excess.required = 'Please identify if excess coverage is required.';
+	} else if (
+		values.excessDetails.required === "yes" &&
+		values.excessDetails.limits === 0
+	) {
+		errors.excess.term = 'Please select the excess limits';
+	}
+
+	//Please provide your contact info to...?
+	if (values.contactInfo.email === '') {
+		errors.contactInfo.email = 'Please add in a contact email.';
+	}
+
+	if (values.contactInfo.phone === '') {
+		errors.contactInfo.phone = 'Please add in a contact phone.';
 	}
 
 	return errors;

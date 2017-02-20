@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
 
 import PureRadioSet from 'components/shared/PureRadioSet';
 
@@ -17,8 +21,8 @@ function TowerCraneFieldSet(props) {
         label={{text:"Will there be use of a tower crane on this project?",type:"title"}}
         field={towerCraneUse}
         options={options}
-        validation_status='default'
-        validation_message=''
+        validation_status={ validationStatus(errors, "tower") }
+        validation_message={ validationMessage(errors, "tower") }
         />
 
     </fieldset>

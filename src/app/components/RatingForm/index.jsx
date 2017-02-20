@@ -54,7 +54,7 @@ function RatingForm(props) {
     <form className="RatingForm__container" onSubmit={handleSubmit}>
       <ul className="no-bullets">
 
-        <li key="1">
+        <li>
           <NamedInsuredCredentialsFieldSet
             primaryNamedInsured={primaryNamedInsured}
             namedInsuredAddress={namedInsuredAddress}
@@ -63,7 +63,7 @@ function RatingForm(props) {
         </li>
 
 
-        <li key="2">
+        <li>
           <SecondaryNamedInsuredFieldSet
             otherNamedInsured={otherNamedInsured}
             hasOtherNamedInsured={hasOtherNamedInsured}
@@ -72,7 +72,7 @@ function RatingForm(props) {
             />
         </li>
 
-        <li key="3">
+        <li>
           <AdditionalInsuredFieldSet
             hasAdditionalInsured={hasAdditionalInsured}
             additionalInsured={additionalInsured}
@@ -80,86 +80,89 @@ function RatingForm(props) {
           />
         </li>
 
-        <li key="4">
+        <li>
           <ProjectAddressFieldSet
             address={address}
             errors={errors.projectAddress}
           />
         </li>
 
-        <li key="5">
+        <li>
           <ProjectScopeFieldSet
             scope={scope}
             errors={errors.projectScope}
           />
         </li>
 
-        <li key="6">
+        <li>
           <ProjectTermFieldSet
             term={term}
             errors={errors.projectTerm}
           />
         </li>
 
-        <li key="7">
+        <li>
           <ProjectValueFieldSet
             costs={costs}
             errors={errors.projectValue}
           />
         </li>
 
-        <li key="8">
+        <li>
           <TowerCraneFieldSet
             towerCraneUse={towerCraneUse}
             errors={errors.towerCrane}
           />
         </li>
 
-        <li key="9">
+        <li>
           <KnownContractorFieldSet
             generalContractor={generalContractor}
             errors={errors.knownContractor}
           />
         </li>
 
-        <li key="10">
+        <li>
           <OccupancyFieldSet
             occupancyDetails={occupancyDetails}
             errors={errors.occupancy}
           />
         </li>
 
-        <li key="11">
+        <li>
           <DemoFieldSet
             demoDetails={demoDetails}
             errors={errors.demo}
           />
         </li>
 
-        <li key="12">
+        <li>
           <HasWorkStartedFieldSet
             workDetails={workDetails}
             errors={errors.hadWorkStarted}
           />
         </li>
 
-        <li key="13">
+        <li>
           <ExcessFieldSet
             excessDetails={excessDetails}
             errors={errors.excess}
           />
         </li>
 
-        <li key="14">
+        <li>
           <GeneralCommentsFieldSet
             generalComments={generalComments}
             errors={errors.generalComments}
           />
         </li>
 
-        <li key="15">
-          <ContactInfoFieldSet contactInfo={contactInfo} />
-          errors={errors.contactInfo}
+        <li>
+          <ContactInfoFieldSet
+            contactInfo={contactInfo}
+            errors={errors.contactInfo}
+          />
+
         </li>
 
       </ul>

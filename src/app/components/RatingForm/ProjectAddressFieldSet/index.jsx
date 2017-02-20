@@ -4,20 +4,12 @@ import PureInput from 'components/shared/PureInput';
 import PureOptionSelect from 'components/shared/PureOptionSelect';
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 
-import PureRadio from 'components/shared/PureRadio';
-
-const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
 
 function ProjectAddressFieldSet(props) {
-  let titleTag;
-  if (props.type === 'project') {
-    titleTag = '<span data-tip="Please provide as descriptive of a street address as possible.">What is the address of this project?</span>';
-  } else if (props.type === 'named') {
-    titleTag = '<span data-tip="Please provide as descriptive of a street address as possible.">What is the address of the Named Insured?</span>';
-  } else if (props.type === 'other') {
-    titleTag = '<span></span>';
-  }
-
   const {
     nycha,
     address: {
@@ -25,12 +17,14 @@ function ProjectAddressFieldSet(props) {
       city,
       state,
       zip
-    }
+    },
+    errors
   } = props;
+
+  const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
   return (
     <fieldset>
-
       <span
         className="area-label"
         data-tip="Please provide as descriptive of a street address as possible.">
@@ -43,9 +37,9 @@ function ProjectAddressFieldSet(props) {
             <PureInput
               type="text"
               field={street}
-              placeholder="Street"
-              validation_status='default'
-              validation_message=''
+              placeholder='Address'
+              validation_status={ validationStatus(errors, "street") }
+              validation_message={ validationMessage(errors, "street") }
             />
           </label>
         </li>
@@ -56,8 +50,8 @@ function ProjectAddressFieldSet(props) {
               type="text"
               field={city}
               placeholder="City"
-              validation_status='default'
-              validation_message=''
+              validation_status={ validationStatus(errors, "city") }
+              validation_message={ validationMessage(errors, "city") }
             />
           </label>
         </li>
@@ -65,8 +59,8 @@ function ProjectAddressFieldSet(props) {
         <li>
           <PureOptionSelect
             field={state}
-            validation_status='default'
-            validation_message=''
+            validation_status={ validationStatus(errors, "state") }
+            validation_message={ validationMessage(errors, "state") }
             >
             <option value="" disabled>State</option>
             {
@@ -79,10 +73,10 @@ function ProjectAddressFieldSet(props) {
           <PureInput
             type="text"
             field={zip}
-            placeholder="Zip"
+            placeholder='Zipcode'
             className="zip-input"
-            validation_status='default'
-            validation_message=''
+            validation_status={ validationStatus(errors, "zip") }
+            validation_message={ validationMessage(errors, "zip") }
           />
         </li>
 

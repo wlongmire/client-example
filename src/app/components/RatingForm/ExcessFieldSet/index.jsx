@@ -5,13 +5,21 @@ import ToggleDisplay from 'components/shared/ToggleDisplay';
 
 import ExcessDetailsFieldSet from './ExcessDetailsFieldSet';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function ExcessFieldSet(props) {
   const {
     excessDetails,
     errors
   } = props;
 
-  const options = [{value:"yes", text:"Yes"}, {value:"no", text:"No"}];
+  const options = [
+    {value:"yes", text:"Yes"},
+    {value:"no", text:"No"}
+  ];
 
   return (
     <fieldset>
@@ -20,14 +28,17 @@ function ExcessFieldSet(props) {
         label={{text:"Does this project require excess coverage?",type:"title"}}
         field={excessDetails.required}
         options={options}
-        validation_status='default'
-        validation_message=''
+        validation_status={ validationStatus(errors, "required") }
+        validation_message={ validationMessage(errors, "required") }
         />
 
       <ToggleDisplay
         show={excessDetails.required.value === 'yes'}
         render={() => (
-          <ExcessDetailsFieldSet excessDetails={excessDetails} />
+          <ExcessDetailsFieldSet
+            excessDetails={excessDetails}
+            errors={errors}
+          />
         )}
       />
 

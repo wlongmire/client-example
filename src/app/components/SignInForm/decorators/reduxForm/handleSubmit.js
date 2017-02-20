@@ -13,7 +13,7 @@ const baseURL = config.apiserver.url;
 
 const handleSubmit = (values, dispatch) => {
   const errors = validate(values);
-  
+
   const async_errors =
   _.every(
     Object.keys(errors),
@@ -70,6 +70,7 @@ const handleSubmit = (values, dispatch) => {
       let newPath = user.role === 'poweruser' ? '/powerconsole' : '/home';
 
       localStorage.setItem('token', token);
+      localStorage.setItem('viewer', JSON.stringify(user));
 
       dispatch({
         type: 'SET_FORM_ERROR',
