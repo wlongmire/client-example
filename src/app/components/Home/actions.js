@@ -97,6 +97,8 @@ export function resetContractorsForm() {
 }
 
 export function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('viewer');
   return (dispatch) => {
 
     dispatch({
