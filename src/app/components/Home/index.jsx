@@ -26,8 +26,8 @@ class Home extends Component{
     }
   }
   componentWillMount(){
-    if(this.props.user.state.user) {
-      this.props.getSubmissions(this.props.user.state.user['_brokerId']);
+    if(this.props.user) {
+      this.props.getSubmissions(this.props.user['_brokerId']);
     }
   }
 

@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
 
 import PureInput from 'components/shared/PureInput';
 
@@ -21,8 +25,8 @@ function ExcessLimitsFieldSet(props) {
         type="text"
         field={glLimits}
         placeholder="Excess limits"
-        validation_status="default"
-        validation_message=''
+        validation_status={ validationStatus(errors, "limits") }
+        validation_message={ validationMessage(errors, "limits") }
       />
 
     </fieldset>);

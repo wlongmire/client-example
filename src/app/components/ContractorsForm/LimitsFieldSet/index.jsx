@@ -1,6 +1,11 @@
 import React from 'react';
 import PureOptionSelect from 'components/shared/PureOptionSelect';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function LimitsFieldSet(props) {
   const {
     limitsRequested,
@@ -19,8 +24,8 @@ function LimitsFieldSet(props) {
       <PureOptionSelect
         field={limitsRequested}
         className="select"
-        validation_status='default'
-        validation_message=''>
+        validation_status={ validationStatus(errors, "required") }
+        validation_message={ validationMessage(errors, "required") }>
         <option value=""></option>
         {
           limits.map((limit, key) => (

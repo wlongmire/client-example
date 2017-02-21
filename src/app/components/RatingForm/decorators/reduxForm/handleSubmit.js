@@ -6,10 +6,7 @@ from 'react-router-redux';
 
 import validate from './validate';
 import scrollTo from 'scroll-to';
-
 import _ from 'lodash';
-
-import base_form_structure from 'content/formStructure';
 
 import { CONFIRMATION } from '../../../../constants';
 

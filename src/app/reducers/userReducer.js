@@ -2,10 +2,10 @@ import * as constants from '../constants';
 
 const userReducer = (state = {}, {type, payload}) => {
   if (payload && payload.state && payload.state.type === constants.USER_LOGGED_IN) {
-    return payload;
+    return payload.state.user;
   }
   if (type === constants.USER_LOGGED_OUT) { 
-    return {};
+    return null;
   }
   return state;
 };

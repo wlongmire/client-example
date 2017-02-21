@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
 
 import PureInput from 'components/shared/PureInput';
 
@@ -20,8 +24,8 @@ function TotalCostField(props) {
       <PureInput
         type="text"
         field={costs}
-        validation_status="default"
-        validation_message=''
+        validation_status={ validationStatus(errors, "cost") }
+        validation_message={ validationMessage(errors, "cost") }
       />
 
     </fieldset>);

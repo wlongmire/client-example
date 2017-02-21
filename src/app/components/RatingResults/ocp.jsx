@@ -119,6 +119,7 @@ export default (props) => {
          <button className="button" onClick={()=>window.history.back()}>Go back</button>
          <button className="button pull-right getQuote" onClick={()=> submit(submission)}>Get Quote</button>
       </div>
+      
     </div>
   );
 };

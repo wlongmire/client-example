@@ -6,6 +6,11 @@ import PureRadioSet from 'components/shared/PureRadioSet';
 
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function AddressFieldSet(props) {
   const {
     nycha,
@@ -14,7 +19,8 @@ function AddressFieldSet(props) {
       city,
       state,
       zip
-    }
+    },
+    errors
   } = props;
 
   const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
@@ -31,23 +37,23 @@ function AddressFieldSet(props) {
       <PureInput
         type="text"
         field={street}
-        validation_status="default"
-        validation_message=''
-        placeholder="Street"
+        placeholder="Address"
+        validation_status={ validationStatus(errors, "street") }
+        validation_message={ validationMessage(errors, "street") }
       />
 
       <PureInput
         type="text"
         field={city}
         placeholder="City"
-        validation_status="default"
-        validation_message=''
+        validation_status={ validationStatus(errors, "city") }
+        validation_message={ validationMessage(errors, "city") }
       />
 
       <PureOptionSelect
         field={state}
-        validation_status="default"
-        validation_message=''
+        validation_status={ validationStatus(errors, "state") }
+        validation_message={ validationMessage(errors, "state") }
       >
         <option value="" disabled>State</option>
         {
@@ -62,8 +68,8 @@ function AddressFieldSet(props) {
         field={zip}
         placeholder="Zip"
         className="zip-input"
-        validation_status="default"
-        validation_message=''
+        validation_status={ validationStatus(errors, "zip") }
+        validation_message={ validationMessage(errors, "zip") }
       />
 
       <ToggleDisplay
@@ -74,8 +80,8 @@ function AddressFieldSet(props) {
             <PureRadioSet
               field={nycha}
               options={[{value:"yes", text:"Yes"},{value:"no", text:"No"}]}
-              validation_status='default'
-              validation_message=''
+              validation_status={ validationStatus(errors, "nycha") }
+              validation_message={ validationMessage(errors, "nycha") }
               />
           </div>
         )}

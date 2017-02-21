@@ -2,6 +2,11 @@ import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function GLCarrierFieldSet(props) {
   const {
     glCarrier,
@@ -21,8 +26,8 @@ function GLCarrierFieldSet(props) {
         type="text"
         field={glCarrier}
         placeholder="GL Carrier of Contractor"
-        validation_status="default"
-        validation_message=''
+        validation_status={ validationStatus(errors, "carrier") }
+        validation_message={ validationMessage(errors, "carrier") }
       />
 
     </fieldset>);

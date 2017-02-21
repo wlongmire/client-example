@@ -44,19 +44,19 @@ class Logo extends Component{
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-                {this.props.user.state &&
+                {this.props.user &&
                   <IndexLinkContainer to="/home">
                     <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
                   </IndexLinkContainer>}
-                {this.props.user.state && 
+                {this.props.user && 
                   <LinkContainer to="/choicepage">
                     <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
                   </LinkContainer>}
-                {!this.props.user.state &&
+                {!this.props.user &&
                   <LinkContainer to="/">
                     <NavItem className="nav-link" eventKey={3}>Log In</NavItem>
                   </LinkContainer>}
-                {this.props.user.state &&
+                {this.props.user &&
                   <NavItem  onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
             </Nav>
           </Navbar.Collapse>

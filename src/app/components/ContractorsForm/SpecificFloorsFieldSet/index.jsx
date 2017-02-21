@@ -4,6 +4,11 @@ import PureRadioSet from 'components/shared/PureRadioSet';
 import PureTextArea from 'components/shared/PureTextArea';
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function SpecificFloorsFieldSet(props) {
   const {
     projectDefinedAreaScope,
@@ -23,8 +28,8 @@ function SpecificFloorsFieldSet(props) {
       <PureRadioSet
         field={projectDefinedAreaScope}
         options={[{value:"yes", text:"Yes"},{value:"no", text:"No"}]}
-        validation_status='default'
-        validation_message=''
+        validation_status={ validationStatus(errors, "required") }
+        validation_message={ validationMessage(errors, "required") }
         />
 
         <ToggleDisplay

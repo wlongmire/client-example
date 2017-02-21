@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import { connect } from 'react-redux';
 
 import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
 import TotalCostFieldSet from               './TotalCostFieldSet';
@@ -50,6 +51,8 @@ function ContractorForm(props) {
     errors
   } = props;
 
+  console.log('errors', errors)
+
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
       <h3><b><u>Owners & Contractors Protective Form</u></b></h3>
@@ -58,28 +61,28 @@ function ContractorForm(props) {
         <li>
           <NamedInsuredCredentialsFieldSet
             primaryNamedInsured={primaryNamedInsured}
-            errors={errors}
+            errors={errors.primaryNamedCredentials}
             />
         </li>
 
         <li>
           <TotalCostFieldSet
             costs={costs}
-            errors={errors}
+            errors={errors.totalCost}
             />
         </li>
 
         <li>
           <TermFieldSet
             term={term}
-            errors={errors}
+            errors={errors.projectTerm}
             />
         </li>
 
         <li>
           <FinishDateFieldSet
             anticipatedFinishDate={anticipatedFinishDate}
-            errors={errors}
+            errors={errors.finishDate}
             />
         </li>
 
@@ -93,21 +96,21 @@ function ContractorForm(props) {
         <li>
           <GLCarrierFieldSet
             glCarrier={glCarrier}
-            errors={errors}
+            errors={errors.glCarrier}
             />
         </li>
 
         <li>
           <ExpirationDateFieldSet
             glExpirationDate={glExpirationDate}
-            errors={errors}
+            errors={errors.expirationDate}
             />
         </li>
 
         <li>
           <ExcessLimitsFieldSet
             glLimits={glLimits}
-            errors={errors}
+            errors={errors.excessLimits}
             />
         </li>
 
@@ -115,14 +118,14 @@ function ContractorForm(props) {
           <AddressFieldSet
             address={address}
             nycha={nycha}
-            errors={errors}
+            errors={errors.address}
           />
         </li>
 
         <li>
           <VerticalExpansionFieldSet
             overFourFloors={overFourFloors}
-            errors={errors}
+            errors={errors.verticalExpansion}
           />
         </li>
 
@@ -130,7 +133,7 @@ function ContractorForm(props) {
           <SpecificFloorsFieldSet
             projectDefinedAreaScope={projectDefinedAreaScope}
             projectDefinedAreaScopeDetails={projectDefinedAreaScopeDetails}
-            errors={errors}
+            errors={errors.specificFloors}
           />
         </li>
 
@@ -144,35 +147,44 @@ function ContractorForm(props) {
         <li>
           <InsuredInvolvedFieldSet
             isSupervisingSubs={isSupervisingSubs}
-            errors={errors}
+            errors={errors.insuredInvolved}
           />
         </li>
 
         <li>
           <ProjectRequirementsFieldSet
             projectRequirements={projectRequirements}
-            errors={errors}
+            errors={errors.projectRequirements}
           />
         </li>
 
         <li>
           <LimitsFieldSet
             limitsRequested={limitsRequested}
-            errors={errors}
+            errors={errors.limits}
           />
         </li>
 
         <li>
           <ContactInfoFieldSet
             contactInfo={contactInfo}
-            errors={errors}
+            errors={errors.contactInfo}
           />
         </li>
       </ul>
+
       <button className="button getQuote" type="submit">Get Quote</button>
       <ReactTooltip className="tooltip"/>
     </form>
   );
 }
 
-export default decorator(ContractorForm);
+export default decorator(
+  connect((state) => {
+
+    return ({
+      errors: state.error.ratingOCP || {}
+    });
+
+  })(ContractorForm)
+);

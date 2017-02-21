@@ -2,12 +2,16 @@ import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function TermFieldSet(props) {
   const {
     term,
     errors
   } = props;
-
 
   return (
     <fieldset>
@@ -21,8 +25,8 @@ function TermFieldSet(props) {
       <PureInput
         type="number"
         field={term}
-        validation_status="default"
-        validation_message=''
+        validation_status={ validationStatus(errors, "term") }
+        validation_message={ validationMessage(errors, "term") }
       />
 
     </fieldset>);
