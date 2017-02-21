@@ -1,14 +1,5 @@
 import React from 'react';
-import CurrencyInput from 'react-currency-masked-input';
-
-import PureInput from 'components/shared/PureInput';
-import PureRadio from 'components/shared/PureRadio';
-import PureOptionSelect from 'components/shared/PureOptionSelect';
-import PureTextArea from 'components/shared/PureTextArea';
-import ToggleDisplay from 'components/shared/ToggleDisplay';
 import ReactTooltip from 'react-tooltip';
-
-import styles from './styles';
 
 import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
 import TotalCostFieldSet from               './TotalCostFieldSet';
