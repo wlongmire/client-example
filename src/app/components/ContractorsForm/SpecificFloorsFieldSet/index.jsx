@@ -32,19 +32,19 @@ function SpecificFloorsFieldSet(props) {
         validation_message={ validationMessage(errors, "required") }
         />
 
-        <ToggleDisplay
-          show={projectDefinedAreaScope.value === 'yes'}
-          render={() => (
-            <fieldset className="sub-questions">
-            <span className="area-label-sub">Give details.</span>
+      <ToggleDisplay
+        show={projectDefinedAreaScope.value === 'yes'}
+        render={() => (
+          <fieldset className="sub-questions">
+          <span className="area-label-sub">Give details.</span>
 
-            <PureTextArea
-            field={projectDefinedAreaScopeDetails}
-            />
+          <PureTextArea
+          field={projectDefinedAreaScopeDetails}
+          />
 
-            </fieldset>
-          )}
-        />
+          </fieldset>
+        )}
+      />
     </fieldset>);
 }
 

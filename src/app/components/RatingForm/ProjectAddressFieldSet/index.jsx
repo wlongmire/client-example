@@ -31,56 +31,43 @@ function ProjectAddressFieldSet(props) {
         What is the address of this project?
       </span>
 
-      <ul className="no-padding">
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={street}
-              placeholder='Address'
-              validation_status={ validationStatus(errors, "street") }
-              validation_message={ validationMessage(errors, "street") }
-            />
-          </label>
-        </li>
+      <PureInput
+        type="text"
+        field={street}
+        placeholder='Address'
+        validation_status={ validationStatus(errors, "street") }
+        validation_message={ validationMessage(errors, "street") }
+      />
 
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={city}
-              placeholder="City"
-              validation_status={ validationStatus(errors, "city") }
-              validation_message={ validationMessage(errors, "city") }
-            />
-          </label>
-        </li>
+      <PureInput
+        type="text"
+        field={city}
+        placeholder="City"
+        validation_status={ validationStatus(errors, "city") }
+        validation_message={ validationMessage(errors, "city") }
+      />
 
-        <li>
-          <PureOptionSelect
-            field={state}
-            validation_status={ validationStatus(errors, "state") }
-            validation_message={ validationMessage(errors, "state") }
-            >
-            <option value="" disabled>State</option>
-            {
-              states.map((state) => (
-                <option key={state} value={state}>{state}</option>
-              ))
-            }
-          </PureOptionSelect>
+      <PureOptionSelect
+        field={state}
+        validation_status={ validationStatus(errors, "state") }
+        validation_message={ validationMessage(errors, "state") }
+        >
+        <option value="" disabled>State</option>
+        {
+          states.map((state) => (
+            <option key={state} value={state}>{state}</option>
+          ))
+        }
+      </PureOptionSelect>
 
-          <PureInput
-            type="text"
-            field={zip}
-            placeholder='Zipcode'
-            className="zip-input"
-            validation_status={ validationStatus(errors, "zip") }
-            validation_message={ validationMessage(errors, "zip") }
-          />
-        </li>
-
-      </ul>
+      <PureInput
+        type="text"
+        field={zip}
+        placeholder='Zipcode'
+        className="zip-input"
+        validation_status={ validationStatus(errors, "zip") }
+        validation_message={ validationMessage(errors, "zip") }
+      />
     </fieldset>
   );
 }

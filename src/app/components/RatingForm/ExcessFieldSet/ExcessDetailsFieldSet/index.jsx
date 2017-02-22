@@ -29,19 +29,19 @@ function ExcessDetailsFieldSet(props) {
     <fieldset className="sub-questions">
 
       <span className="area-label-sub">What excess limits are required?</span>
-        <PureOptionSelect
-          field={limits}
-          validation_status={ validationStatus(errors, "term") }
-          validation_message={ validationMessage(errors, "term") }>
+      <PureOptionSelect
+        field={limits}
+        validation_status={ validationStatus(errors, "term") }
+        validation_message={ validationMessage(errors, "term") }>
 
-          <option value='0' disabled>Limit</option>
-          {
-            limitsArray.map((limit) => (
-              <option key={limit} value={limit}>$ {commifyNumber(limit)}</option>
-            ))
-          }
+        <option value='0' disabled>Limit</option>
+        {
+          limitsArray.map((limit) => (
+            <option key={limit} value={limit}>$ {commifyNumber(limit)}</option>
+          ))
+        }
 
-        </PureOptionSelect>
+      </PureOptionSelect>
 
     </fieldset>
 )};

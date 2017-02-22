@@ -52,120 +52,86 @@ function RatingForm(props) {
 
   return (
     <form className="RatingForm__container" onSubmit={handleSubmit}>
-      <ul className="no-bullets">
 
-        <li>
-          <NamedInsuredCredentialsFieldSet
-            primaryNamedInsured={primaryNamedInsured}
-            namedInsuredAddress={namedInsuredAddress}
-            errors={errors.primaryNamedCredentials}
-            />
-        </li>
+      <NamedInsuredCredentialsFieldSet
+        primaryNamedInsured={primaryNamedInsured}
+        namedInsuredAddress={namedInsuredAddress}
+        errors={errors.primaryNamedCredentials}
+        />
 
+      <SecondaryNamedInsuredFieldSet
+        otherNamedInsured={otherNamedInsured}
+        hasOtherNamedInsured={hasOtherNamedInsured}
+        greaterThanTwoNamed={greaterThanTwoNamed}
+        errors={errors.secondaryNamedInsured}
+        />
 
-        <li>
-          <SecondaryNamedInsuredFieldSet
-            otherNamedInsured={otherNamedInsured}
-            hasOtherNamedInsured={hasOtherNamedInsured}
-            greaterThanTwoNamed={greaterThanTwoNamed}
-            errors={errors.secondaryNamedInsured}
-            />
-        </li>
+      <AdditionalInsuredFieldSet
+        hasAdditionalInsured={hasAdditionalInsured}
+        additionalInsured={additionalInsured}
+        errors={errors.additionalInsured}
+      />
 
-        <li>
-          <AdditionalInsuredFieldSet
-            hasAdditionalInsured={hasAdditionalInsured}
-            additionalInsured={additionalInsured}
-            errors={errors.additionalInsured}
-          />
-        </li>
+      <ProjectAddressFieldSet
+        address={address}
+        errors={errors.projectAddress}
+      />
 
-        <li>
-          <ProjectAddressFieldSet
-            address={address}
-            errors={errors.projectAddress}
-          />
-        </li>
+      <ProjectScopeFieldSet
+        scope={scope}
+        errors={errors.projectScope}
+      />
 
-        <li>
-          <ProjectScopeFieldSet
-            scope={scope}
-            errors={errors.projectScope}
-          />
-        </li>
+      <ProjectTermFieldSet
+        term={term}
+        errors={errors.projectTerm}
+      />
 
-        <li>
-          <ProjectTermFieldSet
-            term={term}
-            errors={errors.projectTerm}
-          />
-        </li>
+      <ProjectValueFieldSet
+        costs={costs}
+        errors={errors.projectValue}
+      />
 
-        <li>
-          <ProjectValueFieldSet
-            costs={costs}
-            errors={errors.projectValue}
-          />
-        </li>
+      <TowerCraneFieldSet
+        towerCraneUse={towerCraneUse}
+        errors={errors.towerCrane}
+      />
 
-        <li>
-          <TowerCraneFieldSet
-            towerCraneUse={towerCraneUse}
-            errors={errors.towerCrane}
-          />
-        </li>
+      <KnownContractorFieldSet
+        generalContractor={generalContractor}
+        errors={errors.knownContractor}
+      />
 
-        <li>
-          <KnownContractorFieldSet
-            generalContractor={generalContractor}
-            errors={errors.knownContractor}
-          />
-        </li>
+      <OccupancyFieldSet
+        occupancyDetails={occupancyDetails}
+        errors={errors.occupancy}
+      />
 
-        <li>
-          <OccupancyFieldSet
-            occupancyDetails={occupancyDetails}
-            errors={errors.occupancy}
-          />
-        </li>
+      <DemoFieldSet
+        demoDetails={demoDetails}
+        errors={errors.demo}
+      />
 
-        <li>
-          <DemoFieldSet
-            demoDetails={demoDetails}
-            errors={errors.demo}
-          />
-        </li>
+      <HasWorkStartedFieldSet
+        workDetails={workDetails}
+        errors={errors.hadWorkStarted}
+      />
 
-        <li>
-          <HasWorkStartedFieldSet
-            workDetails={workDetails}
-            errors={errors.hadWorkStarted}
-          />
-        </li>
+      <ExcessFieldSet
+        excessDetails={excessDetails}
+        errors={errors.excess}
+      />
 
-        <li>
-          <ExcessFieldSet
-            excessDetails={excessDetails}
-            errors={errors.excess}
-          />
-        </li>
+      <GeneralCommentsFieldSet
+        generalComments={generalComments}
+        errors={errors.generalComments}
+      />
 
-        <li>
-          <GeneralCommentsFieldSet
-            generalComments={generalComments}
-            errors={errors.generalComments}
-          />
-        </li>
+      <ContactInfoFieldSet
+        contactInfo={contactInfo}
+        errors={errors.contactInfo}
+      />
 
-        <li>
-          <ContactInfoFieldSet
-            contactInfo={contactInfo}
-            errors={errors.contactInfo}
-          />
-
-        </li>
-
-      </ul>
       <button className="button getQuote" type="submit">Get Quote</button>
       <ReactTooltip className="tooltip"/>
     </form>

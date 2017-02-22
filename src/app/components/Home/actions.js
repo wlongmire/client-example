@@ -31,11 +31,12 @@ export function getSubmissions(brokerId) {
 
         dispatch(push('/'));
       }
+
       dispatch({
         type: FETCH_SUBMISSIONS,
         payload: res
       });
-   
+
    // empty previous edited submission in the store
       dispatch({
         type: EDIT_SUBMISSION,
@@ -60,7 +61,7 @@ export function editSubmission(submission) {
       type: EDIT_SUBMISSION,
       payload: submission
     });
-  
+
     if(submission.type === 'ocp'){
       dispatch(push('/contractorsform'));
     }else{
@@ -109,4 +110,3 @@ export function logout() {
 
   };
 }
-

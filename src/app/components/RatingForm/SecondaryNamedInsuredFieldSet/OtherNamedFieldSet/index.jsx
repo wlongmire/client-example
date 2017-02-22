@@ -33,93 +33,67 @@ function OtherNamedFieldSet(props) {
     <fieldset className="sub-questions">
       <span className="area-label-sub">We need their info as well.</span>
 
-        <ul>
-          <li>
-            <label>
-              <PureInput
-                type="text"
-                field={name}
-                placeholder="Name"
-                validation_status={ validationStatus(errors, "name") }
-                validation_message={ validationMessage(errors, "name") }
-              />
-            </label>
-          </li>
+      <PureInput
+        type="text"
+        field={name}
+        placeholder="Name"
+        validation_status={ validationStatus(errors, "name") }
+        validation_message={ validationMessage(errors, "name") }
+      />
 
-          <li>
-            <label>
-              <PureInput
-                type="text"
-                field={relationship}
-                placeholder="Relationship to Primary"
-                validation_status={ validationStatus(errors, "relationship") }
-                validation_message={ validationMessage(errors, "relationship") }
-              />
-            </label>
-          </li>
+      <PureInput
+        type="text"
+        field={relationship}
+        placeholder="Relationship to Primary"
+        validation_status={ validationStatus(errors, "relationship") }
+        validation_message={ validationMessage(errors, "relationship") }
+      />
 
-          <li>
-            <label>
-              <PureInput
-                type="text"
-                field={street}
-                placeholder="Address"
-                validation_status={ validationStatus(errors, "street") }
-                validation_message={ validationMessage(errors, "street") }
-              />
-            </label>
-          </li>
+      <PureInput
+        type="text"
+        field={street}
+        placeholder="Address"
+        validation_status={ validationStatus(errors, "street") }
+        validation_message={ validationMessage(errors, "street") }
+      />
 
-          <li>
-            <label>
-              <PureInput
-                type="text"
-                field={city}
-                placeholder="City"
-                validation_status={ validationStatus(errors, "city") }
-                validation_message={ validationMessage(errors, "city") }
-              />
-            </label>
-          </li>
+      <PureInput
+        type="text"
+        field={city}
+        placeholder="City"
+        validation_status={ validationStatus(errors, "city") }
+        validation_message={ validationMessage(errors, "city") }
+      />
 
-          <li>
-            <PureOptionSelect
-              field={state}
-              validation_status={ validationStatus(errors, "state") }
-              validation_message={ validationMessage(errors, "state") }
-              >
-              <option value="" disabled>State</option>
-              {
-                states.map((state) => (
-                  <option key={state} value={state}>{state}</option>
-                ))
-              }
-            </PureOptionSelect>
-          </li>
+    <PureOptionSelect
+      field={state}
+      validation_status={ validationStatus(errors, "state") }
+      validation_message={ validationMessage(errors, "state") }
+      >
+      <option value="" disabled>State</option>
+      {
+        states.map((state) => (
+          <option key={state} value={state}>{state}</option>
+        ))
+      }
+    </PureOptionSelect>
 
-          <li>
-            <PureInput
-              type="text"
-              field={zip}
-              placeholder="Zipcode"
-              className="zip-input"
-              validation_status={ validationStatus(errors, "zip") }
-              validation_message={ validationMessage(errors, "zip") }
-            />
-          </li>
+    <PureInput
+      type="text"
+      field={zip}
+      placeholder="Zipcode"
+      className="zip-input"
+      validation_status={ validationStatus(errors, "zip") }
+      validation_message={ validationMessage(errors, "zip") }
+    />
 
-          <li>
-            <PureRadioSet
-              label={{text:"Any other named insured?",type:"subtitle"}}
-              field={greaterThanTwoNamed}
-              options={options}
-              validation_status={ validationStatus(errors, "greaterThanTwoNamed") }
-              validation_message={ validationMessage(errors, "greaterThanTwoNamed") }
-              />
-          </li>
-
-        </ul>
-
+    <PureRadioSet
+      label={{text:"Any other named insured?",type:"subtitle"}}
+      field={greaterThanTwoNamed}
+      options={options}
+      validation_status={ validationStatus(errors, "greaterThanTwoNamed") }
+      validation_message={ validationMessage(errors, "greaterThanTwoNamed") }
+      />
     </fieldset>
   );
 }

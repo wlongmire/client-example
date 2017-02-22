@@ -26,54 +26,39 @@ function AdditionalInsuredInformationFieldSet(props) {
 
   return (<fieldset className="sub-questions">
     <span className="area-label-sub">Tell us about them.</span>
-      <ul>
-        <li>
-          <label>
-            <PureInput
-            type="text"
-            field={name}
-            placeholder="Name"
-            validation_status={ validationStatus(errors, "name") }
-            validation_message={ validationMessage(errors, "name") }
-          />
-        </label>
-      </li>
 
-      <li>
-        <label>
-          <PureInput
-            type="text"
-            field={relationship}
-            placeholder="Relationship to Primary"
-            validation_status={ validationStatus(errors, "relationship") }
-            validation_message={ validationMessage(errors, "relationship") }
-          />
-        </label>
-      </li>
+    <PureInput
+      type="text"
+      field={name}
+      placeholder="Name"
+      validation_status={ validationStatus(errors, "name") }
+      validation_message={ validationMessage(errors, "name") }
+    />
 
-      <li>
-        <label>
-          <PureInput
-            type="text"
-            field={role}
-            placeholder="Role on Project?"
-            validation_status={ validationStatus(errors, "role") }
-            validation_message={ validationMessage(errors, "role") }
-          />
-        </label>
-      </li>
+    <PureInput
+      type="text"
+      field={relationship}
+      placeholder="Relationship to Primary"
+      validation_status={ validationStatus(errors, "relationship") }
+      validation_message={ validationMessage(errors, "relationship") }
+    />
 
-      <li>
-        <PureRadioSet
-          label={{text:"Any other additional Insured?",type:"subtitle"}}
-          field={greaterThanTwoAdditional}
-          options={options}
-          validation_status={ validationStatus(errors, "greaterThanTwoAdditional") }
-          validation_message={ validationMessage(errors, "greaterThanTwoAdditional") }
-          />
-      </li>
+    <PureInput
+      type="text"
+      field={role}
+      placeholder="Role on Project?"
+      validation_status={ validationStatus(errors, "role") }
+      validation_message={ validationMessage(errors, "role") }
+    />
 
-    </ul>
+    <PureRadioSet
+    label={{text:"Any other additional Insured?",type:"subtitle"}}
+    field={greaterThanTwoAdditional}
+    options={options}
+    validation_status={ validationStatus(errors, "greaterThanTwoAdditional") }
+    validation_message={ validationMessage(errors, "greaterThanTwoAdditional") }
+    />
+
   </fieldset>);
 }
 

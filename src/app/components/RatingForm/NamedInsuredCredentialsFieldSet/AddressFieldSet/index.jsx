@@ -26,61 +26,49 @@ function AddressFieldSet(props) {
     <fieldset>
 
       <span
+        className="area-label"
         data-tip="Please provide as descriptive of a street address as possible.">
         What is the address of the Named Insured?
       </span>
 
-      <ul className="no-padding">
+      <PureInput
+        type="text"
+        field={street}
+        placeholder="Address"
+        validation_status={ validationStatus(errors, "street") }
+        validation_message={ validationMessage(errors, "street") }
+      />
 
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={street}
-              placeholder="Address"
-              validation_status={ validationStatus(errors, "street") }
-              validation_message={ validationMessage(errors, "street") }
-            />
-          </label>
-        </li>
+      <PureInput
+        type="text"
+        field={city}
+        placeholder="City"
+        validation_status={ validationStatus(errors, "city") }
+        validation_message={ validationMessage(errors, "city") }
+      />
 
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={city}
-              placeholder="City"
-              validation_status={ validationStatus(errors, "city") }
-              validation_message={ validationMessage(errors, "city") }
-            />
-          </label>
-        </li>
+      <PureOptionSelect
+        field={state}
+        validation_status={ validationStatus(errors, "state") }
+        validation_message={ validationMessage(errors, "state") }
+        >
+        <option value="" disabled>State</option>
+        {
+          states.map((state) => (
+            <option key={state} value={state}>{state}</option>
+          ))
+        }
+      </PureOptionSelect>
 
-        <li>
-          <PureOptionSelect
-            field={state}
-            validation_status={ validationStatus(errors, "state") }
-            validation_message={ validationMessage(errors, "state") }
-            >
-            <option value="" disabled>State</option>
-            {
-              states.map((state) => (
-                <option key={state} value={state}>{state}</option>
-              ))
-            }
-          </PureOptionSelect>
+      <PureInput
+        type="text"
+        field={zip}
+        placeholder="Zipcode"
+        className="zip-input"
+        validation_status={ validationStatus(errors, "zip") }
+        validation_message={ validationMessage(errors, "zip") }
+      />
 
-          <PureInput
-            type="text"
-            field={zip}
-            placeholder="Zipcode"
-            className="zip-input"
-            validation_status={ validationStatus(errors, "zip") }
-            validation_message={ validationMessage(errors, "zip") }
-          />
-        </li>
-
-      </ul>
     </fieldset>
   );
 }
