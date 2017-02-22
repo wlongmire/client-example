@@ -35,7 +35,7 @@ class Home extends Component{
 
     let list = [];
 
-    for (let item of submissionsArray){     
+    for (let item of submissionsArray){
       const premiumType = item[`${item.type}Premium`];
       const totalCost = premiumType ? (premiumType.totalCost) : '';
       list.push({

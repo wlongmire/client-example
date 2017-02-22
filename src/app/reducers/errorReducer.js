@@ -1,13 +1,10 @@
-import {
-	SIGNUP_ERROR
-}
-from '../constants';
+import formStructure from 'content/formStructure';
 
-export default function (state = {}, action) {
+export default function (state = formStructure, action) {
 	switch (action.type) {
-	case SIGNUP_ERROR:
-		return { ...state, error: action.payload };
-	default:
+		case "SET_FORM_ERROR":
+			return action.payload;
+			default:
 	}
 
 	return state;

@@ -2,22 +2,16 @@ import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
 import PureOptionSelect from 'components/shared/PureOptionSelect';
-import ToggleDisplay from 'components/shared/ToggleDisplay';
-import PureRadio from 'components/shared/PureRadio';
+import PureRadioSet from 'components/shared/PureRadioSet';
 
-const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+import ToggleDisplay from 'components/shared/ToggleDisplay';
+
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
 
 function AddressFieldSet(props) {
-  //let title;
-  let titleTag;
-  if (props.type === 'project') {
-    titleTag = '<span data-tip="Please provide as descriptive of a street address as possible.">What is the address of this project?</span>';
-  } else if (props.type === 'named') {
-    titleTag = '<span data-tip="Please provide as descriptive of a street address as possible.">What is the address of the Named Insured?</span>';
-  } else if (props.type === 'other') {
-    titleTag = '<span></span>';
-  }
-
   const {
     nycha,
     address: {
@@ -25,85 +19,74 @@ function AddressFieldSet(props) {
       city,
       state,
       zip
-    }
+    },
+    errors
   } = props;
 
-  function createMarkup() {
-    return {__html: titleTag};
-  }
+  const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
   return (
     <fieldset>
 
-      <span className="area-label" dangerouslySetInnerHTML={createMarkup()} />
-      <ul className="no-padding">
-        <li>
+      <span
+        className="area-label"
+        data-tip="Please provide as descriptive of a street address as possible.">
+        What is the address of this project?
+      </span>
 
-          <label>
-            <PureInput
-              type="text"
-              field={street}
-              placeholder="Street"
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={city}
-              placeholder="City"
-            />
-          </label>
-        </li>
-        <li>
-            <PureOptionSelect
-              field={state}
-            >
-              <option value="" disabled>State</option>
-              {
-                states.map((state) => (
-                  <option key={state} value={state}>{state}</option>
-                ))
-              }
-            </PureOptionSelect>
+      <PureInput
+        type="text"
+        field={street}
+        placeholder="Address"
+        validation_status={ validationStatus(errors, "street") }
+        validation_message={ validationMessage(errors, "street") }
+      />
 
-            <PureInput
-              type="text"
-              field={zip}
-              placeholder="Zip"
-              className="zip-input"
-            />
-        </li>
-        <li>
-          <ToggleDisplay
-            show={state.value === 'NY'}
-            render={() => (
-              <div>
-              <span className="area-label">Is this a NYCHA Project?</span>
-              <radiogroup>
-                <label>
-                  <PureRadio
-                    value="yes"
-                    field={nycha}
-                  />
-                  Yes
-                </label>
-                <label>
-                  <PureRadio
-                    value="no"
-                    field={nycha}
-                  />
-                  No
-                </label>
-              </radiogroup>
-              </div>
-            )}
-          />
-        </li>
-      </ul>
-    </fieldset>
-  );
+      <PureInput
+        type="text"
+        field={city}
+        placeholder="City"
+        validation_status={ validationStatus(errors, "city") }
+        validation_message={ validationMessage(errors, "city") }
+      />
+
+      <PureOptionSelect
+        field={state}
+        validation_status={ validationStatus(errors, "state") }
+        validation_message={ validationMessage(errors, "state") }
+      >
+        <option value="" disabled>State</option>
+        {
+          states.map((state) => (
+            <option key={state} value={state}>{state}</option>
+          ))
+        }
+      </PureOptionSelect>
+
+      <PureInput
+        type="text"
+        field={zip}
+        placeholder="Zip"
+        className="zip-input"
+        validation_status={ validationStatus(errors, "zip") }
+        validation_message={ validationMessage(errors, "zip") }
+      />
+
+      <ToggleDisplay
+        show={state.value === 'NY'}
+        render={() => (
+          <div>
+            <span className="area-label">Is this a NYCHA Project?</span>
+            <PureRadioSet
+              field={nycha}
+              options={[{value:"yes", text:"Yes"},{value:"no", text:"No"}]}
+              validation_status={ validationStatus(errors, "nycha") }
+              validation_message={ validationMessage(errors, "nycha") }
+              />
+          </div>
+        )}
+      />
+  </fieldset>);
 }
 
 export default AddressFieldSet;

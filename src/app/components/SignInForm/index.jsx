@@ -1,36 +1,23 @@
 import React from 'react';
-import {
-    createStore,
-    applyMiddleware,
-    compose
-} from 'redux';
-import thunk from 'redux-thunk';
-
-import PureInput from 'components/shared/PureInput';
-import PureRadio from 'components/shared/PureRadio';
-import PureOptionSelect from 'components/shared/PureOptionSelect';
-import PureTextArea from 'components/shared/PureTextArea';
-import ToggleDisplay from 'components/shared/ToggleDisplay';
-
-import styles from './styles';
+import { connect } from 'react-redux';
 
 import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
 
 import decorator from './decorators';
-import handleSubmit from './decorators/reduxForm/handleSubmit';
-
 
 function SignInForm(props) {
-
     const {
         fields: {
             credentials
         },
-        handleSubmit
+        handleSubmit,
+        errors
     } = props;
+
     return (
     <form className="SignInForm__container" onSubmit={handleSubmit}>
-        <CredentialsFieldSet field={credentials} />
+        <CredentialsFieldSet field={credentials} errors={errors.credentials}/>
+
         <div className="formFooter">
             <button type="submit" className="button">Sign In</button>
             <a className="button" href="/signup">Register</a>
@@ -39,4 +26,12 @@ function SignInForm(props) {
     );
 }
 
-export default decorator(SignInForm);
+export default decorator(
+  connect((state) => {
+
+    return ({
+      errors: state.error.signin || {}
+    });
+
+  })(SignInForm)
+);

@@ -13,7 +13,6 @@ export default function mapStateToProps(state) {
 				lastName: null,
 				broker: null
 			}
-		},
-		errorMessage: state.error.error
+		}
 	};
 }

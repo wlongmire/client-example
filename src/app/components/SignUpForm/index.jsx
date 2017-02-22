@@ -1,47 +1,40 @@
 import React from 'react';
-import {
-    createStore,
-    applyMiddleware,
-    compose
-} from 'redux';
-import thunk from 'redux-thunk';
+import { connect } from 'react-redux';
 
-import PureInput from 'components/shared/PureInput';
-import PureRadio from 'components/shared/PureRadio';
-import PureOptionSelect from 'components/shared/PureOptionSelect';
-import PureTextArea from 'components/shared/PureTextArea';
-import ToggleDisplay from 'components/shared/ToggleDisplay';
-
-import styles from './styles';
-
-import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
+import CredentialsRegisterFieldSet from './CredentialsRegisterFieldSet';
 import AccountFieldSet from './AccountFieldSet';
 
 import decorator from './decorators';
-import handleSubmit from './decorators/reduxForm/handleSubmit';
-
 
 function SignUpForm(props) {
-
     const {
         fields: {
             credentials,
             account,
         },
         handleSubmit,
-				errorMessage
+        errors
     } = props;
+
     return (
 				<form className="SignUpForm__container" onSubmit={handleSubmit}>
-						<CredentialsFieldSet field={credentials} type="signUp" title="Here for the first time?" />
-						<AccountFieldSet field={account} />
+						<CredentialsRegisterFieldSet field={credentials} errors={errors.credentials} title="Here for the first time?" />
+            <AccountFieldSet field={account} errors={errors.account}/>
+
 						<div className="formFooter">
-								<button type="submit">Register</button>
+								<button type="submit" className="button">Register</button>
 								<a href="/">Back to Sign In</a>
 						</div>
-						{errorMessage && <div>{errorMessage}</div>}
 				</form>
     );
 }
 
-export default decorator(SignUpForm);
+export default decorator(
+  connect((state) => {
+
+    return ({
+      errors: state.error.signup || {}
+    });
+
+  })(SignUpForm)
+);

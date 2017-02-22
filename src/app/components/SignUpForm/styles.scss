@@ -1,5 +1,7 @@
 @import "../RatingForm/styles.scss";
+
 .SignUpForm__container {
-	@extend .RatingForm__container;
+	// @extend .RatingForm__container;
 	margin-left: 20px;
+	width:30%;
 }

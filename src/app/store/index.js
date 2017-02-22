@@ -48,13 +48,14 @@ if (process.env.NODE_ENV === 'production') {
         );
   };
 } else {
+
   const loggerMiddleware = createLogger();
 
     /* NON-PRODUCTION (Dev, Debug, etc) */
   configureStore = (history, initialState) => {
     const enhancer = compose(
       applyMiddleware(
-        loggerMiddleware,
+        // loggerMiddleware,
         routerMiddleware(history),
         thunkMiddleware
       ),

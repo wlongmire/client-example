@@ -48,7 +48,7 @@ const UserRolePowerUser = UserAuthWrapper({
 });
 
 export default (
-  <Route 
+  <Route
     path='/'
     component={App}>
     <IndexRoute
