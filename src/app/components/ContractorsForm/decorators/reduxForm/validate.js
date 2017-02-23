@@ -79,27 +79,27 @@ export default function validate(values) {
 
 	// Does the project include the addition of any stories vertical expansion?
 	if (values.overFourFloors === "") {
-		errors.verticalExpansion.required = "Please choice if additional stories are needed";
+		errors.verticalExpansion.required = "Please choose if additional stories are needed";
 	}
 
 	// Is project limited to specific floors?
 	if (values.projectDefinedAreaScope === "") {
-		errors.specificFloors.required = "Please choice if project is limited to specific floors";
+		errors.specificFloors.required = "Please choose if project is limited to specific floors";
 	}
 
 	// Will the named insured be involved with any supervision or oversight of...?
 	if (!values.isSupervisingSubs) {
-		errors.insuredInvolved.required = "Please choice if named insured is involved with oversight";
+		errors.insuredInvolved.required = "Please choose if named insured is involved with oversight";
 	}
 
 	// Does the project require any of the following: ?
 	if (!values.projectRequirements) {
-		errors.projectRequirements.required = "Please choice if project has special requirements";
+		errors.projectRequirements.required = "Please choose if project has special requirements";
 	}
 
 	// What limits are being requested for this OCP?
 	if (!values.limitsRequested) {
-		errors.limits.required = "Please choice the project limits requirements";
+		errors.limits.required = "Please choose the project limits requirements";
 	}
 
 
