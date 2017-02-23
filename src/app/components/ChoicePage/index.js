@@ -18,7 +18,9 @@ const ChoicePage = (props) =>(
             onClick={()=> props.resetForm()}>
             OI <br/> Owner's Interest</Button>
         </td>
+
         <td className="text-center middle-td">OR</td>
+
         <td className="td-choice">
           <Button
             bsSize="large"
@@ -31,7 +33,7 @@ const ChoicePage = (props) =>(
       <tfoot>
         <tr>
           <td><br/><Button onClick={()=> {browserHistory.push('/home'); }}>Go Back To Submissions</Button></td>
-        </tr>  
+        </tr>
       </tfoot>
     </table>
 
