@@ -94,6 +94,7 @@ export function handleConfirmation(values) {
 }
 
 export function handleSubmit(values) {
+	console.log("TEST123 values", values);
 	const body = (values.type === 'ocp')? formatRequestBodyOCP(values): formatRequestBody(values);
 	return (dispatch) => {
 

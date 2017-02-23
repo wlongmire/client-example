@@ -56,7 +56,7 @@ async function getSingleSubmission(req, res) {
 }
 
 async function getRating(req, res) {
-
+	console.log("TEST123 backend req", req.body);
 	try {
 
 		if (!req.headers['x-token']) {
@@ -82,7 +82,7 @@ async function getRating(req, res) {
 			paramsObject.broker = broker;
 
 			const params = JSON.stringify(paramsObject);
-
+			console.log("TEST123 params", params)
 
 			request({
 				method: 'POST',
@@ -105,7 +105,7 @@ async function getRating(req, res) {
 
 					submission.broker = broker;
 					submission.submittedBy = user;
-
+					console.log("Test123", submission);
 					createNewSubmission(submission)
 						.then(newSub => {
 							console.log(newSub);
