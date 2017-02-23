@@ -104,7 +104,7 @@ class Home extends Component{
             dataField="quouteStatus"
             dataSort={true}
             width="35px"
-            >Was <br/>Submission<br/> Quouted?</TableHeaderColumn>
+            >Was <br/>Submission<br/> Quoted?</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="quotedPremium"
@@ -147,6 +147,7 @@ class Home extends Component{
 }
 
 function mapStateToProps(state){
+  console.log('current State', state);
   return {
     user: state.user,
     submissions: state.submissions
