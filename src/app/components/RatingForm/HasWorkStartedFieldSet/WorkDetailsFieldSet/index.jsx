@@ -15,8 +15,6 @@ function WorkDetailsFieldSet(props) {
 
   return (
     <fieldset className="sub-questions">
-      <span className="area-label-sub">Ok, we're going to need some specifics on that</span>
-
       <span className="area-label-sub"> When did work begin?</span>
       <PureInput
         type="date"

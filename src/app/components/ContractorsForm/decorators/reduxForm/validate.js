@@ -20,8 +20,6 @@ export default function validate(values) {
 		"contactInfo": {}
 	};
 
-	console.log("validation", "values", values);
-
 	//Who is the named insured?
 	if (values.primaryNamedInsured === "") {
 		errors.primaryNamedCredentials.name = 'Primary Insured Name is required';

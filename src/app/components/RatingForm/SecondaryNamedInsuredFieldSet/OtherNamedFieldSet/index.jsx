@@ -31,8 +31,6 @@ function OtherNamedFieldSet(props) {
 
   return (
     <fieldset className="sub-questions">
-      <span className="area-label-sub">We need their info as well.</span>
-
       <PureInput
         type="text"
         field={name}

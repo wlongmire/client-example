@@ -21,122 +21,133 @@ import HasWorkStartedFieldSet from          './HasWorkStartedFieldSet';
 
 import decorator from './decorators';
 
-function RatingForm(props) {
-  const {
-    fields: {
-      primaryNamedInsured,
-      namedInsuredAddress,
-      hasOtherNamedInsured,
-      otherNamedInsured,
-      greaterThanTwoNamed,
-      hasAdditionalInsured,
-      greaterThanTwoAdditional,
-      additionalInsured,
-      address,
-      scope,
-      term,
-      costs,
-      towerCraneUse,
-      generalContractor,
-      occupancyDetails,
-      demoDetails,
-      workDetails,
-      excessDetails,
-      contactInfo,
-      generalComments,
-      type
-    },
-    errors,
-    handleSubmit
-  } = props;
+const RatingForm = React.createClass({
+  componentWillUnmount() {
+    this.props.dispatch({
+      type: 'SET_FORM_ERROR',
+      payload: {
+        ratingOI:{}
+      }
+    });
+  },
 
-  return (
-    <form className="RatingForm__container" onSubmit={handleSubmit}>
+  render() {
+    const {
+      fields: {
+        primaryNamedInsured,
+        namedInsuredAddress,
+        hasOtherNamedInsured,
+        otherNamedInsured,
+        greaterThanTwoNamed,
+        hasAdditionalInsured,
+        greaterThanTwoAdditional,
+        additionalInsured,
+        address,
+        scope,
+        term,
+        costs,
+        towerCraneUse,
+        generalContractor,
+        occupancyDetails,
+        demoDetails,
+        workDetails,
+        excessDetails,
+        contactInfo,
+        generalComments,
+        type
+      },
+      errors,
+      handleSubmit
+    } = this.props;
 
-      <NamedInsuredCredentialsFieldSet
-        primaryNamedInsured={primaryNamedInsured}
-        namedInsuredAddress={namedInsuredAddress}
-        errors={errors.primaryNamedCredentials}
+    return (
+      <form className="RatingForm__container" onSubmit={handleSubmit}>
+
+        <NamedInsuredCredentialsFieldSet
+          primaryNamedInsured={primaryNamedInsured}
+          namedInsuredAddress={namedInsuredAddress}
+          errors={errors.primaryNamedCredentials}
+          />
+
+        <SecondaryNamedInsuredFieldSet
+          otherNamedInsured={otherNamedInsured}
+          hasOtherNamedInsured={hasOtherNamedInsured}
+          greaterThanTwoNamed={greaterThanTwoNamed}
+          errors={errors.secondaryNamedInsured}
+          />
+
+        <AdditionalInsuredFieldSet
+          hasAdditionalInsured={hasAdditionalInsured}
+          additionalInsured={additionalInsured}
+          errors={errors.additionalInsured}
         />
 
-      <SecondaryNamedInsuredFieldSet
-        otherNamedInsured={otherNamedInsured}
-        hasOtherNamedInsured={hasOtherNamedInsured}
-        greaterThanTwoNamed={greaterThanTwoNamed}
-        errors={errors.secondaryNamedInsured}
+        <ProjectAddressFieldSet
+          address={address}
+          errors={errors.projectAddress}
         />
 
-      <AdditionalInsuredFieldSet
-        hasAdditionalInsured={hasAdditionalInsured}
-        additionalInsured={additionalInsured}
-        errors={errors.additionalInsured}
-      />
+        <ProjectScopeFieldSet
+          scope={scope}
+          errors={errors.projectScope}
+        />
 
-      <ProjectAddressFieldSet
-        address={address}
-        errors={errors.projectAddress}
-      />
+        <ProjectTermFieldSet
+          term={term}
+          errors={errors.projectTerm}
+        />
 
-      <ProjectScopeFieldSet
-        scope={scope}
-        errors={errors.projectScope}
-      />
+        <ProjectValueFieldSet
+          costs={costs}
+          errors={errors.projectValue}
+        />
 
-      <ProjectTermFieldSet
-        term={term}
-        errors={errors.projectTerm}
-      />
+        <TowerCraneFieldSet
+          towerCraneUse={towerCraneUse}
+          errors={errors.towerCrane}
+        />
 
-      <ProjectValueFieldSet
-        costs={costs}
-        errors={errors.projectValue}
-      />
+        <KnownContractorFieldSet
+          generalContractor={generalContractor}
+          errors={errors.knownContractor}
+        />
 
-      <TowerCraneFieldSet
-        towerCraneUse={towerCraneUse}
-        errors={errors.towerCrane}
-      />
+        <OccupancyFieldSet
+          occupancyDetails={occupancyDetails}
+          errors={errors.occupancy}
+        />
 
-      <KnownContractorFieldSet
-        generalContractor={generalContractor}
-        errors={errors.knownContractor}
-      />
+        <DemoFieldSet
+          demoDetails={demoDetails}
+          errors={errors.demo}
+        />
 
-      <OccupancyFieldSet
-        occupancyDetails={occupancyDetails}
-        errors={errors.occupancy}
-      />
+        <HasWorkStartedFieldSet
+          workDetails={workDetails}
+          errors={errors.hadWorkStarted}
+        />
 
-      <DemoFieldSet
-        demoDetails={demoDetails}
-        errors={errors.demo}
-      />
+        <ExcessFieldSet
+          excessDetails={excessDetails}
+          errors={errors.excess}
+        />
 
-      <HasWorkStartedFieldSet
-        workDetails={workDetails}
-        errors={errors.hadWorkStarted}
-      />
+        <GeneralCommentsFieldSet
+          generalComments={generalComments}
+          errors={errors.generalComments}
+        />
 
-      <ExcessFieldSet
-        excessDetails={excessDetails}
-        errors={errors.excess}
-      />
+        <ContactInfoFieldSet
+          contactInfo={contactInfo}
+          errors={errors.contactInfo}
+        />
 
-      <GeneralCommentsFieldSet
-        generalComments={generalComments}
-        errors={errors.generalComments}
-      />
-
-      <ContactInfoFieldSet
-        contactInfo={contactInfo}
-        errors={errors.contactInfo}
-      />
-
-      <button className="button getQuote" type="submit">Get Quote</button>
-      <ReactTooltip className="tooltip"/>
-    </form>
-  );
-}
+        <button className="button getQuote" type="submit">Get Quote</button>
+        <ReactTooltip className="tooltip"/>
+      </form>
+    );
+  }
+});
 
 export default decorator(
   connect((state) => {

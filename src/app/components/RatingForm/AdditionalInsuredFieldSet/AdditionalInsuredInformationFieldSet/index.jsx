@@ -25,8 +25,6 @@ function AdditionalInsuredInformationFieldSet(props) {
   ];
 
   return (<fieldset className="sub-questions">
-    <span className="area-label-sub">Tell us about them.</span>
-
     <PureInput
       type="text"
       field={name}
