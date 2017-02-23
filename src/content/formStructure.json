@@ -1,0 +1,47 @@
+{
+	"signin": {
+		"credentials": {}
+	},
+
+	"signup": {
+		"credentials": {},
+		"account": {}
+	},
+
+	"ratingOI": {
+		"primaryNamedCredentials": {},
+		"secondaryNamedInsured": {},
+		"additionalInsured": {},
+		"projectAddress": {},
+		"projectScope": {},
+		"projectTerm": {},
+		"projectValue": {},
+		"towerCrane": {},
+		"knownContractor": {},
+		"occupancy": {},
+		"demo": {},
+		"hadWorkStarted": {},
+		"excess": {},
+		"generalComments": {},
+		"contactInfo": {}
+	},
+
+	"ratingOCP": {
+		"primaryNamedCredentials": {},
+		"totalCost": {},
+		"projectTerm": {},
+		"finishDate": {},
+		"generalContractor": {},
+		"glCarrier": {},
+		"expirationDate": {},
+		"excessLimits": {},
+		"address": {},
+		"verticalExpansion": {},
+		"specificFloors": {},
+		"workDescription": {},
+		"insuredInvolved": {},
+		"projectRequirements": {},
+		"limits": {},
+		"contactInfo": {}
+	}
+}

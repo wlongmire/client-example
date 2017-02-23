@@ -1,68 +1,44 @@
 import React from 'react';
 
-import PureInput from 'components/shared/PureInput';
-import PureRadio from 'components/shared/PureRadio';
+import PureRadioSet from 'components/shared/PureRadioSet';
+import ToggleDisplay from 'components/shared/ToggleDisplay';
+
+import AdditionalInsuredInformationFieldSet from './AdditionalInsuredInformationFieldSet';
 
 function AdditionalInsuredFieldSet(props) {
   const {
-    additionalInsured: {
-      name,
-      relationship,
-      role,
-      greaterThanTwoAdditional
-    }
+    additionalInsured,
+    hasAdditionalInsured,
+    errors
   } = props;
+
+  const options = [
+    {value:"yes", text:"Yes"},
+    {value:"no", text:"No"}
+  ];
+
   return (
-    <fieldset className="sub-questions">
-      <span className="area-label-sub">Tell us about them.</span>
-      <ul>
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={name}
-              placeholder="Name"
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={relationship}
-              placeholder="Relationship to Primary"
-            />
-          </label>
-        </li>
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={role}
-              placeholder="Role on Project?"
-            />
-          </label>
-        </li>
-        <li>
-        <span className="area-label-sub">Any other additional insured?</span>
-        <radiogroup>
-            <label>
-              <PureRadio
-                value="yes"
-                field={greaterThanTwoAdditional}
-              />
-              Yes
-            </label>
-            <label>
-              <PureRadio
-                value="no"
-                field={greaterThanTwoAdditional}
-              />
-              No
-            </label>
-          </radiogroup>
-          </li>
-      </ul>
+    <fieldset>
+
+      <PureRadioSet
+        label={{text:"Any Additional Insured?",type:"title"}}
+        data_tip="Qualified Additional Insureds must also be named as an Additional Insured on the General Contractor’s General Liability in order to be approved"
+        field={hasAdditionalInsured}
+        options={options}
+        validation_status='default'
+        validation_message=''
+        />
+
+      <ToggleDisplay
+        show={hasAdditionalInsured.value === 'yes'}
+        render={
+          () => (<AdditionalInsuredInformationFieldSet
+            additionalInsured={additionalInsured}
+            errors={errors}
+            />)
+        }/>
+
+
     </fieldset>
   );
 }

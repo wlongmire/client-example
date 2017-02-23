@@ -11,10 +11,12 @@ var config = {
     brokerTemplateId: '365b9c92-9e3d-4699-88ff-d9ea688e769b',
     argoNonQuoteTemplate: '52173414-ee4e-42cd-a609-38b3c180ddfe',
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
-    submissionPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
+    ownersEdgeQuotationPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
+    ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
+    ratingsUrl:'@ratingsUrl',
 
 
     analytics: {
@@ -77,7 +79,5 @@ if (config.env === 'development') {
 //     config.apiserver.url = 'http://beta.ownersedge.us';
 //     config.apiserver.port = null;
 // }
-
-console.log(config.argoEmail);
 
 module.exports = config;

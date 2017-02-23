@@ -6,6 +6,7 @@ var config = require('./src/config');
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     'webpack-dev-server/client?http://localhost:' + config.webpackserver.port,
     'webpack/hot/only-dev-server',
     './src/app/index'

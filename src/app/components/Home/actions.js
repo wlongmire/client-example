@@ -31,11 +31,12 @@ export function getSubmissions(brokerId) {
 
         dispatch(push('/'));
       }
+
       dispatch({
         type: FETCH_SUBMISSIONS,
         payload: res
       });
-   
+
    // empty previous edited submission in the store
       dispatch({
         type: EDIT_SUBMISSION,
@@ -61,7 +62,11 @@ export function editSubmission(submission) {
       payload: submission
     });
 
-    dispatch(push('/form'));
+    if(submission.type === 'ocp'){
+      dispatch(push('/contractorsform'));
+    }else{
+      dispatch(push('/form'));
+    }
 
   };
 }
@@ -93,16 +98,15 @@ export function resetContractorsForm() {
 }
 
 export function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('viewer');
   return (dispatch) => {
 
     dispatch({
-      type: USER_LOGGED_OUT,
-      payload: {},
-      user: {}
+      type: USER_LOGGED_OUT
     });
 
     dispatch(push('/'));
 
   };
 }
-

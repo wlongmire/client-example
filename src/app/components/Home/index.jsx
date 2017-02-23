@@ -3,57 +3,144 @@ import { connect } from 'react-redux';
 import Moment from 'moment';
 import * as actions from './actions';
 import { formatDollars } from '../../utils/utilities';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { Button, Panel } from 'react-bootstrap';
 
 class Home extends Component{
+  constructor(){
+    super();
+    this.state = ({
+      chartData: []
+    });
+  }
+
+  componentDidMount() {
+    if(this.props.submissions.data){
+      this.loadSubmissions(this.props.submissions.data.submissions);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.submissions.data && !this.props.submissions.data){
+      this.loadSubmissions(nextProps.submissions.data.submissions);
+    }
+  }
   componentWillMount(){
-    this.props.getSubmissions(this.props.user['_brokerId']);
+    if(this.props.user) {
+      this.props.getSubmissions(this.props.user['_brokerId']);
+    }
+  }
+
+  loadSubmissions(submissionsArray){
+
+    let list = [];
+
+    for (let item of submissionsArray){
+      const premiumType = item[`${item.type}Premium`];
+      const totalCost = premiumType ? (premiumType.totalCost) : '';
+      list.push({
+        ...item,
+        primaryNamedInsured: item.primaryNamedInsured,
+        totalCost: (premiumType && premiumType.totalCost) ? formatDollars(premiumType.totalCost) : 'n/a',
+        quotedPremium: (premiumType && premiumType.quotedPremium) ? formatDollars(premiumType.quotedPremium) : 'n/a',
+        totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
+        type: item.type,
+        dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
+        dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
+        quouteStatus: (premiumType && premiumType.quotedPremium) ? 'Yes' : 'No'
+
+      });
+    }
+
+    this.setState({
+      chartData: list
+    });
   }
 
   goToPage(submission){
     this.props.editSubmission(submission);
   }
 
-
   render(){
-    if(!this.props.submissions.data){
-      return (<div>Loading submissions...</div>);
-    }
-    let submissions = this.props.submissions.data.submissions;
-
-    submissions = submissions.sort(function(a, b) {
-      return a.createdAt < b.createdAt ? 1 : -1;
-    });
-    
-    const list = submissions.map((submission, key)=>{
+    const selectFormatter = (cell, row) => {
       return (
-        <tr key={key}>
-          <td>{submission.primaryNamedInsured}</td>
-          <td>{formatDollars(submission.quotedPremium)}</td>
-          <td>{formatDollars(submission.totalCost)}</td>
-          <td>{formatDollars(submission.totalPremium)}</td>
-          <td>{Moment(submission.createdAt).format('MMMM Do YYYY')}</td>
-          <td onClick={()=> this.goToPage(submission)} className="link">Edit</td>
-        </tr>
+        <Button onClick={ () => { this.goToPage(row);}}>Edit</Button>
       );
-    });
+    };
+
+    const options = {
+      defaultSortName: 'updatedAt',  // default sort column name
+      defaultSortOrder: 'desc'  // default sort order,
+    };
+
     return (
       <div>
-      <h3>Your submissions</h3>
-      <table className="u-full-width">
-          <thead>
-            <tr>
-              <th>Primary Named Insured</th>
-              <th>Quoted Premium</th>
-              <th>Total Cost</th>
-              <th>Total Premium</th>
-              <th>Date Created</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {list}
-          </tbody>
-        </table>
+        <h3><b><u>Submissions for: </u></b></h3>
+        <BootstrapTable
+          data={this.state.chartData}
+          condensed={true}
+          options={options}
+          search
+          trClassName="submissionHover"
+          //hover
+          pagination
+          multiColumnSearch
+          >
+          <TableHeaderColumn
+            dataField="_id"
+            isKey={true}
+            hidden
+            ></TableHeaderColumn>
+            <TableHeaderColumn
+            dataField="updatedAt"
+            hidden
+            ></TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="primaryNamedInsured"
+            dataSort={true}
+            width="100px"
+            >Primary Named Insured</TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="quouteStatus"
+            dataSort={true}
+            width="35px"
+            >Was <br/>Submission<br/> Quoted?</TableHeaderColumn>
+          <TableHeaderColumn
+            width="40px"
+            dataField="quotedPremium"
+            dataSort={true}
+            >Quoted <br/>Premium</TableHeaderColumn>
+          <TableHeaderColumn
+            width="30px"
+            dataField="totalCost"
+            dataSort={true}
+            >Total <br/>Cost</TableHeaderColumn>
+          <TableHeaderColumn
+            width="40px"
+            dataField="totalPremium"
+            dataSort={true}
+            >Total <br/>Premium</TableHeaderColumn>
+          <TableHeaderColumn
+            width="20px"
+            dataField="type"
+            dataSort={true}
+            >Type</TableHeaderColumn>
+          <TableHeaderColumn
+            width="55px"
+            dataField="dateCreated"
+            dataSort={true}
+            >Date <br/>Created</TableHeaderColumn>
+            <TableHeaderColumn
+            width="55px"
+            dataField="dateCreated"
+            dataSort={true}
+            >Date <br/>Updated</TableHeaderColumn>
+          <TableHeaderColumn
+            width="25px"
+            dataField="id"
+            dataFormat={ selectFormatter }
+            >Edit</TableHeaderColumn>
+        </BootstrapTable>
       </div>
     );
   }
@@ -61,7 +148,7 @@ class Home extends Component{
 
 function mapStateToProps(state){
   return {
-    user: state.user.state.user,
+    user: state.user,
     submissions: state.submissions
   };
 }

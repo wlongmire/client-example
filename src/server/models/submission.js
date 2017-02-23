@@ -35,9 +35,20 @@ const submissionSchema = new mongoose.Schema({
   generalComments: String,
   demoDetails: Object,
   towerCraneUse: String,
+  type: String,
   greaterThanTwoNamed: Boolean,
   greaterThanTwoAdditional: Boolean,
-  excessTerror: Number
+  anticipatedFinishDate: String,
+  projectDefinedAreaScope: String,
+  projectDefinedAreaScopeDetails: String,
+  projectRequirements: String,
+  limitsRequested: String,
+  excessTerror: Number,
+  ocpPremium: Object,
+  oiPremium: Object,
+  overFourFloors: String,
+  nycha: String,
+  instantQuote: Boolean
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);

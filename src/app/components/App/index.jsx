@@ -8,27 +8,9 @@ import Logo from 'components/Logo';
 
 let query = querystring.parse(window.location.search.slice(1));
 
-// For AB Testing Content // In progress here; see Airflows
 
-let content;
-let testString = '';
-
-if (query.t) {
-  testString = query.t;
-
-  switch (query.t) {
-    case 'aa1001':
-      content = require('content/_test.aa1001');
-    break;
-
-    default:
-      content = require('content');
-  }
-
-} else {
-  testString = 'default';
-  content = require('content');
-}
+let content = require('content');
+let testString = 'default';
 
 const App = React.createClass({
   render() {

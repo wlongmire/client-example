@@ -5,6 +5,7 @@ import pdf from 'html-pdf';
 import handlebars from 'handlebars';
 import config from '../../config'
 import uuid from 'uuid';
+import filter from 'lodash/filter';
 import {
   utilities
 } from '../utils'
@@ -58,15 +59,15 @@ function generateHTML(body, pdfData) {
   return html;
 }
 
-function generateSubmissionPDF(token) {
+function generateOwnersEdgeQuotationPDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
-          token: token
-        })
+          token: token,
+        }, 'oi')
         .then(pdfData => {
           request({
-            url: config.submissionPDFUrl,
+            url: config.ownersEdgeQuotationPDFUrl,
             method: 'GET'
           }, function (err, response, body) {
             let html = generateHTML(body, pdfData);
@@ -86,11 +87,35 @@ function generateBindOrderPDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
-          token: token
-        })
+          token: token,
+        }, 'oi')
         .then(pdfData => {
           request({
             url: config.ownersBindOrderPDFUrl,
+            method: 'GET'
+          }, function (err, response, body) {
+            let html = generateHTML(body, pdfData);
+            pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
+              return resolve(buffer);
+            });
+          });
+        });
+    } catch (err) {
+      return reject(err);
+    }
+  })
+}
+
+
+function generateOwnersContractorsProtectivePDF(token) {
+  return new Promise((resolve, reject) => {
+    try {
+      generatePDFData({
+          token: token,
+        }, 'ocp')
+        .then(pdfData => {
+          request({
+            url: config.ownersContractorsProtectivePDFUrl,
             method: 'GET'
           }, function (err, response, body) {
             let html = generateHTML(body, pdfData);
@@ -109,7 +134,8 @@ function generateColonyOwnersInterestQuestionnairePDF(token) {
   return new Promise((resolve, reject) => {
     try {
       generatePDFData({
-          token: token
+          token: token,
+          type: 'oi'
         })
         .then(pdfData => {
           request({
@@ -162,8 +188,8 @@ async function generateExcessPDFData(submissionIdentifier) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    let terrorExcess = Math.round(0.05 * submission.excessPremium);
-    let totalExcess = submission.excessPremium + terrorExcess
+    let terrorExcess = Math.round(0.05 * submission.ocp.excessPremium);
+    let totalExcess = submission.ocp.excessPremium + terrorExcess
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
@@ -182,7 +208,7 @@ async function generateExcessPDFData(submissionIdentifier) {
 
 }
 
-async function generatePDFData(submissionIdentifier) {
+async function generatePDFData(submissionIdentifier, type) {
   try {
     let submission;
     if (submissionIdentifier.token) {
@@ -191,9 +217,9 @@ async function generatePDFData(submissionIdentifier) {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
     let premium = 0;
-    if (utilities.isDefined(submission.quotedPremium)) {
-      premium = submission.quotedPremium;
-    }
+
+   premium = (type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
+
     let terrorismPremium = Math.round(0.05 * premium);
     let additionalCoverage;
     if (premium < 25000) {
@@ -221,6 +247,16 @@ async function generatePDFData(submissionIdentifier) {
 
     let gcInfo = submission.generalContractorInfo.isKnown === 'yes'
 
+    const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
+    let limitsRequested;
+
+    if(submission.limitsRequested){
+        limitsRequested = filter(limits, function(o) {
+        let key = Object.keys(o);
+        return key[0] === String(submission.limitsRequested);
+      });
+    }
+
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
       quotedPremium: `$${utilities.commifyNumber(premium)}`,
@@ -229,22 +265,23 @@ async function generatePDFData(submissionIdentifier) {
       totalPremium: `$${utilities.commifyNumber(totalPremium)}`,
       totalCost: `$${utilities.commifyNumber(totalCost)}`,
       inspectionAmount: `$${utilities.commifyNumber(inspectionCost)}`,
-      insuredAddress: submission.namedInsuredAddress.street,
-      insuredCity: submission.namedInsuredAddress.city,
-      insuredState: submission.namedInsuredAddress.state,
-      insuredZip: submission.namedInsuredAddress.zip,
-      projectAddress: submission.projectAddress.street,
-      projectCity: submission.projectAddress.city,
-      projectState: submission.projectAddress.state,
-      projectZip: submission.projectAddress.zip,
-      createdDate: submission.createdAt.toLocaleDateString(),
+      insuredAddress: submission.namedInsuredAddress ? submission.namedInsuredAddress.street: '',
+      insuredCity: submission.namedInsuredAddress ? submission.namedInsuredAddress.city: '',
+      insuredState: submission.namedInsuredAddress ? submission.namedInsuredAddress.state : '',
+      insuredZip: submission.namedInsuredAddress ? submission.namedInsuredAddress.zip: '',
+      projectAddress: submission.projectAddress ? submission.projectAddress.street: '',
+      projectCity: submission.projectAddress ? submission.projectAddress.city: '',
+      projectState: submission.projectAddress ? submission.projectAddress.state: '',
+      projectZip: submission.projectAddress ? submission.projectAddress.zip: '',
+      createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
       projectScope: submission.scope,
       projectTerm: `${submission.term} months`,
       projectCosts: `$${utilities.commifyNumber(submission.costs)}`,
-      gcKnown: submission.generalContractorInfo.isKnown,
-      gcName: gcInfo ? submission.generalContractorInfo.name : 'GC Pending',
-      gcCarrier: gcInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
-      gcLimit: gcInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
+      gcKnown: submission.generalContractorInfo ? submission.generalContractorInfo.isKnown: '',
+      gcName: submission.generalContractorInfo ? submission.generalContractorInfo.name : 'GC Pending',
+      gcCarrier: submission.generalContractorInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
+      gcLimit: submission.generalContractorInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
+      glExpirationDate: submission.generalContractorInfo ? submission.generalContractorInfo.glExpirationDate : 'N/A',
       gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
       gcSupervisingSubs: gcInfo ? submission.generalContractorInfo.isSupervisingSubs : 'N/A',
       argoEmail: config.argoEmail,
@@ -283,8 +320,13 @@ async function generatePDFData(submissionIdentifier) {
       anyWorkCompleted: submission.workDetails && submission.workDetails.whatsCompleted !== '' ? true : false,
       workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
       whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A',
-      brokerName: submission.broker.name,
-      deductibleText: submission.namedInsuredAddress.state === 'NY' ? '$10,0000' : '$2,500'
+      brokerName: submission.broker ? submission.broker.name: '',
+      deductibleText: submission.namedInsuredAddress && submission.namedInsuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
+      anticipatedFinishDate: submission.anticipatedFinishDate,
+      projectDefinedAreaScope: submission.projectDefinedAreaScope,
+      projectDefinedAreaScopeDetails: submission.projectDefinedAreaScopeDetails,
+      projectRequirements: submission.projectRequirements,
+      limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
     }
     if (submission.hasOtherNamedInsured) {
       pdfData.hasOtherNamedInsuredExist = true;
@@ -322,9 +364,10 @@ export default {
   getAllSubmissions,
   getSubmissionById,
   updateSubmission,
-  generateSubmissionPDF,
+  generateOwnersEdgeQuotationPDF,
   generateExcessPDF,
   generateBindOrderPDF,
   getAllSubmissionsByBroker,
-  generateColonyOwnersInterestQuestionnairePDF
+  generateColonyOwnersInterestQuestionnairePDF,
+  generateOwnersContractorsProtectivePDF
 }

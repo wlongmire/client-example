@@ -1,6 +1,6 @@
 body, html{
-	background:$darkBlue;
-	color:$accent;
+	background:$darkBlue !important;
+	color:$accent !important;
 	font-family:"Lato", sans-serif;
 }
 
@@ -111,9 +111,6 @@ select{
 }
 
 .zip-input{
-	min-width:200px !important;
-	margin-left:15px;
-	margin-top:0 !important;
 	display:inline-block !important;
 }
 
@@ -122,23 +119,7 @@ radiogroup{
 }
 
 .sub-questions{
-	// -webkit-transform: scaleY(0);
-	// -o-transform: scaleY(0);
-	// -ms-transform: scaleY(0);
-	// transform: scaleY(0);
-
-	// -webkit-transform-origin: top;
-	// -o-transform-origin: top;
-	// -ms-transform-origin: top;
-	// transform-origin: top;
-
-	// -webkit-transition: -webkit-transform 0.26s ease-out;
-	// -o-transition: -o-transform 0.26s ease;
-	// -ms-transition: -ms-transform 0.26s ease;
-	// transition: transform 0.26s ease;
-
 	background:#FFFFFF;
-	border-radius:5px;
 	color:$darkBlue;
 	padding:20px;
 	box-shadow:0 0 4px #000000;

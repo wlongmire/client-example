@@ -9,6 +9,7 @@ const fields = [
   'namedInsuredAddress.city',
   'namedInsuredAddress.state',
   'namedInsuredAddress.zip',
+
   'hasOtherNamedInsured',
   'otherNamedInsured.relationship',
   'otherNamedInsured.name',
@@ -17,15 +18,18 @@ const fields = [
   'otherNamedInsured.state',
   'otherNamedInsured.greaterThanTwoNamed',
   'otherNamedInsured.zip',
+
   'hasAdditionalInsured',
   'additionalInsured.name',
   'additionalInsured.relationship',
   'additionalInsured.role',
   'additionalInsured.greaterThanTwoAdditional',
+
   'address.street',
   'address.city',
   'address.state',
   'address.zip',
+
   'scope',
   'term',
   'costs',
@@ -61,7 +65,8 @@ const fields = [
   'contactInfo.phone',
   'excessDetails.required',
   'excessDetails.limits',
-  'generalComments'
+  'generalComments',
+  'type'
 ];
 
 const mapDispatchToProps = {

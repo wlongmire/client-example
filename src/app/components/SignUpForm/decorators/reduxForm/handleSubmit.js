@@ -3,18 +3,35 @@ import {
 	push
 }
 from 'react-router-redux';
+
 import config from '../../../../../config';
+
 import {
 	SIGNUP_STATUS,
 	USER_LOGGED_IN
-}
-from '../../../../constants';
+} from '../../../../constants';
+
+import validate from './validate';
+import _ from 'lodash';
+
+import base_form_structure from 'content/formStructure';
 
 //let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 let baseURL = config.apiserver.url;
 
+const handleSubmit = (values, dispatch) => {
+	const errors = validate(values);
 
-export default function handleSubmit(values, dispatch) {
+	if (_.every(Object.keys(errors), (field)=>!_.isEmpty(errors[field]))) {
+
+		return dispatch({
+			type: 'SET_FORM_ERROR',
+			payload: {
+				signup:errors
+			}
+		});
+	}
+
 	return () => {
 		fetch(baseURL + '/um/register', {
 				method: 'POST',
@@ -32,6 +49,23 @@ export default function handleSubmit(values, dispatch) {
 					payload: res.message
 				})
 
+				switch(res.message) {
+
+	        case("Sorry, that user name is not available. Please try something else."):
+						return dispatch({
+							type: 'SET_FORM_ERROR',
+							payload: {
+								signup:{
+									credentials:{
+										username:"Username already in use."
+									}
+								}
+							}
+						});
+
+	      }
+
+
 				if (res.token) {
 
 					const {
@@ -40,8 +74,15 @@ export default function handleSubmit(values, dispatch) {
 
 					localStorage.setItem('token', token);
 
+					dispatch({
+						type: 'SET_FORM_ERROR',
+						payload:{
+							base_form_structure
+						}
+					});
+
 					return dispatch(push({
-						pathname: '/form',
+						pathname: '/home',
 
 						state: {
 							type: 'USER_LOGGED_IN',
@@ -63,9 +104,7 @@ export default function handleSubmit(values, dispatch) {
 }
 
 function formatRequestBody(values) {
-
 	return JSON.stringify({
-
 		username: values.credentials.username,
 		password: values.credentials.password,
 		retypePassword: values.credentials.retypePassword,
@@ -74,3 +113,5 @@ function formatRequestBody(values) {
 		_brokerId: values.account.broker
 	});
 }
+
+export default handleSubmit;

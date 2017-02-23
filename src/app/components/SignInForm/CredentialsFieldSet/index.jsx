@@ -3,22 +3,26 @@ import React from 'react';
 import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 
+import {
+  validationStatus,
+  validationMessage
+} from 'app/utils/reduxForm';
+
 function CredentialFieldSet(props) {
   let title = props.title ? props.title : 'Coming Back?';
-  let type = props.type;
 
   const {
     field: {
       username,
-      password,
-      retypePassword
-    }
+      password
+    },
+    errors
   } = props;
-
 
   return (
     <fieldset>
       <h1>{title}</h1>
+
       <ul className="no-bullets">
         <li>
           <label>
@@ -26,21 +30,24 @@ function CredentialFieldSet(props) {
               type="text"
               field={username}
               placeholder="Username (Email)"
+              validation_status={ validationStatus(errors, "username") }
+              validation_message={ validationMessage(errors, "username") }
             />
           </label>
-          {username.touched && username.error && <div className="error">{username.error}</div>}
         </li>
 
         <li>
-          <label><PurePassword field={password} placeholder="Password" /></label>
-          {password.touched && password.error && <div className="error">{password.error}</div>}
+
+          <label>
+            <PurePassword
+              field={password}
+              placeholder="Password"
+              validation_status={ validationStatus(errors, "password") }
+              validation_message={ validationMessage(errors, "password") }
+              />
+          </label>
         </li>
-        { type == 'signUp' &&
-        <li>
-          <label>Re-Type Password*<PurePassword field={retypePassword} /></label>
-          {retypePassword.touched && retypePassword.error && <div className="error">{retypePassword.error}</div>}
-        </li>
-        }
+
       </ul>
     </fieldset>
   );

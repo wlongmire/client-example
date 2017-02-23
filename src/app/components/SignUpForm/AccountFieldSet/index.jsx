@@ -1,15 +1,18 @@
 import React, { Component, PropTypes } from 'react';
+
 import fetch from 'isomorphic-fetch';
-import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
 import config from '../../../../config';
+import { validationStatus, validationMessage } from 'app/utils/reduxForm';
 
 import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
 import PureOptionSelect from 'components/shared/PureOptionSelect';
 
-let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
+let baseURL = config.apiserver.url;
+
 let defaultBroker = {_id: '', name: 'Select a Broker'};
 
 class AccountFieldSet extends Component {
@@ -40,7 +43,7 @@ class AccountFieldSet extends Component {
       if (!res.success) {
         return Promise.reject(res.message);
       }
-      
+
       // Cause a UI render
       this.setState({
         account: {
@@ -50,7 +53,7 @@ class AccountFieldSet extends Component {
           brokers: res.brokers
         }
       });
-      
+
       return Promise.resolve(true);
     }).catch((e) => {
       console.log("ERROR!", e);
@@ -59,50 +62,72 @@ class AccountFieldSet extends Component {
   }
 
   render () {
-    
-    let state =this.state;
-    let props = this.props.field;
+    const {
+      title,
+      field: {
+        firstName,
+        lastName,
+        broker
+      },
+      errors
+    } = this.props;
+
+    let state = this.state;
 
     return (
       <fieldset>
-        {state.account.title}
-        <ul>
+        <h3>Account Details</h3>
+
+        <ul className="no-bullets">
           <li>
-            <label>
-              First Name*
-              <PureInput
-                type="text"
-                field={props.firstName}
-              />
-            </label>
+
+            <PureInput
+              label="First Name"
+              type="text"
+              field={firstName}
+              placeholder="Enter First Name"
+              validation_status={ validationStatus(errors, "firstName") }
+              validation_message={ validationMessage(errors, "firstName") }
+            />
+
           </li>
+
           <li>
-            <label>
-              Last Name
-              <PureInput
-                type="text"
-                field={props.lastName}
-              />
-            </label>
+
+            <PureInput
+              label="Last Name"
+              type="text"
+              field={lastName}
+              placeholder="Enter Last Name"
+              validation_status={ validationStatus(errors, "lastName") }
+              validation_message={ validationMessage(errors, "lastName") }
+            />
+
           </li>
+
           <li>
-            <label>
-              Broker
-              <PureOptionSelect field={props.broker}>
-                <option value="">Please Select a Broker</option>
-                {
-                  
-                  state.account.brokers.length > 0 ? state.account.brokers.map((brkr) => (
-                    <option key={brkr.name} value={brkr._id}>{brkr.name}</option>
-                  )) : ''
-                }
-              </PureOptionSelect>
-            </label>
+
+            <PureOptionSelect
+              label="Broker"
+              field={broker}
+              validation_status={ validationStatus(errors, "broker") }
+              validation_message={ validationMessage(errors, "broker") }
+              >
+
+              <option value="">Please Select a Broker</option>
+              {
+                state.account.brokers.length > 0 ? state.account.brokers.map((brkr) => (
+                  <option key={brkr.name} value={brkr._id}>{brkr.name}</option>
+                )) : ''
+              }
+            </PureOptionSelect>
+
           </li>
+
         </ul>
       </fieldset>
     );
   }
 }
 
-export default connect()(AccountFieldSet);
+export default AccountFieldSet;

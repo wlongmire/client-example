@@ -9,11 +9,12 @@ import { routerActions } from 'react-router-redux';
 
 
 import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { browserHistory } from 'react-redux';
 
 import App from 'components/App';
 import Home from 'routes/Home';
 import Rating from 'routes/Rating';
-import ContractorsForm from 'components/ContractorsForm';
+import ContractorsForm from 'routes/Contractors';
 import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
 import PowerConsole from 'routes/PowerConsole';
@@ -31,22 +32,23 @@ const UserIsAuthenticated = UserAuthWrapper({
 
 });
 
-const UserRolePowerUser = UserAuthWrapper({
+const requireSignIn = () => {
+  return browserHistory.push('/');
+};
 
+const UserRolePowerUser = UserAuthWrapper({
   authSelector:         state => state.user,
-  // redirectAction:       routerActions.replace,
   wrapperDisplayName:   'UserRolePowerUser',
-  failureRedirectPath:  '/',
+  redirectAction: requireSignIn,
+  // failureRedirectPath:  '/', // <-- old way of redirecting user
   predicate:            (props) => {
-    
     return props.state.user.role === 'poweruser';
   },
   allowRedirectBack:    false
-
 });
 
 export default (
-  <Route 
+  <Route
     path='/'
     component={App}>
     <IndexRoute

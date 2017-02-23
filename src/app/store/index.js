@@ -40,26 +40,32 @@ if (process.env.NODE_ENV === 'production') {
   configureStore = (history, initialState) => {
     return createStore(
             appReducers,
+            initialState,
             applyMiddleware(
                 routerMiddleware(history),
                 thunkMiddleware
-            ),
-            initialState
+            )
         );
   };
 } else {
+
   const loggerMiddleware = createLogger();
 
     /* NON-PRODUCTION (Dev, Debug, etc) */
   configureStore = (history, initialState) => {
+    const enhancer = compose(
+      applyMiddleware(
+        // loggerMiddleware,
+        routerMiddleware(history),
+        thunkMiddleware
+      ),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    );
+
     return createStore(
             appReducers,
-            window.devToolsExtension ? window.devToolsExtension() : f => f,
-            applyMiddleware(
-                loggerMiddleware,
-                routerMiddleware(history),
-                thunkMiddleware
-            )
+            initialState,
+            enhancer
         );
   };
 }
