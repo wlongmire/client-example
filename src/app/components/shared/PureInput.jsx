@@ -28,6 +28,7 @@ class PureInput extends Component {
         { ...domProps }
         value={field.value || ''}
         type={type}
+        name={this.props.name}
         placeholder={this.props.placeholder}
         className={ classNames("validation_input", this.props.validation_status) }
       />

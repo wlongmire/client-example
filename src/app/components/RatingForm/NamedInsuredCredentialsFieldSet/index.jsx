@@ -27,6 +27,7 @@ function NamedInsuredCredentialsFieldSet(props) {
     <PureInput
       type="text"
       field={primaryNamedInsured}
+      name="insured_name"
       placeholder=""
       validation_status={ validationStatus(errors, "name") }
       validation_message={ validationMessage(errors, "name") }

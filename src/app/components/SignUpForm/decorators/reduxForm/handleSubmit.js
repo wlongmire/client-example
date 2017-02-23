@@ -14,6 +14,8 @@ import {
 import validate from './validate';
 import _ from 'lodash';
 
+import base_form_structure from 'content/formStructure';
+
 //let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 let baseURL = config.apiserver.url;
 
@@ -80,7 +82,7 @@ const handleSubmit = (values, dispatch) => {
 					});
 
 					return dispatch(push({
-						pathname: '/form',
+						pathname: '/home',
 
 						state: {
 							type: 'USER_LOGGED_IN',

@@ -27,7 +27,6 @@ function ExcessDetailsFieldSet(props) {
 
   return (
     <fieldset className="sub-questions">
-
       <span className="area-label-sub">What excess limits are required?</span>
       <PureOptionSelect
         field={limits}

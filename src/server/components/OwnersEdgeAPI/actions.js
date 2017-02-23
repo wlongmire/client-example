@@ -12,7 +12,7 @@ const argoEmail = config.argoEmail;
 const ratingsUrl = config.ratingsUrl;
 
 async function getSubmissions(req, res) {
-     	try {
+  try {
 
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
@@ -51,6 +51,32 @@ async function getSubmissions(req, res) {
 	}
 }
 
+async function getBroker(req, res) {
+  try {
+
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+
+    Broker.findById(req.params.id).exec()
+      .then(broker => {
+        return res.status(200).json({
+          success: true,
+          broker
+        });
+      })
+		  .catch(error => {
+        return res.status(403).json({
+          type: 'TokenExpired',
+          message: 're-login to get new token',
+			});
+		});
+
+	} catch (err) {
+		return res.status(500)
+	}
+}
+
 async function getSingleSubmission(req, res) {
 	const id = req.params.id || '';
 }
@@ -71,7 +97,7 @@ async function getRating(req, res) {
 					message: "Access forbidden. Invalid user token."
 				});
 			}
-			console.log('getting User Information')
+
 			const user = result.user;
 			const newAuthToken = result.authToken;
 
@@ -463,5 +489,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 export default {
 	getRating,
 	getSubmissions,
-	getSingleSubmission
+	getSingleSubmission,
+  getBroker
 }

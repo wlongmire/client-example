@@ -23,8 +23,6 @@ function OccupancyDetailsFieldSet(props) {
 
   return (
     <fieldset className="sub-questions">
-      <span className="area-label-sub">Yes? Ok we&#39;ll need some more info.</span>
-
       <PureRadioSet
         label={{text:"Is coverage for occupancy desired?",type:"subtitle"}}
         field={isCoverageDesired}
