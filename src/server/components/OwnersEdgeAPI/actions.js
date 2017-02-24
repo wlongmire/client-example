@@ -162,15 +162,16 @@ async function getRating(req, res) {
 			});
 
 		});
+
 	 });
   } catch (err) {
-		console.log(err.message)
 		return res.status(500)
 	}
 }
 
 function sendSubmissionEmailArgo(submission) {
-	let pdfArray = []
+	let pdfArray = [];
+
 	generateBindOrderPDF(submission.pdfToken)
 	.then(bindpdf => {
 		pdfArray.push({
@@ -205,6 +206,7 @@ function sendSubmissionEmailArgo(submission) {
 							});
 					});
 			}else{
+
 				generateOwnersEdgeQuotationPDF(submission.pdfToken)
 					.then(glpdf => {
 						pdfArray.push({
@@ -294,6 +296,7 @@ function sendSubmissionEmailClient(submission) {
 
 function sendNonQuoteEmailArgo(submission) {
 	let pdfArray = [];
+
 	if(submission.type === 'ocp') {
 		generateOwnersContractorsProtectivePDF(submission.pdfToken)
 				.then(glpdf => {
@@ -417,10 +420,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			excessDetails: subInfo.excessDetails
 		}
 	}
-
-  console.log("quoteInfo", quoteInfo);
-  console.log("--------------------");
-  console.log("oiPremium", oiPremium);
 
 	if (quoteInfo.oi && quoteInfo.oi.excessPremium > 0) {
 		oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
