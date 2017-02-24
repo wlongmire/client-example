@@ -127,6 +127,9 @@ export function handleSubmit(values) {
 				if (authToken) {
 					localStorage.setItem('token', authToken);
 				}
+
+				console.log(res.submission);
+				
 				return dispatch(push({
 					pathname: '/quote',
 					state: {

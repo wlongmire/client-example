@@ -109,7 +109,6 @@ async function getRating(req, res) {
 
 			const params = JSON.stringify(paramsObject);
 
-
 			request({
 				method: 'POST',
 				uri: `${ratingsUrl}` + `/api/rating/${appId}/calcRating`,
@@ -126,7 +125,6 @@ async function getRating(req, res) {
 					});
 				} else {
 					const result = JSON.parse(body);
-					console.log(result)
 					let submission = createSubmissionObject(req.body, result);
 
 					submission.broker = broker;
