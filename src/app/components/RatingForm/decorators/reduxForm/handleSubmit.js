@@ -21,7 +21,7 @@ let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values) {
 	return (dispatch) => {
-		const errors = validate(values);
+		const errors = {}; //validate(values);
 
 		const async_errors =
 		  _.some(
@@ -67,7 +67,7 @@ export function handleConfirmation(values) {
 			})
 		);
 
-		//with CONFIRMATION
+		//with clearance
 
 		// 	getSubmissions(user._brokerId).then((resp)=>{
 		// 		const submissions = _.sortBy(

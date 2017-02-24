@@ -82,7 +82,6 @@ async function getSingleSubmission(req, res) {
 }
 
 async function getRating(req, res) {
-
 	try {
 
 		if (!req.headers['x-token']) {
@@ -132,8 +131,6 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
-							//default is oi because both submissions have that.
-
 							if (newSub.instantQuote) {
 
 								console.log('instantly Quoted');
@@ -163,9 +160,10 @@ async function getRating(req, res) {
 						});
 				}
 			});
+
 		});
-	});
-} catch (err) {
+	 });
+  } catch (err) {
 		console.log(err.message)
 		return res.status(500)
 	}
@@ -388,7 +386,7 @@ function calcPremium(premium, addAdditional = true){
   } else {
     additionalCoverage = 250;
   }
-  const totalPremium = terrorismPremium + premium + (addAdditional)?additionalCoverage:0;
+  const totalPremium = terrorismPremium + premium + ((addAdditional)?additionalCoverage:0);
   const inspectionCost = 325;
   const totalCost = totalPremium + inspectionCost;
 
@@ -420,6 +418,10 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		}
 	}
 
+  console.log("quoteInfo", quoteInfo);
+  console.log("--------------------");
+  console.log("oiPremium", oiPremium);
+
 	if (quoteInfo.oi && quoteInfo.oi.excessPremium > 0) {
 		oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
 	}
@@ -434,12 +436,15 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	}
 
 
-	  const limits = [{12:'$1,000,000/2,000,000'},
-					{22:'$2,000,000/2,000,000'},
-					{24:'$2,000,000/4,000,000'},
-					{33:'$3,000,000/3,000,000'},
-					{44:'$4,000,000/4,000,000'},
-					{55:'$5,000,000/5,000,000'} ];
+	  const limits = [
+      {12:'$1,000,000/2,000,000'},
+			{22:'$2,000,000/2,000,000'},
+			{24:'$2,000,000/4,000,000'},
+			{33:'$3,000,000/3,000,000'},
+			{44:'$4,000,000/4,000,000'},
+			{55:'$5,000,000/5,000,000'}
+    ];
+
     let limitsRequested;
 
     if(subInfo.limitsRequested){
@@ -479,6 +484,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		oiPremium: oiPremium,
 		instantQuote: quoteInfo.instantQuote,
 		supervisingSubs: subInfo.supervisingSubs,
+    excessDetails: subInfo.excessDetails,
 		demoRequired: subInfo.demoRequired,
 		occupancy: subInfo.occupancy
 	}
