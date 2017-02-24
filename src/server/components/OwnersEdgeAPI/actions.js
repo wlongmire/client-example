@@ -130,8 +130,6 @@ async function getRating(req, res) {
 					submission.broker = broker;
 					submission.submittedBy = user;
 
-          console.log(submission);
-
 					createNewSubmission(submission)
 						.then(newSub => {
 							//default is oi because both submissions have that.
@@ -380,15 +378,17 @@ async function generateExcessPDF(token) {
 	return pdf;
 }
 
-function calcPremium(premium){
+function calcPremium(premium, addAdditional = true){
   let additionalCoverage;
+
   const terrorismPremium = Math.round(0.05 * premium);
+
   if (premium < 25000) {
     additionalCoverage = 125;
   } else {
     additionalCoverage = 250;
   }
-  const totalPremium = terrorismPremium + premium + additionalCoverage;
+  const totalPremium = terrorismPremium + premium + (addAdditional)?additionalCoverage:0;
   const inspectionCost = 325;
   const totalCost = totalPremium + inspectionCost;
 
@@ -415,7 +415,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			totalCost: calcPremium(quoteInfo.oi.premium).totalCost,
 			excessQuotedPremium: quoteInfo.oi.excessPremium,
 			excessTerror: calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
-			excessTotalPremium: calcPremium(quoteInfo.oi.excessPremium).totalPremium,
+			excessTotalPremium: calcPremium(quoteInfo.oi.excessPremium, false).totalPremium,
 			excessDetails: subInfo.excessDetails
 		}
 	}

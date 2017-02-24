@@ -8,9 +8,6 @@ export default (props) => {
 
   const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
 
-  console.log(limits);
-  console.log(submission.limitsRequested);
-
   return (
     <div className="confirmation__container">
         <h2 className="title">Review Details</h2>
@@ -119,7 +116,7 @@ export default (props) => {
          <button className="button" onClick={()=>window.history.back()}>Go back</button>
          <button className="button pull-right getQuote" onClick={()=> submit(submission)}>Get Quote</button>
       </div>
-      
+
     </div>
   );
 };
