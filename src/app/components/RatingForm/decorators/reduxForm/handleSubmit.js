@@ -30,14 +30,12 @@ export function handleConfirmation(values) {
 		  );
 
 		if (async_errors) {
-
 		  dispatch({
 		    type: 'SET_FORM_ERROR',
 		    payload: {
 		      ratingOI:errors
 		    }
 		  });
-
 			scrollTo(0, 0, { duration: 500 });
 		} else {
 
@@ -54,7 +52,6 @@ export function handleConfirmation(values) {
 				(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
 
 			getSubmissions(user._brokerId).then((resp)=>{
-
 				const submissions = _.sortBy(
 					Object.assign([],resp.submissions)
 						.filter((s)=>s.type===values.type)
@@ -104,7 +101,7 @@ export function handleConfirmation(values) {
 export function handleSubmit(values) {
 	const body = (values.type === 'ocp')? formatRequestBodyOCP(values): formatRequestBody(values);
 	return (dispatch) => {
-
+		
 		let token = localStorage.getItem('token');
 		document.querySelector('.getQuote').textContent = 'Processing quote...';
 

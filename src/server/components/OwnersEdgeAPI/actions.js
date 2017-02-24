@@ -126,7 +126,6 @@ async function getRating(req, res) {
 					});
 				} else {
 					const result = JSON.parse(body);
-					console.log(result)
 					let submission = createSubmissionObject(req.body, result);
 
 					submission.broker = broker;
