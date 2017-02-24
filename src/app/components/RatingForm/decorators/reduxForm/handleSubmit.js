@@ -64,7 +64,8 @@ export function handleConfirmation(values) {
 					type: 'CONFIRMATION',
 					payload: values
 				}
-			}));
+			})
+		);
 
 		//with CONFIRMATION
 
@@ -110,7 +111,7 @@ export function handleConfirmation(values) {
 		//
 		// 	});
 		//
-		// }
+		}
 
 	}
 }
