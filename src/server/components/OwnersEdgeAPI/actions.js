@@ -130,22 +130,28 @@ async function getRating(req, res) {
 					submission.broker = broker;
 					submission.submittedBy = user;
 
+          console.log(submission);
+
 					createNewSubmission(submission)
 						.then(newSub => {
-							console.log(newSub);
 							//default is oi because both submissions have that.
+
 							if (newSub.instantQuote) {
-								console.log('instantly Quoted')
+
+								console.log('instantly Quoted');
 								if (newSub.broker.type ==='Retail A') {
-										sendSubmissionEmailClient(newSub);
-									}
+									sendSubmissionEmailClient(newSub);
+								}
+
 								sendSubmissionEmailArgo(newSub);
+
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
 									authToken: newAuthToken
 								});
 							} else {
+
 								console.log('being reviewed')
 								sendNonQuoteEmailArgo(newSub)
 								sendNonQuoteEmailBroker(newSub)
@@ -154,6 +160,7 @@ async function getRating(req, res) {
 									submission: newSub,
 									authToken: newAuthToken
 								});
+
 							}
 						});
 				}
