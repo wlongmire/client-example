@@ -65,14 +65,10 @@ export function handleConfirmation(values) {
 				value: true
 			});
 
-			// dispatch(push({
-			// 	pathname: '/confirmation',
-			// 	state: {
-			// 		type: 'CONFIRMATION',
-			// 		payload: values
-			// 	}
-			// })
-		// );
+			dispatch({
+				type:'SAVE_VALUES',
+				values
+			});
 
 		//with clearance
 
@@ -126,9 +122,6 @@ export function handleConfirmation(values) {
 export function handleSubmit(values) {
 	const body = (values.type === 'ocp')? formatRequestBodyOCP(values): formatRequestBody(values);
 	return (dispatch) => {
-
-		console.log(values);
-		console.log(body);
 
 		let token = localStorage.getItem('token');
 		document.querySelector('.getQuote').textContent = 'Processing quote...';

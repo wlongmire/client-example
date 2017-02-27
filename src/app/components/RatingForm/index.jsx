@@ -5,6 +5,8 @@ import ReactTooltip from 'react-tooltip';
 
 import DialogBox from 'components/shared/DialogBox';
 
+import { handleSubmit } from './decorators/reduxForm/handleSubmit';
+
 import {
   Button,
   ButtonGroup
@@ -31,8 +33,6 @@ import decorator from './decorators';
 const OIConfirmation = React.createClass({
   render() {
     const { submission } = this.props;
-
-    console.log(submission);
 
     return (
       <div className="confirmation__container">
@@ -143,9 +143,13 @@ const RatingForm = React.createClass({
   },
 
   handleSubmitQuote() {
-    this.props.dispatch({
-      type: 'SET_CONFIRMATION_DIALOG_OI',
-      value: false
+    this.props.dispatch(handleSubmit(this.props.values)).then(()=>{
+
+      this.props.dispatch({
+        type: 'SET_CONFIRMATION_DIALOG_OI',
+        value: false
+      });
+
     });
   },
 
@@ -296,6 +300,7 @@ export default decorator(
 
     return ({
       showConfirmationDialog: state.interface.oi.showConfirmationDialog,
+      values: state.interface.values,
       errors: state.error.ratingOI || {}
     });
 
