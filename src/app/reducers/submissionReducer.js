@@ -1,5 +1,5 @@
 import {
-    reducer as formReducer
+  reducer as formReducer
 }
 from 'redux-form';
 

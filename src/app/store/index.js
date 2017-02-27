@@ -12,7 +12,9 @@ from 'redux';
 
 import userReducer from '../reducers/userReducer';
 import errorReducer from '../reducers/errorReducer';
+import interfaceReducer from '../reducers/interfaceReducer';
 import submissionsReducer from '../components/Home/reducer';
+
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import submissionFormReducer from '../reducers/submissionReducer';
 
@@ -28,6 +30,7 @@ const appReducers = combineReducers({
   form: submissionFormReducer,
   routing: routerReducer,
   error: errorReducer,
+  interface: interfaceReducer,
   submissions: submissionsReducer
 });
 

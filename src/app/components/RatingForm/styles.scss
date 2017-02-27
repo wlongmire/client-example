@@ -47,10 +47,10 @@
     }
   }
 
-.question-mark{
-  margin-left: 2px;
-  cursor: pointer;
-}
+  .question-mark{
+    margin-left: 2px;
+    cursor: pointer;
+  }
 
   .double{
     line-height: 30px;
@@ -62,5 +62,47 @@
 
   .area-label{
     display: inline-block;
+  }
+}
+
+.confirmationDialog {
+  .modal-header {
+    padding: 1em 3em;
+
+    .modal-title {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+  }
+
+  .modal-content {
+    border-radius: 0px;
+    background-color: rgba(8, 65, 92, 0.98);
+
+    .item {
+      padding: 0.3em 0px;
+
+      .left {
+        font-weight: normal;
+        font-size: 0.7em;
+        padding: 0px;
+        float:none;
+        text-decoration: underline;
+      }
+
+      .text {
+        display: inline-block;
+        color: white;
+        padding: 0px;
+        font-size: 1em;
+      }
+
+    }
+
+    .submitButtons {
+      padding: 0.5em 2em;
+    }
+
   }
 }

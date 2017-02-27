@@ -21,7 +21,7 @@ let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values) {
 	return (dispatch) => {
-		const errors = {}; //validate(values);
+		const errors = {};//validate(values);
 
 		const async_errors =
 		  _.some(
@@ -37,6 +37,7 @@ export function handleConfirmation(values) {
 		    }
 		  });
 			scrollTo(0, 0, { duration: 500 });
+
 		} else {
 
 			//check for clearance
@@ -58,14 +59,20 @@ export function handleConfirmation(values) {
 		    }
 		  });
 
-			dispatch(push({
-				pathname: '/confirmation',
-				state: {
-					type: 'CONFIRMATION',
-					payload: values
-				}
-			})
-		);
+
+			dispatch({
+				type: 'SET_CONFIRMATION_DIALOG_OI',
+				value: true
+			});
+
+			// dispatch(push({
+			// 	pathname: '/confirmation',
+			// 	state: {
+			// 		type: 'CONFIRMATION',
+			// 		payload: values
+			// 	}
+			// })
+		// );
 
 		//with clearance
 
