@@ -101,7 +101,7 @@ function RatingResults(props) {
   </div>
     )}/>
 
-  < ToggleDisplay
+  <ToggleDisplay
     show = {!submission.instantQuote}
     render = {() => (
       <div>
