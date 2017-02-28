@@ -17,8 +17,6 @@ function GeneralContractorFieldSet(props) {
 
   return (
     <fieldset className="sub-questions">
-      <span className="area-label-sub">Yes? Great! Lets get some more information</span>
-
       <PureInput
         type="text"
         field={name}

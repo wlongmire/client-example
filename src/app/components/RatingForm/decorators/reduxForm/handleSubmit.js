@@ -21,7 +21,7 @@ let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values) {
 	return (dispatch) => {
-		const errors = validate(values);
+		const errors = {};//validate(values);
 
 		const async_errors =
 		  _.some(
@@ -30,15 +30,14 @@ export function handleConfirmation(values) {
 		  );
 
 		if (async_errors) {
-
 		  dispatch({
 		    type: 'SET_FORM_ERROR',
 		    payload: {
 		      ratingOI:errors
 		    }
 		  });
-
 			scrollTo(0, 0, { duration: 500 });
+
 		} else {
 
 			//check for clearance
@@ -53,41 +52,68 @@ export function handleConfirmation(values) {
 			const matchString =
 				(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
 
-			getSubmissions(user._brokerId).then((resp)=>{
-				const submissions = _.sortBy(
-					Object.assign([],resp.submissions)
-						.filter((s)=>s.type===values.type)
-						.map((s)=>({ ...s, _matchIndex:jaro(matchString(s), matchString(values))}))
-					,"_matchIndex")
-					.reverse();
+			dispatch({
+		    type: 'SET_FORM_ERROR',
+		    payload: {
+		      ratingOI:{}
+		    }
+		  });
 
-				if (submissions[0]._matchIndex > 0.9) {
 
-					errors.primaryNamedCredentials.name = "This submission match one already processed."
-					alert(`This submission matches an entry already submitted.\nPrimary Insured Name: ${submissions[0].primaryNamedInsured}\nPrimary Address: ${getAddress(submissions[0])}`)
-
-					dispatch({
-				    type: 'SET_FORM_ERROR',
-				    payload: {
-				      ratingOI:errors
-				    }
-				  });
-					scrollTo(0, 0, { duration: 500 });
-					
-				} else {
-
-					dispatch(push({
-						pathname: '/confirmation',
-						state: {
-							type: 'CONFIRMATION',
-							payload: values
-						}
-					}));
-
-				}
-
+			dispatch({
+				type: 'SET_CONFIRMATION_DIALOG_OI',
+				value: true
 			});
 
+			dispatch({
+				type:'SAVE_VALUES',
+				values
+			});
+
+		//with clearance
+
+		// 	getSubmissions(user._brokerId).then((resp)=>{
+		// 		const submissions = _.sortBy(
+		// 			Object.assign([],resp.submissions)
+		// 				.filter((s)=>s.type===values.type)
+		// 				.map((s)=>({ ...s, _matchIndex:jaro(matchString(s), matchString(values))}))
+		// 			,"_matchIndex")
+		// 			.reverse();
+		//
+		// 		if (submissions.length > 0 && submissions[0]._matchIndex > 0.99) {
+		//
+		// 			errors.primaryNamedCredentials.name = "This submission match one already processed."
+		// 			alert(`This submission matches an entry already submitted.\nPrimary Insured Name: ${submissions[0].primaryNamedInsured}\nPrimary Address: ${getAddress(submissions[0])}`)
+		//
+		// 			dispatch({
+		// 		    type: 'SET_FORM_ERROR',
+		// 		    payload: {
+		// 		      ratingOI:errors
+		// 		    }
+		// 		  });
+		// 			scrollTo(0, 0, { duration: 500 });
+		//
+		// 		} else {
+		//
+		// 			dispatch({
+		// 		    type: 'SET_FORM_ERROR',
+		// 		    payload: {
+		// 		      ratingOI:{}
+		// 		    }
+		// 		  });
+		//
+		// 			dispatch(push({
+		// 				pathname: '/confirmation',
+		// 				state: {
+		// 					type: 'CONFIRMATION',
+		// 					payload: values
+		// 				}
+		// 			}));
+		//
+		// 		}
+		//
+		// 	});
+		//
 		}
 
 	}
@@ -120,6 +146,7 @@ export function handleSubmit(values) {
 				if (authToken) {
 					localStorage.setItem('token', authToken);
 				}
+
 				return dispatch(push({
 					pathname: '/quote',
 					state: {

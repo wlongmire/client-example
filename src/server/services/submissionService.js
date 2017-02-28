@@ -55,7 +55,6 @@ async function getSubmissionByToken(token) {
 function generateHTML(body, pdfData) {
   let handleTemplate = handlebars.compile(body);
   let html = handleTemplate(Object.assign({}, pdfData));
-  console.log('finished generating html');
   return html;
 }
 
@@ -72,7 +71,6 @@ function generateOwnersEdgeQuotationPDF(token) {
           }, function (err, response, body) {
             let html = generateHTML(body, pdfData);
             pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
-              console.log('successfully generated PDF');
               return resolve(buffer);
             });
           });
@@ -155,6 +153,7 @@ function generateColonyOwnersInterestQuestionnairePDF(token) {
 }
 
 function generateExcessPDF(token) {
+  console.log('*****Starting Excess Generation****')
   return new Promise((resolve, reject) => {
     try {
       generateExcessPDFData({
@@ -181,6 +180,7 @@ function generateExcessPDF(token) {
 }
 
 async function generateExcessPDFData(submissionIdentifier) {
+  console.log('****** gathering data for excess PDF *******')
   try {
     let submission;
     if (submissionIdentifier.token) {
@@ -188,15 +188,13 @@ async function generateExcessPDFData(submissionIdentifier) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    let terrorExcess = Math.round(0.05 * submission.ocp.excessPremium);
-    let totalExcess = submission.ocp.excessPremium + terrorExcess
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
-      excessLimits: `$ ${utilities.commifyNumber(submission.excessDetails.limits)}`,
-      baseExcess: `$ ${utilities.commifyNumber(submission.excessPremium)}`,
-      terrorExcess: `$ ${utilities.commifyNumber(terrorExcess)}`,
-      totalExcess: `$ ${utilities.commifyNumber(totalExcess)}`,
+      excessLimits: `$ ${utilities.commifyNumber(submission.oiPremium.excessDetails.limits)}`,
+      baseExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessQuotedPremium)}`,
+      terrorExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTerror)}`,
+      totalExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTotalPremium)}`,
       brokerName: submission.broker.name
     }
 

@@ -30,9 +30,9 @@ function RatingResults(props) {
                   <div className="premium-details">
                     <div className="premium-number">
                       Total Premium
-            <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium + submission.ocpPremium.terrorPremium)}`}</span>
-                    </div>
-                    <div className="premium-number">
+                    <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium + submission.ocpPremium.terrorPremium)}`}</span>
+                  </div>
+                  <div className="premium-number">
                       Base Premium
             <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
                     </div>
@@ -94,14 +94,6 @@ function RatingResults(props) {
 
           <ul>
             <li>Jessica Buelow – Supervisor – New York - 212-607-8829</li>
-
-            <li>Donna Dolan – Team Lead – Richmond, VA - 804-560-2099</li>
-
-            <li>Chris Townsend – Underwriter – New York – 212-607-8845</li>
-
-            <li>Santo Pezzotti – Underwriting Trainee – Scottsdale, AZ – 480-889-5647</li>
-
-            <li>Andreanne Frederick – Sr. Underwriting Assistant – New York – 212-607-8806 </li>
           </ul>
       <div className="legalText">
         The "pricing indication" is issued as a matter of information only  and does not confer any rights upon the insured or constitute a contract between <br /> Colony Specialty and the authorized representative or producer of the insured or the insured.
@@ -109,7 +101,7 @@ function RatingResults(props) {
   </div>
     )}/>
 
-  < ToggleDisplay
+  <ToggleDisplay
     show = {!submission.instantQuote}
     render = {() => (
       <div>

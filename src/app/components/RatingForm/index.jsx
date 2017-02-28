@@ -3,6 +3,16 @@ import { connect } from 'react-redux';
 
 import ReactTooltip from 'react-tooltip';
 
+import DialogBox from 'components/shared/DialogBox';
+import OIConfirmationModal from './ConfirmationModal';
+
+import { handleSubmit } from './decorators/reduxForm/handleSubmit';
+
+import {
+  Button,
+  ButtonGroup
+} from 'react-bootstrap';
+
 import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
 import SecondaryNamedInsuredFieldSet from   './SecondaryNamedInsuredFieldSet';
 import AdditionalInsuredFieldSet from       './AdditionalInsuredFieldSet';
@@ -21,127 +31,188 @@ import HasWorkStartedFieldSet from          './HasWorkStartedFieldSet';
 
 import decorator from './decorators';
 
-function RatingForm(props) {
-  const {
-    fields: {
-      primaryNamedInsured,
-      namedInsuredAddress,
-      hasOtherNamedInsured,
-      otherNamedInsured,
-      greaterThanTwoNamed,
-      hasAdditionalInsured,
-      greaterThanTwoAdditional,
-      additionalInsured,
-      address,
-      scope,
-      term,
-      costs,
-      towerCraneUse,
-      generalContractor,
-      occupancyDetails,
-      demoDetails,
-      workDetails,
-      excessDetails,
-      contactInfo,
-      generalComments,
-      type
-    },
-    errors,
-    handleSubmit
-  } = props;
+const RatingForm = React.createClass({
+  getInitialState() {
+    return({
+      showConfirmationDialog:false
+    });
+  },
 
-  return (
-    <form className="RatingForm__container" onSubmit={handleSubmit}>
-      <h3><b><u>Owner's Interest Form</u></b></h3>
-      <NamedInsuredCredentialsFieldSet
-        primaryNamedInsured={primaryNamedInsured}
-        namedInsuredAddress={namedInsuredAddress}
-        errors={errors.primaryNamedCredentials}
-        />
+  componentWillUnmount() {
+    this.props.dispatch({
+      type: 'SET_FORM_ERROR',
+      payload: {
+        ratingOI:{}
+      }
+    });
+  },
 
-      <SecondaryNamedInsuredFieldSet
-        otherNamedInsured={otherNamedInsured}
-        hasOtherNamedInsured={hasOtherNamedInsured}
-        greaterThanTwoNamed={greaterThanTwoNamed}
-        errors={errors.secondaryNamedInsured}
-        />
+  handleCancelDialog() {
+    this.props.dispatch({
+      type: 'SET_CONFIRMATION_DIALOG_OI',
+      value: false
+    });
+  },
 
-      <AdditionalInsuredFieldSet
-        hasAdditionalInsured={hasAdditionalInsured}
-        additionalInsured={additionalInsured}
-        errors={errors.additionalInsured}
-      />
+  handleSubmitQuote() {
+    this.props.dispatch(handleSubmit(this.props.values)).then(()=>{
 
-      <ProjectAddressFieldSet
-        address={address}
-        errors={errors.projectAddress}
-      />
+      this.props.dispatch({
+        type: 'SET_CONFIRMATION_DIALOG_OI',
+        value: false
+      });
 
-      <ProjectScopeFieldSet
-        scope={scope}
-        errors={errors.projectScope}
-      />
+    });
+  },
 
-      <ProjectTermFieldSet
-        term={term}
-        errors={errors.projectTerm}
-      />
+  render() {
+    const {
+      fields: {
+        primaryNamedInsured,
+        namedInsuredAddress,
+        hasOtherNamedInsured,
+        otherNamedInsured,
+        greaterThanTwoNamed,
+        hasAdditionalInsured,
+        greaterThanTwoAdditional,
+        additionalInsured,
+        address,
+        scope,
+        term,
+        costs,
+        towerCraneUse,
+        generalContractor,
+        occupancyDetails,
+        demoDetails,
+        workDetails,
+        excessDetails,
+        contactInfo,
+        generalComments,
+        type
+      },
+      errors,
+      handleSubmit
+    } = this.props;
 
-      <ProjectValueFieldSet
-        costs={costs}
-        errors={errors.projectValue}
-      />
+    const submission = Object.assign({}, this.props.fields);
+    delete submission["_meta"];
 
-      <TowerCraneFieldSet
-        towerCraneUse={towerCraneUse}
-        errors={errors.towerCrane}
-      />
+    return (
+      <div>
+        <form className="RatingForm__container" onSubmit={handleSubmit}>
 
-      <KnownContractorFieldSet
-        generalContractor={generalContractor}
-        errors={errors.knownContractor}
-      />
+          <NamedInsuredCredentialsFieldSet
+            primaryNamedInsured={primaryNamedInsured}
+            namedInsuredAddress={namedInsuredAddress}
+            errors={errors.primaryNamedCredentials}
+            />
 
-      <OccupancyFieldSet
-        occupancyDetails={occupancyDetails}
-        errors={errors.occupancy}
-      />
+          <SecondaryNamedInsuredFieldSet
+            otherNamedInsured={otherNamedInsured}
+            hasOtherNamedInsured={hasOtherNamedInsured}
+            greaterThanTwoNamed={greaterThanTwoNamed}
+            errors={errors.secondaryNamedInsured}
+            />
 
-      <DemoFieldSet
-        demoDetails={demoDetails}
-        errors={errors.demo}
-      />
+          <AdditionalInsuredFieldSet
+            hasAdditionalInsured={hasAdditionalInsured}
+            additionalInsured={additionalInsured}
+            errors={errors.additionalInsured}
+          />
 
-      <HasWorkStartedFieldSet
-        workDetails={workDetails}
-        errors={errors.hadWorkStarted}
-      />
+          <ProjectAddressFieldSet
+            address={address}
+            errors={errors.projectAddress}
+          />
 
-      <ExcessFieldSet
-        excessDetails={excessDetails}
-        errors={errors.excess}
-      />
+          <ProjectScopeFieldSet
+            scope={scope}
+            errors={errors.projectScope}
+          />
 
-      <GeneralCommentsFieldSet
-        generalComments={generalComments}
-        errors={errors.generalComments}
-      />
+          <ProjectTermFieldSet
+            term={term}
+            errors={errors.projectTerm}
+          />
 
-      <ContactInfoFieldSet
-        contactInfo={contactInfo}
-        errors={errors.contactInfo}
-      />
+          <ProjectValueFieldSet
+            costs={costs}
+            errors={errors.projectValue}
+          />
 
-      <button className="button getQuote" type="submit">Get Quote</button>
-      <ReactTooltip className="tooltip"/>
-    </form>
-  );
-}
+          <TowerCraneFieldSet
+            towerCraneUse={towerCraneUse}
+            errors={errors.towerCrane}
+          />
+
+          <KnownContractorFieldSet
+            generalContractor={generalContractor}
+            errors={errors.knownContractor}
+          />
+
+          <OccupancyFieldSet
+            occupancyDetails={occupancyDetails}
+            errors={errors.occupancy}
+          />
+
+          <DemoFieldSet
+            demoDetails={demoDetails}
+            errors={errors.demo}
+          />
+
+          <HasWorkStartedFieldSet
+            workDetails={workDetails}
+            errors={errors.hadWorkStarted}
+          />
+
+          <ExcessFieldSet
+            excessDetails={excessDetails}
+            errors={errors.excess}
+          />
+
+          <GeneralCommentsFieldSet
+            generalComments={generalComments}
+            errors={errors.generalComments}
+          />
+
+          <ContactInfoFieldSet
+            contactInfo={contactInfo}
+            errors={errors.contactInfo}
+          />
+
+        <Button bsStyle="primary" className="getQuote" type="submit">Process Submission</Button>
+        <ReactTooltip className="tooltip"/>
+
+        <DialogBox
+          custom_class="confirmationDialog"
+          title="Is your data correct?"
+          subtitle="Double check your values and push Get Quote to confirm"
+          show={this.props.showConfirmationDialog}
+          >
+          <div>
+            <OIConfirmationModal submission={submission} />
+
+            <ButtonGroup className="submitButtons">
+              <Button bsStyle="primary" onClick={this.handleSubmitQuote}>Get Quote</Button>
+              <Button onClick={this.handleCancelDialog}>Cancel</Button>
+            </ButtonGroup>
+          </div>
+
+        </DialogBox>
+
+      </form>
+
+      </div>
+    );
+  }
+});
 
 export default decorator(
   connect((state) => {
 
     return ({
+      showConfirmationDialog: state.interface.oi.showConfirmationDialog,
+      values: state.interface.values,
       errors: state.error.ratingOI || {}
     });
 

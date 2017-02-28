@@ -56,7 +56,7 @@ export function handleConfirmation(values){
 					,"_matchIndex")
 					.reverse();
 
-				if (submissions[0]._matchIndex > 0.9) {
+				if (submissions.length > 0 && submissions[0]._matchIndex > 0.99) {
 
 					errors.primaryNamedCredentials.name = "This submission match one already processed."
 					alert(`This submission matches an entry already submitted.\nPrimary Insured Name: ${submissions[0].primaryNamedInsured}}`)

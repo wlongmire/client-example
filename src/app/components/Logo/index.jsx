@@ -48,8 +48,8 @@ class Logo extends Component{
                   <IndexLinkContainer to="/home">
                     <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
                   </IndexLinkContainer>}
-                {this.props.user && 
-                  <LinkContainer to="/choicepage">
+                {this.props.user &&
+                  <LinkContainer to="/form">
                     <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
                   </LinkContainer>}
                 {!this.props.user &&

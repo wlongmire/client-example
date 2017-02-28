@@ -17,10 +17,8 @@ function DemoDetailsFieldSet(props) {
 
   return (
     <fieldset className="sub-questions">
-      <span className="area-label-sub">Ok, we're going to need some specifics on that</span>
-
+      <span className="area-label-sub">Is the GC hiring a demo subcontractor?</span>
       <PureRadioSet
-        label={{text:"Is the GC hiring a demo subcontractor?<",type:"title"}}
         field={subcontractor}
         options={options}
         validation_status='default'

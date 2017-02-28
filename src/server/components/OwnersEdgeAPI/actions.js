@@ -12,7 +12,7 @@ const argoEmail = config.argoEmail;
 const ratingsUrl = config.ratingsUrl;
 
 async function getSubmissions(req, res) {
-     	try {
+  try {
 
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
@@ -51,12 +51,41 @@ async function getSubmissions(req, res) {
 	}
 }
 
+async function getBroker(req, res) {
+  try {
+
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+
+    Broker.findById(req.params.id).exec()
+      .then(broker => {
+        return res.status(200).json({
+          success: true,
+          broker
+        });
+      })
+		  .catch(error => {
+        return res.status(403).json({
+          type: 'TokenExpired',
+          message: 're-login to get new token',
+			});
+		});
+
+	} catch (err) {
+		return res.status(500)
+	}
+}
+
 async function getSingleSubmission(req, res) {
 	const id = req.params.id || '';
 }
 
 async function getRating(req, res) {
+<<<<<<< HEAD
 	console.log("TEST123 backend req", req);
+=======
+>>>>>>> 7a982ec0195066610161c8ed75df9b262c1ca6a1
 	try {
 
 		if (!req.headers['x-token']) {
@@ -71,7 +100,7 @@ async function getRating(req, res) {
 					message: "Access forbidden. Invalid user token."
 				});
 			}
-			console.log('getting User Information')
+
 			const user = result.user;
 			const newAuthToken = result.authToken;
 
@@ -82,8 +111,11 @@ async function getRating(req, res) {
 			paramsObject.broker = broker;
 
 			const params = JSON.stringify(paramsObject);
+<<<<<<< HEAD
 			console.log("TEST123 params", params);
 			console.log('TEST123 appId', appId);
+=======
+>>>>>>> 7a982ec0195066610161c8ed75df9b262c1ca6a1
 
 			request({
 				method: 'POST',
@@ -101,7 +133,6 @@ async function getRating(req, res) {
 					});
 				} else {
 					const result = JSON.parse(body);
-					console.log(result)
 					let submission = createSubmissionObject(req.body, result);
 
 					submission.broker = broker;
@@ -109,20 +140,22 @@ async function getRating(req, res) {
 
 					createNewSubmission(submission)
 						.then(newSub => {
-							console.log(newSub);
-							//default is oi because both submissions have that.
 							if (newSub.instantQuote) {
-								console.log('instantly Quoted')
+
+								console.log('instantly Quoted');
 								if (newSub.broker.type ==='Retail A') {
-										sendSubmissionEmailClient(newSub);
-									}
+									sendSubmissionEmailClient(newSub);
+								}
+
 								sendSubmissionEmailArgo(newSub);
+
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
 									authToken: newAuthToken
 								});
 							} else {
+
 								console.log('being reviewed')
 								sendNonQuoteEmailArgo(newSub)
 								sendNonQuoteEmailBroker(newSub)
@@ -131,20 +164,23 @@ async function getRating(req, res) {
 									submission: newSub,
 									authToken: newAuthToken
 								});
+
 							}
 						});
 				}
 			});
+
 		});
-	});
-} catch (err) {
-		console.log(err.message)
+
+	 });
+  } catch (err) {
 		return res.status(500)
 	}
 }
 
 function sendSubmissionEmailArgo(submission) {
-	let pdfArray = []
+	let pdfArray = [];
+
 	generateBindOrderPDF(submission.pdfToken)
 	.then(bindpdf => {
 		pdfArray.push({
@@ -164,7 +200,7 @@ function sendSubmissionEmailArgo(submission) {
 									title: 'Owners EDGE Quotation - General Liability.pdf',
 									content: glpdf
 								})
-								if (submission.excessPremium > 0) {
+								if (submission.oiPremium.excessQuotedPremium > 0) {
 									console.log('---generating Excess PDF---')
 									generateExcessPDF(submission.pdfToken)
 										.then(excessPdf => {
@@ -179,13 +215,14 @@ function sendSubmissionEmailArgo(submission) {
 							});
 					});
 			}else{
+
 				generateOwnersEdgeQuotationPDF(submission.pdfToken)
 					.then(glpdf => {
 						pdfArray.push({
 							title: 'Owners EDGE Quotation - General Liability.pdf',
 							content: glpdf
 						})
-						if (submission.excessPremium > 0) {
+						if (submission.oiPremium.excessQuotedPremium > 0) {
 							console.log('---generating Excess PDF---')
 							generateExcessPDF(submission.pdfToken)
 								.then(excessPdf => {
@@ -224,7 +261,7 @@ function sendSubmissionEmailClient(submission) {
 									title: 'Owners EDGE Quotation - General Liability.pdf',
 									content: glpdf
 								})
-								if (submission.excessPremium > 0) {
+								if (submission.oiPremium.excessQuotedPremium > 0) {
 									console.log('---generating Excess PDF---')
 									generateExcessPDF(submission.pdfToken)
 										.then(excessPdf => {
@@ -246,7 +283,7 @@ function sendSubmissionEmailClient(submission) {
 							title: 'Owners EDGE Quotation - General Liability.pdf',
 							content: glpdf
 						})
-						if (submission.excessPremium > 0) {
+						if (submission.oiPremium.excessQuotedPremium > 0) {
 							console.log('---generating Excess PDF---')
 							generateExcessPDF(submission.pdfToken)
 								.then(excessPdf => {
@@ -268,6 +305,7 @@ function sendSubmissionEmailClient(submission) {
 
 function sendNonQuoteEmailArgo(submission) {
 	let pdfArray = [];
+
 	if(submission.type === 'ocp') {
 		generateOwnersContractorsProtectivePDF(submission.pdfToken)
 				.then(glpdf => {
@@ -284,7 +322,7 @@ function sendNonQuoteEmailArgo(submission) {
 					title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
 					content: glpdf
 				});
-				if (submission.excessPremium > 0) {
+				if (submission.oiPremium.excessQuotedPremium > 0) {
 					generateExcessPDF(submission.pdfToken)
 						.then(excessPdf => {
 							pdfArray.push({
@@ -350,15 +388,17 @@ async function generateExcessPDF(token) {
 	return pdf;
 }
 
-function calcPremium(premium){
+function calcPremium(premium, addAdditional = true){
   let additionalCoverage;
+
   const terrorismPremium = Math.round(0.05 * premium);
+
   if (premium < 25000) {
     additionalCoverage = 125;
   } else {
     additionalCoverage = 250;
   }
-  const totalPremium = terrorismPremium + premium + additionalCoverage;
+  const totalPremium = terrorismPremium + premium + ((addAdditional)?additionalCoverage:0);
   const inspectionCost = 325;
   const totalCost = totalPremium + inspectionCost;
 
@@ -385,7 +425,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			totalCost: calcPremium(quoteInfo.oi.premium).totalCost,
 			excessQuotedPremium: quoteInfo.oi.excessPremium,
 			excessTerror: calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
-			excessTotalPremium: calcPremium(quoteInfo.oi.excessPremium).totalPremium,
+			excessTotalPremium: calcPremium(quoteInfo.oi.excessPremium, false).totalPremium,
 			excessDetails: subInfo.excessDetails
 		}
 	}
@@ -404,12 +444,15 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	}
 
 
-	  const limits = [{12:'$1,000,000/2,000,000'},
-					{22:'$2,000,000/2,000,000'},
-					{24:'$2,000,000/4,000,000'},
-					{33:'$3,000,000/3,000,000'},
-					{44:'$4,000,000/4,000,000'},
-					{55:'$5,000,000/5,000,000'} ];
+	  const limits = [
+      {12:'$1,000,000/2,000,000'},
+			{22:'$2,000,000/2,000,000'},
+			{24:'$2,000,000/4,000,000'},
+			{33:'$3,000,000/3,000,000'},
+			{44:'$4,000,000/4,000,000'},
+			{55:'$5,000,000/5,000,000'}
+    ];
+
     let limitsRequested;
 
     if(subInfo.limitsRequested){
@@ -449,6 +492,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		oiPremium: oiPremium,
 		instantQuote: quoteInfo.instantQuote,
 		supervisingSubs: subInfo.supervisingSubs,
+    excessDetails: subInfo.excessDetails,
 		demoRequired: subInfo.demoRequired,
 		occupancy: subInfo.occupancy
 	}
@@ -464,5 +508,6 @@ function createSubmissionObject(subInfo, quoteInfo) {
 export default {
 	getRating,
 	getSubmissions,
-	getSingleSubmission
+	getSingleSubmission,
+  getBroker
 }
