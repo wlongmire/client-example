@@ -180,6 +180,7 @@ function generateExcessPDF(token) {
 }
 
 async function generateExcessPDFData(submissionIdentifier) {
+  console.log('****** gathering data for excess PDF *******')
   try {
     let submission;
     if (submissionIdentifier.token) {

@@ -191,7 +191,7 @@ function sendSubmissionEmailArgo(submission) {
 									title: 'Owners EDGE Quotation - General Liability.pdf',
 									content: glpdf
 								})
-								if (submission.excessPremium > 0) {
+								if (submission.oiPremium.excessQuotedPremium > 0) {
 									console.log('---generating Excess PDF---')
 									generateExcessPDF(submission.pdfToken)
 										.then(excessPdf => {
@@ -213,7 +213,7 @@ function sendSubmissionEmailArgo(submission) {
 							title: 'Owners EDGE Quotation - General Liability.pdf',
 							content: glpdf
 						})
-						if (submission.excessPremium > 0) {
+						if (submission.oiPremium.excessQuotedPremium > 0) {
 							console.log('---generating Excess PDF---')
 							generateExcessPDF(submission.pdfToken)
 								.then(excessPdf => {
@@ -252,7 +252,7 @@ function sendSubmissionEmailClient(submission) {
 									title: 'Owners EDGE Quotation - General Liability.pdf',
 									content: glpdf
 								})
-								if (submission.excessPremium > 0) {
+								if (submission.oiPremium.excessQuotedPremium > 0) {
 									console.log('---generating Excess PDF---')
 									generateExcessPDF(submission.pdfToken)
 										.then(excessPdf => {
@@ -274,7 +274,7 @@ function sendSubmissionEmailClient(submission) {
 							title: 'Owners EDGE Quotation - General Liability.pdf',
 							content: glpdf
 						})
-						if (submission.excessPremium > 0) {
+						if (submission.oiPremium.excessQuotedPremium > 0) {
 							console.log('---generating Excess PDF---')
 							generateExcessPDF(submission.pdfToken)
 								.then(excessPdf => {
@@ -313,7 +313,7 @@ function sendNonQuoteEmailArgo(submission) {
 					title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
 					content: glpdf
 				});
-				if (submission.excessPremium > 0) {
+				if (submission.oiPremium.excessQuotedPremium > 0) {
 					generateExcessPDF(submission.pdfToken)
 						.then(excessPdf => {
 							pdfArray.push({
