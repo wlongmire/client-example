@@ -56,7 +56,7 @@ async function getSingleSubmission(req, res) {
 }
 
 async function getRating(req, res) {
-	console.log("TEST123 backend req", req.body);
+	console.log("TEST123 backend req", req);
 	try {
 
 		if (!req.headers['x-token']) {
@@ -82,7 +82,8 @@ async function getRating(req, res) {
 			paramsObject.broker = broker;
 
 			const params = JSON.stringify(paramsObject);
-			console.log("TEST123 params", params)
+			console.log("TEST123 params", params);
+			console.log('TEST123 appId', appId);
 
 			request({
 				method: 'POST',
@@ -105,7 +106,7 @@ async function getRating(req, res) {
 
 					submission.broker = broker;
 					submission.submittedBy = user;
-					console.log("Test123", submission);
+
 					createNewSubmission(submission)
 						.then(newSub => {
 							console.log(newSub);
@@ -437,7 +438,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		status: 'submitted',
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-    towerCraneUse: subInfo.towerCraneUse,
+		towerCraneUse: subInfo.towerCraneUse,
 		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 		anticipatedFinishDate: subInfo.anticipatedFinishDate,
