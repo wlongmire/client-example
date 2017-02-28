@@ -82,10 +82,7 @@ async function getSingleSubmission(req, res) {
 }
 
 async function getRating(req, res) {
-<<<<<<< HEAD
-	console.log("TEST123 backend req", req);
-=======
->>>>>>> 7a982ec0195066610161c8ed75df9b262c1ca6a1
+
 	try {
 
 		if (!req.headers['x-token']) {
