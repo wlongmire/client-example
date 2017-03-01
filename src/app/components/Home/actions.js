@@ -9,9 +9,7 @@ let baseURL = config.apiserver.url;
 
 
 export function getSubmissions(brokerId) {
-
   return (dispatch) => {
-
     fetch(baseURL + '/api/getSubmissions', {
       method: 'GET',
       headers: {
@@ -31,7 +29,6 @@ export function getSubmissions(brokerId) {
 
         dispatch(push('/'));
       }
-
       dispatch({
         type: FETCH_SUBMISSIONS,
         payload: res

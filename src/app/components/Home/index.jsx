@@ -59,7 +59,6 @@ class Home extends Component{
 
   goToPage(submission){
     this.props.editSubmission(submission);
-    console.log("EDIT SUVMISSION", submission)
   }
 
   render(){
@@ -76,7 +75,7 @@ class Home extends Component{
 
     return (
       <div>
-        <h3><b><u>Submissions for: </u></b></h3>
+        <h3><b><u>Submissions</u></b></h3>
         <BootstrapTable
           data={this.state.chartData}
           condensed={true}
@@ -148,7 +147,6 @@ class Home extends Component{
 }
 
 function mapStateToProps(state){
-  console.log('current State', state);
   return {
     user: state.user,
     submissions: state.submissions
