@@ -123,6 +123,10 @@ async function getRating(req, res) {
 						message: err.message
 					});
 				} else {
+
+          console.log(res);
+          console.log(body);
+
 					const result = JSON.parse(body);
 					let submission = createSubmissionObject(req.body, result);
 
@@ -421,9 +425,11 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		}
 	}
 
-	if (quoteInfo.oi && quoteInfo.oi.excessPremium > 0) {
-		oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
-	}
+  oiPremium.excessTerror = quoteInfo.oi.excessTerrorPremium;
+
+  // if (quoteInfo.oi && quoteInfo.oi.excessPremium > 0) {
+	// 	oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
+	// }
 
 	if (quoteInfo.ocp && quoteInfo.ocp.premium > 0 ) {
 		ocpPremium = {
