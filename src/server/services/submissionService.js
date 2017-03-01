@@ -216,10 +216,12 @@ async function generatePDFData(submissionIdentifier, type) {
     }
     let premium = 0;
 
-   premium = (type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
+    premium = (type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
 
     let terrorismPremium = Math.round(0.05 * premium);
+
     let additionalCoverage;
+
     if (premium < 25000) {
       additionalCoverage = 125;
     } else {
@@ -245,8 +247,14 @@ async function generatePDFData(submissionIdentifier, type) {
 
     let gcInfo = submission.generalContractorInfo.isKnown === 'yes'
 
-    const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
-    let limitsRequested;
+    const limits = [
+      {12:'1m/2m'},
+      {22:'2m/2m'},
+      {24:'2m/4m'},
+      {33:'3m/3m'},
+      {44:'4m/4m'},
+      {55:'5m/5m'}
+    ];
 
     if(submission.limitsRequested){
         limitsRequested = filter(limits, function(o) {

@@ -408,28 +408,26 @@ function calcPremium(premium, addAdditional = true){
 function createSubmissionObject(subInfo, quoteInfo) {
 	let oiPremium = {};
 	let ocpPremium = {};
+
 	const today = new Date();
+  const inspectionCost = 325;
 
 	if (quoteInfo.oi && quoteInfo.oi.premium > 0 ) {
 
 		oiPremium = {
-			quotedPremium: quoteInfo.oi.premium,
-			terrorPremium: calcPremium(quoteInfo.oi.premium).terrorismPremium,
-			additionalCoverage: calcPremium(quoteInfo.oi.premium).additionalCoverage,
-			totalPremium: calcPremium(quoteInfo.oi.premium).totalPremium,
-			totalCost: calcPremium(quoteInfo.oi.premium).totalCost,
-			excessQuotedPremium: quoteInfo.oi.excessPremium,
-			excessTerror: calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
-			excessTotalPremium: calcPremium(quoteInfo.oi.excessPremium, false).totalPremium,
-			excessDetails: subInfo.excessDetails
+			quotedPremium:       quoteInfo.oi.premium,
+			terrorPremium:       quoteInfo.oi.oiTerrorPremium,             //calcPremium(quoteInfo.oi.premium).terrorismPremium,
+			additionalCoverage:  quoteInfo.oi.oiAdditionalCoverage,   //calcPremium(quoteInfo.oi.premium).additionalCoverage,
+			totalPremium:        quoteInfo.oi.totalOiPremium,               //calcPremium(quoteInfo.oi.premium).totalPremium,
+			totalCost:           quoteInfo.oi.totalOiPremium + inspectionCost, //calcPremium(quoteInfo.oi.premium).totalCost,
+			excessQuotedPremium: quoteInfo.oi.excessPremium,         //quoteInfo.oi.excessPremium,
+			excessTerror:        quoteInfo.oi.excessTerrorPremium,          //calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
+			excessTotalPremium:  quoteInfo.oi.excessTerrorPremium,    //calcPremium(quoteInfo.oi.excessPremium, false).totalPremium,
+			excessDetails:       subInfo.excessDetails
 		}
 	}
 
   oiPremium.excessTerror = quoteInfo.oi.excessTerrorPremium;
-
-  // if (quoteInfo.oi && quoteInfo.oi.excessPremium > 0) {
-	// 	oiPremium.excessTerror = Math.round(0.05 * quoteInfo.oi.excessPremium)
-	// }
 
 	if (quoteInfo.ocp && quoteInfo.ocp.premium > 0 ) {
 		ocpPremium = {
@@ -441,23 +439,21 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	}
 
 
-	  const limits = [
-      {12:'$1,000,000/2,000,000'},
-			{22:'$2,000,000/2,000,000'},
-			{24:'$2,000,000/4,000,000'},
-			{33:'$3,000,000/3,000,000'},
-			{44:'$4,000,000/4,000,000'},
-			{55:'$5,000,000/5,000,000'}
-    ];
+  const limits = [
+    {12:'$1,000,000/2,000,000'},
+		{22:'$2,000,000/2,000,000'},
+		{24:'$2,000,000/4,000,000'},
+		{33:'$3,000,000/3,000,000'},
+		{44:'$4,000,000/4,000,000'},
+		{55:'$5,000,000/5,000,000'}
+  ];
 
-    let limitsRequested;
-
-    if(subInfo.limitsRequested){
-        ocpPremium.limitsRequested = filter(limits, function(o) {
-        let key = Object.keys(o);
-        return key[0] === String(subInfo.limitsRequested);
-      });
-    }
+  if(subInfo.limitsRequested){
+      ocpPremium.limitsRequested = filter(limits, function(o) {
+      let key = Object.keys(o);
+      return key[0] === String(subInfo.limitsRequested);
+    });
+  }
 
 	let submission = {
 		primaryNamedInsured: subInfo.primaryNamedInsured,
