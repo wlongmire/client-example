@@ -137,23 +137,23 @@ async function getRating(req, res) {
 						.then(newSub => {
 							if (newSub.instantQuote) {
 
-								console.log('instantly Quoted');
-								if (newSub.broker.type ==='Retail A') {
-									sendSubmissionEmailClient(newSub);
-								}
-
-								sendSubmissionEmailArgo(newSub);
+								// if (newSub.broker.type ==='Retail A') {
+								// 	sendSubmissionEmailClient(newSub);
+								// }
+                //
+								// sendSubmissionEmailArgo(newSub);
 
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
 									authToken: newAuthToken
 								});
+
 							} else {
 
-								console.log('being reviewed')
-								sendNonQuoteEmailArgo(newSub)
-								sendNonQuoteEmailBroker(newSub)
+								// sendNonQuoteEmailArgo(newSub);
+								// sendNonQuoteEmailBroker(newSub);
+
 								return res.status(response.statusCode).json({
 									success: true,
 									submission: newSub,
