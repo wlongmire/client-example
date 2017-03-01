@@ -18,6 +18,12 @@ class Home extends Component{
     if(this.props.submissions.data){
       this.loadSubmissions(this.props.submissions.data.submissions);
     }
+
+    // tracking user views on the home page
+    mixpanel.track('page viewed', {
+      'page name': document.title,
+      'url': window.location.pathname
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -75,7 +81,7 @@ class Home extends Component{
 
     return (
       <div>
-        <h3><b><u>Submissions for: </u></b></h3>
+        <h3><b><u>Submissions</u></b></h3>
         <BootstrapTable
           data={this.state.chartData}
           condensed={true}

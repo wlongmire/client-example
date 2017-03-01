@@ -82,6 +82,7 @@ async function getSingleSubmission(req, res) {
 }
 
 async function getRating(req, res) {
+
 	try {
 
 		if (!req.headers['x-token']) {
@@ -474,7 +475,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		status: 'submitted',
 		generalComments: subInfo.generalComments,
 		demoDetails: subInfo.demoDetails,
-    towerCraneUse: subInfo.towerCraneUse,
+		towerCraneUse: subInfo.towerCraneUse,
 		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
 		anticipatedFinishDate: subInfo.anticipatedFinishDate,
