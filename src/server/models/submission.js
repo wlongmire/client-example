@@ -46,6 +46,7 @@ const submissionSchema = new mongoose.Schema({
   excessTerror: Number,
   ocpPremium: Object,
   oiPremium: Object,
+  supervisingSubs: String,
   overFourFloors: String,
   nycha: String,
   instantQuote: Boolean

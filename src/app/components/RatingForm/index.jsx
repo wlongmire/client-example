@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import ReactTooltip from 'react-tooltip';
-
 import DialogBox from 'components/shared/DialogBox';
 import OIConfirmationModal from './ConfirmationModal';
-
 import { handleSubmit } from './decorators/reduxForm/handleSubmit';
+import * as actions from '../Home/actions';
 
 import {
   Button,
@@ -61,6 +59,10 @@ const RatingForm = React.createClass({
         type: 'SET_CONFIRMATION_DIALOG_OI',
         value: false
       });
+
+      // update the home submissions table after submission has been created
+      this.props.getSubmissions(this.props.user['_brokerId']);
+
 
     });
   },
@@ -209,12 +211,12 @@ const RatingForm = React.createClass({
 
 export default decorator(
   connect((state) => {
-
     return ({
+      user: state.user,
       showConfirmationDialog: state.interface.oi.showConfirmationDialog,
       values: state.interface.values,
       errors: state.error.ratingOI || {}
     });
 
-  })(RatingForm)
+  }, actions)(RatingForm)
 );
