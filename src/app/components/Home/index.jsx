@@ -59,6 +59,7 @@ class Home extends Component{
 
   goToPage(submission){
     this.props.editSubmission(submission);
+    console.log("EDIT SUVMISSION", submission)
   }
 
   render(){

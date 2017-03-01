@@ -4,7 +4,7 @@ if the form have initialValues, it means an edit is taking place
 otherwise a new submission is taking place
 */
   const submission = state.submissions.selectedSubmission;
-
+  console.log('SUBMISSION TEST', submission);
   return {
     initialValues: {
       type: 'oi',
@@ -27,11 +27,11 @@ otherwise a new submission is taking place
       },
       hasAdditionalInsured: submission && submission.hasAdditionalInsured ? 'yes' : '',
       additionalInsured: {
-          name: submission && submission.additionalInsured ? submission.additionalInsured.name : '',
-          relationship: submission && submission.additionalInsured ? submission.additionalInsured.relationship : '',
-          role: submission && submission.additionalInsured ? submission.additionalInsured.role : '',
-                greaterThanTwoAdditional: submission && submission.additionalInsured ? submission.additionalInsured.greaterThanTwoAdditional : null
-        }
+        name: submission && submission.additionalInsured ? submission.additionalInsured.name : '',
+        relationship: submission && submission.additionalInsured ? submission.additionalInsured.relationship : '',
+        role: submission && submission.additionalInsured ? submission.additionalInsured.role : '',
+        greaterThanTwoAdditional: submission && submission.additionalInsured ? submission.additionalInsured.greaterThanTwoAdditional : null
+      }
       ,
       address: {
         street: submission && submission.projectAddress ? submission.projectAddress.street :  '',

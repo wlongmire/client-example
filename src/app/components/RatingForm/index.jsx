@@ -93,6 +93,7 @@ const RatingForm = React.createClass({
       errors,
       handleSubmit
     } = this.props;
+    console.log("THIS PROPS", this.props.fields);
 
     const submission = Object.assign({}, this.props.fields);
     delete submission["_meta"];
@@ -209,10 +210,11 @@ const RatingForm = React.createClass({
 
 export default decorator(
   connect((state) => {
-
+      console.log('STATE', state);
     return ({
       showConfirmationDialog: state.interface.oi.showConfirmationDialog,
       values: state.interface.values,
+      selectedSubmission: state,
       errors: state.error.ratingOI || {}
     });
 

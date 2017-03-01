@@ -108,11 +108,6 @@ async function getRating(req, res) {
 			paramsObject.broker = broker;
 
 			const params = JSON.stringify(paramsObject);
-<<<<<<< HEAD
-			console.log("TEST123 params", params);
-			console.log('TEST123 appId', appId);
-=======
->>>>>>> 7a982ec0195066610161c8ed75df9b262c1ca6a1
 
 			request({
 				method: 'POST',
