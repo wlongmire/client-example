@@ -23,7 +23,9 @@ otherwise a new submission is taking place
         city: submission && submission.otherNamedInsured ? submission.otherNamedInsured.city :  '',
         state: submission && submission.otherNamedInsured ? submission.otherNamedInsured.state :  '',
         zip: submission && submission.otherNamedInsured ? submission.otherNamedInsured.zip :  null,
-        geaterThanTwoNamed: submission && submission.otherNamedInsured ? submission.otherNamedInsured.greaterThanTwoNamed : null
+        greaterThanTwoNamed: submission && submission.otherNamedInsured ? submission.otherNamedInsured.greaterThanTwoNamed : null
+        // submission.otherNamedInsured.greaterThanTwoNamed
+        // geaterThanTwoNamed: submission && submission.otherNamedInsured ? "TEST" : null
       },
       hasAdditionalInsured: submission && submission.hasAdditionalInsured ? 'yes' : '',
       additionalInsured: {
@@ -44,11 +46,11 @@ otherwise a new submission is taking place
       costs: submission ? submission.costs : null,
       towerCraneUse: submission ? submission.towerCraneUse : '',
       generalContractor: {
-        isKnown: submission && submission.generalContractor ? submission.generalContractor.isKnown: '',
-        name: submission && submission.generalContractor ? submission.generalContractor.name: '',
-        glCarrier: submission && submission.generalContractor ? submission.generalContractor.glCarrier: '',
-        glLimits: submission && submission.generalContractor ? submission.generalContractor.null: '',
-        isSupervisingSubs: submission && submission.generalContractor ? submission.generalContractor.isSupervisingSubs: ''
+        isKnown: submission && submission.generalContractorInfo ? submission.generalContractorInfo.isKnown: '',
+        name: submission && submission.generalContractorInfo ? submission.generalContractorInfo.name: '',
+        glCarrier: submission && submission.generalContractorInfo ? submission.generalContractorInfo.glCarrier: '',
+        glLimits: submission && submission.generalContractorInfo ? submission.generalContractorInfo.null: '',
+        isSupervisingSubs: submission && submission.generalContractorInfo ? submission.generalContractorInfo.isSupervisingSubs: ''
       },
       occupancyDetails: {
         willHave: submission && submission.occupancyDetails ? submission.occupancyDetails.willHave: '',

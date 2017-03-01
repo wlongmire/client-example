@@ -210,11 +210,9 @@ const RatingForm = React.createClass({
 
 export default decorator(
   connect((state) => {
-      console.log('STATE', state);
     return ({
       showConfirmationDialog: state.interface.oi.showConfirmationDialog,
       values: state.interface.values,
-      selectedSubmission: state,
       errors: state.error.ratingOI || {}
     });
 
