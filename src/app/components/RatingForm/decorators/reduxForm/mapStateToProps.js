@@ -4,7 +4,6 @@ if the form have initialValues, it means an edit is taking place
 otherwise a new submission is taking place
 */
   const submission = state.submissions.selectedSubmission;
-  console.log('SUBMISSION TEST', submission);
   return {
     initialValues: {
       type: 'oi',
