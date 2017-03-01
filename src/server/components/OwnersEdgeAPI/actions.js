@@ -417,13 +417,13 @@ function createSubmissionObject(subInfo, quoteInfo) {
 
 		oiPremium = {
 			quotedPremium:       quoteInfo.oi.premium,
-			terrorPremium:       quoteInfo.oi.oiTerrorPremium,             //calcPremium(quoteInfo.oi.premium).terrorismPremium,
-			additionalCoverage:  quoteInfo.oi.oiAdditionalCoverage,   //calcPremium(quoteInfo.oi.premium).additionalCoverage,
-			totalPremium:        quoteInfo.oi.totalOiPremium,               //calcPremium(quoteInfo.oi.premium).totalPremium,
+			terrorPremium:       quoteInfo.oi.oiTerrorPremium,                 //calcPremium(quoteInfo.oi.premium).terrorismPremium,
+			additionalCoverage:  quoteInfo.oi.oiAdditionalCoverage,            //calcPremium(quoteInfo.oi.premium).additionalCoverage,
+			totalPremium:        quoteInfo.oi.totalOiPremium,                  //calcPremium(quoteInfo.oi.premium).totalPremium,
 			totalCost:           quoteInfo.oi.totalOiPremium + inspectionCost, //calcPremium(quoteInfo.oi.premium).totalCost,
-			excessQuotedPremium: quoteInfo.oi.excessPremium,         //quoteInfo.oi.excessPremium,
-			excessTerror:        quoteInfo.oi.excessTerrorPremium,          //calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
-			excessTotalPremium:  quoteInfo.oi.excessTerrorPremium,    //calcPremium(quoteInfo.oi.excessPremium, false).totalPremium,
+			excessQuotedPremium: quoteInfo.oi.excessPremium,                   //quoteInfo.oi.excessPremium,
+			excessTerror:        quoteInfo.oi.excessTerrorPremium,             //calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
+			excessTotalPremium:  quoteInfo.oi.totalExcessPremium,              //calcPremium(quoteInfo.oi.excessPremium, false).totalPremium,
 			excessDetails:       subInfo.excessDetails
 		}
 	}
