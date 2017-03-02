@@ -63,7 +63,7 @@ class Home extends Component{
     });
   }
 
-  goToPage(submission){
+  goToPage(submission) {
     this.props.editSubmission(submission);
   }
 

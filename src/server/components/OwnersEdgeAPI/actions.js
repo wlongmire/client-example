@@ -125,9 +125,6 @@ async function getRating(req, res) {
 					});
 				} else {
 
-          console.log(res);
-          console.log(body);
-
 					const result = JSON.parse(body);
 					let submission = createSubmissionObject(req.body, result);
 
@@ -384,28 +381,6 @@ async function generateExcessPDF(token) {
 	return pdf;
 }
 
-function calcPremium(premium, addAdditional = true){
-  let additionalCoverage;
-
-  const terrorismPremium = Math.round(0.05 * premium);
-
-  if (premium < 25000) {
-    additionalCoverage = 125;
-  } else {
-    additionalCoverage = 250;
-  }
-  const totalPremium = terrorismPremium + premium + ((addAdditional)?additionalCoverage:0);
-  const inspectionCost = 325;
-  const totalCost = totalPremium + inspectionCost;
-
-  return {
-    totalPremium,
-    totalCost,
-    additionalCoverage,
-    terrorismPremium
-  };
-}
-
 function createSubmissionObject(subInfo, quoteInfo) {
 	let oiPremium = {};
 	let ocpPremium = {};
@@ -417,28 +392,16 @@ function createSubmissionObject(subInfo, quoteInfo) {
 
 		oiPremium = {
 			quotedPremium:       quoteInfo.oi.premium,
-			terrorPremium:       quoteInfo.oi.oiTerrorPremium,                 //calcPremium(quoteInfo.oi.premium).terrorismPremium,
-			additionalCoverage:  quoteInfo.oi.oiAdditionalCoverage,            //calcPremium(quoteInfo.oi.premium).additionalCoverage,
-			totalPremium:        quoteInfo.oi.totalOiPremium,                  //calcPremium(quoteInfo.oi.premium).totalPremium,
-			totalCost:           quoteInfo.oi.totalOiPremium + inspectionCost, //calcPremium(quoteInfo.oi.premium).totalCost,
-			excessQuotedPremium: quoteInfo.oi.excessPremium,                   //quoteInfo.oi.excessPremium,
-			excessTerror:        quoteInfo.oi.excessTerrorPremium,             //calcPremium(quoteInfo.oi.excessPremium).terrorismPremium,
-			excessTotalPremium:  quoteInfo.oi.totalExcessPremium,              //calcPremium(quoteInfo.oi.excessPremium, false).totalPremium,
+			terrorPremium:       quoteInfo.oi.oiTerrorPremium,
+			additionalCoverage:  quoteInfo.oi.oiAdditionalCoverage,
+			totalPremium:        quoteInfo.oi.totalOiPremium,
+			totalCost:           quoteInfo.oi.totalOiPremium + inspectionCost,
+			excessQuotedPremium: quoteInfo.oi.excessPremium,
+			excessTerror:        quoteInfo.oi.excessTerrorPremium,
+			excessTotalPremium:  quoteInfo.oi.totalExcessPremium,
 			excessDetails:       subInfo.excessDetails
 		}
 	}
-
-  oiPremium.excessTerror = quoteInfo.oi.excessTerrorPremium;
-
-	if (quoteInfo.ocp && quoteInfo.ocp.premium > 0 ) {
-		ocpPremium = {
-			quotedPremium: quoteInfo.ocp.premium,
-			totalPremium: calcPremium(quoteInfo.ocp.premium).totalPremium,
-			totalCost: calcPremium(quoteInfo.ocp.premium).totalCost,
-			terrorPremium: calcPremium(quoteInfo.ocp.premium).terrorismPremium
-		}
-	}
-
 
   const limits = [
     {12:'$1,000,000/2,000,000'},
@@ -457,38 +420,38 @@ function createSubmissionObject(subInfo, quoteInfo) {
   }
 
 	let submission = {
-		primaryNamedInsured: subInfo.primaryNamedInsured,
-		namedInsuredAddress: subInfo.namedInsuredAddress,
-		hasOtherNamedInsured: subInfo.otherNamedInsuredBoolean,
-		otherNamedInsured: subInfo.otherNamedInsured,
-		hasAdditionalInsured: subInfo.additionalInsuredBoolean,
-		additionalInsured: subInfo.additionalInsured,
-		projectAddress: subInfo.address,
-		scope: subInfo.scope,
-		type:subInfo.type,
-		term: subInfo.term,
-		costs: subInfo.costs,
-		generalContractorInfo: subInfo.generalContractor,
-		occupancyDetails: subInfo.occupancyDetails,
-		workDetails: subInfo.workDetails,
-		contactInfo: subInfo.contactInfo,
-		status: 'submitted',
-		generalComments: subInfo.generalComments,
-		demoDetails: subInfo.demoDetails,
-		towerCraneUse: subInfo.towerCraneUse,
-		greaterThanTwoNamed: subInfo.greaterThanTwoNamedBoolean,
+    status:                   'submitted',
+		primaryNamedInsured:      subInfo.primaryNamedInsured,
+		namedInsuredAddress:      subInfo.namedInsuredAddress,
+		hasOtherNamedInsured:     subInfo.otherNamedInsuredBoolean,
+		otherNamedInsured:        subInfo.otherNamedInsured,
+		hasAdditionalInsured:     subInfo.additionalInsuredBoolean,
+		additionalInsured:        subInfo.additionalInsured,
+		projectAddress:           subInfo.address,
+		scope:                    subInfo.scope,
+		type:                     subInfo.type,
+		term:                     subInfo.term,
+		costs:                    subInfo.costs,
+		generalContractorInfo:    subInfo.generalContractor,
+		occupancyDetails:         subInfo.occupancyDetails,
+		workDetails:              subInfo.workDetails,
+		contactInfo:              subInfo.contactInfo,
+		generalComments:          subInfo.generalComments,
+		demoDetails:              subInfo.demoDetails,
+		towerCraneUse:            subInfo.towerCraneUse,
+		greaterThanTwoNamed:      subInfo.greaterThanTwoNamedBoolean,
 		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
-		anticipatedFinishDate: subInfo.anticipatedFinishDate,
-		projectDefinedAreaScope: subInfo.projectDefinedAreaScope,
+		anticipatedFinishDate:    subInfo.anticipatedFinishDate,
+		projectDefinedAreaScope:  subInfo.projectDefinedAreaScope,
 		projectDefinedAreaScopeDetails: subInfo.projectDefinedAreaScopeDetails,
-		projectRequirements: subInfo.projectRequirements,
-		limitsRequested: subInfo.limitsRequested,
-		oiPremium: oiPremium,
-		instantQuote: quoteInfo.instantQuote,
-		supervisingSubs: subInfo.supervisingSubs,
-    excessDetails: subInfo.excessDetails,
-		demoRequired: subInfo.demoRequired,
-		occupancy: subInfo.occupancy
+		projectRequirements:      subInfo.projectRequirements,
+		limitsRequested:          subInfo.limitsRequested,
+		oiPremium:                oiPremium,
+		instantQuote:             quoteInfo.instantQuote,
+		supervisingSubs:          subInfo.supervisingSubs,
+    excessDetails:            subInfo.excessDetails,
+		demoRequired:             subInfo.demoRequired,
+		occupancy:                subInfo.occupancy
 	}
 
 	if(subInfo.type === 'ocp'){
