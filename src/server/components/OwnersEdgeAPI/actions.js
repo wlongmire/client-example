@@ -401,6 +401,18 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			excessTotalPremium:  quoteInfo.oi.totalExcessPremium,
 			excessDetails:       subInfo.excessDetails
 		}
+	} else {
+		oiPremium = {
+			quotedPremium:       0,
+			terrorPremium:       0,
+			additionalCoverage:  0,
+			totalPremium:        0,
+			totalCost:           0,
+			excessQuotedPremium: 0,
+			excessTerror:        0,
+			excessTotalPremium:  0,
+			excessDetails:       subInfo.excessDetails
+		}
 	}
 
   const limits = [
