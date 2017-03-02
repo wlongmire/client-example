@@ -214,19 +214,6 @@ async function generatePDFData(submissionIdentifier, type) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    let premium = 0;
-
-    premium = (type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
-
-    let terrorismPremium = Math.round(0.05 * premium);
-
-    let additionalCoverage;
-
-    if (premium < 25000) {
-      additionalCoverage = 125;
-    } else {
-      additionalCoverage = 250
-    }
 
     let aggregateLimit;
     let halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);
@@ -240,10 +227,6 @@ async function generatePDFData(submissionIdentifier, type) {
 
     let occAggLimit = aggregateLimit + 1000000
     let genAggLimit = aggregateLimit + 2000000
-
-    let totalPremium = terrorismPremium + premium + additionalCoverage;
-    const inspectionCost = 325
-    let totalCost = totalPremium + inspectionCost
 
     let gcInfo = submission.generalContractorInfo.isKnown === 'yes'
 
