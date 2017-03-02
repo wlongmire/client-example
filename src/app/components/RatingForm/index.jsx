@@ -20,6 +20,7 @@ import ProjectTermFieldSet from             './ProjectTermFieldSet';
 import ProjectValueFieldSet from            './ProjectValueFieldSet';
 import TowerCraneFieldSet from              './TowerCraneFieldSet';
 import KnownContractorFieldSet from         './KnownContractorFieldSet';
+import SpecificFloorsFieldSet from          './SpecificFloorsFieldSet';
 import OccupancyFieldSet from               './OccupancyFieldSet';
 import DemoFieldSet from                    './DemoFieldSet';
 import ExcessFieldSet from                  './ExcessFieldSet';
@@ -89,6 +90,8 @@ const RatingForm = React.createClass({
         workDetails,
         excessDetails,
         contactInfo,
+        projectDefinedAreaScope,
+        projectDefinedAreaScopeDetails,
         generalComments,
         type
       },
@@ -165,6 +168,12 @@ const RatingForm = React.createClass({
           <HasWorkStartedFieldSet
             workDetails={workDetails}
             errors={errors.hadWorkStarted}
+          />
+
+          <SpecificFloorsFieldSet
+            projectDefinedAreaScope={projectDefinedAreaScope}
+            projectDefinedAreaScopeDetails={projectDefinedAreaScopeDetails}
+            errors={errors.specificFloors}
           />
 
           <ExcessFieldSet

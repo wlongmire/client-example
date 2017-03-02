@@ -8,6 +8,8 @@ otherwise a new submission is taking place
     initialValues: {
       type: 'oi',
       primaryNamedInsured: submission ? submission.primaryNamedInsured :  '',
+      projectDefinedAreaScope: submission && submission.projectDefinedAreaScope? submission.projectDefinedAreaScope : '',
+      projectDefinedAreaScopeDetails: submission && submission.projectDefinedAreaScopeDetails ? submission.projectDefinedAreaScopeDetails : '',
       namedInsuredAddress: {
         street: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.street :  '',
         city: submission && submission.namedInsuredAddress ? submission.namedInsuredAddress.city :  '',

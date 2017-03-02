@@ -11,6 +11,7 @@ export default function validate(values) {
 		"projectValue": {},
 		"towerCrane": {},
 		"knownContractor": {},
+		"specificFloors": {},
 		"occupancy": {},
 		"demo": {},
 		"hadWorkStarted": {},
@@ -131,6 +132,11 @@ export default function validate(values) {
 		values.excessDetails.limits === 0
 	) {
 		errors.excess.term = 'Please select the excess limits';
+	}
+
+	// Is project limited to specific floors?
+	if (values.projectDefinedAreaScope === "") {
+		errors.specificFloors.required = "Please choose if project is limited to specific floors";
 	}
 
 	//Please provide your contact info to...?

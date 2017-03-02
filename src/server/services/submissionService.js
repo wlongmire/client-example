@@ -256,6 +256,8 @@ async function generatePDFData(submissionIdentifier, type) {
       {55:'5m/5m'}
     ];
 
+    let limitsRequested;
+
     if(submission.limitsRequested){
         limitsRequested = filter(limits, function(o) {
         let key = Object.keys(o);
