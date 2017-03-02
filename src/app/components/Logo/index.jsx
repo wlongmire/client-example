@@ -26,11 +26,10 @@ class Logo extends Component{
     this.props.resetForm();
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!nextProps.user.state){
-  //     browserHistory.push('/');
-  //   }
-  // }
+  resetEdit(e) {
+    e.preventDefault();
+    localStorage.setItem('editing', false);
+  }
 
   render(){
 
@@ -48,14 +47,17 @@ class Logo extends Component{
                   <IndexLinkContainer to="/home">
                     <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
                   </IndexLinkContainer>}
+
                 {this.props.user &&
-                  <LinkContainer to="/form">
+                  <LinkContainer  onMouseUp={this.resetEdit} to="/form">
                     <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
                   </LinkContainer>}
+
                 {!this.props.user &&
-                  <LinkContainer to="/">
+                  <LinkContainer  to="/">
                     <NavItem className="nav-link" eventKey={3}>Log In</NavItem>
                   </LinkContainer>}
+
                 {this.props.user &&
                   <NavItem  onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
             </Nav>

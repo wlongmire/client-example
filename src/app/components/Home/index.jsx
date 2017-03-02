@@ -9,6 +9,9 @@ import { Button, Panel } from 'react-bootstrap';
 class Home extends Component{
   constructor(){
     super();
+
+    localStorage.setItem('editing', false);
+    
     this.state = ({
       chartData: []
     });

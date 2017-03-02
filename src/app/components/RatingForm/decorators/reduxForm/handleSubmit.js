@@ -16,107 +16,73 @@ import jaro from 'jaro-winkler';
 import config from '../../../../../config';
 import { onlyNums } from '../../../../utils/utilities';
 
-//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values) {
+	const editing = (localStorage.getItem('editing') === "true") || false;
+
 	return (dispatch) => {
-		const errors = {};//validate(values);
+		const errors = validate(values);
 
-		const async_errors =
-		  _.some(
-		    Object.keys(errors),
-		    (field)=>(!_.isEmpty(errors[field]))
-		  );
+		//check clearance
+		getClearanceMatches(values).then((matches)=>{
+			if (matches && !editing) {
 
-		if (async_errors) {
-		  dispatch({
-		    type: 'SET_FORM_ERROR',
-		    payload: {
-		      ratingOI:errors
-		    }
-		  });
-			scrollTo(0, 0, { duration: 500 });
+				errors.primaryNamedCredentials.name = "This submission match one already processed."
+				alert(`This submission matches an entry already submitted.\nPrimary Insured Name: ${matches.primaryNamedInsured}\nPrimary Address: ${getAddress(matches)}`)
 
-		} else {
+				dispatch({type: 'SET_FORM_ERROR', payload: { ratingOI:errors } });
+				scrollTo(0, 0, { duration: 500 });
 
-			//check for clearance
-			const user = JSON.parse(localStorage.getItem('viewer'));
-			const getAddress =
-				(sub)=>(
-					[	sub.namedInsuredAddress.city,
-						sub.namedInsuredAddress.state,
-						sub.namedInsuredAddress.street,
-						sub.namedInsuredAddress.zip].join(' '));
+			} else {
 
-			const matchString =
-				(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
+				const async_errors =
+		  		_.some( Object.keys(errors), (field)=>(!_.isEmpty(errors[field])) );
 
-			dispatch({
-		    type: 'SET_FORM_ERROR',
-		    payload: {
-		      ratingOI:{}
-		    }
-		  });
+				if (async_errors) {
+		  		dispatch({ type: 'SET_FORM_ERROR', payload: { ratingOI:errors } });
+					scrollTo(0, 0, { duration: 500 });
+				} else {
+					dispatch({ type: 	'SET_FORM_ERROR', payload: { ratingOI:{} } });
+					dispatch({ type: 	'SET_CONFIRMATION_DIALOG_OI', value: true });
+					dispatch({ type:	'SAVE_VALUES', values });
+				}
 
+			}
 
-			dispatch({
-				type: 'SET_CONFIRMATION_DIALOG_OI',
-				value: true
-			});
-
-			dispatch({
-				type:'SAVE_VALUES',
-				values
-			});
-
-		//with clearance
-
-		// 	getSubmissions(user._brokerId).then((resp)=>{
-		// 		const submissions = _.sortBy(
-		// 			Object.assign([],resp.submissions)
-		// 				.filter((s)=>s.type===values.type)
-		// 				.map((s)=>({ ...s, _matchIndex:jaro(matchString(s), matchString(values))}))
-		// 			,"_matchIndex")
-		// 			.reverse();
-		//
-		// 		if (submissions.length > 0 && submissions[0]._matchIndex > 0.99) {
-		//
-		// 			errors.primaryNamedCredentials.name = "This submission match one already processed."
-		// 			alert(`This submission matches an entry already submitted.\nPrimary Insured Name: ${submissions[0].primaryNamedInsured}\nPrimary Address: ${getAddress(submissions[0])}`)
-		//
-		// 			dispatch({
-		// 		    type: 'SET_FORM_ERROR',
-		// 		    payload: {
-		// 		      ratingOI:errors
-		// 		    }
-		// 		  });
-		// 			scrollTo(0, 0, { duration: 500 });
-		//
-		// 		} else {
-		//
-		// 			dispatch({
-		// 		    type: 'SET_FORM_ERROR',
-		// 		    payload: {
-		// 		      ratingOI:{}
-		// 		    }
-		// 		  });
-		//
-		// 			dispatch(push({
-		// 				pathname: '/confirmation',
-		// 				state: {
-		// 					type: 'CONFIRMATION',
-		// 					payload: values
-		// 				}
-		// 			}));
-		//
-		// 		}
-		//
-		// 	});
-		//
-		}
+		});
 
 	}
+}
+
+function getAddress(sub) {
+		return [	sub.namedInsuredAddress.city,
+			sub.namedInsuredAddress.state,
+			sub.namedInsuredAddress.street,
+			sub.namedInsuredAddress.zip].join(' ');
+}
+
+function getClearanceMatches(submission_values) {
+	//with clearance
+
+	const matchString =
+		(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
+
+	const user = JSON.parse(localStorage.getItem('viewer'));
+
+	return new Promise((resolve, reject)=>{
+
+		return getSubmissions(user._brokerId).then((resp)=>{
+
+			const matches = resp.submissions.find((s)=>{
+				return (s.type === submission_values.type && matchString(s) === matchString(submission_values))
+			});
+
+			resolve(matches);
+
+		});
+
+	});
 }
 
 export function handleSubmit(values) {
@@ -147,13 +113,13 @@ export function handleSubmit(values) {
 					localStorage.setItem('token', authToken);
 				}
 
+				localStorage.setItem('editing', false);
+
 				return dispatch(push({
 					pathname: '/quote',
-					state: {
-						submission: res.submission,
-						email: values.contactInfo.email
-					}
+					state: { submission: res.submission, email: values.contactInfo.email }
 				}));
+
 			})
 			.catch((error) => {
 				return Promise.reject({
@@ -162,6 +128,7 @@ export function handleSubmit(values) {
 			});
 	};
 }
+
 
 function formatRequestBody(values) {
 	return JSON.stringify({

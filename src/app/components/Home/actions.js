@@ -3,8 +3,6 @@ import { push } from 'react-router-redux';
 import config from '../../../config';
 import { FETCH_SUBMISSIONS, USER_LOGGED_OUT, EDIT_SUBMISSION } from '../../constants';
 
-//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
-
 let baseURL = config.apiserver.url;
 
 
@@ -29,16 +27,11 @@ export function getSubmissions(brokerId) {
 
         dispatch(push('/'));
       }
-      dispatch({
-        type: FETCH_SUBMISSIONS,
-        payload: res
-      });
 
-   // empty previous edited submission in the store
-      dispatch({
-        type: EDIT_SUBMISSION,
-        payload: {}
-      });
+      dispatch({ type: FETCH_SUBMISSIONS, payload: res });
+
+      // empty previous edited submission in the store
+      dispatch({ type: EDIT_SUBMISSION, payload: {} });
 
     })
     .catch((error) => {
@@ -54,16 +47,9 @@ export function getSubmissions(brokerId) {
 export function editSubmission(submission) {
   return (dispatch) => {
 
-    dispatch({
-      type: EDIT_SUBMISSION,
-      payload: submission
-    });
-
-    if(submission.type === 'ocp'){
-      dispatch(push('/contractorsform'));
-    }else{
-      dispatch(push('/form'));
-    }
+    dispatch({ type: EDIT_SUBMISSION,   payload: submission });
+    localStorage.setItem('editing', true);
+    dispatch(push('/form'));
 
   };
 }
@@ -71,11 +57,7 @@ export function editSubmission(submission) {
 export function resetForm() {
   return (dispatch) => {
 
-    dispatch({
-      type: EDIT_SUBMISSION,
-      payload: {}
-    });
-
+    dispatch({ type: EDIT_SUBMISSION, payload: {} });
     dispatch(push('/form'));
 
   };
@@ -97,12 +79,9 @@ export function resetContractorsForm() {
 export function logout() {
   localStorage.removeItem('token');
   localStorage.removeItem('viewer');
+  localStorage.removeItem('editing');
   return (dispatch) => {
-
-    dispatch({
-      type: USER_LOGGED_OUT
-    });
-
+    dispatch({ type: USER_LOGGED_OUT });
     dispatch(push('/'));
 
   };
