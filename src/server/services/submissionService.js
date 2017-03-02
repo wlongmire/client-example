@@ -250,12 +250,12 @@ async function generatePDFData(submissionIdentifier, type) {
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
-      quotedPremium: `$${utilities.commifyNumber(premium)}`,
-      terrorPremium: `$${utilities.commifyNumber(terrorismPremium)}`,
-      addtlPremium: `$${utilities.commifyNumber(additionalCoverage)}`,
-      totalPremium: `$${utilities.commifyNumber(totalPremium)}`,
-      totalCost: `$${utilities.commifyNumber(totalCost)}`,
-      inspectionAmount: `$${utilities.commifyNumber(inspectionCost)}`,
+      quotedPremium: `$${utilities.commifyNumber(submission.oiPremium.quotedPremium)}`,
+      terrorPremium: `$${utilities.commifyNumber(submission.oiPremium.terrorPremium)}`,
+      addtlPremium: `$${utilities.commifyNumber(submission.oiPremium.additionalCoverage)}`,
+      totalPremium: `$${utilities.commifyNumber(submission.oiPremium.totalPremium)}`,
+      totalCost: `$${utilities.commifyNumber(submission.oiPremium.totalCost)}`,
+      inspectionAmount: `$${utilities.commifyNumber(325)}`,
       insuredAddress: submission.namedInsuredAddress ? submission.namedInsuredAddress.street: '',
       insuredCity: submission.namedInsuredAddress ? submission.namedInsuredAddress.city: '',
       insuredState: submission.namedInsuredAddress ? submission.namedInsuredAddress.state : '',
