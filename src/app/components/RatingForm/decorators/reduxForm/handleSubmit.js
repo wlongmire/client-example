@@ -120,7 +120,8 @@ export function handleConfirmation(values) {
 }
 
 export function handleSubmit(values) {
-	const body = (values.type === 'ocp')? formatRequestBodyOCP(values): formatRequestBody(values);
+	const body = formatRequestBody(values);
+
 	return (dispatch) => {
 
 		let token = localStorage.getItem('token');
@@ -162,19 +163,13 @@ export function handleSubmit(values) {
 	};
 }
 
-function formatRequestBodyOCP(values) {
-	return JSON.stringify({
-		...values,
-		costs: onlyNums(values.costs),
-	});
-}
-
 function formatRequestBody(values) {
 	return JSON.stringify({
 		...values,
 		state: values.address.state,
 		term: values.term,
 		costs: onlyNums(values.costs),
+		'demoDetails.costs': onlyNums(values.demoDetails.costs),
 		'generalContractor.glLimits': onlyNums(values.generalContractor.glLimits),
 		contractorKnown: values.generalContractor.isKnown === 'yes',
 		supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',
