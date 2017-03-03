@@ -82,7 +82,7 @@ const handleSubmit = (values, dispatch) => {
 					});
 
 					return dispatch(push({
-						pathname: '/home',
+						pathname: '/submissions',
 
 						state: {
 							type: 'USER_LOGGED_IN',

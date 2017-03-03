@@ -15,7 +15,7 @@ class CredentialFieldSet extends Component {
   componentWillMount(){
     // if user is already signed in, redirect user to submissions page
     if(this.props.user){
-      browserHistory.push('/home');
+      browserHistory.push('/submissions');
     }
   }
 

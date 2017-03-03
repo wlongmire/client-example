@@ -37,19 +37,19 @@ class Logo extends Component{
         <Navbar inverse>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/home">Owner's Edge</a>
+              <a href="/submissions">Owner's Edge</a>
             </Navbar.Brand>
             <Navbar.Toggle/>
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
                 {this.props.user &&
-                  <IndexLinkContainer to="/home">
+                  <IndexLinkContainer to="/submissions">
                     <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
                   </IndexLinkContainer>}
 
                 {this.props.user &&
-                  <LinkContainer  onMouseUp={this.resetEdit} to="/form">
+                  <LinkContainer  onMouseUp={this.resetEdit} to="/oiform">
                     <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
                   </LinkContainer>}
 

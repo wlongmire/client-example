@@ -49,7 +49,7 @@ export function editSubmission(submission) {
 
     dispatch({ type: EDIT_SUBMISSION,   payload: submission });
     localStorage.setItem('editing', true);
-    dispatch(push('/form'));
+    dispatch(push('/oiform'));
 
   };
 }
@@ -58,7 +58,7 @@ export function resetForm() {
   return (dispatch) => {
 
     dispatch({ type: EDIT_SUBMISSION, payload: {} });
-    dispatch(push('/form'));
+    dispatch(push('/oiform'));
 
   };
 }
