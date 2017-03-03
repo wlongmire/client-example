@@ -25,6 +25,10 @@
     &.error {
       border: 2px #e74c3c solid;
       background:#f9d3cf !important;
+
+      label {
+        color:grey !important;
+      }
     }
   }
 

@@ -11,7 +11,7 @@ import {
 
 function AddressFieldSet(props) {
   const {
-    address: {
+    namedInsuredAddress: {
       street,
       city,
       state,
@@ -69,7 +69,7 @@ function AddressFieldSet(props) {
         validation_message={ validationMessage(errors, "zip") }
       />
 
-    </fieldset>
+  </fieldset>
   );
 }
 

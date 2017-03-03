@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 
 import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
+import NamedInsuredAddressFieldSet from     './NamedInsuredAddressFieldSet';
 import SecondaryNamedInsuredFieldSet from   './SecondaryNamedInsuredFieldSet';
 import AdditionalInsuredFieldSet from       './AdditionalInsuredFieldSet';
 import ProjectAddressFieldSet from          './ProjectAddressFieldSet';
@@ -114,6 +115,11 @@ const RatingForm = React.createClass({
             namedInsuredAddress={namedInsuredAddress}
             errors={errors.primaryNamedCredentials}
             />
+
+          <NamedInsuredAddressFieldSet
+            namedInsuredAddress={namedInsuredAddress}
+            errors={errors.primaryNamedCredentials}
+          />
 
           <SecondaryNamedInsuredFieldSet
             otherNamedInsured={otherNamedInsured}
