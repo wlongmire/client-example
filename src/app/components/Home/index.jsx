@@ -11,7 +11,7 @@ class Home extends Component{
     super();
 
     localStorage.setItem('editing', false);
-    
+
     this.state = ({
       chartData: []
     });
@@ -84,7 +84,8 @@ class Home extends Component{
 
     return (
       <div>
-        <h3><b><u>Submissions</u></b></h3>
+        <h3>Your Submissions</h3>
+        
         <BootstrapTable
           data={this.state.chartData}
           condensed={true}

@@ -102,9 +102,12 @@ const RatingForm = React.createClass({
     const submission = Object.assign({}, this.props.fields);
     delete submission["_meta"];
 
+    const title = (localStorage.getItem('editing') === "true")?"Owner's Interest Editing":"Owner's Interest Submission"
+
     return (
       <div>
         <form className="RatingForm__container" onSubmit={handleSubmit}>
+          <h3>{title}</h3>
 
           <NamedInsuredCredentialsFieldSet
             primaryNamedInsured={primaryNamedInsured}

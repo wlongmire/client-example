@@ -19,9 +19,7 @@ class CredentialFieldSet extends Component {
     }
   }
 
-  render(){
-    let title = this.props.title ? this.props.title : 'Coming Back?';
-
+  render() {
     const {
       field: {
         username,
@@ -29,39 +27,27 @@ class CredentialFieldSet extends Component {
       },
       errors
     } = this.props;
-    console.log("SIGNIN", this.props);
 
     return (
-      <fieldset>
-        <h1>{title}</h1>
+      <div>
+        <h1>Welcome</h1>
+        <h3>Please Sign In</h3>
 
-        <ul className="no-bullets">
-          <li>
-            <label>
-              <PureInput
-                type="text"
-                field={username}
-                placeholder="Username (Email)"
-                validation_status={ validationStatus(errors, "username") }
-                validation_message={ validationMessage(errors, "username") }
-              />
-            </label>
-          </li>
+        <PureInput
+          type="text"
+          field={username}
+          placeholder="Username (Email)"
+          validation_status={ validationStatus(errors, "username") }
+          validation_message={ validationMessage(errors, "username") }
+        />
 
-          <li>
-
-            <label>
-              <PurePassword
-                field={password}
-                placeholder="Password"
-                validation_status={ validationStatus(errors, "password") }
-                validation_message={ validationMessage(errors, "password") }
-                />
-            </label>
-          </li>
-
-        </ul>
-      </fieldset>
+        <PurePassword
+          field={password}
+          placeholder="Password"
+          validation_status={ validationStatus(errors, "password") }
+          validation_message={ validationMessage(errors, "password") }
+          />
+      </div>
     );
   }
 }

@@ -1,12 +1,16 @@
 .validation_component {
+  text-align: right;
 
   select {
     height:30px;
+    padding:15px;
   }
 
   .validation_input {
     margin-top:0;
     border-radius: 0;
+    font-size: 1.2em;
+    padding: 10px;
     width:100%;
 
     &.default {
@@ -22,6 +26,15 @@
       border: 2px #e74c3c solid;
       background:#f9d3cf !important;
     }
+  }
+
+  radiogroup.validation_input {
+    height: 40px;
+    padding: 10px;
+  }
+
+  select {
+    height: 40px;
   }
 
   .validation_icon{
@@ -59,8 +72,11 @@
     font-size: 0.8em;
     margin-top: 3px;
     margin-left: 5px;
-    text-align: right;
-    color:red;
+    color:#cc1414;
+
+    position: relative;
+    top: -21px;
+    left: -10px;
 
     &.hide {
       display:none;

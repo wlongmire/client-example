@@ -1,9 +1,8 @@
 .RatingForm__container {
-  margin: 25px 0;
+  width: 100%;
+  margin: 3em auto 0 !important;
+
   font-family: 'Lato';
-  * + * {
-    margin-top: 1.5em;
-  }
 
   input,
   textarea,
@@ -24,15 +23,11 @@
     }
   }
 
-  > ol {
-
-    ol {
-      list-style: lower-alpha;
-
-      ol {
-        list-style: decimal;
-      }
-    }
+  h3 {
+    font-size: 5em;
+    margin: 0px !important;
+    padding: 0 0 10px 0!important;
+    color:#32a4d8;
   }
 
   .__react_component_tooltip{
@@ -56,12 +51,16 @@
     line-height: 30px;
   }
 
-  .no-padding{
-    padding: 0;
-  }
-
   .area-label{
     display: inline-block;
+    line-height: 1em;
+    margin:0px;
+    padding:1em 0 8px 0;
+    font-size:1.3em;
+  }
+
+  .validation_component {
+    text-align: left;
   }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
+import { Button } from 'react-bootstrap';
 
 import decorator from './decorators';
 
@@ -18,10 +19,9 @@ function SignInForm(props) {
     <form className="SignInForm__container" onSubmit={handleSubmit}>
         <CredentialsFieldSet field={credentials} errors={errors.credentials}/>
 
-        <div className="formFooter">
-            <button type="submit" className="button">Sign In</button>
-            <a className="button" href="/signup">Register</a>
-        </div>
+        <Button bsStyle="primary" type="submit">Sign In</Button>
+        <Button bsStyle="primary" href="/signup">Register</Button>
+
     </form>
     );
 }

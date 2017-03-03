@@ -75,57 +75,37 @@ class AccountFieldSet extends Component {
     let state = this.state;
 
     return (
-      <fieldset>
-        <h3>Account Details</h3>
+      <div>
+        <PureInput
+          type="text"
+          field={firstName}
+          placeholder="Enter First Name"
+          validation_status={ validationStatus(errors, "firstName") }
+          validation_message={ validationMessage(errors, "firstName") }
+        />
 
-        <ul className="no-bullets">
-          <li>
+        <PureInput
+          type="text"
+          field={lastName}
+          placeholder="Enter Last Name"
+          validation_status={ validationStatus(errors, "lastName") }
+          validation_message={ validationMessage(errors, "lastName") }
+        />
 
-            <PureInput
-              label="First Name"
-              type="text"
-              field={firstName}
-              placeholder="Enter First Name"
-              validation_status={ validationStatus(errors, "firstName") }
-              validation_message={ validationMessage(errors, "firstName") }
-            />
+        <PureOptionSelect
+          field={broker}
+          validation_status={ validationStatus(errors, "broker") }
+          validation_message={ validationMessage(errors, "broker") }
+          >
 
-          </li>
-
-          <li>
-
-            <PureInput
-              label="Last Name"
-              type="text"
-              field={lastName}
-              placeholder="Enter Last Name"
-              validation_status={ validationStatus(errors, "lastName") }
-              validation_message={ validationMessage(errors, "lastName") }
-            />
-
-          </li>
-
-          <li>
-
-            <PureOptionSelect
-              label="Broker"
-              field={broker}
-              validation_status={ validationStatus(errors, "broker") }
-              validation_message={ validationMessage(errors, "broker") }
-              >
-
-              <option value="">Please Select a Broker</option>
-              {
-                state.account.brokers.length > 0 ? state.account.brokers.map((brkr) => (
-                  <option key={brkr.name} value={brkr._id}>{brkr.name}</option>
-                )) : ''
-              }
-            </PureOptionSelect>
-
-          </li>
-
-        </ul>
-      </fieldset>
+          <option value="">Please Select a Broker</option>
+          {
+            state.account.brokers.length > 0 ? state.account.brokers.map((brkr) => (
+              <option key={brkr.name} value={brkr._id}>{brkr.name}</option>
+            )) : ''
+          }
+        </PureOptionSelect>
+      </div>
     );
   }
 }

@@ -1,6 +1,14 @@
 .RatingResults__container {
-  margin: 25px 0;
-  text-align: center;
+  width: 80%;
+  margin: 3em auto 0 !important;
+
+  h3 {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0px !important;
+    padding: 0 0 1em 0!important;
+    color:#32a4d8;
+  }
 
   > div > * + * {
     margin-top: 1em;

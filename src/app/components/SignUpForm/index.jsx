@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import CredentialsRegisterFieldSet from './CredentialsRegisterFieldSet';
 import AccountFieldSet from './AccountFieldSet';
 
+import { Button } from 'react-bootstrap';
+
 import decorator from './decorators';
 
 function SignUpForm(props) {
@@ -17,15 +19,18 @@ function SignUpForm(props) {
     } = props;
 
     return (
-				<form className="SignUpForm__container" onSubmit={handleSubmit}>
-						<CredentialsRegisterFieldSet field={credentials} errors={errors.credentials} title="Here for the first time?" />
-            <AccountFieldSet field={account} errors={errors.account}/>
+			<form className="SignUpForm__container" onSubmit={handleSubmit}>
+          <h1>Create account</h1>
+          <h3>Please enter your account details below</h3>
 
-						<div className="formFooter">
-								<button type="submit" className="button">Register</button>
-								<a href="/">Back to Sign In</a>
-						</div>
-				</form>
+					<CredentialsRegisterFieldSet field={credentials} errors={errors.credentials} title="Here for the first time?" />
+          <AccountFieldSet field={account} errors={errors.account}/>
+
+					<div className="formFooter">
+							<Button type="submit" >Register</Button>
+							<Button href="/">Back to Sign In</Button>
+					</div>
+			</form>
     );
 }
 
