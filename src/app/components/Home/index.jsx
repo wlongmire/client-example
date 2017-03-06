@@ -85,7 +85,7 @@ class Home extends Component{
     return (
       <div>
         <h3>Your Submissions</h3>
-        
+
         <BootstrapTable
           data={this.state.chartData}
           condensed={true}

@@ -121,6 +121,12 @@ const RatingForm = React.createClass({
             errors={errors.primaryNamedCredentials}
           />
 
+          <SpecificFloorsFieldSet
+            projectDefinedAreaScope={projectDefinedAreaScope}
+            projectDefinedAreaScopeDetails={projectDefinedAreaScopeDetails}
+            errors={errors.specificFloors}
+          />
+
           <SecondaryNamedInsuredFieldSet
             otherNamedInsured={otherNamedInsured}
             hasOtherNamedInsured={hasOtherNamedInsured}
@@ -177,12 +183,6 @@ const RatingForm = React.createClass({
           <HasWorkStartedFieldSet
             workDetails={workDetails}
             errors={errors.hadWorkStarted}
-          />
-
-          <SpecificFloorsFieldSet
-            projectDefinedAreaScope={projectDefinedAreaScope}
-            projectDefinedAreaScopeDetails={projectDefinedAreaScopeDetails}
-            errors={errors.specificFloors}
           />
 
           <ExcessFieldSet
