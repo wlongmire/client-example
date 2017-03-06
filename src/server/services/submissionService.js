@@ -273,7 +273,7 @@ async function generatePDFData(submissionIdentifier, type) {
       gcKnown: submission.generalContractorInfo ? submission.generalContractorInfo.isKnown: '',
       gcName: submission.generalContractorInfo ? submission.generalContractorInfo.name : 'GC Pending',
       gcCarrier: submission.generalContractorInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
-      gcLimit: submission.generalContractorInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
+      gcLimit: submission.generalContractorInfo ? submission.generalContractorInfo.glLimits : 'N/A',
       glExpirationDate: submission.generalContractorInfo ? submission.generalContractorInfo.glExpirationDate : 'N/A',
       gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
       gcSupervisingSubs: gcInfo ? submission.generalContractorInfo.isSupervisingSubs : 'N/A',
