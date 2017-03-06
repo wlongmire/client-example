@@ -198,6 +198,10 @@ async function generateExcessPDFData(submissionIdentifier) {
       brokerName: submission.broker.name
     }
 
+    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
+      pdfData.marshBroker = true;
+    }
+
     return pdfData;
 
   } catch (err) {
