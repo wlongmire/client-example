@@ -26,7 +26,7 @@ gulp.task('transform:prod', function(){
   gulp.src('configTemplate/*')
   .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
   .pipe(replace('@sgsEmail', 'owners@colonyspecialty.com'))
-  .pipe(replace('@serverUrl', 'http:www.ownersedge.us'))
+  .pipe(replace('@serverUrl', 'http://www.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:JcXB1kheM9Kyyw33@ds057196-a0.mlab.com:57196,ds057196-a1.mlab.com:57196/ownersedge?replicaSet=rs-ds057196'))
   .pipe(replace('@ratingsUrl', 'http://rating.argodigitalventures.com'))
