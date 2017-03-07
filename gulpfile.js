@@ -21,6 +21,7 @@ var webpackStream = require('webpack-stream');
 var replace = require('gulp-replace');
 var config = require('./src/config');
 
+//production
 gulp.task('transform:prod', function(){
   gulp.src('configTemplate/*')
   .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
