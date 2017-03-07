@@ -4,27 +4,37 @@ import {utilities} from '../utils';
 const helper = require('sendgrid').mail;
 const fs = require('fs');
 
-async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray) {
+async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray, ccAddress=null) {
   let mail = new helper.Mail()
   let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
+
   mail.setFrom(fromEmail);
   mail.setSubject("Submission Received")
+
   let personalization = new helper.Personalization()
   let toEmail = new helper.Email(toAddress);
+
   personalization.addTo(toEmail);
+  if (ccAddress) {
+    personalization.addCC(new helper.Email(ccAddress));
+  }
+
   switch (type) {
     case 'quotedArgo':
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.primaryNamedInsured));
     break;
+
     case 'quotedBroker':
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.primaryNamedInsured));
       personalization.addSubstitution(new helper.Substitution('{{confirmationNumber}}', submission.confirmationNumber))
     break;
+
     case 'nonQuoteArgo':
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
     break;
+
     case 'nonQuoteBroker':
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       let reasonsHTML = buildReasonsHTML(submission);
@@ -33,6 +43,7 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
     }
   mail.addPersonalization(personalization);
   mail.setTemplateId(templateId);
+
  console.log('---set Personalization---')
   if (pdfArray.length > 0) {
       pdfArray.forEach(pdf => {
@@ -49,13 +60,15 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
 }
 
 function send(mail){
-  var sg = require('sendgrid')(config.sendGridKey)
+  var sg = require('sendgrid')(config.sendGridKey);
   let requestBody = mail.toJSON();
-  var emptyRequest = require('sendgrid-rest').request
-  var requestPost = JSON.parse(JSON.stringify(emptyRequest))
-  requestPost.method = 'POST'
-  requestPost.path = '/v3/mail/send'
-  requestPost.body = requestBody
+  var emptyRequest = require('sendgrid-rest').request;
+  var requestPost = JSON.parse(JSON.stringify(emptyRequest));
+
+  requestPost.method = 'POST';
+  requestPost.path = '/v3/mail/send';
+  requestPost.body = requestBody;
+
   sg.API(requestPost, function (error, response) {
     if (error) {
      console.log(JSON.stringify(error))

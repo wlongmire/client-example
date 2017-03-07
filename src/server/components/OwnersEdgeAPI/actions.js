@@ -199,14 +199,12 @@ function sendSubmissionEmailArgo(submission) {
 									content: excessPdf
 								})
 
-								emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-                emailService.sendSubmissionEmail('quotedArgo', sgsEmail, submission, config.argoTemplateId, pdfArray);
+								emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray, sgsEmail);
 							})
 
 					} else {
 
-						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-            emailService.sendSubmissionEmail('quotedArgo', sgsEmail, submission, config.argoTemplateId, pdfArray);
+						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray, sgsEmail);
 
           }
 				});
@@ -302,15 +300,13 @@ function sendNonQuoteEmailArgo(submission) {
 							title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
 							content: excessPdf
 						})
-            
-						emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
-            emailService.sendSubmissionEmail('nonQuoteArgo', sgsEmail, submission, config.argoNonQuoteTemplate, pdfArray);
+
+						emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray, sgsEmail);
 					});
 
 			} else {
 
-        emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
-        emailService.sendSubmissionEmail('nonQuoteArgo', sgsEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+        emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray, sgsEmail);
 
 			}
 
