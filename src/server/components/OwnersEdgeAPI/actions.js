@@ -140,7 +140,7 @@ async function getRating(req, res) {
 									sendSubmissionEmailClient(newSub);
 								}
 
-                console.log(newSub.broker.type);
+                console.log("borker:", newSub.broker.type);
 
 								sendSubmissionEmailArgo(newSub);
 
