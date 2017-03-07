@@ -18,7 +18,15 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
   switch (type) {
     case 'quotedArgo':
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
+      personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
+      personalization.addSubstitution(new helper.Substitution('{{brokerPhone}}', submission.contactInfo.phone));
       personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.primaryNamedInsured));
+    break;
+
+    case 'quotedBroker':
+      personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
+      personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.primaryNamedInsured));
+      personalization.addSubstitution(new helper.Substitution('{{confirmationNumber}}', submission.confirmationNumber))
     break;
 
     case 'quotedBroker':
