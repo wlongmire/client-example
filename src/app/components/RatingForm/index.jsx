@@ -118,7 +118,7 @@ const RatingForm = React.createClass({
 
           <NamedInsuredAddressFieldSet
             namedInsuredAddress={namedInsuredAddress}
-            errors={errors.primaryNamedCredentials}``
+            errors={errors.primaryNamedCredentials}
           />
 
           <SpecificFloorsFieldSet
