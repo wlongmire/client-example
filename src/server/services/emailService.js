@@ -4,7 +4,7 @@ import {utilities} from '../utils';
 const helper = require('sendgrid').mail;
 const fs = require('fs');
 
-async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray, ccAddress=null) {
+async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()
   let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
 
@@ -13,11 +13,7 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
 
   let personalization = new helper.Personalization()
   let toEmail = new helper.Email(toAddress);
-
   personalization.addTo(toEmail);
-  if (ccAddress) {
-    personalization.addCC(new helper.Email(ccAddress));
-  }
 
   switch (type) {
     case 'quotedArgo':
