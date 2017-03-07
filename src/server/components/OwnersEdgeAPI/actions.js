@@ -9,6 +9,7 @@ import {
 
 const appId = config.appId;
 const argoEmail = config.argoEmail;
+const sgsEmail = config.sgsEmail;
 const ratingsUrl = config.ratingsUrl;
 
 async function getSubmissions(req, res) {
@@ -139,6 +140,8 @@ async function getRating(req, res) {
 									sendSubmissionEmailClient(newSub);
 								}
 
+                console.log(newSub.broker.type);
+
 								sendSubmissionEmailArgo(newSub);
 
 								return res.status(response.statusCode).json({
@@ -180,55 +183,34 @@ function sendSubmissionEmailArgo(submission) {
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		})
-			if(submission.type === 'ocp') {
-				generateOwnersContractorsProtectivePDF(submission.pdfToken)
-					.then(glpdf => {
-						pdfArray.push({
-							title: 'Owners and Contractors Protective - General Liability',
-							content: glpdf
-						})
-						generateOwnersEdgeQuotationPDF(submission.pdfToken)
-							.then(glpdf => {
-								pdfArray.push({
-									title: 'Owners EDGE Quotation - General Liability.pdf',
-									content: glpdf
-								})
-								if (submission.oiPremium.excessQuotedPremium > 0) {
-									console.log('---generating Excess PDF---')
-									generateExcessPDF(submission.pdfToken)
-										.then(excessPdf => {
-											pdfArray.push({
-												title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-												content: excessPdf
-											})
-											emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-										})
-								} else
-									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-							});
-					});
-			}else{
 
-				generateOwnersEdgeQuotationPDF(submission.pdfToken)
-					.then(glpdf => {
-						pdfArray.push({
-							title: 'Owners EDGE Quotation - General Liability.pdf',
-							content: glpdf
-						})
-						if (submission.oiPremium.excessQuotedPremium > 0) {
-							console.log('---generating Excess PDF---')
-							generateExcessPDF(submission.pdfToken)
-								.then(excessPdf => {
-									pdfArray.push({
-										title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-										content: excessPdf
-									})
-									emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+
+			generateOwnersEdgeQuotationPDF(submission.pdfToken)
+				.then(glpdf => {
+					pdfArray.push({
+						title: 'Owners EDGE Quotation - General Liability.pdf',
+						content: glpdf
+					})
+
+					if (submission.oiPremium.excessQuotedPremium > 0) {
+
+						generateExcessPDF(submission.pdfToken)
+							.then(excessPdf => {
+								pdfArray.push({
+									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+									content: excessPdf
 								})
-						} else
-							emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-					});
-			}
+								emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+                emailService.sendSubmissionEmail('quotedArgo', sgsEmail, submission, config.argoTemplateId, pdfArray);
+							})
+
+					} else {
+
+						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
+            emailService.sendSubmissionEmail('quotedArgo', sgsEmail, submission, config.argoTemplateId, pdfArray);
+
+          }
+				});
 
 		});
 }
@@ -248,6 +230,7 @@ function sendSubmissionEmailClient(submission) {
 							title: 'Owners and Contractors Protective - General Liability',
 							content: glpdf
 						})
+
 						generateOwnersEdgeQuotationPDF(submission.pdfToken)
 							.then(glpdf => {
 								pdfArray.push({
@@ -255,7 +238,7 @@ function sendSubmissionEmailClient(submission) {
 									content: glpdf
 								})
 								if (submission.oiPremium.excessQuotedPremium > 0) {
-									console.log('---generating Excess PDF---')
+
 									generateExcessPDF(submission.pdfToken)
 										.then(excessPdf => {
 											pdfArray.push({
@@ -264,9 +247,13 @@ function sendSubmissionEmailClient(submission) {
 											})
 											emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 										})
+
 								} else {
-                emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+
+                  emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
+
 								}
+
 							});
 					});
 			}else{
@@ -276,8 +263,9 @@ function sendSubmissionEmailClient(submission) {
 							title: 'Owners EDGE Quotation - General Liability.pdf',
 							content: glpdf
 						})
+
 						if (submission.oiPremium.excessQuotedPremium > 0) {
-							console.log('---generating Excess PDF---')
+
 							generateExcessPDF(submission.pdfToken)
 								.then(excessPdf => {
 									pdfArray.push({
@@ -285,7 +273,8 @@ function sendSubmissionEmailClient(submission) {
 										content: excessPdf
 									})
 									emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
-								})
+								});
+
 						} else{
                 emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
 						}
@@ -299,49 +288,46 @@ function sendSubmissionEmailClient(submission) {
 function sendNonQuoteEmailArgo(submission) {
 	let pdfArray = [];
 
-	if(submission.type === 'ocp') {
-		generateOwnersContractorsProtectivePDF(submission.pdfToken)
-				.then(glpdf => {
-					pdfArray.push({
-						title: 'Owners and Contractors Protective - General Liability',
-						content: glpdf
-					})
-					emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoNonQuoteTemplate , pdfArray);
+	generateOwnersEdgeQuotationPDF(submission.pdfToken)
+		.then(glpdf => {
+			pdfArray.push({
+				title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
+				content: glpdf
 			});
-	}else{
-		generateOwnersEdgeQuotationPDF(submission.pdfToken)
-			.then(glpdf => {
-				pdfArray.push({
-					title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
-					content: glpdf
-				});
-				if (submission.oiPremium.excessQuotedPremium > 0) {
-					generateExcessPDF(submission.pdfToken)
-						.then(excessPdf => {
-							pdfArray.push({
-								title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-								content: excessPdf
-							})
-							emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
-						})
-				} else {
-          emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
-				}
 
-			});
-	}
+			if (submission.oiPremium.excessQuotedPremium > 0) {
+
+				generateExcessPDF(submission.pdfToken)
+					.then(excessPdf => {
+						pdfArray.push({
+							title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
+							content: excessPdf
+						})
+						emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
+            emailService.sendSubmissionEmail('nonQuoteArgo', sgsEmail, submission, config.argoNonQuoteTemplate, pdfArray);
+					});
+
+			} else {
+
+        emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+        emailService.sendSubmissionEmail('nonQuoteArgo', sgsEmail, submission, config.argoNonQuoteTemplate,pdfArray);
+
+			}
+
+		});
+
 }
 
 function sendNonQuoteEmailBroker(submission) {
-	console.log('starting non quote email to broker');
 	let pdfArray = [];
+
 	generateBindOrderPDF(submission.pdfToken)
 	.then(bindpdf => {
 		pdfArray.push({
 			title: 'Owners Bind Order.pdf',
 			content: bindpdf
 		});
-		console.log('calling email function');
+
 		emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.brokerNonQuoteTemplate, pdfArray);
 	});
 }
