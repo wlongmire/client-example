@@ -18,6 +18,8 @@ function RatingResults(props) {
 
   return (
     <div className="RatingResults__container">
+      <h3>Quote Results</h3>
+
       <ToggleDisplay
         show={submission.instantQuote}
         render={() => (

@@ -67,7 +67,7 @@ const handleSubmit = (values, dispatch) => {
       }
 
       const {user, token} = res;
-      let newPath = user.role === 'poweruser' ? '/powerconsole' : '/home';
+      let newPath = '/submissions';
 
       localStorage.setItem('token', token);
       localStorage.setItem('viewer', JSON.stringify(user));

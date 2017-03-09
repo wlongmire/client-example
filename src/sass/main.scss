@@ -12,11 +12,6 @@
 // Font Awesome
 // @import '../../node_modules/font-awesome/scss/font-awesome';
 
-//Components
-@import '../app/components/shared/ValidationInput/styles';
-@import '../app/components/SignUpForm/styles';
-@import '../app/components/RatingForm/styles';
-
 // Required for react boostrap table
 @import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
 
@@ -26,7 +21,11 @@
 @import './buttons';
 @import './layout';
 
-// Components
+//Components
+@import '../app/components/shared/ValidationInput/styles';
+@import '../app/components/RatingForm/styles';
+@import '../app/components/SignUpForm/styles';
+@import '../app/components/SignInForm/styles';
 
 .app-container {
   position: relative;
@@ -39,32 +38,43 @@
 .home{
     width: 80%;
     margin: 0 auto;
-    table{
+
+    table {
       width: 100%;
       text-align: left;
       font-size: 14px;
-      th{
+
+      th {
         font-weight: bold;
         padding: 10px 0;
+        background-color: #32a4d8;
+        text-align: center;
       }
-      tr{
+
+      tr {
         border-bottom: 1px solid;
       }
-      td{
+
+      td {
         padding: 10px 0;
-        &.link{
+        &.link {
           cursor: pointer;
           color: lightskyblue;
         }
       }
     }
-    h3{
-      text-align: center;
+
+    h3 {
+      text-align: left;
       padding: 10px;
+      font-size: 3em;
+      font-weight: bold;
+      color: #32a4d8;
     }
-    ul{
+
+    ul {
       padding: 20px 20px 20px 0;
-      li{
+      li {
         list-style: none;
       }
     }

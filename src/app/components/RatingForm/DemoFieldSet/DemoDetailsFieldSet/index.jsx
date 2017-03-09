@@ -27,7 +27,7 @@ function DemoDetailsFieldSet(props) {
 
       <span className="area-label-sub">What are the total demo costs?</span>
       <PureInput
-        type="number"
+        type="text"
         field={costs}
         validation_status='default'
         validation_message=''

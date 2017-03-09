@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
-import AddressFieldSet from './AddressFieldSet';
 
 import {
   validationStatus,
@@ -11,7 +10,6 @@ import {
 function NamedInsuredCredentialsFieldSet(props) {
   const {
     primaryNamedInsured,
-    namedInsuredAddress,
     errors
   } = props;
 
@@ -31,12 +29,6 @@ function NamedInsuredCredentialsFieldSet(props) {
       placeholder=""
       validation_status={ validationStatus(errors, "name") }
       validation_message={ validationMessage(errors, "name") }
-    />
-
-    <AddressFieldSet
-      address={namedInsuredAddress}
-      errors={errors}
-      type='named'
     />
 
     </fieldset>);

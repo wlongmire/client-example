@@ -198,6 +198,10 @@ async function generateExcessPDFData(submissionIdentifier) {
       brokerName: submission.broker.name
     }
 
+    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
+      pdfData.marshBroker = true;
+    }
+
     return pdfData;
 
   } catch (err) {
@@ -214,17 +218,8 @@ async function generatePDFData(submissionIdentifier, type) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    let premium = 0;
-
-   premium = (type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
-
-    let terrorismPremium = Math.round(0.05 * premium);
-    let additionalCoverage;
-    if (premium < 25000) {
-      additionalCoverage = 125;
-    } else {
-      additionalCoverage = 250
-    }
+    console.log(submission);
+    console.log(submission.oiPremium);
 
     let aggregateLimit;
     let halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);
@@ -239,13 +234,17 @@ async function generatePDFData(submissionIdentifier, type) {
     let occAggLimit = aggregateLimit + 1000000
     let genAggLimit = aggregateLimit + 2000000
 
-    let totalPremium = terrorismPremium + premium + additionalCoverage;
-    const inspectionCost = 325
-    let totalCost = totalPremium + inspectionCost
-
     let gcInfo = submission.generalContractorInfo.isKnown === 'yes'
 
-    const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
+    const limits = [
+      {12:'1m/2m'},
+      {22:'2m/2m'},
+      {24:'2m/4m'},
+      {33:'3m/3m'},
+      {44:'4m/4m'},
+      {55:'5m/5m'}
+    ];
+
     let limitsRequested;
 
     if(submission.limitsRequested){
@@ -257,12 +256,12 @@ async function generatePDFData(submissionIdentifier, type) {
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
-      quotedPremium: `$${utilities.commifyNumber(premium)}`,
-      terrorPremium: `$${utilities.commifyNumber(terrorismPremium)}`,
-      addtlPremium: `$${utilities.commifyNumber(additionalCoverage)}`,
-      totalPremium: `$${utilities.commifyNumber(totalPremium)}`,
-      totalCost: `$${utilities.commifyNumber(totalCost)}`,
-      inspectionAmount: `$${utilities.commifyNumber(inspectionCost)}`,
+      quotedPremium: `$${utilities.commifyNumber(submission.oiPremium.quotedPremium)}`,
+      terrorPremium: `$${utilities.commifyNumber(submission.oiPremium.terrorPremium)}`,
+      addtlPremium: `$${utilities.commifyNumber(submission.oiPremium.additionalCoverage)}`,
+      totalPremium: `$${utilities.commifyNumber(submission.oiPremium.totalPremium)}`,
+      totalCost: `$${utilities.commifyNumber(submission.oiPremium.totalCost)}`,
+      inspectionAmount: `$${utilities.commifyNumber(325)}`,
       insuredAddress: submission.namedInsuredAddress ? submission.namedInsuredAddress.street: '',
       insuredCity: submission.namedInsuredAddress ? submission.namedInsuredAddress.city: '',
       insuredState: submission.namedInsuredAddress ? submission.namedInsuredAddress.state : '',
@@ -278,7 +277,7 @@ async function generatePDFData(submissionIdentifier, type) {
       gcKnown: submission.generalContractorInfo ? submission.generalContractorInfo.isKnown: '',
       gcName: submission.generalContractorInfo ? submission.generalContractorInfo.name : 'GC Pending',
       gcCarrier: submission.generalContractorInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
-      gcLimit: submission.generalContractorInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
+      gcLimit: submission.generalContractorInfo ? submission.generalContractorInfo.glLimits : 'N/A',
       glExpirationDate: submission.generalContractorInfo ? submission.generalContractorInfo.glExpirationDate : 'N/A',
       gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
       gcSupervisingSubs: gcInfo ? submission.generalContractorInfo.isSupervisingSubs : 'N/A',

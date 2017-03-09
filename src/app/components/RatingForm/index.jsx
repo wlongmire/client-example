@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 
 import NamedInsuredCredentialsFieldSet from './NamedInsuredCredentialsFieldSet';
+import NamedInsuredAddressFieldSet from     './NamedInsuredAddressFieldSet';
 import SecondaryNamedInsuredFieldSet from   './SecondaryNamedInsuredFieldSet';
 import AdditionalInsuredFieldSet from       './AdditionalInsuredFieldSet';
 import ProjectAddressFieldSet from          './ProjectAddressFieldSet';
@@ -20,6 +21,7 @@ import ProjectTermFieldSet from             './ProjectTermFieldSet';
 import ProjectValueFieldSet from            './ProjectValueFieldSet';
 import TowerCraneFieldSet from              './TowerCraneFieldSet';
 import KnownContractorFieldSet from         './KnownContractorFieldSet';
+import SpecificFloorsFieldSet from          './SpecificFloorsFieldSet';
 import OccupancyFieldSet from               './OccupancyFieldSet';
 import DemoFieldSet from                    './DemoFieldSet';
 import ExcessFieldSet from                  './ExcessFieldSet';
@@ -89,6 +91,8 @@ const RatingForm = React.createClass({
         workDetails,
         excessDetails,
         contactInfo,
+        projectDefinedAreaScope,
+        projectDefinedAreaScopeDetails,
         generalComments,
         type
       },
@@ -99,15 +103,29 @@ const RatingForm = React.createClass({
     const submission = Object.assign({}, this.props.fields);
     delete submission["_meta"];
 
+    const title = (localStorage.getItem('editing') === "true")?"Owner's Interest Editing":"Owner's Interest Submission"
+
     return (
       <div>
         <form className="RatingForm__container" onSubmit={handleSubmit}>
+          <h3>{title}</h3>
 
           <NamedInsuredCredentialsFieldSet
             primaryNamedInsured={primaryNamedInsured}
             namedInsuredAddress={namedInsuredAddress}
             errors={errors.primaryNamedCredentials}
             />
+
+          <NamedInsuredAddressFieldSet
+            namedInsuredAddress={namedInsuredAddress}
+            errors={errors.primaryNamedCredentials}
+          />
+
+          <SpecificFloorsFieldSet
+            projectDefinedAreaScope={projectDefinedAreaScope}
+            projectDefinedAreaScopeDetails={projectDefinedAreaScopeDetails}
+            errors={errors.specificFloors}
+          />
 
           <SecondaryNamedInsuredFieldSet
             otherNamedInsured={otherNamedInsured}

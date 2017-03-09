@@ -1,9 +1,7 @@
 const initialState = {
 		oi:{
-			showConfirmationDialog:false
-		},
-		ocp:{
-			showConfirmationDialog:false
+			showConfirmationDialog:false,
+			editing:false
 		},
 		values:{}
 };
@@ -15,10 +13,6 @@ export default function (state = initialState, action) {
 				oi:{showConfirmationDialog:action.value}
 			});
 
-		case "SET_CONFIRMATION_DIALOG_OCP":
-			return Object.assign(state,{
-				ocp:{showConfirmationDialog:action.value}
-			});
 		case "SAVE_VALUES":
 			return Object.assign(state,{
 				values:action.values

@@ -17,49 +17,30 @@ function CredentialsRegisterFieldSet(props) {
   } = props;
 
   return (
-    <fieldset>
-      <h3>Credential Details</h3>
+    <div>
+      <PureInput
+          type="text"
+          field={username}
+          placeholder="Username (Email)"
+          validation_status={ validationStatus(errors, "username") }
+          validation_message={ validationMessage(errors, "username") }
+        />
 
-      <ul className="no-bullets">
-        <li>
-
-          <PureInput
-            label="Username"
-            type="text"
-            field={username}
-            placeholder="Username (Email)"
-            validation_status={ validationStatus(errors, "username") }
-            validation_message={ validationMessage(errors, "username") }
+        <PurePassword
+          field={password}
+          placeholder="Password"
+          validation_status={ validationStatus(errors, "password") }
+          validation_message={ validationMessage(errors, "password") }
           />
 
-        </li>
+        <PurePassword
+          field={retypePassword}
+          placeholder="Password"
+          validation_status={ validationStatus(errors, "retypePassword") }
+          validation_message={ validationMessage(errors, "retypePassword") }
+          />
 
-        <li>
-
-          <PurePassword
-            label="Password"
-            field={password}
-            placeholder="Password"
-            validation_status={ validationStatus(errors, "password") }
-            validation_message={ validationMessage(errors, "password") }
-            />
-
-        </li>
-
-        <li>
-
-          <PurePassword
-            label="Retype Password"
-            field={retypePassword}
-            placeholder="Password"
-            validation_status={ validationStatus(errors, "retypePassword") }
-            validation_message={ validationMessage(errors, "retypePassword") }
-            />
-
-        </li>
-
-      </ul>
-    </fieldset>
+      </div>
   );
 }
 
