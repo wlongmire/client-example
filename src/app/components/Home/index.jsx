@@ -15,10 +15,6 @@ class Home extends Component{
   }
 
   componentDidMount() {
-    if(this.props.submissions.data){
-      this.loadSubmissions(this.props.submissions.data.submissions);
-    }
-
     // tracking user views on the home page
     mixpanel.track('page viewed', {
       'page name': document.title,
@@ -73,6 +69,10 @@ class Home extends Component{
         <Button onClick={ () => { this.goToPage(row);}}>Edit</Button>
       );
     };
+
+    if(this.props.submissions.data){
+      this.loadSubmissions(this.props.submissions.data.submissions);
+    }
 
     const options = {
       defaultSortName: 'updatedAt',  // default sort column name
