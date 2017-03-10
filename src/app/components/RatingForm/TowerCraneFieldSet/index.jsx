@@ -12,7 +12,10 @@ function TowerCraneFieldSet(props) {
     errors
   } = props;
 
-  const options = [{value:"yes", text:"Yes"}, {value:"no", text:"No"}];
+  const options = [
+    {value:"yes", text:"Yes"},
+    {value:"no", text:"No"}
+  ];
 
   return (
     <fieldset>

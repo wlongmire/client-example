@@ -33,7 +33,7 @@ function ExcessDetailsFieldSet(props) {
         validation_status={ validationStatus(errors, "term") }
         validation_message={ validationMessage(errors, "term") }>
 
-        <option value='0' disabled>Limit</option>
+        <option value='0'>Select Limit Amount</option>
         {
           limitsArray.map((limit) => (
             <option key={limit} value={limit}>$ {commifyNumber(limit)}</option>

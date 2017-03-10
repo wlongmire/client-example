@@ -9,6 +9,9 @@ import { Button, Panel } from 'react-bootstrap';
 class Home extends Component{
   constructor(){
     super();
+
+    localStorage.setItem('editing', false);
+
     this.state = ({
       chartData: []
     });
@@ -18,6 +21,12 @@ class Home extends Component{
     if(this.props.submissions.data){
       this.loadSubmissions(this.props.submissions.data.submissions);
     }
+
+    // tracking user views on the home page
+    mixpanel.track('page viewed', {
+      'page name': document.title,
+      'url': window.location.pathname
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,7 +66,7 @@ class Home extends Component{
     });
   }
 
-  goToPage(submission){
+  goToPage(submission) {
     this.props.editSubmission(submission);
   }
 
@@ -75,7 +84,8 @@ class Home extends Component{
 
     return (
       <div>
-        <h3><b><u>Submissions for: </u></b></h3>
+        <h3>Your Submissions</h3>
+
         <BootstrapTable
           data={this.state.chartData}
           condensed={true}

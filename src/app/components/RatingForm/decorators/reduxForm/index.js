@@ -30,6 +30,9 @@ const fields = [
   'address.state',
   'address.zip',
 
+  'projectDefinedAreaScope',
+  'projectDefinedAreaScopeDetails',
+
   'scope',
   'term',
   'costs',

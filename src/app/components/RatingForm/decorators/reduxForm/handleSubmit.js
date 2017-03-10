@@ -1,8 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import {
 	push
-}
-from 'react-router-redux';
+} from 'react-router-redux';
 
 import validate from './validate';
 import scrollTo from 'scroll-to';
@@ -16,13 +15,15 @@ import jaro from 'jaro-winkler';
 import config from '../../../../../config';
 import { onlyNums } from '../../../../utils/utilities';
 
-//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values) {
+	const editing = (localStorage.getItem('editing') === "true") || false;
+
 	return (dispatch) => {
 		const errors = validate(values);
 
+<<<<<<< HEAD
 		const async_errors =
 		  _.some(
 		    Object.keys(errors),
@@ -71,37 +72,72 @@ export function handleConfirmation(values) {
 				    }
 				  });
 					scrollTo(0, 0, { duration: 500 });
+		//check clearance
+		getClearanceMatches(values).then((matches)=>{
+			if (matches && !editing) {
 
+				errors.primaryNamedCredentials.name = "This submission match one already processed."
+				alert(`This submission matches an entry already submitted.\nPrimary Insured Name: ${matches.primaryNamedInsured}\nPrimary Address: ${getAddress(matches)}`)
+
+				dispatch({type: 'SET_FORM_ERROR', payload: { ratingOI:errors } });
+				scrollTo(0, 0, { duration: 500 });
+
+			} else {
+
+				const async_errors =
+		  		_.some( Object.keys(errors), (field)=>(!_.isEmpty(errors[field])) );
+
+				if (async_errors) {
+		  		dispatch({ type: 'SET_FORM_ERROR', payload: { ratingOI:errors } });
+					scrollTo(0, 0, { duration: 500 });
 				} else {
-
-					dispatch({
-				    type: 'SET_FORM_ERROR',
-				    payload: {
-				      ratingOI:{}
-				    }
-				  });
-
-					dispatch(push({
-						pathname: '/confirmation',
-						state: {
-							type: 'CONFIRMATION',
-							payload: values
-						}
-					}));
-
+					dispatch({ type: 	'SET_FORM_ERROR', payload: { ratingOI:{} } });
+					dispatch({ type: 	'SET_CONFIRMATION_DIALOG_OI', value: true });
+					dispatch({ type:	'SAVE_VALUES', values });
 				}
 
-			});
+			}
 
-		}
+		});
 
 	}
 }
 
+function getAddress(sub) {
+		return [	sub.namedInsuredAddress.city,
+			sub.namedInsuredAddress.state,
+			sub.namedInsuredAddress.street,
+			sub.namedInsuredAddress.zip].join(' ');
+}
+
+function getClearanceMatches(submission_values) {
+	//with clearance
+
+	const matchString =
+		(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
+
+	const user = JSON.parse(localStorage.getItem('viewer'));
+
+	return new Promise((resolve, reject)=>{
+
+		return getSubmissions(user._brokerId).then((resp)=>{
+
+			const matches = resp.submissions.find((s)=>{
+				return (s.type === submission_values.type && matchString(s) === matchString(submission_values))
+			});
+
+			resolve(matches);
+
+		});
+
+	});
+}
+
 export function handleSubmit(values) {
-	const body = (values.type === 'ocp')? formatRequestBodyOCP(values): formatRequestBody(values);
+	const body = formatRequestBody(values);
+
 	return (dispatch) => {
-		
+
 		let token = localStorage.getItem('token');
 		document.querySelector('.getQuote').textContent = 'Processing quote...';
 
@@ -124,13 +160,14 @@ export function handleSubmit(values) {
 				if (authToken) {
 					localStorage.setItem('token', authToken);
 				}
+
+				localStorage.setItem('editing', false);
+
 				return dispatch(push({
 					pathname: '/quote',
-					state: {
-						submission: res.submission,
-						email: values.contactInfo.email
-					}
+					state: { submission: res.submission, email: values.contactInfo.email }
 				}));
+
 			})
 			.catch((error) => {
 				return Promise.reject({
@@ -140,12 +177,6 @@ export function handleSubmit(values) {
 	};
 }
 
-function formatRequestBodyOCP(values) {
-	return JSON.stringify({
-		...values,
-		costs: onlyNums(values.costs),
-	});
-}
 
 function formatRequestBody(values) {
 	return JSON.stringify({
@@ -153,6 +184,7 @@ function formatRequestBody(values) {
 		state: values.address.state,
 		term: values.term,
 		costs: onlyNums(values.costs),
+		'demoDetails.costs': onlyNums(values.demoDetails.costs),
 		'generalContractor.glLimits': onlyNums(values.generalContractor.glLimits),
 		contractorKnown: values.generalContractor.isKnown === 'yes',
 		supervisingSubs: values.generalContractor.isSupervisingSubs === 'yes',

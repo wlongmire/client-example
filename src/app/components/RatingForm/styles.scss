@@ -1,9 +1,8 @@
 .RatingForm__container {
-  margin: 25px 0;
+  width: 100%;
+  margin: 3em auto 0 !important;
+
   font-family: 'Lato';
-  * + * {
-    margin-top: 1.5em;
-  }
 
   input,
   textarea,
@@ -24,15 +23,17 @@
     }
   }
 
-  > ol {
+  h3 {
+    font-size: 5em;
+    margin: 0px !important;
+    padding: 0 0 10px 0!important;
+    color:#32a4d8;
+  }
 
-    ol {
-      list-style: lower-alpha;
-
-      ol {
-        list-style: decimal;
-      }
-    }
+  fieldset {
+    padding: 20px;
+    border: 1px white solid;
+    margin: 10px 0;
   }
 
   .__react_component_tooltip{
@@ -47,20 +48,66 @@
     }
   }
 
-.question-mark{
-  margin-left: 2px;
-  cursor: pointer;
-}
+  .question-mark{
+    margin-left: 2px;
+    cursor: pointer;
+  }
 
   .double{
     line-height: 30px;
   }
 
-  .no-padding{
-    padding: 0;
-  }
-
   .area-label{
     display: inline-block;
+    line-height: 1em;
+    margin:0px;
+    padding:1em 0 8px 0;
+    font-size:1.3em;
+  }
+
+  .validation_component {
+    text-align: left;
+  }
+}
+
+.confirmationDialog {
+  .modal-header {
+    padding: 1em 3em;
+
+    .modal-title {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+  }
+
+  .modal-content {
+    border-radius: 0px;
+    background-color: rgba(8, 65, 92, 0.98);
+
+    .item {
+      padding: 0.3em 0px;
+
+      .left {
+        font-weight: normal;
+        font-size: 0.7em;
+        padding: 0px;
+        float:none;
+        text-decoration: underline;
+      }
+
+      .text {
+        display: inline-block;
+        color: white;
+        padding: 0px;
+        font-size: 1em;
+      }
+
+    }
+
+    .submitButtons {
+      padding: 0.5em 2em;
+    }
+
   }
 }

@@ -1,56 +1,59 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import PureInput from 'components/shared/PureInput';
 import PurePassword from 'components/shared/PurePassword';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import {
   validationStatus,
   validationMessage
 } from 'app/utils/reduxForm';
 
-function CredentialFieldSet(props) {
-  let title = props.title ? props.title : 'Coming Back?';
+class CredentialFieldSet extends Component {
 
-  const {
-    field: {
-      username,
-      password
-    },
-    errors
-  } = props;
+  componentWillMount(){
+    // if user is already signed in, redirect user to submissions page
+    if(this.props.user){
+      browserHistory.push('/submissions');
+    }
+  }
 
-  return (
-    <fieldset>
-      <h1>{title}</h1>
+  render() {
+    const {
+      field: {
+        username,
+        password
+      },
+      errors
+    } = this.props;
 
-      <ul className="no-bullets">
-        <li>
-          <label>
-            <PureInput
-              type="text"
-              field={username}
-              placeholder="Username (Email)"
-              validation_status={ validationStatus(errors, "username") }
-              validation_message={ validationMessage(errors, "username") }
-            />
-          </label>
-        </li>
+    return (
+      <div>
+        <h1>Welcome</h1>
+        <h3>Please Sign In</h3>
 
-        <li>
+        <PureInput
+          type="text"
+          field={username}
+          placeholder="Username (Email)"
+          validation_status={ validationStatus(errors, "username") }
+          validation_message={ validationMessage(errors, "username") }
+        />
 
-          <label>
-            <PurePassword
-              field={password}
-              placeholder="Password"
-              validation_status={ validationStatus(errors, "password") }
-              validation_message={ validationMessage(errors, "password") }
-              />
-          </label>
-        </li>
-
-      </ul>
-    </fieldset>
-  );
+        <PurePassword
+          field={password}
+          placeholder="Password"
+          validation_status={ validationStatus(errors, "password") }
+          validation_message={ validationMessage(errors, "password") }
+          />
+      </div>
+    );
+  }
 }
 
-export default CredentialFieldSet;
+export default connect((state)=>{
+  return{
+    user: state.user
+  };
+})(CredentialFieldSet);

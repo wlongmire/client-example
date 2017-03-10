@@ -55,7 +55,6 @@ async function getSubmissionByToken(token) {
 function generateHTML(body, pdfData) {
   let handleTemplate = handlebars.compile(body);
   let html = handleTemplate(Object.assign({}, pdfData));
-  console.log('finished generating html');
   return html;
 }
 
@@ -72,7 +71,6 @@ function generateOwnersEdgeQuotationPDF(token) {
           }, function (err, response, body) {
             let html = generateHTML(body, pdfData);
             pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
-              console.log('successfully generated PDF');
               return resolve(buffer);
             });
           });
@@ -155,6 +153,7 @@ function generateColonyOwnersInterestQuestionnairePDF(token) {
 }
 
 function generateExcessPDF(token) {
+  console.log('*****Starting Excess Generation****')
   return new Promise((resolve, reject) => {
     try {
       generateExcessPDFData({
@@ -181,6 +180,7 @@ function generateExcessPDF(token) {
 }
 
 async function generateExcessPDFData(submissionIdentifier) {
+  console.log('****** gathering data for excess PDF *******')
   try {
     let submission;
     if (submissionIdentifier.token) {
@@ -188,16 +188,18 @@ async function generateExcessPDFData(submissionIdentifier) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    let terrorExcess = Math.round(0.05 * submission.ocp.excessPremium);
-    let totalExcess = submission.ocp.excessPremium + terrorExcess
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
-      excessLimits: `$ ${utilities.commifyNumber(submission.excessDetails.limits)}`,
-      baseExcess: `$ ${utilities.commifyNumber(submission.excessPremium)}`,
-      terrorExcess: `$ ${utilities.commifyNumber(terrorExcess)}`,
-      totalExcess: `$ ${utilities.commifyNumber(totalExcess)}`,
+      excessLimits: `$ ${utilities.commifyNumber(submission.oiPremium.excessDetails.limits)}`,
+      baseExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessQuotedPremium)}`,
+      terrorExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTerror)}`,
+      totalExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTotalPremium)}`,
       brokerName: submission.broker.name
+    }
+
+    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
+      pdfData.marshBroker = true;
     }
 
     return pdfData;
@@ -216,17 +218,8 @@ async function generatePDFData(submissionIdentifier, type) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    let premium = 0;
-
-   premium = (type === 'ocp') ? submission.ocpPremium.quotedPremium : submission.oiPremium.quotedPremium;
-
-    let terrorismPremium = Math.round(0.05 * premium);
-    let additionalCoverage;
-    if (premium < 25000) {
-      additionalCoverage = 125;
-    } else {
-      additionalCoverage = 250
-    }
+    console.log(submission);
+    console.log(submission.oiPremium);
 
     let aggregateLimit;
     let halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);
@@ -241,13 +234,17 @@ async function generatePDFData(submissionIdentifier, type) {
     let occAggLimit = aggregateLimit + 1000000
     let genAggLimit = aggregateLimit + 2000000
 
-    let totalPremium = terrorismPremium + premium + additionalCoverage;
-    const inspectionCost = 325
-    let totalCost = totalPremium + inspectionCost
-
     let gcInfo = submission.generalContractorInfo.isKnown === 'yes'
 
-    const limits = [{12:'1m/2m'},{22:'2m/2m'},{24:'2m/4m'},{33:'3m/3m'},{44:'4m/4m'},{55:'5m/5m'} ];
+    const limits = [
+      {12:'1m/2m'},
+      {22:'2m/2m'},
+      {24:'2m/4m'},
+      {33:'3m/3m'},
+      {44:'4m/4m'},
+      {55:'5m/5m'}
+    ];
+
     let limitsRequested;
 
     if(submission.limitsRequested){
@@ -259,12 +256,12 @@ async function generatePDFData(submissionIdentifier, type) {
 
     const pdfData = {
       namedInsured: submission.primaryNamedInsured,
-      quotedPremium: `$${utilities.commifyNumber(premium)}`,
-      terrorPremium: `$${utilities.commifyNumber(terrorismPremium)}`,
-      addtlPremium: `$${utilities.commifyNumber(additionalCoverage)}`,
-      totalPremium: `$${utilities.commifyNumber(totalPremium)}`,
-      totalCost: `$${utilities.commifyNumber(totalCost)}`,
-      inspectionAmount: `$${utilities.commifyNumber(inspectionCost)}`,
+      quotedPremium: `$${utilities.commifyNumber(submission.oiPremium.quotedPremium)}`,
+      terrorPremium: `$${utilities.commifyNumber(submission.oiPremium.terrorPremium)}`,
+      addtlPremium: `$${utilities.commifyNumber(submission.oiPremium.additionalCoverage)}`,
+      totalPremium: `$${utilities.commifyNumber(submission.oiPremium.totalPremium)}`,
+      totalCost: `$${utilities.commifyNumber(submission.oiPremium.totalCost)}`,
+      inspectionAmount: `$${utilities.commifyNumber(325)}`,
       insuredAddress: submission.namedInsuredAddress ? submission.namedInsuredAddress.street: '',
       insuredCity: submission.namedInsuredAddress ? submission.namedInsuredAddress.city: '',
       insuredState: submission.namedInsuredAddress ? submission.namedInsuredAddress.state : '',
@@ -280,7 +277,7 @@ async function generatePDFData(submissionIdentifier, type) {
       gcKnown: submission.generalContractorInfo ? submission.generalContractorInfo.isKnown: '',
       gcName: submission.generalContractorInfo ? submission.generalContractorInfo.name : 'GC Pending',
       gcCarrier: submission.generalContractorInfo ? submission.generalContractorInfo.glCarrier : 'N/A',
-      gcLimit: submission.generalContractorInfo ? `$${utilities.commifyNumber(submission.generalContractorInfo.glLimits)}` : 'N/A',
+      gcLimit: submission.generalContractorInfo ? submission.generalContractorInfo.glLimits : 'N/A',
       glExpirationDate: submission.generalContractorInfo ? submission.generalContractorInfo.glExpirationDate : 'N/A',
       gcSubcontractor: gcInfo ? submission.generalContractorInfo.name : 'N/A',
       gcSupervisingSubs: gcInfo ? submission.generalContractorInfo.isSupervisingSubs : 'N/A',

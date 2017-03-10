@@ -5,6 +5,7 @@ var config = {
     name: 'ownersEdge',
     appId: '@appId',
     argoEmail: '@argoEmail',
+    sgsEmail: '@sgsEmail',
     mongoURI: '@mongoURI',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',

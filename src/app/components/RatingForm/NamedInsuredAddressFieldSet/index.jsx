@@ -2,9 +2,7 @@ import React from 'react';
 
 import PureInput from 'components/shared/PureInput';
 import PureOptionSelect from 'components/shared/PureOptionSelect';
-import PureRadioSet from 'components/shared/PureRadioSet';
-
-import ToggleDisplay from 'components/shared/ToggleDisplay';
+import PureRadio from 'components/shared/PureRadio';
 
 import {
   validationStatus,
@@ -13,8 +11,7 @@ import {
 
 function AddressFieldSet(props) {
   const {
-    nycha,
-    address: {
+    namedInsuredAddress: {
       street,
       city,
       state,
@@ -31,7 +28,7 @@ function AddressFieldSet(props) {
       <span
         className="area-label"
         data-tip="Please provide as descriptive of a street address as possible.">
-        What is the address of this project?
+        What is the address of the Named Insured?
       </span>
 
       <PureInput
@@ -54,7 +51,7 @@ function AddressFieldSet(props) {
         field={state}
         validation_status={ validationStatus(errors, "state") }
         validation_message={ validationMessage(errors, "state") }
-      >
+        >
         <option value="" disabled>State</option>
         {
           states.map((state) => (
@@ -66,27 +63,14 @@ function AddressFieldSet(props) {
       <PureInput
         type="text"
         field={zip}
-        placeholder="Zip"
+        placeholder="Zipcode"
         className="zip-input"
         validation_status={ validationStatus(errors, "zip") }
         validation_message={ validationMessage(errors, "zip") }
       />
 
-      <ToggleDisplay
-        show={state.value === 'NY'}
-        render={() => (
-          <div>
-            <span className="area-label">Is this a NYCHA Project?</span>
-            <PureRadioSet
-              field={nycha}
-              options={[{value:"yes", text:"Yes"},{value:"no", text:"No"}]}
-              validation_status={ validationStatus(errors, "nycha") }
-              validation_message={ validationMessage(errors, "nycha") }
-              />
-          </div>
-        )}
-      />
-  </fieldset>);
+  </fieldset>
+  );
 }
 
 export default AddressFieldSet;
