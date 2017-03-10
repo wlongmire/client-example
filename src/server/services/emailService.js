@@ -2,7 +2,6 @@ import config from '../../config';
 import {utilities} from '../utils';
 
 const helper = require('sendgrid').mail;
-const fs = require('fs');
 
 async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()

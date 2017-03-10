@@ -11,6 +11,8 @@ class OwnersEdge extends Component {
       .post(actions.getRating);
     router.route('/getSubmissions')
       .get(actions.getSubmissions);
+    router.route('/getEdgeSubmissions')
+      .post(actions.getEdgeSubmissions);
     router.route('/getBroker')
       .get(actions.getBroker);
     router.route('/')
@@ -18,13 +20,6 @@ class OwnersEdge extends Component {
     return router;
   }
 
-  componentWillMount () {
-
-  }
-
-  componentDidMount () {
-
-  }
 }
 
 export default new OwnersEdge();

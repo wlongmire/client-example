@@ -92,6 +92,7 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "request": "^2.74.0",
+    "request-promise": "^4.1.1",
     "request-promise-native": "^1.0.2",
     "run-sequence": "^1.1.5",
     "sass-loader": "^3.1.2",
