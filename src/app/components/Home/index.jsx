@@ -77,9 +77,6 @@ class Home extends Component{
       );
     };
 
-
-    //{this.props.submissions.data && this.loadSubmissions(this.props.submissions.data.submissions)}
-
     const options = {
       defaultSortName: 'updatedAt',  // default sort column name
       defaultSortOrder: 'desc'  // default sort order,
