@@ -36,7 +36,7 @@ class CredentialFieldSet extends Component {
         <PureInput
           type="text"
           field={username}
-          placeholder="Username (Email)"
+          placeholder="Username"
           validation_status={ validationStatus(errors, "username") }
           validation_message={ validationMessage(errors, "username") }
         />

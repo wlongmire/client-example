@@ -153,7 +153,6 @@ function generateColonyOwnersInterestQuestionnairePDF(token) {
 }
 
 function generateExcessPDF(token) {
-  console.log('*****Starting Excess Generation****')
   return new Promise((resolve, reject) => {
     try {
       generateExcessPDFData({
@@ -180,7 +179,6 @@ function generateExcessPDF(token) {
 }
 
 async function generateExcessPDFData(submissionIdentifier) {
-  console.log('****** gathering data for excess PDF *******')
   try {
     let submission;
     if (submissionIdentifier.token) {
@@ -218,8 +216,6 @@ async function generatePDFData(submissionIdentifier, type) {
     } else {
       submission = await getSubmissionById(submissionIdentifier.token)
     }
-    console.log(submission);
-    console.log(submission.oiPremium);
 
     let aggregateLimit;
     let halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);

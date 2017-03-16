@@ -105,7 +105,7 @@ function listBrokers(req, res, next) {
 	// @TODO enforce throttle (max API calls per second)
 	// @TODO enforce query sanitization!!!!111one
 
-	Broker.find().limit(10).sort('-name').exec(function (err, brokers) {
+	Broker.find().sort('-name').exec(function (err, brokers) {
 		return res.status(200).json({
 			success: true,
 			brokers
