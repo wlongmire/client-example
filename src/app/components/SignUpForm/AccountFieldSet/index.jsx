@@ -44,6 +44,8 @@ class AccountFieldSet extends Component {
         return Promise.reject(res.message);
       }
 
+      console.log(res.brokers);
+
       // Cause a UI render
       this.setState({
         account: {

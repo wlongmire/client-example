@@ -59,7 +59,6 @@ async function getEdgeSubmissions(req, res) {
     method: 'POST',
     uri: `http://qa.wrapper.argogroupus.com/api/submissions/search`,
     body,
-    },
     json: true
   }).then((response)=> {
     return res.status(200).json({
