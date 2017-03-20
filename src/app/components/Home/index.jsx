@@ -5,6 +5,7 @@ import * as actions from './actions';
 import { formatDollars } from '../../utils/utilities';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, Panel } from 'react-bootstrap';
+import mx from 'app/utils/MixpanelInterface';
 
 class Home extends Component{
   constructor(){
@@ -61,13 +62,25 @@ class Home extends Component{
   }
 
   goToPage(submission) {
+    console.log(row);
+
+    mx.customEvent(
+      "submission",
+      "edit"
+    );
+
     this.props.editSubmission(submission);
   }
 
   render(){
     const selectFormatter = (cell, row) => {
       return (
-        <Button onClick={ () => { this.goToPage(row);}}>Edit</Button>
+        <Button onClick={ 
+          () => { 
+            
+            this.goToPage(row);
+          }
+        }>Edit</Button>
       );
     };
 
