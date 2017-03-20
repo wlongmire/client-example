@@ -136,7 +136,7 @@ export function handleSubmit(values) {
 						"reason":""
 					}
 				
-				console.log(params);
+				console.log("params",params);
 				
 				mx.customEvent(
 					"submission",
