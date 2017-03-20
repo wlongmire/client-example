@@ -124,8 +124,9 @@ export function handleSubmit(values) {
 				localStorage.setItem('editing', false);
 
 				const submission = res.submission;
-				console.log(submission);
-
+				
+				console.log("submission", submission);
+				
 				const params = 
 					(submission.instantQuote)?{
 						"Total Premium":submission.oiPremium.totalPremium,
@@ -136,11 +137,9 @@ export function handleSubmit(values) {
 						"reason":""
 					}
 				
-				console.log("params",params);
-				
 				mx.customEvent(
 					"submission",
-					(res.submission.instantQuote)?"quoted":"knockout",
+					(submission.instantQuote)?"quoted":"knockout",
 					params
 				);
 
