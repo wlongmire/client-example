@@ -32,7 +32,8 @@ class Logo extends Component{
     
     mx.customEvent(
       "submission",
-      "create"
+      "create",
+      "Type": "oi"
     )
 
     localStorage.setItem('editing', false);

@@ -48,7 +48,10 @@ export function handleConfirmation(values) {
 
 					mx.customEvent(
 						"submission",
-						"review"
+						"review",
+						{
+							"Type":"oi"
+						}
 					);
 
 					dispatch({ type: 	'SET_FORM_ERROR', payload: { ratingOI:{} } });
@@ -125,16 +128,17 @@ export function handleSubmit(values) {
 
 				const submission = res.submission;
 				
-				console.log("submission", submission);
-				
+
 				const params = 
 					(submission.instantQuote)?{
 						"Total Premium":submission.oiPremium.totalPremium,
 						"Base Premium":submission.oiPremium.quotedPremium,
 						"Additional Coverage":submission.oiPremium.additionalCoverage,
 						"Terrorism Coverage":submission.oiPremium.terrorPremium
+						"type": submission.type
 					}:{
-						"reason":""
+						"reason":"",
+						"type": submission.type
 					}
 				
 				mx.customEvent(

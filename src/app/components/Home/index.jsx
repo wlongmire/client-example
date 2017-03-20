@@ -62,11 +62,15 @@ class Home extends Component{
   }
 
   goToPage(submission) {
-    console.log(submission);
-
     mx.customEvent(
       "submission",
-      "edit"
+      "edit",
+      {
+        "Named Insured":submission.primaryNamedInsured,
+        "Quoted": submission.instantQuote,
+        "Confirmation Number": submission.confirmationNumber,
+        "Type": submission.type
+      }
     );
 
     this.props.editSubmission(submission);
