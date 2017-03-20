@@ -24,27 +24,34 @@ function RatingResults(props) {
         show={submission.instantQuote}
         render={() => (
           <div>
+            
             <ToggleDisplay
               show={isDefined(submission.ocpPremium) && isDefined(submission.ocpPremium.quotedPremium) && submission.ocpPremium.quotedPremium >= 0}
               render={() => (
                 <div>
                   <span> Owners/Contractors - {`${JSON.stringify(submission.ocpPremium.limitsRequested[0])}`}</span>
+                  
                   <div className="premium-details">
+
                     <div className="premium-number">
                       Total Premium
                     <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium + submission.ocpPremium.terrorPremium)}`}</span>
                   </div>
+
                   <div className="premium-number">
                       Base Premium
-            <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
-                    </div>
-                    <div className="premium-number">
-                      Terrorism Coverage
-            <span>{`$${commifyNumber(submission.ocpPremium.terrorPremium)}`}</span>
-                    </div>
+                      <span>{`$${commifyNumber(submission.ocpPremium.quotedPremium)}`}</span>
                   </div>
+
+                  <div className="premium-number">
+                      Terrorism Coverage
+                      <span>{`$${commifyNumber(submission.ocpPremium.terrorPremium)}`}</span>
+                  </div>
+
+                  </div>
+
                   <p>for more comprehensive coverage, an Owner's Interest policy might fit your needs. For your convenience, see your pricing below:</p>
-                </div>)}
+              </div>)}
             />
 
             <span>Owner's Interest - $1,000,000/2,000,000/2,000,000</span>

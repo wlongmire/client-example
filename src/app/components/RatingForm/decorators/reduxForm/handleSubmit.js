@@ -123,11 +123,23 @@ export function handleSubmit(values) {
 
 				localStorage.setItem('editing', false);
 
-				console.log(res);
+				const submission = res.submission;
+				console.log(submission);
+				
+				const params = 
+					(submission.instantQuote)?{
+						"Total Premium":submission.oiPremium.totalPremium,
+						"Base Premium":submission.oiPremium.quotedPremium,
+						"Additional Coverage":submission.oiPremium.additionalCoverage,
+						"Terrorism Coverage":submission.oiPremium.terrorPremium
+					}:{
+						"reason":""
+					}
 
 				mx.customEvent(
 					"submission",
-					"quoted"
+					(res.submission.instantQuote)?"quoted":"knockout",
+					params
 				);
 
 				return dispatch(push({
