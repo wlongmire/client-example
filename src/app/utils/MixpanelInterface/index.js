@@ -26,6 +26,7 @@ export default {
   customEvent (eventCategory, eventType, params, register) {
 
     try {
+      console.log(params)
       mixpanel.track(
        mixPanelEvents[eventCategory][eventType].eventName,
        params
