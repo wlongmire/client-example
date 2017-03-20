@@ -134,11 +134,11 @@ export function handleSubmit(values) {
 						"Total Premium":submission.oiPremium.totalPremium,
 						"Base Premium":submission.oiPremium.quotedPremium,
 						"Additional Coverage":submission.oiPremium.additionalCoverage,
-						"Terrorism Coverage":submission.oiPremium.terrorPremium
-						"type": submission.type
+						"Terrorism Coverage":submission.oiPremium.terrorPremium,
+						"Type": submission.type
 					}:{
 						"reason":"",
-						"type": submission.type
+						"Type": submission.type
 					}
 				
 				mx.customEvent(
