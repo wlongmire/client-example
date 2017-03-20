@@ -62,7 +62,7 @@ class Home extends Component{
   }
 
   goToPage(submission) {
-    console.log(row);
+    console.log(submission);
 
     mx.customEvent(
       "submission",
