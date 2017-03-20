@@ -16,6 +16,8 @@ import jaro from 'jaro-winkler';
 import config from '../../../../../config';
 import { onlyNums } from '../../../../utils/utilities';
 
+import mx from 'app/utils/MixpanelInterface';
+
 let baseURL = config.apiserver.url;
 
 export function handleConfirmation(values) {
@@ -37,12 +39,21 @@ export function handleConfirmation(values) {
 			} else {
 
 				const async_errors =
-		  		_.some( Object.keys(errors), (field)=>(!_.isEmpty(errors[field])) );
+		  			_.some( Object.keys(errors), (field)=>(!_.isEmpty(errors[field])) );
 
 				if (async_errors) {
-		  		dispatch({ type: 'SET_FORM_ERROR', payload: { ratingOI:errors } });
+		  			dispatch({ type: 'SET_FORM_ERROR', payload: { ratingOI:errors } });
 					scrollTo(0, 0, { duration: 500 });
 				} else {
+
+					mx.customEvent(
+						"submission",
+						"review",
+						{
+							"Type":"oi"
+						}
+					);
+
 					dispatch({ type: 	'SET_FORM_ERROR', payload: { ratingOI:{} } });
 					dispatch({ type: 	'SET_CONFIRMATION_DIALOG_OI', value: true });
 					dispatch({ type:	'SAVE_VALUES', values });
@@ -56,10 +67,10 @@ export function handleConfirmation(values) {
 }
 
 function getAddress(sub) {
-		return [	sub.namedInsuredAddress.city,
-			sub.namedInsuredAddress.state,
-			sub.namedInsuredAddress.street,
-			sub.namedInsuredAddress.zip].join(' ');
+	return [	sub.namedInsuredAddress.city,
+		sub.namedInsuredAddress.state,
+		sub.namedInsuredAddress.street,
+		sub.namedInsuredAddress.zip].join(' ');
 }
 
 function getClearanceMatches(submission_values) {
@@ -114,6 +125,27 @@ export function handleSubmit(values) {
 				}
 
 				localStorage.setItem('editing', false);
+
+				const submission = res.submission;
+				
+
+				const params = 
+					(submission.instantQuote)?{
+						"Total Premium":submission.oiPremium.totalPremium,
+						"Base Premium":submission.oiPremium.quotedPremium,
+						"Additional Coverage":submission.oiPremium.additionalCoverage,
+						"Terrorism Coverage":submission.oiPremium.terrorPremium,
+						"Type": submission.type
+					}:{
+						"reason":"",
+						"Type": submission.type
+					}
+				
+				mx.customEvent(
+					"submission",
+					(submission.instantQuote)?"quoted":"knockout",
+					params
+				);
 
 				return dispatch(push({
 					pathname: '/quote',

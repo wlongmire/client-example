@@ -1,0 +1,40 @@
+{
+  "authentication": {
+    "login": {
+      "desc": "Triggered for each login",
+      "eventName": "Authentication: Logged in"
+    },
+
+    "newAccount": {
+      "desc": "Triggered for new account",
+      "eventName": "Authentication: New account"
+    }
+  },
+
+  "submission": {
+    "create": {
+      "desc": "Triggered each time a submission is created.",
+      "eventName": "Submission: Created"
+    },
+
+    "edit": {
+      "desc": "Triggered when a submission is openned for editing",
+      "eventName": "Submission: Editing"
+    },
+    
+    "review": {
+      "desc": "Triggered when a submission is open for review",
+      "eventName": "Submission: In Review"
+    },
+    
+    "knockout": {
+      "desc": "Triggered each time a submission is knocked out.",
+      "eventName": "Submission: Non Quote"
+    },
+
+    "quoted": {
+      "desc": "Triggered each time a submission is quoted.",
+      "eventName": "Submission: Quote"
+    }
+  }
+}
