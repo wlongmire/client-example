@@ -7,8 +7,8 @@ import validate from './validate';
 import base_form_structure from 'content/formStructure';
 
 import _ from 'lodash';
+import mx from 'app/utils/MixpanelInterface';
 
-//let baseURL = config.apiserver.url + (config.apiserver.port ? ':' + config.apiserver.port : '');
 const baseURL = config.apiserver.url;
 
 const handleSubmit = (values, dispatch) => {
@@ -78,6 +78,11 @@ const handleSubmit = (values, dispatch) => {
           base_form_structure
         }
       });
+
+      mx.loginEvent(
+        values.credentials.username,
+        values.credentials.username  
+      )
 
       return dispatch(push({
         pathname: newPath,

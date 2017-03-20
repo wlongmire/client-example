@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 
 import styles from './styles';
+import mx from 'app/utils/MixpanelInterface';
 
 class Logo extends Component{
   constructor(props){
@@ -28,6 +29,12 @@ class Logo extends Component{
 
   resetEdit(e) {
     e.preventDefault();
+    
+    mx.customEvent(
+      "submission",
+      "create"
+    )
+
     localStorage.setItem('editing', false);
   }
 
