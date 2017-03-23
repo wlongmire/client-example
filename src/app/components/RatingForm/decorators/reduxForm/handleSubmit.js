@@ -20,6 +20,40 @@ import mx from 'app/utils/MixpanelInterface';
 
 let baseURL = config.apiserver.url;
 
+function getAddress(sub) {
+	return [	
+		sub.namedInsuredAddress.city,
+		sub.namedInsuredAddress.state,
+		sub.namedInsuredAddress.street,
+		sub.namedInsuredAddress.zip
+	].join(' ');
+}
+
+function getClearanceMatches(submission_values) {
+	// const matchString =
+	// 	(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
+	
+	const user = JSON.parse(localStorage.getItem('viewer'));
+	return new Promise((resolve, reject)=>{
+		
+		const subPromises = [getSubmissions(user._brokerId)];
+
+		return Promise.all(subPromises).then((resp)=>{
+			
+			console.log(resp);
+
+			// const matches = resp.submissions.find((s)=>{
+			// 	return (s.type === submission_values.type && matchString(s) === matchString(submission_values))
+			// });
+
+			// resolve(matches);
+
+			resolve([]);
+		});
+
+	});
+}
+
 export function handleConfirmation(values) {
 	const editing = (localStorage.getItem('editing') === "true") || false;
 
@@ -64,36 +98,6 @@ export function handleConfirmation(values) {
 		});
 
 	}
-}
-
-function getAddress(sub) {
-	return [	sub.namedInsuredAddress.city,
-		sub.namedInsuredAddress.state,
-		sub.namedInsuredAddress.street,
-		sub.namedInsuredAddress.zip].join(' ');
-}
-
-function getClearanceMatches(submission_values) {
-	//with clearance
-
-	const matchString =
-		(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
-
-	const user = JSON.parse(localStorage.getItem('viewer'));
-
-	return new Promise((resolve, reject)=>{
-
-		return getSubmissions(user._brokerId).then((resp)=>{
-
-			const matches = resp.submissions.find((s)=>{
-				return (s.type === submission_values.type && matchString(s) === matchString(submission_values))
-			});
-
-			resolve(matches);
-
-		});
-
-	});
 }
 
 export function handleSubmit(values) {
