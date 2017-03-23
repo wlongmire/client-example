@@ -1,25 +1,32 @@
 import mixPanelEvents from './events.json';
 
 export default {
-  loginEvent (email, name, params) {
+  loginEvent (name, email, params, register) {
     mixpanel.identify(name);
 
-    mixpanel.people.set(email, Object.assign({
+    mixpanel.people.set({
       '$name': name,
       '$email': email,
       '$login_time': new Date(),
-      params
-    }));
+      ...params
+    });
 
     mixpanel.track(
       mixPanelEvents.authentication.login.eventName
     );
+
+    register && mixpanel.register(register);
   },
 
-  registrationEvent (email, params = {}) {
+  registrationEvent (name, email, params = {}) {
     mixpanel.track(
       mixPanelEvents.authentication.newAccount.eventName,
-      Object.assign({ 'Email': params.email }, params)
+      Object.assign({
+        'Email': email,
+        'Name': name
+      },
+        params
+      )
     );
   },
 
@@ -31,7 +38,7 @@ export default {
        params
       );
 
-      register || mixpanel.register(register);
+      register && mixpanel.register(register);
 
     } catch (e) {
       const error_message = `Mixpanel event ${eventCategory}:${eventType} not found.`;
