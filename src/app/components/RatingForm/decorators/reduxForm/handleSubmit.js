@@ -130,20 +130,20 @@ export function handleSubmit(values) {
 				
 
 				const params = 
-					(submission.instantQuote)?{
+					(submission.instantQuote) ? {
 						"Total Premium":submission.oiPremium.totalPremium,
 						"Base Premium":submission.oiPremium.quotedPremium,
 						"Additional Coverage":submission.oiPremium.additionalCoverage,
 						"Terrorism Coverage":submission.oiPremium.terrorPremium,
 						"Type": submission.type
-					}:{
-						"reason":"",
+					} : {
+						"reason": submission.reason,
 						"Type": submission.type
 					}
 				
 				mx.customEvent(
 					"submission",
-					(submission.instantQuote)?"quoted":"knockout",
+					(submission.instantQuote) ? "quoted" : "knockout",
 					params
 				);
 
