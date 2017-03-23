@@ -65,7 +65,6 @@ const RatingForm = React.createClass({
       // update the home submissions table after submission has been created
       this.props.getSubmissions(this.props.user['_brokerId']);
 
-
     });
   },
 

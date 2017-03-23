@@ -5,6 +5,7 @@ import * as actions from './actions';
 import { formatDollars } from '../../utils/utilities';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, Panel } from 'react-bootstrap';
+import mx from 'app/utils/MixpanelInterface';
 
 class Home extends Component{
   constructor(){
@@ -21,12 +22,6 @@ class Home extends Component{
     if(this.props.submissions.data){
       this.loadSubmissions(this.props.submissions.data.submissions);
     }
-
-    // tracking user views on the home page
-    mixpanel.track('page viewed', {
-      'page name': document.title,
-      'url': window.location.pathname
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,13 +62,29 @@ class Home extends Component{
   }
 
   goToPage(submission) {
+    mx.customEvent(
+      "submission",
+      "edit",
+      {
+        "Named Insured":submission.primaryNamedInsured,
+        "Quoted": submission.instantQuote,
+        "Confirmation Number": submission.confirmationNumber,
+        "Type": submission.type
+      }
+    );
+
     this.props.editSubmission(submission);
   }
 
   render(){
     const selectFormatter = (cell, row) => {
       return (
-        <Button onClick={ () => { this.goToPage(row);}}>Edit</Button>
+        <Button onClick={ 
+          () => { 
+            
+            this.goToPage(row);
+          }
+        }>Edit</Button>
       );
     };
 
