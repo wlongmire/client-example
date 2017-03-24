@@ -84,7 +84,7 @@ function getClearanceMatches(submission_values) {
 	return new Promise((resolve, reject)=>{
 
 		return getSubmissions(user._brokerId).then((resp)=>{
-
+			console.log('response23', resp);
 			const matches = resp.submissions.find((s)=>{
 				return (s.type === submission_values.type && matchString(s) === matchString(submission_values))
 			});
@@ -140,7 +140,9 @@ export function handleSubmit(values) {
 						"reason": submission.reason,
 						"Type": submission.type
 					}
-				
+
+				console.log('params23', params);
+
 				mx.customEvent(
 					"submission",
 					(submission.instantQuote) ? "quoted" : "knockout",

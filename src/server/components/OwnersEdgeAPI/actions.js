@@ -129,7 +129,7 @@ async function getRating(req, res) {
 
 			request({
 				method: 'POST',
-				uri: `${ratingsUrl}` + `/api/rating/${appId}/calcRating`,
+				uri: `${ratingsUrl}/api/calcrating/oi`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'
