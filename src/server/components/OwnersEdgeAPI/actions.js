@@ -135,6 +135,9 @@ async function getRating(req, res) {
 					'Content-Type': 'application/json'
 				}
 			}, (err, response, body)=> {
+				console.log('234 error', err);
+				console.log('234 RESPONSE BODY', response.body);
+				 console.log('234 BODY', body);
 				if (err) {
 					return res.status(response.statusCode).json({
 						success: false,

@@ -127,7 +127,7 @@ export function handleSubmit(values) {
 				localStorage.setItem('editing', false);
 
 				const submission = res.submission;
-				
+				console.log('res23', submission);
 
 				const params = 
 					(submission.instantQuote) ? {
