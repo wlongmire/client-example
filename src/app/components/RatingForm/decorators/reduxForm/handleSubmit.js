@@ -127,7 +127,6 @@ export function handleSubmit(values) {
 				localStorage.setItem('editing', false);
 
 				const submission = res.submission;
-				console.log('res23', submission);
 
 				const params = 
 					(submission.instantQuote) ? {
@@ -137,11 +136,9 @@ export function handleSubmit(values) {
 						"Terrorism Coverage":submission.oiPremium.terrorPremium,
 						"Type": submission.type
 					} : {
-						"reason": submission.reason,
+						"reason": submission.oiPremium.reason,
 						"Type": submission.type
 					}
-
-				console.log('params23', params);
 
 				mx.customEvent(
 					"submission",

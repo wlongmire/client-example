@@ -359,17 +359,17 @@ function createSubmissionObject(subInfo, quoteInfo) {
 	const today = new Date();
   const inspectionCost = 325;
 
-	if (quoteInfo.oi && quoteInfo.oi.premium > 0 ) {
+	if (quoteInfo.success === true && quoteInfo.results.premium > 0 ) {
 
 		oiPremium = {
-			quotedPremium:       quoteInfo.oi.premium,
-			terrorPremium:       quoteInfo.oi.oiTerrorPremium,
-			additionalCoverage:  quoteInfo.oi.oiAdditionalCoverage,
-			totalPremium:        quoteInfo.oi.totalOiPremium,
-			totalCost:           quoteInfo.oi.totalOiPremium + inspectionCost,
-			excessQuotedPremium: quoteInfo.oi.excessPremium,
-			excessTerror:        quoteInfo.oi.excessTerrorPremium,
-			excessTotalPremium:  quoteInfo.oi.totalExcessPremium,
+			quotedPremium:       quoteInfo.results.premium,
+			terrorPremium:       quoteInfo.results.oiTerrorPremium,
+			additionalCoverage:  quoteInfo.results.oiAdditionalCoverage,
+			totalPremium:        quoteInfo.results.totalOiPremium,
+			totalCost:           quoteInfo.results.totalOiPremium + inspectionCost,
+			excessQuotedPremium: quoteInfo.results.excessPremium,
+			excessTerror:        quoteInfo.results.excessTerrorPremium,
+			excessTotalPremium:  quoteInfo.results.totalExcessPremium,
 			excessDetails:       subInfo.excessDetails
 		}
 	} else {
@@ -382,7 +382,8 @@ function createSubmissionObject(subInfo, quoteInfo) {
 			excessQuotedPremium: 0,
 			excessTerror:        0,
 			excessTotalPremium:  0,
-			excessDetails:       subInfo.excessDetails
+			excessDetails:       subInfo.excessDetails,
+			reason: quoteInfo.results.reason
 		}
 	}
 
@@ -430,7 +431,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		projectRequirements:      subInfo.projectRequirements,
 		limitsRequested:          subInfo.limitsRequested,
 		oiPremium:                oiPremium,
-		instantQuote:             quoteInfo.instantQuote,
+		instantQuote:             quoteInfo.results.instantQuote,
 		supervisingSubs:          subInfo.supervisingSubs,
     excessDetails:            subInfo.excessDetails,
 		demoRequired:             subInfo.demoRequired,
