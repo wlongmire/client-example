@@ -39,7 +39,6 @@ gulp.task('transform:dev', function(){
   .pipe(replace('@argoEmail', 'warren@eager.to'))
   .pipe(replace('@serverUrl', 'http://dev.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  // .pipe(replace('@mongoURI', 'mongodb://xread:xxread@52.25.41.113:27017/ownersedgedev'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
   .pipe(replace('@ratingsUrl', 'https://oe-rating-engine.herokuapp.com'))
   .pipe(gulp.dest('src/config/'));
