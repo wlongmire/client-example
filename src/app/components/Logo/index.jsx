@@ -33,8 +33,8 @@ class Logo extends Component{
     mx.customEvent(
       "submission",
       "create",
-      "Type": "oi"
-    )
+      { "Type": "oi" }
+    );
 
     localStorage.setItem('editing', false);
   }

@@ -100,6 +100,35 @@ export function handleConfirmation(values) {
 	}
 }
 
+function getAddress(sub) {
+	return [	sub.namedInsuredAddress.city,
+		sub.namedInsuredAddress.state,
+		sub.namedInsuredAddress.street,
+		sub.namedInsuredAddress.zip].join(' ');
+}
+
+function getClearanceMatches(submission_values) {
+	//with clearance
+
+	const matchString =
+		(sub)=>([sub.primaryNamedInsured, getAddress(sub)].join(' '))
+
+	const user = JSON.parse(localStorage.getItem('viewer'));
+
+	return new Promise((resolve, reject)=>{
+
+		return getSubmissions(user._brokerId).then((resp)=>{
+			const matches = resp.submissions.find((s)=>{
+				return (s.type === submission_values.type && matchString(s) === matchString(submission_values))
+			});
+
+			resolve(matches);
+
+		});
+
+	});
+}
+
 export function handleSubmit(values) {
 	const body = formatRequestBody(values);
 
@@ -131,23 +160,22 @@ export function handleSubmit(values) {
 				localStorage.setItem('editing', false);
 
 				const submission = res.submission;
-				
 
 				const params = 
-					(submission.instantQuote)?{
+					(submission.instantQuote) ? {
 						"Total Premium":submission.oiPremium.totalPremium,
 						"Base Premium":submission.oiPremium.quotedPremium,
 						"Additional Coverage":submission.oiPremium.additionalCoverage,
 						"Terrorism Coverage":submission.oiPremium.terrorPremium,
 						"Type": submission.type
-					}:{
-						"reason":"",
+					} : {
+						"reason": submission.oiPremium.reason,
 						"Type": submission.type
 					}
-				
+
 				mx.customEvent(
 					"submission",
-					(submission.instantQuote)?"quoted":"knockout",
+					(submission.instantQuote) ? "quoted" : "knockout",
 					params
 				);
 
