@@ -84,7 +84,6 @@ function getClearanceMatches(submission_values) {
 	return new Promise((resolve, reject)=>{
 
 		return getSubmissions(user._brokerId).then((resp)=>{
-			console.log('response23', resp);
 			const matches = resp.submissions.find((s)=>{
 				return (s.type === submission_values.type && matchString(s) === matchString(submission_values))
 			});
