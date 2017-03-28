@@ -12,7 +12,8 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { browserHistory } from 'react-redux';
 
 import App from 'components/App';
-import Home from 'routes/Home';
+
+import Submissions from 'routes/Submissions';
 import Rating from 'routes/Rating';
 import ProductChoice from 'routes/ProductChoice';
 import SignIn from 'routes/SignIn';
@@ -21,12 +22,10 @@ import RatingResults from 'components/RatingResults';
 import Http404 from 'routes/Http404';
 
 const UserIsAuthenticated = UserAuthWrapper({
-
   authSelector:         state => state.user,
   redirectAction:       routerActions.replace,
   wrapperDisplayName:   'UserIsAuthenticated',
   failureRedirectPath:  '/' // Go back to sign in page at /
-
 });
 
 const requireSignIn = () => {
@@ -59,7 +58,7 @@ export default (
 
     <Route
       path='submissions'
-      component={UserIsAuthenticated(Home)}
+      component={UserIsAuthenticated(Submissions)}
     />
 
     <Route

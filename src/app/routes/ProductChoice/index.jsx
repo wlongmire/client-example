@@ -12,27 +12,43 @@ import {
 
 import ratingProducts from 'config/RatingProducts'
 
-function ProductChoice(props, context) {
+function ProductChoiceItem(props) {
   const {
-    content
-  } = context;
+    type,
+    name,
+    description
+  } = props;
 
-  
+  return (
+      <div data-type={type} className="selectionCard">
+        <h1>{name}</h1>
+        <p>{description}</p>
+      </div>
+  )
+}
+
+function ProductChoice(props) {
+  const generateItems = ()=>{
+    return Object.keys(ratingProducts).map((productType,idx)=>{  
+      return (<ProductChoiceItem 
+        key={idx} type={productType} 
+        name={ratingProducts[productType].name} 
+        description={ratingProducts[productType].description}
+        />
+      )
+    })
+  }
+
   return (
     <div className='productChoice '>
         <h3>Select The Insurance Product</h3>
 
         <div className="selectionCards">
-          <div data-type='oi' className="selectionCard">
-            <h1>Owner's Interest</h1>
-            <p>Mi eu a mattis parturient vel phasellus parturient parturient vestibulum tellus fusce ante nisl dictum facilisis nam ridiculus ornare purus et. Montes fermentum duis quisque vivamus iaculis tempor et ad nunc mus nibh vulputate libero a tellus laoreet condimentum.</p>
-          </div>
-
-          <div data-type='ocp' className="selectionCard">
-            <h1>Owner Contractor's Product</h1>
-            <p>Mi eu a mattis parturient vel phasellus parturient parturient vestibulum tellus fusce ante nisl dictum facilisis nam ridiculus ornare purus et. Montes fermentum duis quisque vivamus iaculis tempor et ad nunc mus nibh vulputate libero a tellus laoreet condimentum.</p>
-          </div>
           
+          {
+            generateItems()
+          }
+        
         </div>
 
          <LinkContainer to="/submissions">

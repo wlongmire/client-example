@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 
 import HomeView from 'components/Home';
 
-function Home(props, context) {
+function Submissions(props, context) {
   const {
     content
   } = context;
@@ -21,4 +21,4 @@ Home.contextTypes = {
   content: PropTypes.object.isRequired
 };
 
-export default Home;
+export default Submissions;
