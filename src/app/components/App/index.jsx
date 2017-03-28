@@ -1,16 +1,13 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
-// import ga from 'react-ga';
 
 import config from 'config';
-import Logo from 'components/Logo';
+import Header from 'components/Header';
 
 let query = querystring.parse(window.location.search.slice(1));
 
-
 let content = require('content');
-let testString = 'default';
 
 const App = React.createClass({
   render() {
@@ -34,7 +31,7 @@ const App = React.createClass({
           meta={ baseMeta }
         />
 
-        <Logo />
+        <Header />
 
         { this.props.children }
       </div>
@@ -43,29 +40,14 @@ const App = React.createClass({
 
   childContextTypes: {
     config: React.PropTypes.object.isRequired,
-    content: React.PropTypes.object.isRequired,
-    testString: React.PropTypes.string.isRequired
+    content: React.PropTypes.object.isRequired
   },
 
   getChildContext () {
     return {
       config: config,
-      content: content,
-      testString: testString
+      content: content
     };
-  },
-
-  componentWillMount() {
-    // this.updateAnalytics({
-    //   category: 'page-view',
-    //   action: 'visit',
-    //   label: 'landing:' + this.context.testString,
-    //   value: 10
-    // });
-  },
-
-  updateAnalytics (options) {
-    // ga.event(options);
   }
 
 });

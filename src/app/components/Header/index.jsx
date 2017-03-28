@@ -12,7 +12,7 @@ import {
 import styles from './styles';
 import mx from 'app/utils/MixpanelInterface';
 
-class Logo extends Component{
+class Header extends Component{
   constructor(props){
     super(props);
     this.logout = this.logout.bind(this);
@@ -57,7 +57,7 @@ class Logo extends Component{
                   </IndexLinkContainer>}
 
                 {this.props.user &&
-                  <LinkContainer  onMouseUp={this.resetEdit} to="/oiform">
+                  <LinkContainer  onMouseUp={this.resetEdit} to="/productchoice">
                     <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
                   </LinkContainer>}
 
@@ -80,4 +80,4 @@ function mapStateToProps(state){
     user: state.user
   };
 }
-export default connect(mapStateToProps, actions, null, {pure: false})(Logo);
+export default connect(mapStateToProps, actions, null, {pure: false})(Header);

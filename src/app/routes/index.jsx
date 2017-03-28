@@ -14,6 +14,7 @@ import { browserHistory } from 'react-redux';
 import App from 'components/App';
 import Home from 'routes/Home';
 import Rating from 'routes/Rating';
+import ProductChoice from 'routes/ProductChoice';
 import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
 import RatingResults from 'components/RatingResults';
@@ -60,6 +61,11 @@ export default (
       path='submissions'
       component={UserIsAuthenticated(Home)}
     />
+
+    <Route
+      path='productChoice'
+      component={UserIsAuthenticated(ProductChoice)}
+    />    
 
     <Route
       path='oiform'

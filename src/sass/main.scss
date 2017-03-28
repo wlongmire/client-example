@@ -27,12 +27,28 @@
 @import '../app/components/SignUpForm/styles';
 @import '../app/components/SignInForm/styles';
 
+//Routes
+@import '../app/routes/ProductChoice/styles';
+
 .app-container {
   position: relative;
 }
 
 .links a{
   cursor: pointer;
+}
+
+.productChoice {
+  width: 80%;
+  margin: 0 auto;
+
+  h3 {
+      text-align: left;
+      padding: 10px;
+      font-size: 3em;
+      font-weight: bold;
+      color: #32a4d8;
+    }
 }
 
 .home{
