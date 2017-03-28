@@ -23,9 +23,9 @@
 
 //Components
 @import '../app/components/shared/ValidationInput/styles';
-@import '../app/components/RatingForm/styles';
 
 //Routes
+@import '../app/routes/Rating/styles';
 @import '../app/routes/ProductChoice/styles';
 @import '../app/routes/SignIn/styles';
 @import '../app/routes/SignUp/styles';

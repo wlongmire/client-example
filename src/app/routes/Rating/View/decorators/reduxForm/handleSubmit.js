@@ -8,13 +8,13 @@ import validate from './validate';
 import scrollTo from 'scroll-to';
 import _ from 'lodash';
 
-import { CONFIRMATION } from '../../../../constants';
+import { CONFIRMATION } from 'constants';
 
 import getSubmissions from 'app/utils/getSubmissions';
 import jaro from 'jaro-winkler';
 
-import config from '../../../../../config';
-import { onlyNums } from '../../../../utils/utilities';
+import config from 'config';
+import { onlyNums } from 'app/utils/utilities';
 
 import mx from 'app/utils/MixpanelInterface';
 

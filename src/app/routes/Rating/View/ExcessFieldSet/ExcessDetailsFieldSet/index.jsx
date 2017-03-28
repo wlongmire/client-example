@@ -4,7 +4,7 @@ import PureOptionSelect from 'components/shared/PureOptionSelect';
 
 import {
   commifyNumber
-} from '../../../../utils/utilities';
+} from 'app/utils/utilities';
 
 import {
   validationStatus,

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import RatingForm from 'components/RatingForm';
+import RatingForm from './View';
 
 function Rating(props, context) {
   const {

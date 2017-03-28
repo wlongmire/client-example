@@ -18,7 +18,8 @@ import Rating from 'routes/Rating';
 import ProductChoice from 'routes/ProductChoice';
 import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
-import RatingResults from 'components/RatingResults';
+import RatingResults from 'routes/RatingResults';
+
 import Http404 from 'routes/Http404';
 
 const UserIsAuthenticated = UserAuthWrapper({
