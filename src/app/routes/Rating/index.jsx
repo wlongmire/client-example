@@ -9,7 +9,7 @@ function Rating(props, context) {
     content
   } = context;
   return (
-    <div className='home'>
+    <div className='submissions'>
       <Helmet title={content.title} />
       <RatingForm />
     </div>

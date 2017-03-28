@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import SignInForm from 'components/SignInForm';
+import SignInFormView from './View';
 
 function SignIn(props, context) {
   const {
@@ -11,7 +11,7 @@ function SignIn(props, context) {
   return (
     <div className='signin'>
       <Helmet title={content.title} />
-      <SignInForm />
+      <SignInFormView />
     </div>
   );
 }

@@ -24,11 +24,11 @@
 //Components
 @import '../app/components/shared/ValidationInput/styles';
 @import '../app/components/RatingForm/styles';
-@import '../app/components/SignUpForm/styles';
-@import '../app/components/SignInForm/styles';
 
 //Routes
 @import '../app/routes/ProductChoice/styles';
+@import '../app/routes/SignIn/styles';
+@import '../app/routes/SignUp/styles';
 
 .app-container {
   position: relative;
@@ -51,7 +51,7 @@
     }
 }
 
-.home{
+.submissions{
     width: 80%;
     margin: 0 auto;
 

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'moment';
-import * as actions from './actions';
-import { formatDollars } from '../../utils/utilities';
+
+import { formatDollars } from 'app/utils/utilities';
+import * as actions from '../actions';
+
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, Panel } from 'react-bootstrap';
+
 import mx from 'app/utils/MixpanelInterface';
 
-class Home extends Component{
+class SubmissionView extends Component{
   constructor(){
     super();
 
@@ -122,7 +125,7 @@ class Home extends Component{
             width="100px"
             >Primary Named Insured</TableHeaderColumn>
           <TableHeaderColumn
-            dataField="quouteStatus"
+            dataField="quoteStatus"
             dataSort={true}
             width="35px"
             >Was <br/>Submission<br/> Quoted?</TableHeaderColumn>
@@ -174,4 +177,4 @@ function mapStateToProps(state){
   };
 }
 
-export default connect(mapStateToProps, actions)(Home);
+export default connect(mapStateToProps, actions)(SubmissionView);

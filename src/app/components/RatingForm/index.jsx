@@ -4,7 +4,8 @@ import ReactTooltip from 'react-tooltip';
 import DialogBox from 'components/shared/DialogBox';
 import OIConfirmationModal from './ConfirmationModal';
 import { handleSubmit } from './decorators/reduxForm/handleSubmit';
-import * as actions from '../Home/actions';
+
+import * as actions from 'app/routes/Submissions/actions';
 
 import {
   Button,

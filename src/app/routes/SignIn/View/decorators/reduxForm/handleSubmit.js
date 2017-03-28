@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
 
-import config from '../../../../../config';
+import config from 'config';
 import validate from './validate';
 
 import base_form_structure from 'content/formStructure';

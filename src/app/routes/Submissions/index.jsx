@@ -2,21 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import HomeView from 'components/Home';
+import SubmissionView from './View';
 
 function Submissions(props, context) {
   const {
     content
   } = context;
   return (
-    <div className='home'>
+    <div className='submissions'>
       <Helmet title={content.title} />
-      <HomeView />
+      <SubmissionView />
     </div>
   );
 }
 
-Home.contextTypes = {
+Submissions.contextTypes = {
   config: PropTypes.object.isRequired,
   content: PropTypes.object.isRequired
 };

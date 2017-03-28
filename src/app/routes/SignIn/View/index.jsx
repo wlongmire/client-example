@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import CredentialsFieldSet from '../SignInForm/CredentialsFieldSet';
+import CredentialsFieldSet from './CredentialsFieldSet';
 import { Button } from 'react-bootstrap';
 
 import decorator from './decorators';

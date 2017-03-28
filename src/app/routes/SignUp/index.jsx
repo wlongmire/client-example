@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
-import SignUpForm from 'components/SignUpForm';
+import SignUpForm from './View';
 
 function SignUp(props, context) {
   const {
