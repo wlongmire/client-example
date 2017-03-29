@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+import {connect} from 'react-redux'
 import ReactDOM from 'react-dom'
 import Helmet from 'react-helmet'
+
+import { push } from 'react-router-redux'
 
 import {
   LinkContainer
@@ -11,16 +14,24 @@ import {
 } from 'react-bootstrap';
 
 import ratingProducts from 'config/RatingProducts'
+import constants from 'app/constants/app'
 
 function ProductChoiceItem(props) {
   const {
     type,
     name,
-    description
+    description,
+    dispatch
   } = props;
 
   return (
-      <div data-type={type} className="selectionCard">
+      <div 
+        data-type={type} 
+        className="selectionCard"
+        onClick={()=>{
+          props.dispatch({ type: constants.CHANGE_SUBMISSION, submission: { type, status:constants.SUBMISSION_STATUS.CLEARANCE } });
+          props.dispatch(push("/oiform"));
+        }}>
         <h1>{name}</h1>
         <p>{description}</p>
       </div>
@@ -28,19 +39,27 @@ function ProductChoiceItem(props) {
 }
 
 function ProductChoice(props) {
+  const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants;
+
   const generateItems = ()=>{
     return Object.keys(ratingProducts).map((productType,idx)=>{  
       return (<ProductChoiceItem 
         key={idx} type={productType} 
         name={ratingProducts[productType].name} 
         description={ratingProducts[productType].description}
+        dispatch={props.dispatch}
         />
       )
     })
   }
 
+  props.dispatch({
+    type: CHANGE_SUBMISSION_STATUS,
+    status: SUBMISSION_STATUS.SELECTION
+  })
+
   return (
-    <div className='productChoice '>
+    <div className='productChoice'>
         <h3>Select The Insurance Product</h3>
 
         <div className="selectionCards">
@@ -58,4 +77,4 @@ function ProductChoice(props) {
   );
 }
 
-export default ProductChoice;
+export default connect()(ProductChoice);

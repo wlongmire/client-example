@@ -8,8 +8,9 @@ import {
   EDIT_SUBMISSION 
 } from 'src/app/constants/user';
 
-let baseURL = config.apiserver.url;
+import constants from 'app/constants/app';
 
+let baseURL = config.apiserver.url;
 
 export function getSubmissions(brokerId) {
   return (dispatch) => {
@@ -53,6 +54,12 @@ export function editSubmission(submission) {
   return (dispatch) => {
 
     dispatch({ type: EDIT_SUBMISSION,   payload: submission });
+    
+    const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants;
+
+    dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
+    dispatch({ type: constants.CHANGE_SUBMISSION, submission: { type:submission.type, status:constants.SUBMISSION_STATUS.CLEARANCE } });
+
     localStorage.setItem('editing', true);
     dispatch(push('/oiform'));
 

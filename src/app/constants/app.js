@@ -5,10 +5,13 @@ export default  {
 
     SUBMISSION_STATUS:{
         NONE:'NONE',
-        EDIT:'EDIT',
-        CLEARANCE:'CLEARANCE',
+        
         SELECTION:'SELECTION',
+        CLEARANCE:'CLEARANCE',
+
+        EDIT:'EDIT',
         CREATING:'CREATING',
+        
         REVIEW:'REVIEW',
         QUOTE:'QUOTE'
     }

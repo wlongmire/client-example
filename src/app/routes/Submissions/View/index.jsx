@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Moment from 'moment';
 
 import { formatDollars } from 'app/utils/utilities';
@@ -9,6 +9,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, Panel } from 'react-bootstrap';
 
 import mx from 'app/utils/MixpanelInterface';
+import constants from 'app/constants/app';
 
 class SubmissionView extends Component{
   constructor(){
@@ -19,6 +20,7 @@ class SubmissionView extends Component{
     this.state = ({
       chartData: []
     });
+    
   }
 
   componentDidMount() {
@@ -80,6 +82,7 @@ class SubmissionView extends Component{
   }
 
   render(){
+
     const selectFormatter = (cell, row) => {
       return (
         <Button onClick={ 

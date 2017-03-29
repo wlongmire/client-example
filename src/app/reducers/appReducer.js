@@ -9,9 +9,7 @@ export default function (state = initialState, action) {
 	const {
 		CHANGE_SUBMISSION_STATUS,
 		CHANGE_SUBMISSION,
-		CLEAR_SUBMISSION,
-		SET_CONFIRMATION_DIALOG,
-		SAVE_VALUES
+		CLEAR_SUBMISSION
 	} = constants;
 
 	switch (action.type) {
@@ -22,7 +20,6 @@ export default function (state = initialState, action) {
 
 		case CHANGE_SUBMISSION:
 			const submission = Object.assign(state.submission, action.submission);
-
 			return Object.assign(state,{
 				submission	
 			});
