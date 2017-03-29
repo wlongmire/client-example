@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Moment from 'moment';
 
 import { formatDollars } from 'app/utils/utilities';
-import * as actions from '../actions';
+import * as actions from 'src/app/reducers/SubmissionView/actions';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, Panel } from 'react-bootstrap';

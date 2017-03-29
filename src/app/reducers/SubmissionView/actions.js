@@ -1,7 +1,12 @@
 import fetch from 'isomorphic-fetch';
+import config from 'config';
 import { push } from 'react-router-redux';
-import config from '../../../config';
-import { FETCH_SUBMISSIONS, USER_LOGGED_OUT, EDIT_SUBMISSION } from '../../constants';
+
+import { 
+  FETCH_SUBMISSIONS, 
+  USER_LOGGED_OUT, 
+  EDIT_SUBMISSION 
+} from 'src/app/constants/user';
 
 let baseURL = config.apiserver.url;
 

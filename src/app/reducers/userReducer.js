@@ -1,4 +1,4 @@
-import * as constants from '../constants';
+import * as constants from '../constants/user';
 
 const userReducer = (state = {}, {type, payload}) => {
   if (payload && payload.state && payload.state.type === constants.USER_LOGGED_IN) {

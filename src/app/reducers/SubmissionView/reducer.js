@@ -1,4 +1,8 @@
-import { FETCH_SUBMISSIONS, EDIT_SUBMISSION } from '../../constants'
+import { 
+  FETCH_SUBMISSIONS, 
+  EDIT_SUBMISSION 
+} from 'src/app/constants/user';
+
 export default function (state = {}, action) {
   switch (action.type) {
     case FETCH_SUBMISSIONS:
