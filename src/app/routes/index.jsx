@@ -14,11 +14,14 @@ import { browserHistory } from 'react-redux';
 import App from 'components/App';
 
 import Submissions from 'routes/Submissions';
-import Rating from 'routes/Rating';
+import Form from 'routes/Form';
 import ProductChoice from 'routes/ProductChoice';
+import Clearance from 'routes/Clearance';
 import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
+
 import RatingResults from 'routes/RatingResults';
+import Rating from 'routes/Rating';
 
 import Http404 from 'routes/Http404';
 
@@ -66,6 +69,17 @@ export default (
       path='productChoice'
       component={UserIsAuthenticated(ProductChoice)}
     />    
+
+    <Route
+      path='clearance'
+      component={UserIsAuthenticated(Clearance)}
+    />    
+
+
+    <Route
+      path='form'
+      component={UserIsAuthenticated(Form)}
+    />
 
     <Route
       path='oiform'

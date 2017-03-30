@@ -38,17 +38,50 @@
   cursor: pointer;
 }
 
-.productChoice {
+.page {
   width: 80%;
   margin: 0 auto;
+  padding: 10px;
 
   h3 {
       text-align: left;
-      padding: 10px;
       font-size: 3em;
       font-weight: bold;
       color: #32a4d8;
     }
+
+  h4 { 
+
+  }
+
+  .btn {
+    background-color: #32A4D8;
+    color: #fff;
+    padding: 1em;
+    margin:0px;
+    border: none !important;
+
+    font-size: 1em;
+    transition: background-color 0.3s;
+    border-radius:3px;
+
+    &:hover {
+        color:#fff;
+        background-color: #286090;
+    }
+
+    &.secondary {
+      background-color: white;
+      color: black;
+
+      &:hover {
+        color:black;
+        background-color: #cccccc;
+      }
+    }
+
+    
+  }
 }
 
 .submissions{

@@ -1,0 +1,78 @@
+import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
+import {connect} from 'react-redux'
+import { push } from 'react-router-redux';
+
+import { Button } from 'react-bootstrap'
+
+import Input from './Input'
+import Loading from './Loading'
+import Error from './Error'
+import Result from './Result'
+
+import constants from 'app/constants/app'
+
+const STATUS = {
+  INPUT:"INPUT",
+  LOADING: "LOADING",
+  ERROR: "ERROR",
+  RESULT: "RESULT"
+}
+
+class Clearance extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      status: STATUS.INPUT,
+      input: {},
+      result: {}
+    };
+
+    this.handleInputSubmit = this.handleInputSubmit.bind(this);
+    this.handleLoadComplete = this.handleLoadComplete.bind(this);
+    this.handleClearance = this.handleClearance.bind(this);
+  }
+
+  componentWillMount(){
+    const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants;
+    this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CLEARANCE })
+  }
+  
+  handleInputSubmit(input) {
+    this.setState({ status: STATUS.LOADING, input});
+  }
+
+  handleLoadComplete(error, result) {
+    this.setState({ status: (error)?STATUS.ERROR:STATUS.RESULT, result });
+  }
+
+  handleClearance(result) {
+    if (result.success){
+      this.props.dispatch(push("/form"))
+    } else {
+      this.setState({ status: STATUS.INPUT })
+    }
+  }
+  
+  render() {
+
+    console.log(this.state.result);
+
+    const subcomponentMap = {
+      "INPUT":    <Input    handleSubmit={this.handleInputSubmit}/>,
+      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} input={this.state.input}/>,
+      "ERROR":    <Error/>,
+      "RESULT":   <Result   handleSubmit={this.handleClearance} result={this.state.result}/>
+    };
+
+    return (
+      <div className='page clearance'>
+        {
+          subcomponentMap[this.state.status]
+        }
+      </div>
+    );
+  }
+}
+
+export default connect()(Clearance);

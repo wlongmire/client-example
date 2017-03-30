@@ -8,6 +8,11 @@
 		"account": {}
 	},
 
+	"clearance": {
+		"insuredName":{},
+		"projectAddress":{}
+	},
+
 	"ratingOI": {
 		"primaryNamedCredentials": {},
 		"secondaryNamedInsured": {},
