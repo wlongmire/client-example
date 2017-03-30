@@ -15,6 +15,7 @@ import App from 'components/App';
 
 import Submissions from 'routes/Submissions';
 import Form from 'routes/Form';
+import FormResults from 'routes/FormResults';
 import ProductChoice from 'routes/ProductChoice';
 import Clearance from 'routes/Clearance';
 import SignIn from 'routes/SignIn';
@@ -79,6 +80,11 @@ export default (
     <Route
       path='form'
       component={UserIsAuthenticated(Form)}
+    />
+
+    <Route
+      path='formResults'
+      component={UserIsAuthenticated(FormResults)}
     />
 
     <Route

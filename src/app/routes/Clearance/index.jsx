@@ -48,6 +48,10 @@ class Clearance extends Component {
 
   handleClearance(result) {
     if (result.success){
+
+      const { CHANGE_SUBMISSION } = constants
+      this.props.dispatch({ type:CHANGE_SUBMISSION, submission:{passedClearance:true, status:"SUBMSSION"} })
+    
       this.props.dispatch(push("/form"))
     } else {
       this.setState({ status: STATUS.INPUT })
@@ -55,9 +59,6 @@ class Clearance extends Component {
   }
   
   render() {
-
-    console.log(this.state.result);
-
     const subcomponentMap = {
       "INPUT":    <Input    handleSubmit={this.handleInputSubmit}/>,
       "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} input={this.state.input}/>,
@@ -75,4 +76,8 @@ class Clearance extends Component {
   }
 }
 
-export default connect()(Clearance);
+export default connect((store)=>{
+  return({
+    submissiom:store.app.submission
+  })
+})(Clearance);

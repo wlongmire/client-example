@@ -6,27 +6,26 @@ import Helmet from 'react-helmet';
 import SubmissionView from './View';
 import constants from 'app/constants/app';
 
-function Submissions(props, context) {
-  const {
-    content
-  } = context;
+class Submissions extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {};
+  }
 
-  const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;
+  componentDidMount() {
+    const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;
 
-  props.dispatch({type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE})
-  props.dispatch({type: CLEAR_SUBMISSION})
+    this.props.dispatch({type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE})
+    this.props.dispatch({type: CLEAR_SUBMISSION})
+  }
 
-  return (
-    <div className='submissions'>
-      <Helmet title={content.title} />
-      <SubmissionView dispatch={props.dispatch}/>
-    </div>
-  );
+  render() {
+    return (
+      <div className='submissions'>
+        <SubmissionView dispatch={this.props.dispatch}/>
+      </div>
+    );
+  }
 }
-
-Submissions.contextTypes = {
-  config: PropTypes.object.isRequired,
-  content: PropTypes.object.isRequired
-};
 
 export default connect()(Submissions);

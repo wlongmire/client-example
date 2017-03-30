@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
 function Result(props) {
-
     const result = (props.result.success)?{
         title: "This Submission Passed Clearance!",
         subtitle: "Noone appears to have submitted this insured for review. Now we can enter additional quote information.",
@@ -21,7 +20,6 @@ function Result(props) {
     <form>
         <h3>{result.title}</h3>
         <h4>{result.subTitle}</h4>
-
         
         <ButtonGroup>
             <Button 

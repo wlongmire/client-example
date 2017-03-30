@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import {connect} from 'react-redux'
 import ReactDOM from 'react-dom'
-import Helmet from 'react-helmet'
 
+import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
@@ -33,41 +32,46 @@ function ProductChoiceItem(props) {
   )
 }
 
-function ProductChoice(props) {
-  const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;
+class ProductChoice extends Component {
+  constructor(props){
+    super(props)
 
-  const generateItems = ()=>{
-    return Object.keys(ratingProducts).map((productType,idx)=>{  
-      return (<ProductChoiceItem 
-        key={idx} type={productType} 
-        name={ratingProducts[productType].name} 
-        description={ratingProducts[productType].description}
-        dispatch={props.dispatch}
-        />
-      )
-    })
   }
 
-  props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.SELECTION })
-  props.dispatch({ type: CLEAR_SUBMISSION })
+  componentDidMount() {
+    const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;
 
-  return (
-    <div className='page productChoice'>
-        <h3>Select Your Insurance Product</h3>
+    this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.SELECTION })
+    this.props.dispatch({ type: CLEAR_SUBMISSION })
+  }
 
-        <div className="selectionCards">
-          
-          {
-            generateItems()
-          }
-        
-        </div>
+  render() {
+    const generateItems = ()=>{
+      return Object.keys(ratingProducts).map((productType,idx)=>{  
+        return (<ProductChoiceItem 
+          key={idx} type={productType} 
+          name={ratingProducts[productType].name} 
+          description={ratingProducts[productType].description}
+          dispatch={this.props.dispatch}
+          />
+        )
+      })
+    }
+    
+    return (
+      <div className='page productChoice'>
+          <h3>Select Your Insurance Product</h3>
 
-         <LinkContainer to="/submissions">
-            <Button className="btn">Return to Submissions</Button>
-          </LinkContainer>
-    </div>
-  );
+          <div className="selectionCards">
+            { generateItems() }
+          </div>
+
+          <LinkContainer to="/submissions">
+              <Button className="btn">Return to Submissions</Button>
+            </LinkContainer>
+      </div>
+    );
+  }
 }
-
+  
 export default connect()(ProductChoice);
