@@ -4,6 +4,85 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap';
+import FormBuilder from 'components/shared/FormBuilder';
+
+const clearanceForm = {
+    "questionSetId": "Clearance",
+	"name": "Clearance",
+
+    "questions": [
+		{
+			"questionId": "1",
+			"text": "What is the Primary Insured's Name?",
+			"name": "insuredName",
+			"inputType": "text",
+			"inputFormat": "text",
+			"tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
+			"required": true,
+            "placeholder": "Name"
+		},
+
+        {
+			"questionId": "2a",
+			"text": "What is the Primary Insured's Address?",
+			"inputType": "label",
+            "attributes": {
+                "controlGroup": "insuredAddress"
+            }
+		},
+        {
+			"questionId": "2b",
+			"name": "insuredAddress",
+			"inputType": "text",
+            "inputFormat": "text",
+            "placeholder": "Address",
+            "attributes": {
+                "controlGroup": "insuredAddress"
+            }
+		},
+        {
+			"questionId": "2c",
+			"name": "insuredCity",
+			"inputType": "text",
+            "inputFormat": "text",
+            "placeholder": "City",
+            "attributes": {
+                "controlGroup": "insuredAddress"
+            }
+		},
+        {
+			"questionId": "2d",
+			"name": "insuredState",
+			"inputType": "dropdown-single",
+            "attributes": {
+                "options": [{
+					"optionId": "1",
+					"text": "AK",
+					"value": "AK"
+				}, {
+					"optionId": "2",
+					"text": "AL",
+					"value": "AL"
+				}],
+                "controlGroup": "insuredAddress"
+            }
+		},
+        {
+			"questionId": "2e",
+			"name": "insuredZipcode",
+			"inputType": "text",
+            "inputFormat": "text",
+            "placehoder": "Zipcode",
+            "attributes": {
+                "controlGroup": "insuredAddress"
+            }
+		}
+	],
+
+	"supplementalQuestions": [
+	]
+}
+
 
 class Input extends Component {
     constructor(props) {
@@ -28,17 +107,15 @@ class Input extends Component {
                 <h3>First Let's Check for Clearance</h3>
                 <h4>Enter the following information to clear against previous submissions</h4>
 
-                <ButtonGroup>
-                    <Button 
-                        className="btn secondary" 
-                        onClick={ this.handleSubmit }>
-                        Check For Clearance
-                    </Button>
-
-                    <LinkContainer to="/productChoice">
-                        <Button className="btn"> Return to Product Selection</Button>
-                    </LinkContainer>
-                </ButtonGroup>
+                <FormBuilder
+                    data={clearanceForm}
+                    submitTitle="Check For Clearance"
+                    handleSubmit={
+                        (values)=>{
+                            console.log(values)
+                        }
+                    }
+                />
 
             </form>
             );
