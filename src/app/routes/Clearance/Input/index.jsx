@@ -103,22 +103,21 @@ class Input extends Component {
 
     render() {
         return (
-            <form>
-                <h3>First Let's Check for Clearance</h3>
-                <h4>Enter the following information to clear against previous submissions</h4>
+        <div>
+            <h3>First Let's Check for Clearance</h3>
+            <h4>Enter the following information to clear against previous submissions</h4>
 
-                <FormBuilder
-                    data={clearanceForm}
-                    submitTitle="Check For Clearance"
-                    handleSubmit={
-                        (values)=>{
-                            console.log(values)
-                        }
+            <FormBuilder
+                data={clearanceForm}
+                submitTitle="Check For Clearance"
+                handleSubmit={
+                    (values)=>{
+                        console.log(values)
                     }
-                />
+                }
+            />
 
-            </form>
-            );
+        </div>);
     }
 }
 

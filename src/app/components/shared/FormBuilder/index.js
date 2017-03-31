@@ -72,7 +72,7 @@ class FormBuilder extends React.Component {
     ) : null
 
     return (
-      <form className={`container ${this.state.name}`} onSubmit={this.onSubmit}>
+      <form className={`formBuilder_container ${this.state.name}`} onSubmit={this.onSubmit}>
         {result}
         {button}
       </form>

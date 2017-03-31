@@ -95,7 +95,6 @@ class InputContainer extends React.Component {
     const wrapper = (this.props.data.inputFormat === 'currency') ? <InputGroup><InputGroup.Addon>$</InputGroup.Addon>{overlay}</InputGroup> : overlay
     const helpBlock = (this.state.isValid === 'error') ? <HelpBlock>{this.props.data.validationMessage}</HelpBlock> : null;
     return(
-
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
         <ControlLabel>{this.props.data.text}</ControlLabel>
         {wrapper}

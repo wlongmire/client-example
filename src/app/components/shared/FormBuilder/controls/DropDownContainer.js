@@ -62,7 +62,10 @@ class DropDownContainer extends React.Component {
 
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
-         <ControlLabel>{this.props.data.text}</ControlLabel>
+         { 
+          (this.props.data.text)?<ControlLabel>{this.props.data.text}</ControlLabel>:null  
+         }
+         
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
            <FormControl componentClass="select">
             {this.options}
