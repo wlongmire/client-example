@@ -5,22 +5,33 @@ import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap'
 
-import DialogBox from 'components/shared/DialogBox';
-import ConfirmationModal from './ConfirmationModal';
+import DialogBox from 'components/shared/DialogBox'
+import ConfirmationModal from './ConfirmationModal'
+import FormBuilder from 'components/shared/FormBuilder'
+
 import constants from 'app/constants/app'
+import ratingProducts from 'config/RatingProducts'
 
 class Form extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       confirmation:false,
-      submission:{}
+      controlGroups: {},
+      submission: this.props.submission
     };
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this)
-    this.handleCancelDialog = this.handleCancelDialog.bind(this);
+    this.handleCancelDialog = this.handleCancelDialog.bind(this)
+    this.handleSubmitForReview = this.handleSubmitForReview.bind(this)
+  }
+
+  componentWillMount(){
+    if (!this.props.submission.type)
+      this.props.dispatch(push('/productChoice'));
   }
 
   componentDidMount(){
@@ -40,25 +51,34 @@ class Form extends Component {
     this.setState({confirmation:false})
   }
 
+  handleSubmitForReview(submission, controlGroups) {
+    this.setState({
+      submission,
+      controlGroups,
+      confirmation:true
+    })
+  }
+
   render() {
-    const submission={}
+    const { submission, controlGroups } = this.state;
+    const { ratingProduct } = this.props;
+
+    if (!ratingProduct)
+      return <div></div>
 
     return (
       <div className='page productChoice'>
-          <h3>Fill out the rest of the details</h3>
-          
-          <ButtonGroup>
-            <Button
-              onClick={ ()=>{ this.setState({confirmation:true}) } }
-              className="btn secondary">
-              Review Submission
-            </Button>
-
-            <LinkContainer to="/submissions">
-                <Button className="btn">Return to Submissions</Button>
-            </LinkContainer>
-        </ButtonGroup>
-        
+        <h3>Fill out the rest of the details</h3>
+        <h4><strong>{ratingProduct.name}</strong> Submission</h4>
+      
+        <FormBuilder
+            data={ratingProduct.formJSON}
+            Validation={ratingProduct.Validation}
+            initialValues={submission}
+            submitTitle="Review Submission"
+            handleSubmit={this.handleSubmitForReview}
+        />
+      
         <DialogBox
             custom_class="confirmationDialog"
             title="Is your data correct?"
@@ -66,7 +86,11 @@ class Form extends Component {
             show={this.state.confirmation}
             >
             <div>
-              <ConfirmationModal submission={submission} />
+              <ConfirmationModal 
+                form={ratingProduct.formJSON}
+                submission={submission}
+                controlGroups={controlGroups}
+              />
 
               <ButtonGroup>
                 <Button className="btn secondary" onClick={this.handleSubmitQuote}>Get Quote</Button>
@@ -74,7 +98,7 @@ class Form extends Component {
               </ButtonGroup>
             </div>
 
-          </DialogBox>
+        </DialogBox>
       </div>
     );
   }
@@ -82,7 +106,10 @@ class Form extends Component {
 }
 
 export default connect((store)=>{
+  const submission = store.app.submission
+
   return({
-    submissiom:store.app.submission
+    submission,
+    ratingProduct: ratingProducts[submission.type]
   })
 })(Form);

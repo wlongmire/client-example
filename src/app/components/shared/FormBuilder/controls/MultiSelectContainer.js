@@ -68,9 +68,11 @@ class MultiSelectContainer extends React.Component {
     this.options = this.props.data.attributes.options.map((data) => {
       return <option value={data.text} key={data.optionId}>{data.text}</option>
     })
+
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
-         <ControlLabel>{this.props.data.text}</ControlLabel>
+          { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
+
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
            <FormControl componentClass="select" multiple>
             {this.options}

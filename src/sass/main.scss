@@ -27,6 +27,7 @@
 
 //Routes
 @import '../app/routes/Rating/styles';
+@import '../app/routes/Form/styles';
 @import '../app/routes/ProductChoice/styles';
 @import '../app/routes/SignIn/styles';
 @import '../app/routes/SignUp/styles';
@@ -45,44 +46,113 @@
   padding: 10px;
 
   h3 {
-      text-align: left;
-      font-size: 3em;
-      font-weight: bold;
-      color: #32a4d8;
-    }
-
-  h4 { 
-
+    text-align: left;
+    font-size: 3em;
+    font-weight: bold;
+    color: #32a4d8;
+    margin: 0px;
+    padding: 0px;
   }
 
-  .btn {
-    background-color: #32A4D8;
-    color: #fff;
-    padding: 1em;
-    margin:0px;
-    border: none !important;
+  h4 {
+    padding: 5px 0;
+    margin: 0px;
+    font-size: 15px;
+    color: #71b1ce;
+  }
 
-    font-size: 1em;
-    transition: background-color 0.3s;
-    border-radius:3px;
+}
 
-    &:hover {
-        color:#fff;
-        background-color: #286090;
+.formBuilderElement {
+  .form {
+    margin-top: 1em;
+
+    label {
+      font-size: 1.1em;
+      margin-bottom: 0.6em;
+      font-weight: 200;
+      color: #dcdcdc;
+      display: inline-block;
+      padding: 0 0 0 0px;
     }
 
-    &.secondary {
-      background-color: white;
-      color: black;
+    .group {
+      border-radius: 5px 5px 0 0;
+      background-color: #0e5a7d;
+      margin: 0px 0px 5px 0px;
+      border-bottom: 2px solid #08415c;
+      padding: 20px;
+    }
 
-      &:hover {
-        color:black;
-        background-color: #cccccc;
+    .select {
+      width:100%;
+      
+      select{
+        height: 42px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0 0 1em 0;
+        padding: 0 0 0px 20px;
+        border-radius: 3px;
+        background-color: #08415c;
+        color: #929997;
+        transition: background-color 1s;
+        border: 1px solid #0e5a7d;
+        
+        &.filled {
+          background-color:#FAFFBD;
+          color:black;
+        }
       }
     }
 
-    
+    input {
+      margin: 0 0 1em 0;
+      padding: 20px;
+      border-radius: 3px;
+      background-color: #08415c;
+      color: white;
+      transition: background-color 1s;
+      border: 1px solid #0e5a7d;
+
+      &.filled{
+        background-color:#FAFFBD;
+        color:black;
+      }
+    }
   }
+  
+}
+
+.btn {
+  background-color: #32A4D8;
+  color: #fff;
+  padding: 1em;
+  margin:0px;
+  border: none !important;
+
+  font-size: 1em;
+  transition: background-color 0.3s;
+  border-radius:3px;
+  letter-spacing: 0px;
+
+  &:hover {
+      color:#fff;
+      background-color: #286090;
+  }
+
+  &.secondary {
+    background-color: white;
+    color: black;
+
+    &:hover {
+      color:black;
+      background-color: #cccccc;
+    }
+  }
+
+  
 }
 
 .submissions{

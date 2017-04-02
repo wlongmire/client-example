@@ -15,7 +15,7 @@ class DropDownContainer extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleSelect = this.handleSelect.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
   }
 
@@ -33,13 +33,15 @@ class DropDownContainer extends React.Component {
 
   componentWillMount() {
     this.setState({
-      title: this.props.data.placeholder
+      title: this.props.data.placeholder,
+      value: this.props.data.attributes.options[0].value
     })
   }
 
-  handleSelect(event) {
+  handleChange(e) {
+
     let option = this.props.data.attributes.options.filter((option) => {
-      return option.text === event
+      return option.text === e.currentTarget.value
     })[0]
 
     if(option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
@@ -49,27 +51,31 @@ class DropDownContainer extends React.Component {
     }
     // Change dropdown title on select
     this.setState({
-      title: event
+      title: event,
+      value: option.value
     })
+
   }
 
   render() {
     const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
 
     this.options = this.props.data.attributes.options.map((data) => {
-      return <option value={data.text} key={data.optionId}>{data.text}</option>
+      return <option value={this.props.data.text} key={data.optionId}>{data.text}</option>
     })
+
+    console.log(this.state.value);
 
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
-         { 
-          (this.props.data.text)?<ControlLabel>{this.props.data.text}</ControlLabel>:null  
-         }
+         { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
          
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
-           <FormControl componentClass="select">
-            {this.options}
-          </FormControl>
+           <div className="select">
+            <FormControl className={this.state.value && "filled"} onChange={this.handleChange} componentClass="select">
+              {this.options}
+            </FormControl>
+          </div>
         </OverlayTrigger>
        </FormGroup>
     )

@@ -14,13 +14,7 @@ import onReady from './utils/onReady';
 import configureStore from './store';
 import routes from './routes';
 
-// import ga from 'react-ga';
-
 import config from 'config';
-
-// if (config.env === 'production') {
-//   ga.initialize(config.analytics.ua);
-// }
 
 import {
   Router,
@@ -31,8 +25,6 @@ import {
 import {
   syncHistoryWithStore
 } from 'react-router-redux';
-
-// const routingMiddleware = routerMiddleware(browserHistory);
 
 // We have our reducer setup handled by our configureStore() method.
 const store = configureStore(browserHistory, {
@@ -50,16 +42,10 @@ history.listen(() => {
   window.scrollTo(0, 0);
 
   let route = window.location.pathname;
-
-  // if (config.env === 'production') {
-  //   ga.pageview(route);
-  // }
-
   console.log('route change:', route);
 });
 
 // Initialize the app
-
 onReady(() => {
   const container = document.getElementsByClassName(
     'app-container'

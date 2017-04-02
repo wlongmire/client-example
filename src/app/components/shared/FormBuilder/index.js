@@ -7,6 +7,7 @@ import FormItemContainer from './FormItemContainer'
 import getSupplementalQuestions from './utils/getSupplementalQuestions'
 import getControlGroups from './utils/getControlGroups'
 import getFormData from './utils/getFormData'
+import flatten from './utils/flattenObject'
 
 import DefaultValidation from './utils/DefaultValidation'
 
@@ -19,18 +20,21 @@ class FormBuilder extends React.Component {
     }
 
     this.state = this.props.data
-    this.initialValues = this.props.initialValues || {};
+    
+    this.controlGroups = getControlGroups(this.state.questions)
+    this.initialValues = flatten(this.props.initialValues || {});
+
     this.onSubmit = this.onSubmit.bind(this)
   }
 
   onSubmit(event) {
     event.preventDefault()
     let values = getFormData(this.state)
-    this.props.handleSubmit(values)
+    this.props.handleSubmit(values, this.controlGroups)
   }
 
   render() {
-    let controlGroups = getControlGroups(this.state.questions)
+    let { controlGroups } = this;
     let Validation = this.props.Validation || DefaultValidation
     
     let result = []
@@ -72,9 +76,13 @@ class FormBuilder extends React.Component {
     ) : null
 
     return (
-      <form className={`formBuilder_container ${this.state.name}`} onSubmit={this.onSubmit}>
-        {result}
-        {button}
+      <form className={`formBuilderElement ${this.state.name}`} onSubmit={this.onSubmit}>
+        <div className="form">
+          {result}
+          
+          {button}
+        </div>
+        
       </form>
     )
   }

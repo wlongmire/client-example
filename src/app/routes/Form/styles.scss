@@ -57,4 +57,64 @@
             color:black;
         }
     }
-};
+}
+
+.confirmationDialog {
+  .modal-header {
+    padding: 1em 3em;
+    background-color: white;
+    color: dimgrey;
+
+    .modal-title {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+  }
+
+  .modal-body {
+    padding:3em;
+  }
+
+  .questionSet {
+    margin: 10px 0;
+    border-bottom: 1px white solid;
+    padding:5px 0;
+    
+    .question {
+        display:block;
+        font-size: 1.2em;
+    }
+
+    .answer {
+        display:block;
+        font-size: 1em;
+    }
+  }
+  
+  .modal-content {
+    border-radius: 0px;
+    background-color: rgba(8, 65, 92, 0.98);
+
+    .item {
+      padding: 0.3em 0px;
+
+      .left {
+        font-weight: normal;
+        font-size: 0.7em;
+        padding: 0px;
+        float:none;
+        text-decoration: underline;
+      }
+
+      .text {
+        display: inline-block;
+        color: white;
+        padding: 0px;
+        font-size: 1em;
+      }
+
+    }
+
+  }
+}

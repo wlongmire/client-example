@@ -19,7 +19,7 @@ export default function(state) {
       val = option.value
     } else if (document.getElementById(name).classList.contains('dropdown')) {
       val = document.getElementById(name).value;
-
+      
     } else {
     //Else read form elements by id
       val = document.getElementById(name).value

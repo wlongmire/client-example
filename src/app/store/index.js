@@ -22,7 +22,6 @@ import submissionFormReducer from '../reducers/submissionReducer';
 
 // NOTE: Alias is required to get the formReducer reducer working correctly.
 
-
 const appReducers = combineReducers({
   user: userReducer,
   

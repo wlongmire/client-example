@@ -78,6 +78,7 @@ class InputContainer extends React.Component {
       input = (
         <FormControl
             placeholder={this.props.data.placeholder}
+            className={this.state.value && 'filled'}
             type={inputFormat}
             onChange={this.handleChange}
             componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
@@ -96,7 +97,8 @@ class InputContainer extends React.Component {
     const helpBlock = (this.state.isValid === 'error') ? <HelpBlock>{this.props.data.validationMessage}</HelpBlock> : null;
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
-        <ControlLabel>{this.props.data.text}</ControlLabel>
+        { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
+
         {wrapper}
         {helpBlock}
 

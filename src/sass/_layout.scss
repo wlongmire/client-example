@@ -1,7 +1,12 @@
 body, html{
-	background:$darkBlue !important;
+	background: rgba(8,65,92,1);
+background: -webkit-linear-gradient(bottom left, rgba(8,65,92,1) 0%, rgba(61,148,189,1) 100%);
+background: -moz-linear-gradient(bottom left, rgba(8,65,92,1) 0%, rgba(61,148,189,1) 100%);
+background: -o-linear-gradient(bottom left, rgba(8,65,92,1) 0%, rgba(61,148,189,1) 100%);
+background: linear-gradient(to top right, rgba(8,65,92,1) 0%, rgba(61,148,189,1) 100%);
+
 	color:$accent !important;
-	font-family:"Lato", sans-serif;
+	font-family:"Raleway", sans-serif;
 }
 
 body{

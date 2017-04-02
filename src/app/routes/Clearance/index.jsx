@@ -50,8 +50,9 @@ class Clearance extends Component {
     if (result.success){
 
       const { CHANGE_SUBMISSION } = constants
-      this.props.dispatch({ type:CHANGE_SUBMISSION, submission:{passedClearance:true, status:"SUBMSSION"} })
-    
+      const submission = Object.assign(this.state.input, {passedClearance:true, status:"SUBMISSION"});
+
+      this.props.dispatch({ type:CHANGE_SUBMISSION, submission })
       this.props.dispatch(push("/form"))
     } else {
       this.setState({ status: STATUS.INPUT })
