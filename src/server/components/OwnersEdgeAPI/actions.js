@@ -3,7 +3,7 @@ import rp from 'request-promise';
 import filter from 'lodash/filter';
 import config from '../../../config';
 import { User, Broker } from '../../models';
-import { emailService, submissionService, edgeSubmissionService } from '../../services'
+import { emailService, submissionService, edgeSubmissionService, businessMatchingService } from '../../services'
 import {
   utilities
 } from '../../utils'
@@ -72,6 +72,7 @@ async function getClearance(req, res) {
 
 			const name = req.query.name || '';
 			const address = req.query.address || '';
+			const city = req.query.city || '';
 			const state = req.query.state || '';
 			const zipcode = req.query.zipcode || '';
 
@@ -89,18 +90,27 @@ async function getClearance(req, res) {
 					})
 				)).filter((s)=>(
 					s.name && s.address
-				));
-				
-				console.log(submissions);
-				
-				return res.status(200).json({
-					success: true,
-					submissions: submissions
-				});
-			})
+				))
 
-		})
-		.catch(error => {
+				businessMatchingService.getBusinessMatching(
+					{name, address:`${address} ${state} ${zipcode}`},
+					submissions
+				).then((resp)=>{
+					console.log(resp);
+
+					return res.status(200).json({
+						success: true,
+						submissions
+					});
+				})
+				.catch(error => {
+					return res.status(200).json({
+						success: false
+					});
+				})
+
+			})
+		}).catch(error => {
 			return res.status(403).json({
 				type: 'TokenExpired',
 				message: 're-login to get new token',
