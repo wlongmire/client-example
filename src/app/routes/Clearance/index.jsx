@@ -30,6 +30,7 @@ class Clearance extends Component {
 
     this.handleInputSubmit = this.handleInputSubmit.bind(this);
     this.handleLoadComplete = this.handleLoadComplete.bind(this);
+    this.handleLoadCancel = this.handleLoadCancel.bind(this);
     this.handleClearance = this.handleClearance.bind(this);
   }
 
@@ -39,11 +40,15 @@ class Clearance extends Component {
   }
   
   handleInputSubmit(input) {
-    this.setState({ status: STATUS.LOADING, input});
+    this.setState({ status: STATUS.LOADING, input})
   }
 
   handleLoadComplete(error, result) {
-    this.setState({ status: (error)?STATUS.ERROR:STATUS.RESULT, result });
+    this.setState({ status: (error)?STATUS.ERROR:STATUS.RESULT, result })
+  }
+
+  handleLoadCancel() {
+    this.setState({ status:STATUS.INPUT })
   }
 
   handleClearance(result) {
@@ -62,7 +67,7 @@ class Clearance extends Component {
   render() {
     const subcomponentMap = {
       "INPUT":    <Input    handleSubmit={this.handleInputSubmit}/>,
-      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} input={this.state.input}/>,
+      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} handleCancel={this.handleLoadCancel} input={this.state.input}/>,
       "ERROR":    <Error/>,
       "RESULT":   <Result   handleSubmit={this.handleClearance} result={this.state.result}/>
     };

@@ -16,9 +16,11 @@ class Loading extends Component {
         const result = { success:true, matches:[] };
         const error = false;
 
-        setTimeout(()=>{
-            this.props.handleSubmit(error, result);
-        }, 2000);
+        console.log(this.props.input);
+
+        // setTimeout(()=>{
+        //     this.props.handleSubmit(error, result);
+        // }, 2000);
     }
 
     render() {
@@ -27,14 +29,14 @@ class Loading extends Component {
                 <h3>Checking Prior Submissions</h3>
                 <h4>Please Wait while we scan for matches.</h4>
 
-                <img 
-                style={{"display":"block", "padding":"1em"}} 
-                src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
+                <div className="loadingImg">
+                    <img src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
+                </div>
 
                 <ButtonGroup>
-                    <LinkContainer to="/productChoice">
-                        <Button className="btn"> Return to Product Selection</Button>
-                    </LinkContainer>
+                    <Button onClick={ this.props.handleCancel } className="btn">
+                        Return to Clearance Form
+                    </Button>
                 </ButtonGroup>
 
             </form>

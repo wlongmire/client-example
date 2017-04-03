@@ -1,3 +1,15 @@
+.loadingImg {
+    background-color:rgba(50, 164, 216, 0.74);
+    width:100%;
+
+    img {
+        display:block;
+        padding:1em;
+        margin: 1em auto;
+        border-radius: 3px;
+    }
+}
+
 .selectionCards {
     width:100%;
 
