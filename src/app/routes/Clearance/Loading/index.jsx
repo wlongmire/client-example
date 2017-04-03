@@ -5,6 +5,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
+import getClearance from 'app/utils/getClearance';
+
 class Loading extends Component {
 //does clearance check and shows loading screen
     constructor(props) {
@@ -16,11 +18,9 @@ class Loading extends Component {
         const result = { success:true, matches:[] };
         const error = false;
 
-        console.log(this.props.input);
-
-        // setTimeout(()=>{
-        //     this.props.handleSubmit(error, result);
-        // }, 2000);
+        getClearance("", "Warren Longmire", "2923 N 27th Street").then((resp)=>{
+            this.props.handleSubmit(error, result);
+        })
     }
 
     render() {

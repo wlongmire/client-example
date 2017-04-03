@@ -13,11 +13,8 @@ class OwnersEdge extends Component {
     router.route('/getSubmissions')
       .get(actions.getSubmissions);
 
-    router.route('/getEdgeSubmissions')
-      .post(actions.getEdgeSubmissions);
-
-    // router.route('/getEdgeSubmissions')
-    //   .post(actions.getEdgeSubmissions);
+    router.route('/getClearance')
+      .get(actions.getClearance)
 
     router.route('/getBroker')
       .get(actions.getBroker);

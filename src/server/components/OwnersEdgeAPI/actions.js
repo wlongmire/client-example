@@ -35,8 +35,7 @@ async function getSubmissions(req, res) {
 			.then(function(submissions){
 				return res.status(200).json({
 					success: true,
-					submissions: submissions,
-					//authToken: newAuthToken
+					submissions: submissions
 				});
 			})
 
@@ -53,28 +52,96 @@ async function getSubmissions(req, res) {
 	}
 }
 
-async function getEdgeSubmissions(req, res) {
-  const body = req.body
-  rp({
-    method: 'POST',
-    uri: `http://qa.wrapper.argogroupus.com/api/submissions/search`,
-    body,
-    json: true
-  }).then((response)=> {
-    return res.status(200).json({
-      success: true
-    });
-  }).catch((e)=>{
-    return res.status(500).json();
-  });
-}
-
-async function getBroker(req, res) {
-  try {
+async function getClearance(req, res) {
+	try {
 
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
+
+		User.fromAuthToken(req.headers['x-token']).then((result) => {
+
+			if (!result || !result.user) {
+				return res.status(403).json({
+					type: "AuthError",
+					message: "Access forbidden. Invalid user token."
+				});
+			}
+
+			const user = result.user;
+
+			const name = req.query.name || '';
+			const address = req.query.address || '';
+			
+			console.log(name, address);
+
+			Promise.all([getAllSubmissionsByBroker(user._brokerId), getAllSubmissionsByBroker(user._brokerId)])
+			.then(function(resp){
+				const submissions = resp[0].concat(resp[1]);
+
+				console.log(resp);
+				
+				return res.status(200).json({
+					success: true,
+					submissions: submissions
+				});
+			})
+
+		})
+		.catch(error => {
+			return res.status(403).json({
+				type: 'TokenExpired',
+				message: 're-login to get new token',
+			});
+		})
+		
+		
+
+			// const user = result.user;
+
+			
+			
+			// getAllSubmissionsByBroker(user._brokerId).then((resp)=>{
+			// 	return res.status(200).json({
+			// 		success:true
+			// 	})	
+			// });
+
+		// });
+
+	// 	Promise.all([ getAllSubmissionsByBroker(broker), getAllSubmissionsByBroker(broker) ])
+	// 		.then(function(resp) {
+	// 			const submissions = [].concat(resp[0]
+	// 				.map((s)=>({
+	// 					name:(s.primaryNamedInsured)?s.primaryNamedInsured:"", 
+	// 					address:(s.projectAddress && s.projectAddress.street !== "")?`${s.projectAddress.street} ${s.projectAddress.city} ${s.projectAddress.state} ${s.projectAddress.zip}`:""
+	// 				}))
+	// 			)
+	// 			.concat(
+	// 				resp[1].map((s)=>({
+	// 					name:s.primaryNamedInsured,
+	// 					address:(s.namedInsuredAddress && s.namedInsuredAddress.street !== "")?`${s.namedInsuredAddress.street} ${s.namedInsuredAddress.city} ${s.namedInsuredAddress.state} ${s.namedInsuredAddress.zip}`:""
+	// 				}))
+	// 			)
+			
+	// 		console.log(submissions);
+
+	// 		return res.status(200).json({
+	// 			success: true,
+	// 			submissions
+	// 		});
+	// 	})
+
+	} catch (err) {
+		return res.status(500)
+	}
+}
+
+async function getBroker(req, res) {
+  try {
+	if (!req.headers['x-token']) {
+		return res.status(401).json('Authorization token required');
+	}
 
     Broker.findById(req.params.id).exec()
       .then(broker => {
@@ -430,7 +497,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 		oiPremium:                oiPremium,
 		instantQuote:             quoteInfo.results.instantQuote,
 		supervisingSubs:          subInfo.supervisingSubs,
-    excessDetails:            subInfo.excessDetails,
+    	excessDetails:            subInfo.excessDetails,
 		demoRequired:             subInfo.demoRequired,
 		occupancy:                subInfo.occupancy
 	}
@@ -441,7 +508,7 @@ function createSubmissionObject(subInfo, quoteInfo) {
 export default {
 	getRating,
 	getSubmissions,
-  getEdgeSubmissions,
+	getClearance,
 	getSingleSubmission,
-  getBroker
+  	getBroker
 }
