@@ -18,7 +18,7 @@ const edgeSubmissionSchema = new mongoose.Schema({
   SUBM_POLICY_INS_TS: String,
   SUBM_POLICY_UPD_TS: String,
   PRODUCT_GENERAL_INS_TS: String,
-  PRODUCT_GENERAL_UPD_TS: String,
+  PRODUCT_GENERAL_UPD_TS: String
 }, {collection: 'D_SUBMISSIONS'});
 
 export default mongoose.model('D_SUBMISSIONS', edgeSubmissionSchema);

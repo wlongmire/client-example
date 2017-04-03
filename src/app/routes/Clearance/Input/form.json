@@ -68,15 +68,13 @@
 	        },
 	    		{
 	          "optionId": "1",
-	          "text": "AK",
-	          "value": "AK",
-	          "supplementalquestionIds": ["3_supplemental1"]
+	          "text": "Pennsylvania",
+	          "value": "PA"
 	        },
 	        {
 	          "optionId": "2",
-	          "text": "AL",
-	          "value": "AL",
-	          "supplementalquestionIds": ["3_supplemental1"]
+	          "text": "New York",
+	          "value": "NY"
 	        }
 	    	],
 	    	"controlGroup":"address"

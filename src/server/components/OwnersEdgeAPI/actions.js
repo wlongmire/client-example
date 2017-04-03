@@ -72,14 +72,26 @@ async function getClearance(req, res) {
 
 			const name = req.query.name || '';
 			const address = req.query.address || '';
-			
-			console.log(name, address);
+			const state = req.query.state || '';
+			const zipcode = req.query.zipcode || '';
 
-			Promise.all([getAllSubmissionsByBroker(user._brokerId), getAllEdgeSubmissionsByBroker(user._brokerId)])
+			Promise.all([getAllSubmissionsByBroker(user._brokerId), getAllEdgeSubmissionsByState(state)])
 			.then(function(resp){
-				const submissions = resp[0].concat(resp[1]);
-
-				console.log(resp);
+				const submissions = resp[0].map(
+					(s)=>({
+						name:s.primaryNamedInsured,
+						address: `${s.projectAddress.street} ${s.projectAddress.city} ${s.projectAddress.state} ${s.projectAddress.zip}`
+					})
+				).concat(resp[1].map(
+					(s)=>({
+						name:(s.CUST_NAME),
+						address:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
+					})
+				)).filter((s)=>(
+					s.name && s.address
+				));
+				
+				console.log(submissions);
 				
 				return res.status(200).json({
 					success: true,
@@ -93,84 +105,12 @@ async function getClearance(req, res) {
 				type: 'TokenExpired',
 				message: 're-login to get new token',
 			});
-		})
-		
-		
-
-			// const user = result.user;
-
-			
-			
-			// getAllSubmissionsByBroker(user._brokerId).then((resp)=>{
-			// 	return res.status(200).json({
-			// 		success:true
-			// 	})	
-			// });
-
-		// });
-
-	// 	Promise.all([ getAllSubmissionsByBroker(broker), getAllSubmissionsByBroker(broker) ])
-	// 		.then(function(resp) {
-	// 			const submissions = [].concat(resp[0]
-	// 				.map((s)=>({
-	// 					name:(s.primaryNamedInsured)?s.primaryNamedInsured:"", 
-	// 					address:(s.projectAddress && s.projectAddress.street !== "")?`${s.projectAddress.street} ${s.projectAddress.city} ${s.projectAddress.state} ${s.projectAddress.zip}`:""
-	// 				}))
-	// 			)
-	// 			.concat(
-	// 				resp[1].map((s)=>({
-	// 					name:s.primaryNamedInsured,
-	// 					address:(s.namedInsuredAddress && s.namedInsuredAddress.street !== "")?`${s.namedInsuredAddress.street} ${s.namedInsuredAddress.city} ${s.namedInsuredAddress.state} ${s.namedInsuredAddress.zip}`:""
-	// 				}))
-	// 			)
-			
-	// 		console.log(submissions);
-
-	// 		return res.status(200).json({
-	// 			success: true,
-	// 			submissions
-	// 		});
-	// 	})
+		})	
 
 	} catch (err) {
 		return res.status(500)
 	}
 }
-
-async function getEdgeSubmissions(req, res) {
-	try {
-		if (!req.headers['x-token']) {
-			return res.status(401).json('Authorization token required');
-		}
-
-		User.fromAuthToken(req.headers['x-token']).then((result) => {
-
-			if (!result || !result.user) {
-				return res.status(403).json({
-					type: "AuthError",
-					message: "Access forbidden. Invalid user token."
-				});
-			}
-
-			getAllEdgeSubmissionsByBroker(user._brokerId)
-			.then(function(submissions){
-				return res.status(200).json({
-					success: true,
-					submissions
-				});
-			})
-
-		}).catch(error => {
-			return res.status(403).json({
-				type: 'TokenExpired',
-				message: 're-login to get new token',
-			});
-		})
-	} catch(e) {
-		return res.status(500)
-	}
-}
-
 
 async function getBroker(req, res) {
   try {
@@ -291,8 +231,8 @@ async function getRating(req, res) {
 	}
 }
 
-async function getAllEdgeSubmissionsByBroker(brokerId) {
-	return await edgeSubmissionService.getAllSubmissions(brokerId);
+async function getAllEdgeSubmissionsByState(state) {
+	return await edgeSubmissionService.getAllSubmissionsByState(state);
 }
 
 function sendSubmissionEmailArgo(submission) {

@@ -17,8 +17,14 @@ class Loading extends Component {
     componentDidMount() {
         const result = { success:true, matches:[] };
         const error = false;
-
-        getClearance("", "Warren Longmire", "2923 N 27th Street").then((resp)=>{
+        
+        getClearance({
+            name:this.props.input.nameInsuredName, 
+            address:this.props.input.address.namedInsuredAddress, 
+            state:this.props.input.address.namedInsuredState,
+            city:this.props.input.address.namedInsuredCity,
+            zipcode:this.props.input.address.namedInsuredZipcode
+        }).then((resp)=> {
             this.props.handleSubmit(error, result);
         })
     }
