@@ -5,12 +5,6 @@
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type';
-// @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';
-// @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons';
-// @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
-
-// Font Awesome
-// @import '../../node_modules/font-awesome/scss/font-awesome';
 
 // Required for react boostrap table
 @import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -22,6 +16,7 @@
 @import './layout';
 
 //Components
+@import './formBuilder';
 @import '../app/components/shared/FormBuilder/styles';
 @import '../app/components/shared/ValidationInput/styles';
 
@@ -55,74 +50,13 @@
   }
 
   h4 {
+    font-family: "Lato";
     padding: 5px 0;
     margin: 0px;
     font-size: 15px;
     color: #71b1ce;
   }
 
-}
-
-.formBuilderElement {
-  .form {
-    margin-top: 1em;
-
-    label {
-      font-size: 1.1em;
-      margin-bottom: 0.6em;
-      font-weight: 200;
-      color: #dcdcdc;
-      display: inline-block;
-      padding: 0 0 0 0px;
-    }
-
-    .group {
-      border-radius: 5px 5px 0 0;
-      background-color: #0e5a7d;
-      margin: 0px 0px 5px 0px;
-      border-bottom: 2px solid #08415c;
-      padding: 20px;
-    }
-
-    .select {
-      width:100%;
-      
-      select{
-        height: 42px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        margin: 0 0 1em 0;
-        padding: 0 0 0px 20px;
-        border-radius: 3px;
-        background-color: #08415c;
-        color: #929997;
-        transition: background-color 1s;
-        border: 1px solid #0e5a7d;
-        
-        &.filled {
-          background-color:#FAFFBD;
-          color:black;
-        }
-      }
-    }
-
-    input {
-      margin: 0 0 1em 0;
-      padding: 20px;
-      border-radius: 3px;
-      background-color: #08415c;
-      color: white;
-      transition: background-color 1s;
-      border: 1px solid #0e5a7d;
-
-      &.filled{
-        background-color:#FAFFBD;
-        color:black;
-      }
-    }
-  }
-  
 }
 
 .btn {
@@ -135,7 +69,9 @@
   font-size: 1em;
   transition: background-color 0.3s;
   border-radius:3px;
-  letter-spacing: 0px;
+  letter-spacing: 1px;
+
+  font-family: "Lato";
 
   &:hover {
       color:#fff;

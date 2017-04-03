@@ -1,0 +1,71 @@
+.formBuilderElement {
+  .form {
+    margin-top: 1em;
+
+    label {
+      font-family: "Lato";
+      font-size: 1.1em;
+      margin-bottom: 0.6em;
+      font-weight: 200;
+      color: #dcdcdc;
+      display: inline-block;
+      padding: 0 0 0 0px;
+    }
+
+
+    .supplementalContainer {
+      padding-left: 1em;
+    }
+
+    .group {
+      border-radius: 5px 5px 0 0;
+      background-color: #0e5a7d;
+      margin: 0px 0px 5px 0px;
+      border-bottom: 2px solid #08415c;
+      padding: 20px;
+    }
+
+    .radioGroup .radio{ 
+      padding:0;
+
+      .radioText {
+        font-family: "Lato";
+      }
+    }
+
+    .select {
+      width:100%;
+
+      select{
+        height: 42px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        padding: 0 0 0px 20px;        
+        color: #929997;
+        font-weight: 100;
+      }
+    }
+
+    textarea {
+      font-family: "Lato";
+    }
+
+    input, select {
+      font-family: "Lato";
+      margin: 0 0 1em 0;
+      padding: 20px;
+      border-radius: 3px;
+      background-color: #08415c;
+      color: white;
+      transition: background-color 1s;
+      border: 1px solid #0e5a7d;
+
+      &.filled{
+        background-color:#FAFFBD;
+        color:black;
+      }
+    }
+  }
+}

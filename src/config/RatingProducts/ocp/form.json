@@ -1,443 +1,506 @@
 {
     "questionSetId": "OCPSubmission",
 	"name": "OCPSubmission",
+	
+    "questions": [
+	  {
+	    "questionId": "1",    
+	    "text": "Who is the First Named Insured?",
+	    "name": "nameInsuredName",
+	    "inputType": "text",
+	    "inputFormat": "text",
+	    "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
+	    "required": true
+	   },
+	    
+	  
+	  {
+	    "questionId": "2",
+	    "name": "nameInsuredAddressLabel",
+	    "text": "What is the address of the Named Insured?",
+	    "inputFormat": "label",
 
-	"questions": [{
-			"questionId": "1",
-			"text": "Who is the First Named Insured?",
-			"name": "nameInsuredName",
-			"inputType": "text",
-			"inputFormat": "text",
-			"tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
-			"required": true
-		},
+	    "attributes":{
+	    	"controlGroup":"address"
+	    }
+	    
+	  },
 
-		{
-			"questionId": "2",
-			"name": "nameInsuredAddressLabel",
-			"text": "What is the address of the Named Insured?",
-			"inputFormat": "label",
-			"attributes": {
-				"controlGroup": "addressGroup"
-			}
-		},
+	  {
+	    "questionId": "2a",
+	    
+	    "name": "nameInsuredAddress",
 
-		{
-			"questionId": "2a",
-			"name": "nameInsuredAddress",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
 
-			"inputFormat": "text",
-			"inputType": "text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "required": true,
+	    
+	    "placeholder": "Address",
 
-			"tooltiptext": "Please provide as descriptive of a street address as possible.",
-			"required": true,
+	    "attributes":{
+	    	"controlGroup":"address"	
+	    }
+	  },
 
-			"placeholder": "Address",
+	  {
+	    "questionId": "2b",
 
-			"attributes": {
-				"controlGroup": "addressGroup"
-			}
-		},
+	    "name": "nameInsuredCity",
 
-		{
-			"questionId": "2b",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
 
-			"name": "nameInsuredCity",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "required": true,
+	    
+	    "placeholder": "City",
 
-			"inputFormat": "text",
-			"inputType": "text",
+	    "attributes":{
+	    	"controlGroup":"address"	
+	    }
+	  },
 
-			"tooltiptext": "Please provide as descriptive of a street address as possible.",
-			"required": true,
+	  {
+	    "questionId": "2c",
+	    
+	    "name": "namedInsuredState",
 
-			"placeholder": "City",
-			"attributes": {
-				"controlGroup": "addressGroup"
-			}
-		},
+	    "inputType": "dropdown-single",
 
-		{
-			"questionId": "2c",
-			"name": "namedInsuredState",
-			"inputType": "dropdown-single",
-			"tooltiptext": "Please provide as descriptive of a street address as possible.",
-			"required": true,
-			"placeholder": "State",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 
-			"attributes": {
-				"options": [{
-					"optionId": "0",
-					"text": "State"
-				}, {
-					"optionId": "1",
-					"text": "AK",
-					"value": "AK",
-					"supplementalquestionIds": ["3_supplemental1"]
-				}, {
-					"optionId": "2",
-					"text": "AL",
-					"value": "AL"
-				}],
-				"controlGroup": "addressGroup"
-			}
+	    "required": true,
 
-		},
+	    "placeholder": "State",
 
-		{
-			"questionId": "2d",
+	    "attributes":{	
+	    	"options":[
+	    		{
+	          "optionId": "1",
+	          "text": "AK",
+	          "value": "AK",
+	          "supplementalquestionIds": ["3_supplemental1"]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "AL",
+	          "value": "AL",
+	          "supplementalquestionIds": ["3_supplemental1"]
+	        }
+	    	],
+	    	"controlGroup":"address"
+	    }
+	    
+	  },
 
-			"name": "nameInsuredZipcode",
+	  {
+	    "questionId": "2d",
+	    
+	    "text": "What is the address of the Named Insured?",
 
-			"inputType": "text",
-			"inputFormat": "text",
+	    "name": "nameInsuredZipcode",
 
-			"tooltiptext": "Please provide as descriptive of a street address as possible.",
-			"required": true,
+	    "inputType": 		"text",
+	    "inputFormat": 	"text",
 
-			"placeholder": "Zip Code",
-
-			"attributes": {
-				"controlGroup": "addressGroup"
-			}
-		},
-
-		{
-			"questionId": "3",
-
-			"text": "Is project limited to specific floors?",
-
-			"name": "specificFloors",
-			"inputType": "radio",
-
-			"tooltiptext": "Please choose if project is limited to specific floors.",
-
-			"required": true,
-
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "Yes",
-					"value": true,
-					"supplementalquestionIds": ["3_supplemental1"]
-				}, {
-					"optionId": "2",
-					"text": "No",
-					"value": false,
-					"supplementalquestionIds": []
-				}]
-			}
-
-		},
-
-		{
-			"questionId": "4",
-
-			"text": "Is there a secondary named insured?",
-
-			"name": "secondaryInsured",
-			"inputType": "radio",
-
-			"tooltiptext": "Please choose if project is limited to specific floors.",
-
-			"required": true,
-
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "Yes",
-					"value": true,
-					"supplementalquestionIds": [
-						"4_supplemental1",
-						"4_supplemental2",
-						"4_supplemental3",
-						"4_supplemental4",
-						"4_supplemental5",
-						"4_supplemental6",
-						"4_supplemental7"
-					]
-				}, {
-					"optionId": "2",
-					"text": "No",
-					"value": false,
-					"supplementalquestionIds": []
-				}]
-			}
-
-		},
-
-		{
-			"questionId": "5",
-			"text": "What is the total square footage or number of occupied units?",
-			"name": "occupancySquareFootage",
-
-			"inputType": "number",
-			"inputFormat": "number",
-
-			"required": false
-		},
-
-		{
-			"questionId": "6",
-			"text": "What are the total demo costs?",
-			"name": "exteriorDemoCost",
-
-			"inputType": "text",
-			"inputFormat": "currency",
-
-			"required": false
-		},
-
-		{
-			"questionId": "7",
-			"text": "What excess limits are required?",
-			"name": "excessLimit",
-
-			"inputType": "dropdown-multi",
-
-			"required": false,
-
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "$ 5,000,000",
-					"value": "5000000"
-				}, {
-					"optionId": "2",
-					"text": "$ 10,000,000",
-					"value": "10000000"
-				}, {
-					"optionId": "3",
-					"text": "$ 100,000,000",
-					"value": "100000000"
-				}]
-			},
-
-			"placeholder": "Select Limit Amount"
-		},
-
-		{
-			"questionId": "8",
-			"name": "generalComments",
-			"text": "General Comments",
-
-			"inputType": "freeform",
-
-			"required": false
-		},
-
-		{
-			"questionId": "9",
-			"name": "nameInsuredAddressLabel",
-			"text": "Please provide your contact info to receive your indication:",
-			"inputFormat": "label",
-			"attributes": {
-				"controlGroup": "userInformation"
-			}
-		},
-
-		{
-			"questionId": "9a",
-			"name": "nameInsuredAddressEmail",
-			"inputType": "text",
-			"inputFormat": "email",
-
-			"required": true,
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
+	    "required": true,
+	    
+	    "placeholder": "Zip Code",
 
 
-			"placeholder": "Email",
+	    "attributes":{
+	    	"validationFunc":"clearance",
+	    	"controlGroup":"address"
+	    }
+	  },
 
-			"attributes": {
-				"controlGroup": "userInformation"
-			}
+	  {
+	    "questionId": "3", 
 
-		},
+	    "text": "Is project limited to specific floors?",
 
-		{
-			"questionId": "9b",
-			"name": "nameInsuredAddressPhone",
+	    "name": "specificFloors",
+	    "inputType": 	"radio",
 
-			"inputType": "text",
-			"inputFormat": "text",
+	    "tooltiptext": "Please choose if project is limited to specific floors.",
 
-			"required": true,
+	    "required": true,
 
-			"placeholder": "Phone",
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+	          "supplementalquestionIds": ["3_supplemental1"]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+	      ]
+	    }
 
-			"attributes": {
-				"controlGroup": "userInformation"
-			}
-		}
+	  },
+
+	  {
+	    "questionId": "4", 
+
+	    "text": "Is there a secondary named insured?",
+
+	    "name": "secondaryInsured",
+	    "inputType": 	"radio",
+
+	    "tooltiptext": "Please choose if project is limited to specific floors.",
+
+	    "required": true,
+
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+	          "supplementalquestionIds": [
+	          	"4_supplemental1", 
+	          	"4_supplemental2", 
+	          	"4_supplemental3", 
+	          	"4_supplemental4", 
+	          	"4_supplemental5", 
+	          	"4_supplemental6", 
+	          	"4_supplemental7"
+	          ]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+	      ]
+	    }
+
+	  },
+
+	  {
+	    "questionId": "5",
+	    "text": "What is the total square footage or number of occupied units?",
+	    "name": "occupancySquareFootage",
+
+	    "inputType": "number",
+	    "inputFormat": "number",
+	    
+	    "required": false
+	  },
+	 
+	  {
+	    "questionId": "6",
+	    "text": "What are the total demo costs?",
+	    "name": "exteriorDemoCost",
+
+	    "inputType": "text",       
+	    "inputFormat": "currency",
+	  
+	    "required": false
+	  },
+
+	  {
+	    "questionId": "7",
+	    "text": "What excess limits are required?",
+	    "name": "excessLimit",
+
+	    "inputType": "dropdown-multi",
+
+	    "required": false,
+
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "$ 5,000,000",
+	          "value": "5000000"
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "$ 10,000,000",
+	          "value": "10000000"
+	        },
+	        {
+	          "optionId": "3",
+	          "text": "$ 100,000,000",
+	          "value": "100000000"
+	        }
+	      ]
+	    },
+
+	    "placeholder": "Select Limit Amount"
+	  },
+
+	  {
+	    "questionId": "8",
+	    "name": "generalComments",
+	    "text": "General Comments",
+
+	    "inputType": "freeform",
+	    
+	    "required": false
+	  },
+
+	  {
+	    "questionId": "9",
+	    "name": "nameInsuredAddressLabel",
+	    "text": "Please provide your contact info to receive your indication:",
+	    "inputFormat": "label",
+
+	    "attributes":{
+	    	"controlGroup":"contactInfo"	
+	    }
+	  },
+
+	  {
+	    "questionId": "9a",
+	    "name": "nameInsuredAddressEmail",
+	    "inputType": "text",
+	    "inputFormat": "email",
+
+	    "required": true,
+	    
+	    
+	    "placeholder": "Email",
+
+	    "attributes":{
+	    	"controlGroup":"contactInfo",
+	    	"validationRegEx": "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}"
+	    }
+	    
+	  },
+
+	  {
+	    "questionId": "9b",
+	    "name": "nameInsuredAddressPhone",
+
+	    "inputType": "text",
+	    "inputFormat": "text",
+	         
+	    "required": true,
+	    
+	    "placeholder": "Phone",
+
+	    "attributes":{
+	    	"validationRegEx": "\b((\\(\\d{3}\\) ?)|(\\d{3}-))?\\d{3}-\\d{4}\b",
+	    	"controlGroup":"contactInfo"
+	    }
+	  }
 	],
 
 	"supplementalQuestions": [
 
 		{
-			"questionId": "3_supplemental1",
+	    "questionId": "3_supplemental1", 
 
-			"text": "Level 1",
+	    "text": "Level 1",
 
-			"name": "level1",
-			"inputType": "radio",
+	    "name": "level1",
+	    "inputType": 	"radio",
 
-			"tooltiptext": "Please choose if project is limited to specific floors.",
+	    "tooltiptext": "Please choose if project is limited to specific floors.",
 
-			"required": true,
+	    "required": true,
 
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "Yes",
-					"value": true,
-					"supplementalquestionIds": ["3_supplementalx"]
-				}, {
-					"optionId": "2",
-					"text": "No",
-					"value": false,
-					"supplementalquestionIds": []
-				}]
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+	          "supplementalquestionIds": ["3_supplementalx"]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+	      ]
+	    }
+
+	  },
+
+		{
+	    "questionId": "3_supplementalx", 
+
+	    "text": "Level 2",
+
+	    "name": "level2",
+	    "inputType": 	"radio",
+
+	    "tooltiptext": "Please choose if project is limited to specific floors.",
+
+	    "required": true,
+
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+	          "supplementalquestionIds": ["3_supplementaly"]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+	      ]
+	    }
+
+	  },
+
+		{
+	    "questionId": "3_supplementaly", 
+
+	    "text": "Level 3",
+
+	    "name": "level3",
+	    "inputType": 	"radio",
+
+	    "tooltiptext": "Please choose if project is limited to specific floors.",
+
+	    "required": true,
+
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+	          "supplementalquestionIds": []
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+	      ]
+	    }
+
+	  },
+
+
+	  {
+	    "questionId": "4_supplemental1",
+	    "name": "secondaryNameInsuredName",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Name",
+	    "attributes" : {
+				"controlGroup": "secondaryNamedInfo"
 			}
+	  },
 
-		},
-
-		{
-			"questionId": "3_supplementalx",
-
-			"text": "Level 2",
-
-			"name": "level2",
-			"inputType": "radio",
-
-			"tooltiptext": "Please choose if project is limited to specific floors.",
-
-			"required": true,
-
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "Yes",
-					"value": true,
-					"supplementalquestionIds": ["3_supplementaly"]
-				}, {
-					"optionId": "2",
-					"text": "No",
-					"value": false,
-					"supplementalquestionIds": []
-				}]
+	  {
+	    "questionId": "4_supplemental2",
+	    "name": "secondaryNameInsuredRelationship",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Relationship To Primary",
+	    "attributes" : {
+				"controlGroup": "secondaryNamedInfo"
 			}
-
-		},
-
-		{
-			"questionId": "3_supplementaly",
-
-			"text": "Level 3",
-
-			"name": "level3",
-			"inputType": "radio",
-
-			"tooltiptext": "Please choose if project is limited to specific floors.",
-
-			"required": true,
-
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "Yes",
-					"value": true,
-					"supplementalquestionIds": []
-				}, {
-					"optionId": "2",
-					"text": "No",
-					"value": false,
-					"supplementalquestionIds": []
-				}]
+	  },
+	  {
+	    "questionId": "4_supplemental3",
+	    "name": "secondaryNameInsuredAddress",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Address",
+	    "attributes" : {
+				"controlGroup": "secondaryNamedInfo"
 			}
-
-		},
-
-
-		{
-			"questionId": "4_supplemental1",
-			"name": "secondaryNameInsuredName",
-			"inputFormat": "text",
-			"inputType": "text",
-			"required": false,
-			"placeholder": "Name"
-		},
-
-		{
-			"questionId": "4_supplemental2",
-			"name": "secondaryNameInsuredRelationship",
-			"inputFormat": "text",
-			"inputType": "text",
-			"required": false,
-			"placeholder": "Relationship To Primary"
-		}, {
-			"questionId": "4_supplemental3",
-			"name": "secondaryNameInsuredAddress",
-			"inputFormat": "text",
-			"inputType": "text",
-			"required": false,
-			"placeholder": "Address"
-		}, {
-			"questionId": "4_supplemental4",
-			"name": "secondaryNameInsuredCity",
-			"inputFormat": "text",
-			"inputType": "text",
-			"required": false,
-			"placeholder": "City"
-		},
-
-		{
-			"questionId": "4_supplemental5",
-			"name": "secondaryNameInsuredState",
-			"inputFormat": "dropdown",
-			"inputType": "text",
-			"required": false,
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "AK",
-					"value": true,
-					"supplementalquestionIds": ["3_supplemental11"]
-				}, {
-					"optionId": "2",
-					"text": "AL",
-					"value": false,
-					"supplementalquestionIds": []
-				}]
-			},
-			"placeholder": "State"
-		},
-
-		{
-			"questionId": "4_supplemental6",
-			"name": "secondaryNameInsuredZipcode",
-			"inputFormat": "text",
-			"inputType": "text",
-			"required": false,
-			"placeholder": "Zipcode"
-		},
-
-		{
-			"questionId": "4_supplemental7",
-			"text": "Any other named insured?",
-			"name": "secondaryNameInsuredOther",
-			"inputFormat": "radio",
-			"inputType": "radio",
-			"required": false,
-			"attributes": {
-				"options": [{
-					"optionId": "1",
-					"text": "Yes",
-					"value": true
-				}, {
-					"optionId": "2",
-					"text": "No",
-					"value": false
-				}]
+	  },
+	  {
+	    "questionId": "4_supplemental4",
+	    "name": "secondaryNameInsuredCity",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "City",
+	    "attributes" : {
+				"controlGroup": "secondaryNamedInfo"
 			}
-		}
+	  },
 
+	  {
+	    "questionId": "4_supplemental5",
+	    "name": "secondaryNameInsuredState",
+	    "inputFormat": "dropdown",
+	    "inputType": "text",         
+	    "required": false,
+	    "attributes": {         
+	      "options":[
+	    		{
+	          "optionId": "1",
+	          "text": "AK",
+	          "value": true,
+	          "supplementalquestionIds": ["3_supplemental11"]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "AL",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+	    	],
+				"controlGroup": "secondaryNamedInfo"
+	    },
+	    "placeholder": "State"
+	  },
+
+	  {
+	    "questionId": "4_supplemental6",
+	    "name": "secondaryNameInsuredZipcode",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Zipcode",
+	    "attributes" : {
+				"controlGroup": "secondaryNamedInfo"
+			}
+	  },
+
+	  {
+	    "questionId": "4_supplemental7",
+	    "text": "Any other named insured?",
+	    "name": "secondaryNameInsuredOther",
+	    "inputFormat": "radio",
+	    "inputType": "radio",         
+	    "required": false,
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+	      ],
+				"controlGroup": "secondaryNamedInfo"
+	    }
+	  }
+	  
 	]
 }

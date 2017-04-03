@@ -26,6 +26,8 @@ class MultiSelectContainer extends React.Component {
     this.setState({
       title: event
     })
+
+    this.props.handleFormChange()
   }
 
   getValidationState() {

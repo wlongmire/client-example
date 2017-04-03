@@ -73,6 +73,8 @@ class RadioContainer extends React.Component {
     this.setState({
       value: event.target.value
     })
+
+    this.props.handleFormChange()
   }
 
   render() {
@@ -80,12 +82,19 @@ class RadioContainer extends React.Component {
 
     let options = this.props.data.attributes.options.map((data, index) => {
       return (
-          <Radio className={data.value && 'filled'} className={this.props.data.name} key={index} onChange={this.onChangeHandler} value={data.value} name={`optionGroup_${this.props.data.questionId}`}>{data.text}</Radio>
+          <Radio 
+            className={this.props.data.name} 
+            key={index} 
+            onChange={this.onChangeHandler} 
+            value={data.value}
+            name={`optionGroup_${this.props.data.questionId}`}>
+            <span className="radioText">{data.text}</span>
+          </Radio>
       )
     })
 
     return (
-       <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
+       <FormGroup className="radioGroup" validationState={this.getValidationState()} controlId={this.props.data.name}>
         {/* I'm adding the overlay to the ControlLabel in the case of Radio buttons.
         having a tooltip on the Radio buttons felt a little counter-intuitive in terms of UX*/}
         { this.props.data.text && <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>

@@ -25,12 +25,18 @@ class FormBuilder extends React.Component {
     this.initialValues = flatten(this.props.initialValues || {});
 
     this.onSubmit = this.onSubmit.bind(this)
+    this.onFormChange = this.onFormChange.bind(this)
   }
 
   onSubmit(event) {
     event.preventDefault()
     let values = getFormData(this.state)
     this.props.handleSubmit(values, this.controlGroups)
+  }
+
+  onFormChange(event) {
+    const values = flatten(getFormData(this.state))
+    const form = this.state.questions
   }
 
   render() {
@@ -50,22 +56,18 @@ class FormBuilder extends React.Component {
         return (
           <FormItemContainer key={index} data={item}
             supplementalQuestions={this.state.supplementalQuestions}
+            handleFormChange={this.onFormChange}
             validation={new Validation(validationClosure)}
             initialValues= {this.initialValues}/>
         )
       })
       
-      if(group === 'undefined') {
-        result.push(
-            formItemContainers
-        )
-      } else {
-        result.push(
-          <div key={group} className='group'>
-            {formItemContainers}
-          </div>
-        )
-      }
+      result.push(
+        <div key={group} className='group'>
+          {formItemContainers}
+        </div>
+      )
+    
     }
 
     // show button only if the form elements are created
@@ -78,6 +80,7 @@ class FormBuilder extends React.Component {
     return (
       <form className={`formBuilderElement ${this.state.name}`} onSubmit={this.onSubmit}>
         <div className="form">
+          
           {result}
           
           {button}

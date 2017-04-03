@@ -60,7 +60,8 @@ class ProductChoice extends Component {
     
     return (
       <div className='page productChoice'>
-          <h3>Select Your Insurance Product</h3>
+          <h3>Select Your Insurance Product.</h3>
+          <h4></h4>
 
           <div className="selectionCards">
             { generateItems() }

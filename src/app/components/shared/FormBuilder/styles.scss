@@ -7,4 +7,24 @@
     .form-group {
         margin:0;
     }
+
+    .required {
+        input, select, textarea {
+            border-bottom: 2px solid #e22929
+        }
+    }
+
+    .radioGroup {
+        label {
+            display:block !important;
+        }
+
+        .radio {
+            display:inline-block;
+
+            .radioText {
+                margin: 1.3em;
+            }
+        }
+    }
 }

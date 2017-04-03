@@ -20,7 +20,6 @@ class DropDownContainer extends React.Component {
   }
 
   getValidationState() {
-
     // this bit of code acts as a circuit breaker
     // We want get validation to trigger a validation function and when results are back we need to call it again
     // But this breaks the loops
@@ -55,6 +54,7 @@ class DropDownContainer extends React.Component {
       value: option.value
     })
 
+    this.props.handleFormChange()
   }
 
   render() {
@@ -63,8 +63,6 @@ class DropDownContainer extends React.Component {
     this.options = this.props.data.attributes.options.map((data) => {
       return <option value={this.props.data.text} key={data.optionId}>{data.text}</option>
     })
-
-    console.log(this.state.value);
 
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>

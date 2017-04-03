@@ -8,6 +8,7 @@ import {
   ControlLabel,
   InputGroup,
   Tooltip,
+  Popover,
   OverlayTrigger
 } from 'react-bootstrap'
 
@@ -63,10 +64,17 @@ class InputContainer extends React.Component {
     this.setState({
       value: event.target.value
     });
+    this.props.handleFormChange()
   }
 
   render() {
-    const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
+    const tooltip = <Tooltip 
+        id={`tooltip_${this.props.data.questionId}`}
+        placement="bottom"
+        className="in"> 
+        {this.props.data.tooltiptext}
+      </Tooltip>
+    
     let inputFormat = this.props.data.inputFormat
     if (inputFormat === 'currency') inputFormat = 'number'
     let input
