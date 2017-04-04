@@ -20,7 +20,6 @@ const ratingsUrl = config.ratingsUrl;
 
 async function getClearance(req, res) {
 	try {
-
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
@@ -88,6 +87,40 @@ async function getClearance(req, res) {
 
 async function getRating(req, res) {
 	try {
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+		let result = await User.fromAuthToken(req.headers['x-token']);
+
+		if (!result || !result.user) {
+			return res.status(403).json({
+				type: "AuthError",
+				message: "Access forbidden. Invalid user token."
+			});
+		}
+
+		const user = result.user;
+		const newAuthToken = result.authToken;
+		let broker = await Broker.findById(user._brokerId).exec()
+		let paramsObject = req.body;
+		paramsObject.broker = broker;
+		paramsObject.submittedBy = user;
+		let ratingResult = await getRatingInternal(paramsObject);
+		console.log(ratingResult);
+		let ratingObject = JSON.parse(ratingResult)
+		return res.status(200).json({
+			success: true,
+			rating: ratingObject.results,
+			authToken: newAuthToken
+		});
+	}
+	catch (err) {
+
+	}
+}
+
+async function saveSubmission(req, res) {
+	try {
 				if (!req.headers['x-token']) {
 					return res.status(401).json('Authorization token required');
 				}
@@ -101,25 +134,15 @@ async function getRating(req, res) {
 				const user = result.user;
 				const newAuthToken = result.authToken;
 				let broker = await Broker.findById(user._brokerId).exec()
-				let paramsObject = req.body;
-				paramsObject.broker = broker;
-				paramsObject.submittedBy = user;
-				let ratingResult = await getRatingInternal(paramsObject);
-				console.log(ratingResult);
-				let ratingObject = JSON.parse(ratingResult)
-				return res.status(200).json({
-									success: true,
-									rating: ratingObject.results,
-									authToken: newAuthToken
-								});
+				let submission = req.body;
+				submission.broker = broker;
+				submission.submittedBy = user;
+				const newId = await submissionService.createSubmission(submission);
+				return res.status(200).json({success: true, submissionId: newId})
 	}
 	catch (err) {
-
+		return res.status(500).json(err)
 	}
-}
-
-async function saveSubmission(req, res) {
-
 }
 
 async function getPDF(req, res) {
@@ -166,7 +189,6 @@ async function sendEmail(req, res) {
 	}
 }
 
-
 async function getSubmissions(req, res) {
   try {
 
@@ -189,8 +211,7 @@ async function getSubmissions(req, res) {
 			.then(function(submissions){
 				return res.status(200).json({
 					success: true,
-					submissions: submissions,
-					//authToken: newAuthToken
+					submissions: submissions
 				});
 			})
 
@@ -241,7 +262,7 @@ async function getRatingInternal(paramsObject) {
 	const params = JSON.stringify(paramsObject);
 	console.log('**********')
 	console.log(params);
-	return await rp(`${ratingsUrl}/api/calcrating/oi`, {
+	return await rp(`${ratingsUrl}/api/calcrating/${paramsObject.type}`, {
 				method: 'POST',
 				body: params,
 				headers: {
@@ -280,14 +301,16 @@ async function generatePDFsInternal(submissionId) {
 
 	switch (submission.type) {
 		case 'oi': {
-			return await Promise.all(pdfService.generatePDF(submission.pdfToken, 'bind'),
-																			   pdfService.generatePDF(submission.pdfToken, 'oi'));
+			return await Promise.all(
+				pdfService.generatePDF(submission.pdfToken, 'bind'),
+				 pdfService.generatePDF(submission.pdfToken, 'oi'));
 		}
 		break;
 		case 'ocp': {
-			return await Promise.all(pdfService.generatePDF(submission.pdfToken, 'bind'),
-																			   pdfService.generatePDF(submission.pdfToken, 'oi'),
-																				 pdfService.generatePDF(submission.pdfToken, 'ocp'));
+			return await Promise.all(
+				pdfService.generatePDF(submission.pdfToken, 'bind'),
+				pdfService.generatePDF(submission.pdfToken, 'oi'),
+				pdfService.generatePDF(submission.pdfToken, 'ocp'));
 		}
 		break;
 	}
@@ -295,6 +318,7 @@ async function generatePDFsInternal(submissionId) {
 
 export default {
 	getRating,
+	sendEmail,
 	getSubmissions,
 	getClearance,
 	getSingleSubmission,
