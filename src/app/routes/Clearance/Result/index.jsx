@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 import { ButtonGroup, Button, Panel } from 'react-bootstrap';
 
 function Result(props) {
-
-    props.result.success = true
-
     const result = (props.result.success)?{
         title: "This Submission Passed Clearance!",
         subtitle: "You are the first to submitt this insured for review. Now we can enter additional quote information.",
@@ -19,6 +16,8 @@ function Result(props) {
         buttonLabel: "Reenter Primary Insured Information"
     }
 
+    console.log(props.result);
+    
     const matches = (!props.result.success)?
         (props.result.matches.matches.map((m, idx)=> (
             <div key={idx} className="match">

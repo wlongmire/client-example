@@ -34,15 +34,16 @@ async function getClearance(req, res) {
 			}
 
 			const user = result.user;
-
+			
 			const name = req.query.name || '';
 			const address = req.query.address || '';
 			const city = req.query.city || '';
 			const state = req.query.state || '';
 			const zipcode = req.query.zipcode || '';
 
-			Promise.all([getAllSubmissionsByBroker(user._brokerId), getAllEdgeSubmissionsByState(state)])
+			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(state)])
 			.then(function(resp){
+				
 				const submissions = resp[0].map(
 					(s)=>({
 						name:s.primaryNamedInsured,
@@ -168,21 +169,21 @@ async function getPDF(req, res) {
 }
 
 async function sendEmail(req, res) {
-		try {
-				if (!req.headers['x-token']) {
-					return res.status(401).json('Authorization token required');
-				}
-				let result = await User.fromAuthToken(req.headers['x-token']);
-					if (!result || !result.user) {
-						return res.status(403).json({
-							type: "AuthError",
-							message: "Access forbidden. Invalid user token."
-						});
-					}
-					const user = result.user;
-					const newAuthToken = result.authToken;
-					sendEmailInternal(req.params.id, config.argoEmail, req.body.emailType)
-				  return res.status(200).json({success: true});
+	try {
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+		let result = await User.fromAuthToken(req.headers['x-token']);
+			if (!result || !result.user) {
+				return res.status(403).json({
+					type: "AuthError",
+					message: "Access forbidden. Invalid user token."
+				});
+			}
+			const user = result.user;
+			const newAuthToken = result.authToken;
+			sendEmailInternal(req.params.id, config.argoEmail, req.body.emailType)
+			return res.status(200).json({success: true});
 	}
 	catch (err) {
 
