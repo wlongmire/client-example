@@ -12,6 +12,9 @@ class Loading extends Component {
     }
 
     componentDidMount() {
+        console.log("GET RATING OF:");
+        console.log(this.props.submission);
+    
         const rating = { instantQuote:false };
         const error = false;
 

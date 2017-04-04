@@ -36,21 +36,6 @@ class FormResults extends Component {
   componentDidMount(){
     const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.QUOTE })
-
-    
-    // const rating = {
-    //   success:true
-    //   instantQuote:true
-    // }
-
-    // this.props.dispatch({ 
-    //   type:CHANGE_SUBMISSION, 
-    //   submission:Object.assign(this.state.submission, {status:(rating.instantQuote)?"QUOTED":"KNOCKOUT"}) 
-    // })
-
-    // this.setState({
-    //   status: (!rating.success)?STATUS.ERROR:((rating.instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT)
-    // })
   }
 
   handleLoadComplete(error, rating) {
@@ -62,10 +47,8 @@ class FormResults extends Component {
 
   render() {
 
-    console.log(this.props.submission);
-    
     const subcomponentMap = {
-      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} input={this.state.input}/>,
+      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} submission={this.props.submission}/>,
       "ERROR":    <Error/>,
       "QUOTE":    <Quote/>,
       "KNOCKOUT": <Knockout/>
@@ -83,7 +66,8 @@ class FormResults extends Component {
 }
 
 export default connect((store)=>{
+
   return({
-    submissiom:store.app.submission
+    submission:store.app.submission
   })
 })(FormResults);

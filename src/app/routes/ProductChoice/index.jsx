@@ -5,10 +5,12 @@ import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
 
 import ratingProducts from 'config/RatingProducts'
 import constants from 'app/constants/app'
+
+import mx from 'app/utils/MixpanelInterface';
 
 function ProductChoiceItem(props) {
   const {
@@ -24,7 +26,7 @@ function ProductChoiceItem(props) {
         className="selectionCard"
         onClick={()=>{
           props.dispatch({ type: constants.CHANGE_SUBMISSION, submission: { type, status:constants.SUBMISSION_STATUS.CLEARANCE } });
-          
+
           mx.customEvent(
             "submission",
             "create",

@@ -1,6 +1,6 @@
 import statesArray from './states';
 
-const updatedData = {
+const updatedData =  {
 	"questionSetId": "OIFORM",
     "name": "OIFORM",
 
@@ -23,7 +23,6 @@ const updatedData = {
 	    	"controlGroup":"insuredAddress"
 	    }   
 	  },
-
 	  {
 	    "questionId": "2a",
 	    "name": "primaryInsuredAddress",
@@ -415,7 +414,7 @@ const updatedData = {
 		{
 	    "questionId": "16",
 	    "name": "sidewalkMaintaining",
-			"text": "Who is responsible for maintaining the sidewalks?",
+			"text": "Who is responsible for maintating the sidewalks?",
 	    "inputType": "dropdown-single",
 	    "required": false,
 	    "attributes": {
@@ -1122,7 +1121,8 @@ const updatedData = {
 							"17_supplementalB",
 							"17_supplementalC",
 							"17_supplementalD",
-							"17_supplementalE"
+							"17_supplementalE",
+							"17_supplementalF"
 							]
 	        },
 	        {
@@ -1133,13 +1133,14 @@ const updatedData = {
 	      ]
 	    }
 	  },
+		// Additional Site # 1
 		{
 	    "questionId": "17_supplementalA",
 	    "name": "otherSiteLabel1",
 	    "text": "Additional Site 1:",
 	    "inputFormat": "label",
 	    "attributes":{
-	    	"controlGroup":"otherSiteDetails"
+	    	"controlGroup":"otherSiteDetails1"
 	    }   
 	  },
 		{
@@ -1150,7 +1151,7 @@ const updatedData = {
 	    "required": false,
 	    "placeholder": "Address",
 	    "attributes" : {
-				"controlGroup": "otherSiteDetails"
+				"controlGroup": "otherSiteDetails1"
 			}
 	  },
 	  {
@@ -1161,7 +1162,7 @@ const updatedData = {
 	    "required": false,
 	    "placeholder": "City",
 	    "attributes" : {
-				"controlGroup": "otherSiteDetails"
+				"controlGroup": "otherSiteDetails1"
 			}
 	  },
 	  {
@@ -1171,7 +1172,7 @@ const updatedData = {
 	    "required": false,
 	    "attributes": {
 	      "options": statesArray,
-				"controlGroup": "otherSiteDetails"
+				"controlGroup": "otherSiteDetails1"
 	    }
 	  },
 	  {
@@ -1182,9 +1183,348 @@ const updatedData = {
 	    "required": false,
 	    "placeholder": "Zipcode",
 	    "attributes" : {
-				"controlGroup": "otherSiteDetails"
+				"controlGroup": "otherSiteDetails1"
+			}
+	  },
+		{
+	    "questionId": "17_supplementalF",
+	    "text": "Are there any additional Sites?",
+	    "name": "otherSitesAdditional1",
+	    "inputFormat": "radio",
+	    "inputType": "radio",         
+	    "required": false,
+	    "attributes": {
+				"controlGroup": "otherSiteDetails1",
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+						"supplementalquestionIds": [
+							"18_supplementalA",
+							"18_supplementalB",
+							"18_supplementalC",
+							"18_supplementalD",
+							"18_supplementalE",
+							"18_supplementalF",
+
+							]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+	      ]
+	    }
+	  },
+		// Additional Site #2
+		{
+	    "questionId": "18_supplementalA",
+	    "name": "otherSiteLabel2",
+	    "text": "Additional Site 2:",
+	    "inputFormat": "label",
+	    "attributes":{
+	    	"controlGroup":"otherSiteDetails2"
+	    }   
+	  },
+		{
+	    "questionId": "18_supplementalB",
+	    "name": "otherSiteAddress2",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Address",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails2"
+			}
+	  },
+	  {
+	    "questionId": "18_supplementalC",
+	    "name": "otherSiteCity2",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "City",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails2"
+			}
+	  },
+	  {
+	    "questionId": "18_supplementalD",
+	    "name": "otherSiteState2",
+	    "inputType": "dropdown-single",
+	    "required": false,
+	    "attributes": {
+	      "options": statesArray,
+				"controlGroup": "otherSiteDetails2"
+	    }
+	  },
+	  {
+	    "questionId": "18_supplementalE",
+	    "name": "otherSiteZipcode2",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Zipcode",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails2"
+			}
+	  },
+		{
+	    "questionId": "18_supplementalF",
+	    "text": "Are there any additional Sites?",
+	    "name": "otherSitesAdditional2",
+	    "inputFormat": "radio",
+	    "inputType": "radio",         
+	    "required": false,
+	    "attributes": {
+				"controlGroup": "otherSiteDetails2",
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+						"supplementalquestionIds": [
+							"19_supplementalA",
+							"19_supplementalB",
+							"19_supplementalC",
+							"19_supplementalD",
+							"19_supplementalE",
+							"19_supplementalF",
+							]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+	      ]
+	    }
+	  },
+		// Additional Site #3
+		{
+	    "questionId": "19_supplementalA",
+	    "name": "otherSiteLabel3",
+	    "text": "Additional Site 3:",
+	    "inputFormat": "label",
+	    "attributes":{
+	    	"controlGroup":"otherSiteDetails3"
+	    }   
+	  },
+		{
+	    "questionId": "19_supplementalB",
+	    "name": "otherSiteAddress3",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Address",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails3"
+			}
+	  },
+	  {
+	    "questionId": "19_supplementalC",
+	    "name": "otherSiteCity3",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "City",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails3"
+			}
+	  },
+	  {
+	    "questionId": "19_supplementalD",
+	    "name": "otherSiteState3",
+	    "inputType": "dropdown-single",
+	    "required": false,
+	    "attributes": {
+	      "options": statesArray,
+				"controlGroup": "otherSiteDetails3"
+	    }
+	  },
+	  {
+	    "questionId": "19_supplementalE",
+	    "name": "otherSiteZipcode3",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Zipcode",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails3"
+			}
+	  },
+		{
+	    "questionId": "19_supplementalF",
+	    "text": "Are there any additional Sites?",
+	    "name": "otherSitesAdditional3",
+	    "inputFormat": "radio",
+	    "inputType": "radio",         
+	    "required": false,
+	    "attributes": {
+				"controlGroup": "otherSiteDetails3",
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+						"supplementalquestionIds": [
+							"20_supplementalA",
+							"20_supplementalB",
+							"20_supplementalC",
+							"20_supplementalD",
+							"20_supplementalE",
+							"20_supplementalF",
+							]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+	      ]
+	    }
+	  },
+
+		// Additional Site #4
+		{
+	    "questionId": "20_supplementalA",
+	    "name": "otherSiteLabel4",
+	    "text": "Additional Site 4:",
+	    "inputFormat": "label",
+	    "attributes":{
+	    	"controlGroup":"otherSiteDetails4"
+	    }   
+	  },
+		{
+	    "questionId": "20_supplementalB",
+	    "name": "otherSiteAddress4",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Address",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails4"
+			}
+	  },
+	  {
+	    "questionId": "20_supplementalC",
+	    "name": "otherSiteCity4",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "City",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails4"
+			}
+	  },
+	  {
+	    "questionId": "20_supplementalD",
+	    "name": "otherSiteState4",
+	    "inputType": "dropdown-single",
+	    "required": false,
+	    "attributes": {
+	      "options": statesArray,
+				"controlGroup": "otherSiteDetails4"
+	    }
+	  },
+	  {
+	    "questionId": "20_supplementalE",
+	    "name": "otherSiteZipcode4",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Zipcode",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails4"
+			}
+	  },
+		{
+	    "questionId": "20_supplementalF",
+	    "text": "Are there any additional Sites?",
+	    "name": "otherSitesAdditional4",
+	    "inputFormat": "radio",
+	    "inputType": "radio",         
+	    "required": false,
+	    "attributes": {
+				"controlGroup": "otherSiteDetails4",
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+						"supplementalquestionIds": [
+							"21_supplementalA",
+							"21_supplementalB",
+							"21_supplementalC",
+							"21_supplementalD",
+							"21_supplementalE",
+							"21_supplementalF",
+							]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+	      ]
+	    }
+	  },
+		// Additional Site #5
+		{
+	    "questionId": "21_supplementalA",
+	    "name": "otherSiteLabel5",
+	    "text": "Additional Site 5:",
+	    "inputFormat": "label",
+	    "attributes":{
+	    	"controlGroup":"otherSiteDetails5"
+	    }   
+	  },
+		{
+	    "questionId": "21_supplementalB",
+	    "name": "otherSiteAddress5",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Address",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails5"
+			}
+	  },
+	  {
+	    "questionId": "21_supplementalC",
+	    "name": "otherSiteCity5",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "City",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails5"
+			}
+	  },
+	  {
+	    "questionId": "21_supplementalD",
+	    "name": "otherSiteState5",
+	    "inputType": "dropdown-single",
+	    "required": false,
+	    "attributes": {
+	      "options": statesArray,
+				"controlGroup": "otherSiteDetails5"
+	    }
+	  },
+	  {
+	    "questionId": "21_supplementalE",
+	    "name": "otherSiteZipcode5",
+	    "inputFormat": "text",
+	    "inputType": "text",         
+	    "required": false,
+	    "placeholder": "Zipcode",
+	    "attributes" : {
+				"controlGroup": "otherSiteDetails5"
 			}
 	  }
+
 	]
 }
 
