@@ -1,7 +1,7 @@
 {
-    "questionSetId": "OISubmission",
-	"name": "OISubmission",
-	
+	  "questionSetId": "OISubmission",
+    "name": "OIFORM",
+
     "questions": [
 	  {
 	    "questionId": "1",    
@@ -9,8 +9,7 @@
 	    "name": "nameInsuredName",
 	    "inputType": "text",
 	    "inputFormat": "text",
-	    "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
-	    "required": true
+	    "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor"
 	   },
 	    
 	  
@@ -64,29 +63,28 @@
 
 	  {
 	    "questionId": "2c",
-	    
-	    "name": "namedInsuredState",
-
+	    "name": "nameInsuredState",
 	    "inputType": "dropdown-single",
-
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
-
 	    "required": true,
-
 	    "placeholder": "State",
-
 	    "attributes":{	
 	    	"options":[
 	    		{
 	          "optionId": "1",
-	          "text": "AK",
-	          "value": "AK",
+	          "text": "State",
+	          "value": ""
+	        },
+	    		{
+	          "optionId": "2",
+	          "text": "Pennsylvania",
+	          "value": "Pennsylvania",
 	          "supplementalquestionIds": ["3_supplemental1"]
 	        },
 	        {
-	          "optionId": "2",
-	          "text": "AL",
-	          "value": "AL",
+	          "optionId": "3",
+	          "text": "New York",
+	          "value": "New York",
 	          "supplementalquestionIds": ["3_supplemental1"]
 	        }
 	    	],
@@ -112,7 +110,6 @@
 
 
 	    "attributes":{
-	    	"validationFunc":"clearance",
 	    	"controlGroup":"address"
 	    }
 	  },
@@ -274,8 +271,7 @@
 	    "placeholder": "Email",
 
 	    "attributes":{
-	    	"controlGroup":"contactInfo",
-	    	"validationRegEx": "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}"
+	    	"controlGroup":"contactInfo"
 	    }
 	    
 	  },
@@ -292,7 +288,6 @@
 	    "placeholder": "Phone",
 
 	    "attributes":{
-	    	"validationRegEx": "\b((\\(\\d{3}\\) ?)|(\\d{3}-))?\\d{3}-\\d{4}\b",
 	    	"controlGroup":"contactInfo"
 	    }
 	  }

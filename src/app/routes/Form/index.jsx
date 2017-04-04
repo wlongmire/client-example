@@ -68,7 +68,7 @@ class Form extends Component {
 
     return (
       <div className='page productChoice'>
-        <h3>Fill out the rest of the details</h3>
+        <h3>Fill out the rest of the details.</h3>
         <h4><strong>{ratingProduct.name}</strong> Submission</h4>
       
         <FormBuilder

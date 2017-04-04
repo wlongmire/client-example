@@ -96,11 +96,9 @@ async function getClearance(req, res) {
 					{name, address:`${address} ${state} ${zipcode}`},
 					submissions
 				).then((resp)=>{
-					console.log(resp);
-
 					return res.status(200).json({
-						success: true,
-						submissions
+						success: resp.success,
+						matches: resp.matches
 					});
 				})
 				.catch(error => {

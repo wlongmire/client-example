@@ -16,6 +16,7 @@ class DropDownContainer extends React.Component {
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleChangeEvent  = this.handleChangeEvent.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
   }
 
@@ -31,37 +32,44 @@ class DropDownContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({
-      title: this.props.data.placeholder,
-      value: this.props.data.attributes.options[0].value
-    })
+
+    if (this.props.initialValues[this.props.data.name]) {
+      this.handleChange(this.props.initialValues[this.props.data.name])
+    } else {
+      this.setState({
+        value: this.props.data.attributes.options[0].value
+      })
+    }
   }
 
-  handleChange(e) {
-
+  handleChange(value) {
     let option = this.props.data.attributes.options.filter((option) => {
-      return option.text === e.currentTarget.value
+      return option.value === value
     })[0]
-
+    
     if(option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
       this.props.handleSupplementTrigger(option.supplementalquestionIds)
     } else {
       this.props.handleSupplementTrigger([])
     }
+
     // Change dropdown title on select
     this.setState({
-      title: event,
       value: option.value
     })
 
     this.props.handleFormChange()
   }
 
+  handleChangeEvent(e) {
+    this.handleChange(e.currentTarget.value)
+  }
+
   render() {
     const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
 
     this.options = this.props.data.attributes.options.map((data) => {
-      return <option value={this.props.data.text} key={data.optionId}>{data.text}</option>
+      return <option value={data.value} key={data.optionId}>{data.text}</option>
     })
 
     return(
@@ -70,7 +78,7 @@ class DropDownContainer extends React.Component {
          
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
            <div className="select">
-            <FormControl className={this.state.value && "filled"} onChange={this.handleChange} componentClass="select">
+            <FormControl value={this.state.value} className={this.state.value && "filled"} onChange={this.handleChangeEvent} componentClass="select">
               {this.options}
             </FormControl>
           </div>

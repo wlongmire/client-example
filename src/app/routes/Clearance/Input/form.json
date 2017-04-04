@@ -54,7 +54,7 @@
 
 	  {
 	    "questionId": "2c",
-	    "name": "namedInsuredState",
+	    "name": "nameInsuredState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
@@ -69,12 +69,12 @@
 	    		{
 	          "optionId": "1",
 	          "text": "Pennsylvania",
-	          "value": "PA"
+	          "value": "Pennsylvania"
 	        },
 	        {
 	          "optionId": "2",
 	          "text": "New York",
-	          "value": "NY"
+	          "value": "New York"
 	        }
 	    	],
 	    	"controlGroup":"address"

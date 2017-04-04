@@ -69,7 +69,7 @@ class Clearance extends Component {
       "INPUT":    <Input    handleSubmit={this.handleInputSubmit}/>,
       "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} handleCancel={this.handleLoadCancel} input={this.state.input}/>,
       "ERROR":    <Error/>,
-      "RESULT":   <Result   handleSubmit={this.handleClearance} result={this.state.result}/>
+      "RESULT":   <Result   handleSubmit={this.handleClearance} input={this.state.input} result={this.state.result}/>
     };
 
     return (

@@ -3,24 +3,51 @@ import React, { Component, PropTypes } from 'react';
 import { LinkContainer } from 'react-router-bootstrap'
 
 import { connect } from 'react-redux';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonGroup, Button, Panel } from 'react-bootstrap';
 
 function Result(props) {
+    props.result.success = true;
+
     const result = (props.result.success)?{
         title: "This Submission Passed Clearance!",
-        subtitle: "Noone appears to have submitted this insured for review. Now we can enter additional quote information.",
+        subtitle: "You are the first to submitt this insured for review. Now we can enter additional quote information.",
         buttonLabel: "Fill out Remaining Information"
     }:{
         title: "This Submission Did Not Pass Clearance.",
-        subtitle: "The following Submmissions appear to match this one.",
+        subtitle: "The following submmissions appear to match:",
         buttonLabel: "Reenter Primary Insured Information"
     }
 
+    const matches = (!props.result.success)?
+        (props.result.matches.matches.map((m, idx)=> (
+            <div key={idx} className="match">
+                <div>
+                    <h4>Name:</h4><h5>{m.name}</h5>
+                </div>
+
+                <div>
+                    <h4>Address:</h4><h5>{m.address}</h5>
+                </div>
+            </div>
+        ))):(
+            <div className="match">
+                <h4>Name:</h4><h5>{props.input.nameInsuredName}</h5>
+                <h4>Address:</h4><h5>{props.input.address.nameInsuredAddress}</h5>
+                <h4>City:</h4><h5>{props.input.address.nameInsuredCity}</h5>
+                <h4>State:</h4><h5>{props.input.address.nameInsuredState}</h5>
+                <h4>Zipcode:</h4><h5>{props.input.address.nameInsuredZipcode}</h5>
+            </div>
+        )
+        
     return (
     <form>
         <h3>{result.title}</h3>
-        <h4>{result.subTitle}</h4>
+        <h4>{result.subtitle}</h4>
         
+        <div className="matchContainer">
+            { matches }
+        </div>
+
         <ButtonGroup>
             <Button 
                 className="btn secondary" 

@@ -15,17 +15,15 @@ class Loading extends Component {
     }
 
     componentDidMount() {
-        const result = { success:true, matches:[] };
-        const error = false;
-        
+
         getClearance({
             name:this.props.input.nameInsuredName, 
-            address:this.props.input.address.namedInsuredAddress, 
-            state:this.props.input.address.namedInsuredState,
-            city:this.props.input.address.namedInsuredCity,
-            zipcode:this.props.input.address.namedInsuredZipcode
-        }).then((resp)=> {
-            this.props.handleSubmit(error, result);
+            address:this.props.input.address.nameInsuredAddress, 
+            state:this.props.input.address.nameInsuredState,
+            city:this.props.input.address.nameInsuredCity,
+            zipcode:this.props.input.address.nameInsuredZipcode
+        }).then((matches)=> {
+            this.props.handleSubmit(false, {success:(matches.length > 0), matches});
         })
     }
 

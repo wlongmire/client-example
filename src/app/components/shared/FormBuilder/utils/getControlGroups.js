@@ -28,7 +28,7 @@ export default function(originalQuestions) {
       if (valueToCompare === item.name && (!item.attributes || !item.attributes.controlGroup)) sameControlGoup.push(item)
       if (!item.attributes || !item.attributes.controlGroup) return
       if (item.attributes.controlGroup === valueToCompare) sameControlGoup.push(item)
-      if (sameControlGoup.length > 0 && index < questions.length - 1 && questions[index + 1].attributes.controlGroup !== valueToCompare) flip = true
+      if (sameControlGoup.length > 0 && index < questions.length - 1 && questions[index + 1].attributes && questions[index + 1].attributes.controlGroup !== valueToCompare) flip = true
     })
 
     questions = questions.slice(sameControlGoup.length)

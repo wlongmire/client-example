@@ -44,7 +44,7 @@ class FormBuilder extends React.Component {
     let Validation = this.props.Validation || DefaultValidation
     
     let result = []
-
+    
     for (let group in controlGroups) {
       let formItemContainers = controlGroups[group].map((item, index) => {
 

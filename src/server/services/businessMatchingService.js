@@ -1,57 +1,28 @@
 import _ from 'lodash';
+import matcher from 'jaro-winkler';
 import request from 'request-promise';
 
 function getBusinessMatching(key, compare) {
   return new Promise((resolve, reject) => {
 
-    const inputs = compare.map((c)=>(
-      {
-        "compName":key.name,
-        "compAdd":key.address,
-        "webName":c.name,
-        "webAdd":c.address
-      }
-    )).slice(0,10);
+    const inputs = compare.map((c)=>({
+      "compName":key.name, "compAdd":key.address,
+      "webName":c.name, "webAdd":c.address
+    }))
 
-    const url = `http://35.167.95.103:7070/SmartSearch/getHerculesData?`;
-    const requestBody = {
-      "authToken":"1231213",
-      "functionality":"businessMatching",
-      "input":inputs
-    };
-
-    console.log(inputs);
-
-    request({
-      url,
-      method: 'POST',
-      body:requestBody,
-      json: true
-    }).then((resp)=>{
-      let comparisons = [];
-      
-      console.log(resp);
-      
-      resp.map((comp, idx)=>{
-
-        
-        if (comp.result === '1') {
-          comparisons.push(
-            {
-              'name':inputs[idx].webName,
-              'address':inputs[idx].webAdd,
-              'prob':comp.prob
-            });
-        }
-        
-      });
-
-      comparisons = _.sortBy(comparisons, ['prod']);
-      console.log(comparisons);
-
-      resolve({
-        success:true
-      });
+    const matches = _.sortBy(inputs.map((m)=>({
+      name: m.webName,
+      address: m.webAdd,
+      nameProb: matcher(`${m.compName}`, `${m.webName}`),
+      addressProb: matcher(`${m.compAdd}`, `${m.webAdd}`)
+    })), ["nameProb", "addressProb"])
+    .reverse()
+    .slice(0,3)
+    .filter((s)=>(s.nameProb > 0.98 || s.addressProb > 0.98))
+    
+    resolve({
+      success:true,
+      matches
     })
   })
 }
