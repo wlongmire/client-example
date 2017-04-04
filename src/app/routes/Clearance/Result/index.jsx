@@ -16,10 +16,8 @@ function Result(props) {
         buttonLabel: "Reenter Primary Insured Information"
     }
 
-    console.log(props.result);
-    
     const matches = (!props.result.success)?
-        (props.result.matches.matches.map((m, idx)=> (
+        (props.result.matches.map((m, idx)=> (
             <div key={idx} className="match">
                 <div>
                     <h4>Name:</h4><h5>{m.name}</h5>

@@ -17,7 +17,7 @@ function getBusinessMatching(key, compare) {
       addressProb: matcher(`${m.compAdd}`, `${m.webAdd}`)
     })), ["nameProb", "addressProb"])
     .reverse()
-    .slice(0,3)
+    .slice(0,10)
     .filter((s)=>(s.nameProb > 0.98 || s.addressProb > 0.98))
     
     resolve({

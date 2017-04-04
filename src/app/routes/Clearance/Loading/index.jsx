@@ -22,9 +22,8 @@ class Loading extends Component {
             state:this.props.input.projectAddress.projectState,
             city:this.props.input.projectAddress.projectCity,
             zipcode:this.props.input.projectAddress.projectZipcode
-        }).then((matches)=> {
-            
-            this.props.handleSubmit(false, {success:(matches.length > 0), matches});
+        }).then((resp)=> {
+            this.props.handleSubmit(false, {success:(resp.matches.length === 0), matches:resp.matches});
         })
     }
 

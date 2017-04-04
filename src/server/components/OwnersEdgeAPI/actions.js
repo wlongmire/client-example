@@ -57,11 +57,12 @@ async function getClearance(req, res) {
 				)).filter((s)=>(
 					s.name && s.address
 				))
-
+				
 				businessMatchingService.getBusinessMatching(
 					{name, address:`${address} ${state} ${zipcode}`},
 					submissions
 				).then((resp)=>{
+
 					return res.status(200).json({
 						success: resp.success,
 						matches: resp.matches
