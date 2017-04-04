@@ -26,9 +26,10 @@ class Loading extends Component {
                 <h3>Calculating Quote</h3>
                 <h4>Please Wait while we calculate.</h4>
 
-                <img 
-                style={{"display":"block", "padding":"1em"}} 
-                src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
+                <div className="loadingImg">
+                    <img src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
+                </div>
+
 
                 <ButtonGroup>
                     <LinkContainer to="/submissions">

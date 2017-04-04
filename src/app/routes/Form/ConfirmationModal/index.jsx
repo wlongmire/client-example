@@ -29,7 +29,7 @@ const ConfirmationModal = React.createClass({
         return(
           <div className="questionSet" key={idx} >
             <span className="question">{r.text}</span>
-            <span className="answer">answer</span>
+            <span className="answer">{r.value}</span>
           </div>
         )
       })
