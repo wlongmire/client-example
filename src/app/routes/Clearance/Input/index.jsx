@@ -3,11 +3,11 @@ import React, { Component, PropTypes } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 
 import { connect } from 'react-redux';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonGroup, Button } from 'react-bootstrap'
 
-import FormBuilder from 'components/shared/FormBuilder';
+import FormBuilder from 'components/shared/FormBuilder'
 
-import form from './form.json'
+import form from './form.js'
 
 class Input extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class Input extends Component {
     }
 
     handleSubmit(values) {
-        this.props.handleSubmit(values);
+        this.props.handleSubmit(values)
     }
 
     render() {

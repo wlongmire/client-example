@@ -1,4 +1,6 @@
-{
+import statesArray from './states';
+
+const formData = {
 	"questionSetId": "Clearance",
 	"name": "Clearance",
 
@@ -6,7 +8,7 @@
 	  {
 	    "questionId": "1",    
 	    "text": "Who is the First Named Insured?",
-	    "name": "nameInsuredName",
+	    "name": "primaryInsuredName",
 	    "inputType": "text",
 	    "inputFormat": "text",
 	    "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
@@ -16,85 +18,70 @@
 	  
 	  {
 	    "questionId": "2",
-	    "name": "nameInsuredAddressLabel",
-	    "text": "What is the address of the Named Insured?",
+	    "name": "primaryAddressLabel",
+	    "text": "What is the address of the Project?",
 	    "inputFormat": "label",
-
 	    "attributes":{
-	    	"controlGroup":"address"
+	    	"controlGroup":"projectAddress"
 	    }
 	    
 	  },
 
 	  {
 	    "questionId": "2a",
-	    "name": "nameInsuredAddress",
+	    "name": "projectAddress",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
 	    "required": true,
 	    "placeholder": "Address",
 	    "attributes":{
-	    	"controlGroup":"address"	
+	    	"controlGroup":"projectAddress"	
 	    }
 	  },
 
 	  {
 	    "questionId": "2b",
-	    "name": "nameInsuredCity",
+	    "name": "projectCity",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
 	    "required": true,
 	    "placeholder": "City",
 	    "attributes":{
-	    	"controlGroup":"address"	
+	    	"controlGroup":"projectAddress"	
 	    }
 	  },
 
 	  {
 	    "questionId": "2c",
-	    "name": "nameInsuredState",
+	    "name": "projectState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "State",
 	    "attributes":{	
-	    	"options":[
-					{
-	          "optionId": "0",
-	          "text": "State",
-	          "value": ""
-	        },
-	    		{
-	          "optionId": "1",
-	          "text": "Pennsylvania",
-	          "value": "Pennsylvania"
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "New York",
-	          "value": "New York"
-	        }
-	    	],
-	    	"controlGroup":"address"
+	    	"options": statesArray,
+	    	"controlGroup":"projectAddress"
 	    }
 	    
 	  },
 
 	  {
 	    "questionId": "2d",
-	    "name": "nameInsuredZipcode",
+	    "name": "projectZipcode",
 	    "inputType": 		"text",
 	    "inputFormat": 	"text",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "Zip Code",
 	    "attributes":{
-	    	"controlGroup":"address"
+	    	"controlGroup":"projectAddress"
 	    }
 	  }
 	],
 
 	"supplementalQuestions": []
 }
+
+export default formData;

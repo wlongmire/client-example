@@ -31,11 +31,11 @@ function Result(props) {
             </div>
         ))):(
             <div className="match">
-                <h4>Name:</h4><h5>{props.input.nameInsuredName}</h5>
-                <h4>Address:</h4><h5>{props.input.address.nameInsuredAddress}</h5>
-                <h4>City:</h4><h5>{props.input.address.nameInsuredCity}</h5>
-                <h4>State:</h4><h5>{props.input.address.nameInsuredState}</h5>
-                <h4>Zipcode:</h4><h5>{props.input.address.nameInsuredZipcode}</h5>
+                <h4>Name:</h4><h5>{props.input.primaryInsuredName}</h5>
+                <h4>Address:</h4><h5>{props.input.projectAddress.projectAddress}</h5>
+                <h4>City:</h4><h5>{props.input.projectAddress.projectCity}</h5>
+                <h4>State:</h4><h5>{props.input.projectAddress.projectState}</h5>
+                <h4>Zipcode:</h4><h5>{props.input.projectAddress.projectZipcode}</h5>
             </div>
         )
         

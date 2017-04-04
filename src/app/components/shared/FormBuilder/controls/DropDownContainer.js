@@ -46,7 +46,7 @@ class DropDownContainer extends React.Component {
     let option = this.props.data.attributes.options.filter((option) => {
       return option.value === value
     })[0]
-    
+
     if(option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
       this.props.handleSupplementTrigger(option.supplementalquestionIds)
     } else {

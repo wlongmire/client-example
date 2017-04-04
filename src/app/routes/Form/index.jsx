@@ -42,7 +42,7 @@ class Form extends Component {
   handleSubmitQuote() {
     const { CHANGE_SUBMISSION } = constants
     this.props.dispatch({ type:CHANGE_SUBMISSION, submission:Object.assign(this.state.submission, {status:"QUOTE"}) })
-
+    
     this.props.dispatch(push("/formResults"));
     this.setState({confirmation:false})
   }
