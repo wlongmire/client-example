@@ -3,7 +3,12 @@ import rp from 'request-promise';
 import filter from 'lodash/filter';
 import config from '../../../config';
 import { User, Broker } from '../../models';
-import { emailService, submissionService, edgeSubmissionService, businessMatchingService } from '../../services'
+
+import * as emailService from '../../services/email';
+import  * as submissionService  from  '../../services/submission';
+import * as pdfService from '../../services/pdf';
+
+import { edgeSubmissionService, businessMatchingService } from '../../services'
 import {
   utilities
 } from '../../utils'
@@ -12,45 +17,6 @@ const appId = config.appId;
 const argoEmail = config.argoEmail;
 const sgsEmail = config.sgsEmail;
 const ratingsUrl = config.ratingsUrl;
-
-async function getSubmissions(req, res) {
-  try {
-
-		if (!req.headers['x-token']) {
-			return res.status(401).json('Authorization token required');
-		}
-
-		User.fromAuthToken(req.headers['x-token']).then((result) => {
-
-			if (!result || !result.user) {
-				return res.status(403).json({
-					type: "AuthError",
-					message: "Access forbidden. Invalid user token."
-				});
-			}
-
-			const user = result.user;
-
-			getAllSubmissionsByBroker(user._brokerId)
-			.then(function(submissions){
-				return res.status(200).json({
-					success: true,
-					submissions: submissions
-				});
-			})
-
-		})
-		.catch(error => {
-			return res.status(403).json({
-				type: 'TokenExpired',
-				message: 're-login to get new token',
-			});
-		})
-
-	} catch (err) {
-		return res.status(500)
-	}
-}
 
 async function getClearance(req, res) {
 	try {
@@ -120,11 +86,133 @@ async function getClearance(req, res) {
 	}
 }
 
+async function getRating(req, res) {
+	try {
+				if (!req.headers['x-token']) {
+					return res.status(401).json('Authorization token required');
+				}
+				let result = await User.fromAuthToken(req.headers['x-token']);
+					if (!result || !result.user) {
+						return res.status(403).json({
+							type: "AuthError",
+							message: "Access forbidden. Invalid user token."
+						});
+					}
+				const user = result.user;
+				const newAuthToken = result.authToken;
+				let broker = await Broker.findById(user._brokerId).exec()
+				let paramsObject = req.body;
+				paramsObject.broker = broker;
+				paramsObject.submittedBy = user;
+				let ratingResult = await getRatingInternal(paramsObject);
+				console.log(ratingResult);
+				let ratingObject = JSON.parse(ratingResult)
+				return res.status(200).json({
+									success: true,
+									rating: ratingObject.results,
+									authToken: newAuthToken
+								});
+	}
+	catch (err) {
+
+	}
+}
+
+async function saveSubmission(req, res) {
+
+}
+
+async function getPDF(req, res) {
+	try {
+				if (!req.headers['x-token']) {
+					return res.status(401).json('Authorization token required');
+				}
+				let result = await User.fromAuthToken(req.headers['x-token']);
+					if (!result || !result.user) {
+						return res.status(403).json({
+							type: "AuthError",
+							message: "Access forbidden. Invalid user token."
+						});
+					}
+				const user = result.user;
+				const newAuthToken = result.authToken;
+				const pdfArray = await generatePDFsInternal(req.params.submissionId);
+				return res.status(200).json({success: true, pdfs: pdfArray});
+	}
+	catch (err) {
+
+	}
+}
+
+async function sendEmail(req, res) {
+		try {
+				if (!req.headers['x-token']) {
+					return res.status(401).json('Authorization token required');
+				}
+				let result = await User.fromAuthToken(req.headers['x-token']);
+					if (!result || !result.user) {
+						return res.status(403).json({
+							type: "AuthError",
+							message: "Access forbidden. Invalid user token."
+						});
+					}
+					const user = result.user;
+					const newAuthToken = result.authToken;
+					sendEmailInternal(req.params.id, config.argoEmail, req.body.emailType)
+				  return res.status(200).json({success: true});
+	}
+	catch (err) {
+
+	}
+}
+
+
+async function getSubmissions(req, res) {
+  try {
+
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+
+		User.fromAuthToken(req.headers['x-token']).then((result) => {
+
+			if (!result || !result.user) {
+				return res.status(403).json({
+					type: "AuthError",
+					message: "Access forbidden. Invalid user token."
+				});
+			}
+
+			const user = result.user;
+
+			submissionService.getSubmissionsByBroker(user._brokerId)
+			.then(function(submissions){
+				return res.status(200).json({
+					success: true,
+					submissions: submissions,
+					//authToken: newAuthToken
+				});
+			})
+
+		})
+		.catch(error => {
+			return res.status(403).json({
+				type: 'TokenExpired',
+				message: 're-login to get new token',
+			});
+		})
+
+	} catch (err) {
+		return res.status(500)
+	}
+}
+
 async function getBroker(req, res) {
   try {
-	if (!req.headers['x-token']) {
-		return res.status(401).json('Authorization token required');
-	}
+
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
 
     Broker.findById(req.params.id).exec()
       .then(broker => {
@@ -149,347 +237,60 @@ async function getSingleSubmission(req, res) {
 	const id = req.params.id || '';
 }
 
-async function getRating(req, res) {
-
-	try {
-
-		if (!req.headers['x-token']) {
-			return res.status(401).json('Authorization token required');
-		}
-
-		User.fromAuthToken(req.headers['x-token']).then((result) => {
-
-			if (!result || !result.user) {
-				return res.status(403).json({
-					type: "AuthError",
-					message: "Access forbidden. Invalid user token."
-				});
-			}
-
-			const user = result.user;
-			const newAuthToken = result.authToken;
-
-			Broker.findById(user._brokerId).exec()
-				.then(broker => {
-
-			let paramsObject = req.body;
-			paramsObject.broker = broker;
-
-			const params = JSON.stringify(paramsObject);
-
-			request({
+async function getRatingInternal(paramsObject) {
+	const params = JSON.stringify(paramsObject);
+	console.log('**********')
+	console.log(params);
+	return await rp(`${ratingsUrl}/api/calcrating/oi`, {
 				method: 'POST',
-				uri: `${ratingsUrl}/api/calcrating/oi`,
 				body: params,
 				headers: {
 					'Content-Type': 'application/json'
-				}
-			}, (err, response, body)=> {
-				if (err) {
-					return res.status(response.statusCode).json({
-						success: false,
-						type: err.type,
-						message: err.message
-					});
-				} else {
+				}});
+}
 
-					const result = JSON.parse(body);
-					let submission = createSubmissionObject(req.body, result);
-
-					submission.broker = broker;
-					submission.submittedBy = user;
-
-					createNewSubmission(submission)
-						.then(newSub => {
-							if (newSub.instantQuote) {
-
-								if (newSub.broker.type ==='Retail A') {
-									sendSubmissionEmailClient(newSub);
-								}
-
-								sendSubmissionEmailArgo(newSub);
-
-								return res.status(response.statusCode).json({
-									success: true,
-									submission: newSub,
-									authToken: newAuthToken
-								});
-
-							} else {
-
-								sendNonQuoteEmailArgo(newSub);
-								sendNonQuoteEmailBroker(newSub);
-
-								return res.status(response.statusCode).json({
-									success: true,
-									submission: newSub,
-									authToken: newAuthToken
-								});
-
-							}
-						});
-				}
-			});
-
-		});
-
-	 });
-  } catch (err) {
-		return res.status(500)
+async function sendEmailInternal(submissionId, emailAddress, emailType) {
+	console.log('sending email')
+	const submission = await submissionService.getSubmissionById(submissionId);
+  const pdfArray = await generatePDFsInternal(submissionId);
+	let templateId;
+	switch (emailType) {
+		case 'nonQuoteArgo':
+			templateId = config.argoNonQuoteTemplate;
+			break;
+		case 'nonQuoteBroker':
+			templateId = config.brokerNonQuoteTemplate;
+			break;
+		case 'quotedArgo':
+			templateId = config.argoTemplateId;
+			break;
+		case 'quotedBroker':
+			templateId = config.brokerTemplateId;
+			break;
 	}
+	return await emailService.sendMail(emailType, emailAddress, submission, templateId, pdfArray);
 }
 
-async function getAllEdgeSubmissionsByState(state) {
-	return await edgeSubmissionService.getAllSubmissionsByState(state);
-}
+async function generatePDFsInternal(submissionId) {
+	console.log('generating pdf')
+	const submission = await submissionService.getSubmissionById(submissionId);
+	if (!submission.instantQuote) {
+		return awaitPromise.all(pdfService.generatePDF(submission.pdfToken, 'bind'));
+	}
 
-function sendSubmissionEmailArgo(submission) {
-	let pdfArray = [];
-
-	generateBindOrderPDF(submission.pdfToken)
-	.then(bindpdf => {
-		pdfArray.push({
-			title: 'Owners Bind Order.pdf',
-			content: bindpdf
-		})
-
-
-			generateOwnersEdgeQuotationPDF(submission.pdfToken)
-				.then(glpdf => {
-					pdfArray.push({
-						title: 'Owners EDGE Quotation - General Liability.pdf',
-						content: glpdf
-					})
-
-					if (submission.oiPremium.excessQuotedPremium > 0) {
-
-						generateExcessPDF(submission.pdfToken)
-							.then(excessPdf => {
-								pdfArray.push({
-									title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-									content: excessPdf
-								})
-								emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-                emailService.sendSubmissionEmail('quotedArgo', sgsEmail, submission, config.argoTemplateId, pdfArray);
-							})
-
-					} else {
-
-						emailService.sendSubmissionEmail('quotedArgo', argoEmail, submission, config.argoTemplateId, pdfArray);
-            emailService.sendSubmissionEmail('quotedArgo', sgsEmail, submission, config.argoTemplateId, pdfArray);
-
-          }
-				});
-
-		});
-}
-
-function sendSubmissionEmailClient(submission) {
-	let pdfArray = [];
-	generateBindOrderPDF(submission.pdfToken)
-	.then(bindpdf => {
-		pdfArray.push({
-			title: 'Owners Bind Order.pdf',
-			content: bindpdf
-		});
-
-		generateOwnersEdgeQuotationPDF(submission.pdfToken)
-			.then(glpdf => {
-				pdfArray.push({
-					title: 'Owners EDGE Quotation - General Liability.pdf',
-					content: glpdf
-				})
-
-				if (submission.oiPremium.excessQuotedPremium > 0) {
-
-					generateExcessPDF(submission.pdfToken)
-						.then(excessPdf => {
-							pdfArray.push({
-								title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-								content: excessPdf
-							})
-							emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
-						});
-
-				} else{
-            emailService.sendSubmissionEmail('quotedBroker', submission.contactInfo.email, submission, config.brokerTemplateId, pdfArray);
-				}
-
-			});
-
-
-		});
-}
-
-function sendNonQuoteEmailArgo(submission) {
-	let pdfArray = [];
-
-	generateOwnersEdgeQuotationPDF(submission.pdfToken)
-		.then(glpdf => {
-			pdfArray.push({
-				title: `Owners EDGE Quotation - General Liability.pdf.pdf`,
-				content: glpdf
-			});
-
-			if (submission.oiPremium.excessQuotedPremium > 0) {
-
-				generateExcessPDF(submission.pdfToken)
-					.then(excessPdf => {
-						pdfArray.push({
-							title: `Owners Edge-Submission ${submission.confirmationNumber}-Excess.pdf`,
-							content: excessPdf
-						})
-						emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate, pdfArray);
-            emailService.sendSubmissionEmail('nonQuoteArgo', sgsEmail, submission, config.argoNonQuoteTemplate, pdfArray);
-					});
-
-			} else {
-
-        emailService.sendSubmissionEmail('nonQuoteArgo', argoEmail, submission, config.argoNonQuoteTemplate,pdfArray);
-        emailService.sendSubmissionEmail('nonQuoteArgo', sgsEmail, submission, config.argoNonQuoteTemplate,pdfArray);
-
-			}
-
-		});
-
-}
-
-function sendNonQuoteEmailBroker(submission) {
-	let pdfArray = [];
-
-	generateBindOrderPDF(submission.pdfToken)
-	.then(bindpdf => {
-		pdfArray.push({
-			title: 'Owners Bind Order.pdf',
-			content: bindpdf
-		});
-
-		emailService.sendSubmissionEmail('nonQuoteBroker', submission.contactInfo.email, submission, config.brokerNonQuoteTemplate, pdfArray);
-	});
-}
-
-
-
-async function createNewSubmission(submission) {
-	return await submissionService.createSubmission(submission);
-}
-
-async function getAllSubmissionsByBroker(brokerId) {
-	return await submissionService.getAllSubmissionsByBroker(brokerId);
-}
-
-async function generateOwnersEdgeQuotationPDF(token) {
-	let pdf = await submissionService.generateOwnersEdgeQuotationPDF(token);
-	return pdf;
-}
-
-async function generateBindOrderPDF(token) {
-	let pdf = await submissionService.generateBindOrderPDF(token);
-	return pdf;
-}
-
-async function generateColonyOwnersInterestQuestionnairePDF(token) {
-	let pdf = await submissionService.generateColonyOwnersInterestQuestionnairePDF(token);
-	return pdf;
-}
-
-async function generateOwnersContractorsProtectivePDF(token) {
-	let pdf = await submissionService.generateOwnersContractorsProtectivePDF(token);
-	return pdf;
-}
-
-async function generateExcessPDF(token) {
-	let pdf = await submissionService.generateExcessPDF(token);
-	return pdf;
-}
-
-function createSubmissionObject(subInfo, quoteInfo) {
-	let oiPremium = {};
-	let ocpPremium = {};
-
-	const today = new Date();
-  const inspectionCost = 325;
-
-	if (quoteInfo.success === true && quoteInfo.results.premium > 0 ) {
-
-		oiPremium = {
-			quotedPremium:       quoteInfo.results.premium,
-			terrorPremium:       quoteInfo.results.oiTerrorPremium,
-			additionalCoverage:  quoteInfo.results.oiAdditionalCoverage,
-			totalPremium:        quoteInfo.results.totalOiPremium,
-			totalCost:           quoteInfo.results.totalOiPremium + inspectionCost,
-			excessQuotedPremium: quoteInfo.results.excessPremium,
-			excessTerror:        quoteInfo.results.excessTerrorPremium,
-			excessTotalPremium:  quoteInfo.results.totalExcessPremium,
-			excessDetails:       subInfo.excessDetails
+	switch (submission.type) {
+		case 'oi': {
+			return await Promise.all(pdfService.generatePDF(submission.pdfToken, 'bind'),
+																			   pdfService.generatePDF(submission.pdfToken, 'oi'));
 		}
-	} else {
-		oiPremium = {
-			quotedPremium:       0,
-			terrorPremium:       0,
-			additionalCoverage:  0,
-			totalPremium:        0,
-			totalCost:           0,
-			excessQuotedPremium: 0,
-			excessTerror:        0,
-			excessTotalPremium:  0,
-			excessDetails:       subInfo.excessDetails,
-			reason: quoteInfo.results.reason
+		break;
+		case 'ocp': {
+			return await Promise.all(pdfService.generatePDF(submission.pdfToken, 'bind'),
+																			   pdfService.generatePDF(submission.pdfToken, 'oi'),
+																				 pdfService.generatePDF(submission.pdfToken, 'ocp'));
 		}
+		break;
 	}
-
-  const limits = [
-    {12:'$1,000,000/2,000,000'},
-		{22:'$2,000,000/2,000,000'},
-		{24:'$2,000,000/4,000,000'},
-		{33:'$3,000,000/3,000,000'},
-		{44:'$4,000,000/4,000,000'},
-		{55:'$5,000,000/5,000,000'}
-  ];
-
-  if(subInfo.limitsRequested){
-      ocpPremium.limitsRequested = filter(limits, function(o) {
-      let key = Object.keys(o);
-      return key[0] === String(subInfo.limitsRequested);
-    });
-  }
-
-	let submission = {
-    status:                   'submitted',
-		primaryNamedInsured:      subInfo.primaryNamedInsured,
-		namedInsuredAddress:      subInfo.namedInsuredAddress,
-		hasOtherNamedInsured:     subInfo.otherNamedInsuredBoolean,
-		otherNamedInsured:        subInfo.otherNamedInsured,
-		hasAdditionalInsured:     subInfo.additionalInsuredBoolean,
-		additionalInsured:        subInfo.additionalInsured,
-		projectAddress:           subInfo.address,
-		scope:                    subInfo.scope,
-		type:                     subInfo.type,
-		term:                     subInfo.term,
-		costs:                    subInfo.costs,
-		generalContractorInfo:    subInfo.generalContractor,
-		occupancyDetails:         subInfo.occupancyDetails,
-		workDetails:              subInfo.workDetails,
-		contactInfo:              subInfo.contactInfo,
-		generalComments:          subInfo.generalComments,
-		demoDetails:              subInfo.demoDetails,
-		towerCraneUse:            subInfo.towerCraneUse,
-		greaterThanTwoNamed:      subInfo.greaterThanTwoNamedBoolean,
-		greaterThanTwoAdditional: subInfo.greaterThanTwoAdditionalBoolean,
-		anticipatedFinishDate:    subInfo.anticipatedFinishDate,
-		projectDefinedAreaScope:  subInfo.projectDefinedAreaScope,
-		projectDefinedAreaScopeDetails: subInfo.projectDefinedAreaScopeDetails,
-		projectRequirements:      subInfo.projectRequirements,
-		limitsRequested:          subInfo.limitsRequested,
-		oiPremium:                oiPremium,
-		instantQuote:             quoteInfo.results.instantQuote,
-		supervisingSubs:          subInfo.supervisingSubs,
-    	excessDetails:            subInfo.excessDetails,
-		demoRequired:             subInfo.demoRequired,
-		occupancy:                subInfo.occupancy
-	}
-
-	return submission;
 }
 
 export default {

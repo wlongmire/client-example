@@ -1,222 +1,11 @@
-import mongoose from 'mongoose';
-import * as models from '../models';
-import randomstring from 'randomstring';
-import pdf from 'html-pdf';
-import handlebars from 'handlebars';
-import config from '../../config'
-import uuid from 'uuid';
+import { getSubmissionByToken } from '../submission';
 import filter from 'lodash/filter';
-import {
-  utilities
-} from '../utils'
+import utilities from '../../utils/utilities'
+import config from '../../../config';
 
-import request from 'request';
-
-async function createSubmission(submission) {
-  let sub = new models.Submission(submission);
-  let confNumber = await generateConfirmationNumber();
-  sub.pdfToken = uuid.v4();
-  sub.confirmationNumber = confNumber;
-  let newSub = await sub.save();
-  return getSubmissionById(newSub._id);
-}
-
-async function getAllSubmissions() {
-  return await models.Submission.findAll().exec();
-}
-
-async function getAllSubmissionsByBroker(brokerId) {
-  return await models.Submission.find({
-    broker: brokerId
-  }).exec();
-}
-
-async function getSubmissionById(id) {
-  return await models.Submission.findById(id)
-    .populate('broker submittedBy')
-    .exec();
-}
-
-async function updateSubmission(id, submission) {
-  return await models.Submission.findOneAndUpdate({
-    _id: id
-  }, {
-    $set: submission
-  }).exec();
-}
-
-async function getSubmissionByToken(token) {
-  return await models.Submission.findOne({
-      pdfToken: token
-    })
-    .populate('broker submittedBy')
-    .exec();
-}
-
-function generateHTML(body, pdfData) {
-  let handleTemplate = handlebars.compile(body);
-  let html = handleTemplate(Object.assign({}, pdfData));
-  return html;
-}
-
-function generateOwnersEdgeQuotationPDF(token) {
-  return new Promise((resolve, reject) => {
-    try {
-      generatePDFData({
-          token: token,
-        }, 'oi')
-        .then(pdfData => {
-          request({
-            url: config.ownersEdgeQuotationPDFUrl,
-            method: 'GET'
-          }, function (err, response, body) {
-            let html = generateHTML(body, pdfData);
-            pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
-              return resolve(buffer);
-            });
-          });
-        });
-    } catch (err) {
-      return reject(err);
-    }
-  })
-}
-
-function generateBindOrderPDF(token) {
-  return new Promise((resolve, reject) => {
-    try {
-      generatePDFData({
-          token: token,
-        }, 'oi')
-        .then(pdfData => {
-          request({
-            url: config.ownersBindOrderPDFUrl,
-            method: 'GET'
-          }, function (err, response, body) {
-            let html = generateHTML(body, pdfData);
-            pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
-              return resolve(buffer);
-            });
-          });
-        });
-    } catch (err) {
-      return reject(err);
-    }
-  })
-}
-
-
-function generateOwnersContractorsProtectivePDF(token) {
-  return new Promise((resolve, reject) => {
-    try {
-      generatePDFData({
-          token: token,
-        }, 'ocp')
-        .then(pdfData => {
-          request({
-            url: config.ownersContractorsProtectivePDFUrl,
-            method: 'GET'
-          }, function (err, response, body) {
-            let html = generateHTML(body, pdfData);
-            pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
-              return resolve(buffer);
-            });
-          });
-        });
-    } catch (err) {
-      return reject(err);
-    }
-  })
-}
-
-function generateColonyOwnersInterestQuestionnairePDF(token) {
-  return new Promise((resolve, reject) => {
-    try {
-      generatePDFData({
-          token: token,
-          type: 'oi'
-        })
-        .then(pdfData => {
-          request({
-            url: config.colonyOwnersInterestQuestionnairePDFUrl,
-            method: 'GET'
-          }, function (err, response, body) {
-            let html = generateHTML(body, pdfData);
-            pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
-              return resolve(buffer);
-            });
-          });
-        });
-    } catch (err) {
-      return reject(err);
-    }
-  })
-}
-
-function generateExcessPDF(token) {
-  return new Promise((resolve, reject) => {
-    try {
-      generateExcessPDFData({
-          token: token
-        })
-        .then(pdfData => {
-          request({
-            url: config.excessPDFUrl,
-            method: 'GET'
-          }, function (err, response, body) {
-            let handleTemplate = handlebars.compile(body);
-            let html = handleTemplate(Object.assign({}, pdfData));
-            pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
-              console.log('successfully generated Excess PDF');
-              return resolve(buffer);
-            });
-          });
-        });
-    } catch (err) {
-      console.log(err.message);
-      return reject(err);
-    }
-  })
-}
-
-async function generateExcessPDFData(submissionIdentifier) {
+export default async function getPDFData(token) {
   try {
-    let submission;
-    if (submissionIdentifier.token) {
-      submission = await getSubmissionByToken(submissionIdentifier.token);
-    } else {
-      submission = await getSubmissionById(submissionIdentifier.token)
-    }
-
-    const pdfData = {
-      namedInsured: submission.primaryNamedInsured,
-      excessLimits: `$ ${utilities.commifyNumber(submission.oiPremium.excessDetails.limits)}`,
-      baseExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessQuotedPremium)}`,
-      terrorExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTerror)}`,
-      totalExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTotalPremium)}`,
-      brokerName: submission.broker.name
-    }
-
-    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
-      pdfData.marshBroker = true;
-    }
-
-    return pdfData;
-
-  } catch (err) {
-    console.log(err.message)
-  }
-
-}
-
-async function generatePDFData(submissionIdentifier, type) {
-  try {
-    let submission;
-    if (submissionIdentifier.token) {
-      submission = await getSubmissionByToken(submissionIdentifier.token);
-    } else {
-      submission = await getSubmissionById(submissionIdentifier.token)
-    }
+    const submission = await getSubmissionByToken(token)
 
     let aggregateLimit;
     let halvedCost = Math.ceil(((submission.costs / 2) * 1000000) / 1000000);
@@ -321,6 +110,10 @@ async function generatePDFData(submissionIdentifier, type) {
       projectDefinedAreaScopeDetails: submission.projectDefinedAreaScopeDetails,
       projectRequirements: submission.projectRequirements,
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
+      excessLimits: `$ ${utilities.commifyNumber(submission.oiPremium.excessDetails.limits)}`,
+      baseExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessQuotedPremium)}`,
+      terrorExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTerror)}`,
+      totalExcess: `$ ${utilities.commifyNumber(submission.oiPremium.excessTotalPremium)}`,
     }
     if (submission.hasOtherNamedInsured) {
       pdfData.hasOtherNamedInsuredExist = true;
@@ -333,35 +126,7 @@ async function generatePDFData(submissionIdentifier, type) {
     }
     return pdfData;
   } catch (err) {
-    console.log(err.message)
+    console.log(err)
   }
 }
 
-async function generateConfirmationNumber() {
-  let confirmation = randomstring.generate({
-    length: 12,
-    charset: 'alphanumeric',
-    capitalization: 'uppercase'
-  });
-  let submission = await models.Submission.findOne({
-    confirmationNumber: confirmation
-  }).exec()
-  if (!submission) {
-    return confirmation
-  } else {
-    generateConfirmationNumber();
-  }
-}
-
-export default {
-  createSubmission,
-  getAllSubmissions,
-  getSubmissionById,
-  updateSubmission,
-  generateOwnersEdgeQuotationPDF,
-  generateExcessPDF,
-  generateBindOrderPDF,
-  getAllSubmissionsByBroker,
-  generateColonyOwnersInterestQuestionnairePDF,
-  generateOwnersContractorsProtectivePDF
-}
