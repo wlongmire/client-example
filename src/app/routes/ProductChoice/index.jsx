@@ -24,7 +24,15 @@ function ProductChoiceItem(props) {
         className="selectionCard"
         onClick={()=>{
           props.dispatch({ type: constants.CHANGE_SUBMISSION, submission: { type, status:constants.SUBMISSION_STATUS.CLEARANCE } });
+          
+          mx.customEvent(
+            "submission",
+            "create",
+            { "Type": type }
+          );
+
           props.dispatch(push("/clearance"));
+          /*props.dispatch(push("/form"));*/
         }}>
         <h1>{name}</h1>
         <p>{description}</p>

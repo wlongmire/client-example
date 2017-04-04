@@ -31,12 +31,6 @@ class Header extends Component{
 
   resetEdit(e) {
     e.preventDefault();
-    
-    mx.customEvent(
-      "submission",
-      "create",
-      { "Type": "oi" }
-    );
 
     localStorage.setItem('editing', false);
   }

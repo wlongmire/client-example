@@ -1,268 +1,146 @@
-import statesArray from './../states';
+import ocpStatesArray from './states';
 
-const formData = {
-	"questionSetId": "OIFORM",
-    "name": "OIFORM",
+const ocpData = {
+	  "questionSetId": "OCPFORM",
+    "name": "OCPFORM",
 
     "questions": [
 	  {
 	    "questionId": "1",    
-	    "text": "Who is the First Named Insured?",
-	    "name": "nameInsuredName",
-			"required": true,
+	    "text": "Who is the Primary Named Insured?",
+	    "name": "primaryInsuredName",
+      "required": true,
 	    "inputType": "text",
 	    "inputFormat": "text",
-	    "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor"
+	    "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless indemnification and additional insured status from the hired General Contractor"
 	   },
-	  {
-	    "questionId": "2",
-	    "name": "nameInsuredAddressLabel",
-	    "text": "What is the address of the Named Insured?",
-	    "inputFormat": "label",
-	    "attributes":{
-	    	"controlGroup":"insuredAddress"
-	    }   
-	  },
-
-	  {
-	    "questionId": "2a",
-	    "name": "nameInsuredAddress",
-	    "inputFormat": 	"text",
-	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
-	    "required": true,
-	    "placeholder": "Address",
-	    "attributes":{
-	    	"controlGroup":"insuredAddress"	
-	    }
-	  },
-
-	  {
-	    "questionId": "2b",
-	    "name": "nameInsuredCity",
-	    "inputFormat": 	"text",
-	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
-	    "required": true,
-	    "placeholder": "City",
-	    "attributes":{
-	    	"controlGroup":"insuredAddress"	
-	    }
-	  },
-
-	  {
-	    "questionId": "2c", 
-	    "name": "namedInsuredState",
-	    "inputType": "dropdown-single",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
-	    "required": true,
-	    "attributes":{	
-	    	"options": statesArray,
-	    	"controlGroup":"insuredAddress"
-	    }
-	    
-	  },
-	  {
-	    "questionId": "2d",
-	    "name": "nameInsuredZipcode",
-	    "inputType": 		"text",
-	    "inputFormat": 	"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
-	    "required": true,
-	    "placeholder": "Zip Code",
-	    "attributes":{
-	    	"validationFunc":"clearance",
-	    	"controlGroup":"insuredAddress"
-	    }
-	  },
-	  {
-	    "questionId": "3", 
-
-	    "text": "Is project limited to specific floors?",
-
-	    "name": "specificFloors",
-	    "inputType": 	"radio",
-
-	    "tooltiptext": "Please choose if project is limited to specific floors.",
-
-	    "required": true,
-
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-	          "supplementalquestionIds": ["3_supplemental1"]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false,
-	          "supplementalquestionIds": []
-	        }
-	      ]
-	    }
-
-	  },
-
-	  {
-	    "questionId": "4", 
-
-	    "text": "Is there a secondary named insured?",
-
-	    "name": "secondaryInsured",
-	    "inputType": 	"radio",
-
-	    "tooltiptext": "Qualified entities must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
-
-	    "required": true,
-
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-	          "supplementalquestionIds": [
-	          	"4_supplemental1", 
-	          	"4_supplemental2", 
-	          	"4_supplemental3", 
-	          	"4_supplemental4", 
-	          	"4_supplemental5", 
-	          	"4_supplemental6", 
-	          	"4_supplemental7"
-	          ]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false,
-	          "supplementalquestionIds": []
-	        }
-	      ]
-	    }
-
-	  },
-    	  {
-	    "questionId": "5", 
-
-	    "text": "Are there any additional insured?",
-
-	    "name": "additionalInsured",
-	    "inputType": 	"radio",
-
-	    "tooltiptext": "Qualified Additional Insureds must also be named as an Additional Insured on the General Contractor’s General Liability in order to be approved",
-
-	    "required": true,
-
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-	          "supplementalquestionIds": [
-	          	"5_supplemental1", 
-	          	"5_supplemental2", 
-	          	"5_supplemental3", 
-	          	"5_supplemental4"
-	          ]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false,
-	          "supplementalquestionIds": []
-	        }
-	      ]
-	    }
-
-	  },
-		{
-	    "questionId": "6",
-	    "name": "projectAddressLabel",
-	    "text": "What is the address of the project?",
-	    "inputFormat": "label",
-	    "attributes":{
-	    	"controlGroup":"projectAddress"
-	    }   
-	  },
-	  {
-	    "questionId": "6a",
-	    "name": "projectAddress",
-	    "inputFormat": "text",
+     {
+	    "questionId": "2",    
+	    "text": "What is the total cost of this project?",
+	    "name": "totalCost",
+      "required": true,
 	    "inputType": "text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
-	    "required": true,
-	    "placeholder": "Address",
-	    "attributes":{
-	    	"controlGroup":"projectAddress"	
-	    }
-	  },
-	  {
-	    "questionId": "6b",
-	    "name": "projectCity",
-	    "inputFormat": "text",
-	    "inputType": "text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
-	    "required": true,
-	    "placeholder": "City",
-	    "attributes":{
-	    	"controlGroup":"projectAddress"	
-	    }
-	  },
-		{
-	    "questionId": "6c", 
-	    "name": "namedInsuredState",
-	    "inputType": "dropdown-single",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
-	    "required": true,
-	    "placeholder": "State",
-	    "attributes":{	
-	    	"options": statesArray,
-	    	"controlGroup":"projectAddress"
-	    }
-	  },
-	  {
-	    "questionId": "6d",
-	    "name": "nameInsuredZipcode",
-	    "inputType": "text",
-	    "inputFormat": "text",
-	    "required": true,
-	    "placeholder": "Zip Code",
-	    "attributes":{
-	    	"validationFunc":"clearance",
-	    	"controlGroup":"projectAddress"
-	    }
-	  },
-		{
-	    "questionId": "7",
+	    "inputFormat": "currency",
+	    "tooltiptext": "Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due."
+	   },
+     {
+	    "questionId": "3",    
 	    "text": "What is the term of the project, in months?",
 	    "name": "projectTerm",
-
-			"inputType": "number",       
+      "required": true,
+	    "inputType": "number",
 	    "inputFormat": "number",
-	    "required": true
-		},
-		{
+	    "tooltiptext": "Please provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."
+	   },
+     {
+	    "questionId": "4",    
+	    "text": "What is the anticipated finish date of project?",
+	    "name": "anticipatedFinishDate",
+      "required": true,
+	    "inputType": "text",
+	    "inputFormat": "date"
+	   },
+     {
+	    "questionId": "4",    
+	    "text": "What is the name of the designated contractor?",
+	    "name": "generalContractor",
+      "required": false,
+	    "inputType": "text",
+	    "inputFormat": "text"
+	   },
+     {
+	    "questionId": "5",    
+	    "text": "Who is the GL Carrier of Contrainer?",
+	    "name": "glCarrier",
+      "required": true,
+	    "inputType": "text",
+	    "inputFormat": "text"
+	   },
+     {
+	    "questionId": "6",    
+	    "text": "When is the Expiration Date of the Contactor's GL Policy?",
+	    "name": "glExpirationDate",
+      "required": true,
+	    "inputType": "text",
+	    "inputFormat": "date"
+	   },
+
+     {
+	    "questionId": "7",    
+	    "text": "What are the Excess limits of the Contractor's primary Policy?",
+	    "name": "excessLimit",
+      "required": false,
+	    "inputType": "text",
+	    "inputFormat": "currency"
+	   },
+
+     {
 	    "questionId": "8",
-	    "text": "What is the total construction value of this project?",
-	    "name": "totalCost",
-			"inputType": "text",       
-	    "inputFormat": "currency",
-	    "required": true
-		},
-		{
-	    "questionId": "9",
-	    "text": "Will there be use of a tower crane on this project?",
-	    "name": "towerCraneUse",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "name": "nameInsuredAddressLabel",
+	    "text": "What is the address of this project",
+	    "inputFormat": "label",
+	    "attributes":{
+	    	"controlGroup":"projectAddress"
+	    }   
+	  },
+
+	  {
+	    "questionId": "8a",
+	    "name": "projectAddress",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
 	    "required": true,
+	    "placeholder": "Address",
+	    "attributes":{
+	    	"controlGroup":"projectAddress"	
+	    }
+	  },
+
+	  {
+	    "questionId": "8b",
+	    "name": "projectCity",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "required": true,
+	    "placeholder": "City",
+	    "attributes":{
+	    	"controlGroup":"projectAddress"	
+	    }
+	  },
+	  {
+	    "questionId": "8c", 
+	    "name": "projectState",
+	    "inputType": "dropdown-single",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
+	    "required": true,
+	    "attributes": {	
+	    	"options": ocpStatesArray,
+	    	"controlGroup":"projectAddress"
+	    }
+	  },
+	  {
+	    "questionId": "8d",
+	    "name": "projectZipcode",
+	    "inputType": 		"text",
+	    "inputFormat": 	"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
+	    "required": true,
+	    "placeholder": "Zip Code",
 	    "attributes": {
-	      "options": [
-	        {
+	    	"controlGroup":"projectAddress"
+	    }
+	  },
+    {
+	    "questionId": "9",
+      "text": "Does the project include the addition of any stories or vertical expansion?",
+	    "name": "verticalExpansion",
+	    "inputType": "radio",
+	    "required": true,
+	    "attributes":{	
+	    	"options": [
+          {
 	          "optionId": "1",
 	          "text": "Yes",
 	          "value": true
@@ -272,211 +150,154 @@ const formData = {
 	          "text": "No",
 	          "value": false
 	        }
-	      ]
+        ]
 	    }
+	    
 	  },
-		{
-			"questionId": "10", 
-			"text": "Is the General Contractor known?",
-			"name": "generalContractorKnown",
-			"inputType": 	"radio",
-			"tooltiptext": "Please choose if project is limited to specific floors.",
-			"required": true,
-			"attributes": {
-				"options": [
-					{
-						"optionId": "1",
-						"text": "Yes",
-						"value": true,
-						"supplementalquestionIds": [
-							"10_supplemental1", 
-							"10_supplemental2",
-							"10_supplemental3",
-							"10_supplemental4"
-						]
-					},
-					{
-						"optionId": "2",
-						"text": "No",
-						"value": false,
-						"supplementalquestionIds": []
-					}
-				]
-			}
-		},
-		{
-	    "questionId": "11",
-	    "text": "Will there be occupancy during the project?",
-	    "name": "occupancy",
-	    "inputType": "radio",
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-						"supplementalquestionIds": [
-							"11_supplemental1"
-						]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-		},
-		{
-	    "questionId": "12",
-	    "text": "Will there be demo of exterior walls or roof?",
-	    "name": "exteriorDemo",
-	    "inputType": "radio",
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-						"supplementalquestionIds": [
-							"12_supplemental1",
-							"12_supplemental2",
-							"12_supplemental3",
-							"12_supplemental4"
-						]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-		},
-		{
-	    "questionId": "13",
-	    "text": "Has Work started on this project?",
-	    "name": "workStarted",
-	    "inputType": "radio",
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-						"supplementalquestionIds": [
-							"13_supplemental1",
-							"13_supplemental2",
-							"13_supplemental3",
-							"13_supplemental4"
-						]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-		},
-		{
-	    "questionId": "14",
-	    "text": "Does this project require excess coverage?",
-	    "name": "excessLimit",
+    {
+	    "questionId": "10", 
+	    "name": "specificFloors",
+      "text": "Is project limited to specific floors?",
 	    "inputType": "radio",
 	    "required": true,
-	    "attributes": {
-	      "options": [
-	        {
+	    "attributes":{	
+	    	"options": [
+          {
 	          "optionId": "1",
 	          "text": "Yes",
 	          "value": true,
-						"supplementalquestionIds": [
-							"14_supplemental1"
-						]
+	          "supplementalquestionIds": ["10_supplemental1"]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+        ]
+	    }
+	  },
+    {
+	    "questionId": "11",    
+	    "text": "What is the scope of the work for this project?",
+	    "name": "scope",
+      "required": false,
+	    "inputType": "freeform",
+	    "inputFormat": "text",
+	    "tooltiptext": "Please provide as descriptive of a scope of work as possible including end use."
+	   },
+    {
+	    "questionId": "12", 
+	    "name": "isSupervisingSubs",
+      "text": "Will the named insured be involved with any supervision or oversight of the project?",
+	    "inputType": "radio",
+	    "required": false,
+	    "attributes":{	
+	    	"options": [
+          {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true
 	        },
 	        {
 	          "optionId": "2",
 	          "text": "No",
 	          "value": false
 	        }
-	      ]
+        ]
 	    }
-		},
-	  {
-	    "questionId": "15",
-	    "name": "generalComments",
-	    "text": "General Comments",
-			"inputFormat": "text",
-	    "inputType": "freeform",
-	    "required": false
 	  },
-		{
-	    "questionId": "16",
-	    "name": "sidewalkMaintaining",
-			"text": "Who is responsible for maintating the sidewalks?",
-	    "inputType": "dropdown-single",
-	    "required": false,
-	    "attributes": {
-	      "options": [
+    {
+	    "questionId": "13", 
+	    "name": "projectRequirements",
+      "text": "Does the project require any of the following: Blasting, Airport Runways, Bridge Construction, Parking Garages/Decks, Dam, Underground Tunneling for subways, mines?",
+	    "inputType": "radio",
+	    "required": true,
+	    "attributes":{	
+	    	"options": [
+          {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true
+	        },
 	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+        ]
+	    }
+	  },
+    {
+	    "questionId": "14", 
+	    "name": "limitsRequested",
+      "text": "What limits are being requested for this OCP?",
+	    "inputType": "dropdown-single",
+	    "required": true,
+	    "attributes":{	
+	    	"options": [
+          {
 	          "optionId": "1",
 	          "text": "Select",
-	          "value": "",
-						"supplementalquestionIds": []
+	          "value": ""
 	        },
 	        {
 	          "optionId": "2",
-	          "text": "GC",
-	          "value": "GC",
-						"supplementalquestionIds": []
+	          "text": "1m/2m",
+	          "value": "12"
 	        },
-					{
+          {
 	          "optionId": "3",
-	          "text": "Owner",
-	          "value": "Owner",
-						"supplementalquestionIds": []
+	          "text": "2m/2m",
+	          "value": "22"
 	        },
-					{
+          {
 	          "optionId": "4",
-	          "text": "Other",
-	          "value": "Other",
-						"supplementalquestionIds": [
-							"16_supplemental1"
-						]
+	          "text": "2m/4m",
+	          "value": "24"
+	        },
+          {
+	          "optionId": "5",
+	          "text": "3m/3m",
+	          "value": "33"
+	        },
+          {
+	          "optionId": "6",
+	          "text": "4m/4m",
+	          "value": "44"
+	        },
+          {
+	          "optionId": "7",
+	          "text": "5m/5m",
+	          "value": "55"
 	        }
-	      ]
+        ]
 	    }
-		},
-		{
-	    "questionId": "17",
-	    "text": "Is this for a servicing/maintenance contract with several locations?",
-	    "name": "servicingSeveralLocations",
+	  },
+    {
+	    "questionId": "14", 
+	    "name": "otherSubcontractorsPaid",
+      "text": "Is the owner paying, contracting, or supervising any subcontractors other than GC?",
 	    "inputType": "radio",
-	    "required": true,
-	    "attributes": {
-	      "options": [
-	        {
+	    "required": false,
+	    "attributes":{	
+	    	"options": [
+          {
 	          "optionId": "1",
 	          "text": "Yes",
-	          "value": true,
-						"supplementalquestionIds": [
-							"17_supplemental1"
-						]
+	          "value": true
 	        },
 	        {
 	          "optionId": "2",
 	          "text": "No",
 	          "value": false
 	        }
-	      ]
+        ]
 	    }
-		},
-	  {
-	    "questionId": "20",
+	  },
+
+    {
+	    "questionId": "16",
 	    "name": "nameInsuredAddressLabel",
 	    "text": "Please provide your contact info to receive your indication:",
 	    "inputFormat": "label",
@@ -486,179 +307,47 @@ const formData = {
 	    }
 	  },
 	  {
-	    "questionId": "20a",
+	    "questionId": "16a",
 	    "name": "nameInsuredEmail",
 	    "inputType": "text",
 	    "inputFormat": "email",
 	    "required": true,
 	    "placeholder": "Email",
 	    "attributes":{
-	    	"controlGroup":"contactInfo",
-	    	"validationRegEx": "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}"
+	    	"controlGroup":"contactInfo"
 	    }
 	  },
 	  {
-	    "questionId": "20b",
+	    "questionId": "16b",
 	    "name": "phone",
 	    "inputType": "text",
 	    "inputFormat": "text",
 	    "required": true,
 	    "placeholder": "Phone",
 	    "attributes":{
-	    	"validationRegEx": "\b((\\(\\d{3}\\) ?)|(\\d{3}-))?\\d{3}-\\d{4}\b",
 	    	"controlGroup":"contactInfo"
 	    }
 	  }
 	],
 
 	"supplementalQuestions": [
-		{
-	    "questionId": "3_supplemental1", 
-	    "text": "Please provide details",
-	    "name": "specificFloorsDetails",
-      "inputFormat": "text",
-	    "inputType": 	"freeform",
-	    "tooltiptext": "Please choose if project is limited to specific floors.",
-	    "required": false
-
-	  },
-	  {
-	    "questionId": "4_supplemental1",
-	    "name": "secondaryNameInsuredName",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Name",
-	    "attributes" : {
-				"controlGroup": "secondaryNamedInfo"
-			}
-	  },
-
-	  {
-	    "questionId": "4_supplemental2",
-	    "name": "secondaryNameInsuredRelationship",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Relationship To Primary",
-	    "attributes" : {
-				"controlGroup": "secondaryNamedInfo"
-			}
-	  },
-	  {
-	    "questionId": "4_supplemental3",
-	    "name": "secondaryNameInsuredAddress",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Address",
-	    "attributes" : {
-				"controlGroup": "secondaryNamedInfo"
-			}
-	  },
-	  {
-	    "questionId": "4_supplemental4",
-	    "name": "secondaryNameInsuredCity",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "City",
-	    "attributes" : {
-				"controlGroup": "secondaryNamedInfo"
-			}
-	  },
-
-	  {
-	    "questionId": "4_supplemental5",
-	    "name": "secondaryNameInsuredState",
-	    "inputType": "dropdown-single",         
-	    "required": false,
-	    "attributes": {         
-	      "options": statesArray,
-				"controlGroup": "secondaryNamedInfo"
-	    },
-	    "placeholder": "State"
-	  },
-
-	  {
-	    "questionId": "4_supplemental6",
-	    "name": "secondaryNameInsuredZipcode",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Zipcode",
-	    "attributes" : {
-				"controlGroup": "secondaryNamedInfo"
-			}
-	  },
-
-	  {
-	    "questionId": "4_supplemental7",
-	    "text": "Any other named insured?",
-	    "name": "secondaryNameInsuredOther",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ],
-				"controlGroup": "secondaryNamedInfo"
-	    }
-	  },
     {
-	    "questionId": "5_supplemental1",
-	    "name": "additionalInsuredName",
-	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "questionId": "10_supplemental1",    
+	    "text": "Please provide details.",
+	    "name": "specificFloorsDetails",
+      "required": false,
+	    "inputType": "text",
+	    "inputFormat": "freeform"
+	   },
+		 {
+	    "questionId": "8_supplemental1",     
+	    "name": "nycha",
+      "text": "Is this a NYCHA Project?",
+	    "inputType": "radio",
 	    "required": false,
-	    "placeholder": "Name",
-	    "attributes" : {
-				"controlGroup": "additionalInsuredInfo"
-			}
-	  },
-
-	  {
-	    "questionId": "5_supplemental2",
-	    "name": "additionalInsuredRelationship",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Relationship To Primary",
-	    "attributes" : {
-				"controlGroup": "additionalInsuredInfo"
-			}
-	  },
-	  {
-	    "questionId": "5_supplemental3",
-	    "name": "additionalInsuredRole",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Role on the Project",
-	    "attributes" : {
-				"controlGroup": "additionalInsuredInfo"
-			}
-	  },
-	  {
-	    "questionId": "5_supplemental4",
-	    "text": "Any other additional insured?",
-	    "name": "additionalInsuredOther",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
+	    "attributes":{	
+	    	"options": [
+          {
 	          "optionId": "1",
 	          "text": "Yes",
 	          "value": true
@@ -668,486 +357,10 @@ const formData = {
 	          "text": "No",
 	          "value": false
 	        }
-	      ],
-				"controlGroup": "additionalInsuredInfo"
-	    }
-	  },
-		{
-	    "questionId": "10_supplemental1",
-	    "name": "generalContractorName",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Name of General Contractor",
-	    "attributes" : {
-				"controlGroup": "generalContractorInfo"
-			}
-	  },
-
-	  {
-	    "questionId": "10_supplemental2",
-	    "name": "generalLiabilityCarrier",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "General Liability Carrier",
-	    "attributes" : {
-				"controlGroup": "generalContractorInfo"
-			}
-	  },
-	  {
-	    "questionId": "10_supplemental3",
-	    "name": "generalContractorAmount",
-	    "inputFormat": "currency",
-	    "inputType": "text",         
-	    "required": false,
-	    "attributes" : {
-				"controlGroup": "generalContractorInfo"
-			}
-	  },
-	  {
-	    "questionId": "10_supplemental4",
-	    "text": "Is the owner paying, contracting, or supervising any subcontractors other than the GC?",
-	    "name": "otherSubcontractorsPaid",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ],
-				"controlGroup": "generalContractorInfo"
-	    }
-	  },
-		{
-	    "questionId": "11_supplemental1",
-	    "text": "Is coverage for occupancy desired?",
-	    "name": "occupancyCoverageDesired",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-						"supplementalquestionIds": [
-							"11_supplementalA",
-							"11_supplementalB",
-							"11_supplementalC",
-							"11_supplementalD",
-							"11_supplementalE",
-							"11_supplementalF",
-							"11_supplementalG",
-							"11_supplementalH",
-							"11_supplementalI"
-							]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "11_supplementalA",
-	    "text": "What type of occupancy?",
-	    "name": "occupancyType",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Residential",
-	          "value": "residential",
-						"supplementalquestionIds": ["11_supplementalX"]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "Commercial",
-	          "value": "commercial"
-	        }
-	      ]
-	    }
-	  },
-		{
-			"questionId": "11_supplementalX",
-			"text": "How many units?",
-			"name": "occupancyUnits",
-			"inputType": "number",       
-			"inputFormat": "number",
-			"required": false
-		},
-		{
-			"questionId": "11_supplementalB",
-			"text": "What is the total square footage or number of occupied units?",
-			"name": "occupancySquareFootage",
-			"inputType": "number",       
-			"inputFormat": "number",
-			"required": false
-		},
-		{
-	    "questionId": "11_supplementalC",
-	    "text": "Any losses in the last 5 years?",
-	    "name": "occupancylossIn5Years",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "11_supplementalD",
-	    "text": "Will tenants and workers use different stairwells?",
-	    "name": "occupancyStairwells",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "11_supplementalE",
-	    "text": "Will there be separate entry?",
-	    "name": "occupancySeparateEntry",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "11_supplementalF",
-	    "text": "Security Personnel?",
-	    "name": "occupancySecurityPersonnel",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "11_supplementalG",
-	    "text": "Is there a doorman?",
-	    "name": "occupancyDoorman",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "11_supplementalH",
-	    "text": "Are security cameras installed?",
-	    "name": "occupancyCameras",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "11_supplementalI",
-	    "text": "Is building access limited via keys or card access?",
-	    "name": "occupancyAccess",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "12_supplemental1",
-	    "text": "Is the GC hiring a demo subcontractor?",
-	    "name": "exteriorDemoSubcontractor",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "12_supplemental2",
-	    "text": "What are the total demo costs?",
-	    "name": "exteriorDemoCost",
-			"inputType": "text",       
-	    "inputFormat": "currency",
-	    "required": false
-		},
-		{
-	    "questionId": "12_supplemental3",
-	    "text": "How long, in months, will demo take?",
-	    "name": "exteriorDemoTerm",
-			"inputType": "number",       
-	    "inputFormat": "number",
-	    "required": false
-		},
-		{
-	    "questionId": "12_supplemental4",
-	    "text": "What safety precautions, if any, are in place to protect pedestrians?",
-	    "name": "exteriorDemoPrecautions",
-			"inputType": "text",       
-	    "inputFormat": "text",
-	    "required": false
-		},
-		{
-	    "questionId": "13_supplemental1",
-	    "text": "When did work begin?",
-	    "name": "workStartDate",
-			"inputType": "text",       
-	    "inputFormat": "date",
-	    "required": false
-		},
-		{
-	    "questionId": "13_supplemental2",
-	    "text": "What has been completed?",
-	    "name": "workStartDescription",
-			"inputType": "text",       
-	    "inputFormat": "freeform",
-	    "required": false
-		},
-		{
-	    "questionId": "13_supplemental3",
-	    "text": "Total const spent to date?",
-	    "name": "totalSpent",
-			"inputType": "number",       
-	    "inputFormat": "number",
-	    "required": false
-		},
-		{
-	    "questionId": "13_supplemental4",
-	    "text": "What is the name of the GC responsible for prior work?",
-	    "name": "priorGcResponsible",
-			"inputType": "text",       
-	    "inputFormat": "text",
-	    "required": false
-		},
-		{
-	    "questionId": "14_supplemental1",
-	    "text": "What excess limits are required?",
-	    "name": "excessLimitAmount",
-	    "inputType": "dropdown-single",
-	    "required": false,
-	    "attributes": {
-	      "options": [
-					{
-	          "optionId": "1",
-	          "text": "Select Limit Amount",
-	          "value": ""
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "$ 5,000,000",
-	          "value": 5000000
-	        },
-	        {
-	          "optionId": "3",
-	          "text": "$ 10,000,000",
-	          "value": 10000000
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "16_supplemental1",
-	    "text": "Please provide more details.",
-	    "name": "sidewalkDetails",
-			"inputType": "text",       
-	    "inputFormat": "freeform",
-	    "required": false
-		},
-		{
-	    "questionId": "17_supplemental1",
-	    "text": "Is the same General Contractor responsible for all sites?",
-	    "name": "contractorSameAllSites",
-	    "inputFormat": "radio",
-	    "inputType": "radio",         
-	    "required": false,
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-						"supplementalquestionIds": [
-							"17_supplementalA",
-							"17_supplementalB",
-							"17_supplementalC",
-							"17_supplementalD",
-							"17_supplementalE"
-							]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false
-	        }
-	      ]
-	    }
-	  },
-		{
-	    "questionId": "17_supplementalA",
-	    "name": "otherSiteLabel1",
-	    "text": "Additional Site 1:",
-	    "inputFormat": "label",
-	    "attributes":{
-	    	"controlGroup":"otherSite1"
-	    }   
-	  },
-		{
-	    "questionId": "17_supplementalB",
-	    "name": "otherSiteAddress1",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Address",
-	    "attributes" : {
-				"controlGroup": "otherSite1"
-			}
-	  },
-	  {
-	    "questionId": "17_supplementalC",
-	    "name": "otherSiteCity1",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "City",
-	    "attributes" : {
-				"controlGroup": "otherSite1"
-			}
-	  },
-	  {
-	    "questionId": "17_supplementalD",
-	    "name": "otherSiteState1",
-	    "inputType": "dropdown-single",         
-	    "required": false,
-	    "attributes": {         
-	      "options": statesArray,
-				"controlGroup": "otherSite1"
-	    }
-	  },
-	  {
-	    "questionId": "17_supplementalE",
-	    "name": "otherSiteZipcode1",
-	    "inputFormat": "text",
-	    "inputType": "text",         
-	    "required": false,
-	    "placeholder": "Zipcode",
-	    "attributes" : {
-				"controlGroup": "otherSite1"
-			}
-	  }
+        ]
+	   	}
+		 }
 	]
 }
 
-export default formData;
+export default ocpData;

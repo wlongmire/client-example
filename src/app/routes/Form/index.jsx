@@ -62,7 +62,7 @@ class Form extends Component {
   render() {
     const { submission, controlGroups } = this.state;
     const { ratingProduct } = this.props;
-
+    
     if (!ratingProduct)
       return <div></div>
 

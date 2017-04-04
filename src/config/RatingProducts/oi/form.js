@@ -1,4 +1,4 @@
-import statesArray from './../states';
+import statesArray from './states';
 
 const updatedData = {
 	"questionSetId": "OIFORM",
@@ -415,7 +415,7 @@ const updatedData = {
 		{
 	    "questionId": "16",
 	    "name": "sidewalkMaintaining",
-			"text": "Who is responsible for maintating the sidewalks?",
+			"text": "Who is responsible for maintaining the sidewalks?",
 	    "inputType": "dropdown-single",
 	    "required": false,
 	    "attributes": {

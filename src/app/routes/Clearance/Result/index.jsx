@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import { ButtonGroup, Button, Panel } from 'react-bootstrap';
 
 function Result(props) {
-    props.result.success = true;
+
+    props.result.success = true
 
     const result = (props.result.success)?{
         title: "This Submission Passed Clearance!",
