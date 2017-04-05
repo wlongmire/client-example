@@ -3,9 +3,9 @@ import filter from 'lodash/filter';
 import utilities from '../../utils/utilities'
 import config from '../../../config';
 
-export default async function getPDFData(token) {
+export default async function getPDFData(token, pdfType) {
   try {
-    const submission = await getSubmissionByToken(token)
+    const submission = await getSubmissionByToken(token, pdfType)
 
     let aggregateLimit;
     let halvedCost = Math.ceil(((submission.totalCost / 2) * 1000000) / 1000000);
@@ -37,14 +37,18 @@ export default async function getPDFData(token) {
         return key[0] === String(submission.limitsRequested);
       });
     }
+    let type = pdfType;
+    if (pdfType === 'bind' || pdfType || 'excess') {
+      type = submission.type
+    }
 
     const pdfData = {
       namedInsured: submission.primaryInsuredName,
-      quotedPremium: `$${utilities.commifyNumber(submission.rating[0].premium)}`,
-      terrorPremium: `$${utilities.commifyNumber(submission.rating[0].oiTerrorPremium)}`,
-      addtlPremium: `$${utilities.commifyNumber(submission.rating[0].oiAdditionalCoverage)}`,
-      totalPremium: `$${utilities.commifyNumber(submission.rating[0].totalOiPremium)}`,
-      totalCost: `$${utilities.commifyNumber(submission.rating[0].totalOiPremium + 325)}`,
+      quotedPremium: `$${utilities.commifyNumber(submission.rating[type].premium)}`,
+      terrorPremium: `$${utilities.commifyNumber(submission.rating[type].terrorPremium)}`,
+      addtlPremium: `$${utilities.commifyNumber(submission.rating[type].additionalCoverage)}`,
+      totalPremium: `$${utilities.commifyNumber(submission.rating[type].totalPremium)}`,
+      totalCost: `$${utilities.commifyNumber(submission.rating[type].totalPremium + 325)}`,
       inspectionAmount: `$${utilities.commifyNumber(325)}`,
       insuredAddress: submission.insuredAddress ? submission.insuredAddress.street: '',
       insuredCity: submission.insuredAddress ? submission.insuredAddress.city: '',
@@ -106,10 +110,10 @@ export default async function getPDFData(token) {
       // projectDefinedAreaScopeDetails: submission.projectDefinedAreaScopeDetails,
       // projectRequirements: submission.projectRequirements,
       // limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
-      // excessLimits: `$ ${utilities.commifyNumber(submission.rating[0].excessDetails.limits)}`,
-      // baseExcess: `$ ${utilities.commifyNumber(submission.rating[0].excessQuotedPremium)}`,
-      // terrorExcess: `$ ${utilities.commifyNumber(submission.rating[0].excessTerror)}`,
-      // totalExcess: `$ ${utilities.commifyNumber(submission.rating[0].excessTotalPremium)}`,
+      // excessLimits: `$ ${utilities.commifyNumber(submission.excessLimitAmount)}`,
+      // baseExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessQuotedPremium)}`,
+      // terrorExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`,
+      // totalExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`,
     }
     // if (submission.secondaryNameInsuredOther) {
     //   pdfData.hasOtherNamedInsuredExist = true;
