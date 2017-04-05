@@ -5,6 +5,8 @@ let baseURL = config.apiserver.url;
 
 function saveSubmission(submission) {
 
+  console.log("saveSubmission", JSON.stringify(submission))
+
   return fetch(baseURL + `/api/save`, {
     method: 'POST',
     headers: {
@@ -12,11 +14,11 @@ function saveSubmission(submission) {
       'Content-Type': 'application/json',
       'x-token': localStorage.getItem('token')
     },
-    body:submission
+    body: JSON.stringify(submission)
   })
   .then(res => res.json())
   .then((res) => {
-    console.log(res);
+    console.log("res", res);
     return(res);
   })
   .catch((error) => {
