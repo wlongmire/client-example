@@ -22,9 +22,9 @@ class Quote extends Component {
         console.log(rating);
 
         const currentProduct = ratingProducts[submission.type]
-        const totalPremium = commifyNumber(rating.premium + rating.oiTerrorPremium)
+        const totalPremium = commifyNumber(rating.totalPremium)
         const basePremium = commifyNumber(rating.premium)
-        const terrorismCoverage = commifyNumber(rating.oiTerrorPremium)
+        const terrorismCoverage = commifyNumber(rating.terrorPremium)
 
         // const excessLimits = 
         const excessTotalPremium = commifyNumber(rating.excessTerrorPremium)
