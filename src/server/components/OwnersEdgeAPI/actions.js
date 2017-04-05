@@ -34,7 +34,7 @@ async function getClearance(req, res) {
 			}
 
 			const user = result.user;
-			
+
 			const name = req.query.name || '';
 			const address = req.query.address || '';
 			const city = req.query.city || '';
@@ -43,7 +43,7 @@ async function getClearance(req, res) {
 
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(state)])
 			.then(function(resp){
-				
+
 				const submissions = resp[0].map(
 					(s)=>({
 						name:s.primaryNamedInsured,
@@ -57,7 +57,7 @@ async function getClearance(req, res) {
 				)).filter((s)=>(
 					s.name && s.address
 				))
-				
+
 				businessMatchingService.getBusinessMatching(
 					{name, address:`${address} ${state} ${zipcode}`},
 					submissions
@@ -80,7 +80,7 @@ async function getClearance(req, res) {
 				type: 'TokenExpired',
 				message: 're-login to get new token',
 			});
-		})	
+		})
 
 	} catch (err) {
 		return res.status(500)
@@ -324,5 +324,6 @@ export default {
 	getSubmissions,
 	getClearance,
 	getSingleSubmission,
-  	getBroker
+  	getBroker,
+		saveSubmission
 }
