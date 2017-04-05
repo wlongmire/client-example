@@ -5,8 +5,6 @@ let baseURL = config.apiserver.url;
 
 function saveSubmission(submission) {
 
-  console.log("saveSubmission", JSON.stringify(submission))
-
   return fetch(baseURL + `/api/save`, {
     method: 'POST',
     headers: {

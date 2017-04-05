@@ -13,7 +13,7 @@ const ConfirmationModal = React.createClass({
     const flattenedSubmission = flattenObj(submission)
     const flattenedFormItems = form.questions.concat(form.supplementalQuestions);
     const results = Object.keys(flattenedSubmission).map((item)=>{
-      if (["type", "status"].indexOf(item) !== -1) {
+      if (["type", "status", "passedClearance"].indexOf(item) !== -1) {
         return
       }
 
