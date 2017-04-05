@@ -51,7 +51,7 @@ const ocpData = {
      {
 	    "questionId": "5",    
 	    "text": "Who is the GL Carrier of Contrainer?",
-	    "name": "glCarrier",
+	    "name": "generalContractorCarrier",
       "required": true,
 	    "inputType": "text",
 	    "inputFormat": "text"
@@ -59,7 +59,7 @@ const ocpData = {
      {
 	    "questionId": "6",    
 	    "text": "When is the Expiration Date of the Contactor's GL Policy?",
-	    "name": "glExpirationDate",
+	    "name": "generalContractorExpirationDate",
       "required": true,
 	    "inputType": "text",
 	    "inputFormat": "date"

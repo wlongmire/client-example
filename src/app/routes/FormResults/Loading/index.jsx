@@ -5,6 +5,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
+import getRating from 'app/utils/getRating';
+
 class Loading extends Component {
     constructor(props) {
         super(props)
@@ -12,15 +14,10 @@ class Loading extends Component {
     }
 
     componentDidMount() {
-        console.log("GET RATING OF:");
-        console.log(this.props.submission);
-    
-        const rating = { instantQuote:false };
-        const error = false;
-
-        setTimeout(()=>{
-            this.props.handleSubmit(error, rating);
-        }, 2000);
+        getRating(this.props.submission).then((resp)=>{
+            console.log(resp);
+            this.props.handleSubmit(!resp.success, resp.rating);
+        });
     }
 
     render() {
