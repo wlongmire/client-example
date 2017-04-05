@@ -15,7 +15,6 @@ class Loading extends Component {
 
     componentDidMount() {
         getRating(this.props.submission).then((resp)=>{
-            console.log(resp);
             this.props.handleSubmit(!resp.success, resp.rating);
         });
     }
