@@ -61,25 +61,24 @@ export default async function getPDFData(token, pdfType) {
       createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
       projectScope: submission.scope,
       projectTerm: `${submission.projectTerm} months`,
-      projectCosts: `$${utilities.commifyNumber(submission.totalCost)}`,
-      gcKnown: submission.generalContractorKnown ? 'yes' : 'no',
+      projectCosts: `$${utilities.commifyNumber(parseInt(submission.totalCost))}`,
+      gcKnown: submission.generalContractorKnown == 'true' ? 'yes' : 'no',
       gcName: submission.generalContractorName,
       gcCarrier: submission.generalLiabilityCarrier,
-      glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) ? submission.generalContractorExpirationDate.toLocaleDateString() : '',
-      gcSupervisingSubs: submission.otherSubcontractorsPaid ? 'yes' : 'no',
+      glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) ? submission.generalContractorExpirationDate : '',
+      gcSupervisingSubs: submission.otherSubcontractorsPaid == 'true' ? 'yes' : 'no',
       argoEmail: config.argoEmail,
-      // willHaveOtherNamed: submission.hasOtherNamedInsured && submission.otherNamedInsured.name ? true : false,
-      // otherRole: submission.hasOtherNamedInsured ? submission.otherNamedInsured.role : 'No other Named Insured entities submitted',
-      // otherRelationship: submission.hasOtherNamedInsured ? submission.otherNamedInsured.relationship : 'N/A',
-      // otherContractors: submission.otherSubcontractorsPaid ? true : false,
-      // otherName: submission.hasOtherNamedInsured ? submission.otherNamedInsured.name : 'No AI Entities Submitted',
-      // greaterThanTwoAdditional: submission.greaterThanTwoAdditional,
-      // additionalName: submission.hasAdditionalInsured ? submission.additionalInsured.name : 'No Additional Insured',
-      // additionalRole: submission.hasAdditionalInsured ? submission.additionalInsured.role : 'N/A',
-      // additionalRelationship: submission.hasAdditionalInsured ? submission.additionalInsured.relationship : 'N/A',
-      // commissionRate: `${submission.commission} %`,
-      // occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
-      // aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
+      willHaveOtherNamed: submission.secondaryNameInsuredName != '' ? true : false,
+      otherRole: submission.secondaryNameInsuredName != '' ? submission.secondaryNameInsuredRole : 'No other Named Insured entities submitted',
+      otherRelationship: submission.secondaryNameInsuredName != '' ? submission.secondaryNameInsuredRelationship : 'N/A',
+      otherContractors: submission.otherSubcontractorsPaid == 'true' ? true : false,
+      otherName: submission.secondaryNameInsuredName != '' ? submission.secondaryNameInsureName : 'No AI Entities Submitted',
+      greaterThanTwoAdditional: submission.additionalInsuredOther == 'true',
+      additionalName: submission.hasAdditionalInsuredName != '' ? submission.additionalInsuredName : 'No Additional Insured',
+      additionalRole: submission.hasAdditionalInsuredName != '' ? submission.additionalInsuredRole : 'N/A',
+      additionalRelationship: ssubmission.hasAdditionalInsuredName != '' ? submission.additionalInsuredRelationship : 'N/A',
+      occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
+      aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
       // willHaveOccupancy: submission.occupancyDetails && submission.occupancyDetails.willHave === 'yes' ? true : false,
       // occupancyBuildingAccessLimited: submission.occupancyDetails && submission.occupancyDetails.buildingAccessLimited === 'yes' ? true : false,
       // occupancySecurityCameras: submission.occupancyDetails && submission.occupancyDetails.securityCameras === 'yes' ? true : false,
@@ -89,41 +88,39 @@ export default async function getPDFData(token, pdfType) {
       // occupancySeparateStairwells: submission.occupancyDetails && submission.occupancyDetails.separateStairwells === 'yes' ? true : false,
       // occupancyLossesInLastFiveYears: submission.occupancyDetails && submission.occupancyDetails.lossesInLastFiveYears === 'yes' ? true : false,
       // occupancySquareFootage: submission.occupancyDetails ? submission.occupancyDetails.squareFootage : 'N/A',
-      // occupancyNumberOfUnits: submission.occupancyDetails ? submission.occupancyDetails.numberOfUnits : 'N/A',
-      // occupancyType: submission.occupancyDetails ? submission.occupancyDetails.type : 'N/A',
-      // occupancyTypeCommercial: submission.occupancyDetails && submission.occupancyDetails.type === 'commercial' ? true : false,
-      // occupancyTypeResidential: submission.occupancyDetails && submission.occupancyDetails.type === 'residential' ? true : false,
+      // occupancyNumberOfUnits: submission.occupancyUnits ? submission.occupancyDetails.numberOfUnits : 'N/A',
+      // occupancyType: submission.occupancyType ? submission.occupancyDetails.type : 'N/A',
       // occupancyIsCoverageDesired: submission.occupancyDetails && submission.occupancyDetails.isCoverageDesired === 'yes' ? true : false,
       // willHaveDemoDetails: submission.demoDetails && submission.demoDetails.willHave === 'yes' ? true : false,
-      // demoDetailsPedestrianSafetyPrecautions: submission.demoDetails ? submission.demoDetails.pedestrianSafetyPrecautions : 'N/A',
-      // demoDetailsDuration: submission.demoDetails ? submission.demoDetails.duration : 'N/A',
-      // demoDetailsCosts: submission.demoDetails ? submission.demoDetails.costs : 'N/A',
-      // demoDetailsSubcontractor: submission.demoDetails ? submission.demoDetails.subcontractor : 'N/A',
-      // towerCraneUse: submission.towerCraneUse && submission.towerCraneUse === 'yes' ? true : false,
+      // demoDetailsPedestrianSafetyPrecautions: submission.exteriorDemoPrecautions ? submission.demoDetails.pedestrianSafetyPrecautions : 'N/A',
+      // demoDetailsDuration: submission.exteriorDemoTerm ? submission.demoDetails.duration : 'N/A',
+      // demoDetailsCosts: submission.exteriorDemoCost ? submission.demoDetails.costs : 'N/A',
+      // demoDetailsSubcontractor: submission.exteriorDemoSubcontractor,
+       towerCraneUse: submission.towerCraneUse == 'true',
       // anyWorkCompleted: submission.workDetails && submission.workDetails.whatsCompleted !== '' ? true : false,
       // workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
       // whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A',
-      // brokerName: submission.broker ? submission.broker.name: '',
-      // deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
-      // anticipatedFinishDate: submission.anticipatedFinishDate,
-      // projectDefinedAreaScope: submission.projectDefinedAreaScope,
-      // projectDefinedAreaScopeDetails: submission.projectDefinedAreaScopeDetails,
-      // projectRequirements: submission.projectRequirements,
-      // limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
-      // excessLimits: `$ ${utilities.commifyNumber(submission.excessLimitAmount)}`,
-      // baseExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessQuotedPremium)}`,
-      // terrorExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`,
-      // totalExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`,
+      brokerName: submission.broker.name,
+      deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
+      anticipatedFinishDate: submission.anticipatedFinishDate,
+      projectDefinedAreaScope: submission.projectDefinedAreaScope,
+      projectDefinedAreaScopeDetails: submission.projectDefinedAreaScopeDetails,
+      projectRequirements: submission.projectRequirements,
+      limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
+      excessLimits: `$ ${utilities.commifyNumber(parseInt(submission.excessLimitAmount)}`,
+      baseExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`,
+      terrorExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`,
+      totalExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`,
     }
-    // if (submission.secondaryNameInsuredOther) {
-    //   pdfData.hasOtherNamedInsuredExist = true;
-    // }
-    // if (submission.additionalInsuredOther) {
-    //   pdfData.hasAdditionalInsuredExist = true;
-    // }
-    // if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
-    //   pdfData.marshBroker = true;
-    // }
+    if (submission.secondaryNameInsuredOther == 'true') {
+      pdfData.hasOtherNamedInsuredExist = true;
+    }
+    if (submission.additionalInsuredOther == 'true' ) {
+      pdfData.hasAdditionalInsuredExist = true;
+    }
+    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
+      pdfData.marshBroker = true;
+    }
     return pdfData;
   } catch (err) {
     console.log(err)
