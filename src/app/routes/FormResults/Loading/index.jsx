@@ -17,7 +17,7 @@ class Loading extends Component {
     
         const rating = { instantQuote:false };
         const error = false;
-
+        
         setTimeout(()=>{
             this.props.handleSubmit(error, rating);
         }, 2000);
