@@ -20,6 +20,9 @@ export default async function generatePDF(token, type) {
         case 'bind':
           htmlUrl = config.ownersBindOrderPDFUrl
           break;
+        case 'excess':
+          htmlUrl = config.excessPDFUrl
+          break;
       }
       console.log(htmlUrl);
       const body = await rp(htmlUrl);

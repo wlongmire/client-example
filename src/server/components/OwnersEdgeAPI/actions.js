@@ -34,7 +34,7 @@ async function getClearance(req, res) {
 			}
 
 			const user = result.user;
-			
+
 			const name = req.query.name || '';
 			const address = req.query.address || '';
 			const city = req.query.city || '';
@@ -43,7 +43,7 @@ async function getClearance(req, res) {
 
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(state)])
 			.then(function(resp){
-				
+
 				const submissions = resp[0].map(
 					(s)=>({
 						name:s.primaryNamedInsured,
@@ -57,7 +57,7 @@ async function getClearance(req, res) {
 				)).filter((s)=>(
 					s.name && s.address
 				))
-				
+
 				businessMatchingService.getBusinessMatching(
 					{name, address:`${address} ${state} ${zipcode}`},
 					submissions
@@ -80,7 +80,7 @@ async function getClearance(req, res) {
 				type: 'TokenExpired',
 				message: 're-login to get new token',
 			});
-		})	
+		})
 
 	} catch (err) {
 		return res.status(500)
@@ -297,25 +297,22 @@ async function sendEmailInternal(submissionId, emailAddress, emailType) {
 async function generatePDFsInternal(submissionId) {
 	console.log('generating pdf')
 	const submission = await submissionService.getSubmissionById(submissionId);
-	if (!submission.instantQuote) {
-		return awaitPromise.all(pdfService.generatePDF(submission.pdfToken, 'bind'));
-	}
+	let pdfArray = [];
 
-	switch (submission.type) {
-		case 'oi': {
-			return await Promise.all(
-				pdfService.generatePDF(submission.pdfToken, 'bind'),
-				 pdfService.generatePDF(submission.pdfToken, 'oi'));
-		}
-		break;
-		case 'ocp': {
-			return await Promise.all(
-				pdfService.generatePDF(submission.pdfToken, 'bind'),
-				pdfService.generatePDF(submission.pdfToken, 'oi'),
-				pdfService.generatePDF(submission.pdfToken, 'ocp'));
-		}
-		break;
+	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind');
+	let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
+	let excessQuote = await pdfService
+	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder},
+											{title:`Owner's Interest - General Quote`, content: oiQuote}]
+	if (submission.type === 'ocp') {
+		let ocpQuote = await pdfService.generatePDF(submission.pdfToken, 'ocp');
+		pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Quote`, content: ocpQuote}];
 	}
+	if (utilities.isDefined(submission.rating[0].excessPremium) && submission.rating[0].excessPremium > 0) {
+		let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
+		pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Quote`, content: excessQuote}];
+	}
+	return pdfArray;
 }
 
 export default {

@@ -1,4 +1,5 @@
 import { buildMail } from './'
+import config from '../../../config';
 
 export default async function sendMail (type, toAddress, submission, templateId, pdfArray){
   return new Promise ( async (resolve, reject) => {

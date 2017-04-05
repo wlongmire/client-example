@@ -104,7 +104,8 @@ const submissionSchema = new mongoose.Schema({
       otherSubcontractorsPaid: Boolean,
       specificFloorsDetails: String,
       nycha: Boolean,
-      rating: Array
+      rating: Array,
+      pdfToken: String
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);
