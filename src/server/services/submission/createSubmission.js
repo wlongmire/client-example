@@ -5,10 +5,12 @@ import { getSubmissionById } from './'
 
 export default async function createSubmission(requestBody) {
 	return new Promise(async (resolve, reject) => {
-		let sub = Submission.create(requestBody);
-		let confNumber = await generateConfirmationNumber();
-		sub.pdfToken = uuid.v4();
-		sub.confirmationNumber = confNumber;
+    
+    let confNumber = await generateConfirmationNumber();
+		requestBody.pdfToken = uuid.v4();
+		requestBody.confirmationNumber = confNumber;
+
+		let sub = new Submission(requestBody);
 		let newSub = await sub.save();
 		resolve(newSub._id);
 	});

@@ -12,7 +12,7 @@ function saveSubmission(submission) {
       'Content-Type': 'application/json',
       'x-token': localStorage.getItem('token')
     },
-    body:submission
+    body: JSON.stringify(submission)
   })
   .then(res => res.json())
   .then((res) => {
