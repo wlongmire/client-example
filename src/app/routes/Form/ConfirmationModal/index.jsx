@@ -7,13 +7,16 @@ const ConfirmationModal = React.createClass({
   render() {
     const { 
       submission,
-      controlGroups,
       form
     } = this.props;
 
     const flattenedSubmission = flattenObj(submission)
     const flattenedFormItems = form.questions.concat(form.supplementalQuestions);
     const results = Object.keys(flattenedSubmission).map((item)=>{
+      if (["type", "status"].indexOf(item) !== -1) {
+        return
+      }
+
       const formItem = flattenedFormItems.find((f)=>(f.name === item));
 
       return {
@@ -22,7 +25,7 @@ const ConfirmationModal = React.createClass({
         value:  flattenedSubmission[item],
         controlGroup:  (formItem.attributes && formItem.attributes.controlGroup) || item
       }
-    });
+    }).filter((item)=>(item !== undefined))
 
     const reviewQuestions = ()=>(
       results.map((r, idx)=>{

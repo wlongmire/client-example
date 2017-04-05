@@ -14,8 +14,29 @@ class Loading extends Component {
     }
 
     componentDidMount() {
-        getRating(this.props.submission).then((resp)=>{
-            this.props.handleSubmit(!resp.success, resp.rating);
+        const {submission} = this.props;
+        let ratingPromises;
+
+        switch(submission.type) {
+            case("oi"):
+                ratingPromises = [submission]
+                break;
+            case("ocp"):
+                ratingPromises = [submission, Object.assign({}, submission, {type:"oi"})]
+                break;
+        }
+        
+        Promise.all(ratingPromises.map((s)=>(
+            getRating(s)
+        ))).then((resp)=>{
+
+            let ratings = {}
+            ratingPromises.map((ratingSubmission, idx)=>{
+                ratings[ratingSubmission.type] = resp[idx].rating
+            })
+
+            console.log(ratings);
+            this.props.handleSubmit(!resp[0].success, ratings);
         });
     }
 

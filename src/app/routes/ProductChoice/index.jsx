@@ -58,8 +58,9 @@ class ProductChoice extends Component {
   render() {
     const generateItems = ()=>{
       return Object.keys(ratingProducts).map((productType,idx)=> {
-        return (<ProductChoiceItem 
-          key={idx} type={productType} 
+        return (<ProductChoiceItem
+          key={idx} 
+          type={productType} 
           name={ratingProducts[productType].name} 
           description={ratingProducts[productType].description}
           dispatch={this.props.dispatch}

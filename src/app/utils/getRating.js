@@ -5,8 +5,6 @@ let baseURL = config.apiserver.url;
 
 function getRating(submission) {
   let token = localStorage.getItem('token');
-
-  console.log(submission);
   
   return fetch(baseURL + '/api/getRating', {
     method: 'POST',
@@ -19,7 +17,6 @@ function getRating(submission) {
   })
   .then(res => res.json())
   .then((res) => {
-    console.log(res);
     return(res);
   })
   .catch((error) => {
