@@ -75,14 +75,13 @@ class Quote extends Component {
             />
 
             <ToggleDisplay
-            show={excessTotalPremium > 0}
+            show={rating.excessPremium > 0}
             render={() => (
                 <QuoteBlock 
                     title="Excess"
-                    basePremium={rating.premium}
-                    totalPremium={rating.totalPremium}
-                    additionalCoverage={rating.additionalCoverage}
-                    terrorismCoverage={rating.terrorismCoverage}
+                    basePremium={rating.excessPremium}
+                    totalPremium={rating.totalExcessPremium}
+                    terrorismCoverage={rating.excessTerrorPremium}
                 />)}/>
 
             <p>Please check your email for a more detailed pricing indication and review it for accuracy.</p>

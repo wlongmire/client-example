@@ -19,6 +19,8 @@ class OwnersEdge extends Component {
       .post(actions.sendEmail)
     router.route('/')
       .get();
+    router.route('/save')
+      .post(actions.saveSubmission);
     return router;
   }
 }

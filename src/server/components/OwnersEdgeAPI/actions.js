@@ -34,7 +34,7 @@ async function getClearance(req, res) {
 			}
 
 			const user = result.user;
-			
+
 			const name = req.query.name || '';
 			const address = req.query.address || '';
 			const city = req.query.city || '';
@@ -43,7 +43,7 @@ async function getClearance(req, res) {
 
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(state)])
 			.then(function(resp){
-				
+
 				const submissions = resp[0].map(
 					(s)=>({
 						name:s.primaryNamedInsured,
@@ -57,7 +57,7 @@ async function getClearance(req, res) {
 				)).filter((s)=>(
 					s.name && s.address
 				))
-				
+
 				businessMatchingService.getBusinessMatching(
 					{name, address:`${address} ${state} ${zipcode}`},
 					submissions
@@ -80,7 +80,7 @@ async function getClearance(req, res) {
 				type: 'TokenExpired',
 				message: 're-login to get new token',
 			});
-		})	
+		})
 
 	} catch (err) {
 		return res.status(500)
@@ -131,6 +131,7 @@ async function saveSubmission(req, res) {
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
+		
 		let result = await User.fromAuthToken(req.headers['x-token']);
 			if (!result || !result.user) {
 				return res.status(403).json({
@@ -144,6 +145,7 @@ async function saveSubmission(req, res) {
 		let submission = req.body;
 		submission.broker = broker;
 		submission.submittedBy = user;
+
 		const newId = await submissionService.createSubmission(submission);
 		return res.status(200).json({success: true, submissionId: newId})
 	}
@@ -154,20 +156,20 @@ async function saveSubmission(req, res) {
 
 async function getPDF(req, res) {
 	try {
-				if (!req.headers['x-token']) {
-					return res.status(401).json('Authorization token required');
-				}
-				let result = await User.fromAuthToken(req.headers['x-token']);
-					if (!result || !result.user) {
-						return res.status(403).json({
-							type: "AuthError",
-							message: "Access forbidden. Invalid user token."
-						});
-					}
-				const user = result.user;
-				const newAuthToken = result.authToken;
-				const pdfArray = await generatePDFsInternal(req.params.submissionId);
-				return res.status(200).json({success: true, pdfs: pdfArray});
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+		let result = await User.fromAuthToken(req.headers['x-token']);
+			if (!result || !result.user) {
+				return res.status(403).json({
+					type: "AuthError",
+					message: "Access forbidden. Invalid user token."
+				});
+			}
+		const user = result.user;
+		const newAuthToken = result.authToken;
+		const pdfArray = await generatePDFsInternal(req.params.submissionId);
+		return res.status(200).json({success: true, pdfs: pdfArray});
 	}
 	catch (err) {
 
@@ -328,5 +330,6 @@ export default {
 	getSubmissions,
 	getClearance,
 	getSingleSubmission,
-  	getBroker
+  	getBroker,
+	saveSubmission
 }
