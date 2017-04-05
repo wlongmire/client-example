@@ -3,7 +3,9 @@ import React, { Component, PropTypes } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 
 import { connect } from 'react-redux';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonGroup, Button } from 'react-bootstrap'
+
+import saveSubmission from 'app/utils/saveSubmission'
 
 class Loading extends Component {
     constructor(props) {
@@ -12,11 +14,11 @@ class Loading extends Component {
     }
 
     componentDidMount() {
-        console.log("GET RATING OF:");
-        console.log(this.props.submission);
-    
         const rating = { instantQuote:false };
         const error = false;
+        
+        console.log(this.props.submission);
+        saveSubmission(submission)
 
         setTimeout(()=>{
             this.props.handleSubmit(error, rating);

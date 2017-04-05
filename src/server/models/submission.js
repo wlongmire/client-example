@@ -101,8 +101,8 @@ const submissionSchema = new mongoose.Schema({
       limitsRequested: Number,
       specificFloorsDetails: String,
       nycha: Boolean,
-      rating: Array,
-      pdfToken: String
+      pdfToken: String,
+      rating: Object
 }, {timestamps: true});
 
 mongoose.model('submission', submissionSchema);
