@@ -1,4 +1,4 @@
-import statesArray from './states';
+import statesArray from './../states';
 
 const updatedData =  {
 	"questionSetId": "OIFORM",

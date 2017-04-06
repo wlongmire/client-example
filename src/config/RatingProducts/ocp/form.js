@@ -1,4 +1,5 @@
 import ocpStatesArray from './states';
+import statesArray from './../states';
 
 const ocpData = {
 	  "questionSetId": "OCPFORM",
@@ -14,8 +15,76 @@ const ocpData = {
 	    "inputFormat": "text",
 	    "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless indemnification and additional insured status from the hired General Contractor"
 	   },
+		 {
+	    "questionId": "2",
+	    "name": "primaryInsuredAddressLabel",
+	    "text": "What is the address of the Named Insured?",
+	    "inputFormat": "label",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"
+	    }   
+	  },
+	  {
+	    "questionId": "2a",
+	    "name": "primaryInsuredAddress",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "required": true,
+	    "placeholder": "Address",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"	
+	    }
+	  },
+
+	  {
+	    "questionId": "2b",
+	    "name": "primaryInsuredCity",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "required": true,
+	    "placeholder": "City",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"	
+	    }
+	  },
+
+	  {
+	    "questionId": "2c", 
+	    "name": "primaryInsuredState",
+	    "inputType": "dropdown-single",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
+	    "required": true,
+	    "attributes":{	
+	    	"options": statesArray,
+	    	"controlGroup":"insuredAddress"
+	    }
+	    
+	  },
+	  {
+	    "questionId": "2d",
+	    "name": "primaryInsuredZipcode",
+	    "inputType": 		"text",
+	    "inputFormat": 	"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
+	    "required": true,
+	    "placeholder": "Zip Code",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"
+	    }
+	  },
      {
-	    "questionId": "2",    
+	    "questionId": "3",
+	    "text": "What is the term of the project, in months?",
+	    "name": "projectTerm",
+      "required": true,
+	    "inputType": "number",
+	    "inputFormat": "number",
+	    "tooltiptext": "Please provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."
+	   },
+		 {
+	    "questionId": "4",
 	    "text": "What is the total cost of this project?",
 	    "name": "totalCost",
       "required": true,
@@ -24,16 +93,7 @@ const ocpData = {
 	    "tooltiptext": "Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due."
 	   },
      {
-	    "questionId": "3",    
-	    "text": "What is the term of the project, in months?",
-	    "name": "projectTerm",
-      "required": true,
-	    "inputType": "number",
-	    "inputFormat": "number",
-	    "tooltiptext": "Please provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."
-	   },
-     {
-	    "questionId": "4",    
+	    "questionId": "5",
 	    "text": "What is the anticipated finish date of project?",
 	    "name": "anticipatedFinishDate",
       "required": true,
@@ -41,7 +101,7 @@ const ocpData = {
 	    "inputFormat": "date"
 	   },
      {
-	    "questionId": "4",    
+	    "questionId": "6",    
 	    "text": "What is the name of the designated contractor?",
 	    "name": "generalContractor",
       "required": false,
@@ -49,7 +109,7 @@ const ocpData = {
 	    "inputFormat": "text"
 	   },
      {
-	    "questionId": "5",    
+	    "questionId": "7",    
 	    "text": "Who is the GL Carrier of Contrainer?",
 	    "name": "glCarrier",
       "required": true,
@@ -57,7 +117,7 @@ const ocpData = {
 	    "inputFormat": "text"
 	   },
      {
-	    "questionId": "6",    
+	    "questionId": "8",    
 	    "text": "When is the Expiration Date of the Contactor's GL Policy?",
 	    "name": "glExpirationDate",
       "required": true,
@@ -66,7 +126,7 @@ const ocpData = {
 	   },
 
      {
-	    "questionId": "7",    
+	    "questionId": "9",    
 	    "text": "What are the Excess limits of the Contractor's primary Policy?",
 	    "name": "excessLimit",
       "required": false,
@@ -75,7 +135,7 @@ const ocpData = {
 	   },
 
      {
-	    "questionId": "8",
+	    "questionId": "10",
 	    "name": "nameInsuredAddressLabel",
 	    "text": "What is the address of this project",
 	    "inputFormat": "label",
@@ -85,7 +145,7 @@ const ocpData = {
 	  },
 
 	  {
-	    "questionId": "8a",
+	    "questionId": "10a",
 	    "name": "projectAddress",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
@@ -98,7 +158,7 @@ const ocpData = {
 	  },
 
 	  {
-	    "questionId": "8b",
+	    "questionId": "10b",
 	    "name": "projectCity",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
@@ -110,7 +170,7 @@ const ocpData = {
 	    }
 	  },
 	  {
-	    "questionId": "8c", 
+	    "questionId": "10c", 
 	    "name": "projectState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
@@ -121,7 +181,7 @@ const ocpData = {
 	    }
 	  },
 	  {
-	    "questionId": "8d",
+	    "questionId": "10d",
 	    "name": "projectZipcode",
 	    "inputType": 		"text",
 	    "inputFormat": 	"text",
@@ -133,7 +193,7 @@ const ocpData = {
 	    }
 	  },
     {
-	    "questionId": "9",
+	    "questionId": "11",
       "text": "Does the project include the addition of any stories or vertical expansion?",
 	    "name": "verticalExpansion",
 	    "inputType": "radio",
@@ -155,7 +215,7 @@ const ocpData = {
 	    
 	  },
     {
-	    "questionId": "10", 
+	    "questionId": "12", 
 	    "name": "specificFloors",
       "text": "Is project limited to specific floors?",
 	    "inputType": "radio",
@@ -166,7 +226,7 @@ const ocpData = {
 	          "optionId": "1",
 	          "text": "Yes",
 	          "value": true,
-	          "supplementalquestionIds": ["10_supplemental1"]
+	          "supplementalquestionIds": ["12_supplemental1"]
 	        },
 	        {
 	          "optionId": "2",
@@ -178,7 +238,7 @@ const ocpData = {
 	    }
 	  },
     {
-	    "questionId": "11",    
+	    "questionId": "13",    
 	    "text": "What is the scope of the work for this project?",
 	    "name": "scope",
       "required": false,
@@ -187,7 +247,7 @@ const ocpData = {
 	    "tooltiptext": "Please provide as descriptive of a scope of work as possible including end use."
 	   },
     {
-	    "questionId": "12", 
+	    "questionId": "14",
 	    "name": "isSupervisingSubs",
       "text": "Will the named insured be involved with any supervision or oversight of the project?",
 	    "inputType": "radio",
@@ -208,7 +268,7 @@ const ocpData = {
 	    }
 	  },
     {
-	    "questionId": "13", 
+	    "questionId": "15",
 	    "name": "projectRequirements",
       "text": "Does the project require any of the following: Blasting, Airport Runways, Bridge Construction, Parking Garages/Decks, Dam, Underground Tunneling for subways, mines?",
 	    "inputType": "radio",
@@ -229,7 +289,7 @@ const ocpData = {
 	    }
 	  },
     {
-	    "questionId": "14", 
+	    "questionId": "16",
 	    "name": "limitsRequested",
       "text": "What limits are being requested for this OCP?",
 	    "inputType": "dropdown-single",
@@ -275,7 +335,7 @@ const ocpData = {
 	    }
 	  },
     {
-	    "questionId": "14", 
+	    "questionId": "17",
 	    "name": "otherSubcontractorsPaid",
       "text": "Is the owner paying, contracting, or supervising any subcontractors other than GC?",
 	    "inputType": "radio",
@@ -297,7 +357,7 @@ const ocpData = {
 	  },
 
     {
-	    "questionId": "16",
+	    "questionId": "18",
 	    "name": "nameInsuredAddressLabel",
 	    "text": "Please provide your contact info to receive your indication:",
 	    "inputFormat": "label",
@@ -307,7 +367,7 @@ const ocpData = {
 	    }
 	  },
 	  {
-	    "questionId": "16a",
+	    "questionId": "18a",
 	    "name": "nameInsuredEmail",
 	    "inputType": "text",
 	    "inputFormat": "email",
@@ -318,7 +378,7 @@ const ocpData = {
 	    }
 	  },
 	  {
-	    "questionId": "16b",
+	    "questionId": "18b",
 	    "name": "phone",
 	    "inputType": "text",
 	    "inputFormat": "text",
@@ -332,7 +392,7 @@ const ocpData = {
 
 	"supplementalQuestions": [
     {
-	    "questionId": "10_supplemental1",    
+	    "questionId": "12_supplemental1",    
 	    "text": "Please provide details.",
 	    "name": "specificFloorsDetails",
       "required": false,
@@ -340,7 +400,7 @@ const ocpData = {
 	    "inputFormat": "freeform"
 	   },
 		 {
-	    "questionId": "8_supplemental1",     
+	    "questionId": "10_supplemental1",     
 	    "name": "nycha",
       "text": "Is this a NYCHA Project?",
 	    "inputType": "radio",

@@ -168,7 +168,7 @@ const ocpStatesArray = [
         "text": "New York",
         "value": "New York",
         "optionId": "34",
-        "supplementalquestionIds": ["8_supplemental1"]
+        "supplementalquestionIds": ["10_supplemental1"]
     },
     {
         "text": "North Carolina",
