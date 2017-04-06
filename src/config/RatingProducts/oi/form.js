@@ -1082,13 +1082,13 @@ const updatedData =  {
 	        },
 	        {
 	          "optionId": "2",
-	          "text": 5000000,
+	          "text": "$5,000,000",
 	          "value": 5000000,
 						"supplementalquestionIds": []
 	        },
 	        {
 	          "optionId": "3",
-	          "text": 10000000,
+	          "text": "$10,000,000",
 	          "value": 10000000,
 						"supplementalquestionIds": []
 	        }
