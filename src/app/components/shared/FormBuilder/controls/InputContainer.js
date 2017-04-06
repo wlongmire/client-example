@@ -89,7 +89,7 @@ class InputContainer extends React.Component {
                 integer={1000}
                 fraction={1000}
                 onChange={this.handleChange}
-                value={parseInt(this.state.value) ? parseInt(this.state.value) : ''} />
+                value={parseInt(this.state.value) ? parseInt(this.state.value) : ''} />;
     } else {
       input = (
         <FormControl

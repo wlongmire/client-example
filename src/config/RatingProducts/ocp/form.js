@@ -20,8 +20,7 @@ const ocpData = {
 	    "name": "totalCost",
       "required": true,
 	    "inputType": "text",
-	    "inputFormat": "currency",
-	    "tooltiptext": "Total Costs means the total cost of all work let or sublet including: a) the cost of all labor, materials and equipment furnished, used or delivered for use in the execution of the work and b) all fees bonuses or commissions made, paid or due."
+	    "inputFormat": "currency"
 	   },
      {
 	    "questionId": "3",    
@@ -29,8 +28,7 @@ const ocpData = {
 	    "name": "projectTerm",
       "required": true,
 	    "inputType": "number",
-	    "inputFormat": "number",
-	    "tooltiptext": "Please provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."
+	    "inputFormat": "number"
 	   },
      {
 	    "questionId": "4",    
