@@ -29,30 +29,17 @@ class FormBuilder extends React.Component {
   }
 
   onSubmit(event) {
-    console.log('xx getting to submit');
-    console.log('xx form data', this.state);
+
     event.preventDefault();
     let values = getFormData(this.state);
     let flatValues = flatten(values);
-    // console.log("FLAT VALUES", flatValues);
     let allRequiredArray = [];
     for (const item of this.state.questions) {
-      // console.log('ITEM', item);
-      // for(const value of values) {
-      console.log('--> ITEM', item);
-      console.log('--> item.name', item.name);
-      console.log('--> values', flatValues[item.name]);
 
       if( item.required == true && !flatValues[item.name]) {
         allRequiredArray.push(item);
       }
     }
-    
-    console.log('required array', allRequiredArray);
-
-
-    console.log('yy values', values);
-
 
     this.props.handleSubmit(values, this.controlGroups, allRequiredArray);
   }
@@ -63,7 +50,6 @@ class FormBuilder extends React.Component {
   }
 
   render() {
-    console.log('23 getting here');
     let { controlGroups } = this;
     let Validation = this.props.Validation || DefaultValidation;
     

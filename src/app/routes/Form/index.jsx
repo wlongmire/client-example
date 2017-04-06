@@ -59,18 +59,7 @@ class Form extends Component {
   }
 
   handleSubmitForReview(sub, controlGroups, requiredFields) {
-
-      // requiredFields is returning all the fields that are blank
-      // TO_DO_AK: prevent this.props.handleSubmit 
-    console.log(' There are required Reamining fields = ', requiredFields);
-
     if(requiredFields.length > 0){
-      // let fields = ''; // temporary
-      // for(const blah of requiredFields){ // temporary
-      //   fields = fields.concat(` ${blah.name}`); // temporary
-      // } // temporary
-        
-      // alert(`Remaining Required Fields are = , ${fields}`);
       this.setState({
         ...this.state,
         validationModal: true,
@@ -114,8 +103,6 @@ class Form extends Component {
       })
     }
 
-    console.log('THIS STATE', this.state.requiredFields);
-    console.log('RETURN VALUE', requiredList())
     if (!ratingProduct)
       return <div></div>
 
@@ -155,13 +142,10 @@ class Form extends Component {
           <DialogBox
             custom_class="confirmationDialog"
             title="Please fill out all of the required fields."
+            subtitle="The remaining outstanding questions are:"
             show={this.state.validationModal}
             >
             <div>
-              {/*<ConfirmationModal 
-                form={ratingProduct.formJSON}
-                submission={submission}
-              />*/}
               {requiredList()}
               <br/>
 
