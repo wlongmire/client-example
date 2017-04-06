@@ -6,34 +6,28 @@ import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap'
 
 import saveSubmission from 'app/utils/saveSubmission'
+import sendEmail from 'app/utils/sendEmail'
 
 class Loading extends Component {
     constructor(props) {
-      super(props);
-      this.state = {};
+        super(props);
+        this.state = {};
     }
 
     componentDidMount() {
-      const rating = { instantQuote:false };
-      const error = false;
+        const rating = { instantQuote:false };
+        const error = false;
         
-      const submissionData = this.props.submission;
+    //   const submissionData = this.props.submission;
+    //   saveSubmission(submissionData);
 
-      // ATTACH OI and OCP data here so it gets saved with submission
-      // submissionData.rating = {
-      //   oi: {
-      //     lmao: '1234'
-      //   },
-      //   ocp: {
-      //     ocpLMAO: '124333'
-      //   }
-      // };
+        sendEmail().then((resp)=>{
+            console.log(resp)
+        });
 
-      saveSubmission(submissionData);
-
-      setTimeout(()=>{
-        this.props.handleSubmit(error, rating);
-      }, 2000);
+        // setTimeout(()=>{
+        //     this.props.handleSubmit(error, rating);
+        // }, 2000);
     }
 
     render() {

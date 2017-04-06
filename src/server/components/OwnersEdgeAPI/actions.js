@@ -183,7 +183,8 @@ async function sendEmail(req, res) {
 			}
 			const user = result.user;
 			const newAuthToken = result.authToken;
-			sendEmailInternal(req.params.id, config.argoEmail, req.body.emailType)
+
+			sendEmailInternal(req.params.id, req.body.emailAddress, req.body.emailType)
 			return res.status(200).json({success: true});
 	}
 	catch (err) {
@@ -262,8 +263,6 @@ async function getSingleSubmission(req, res) {
 
 async function getRatingInternal(paramsObject) {
 	const params = JSON.stringify(paramsObject);
-	console.log('**********')
-	console.log(params);
 	return await rp(`${ratingsUrl}/api/calcrating/${paramsObject.type}`, {
 				method: 'POST',
 				body: params,
@@ -275,8 +274,9 @@ async function getRatingInternal(paramsObject) {
 async function sendEmailInternal(submissionId, emailAddress, emailType) {
 	console.log('sending email')
 	const submission = await submissionService.getSubmissionById(submissionId);
-  const pdfArray = await generatePDFsInternal(submissionId);
+  	const pdfArray = await generatePDFsInternal(submissionId);
 	let templateId;
+
 	switch (emailType) {
 		case 'nonQuoteArgo':
 			templateId = config.argoNonQuoteTemplate;
@@ -291,6 +291,7 @@ async function sendEmailInternal(submissionId, emailAddress, emailType) {
 			templateId = config.brokerTemplateId;
 			break;
 	}
+
 	return await emailService.sendMail(emailType, emailAddress, submission, templateId, pdfArray);
 }
 

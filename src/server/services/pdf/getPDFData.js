@@ -107,7 +107,7 @@ export default async function getPDFData(token, pdfType) {
       projectDefinedAreaScopeDetails: submission.projectDefinedAreaScopeDetails,
       projectRequirements: submission.projectRequirements,
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
-      excessLimits: `$ ${utilities.commifyNumber(parseInt(submission.excessLimitAmount)}`,
+      excessLimits: `$ ${utilities.commifyNumber(parseInt(submission.excessLimitAmount))}`,
       baseExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`,
       terrorExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`,
       totalExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`,
@@ -115,12 +115,15 @@ export default async function getPDFData(token, pdfType) {
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
     }
+    
     if (submission.additionalInsuredOther == 'true' ) {
       pdfData.hasAdditionalInsuredExist = true;
     }
+
     if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
       pdfData.marshBroker = true;
     }
+
     return pdfData;
   } catch (err) {
     console.log(err)
