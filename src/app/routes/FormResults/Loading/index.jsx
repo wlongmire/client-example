@@ -7,6 +7,8 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 
 import saveSubmission from 'app/utils/saveSubmission'
 
+import getRating from 'app/utils/getRating';
+
 class Loading extends Component {
     constructor(props) {
       super(props);
@@ -14,26 +16,34 @@ class Loading extends Component {
     }
 
     componentDidMount() {
-      const rating = { instantQuote:false };
-      const error = false;
+        const {submission} = this.props;
+        let ratingPromises;
+
+        switch(submission.type) {
+            case("oi"):
+                ratingPromises = [submission]
+                break;
+            case("ocp"):
+                ratingPromises = [submission, Object.assign({}, submission, {type:"oi"})]
+                break;
+        }
         
-      const submissionData = this.props.submission;
+        Promise.all(ratingPromises.map((s)=>(
+            getRating(s)
+        ))).then((resp)=>{
 
-      // ATTACH OI and OCP data here so it gets saved with submission
-      // submissionData.rating = {
-      //   oi: {
-      //     lmao: '1234'
-      //   },
-      //   ocp: {
-      //     ocpLMAO: '124333'
-      //   }
-      // };
+            let ratings = {}
+            ratingPromises.map((ratingSubmission, idx)=>{
+                ratings[ratingSubmission.type] = resp[idx].rating
+            })
 
-      saveSubmission(submissionData);
+            const submissionData = this.props.submission;
+            submissionData.rating = ratings
+            saveSubmission(submissionData);
 
-      setTimeout(()=>{
-        this.props.handleSubmit(error, rating);
-      }, 2000);
+            this.props.handleSubmit(!resp[0].success, ratings);
+        });
+
     }
 
     render() {

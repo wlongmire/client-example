@@ -8,9 +8,8 @@ import config from 'config'
 
 const ratingProducts = {
     "oi":{
-        "name":"Owner's Interest",
-        "description":"Mi eu a mattis parturient vel phasellus parturient parturient vestibulum tellus fusce ante nisl dictum facilisis nam ridiculus ornare purus et. Montes fermentum duis quisque vivamus iaculis tempor et ad nunc mus nibh vulputate libero a tellus laoreet condimentum.",
-
+        "name":"Owners Interest",
+        "description":"Owners of construction projects should have their own liability coverage. The Owner's Interest CGL policy should be in place during construction to close the gaps in the owner's liability insurance program and assure more adequate protection.",
         "ratingEngine":`${config.ratingsUrl}/api/calcrating/oi`,
         "formJSON": OIForm,
         "Validation":OIValidation,
@@ -18,8 +17,8 @@ const ratingProducts = {
     },
 
     "ocp":{
-        "name":"Owner's Contractor Project",
-        "description":"Montes fermentum duis quisque vivamus iaculis tempor et ad nunc mus nibh vulputate libero a tellus laoreet condimentum.",
+        "name":"Owners and Contractors Protective",
+        "description":"The OCP policy responds to liability arising out of the insured's own acts or omissions in connection with its general supervision of the contractor's operations.",
         
         "ratingEngine":`${config.ratingsUrl}/api/calcrating/oi`,
         "formJSON": OCPForm,

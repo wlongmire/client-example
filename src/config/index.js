@@ -4,8 +4,8 @@ var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'warren@eager.to',
-    sgsEmail: 'warrenlongmire999@gmail.com',
+    argoEmail: 'warrenlongmire@gmail.com',
+    sgsEmail: 'warren@eager.to',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
@@ -17,7 +17,7 @@ var config = {
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
-    ratingsUrl:'https://oe-rating-engine.herokuapp.com',
+    ratingsUrl:'https://oe-rating-engine-dev.herokuapp.com',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
     
@@ -43,7 +43,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://dev.ownersedge.us',
+        url: 'http://localhost',
         port: null
     },
 
@@ -52,7 +52,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://dev.ownersedge.us',
+        url: 'http://localhost',
         port:  null
     }
 };

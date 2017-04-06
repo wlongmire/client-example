@@ -6,6 +6,7 @@ import { push } from 'react-router-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button, ButtonGroup } from 'react-bootstrap';
+import ToggleDisplay from 'components/shared/ToggleDisplay';
 
 import Loading from './Loading'
 import Error from './Error'
@@ -27,10 +28,15 @@ class FormResults extends Component {
 
     this.state = {
       status: STATUS.LOADING,
-      rating: {}
+      ratings: {}
     };
 
     this.handleLoadComplete = this.handleLoadComplete.bind(this);
+  }
+
+  componentWillMount(){
+    if (!this.props.submission)
+      this.props.dispatch(push('/productChoice'));
   }
 
   componentDidMount(){
@@ -38,10 +44,12 @@ class FormResults extends Component {
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.QUOTE })
   }
 
-  handleLoadComplete(error, rating) {
+  handleLoadComplete(error, ratings) {
+    const {submission} = this.props;
+
     this.setState({
-      status: (error)?STATUS.ERROR:((rating.instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
-      rating
+      status: (error)?STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
+      ratings
     })
   }
 
@@ -50,7 +58,7 @@ class FormResults extends Component {
     const subcomponentMap = {
       "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} submission={this.props.submission}/>,
       "ERROR":    <Error/>,
-      "QUOTE":    <Quote/>,
+      "QUOTE":    <Quote submission={this.props.submission} ratings={this.state.ratings}/>,
       "KNOCKOUT": <Knockout/>
     };
 

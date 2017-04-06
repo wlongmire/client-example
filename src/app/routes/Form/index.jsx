@@ -20,7 +20,6 @@ class Form extends Component {
 
     this.state = {
       confirmation:false,
-      controlGroups: {},
       submission: this.props.submission
     };
 
@@ -41,26 +40,29 @@ class Form extends Component {
 
   handleSubmitQuote() {
     const { CHANGE_SUBMISSION } = constants
-    this.props.dispatch({ type:CHANGE_SUBMISSION, submission:Object.assign(this.state.submission, {status:"QUOTE"}) })
-    
-    this.props.dispatch(push("/formResults"));
+    const submission = Object.assign(this.state.submission, {status:"QUOTE"})
+
+    this.props.dispatch({ type:CHANGE_SUBMISSION, submission })
     this.setState({confirmation:false})
+
+    this.props.dispatch(push("/formResults"));
   }
 
   handleCancelDialog() {
     this.setState({confirmation:false})
   }
 
-  handleSubmitForReview(submission, controlGroups) {
+  handleSubmitForReview(sub) {
+    const submission = Object.assign(this.state.submission, sub)
+
     this.setState({
       submission,
-      controlGroups,
       confirmation:true
     })
   }
 
   render() {
-    const { submission, controlGroups } = this.state;
+    const { submission } = this.state;
     const { ratingProduct } = this.props;
     
     if (!ratingProduct)
@@ -89,7 +91,6 @@ class Form extends Component {
               <ConfirmationModal 
                 form={ratingProduct.formJSON}
                 submission={submission}
-                controlGroups={controlGroups}
               />
 
               <ButtonGroup>

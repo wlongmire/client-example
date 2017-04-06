@@ -104,11 +104,16 @@ async function getRating(req, res) {
 		const user = result.user;
 		const newAuthToken = result.authToken;
 		let broker = await Broker.findById(user._brokerId).exec()
-		let paramsObject = req.body;
-		paramsObject.broker = broker;
-		paramsObject.submittedBy = user;
-		let ratingResult = await getRatingInternal(paramsObject);
-		console.log(ratingResult);
+
+		let paramsObject = req.body
+		paramsObject.broker = broker
+		paramsObject.submittedBy = user
+
+		
+		let ratingResult = await getRatingInternal(paramsObject)
+		
+		console.log(ratingResult)
+		
 		let ratingObject = JSON.parse(ratingResult)
 		return res.status(200).json({
 			success: true,
@@ -126,23 +131,21 @@ async function saveSubmission(req, res) {
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
-
+		
 		let result = await User.fromAuthToken(req.headers['x-token']);
-		if (!result || !result.user) {
-			return res.status(403).json({
-				type: "AuthError",
-				message: "Access forbidden. Invalid user token."
-			});
-		}
-
+			if (!result || !result.user) {
+				return res.status(403).json({
+					type: "AuthError",
+					message: "Access forbidden. Invalid user token."
+				});
+			}
 		const user = result.user;
 		const newAuthToken = result.authToken;
 		let broker = await Broker.findById(user._brokerId).exec()
-
 		let submission = req.body;
 		submission.broker = broker;
 		submission.submittedBy = user;
-		
+
 		const newId = await submissionService.createSubmission(submission);
 		return res.status(200).json({success: true, submissionId: newId})
 	}
@@ -265,12 +268,11 @@ async function getSingleSubmission(req, res) {
 }
 
 async function getRatingInternal(paramsObject) {
-	const params = JSON.stringify(paramsObject);
-	console.log('**********')
-	console.log(params);
-	return await rp(`${ratingsUrl}/api/calcrating/${paramsObject.type}`, {
+	const url = `${ratingsUrl}/api/calcrating/${paramsObject.type}`	
+
+	return await rp(url, {
 				method: 'POST',
-				body: params,
+				body: JSON.stringify(paramsObject),
 				headers: {
 					'Content-Type': 'application/json'
 				}});

@@ -13,11 +13,10 @@ function getRating(submission) {
       'Content-Type': 'application/json',
       'x-token': token
     },
-    body:submission
+    body:JSON.stringify(submission)
   })
   .then(res => res.json())
   .then((res) => {
-    console.log(res);
     return(res);
   })
   .catch((error) => {

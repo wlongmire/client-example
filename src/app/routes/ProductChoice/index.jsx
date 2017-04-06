@@ -34,7 +34,7 @@ function ProductChoiceItem(props) {
           );
 
           props.dispatch(push("/clearance"));
-          /*props.dispatch(push("/form"));*/
+          {/*props.dispatch(push("/form"));*/}
         }}>
         <h1>{name}</h1>
         <p>{description}</p>
@@ -58,8 +58,9 @@ class ProductChoice extends Component {
   render() {
     const generateItems = ()=>{
       return Object.keys(ratingProducts).map((productType,idx)=> {
-        return (<ProductChoiceItem 
-          key={idx} type={productType} 
+        return (<ProductChoiceItem
+          key={idx} 
+          type={productType} 
           name={ratingProducts[productType].name} 
           description={ratingProducts[productType].description}
           dispatch={this.props.dispatch}
