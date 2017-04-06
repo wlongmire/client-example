@@ -45,6 +45,8 @@ class Loading extends Component {
                     const mainRating = ratings[submission.type]
                     const { instantQuote } = mainRating
                     
+                    console.log(submissionData);
+                    
                     const emailPromises = [
                         sendEmail("warrenlongmire999@gmail.com", (instantQuote)?"quotedArgo":"nonQuotedArgo", submissionId),
                         sendEmail("warren@eager.to", (instantQuote)?"quotedArgo":"nonQuotedArgo", submissionId),
