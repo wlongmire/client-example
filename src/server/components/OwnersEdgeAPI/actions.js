@@ -104,10 +104,16 @@ async function getRating(req, res) {
 		const user = result.user;
 		const newAuthToken = result.authToken;
 		let broker = await Broker.findById(user._brokerId).exec()
-		let paramsObject = req.body;
-		paramsObject.broker = broker;
-		paramsObject.submittedBy = user;
-		let ratingResult = await getRatingInternal(paramsObject);
+
+		let paramsObject = req.body
+		paramsObject.broker = broker
+		paramsObject.submittedBy = user
+
+		
+		let ratingResult = await getRatingInternal(paramsObject)
+		
+		console.log(ratingResult)
+
 		let ratingObject = JSON.parse(ratingResult)
 		return res.status(200).json({
 			success: true,
@@ -122,24 +128,26 @@ async function getRating(req, res) {
 
 async function saveSubmission(req, res) {
 	try {
-				if (!req.headers['x-token']) {
-					return res.status(401).json('Authorization token required');
-				}
-				let result = await User.fromAuthToken(req.headers['x-token']);
-					if (!result || !result.user) {
-						return res.status(403).json({
-							type: "AuthError",
-							message: "Access forbidden. Invalid user token."
-						});
-					}
-				const user = result.user;
-				const newAuthToken = result.authToken;
-				let broker = await Broker.findById(user._brokerId).exec()
-				let submission = req.body;
-				submission.broker = broker;
-				submission.submittedBy = user;
-				const newId = await submissionService.createSubmission(submission);
-				return res.status(200).json({success: true, submissionId: newId})
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+		
+		let result = await User.fromAuthToken(req.headers['x-token']);
+			if (!result || !result.user) {
+				return res.status(403).json({
+					type: "AuthError",
+					message: "Access forbidden. Invalid user token."
+				});
+			}
+		const user = result.user;
+		const newAuthToken = result.authToken;
+		let broker = await Broker.findById(user._brokerId).exec()
+		let submission = req.body;
+		submission.broker = broker;
+		submission.submittedBy = user;
+
+		const newId = await submissionService.createSubmission(submission);
+		return res.status(200).json({success: true, submissionId: newId})
 	}
 	catch (err) {
 		return res.status(500).json(err)
@@ -263,11 +271,12 @@ async function getSingleSubmission(req, res) {
 async function getRatingInternal(paramsObject) {
 	const params = JSON.stringify(paramsObject);
 	return await rp(`${ratingsUrl}/api/calcrating/${paramsObject.type}`, {
-				method: 'POST',
-				body: params,
-				headers: {
-					'Content-Type': 'application/json'
-				}});
+		method: 'POST',
+		body: JSON.stringify(paramsObject),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }
 
 async function sendEmailInternal(submissionId, emailAddress, emailType) {

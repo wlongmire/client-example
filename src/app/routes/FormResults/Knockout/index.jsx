@@ -6,20 +6,13 @@ import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
 function Knockout(props) {
-    // const result = (props.result.success)?{
-    //     title: "This Submission Passed Clearance!",
-    //     subtitle: "Noone appears to have submitted this insured for review. Now we can enter additional quote information.",
-    //     buttonLabel: "Fill out Remaining Information"
-    // }:{
-    //     title: "This Submission Did Not Pass Clearance.",
-    //     subtitle: "The following Submmissions appear to match this one.",
-    //     buttonLabel: "Reenter Primary Insured Information"
-    // }
-
     return (
     <form>
         <h3>We are reviewing your Submission.</h3>
         
+        <h4>Based on your answers, we couldn't provide you with an instant quote.</h4>
+        <h4>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</h4>
+
         <ButtonGroup>
             <LinkContainer to="/submissions">
                 <Button className="btn"> Return to Submissions</Button>

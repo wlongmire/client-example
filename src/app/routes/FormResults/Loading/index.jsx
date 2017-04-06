@@ -10,6 +10,8 @@ import sendEmail from 'app/utils/sendEmail'
 
 import config from 'config';
 
+import getRating from 'app/utils/getRating';
+
 class Loading extends Component {
     constructor(props) {
         super(props);
@@ -17,21 +19,32 @@ class Loading extends Component {
     }
 
     componentDidMount() {
-        const rating = { instantQuote:false };
-        const error = false;
+        const {submission} = this.props;
+        let ratingPromises;
+
+        switch(submission.type) {
+            case("oi"):
+                ratingPromises = [submission]
+                break;
+            case("ocp"):
+                ratingPromises = [submission, Object.assign({}, submission, {type:"oi"})]
+                break;
+        }
         
-        const brokerEmail = "warrenlongmire@gmail.com"
+        Promise.all(ratingPromises.map((s)=>(
+            getRating(s)
+        ))).then((resp)=>{
 
-        // quotedArgo
-        // quotedBroker
+            let ratings = {}
+            ratingPromises.map((ratingSubmission, idx)=>{
+                ratings[ratingSubmission.type] = resp[idx].rating
+            })
 
-        // nonQuoteArgo
-        // nonQuoteBroker
+            const submissionData = this.props.submission;
+            submissionData.rating = ratings
+            saveSubmission(submissionData);
 
-        
-
-        sendEmail(brokerEmail, "nonQuotedBroker", "58e64bbfdb7bda6f5eae60ae").then((resp)=>{
-            console.log(resp)
+            this.props.handleSubmit(!resp[0].success, ratings);
         });
     }
 
