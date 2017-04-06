@@ -20,12 +20,15 @@ class Form extends Component {
 
     this.state = {
       confirmation:false,
-      submission: this.props.submission
+      submission: this.props.submission,
+      validationModal:false,
+      requiredFields: []
     };
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this)
     this.handleCancelDialog = this.handleCancelDialog.bind(this)
     this.handleSubmitForReview = this.handleSubmitForReview.bind(this)
+    this.okValidationModal = this.okValidationModal.bind(this)
   }
 
   componentWillMount(){
@@ -49,22 +52,70 @@ class Form extends Component {
   }
 
   handleCancelDialog() {
-    this.setState({confirmation:false})
+    this.setState({
+      ...this.state,
+      confirmation:false
+    })
   }
 
-  handleSubmitForReview(sub) {
-    const submission = Object.assign(this.state.submission, sub)
+  handleSubmitForReview(sub, controlGroups, requiredFields) {
 
+      // requiredFields is returning all the fields that are blank
+      // TO_DO_AK: prevent this.props.handleSubmit 
+    console.log(' There are required Reamining fields = ', requiredFields);
+
+    if(requiredFields.length > 0){
+      // let fields = ''; // temporary
+      // for(const blah of requiredFields){ // temporary
+      //   fields = fields.concat(` ${blah.name}`); // temporary
+      // } // temporary
+        
+      // alert(`Remaining Required Fields are = , ${fields}`);
+      this.setState({
+        ...this.state,
+        validationModal: true,
+        requiredFields
+
+      })
+    } else {
+      const submission = Object.assign(this.state.submission, sub);
+
+      this.setState({
+        ...this.state,
+        requiredFields: [],
+        submission,
+        confirmation:true
+      });
+    }
+  }
+
+  okValidationModal(){
+    
     this.setState({
-      submission,
-      confirmation:true
+      ...this.state,
+      validationModal: false
     })
   }
 
   render() {
     const { submission } = this.state;
     const { ratingProduct } = this.props;
-    
+
+    const requiredList = ()=> {
+      return this.state.requiredFields.map((r, idx)=>{
+        if (r.questionId == '2c'){
+          r.text = 'State';
+        }
+        return (
+          <div>
+            <span className="question"><u>{(r.text ? r.text : r.placeholder)}</u></span><br/>
+          </div>
+          );
+      })
+    }
+
+    console.log('THIS STATE', this.state.requiredFields);
+    console.log('RETURN VALUE', requiredList())
     if (!ratingProduct)
       return <div></div>
 
@@ -96,6 +147,26 @@ class Form extends Component {
               <ButtonGroup>
                 <Button className="btn secondary" onClick={this.handleSubmitQuote}>Get Quote</Button>
                 <Button className="btn" onClick={this.handleCancelDialog}>Cancel</Button>
+              </ButtonGroup>
+            </div>
+
+        </DialogBox>
+
+          <DialogBox
+            custom_class="confirmationDialog"
+            title="Please fill out all of the required fields."
+            show={this.state.validationModal}
+            >
+            <div>
+              {/*<ConfirmationModal 
+                form={ratingProduct.formJSON}
+                submission={submission}
+              />*/}
+              {requiredList()}
+              <br/>
+
+              <ButtonGroup>
+                <Button className="btn secondary" onClick={this.okValidationModal}>Ok</Button>
               </ButtonGroup>
             </div>
 

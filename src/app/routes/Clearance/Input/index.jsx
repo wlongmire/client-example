@@ -18,11 +18,22 @@ class Input extends Component {
     }
 
     handleSubmit(values, controlGroups, requiredFields) {
+
       // requiredFields is returning all the fields that are blank
-      // TO DO: prevent this.props.handleSubmit 
-      alert('Remaining Required Fields', requiredFields);
-      console.log(' xxxxxx values Here ', requiredFields);
-      this.props.handleSubmit(values);
+      // TO_DO_AK: prevent this.props.handleSubmit 
+      console.log(' There are required Reamining fields = ', requiredFields);
+
+      if(requiredFields.length > 0){
+        let fields = ''; // temporary
+        for(const blah of requiredFields){ // temporary
+          fields = fields.concat(` ${blah.name}`); // temporary
+        } // temporary
+
+        alert(`Remaining Required Fields are = , ${fields}`);
+      } else {
+        
+        this.props.handleSubmit(values);
+      }
     }
 
     render() {

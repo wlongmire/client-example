@@ -46,15 +46,13 @@ class FormBuilder extends React.Component {
       if( item.required == true && !flatValues[item.name]) {
         allRequiredArray.push(item);
       }
-      // }
     }
+    
     console.log('required array', allRequiredArray);
 
-    let remainingRequiredArray = [];
+
     console.log('yy values', values);
-    // for(const item of values ){
-    //   if (value == )
-    // }
+
 
     this.props.handleSubmit(values, this.controlGroups, allRequiredArray);
   }

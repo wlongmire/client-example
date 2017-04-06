@@ -81,7 +81,15 @@ class InputContainer extends React.Component {
 
     // Using a different input type for number and currency. It will format the number but the value will remain the raw number value
     if (['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
-      input = <DynamicNumber id={this.props.data.name} className="form-control number-control" separator={'.'} thousand={true} integer={1000} fraction={1000} onChange={this.handleChange} value={parseInt(this.state.value)}/>
+      input = <DynamicNumber
+                id={this.props.data.name}
+                className="form-control number-control"
+                separator={'.'}
+                thousand={true}
+                integer={1000}
+                fraction={1000}
+                onChange={this.handleChange}
+                value={parseInt(this.state.value) ? parseInt(this.state.value) : ''} />
     } else {
       input = (
         <FormControl

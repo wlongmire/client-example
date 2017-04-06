@@ -16,6 +16,7 @@ function getClearance(params) {
   })
   .then(res => res.json())
   .then((res) => {
+    console.log('CLEANRANCE should get a matches array here', res);
     return(res);
   })
   .catch((error) => {
