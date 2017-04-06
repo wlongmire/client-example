@@ -1,28 +1,32 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 
 import { connect } from 'react-redux';
-import { ButtonGroup, Button } from 'react-bootstrap'
+import { ButtonGroup, Button } from 'react-bootstrap';
 
-import FormBuilder from 'components/shared/FormBuilder'
+import FormBuilder from 'components/shared/FormBuilder';
 
-import form from './form.js'
+import form from './form.js';
 
 class Input extends Component {
     constructor(props) {
-        super(props)
-        this.state = {}
+      super(props);
+      this.state = {};
 
-        this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(values) {
-        this.props.handleSubmit(values)
+    handleSubmit(values, controlGroups, requiredFields) {
+      // requiredFields is returning all the fields that are blank
+      // TO DO: prevent this.props.handleSubmit 
+      alert('Remaining Required Fields', requiredFields);
+      console.log(' xxxxxx values Here ', requiredFields);
+      this.props.handleSubmit(values);
     }
 
     render() {
-        return (
+      return (
         <div>
             <h3>First Let's Check for Clearance.</h3>
             <h4>Enter the following information to clear against previous submissions.</h4>
@@ -37,4 +41,4 @@ class Input extends Component {
     }
 }
 
-export default connect()(Input)
+export default connect()(Input);
