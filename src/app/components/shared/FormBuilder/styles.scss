@@ -9,7 +9,7 @@
     }
 
     .required {
-        input, select, textarea {
+        input, select, textarea, .radioGroup .options {
             border-bottom: 2px solid #e22929
         }
     }
@@ -19,11 +19,20 @@
             display:block !important;
         }
 
-        .radio {
+        .options {
             display:inline-block;
+            margin: 0.5em 0px;
 
-            .radioText {
-                margin: 1.3em;
+            .radio {
+                display:inline-block;
+                height: 10px;
+                margin: 0px;
+                padding: 0px 0px 2em 0px;
+                top: 2px;
+
+                .radioText {
+                    padding:0px;
+                }
             }
         }
     }

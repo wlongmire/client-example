@@ -28,7 +28,7 @@ class Form extends Component {
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this)
     this.handleCancelDialog = this.handleCancelDialog.bind(this)
     this.handleSubmitForReview = this.handleSubmitForReview.bind(this)
-    this.okValidationModal = this.okValidationModal.bind(this)
+    this.handleValidationOk = this.handleValidationOk.bind(this)
   }
 
   componentWillMount(){
@@ -78,8 +78,7 @@ class Form extends Component {
     }
   }
 
-  okValidationModal(){
-    
+  handleValidationOk(){
     this.setState({
       ...this.state,
       validationModal: false
@@ -92,13 +91,10 @@ class Form extends Component {
 
     const requiredList = ()=> {
       return this.state.requiredFields.map((r, idx)=>{
-        if (r.questionId == '2c'){
-          r.text = 'State';
-        }
+        const fieldText = (r.questionId == '2c')?"State":r.text
+        
         return (
-          <div>
-            <span className="question"><u>{(r.text ? r.text : r.placeholder)}</u></span><br/>
-          </div>
+            <li className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
           );
       })
     }
@@ -139,22 +135,31 @@ class Form extends Component {
 
         </DialogBox>
 
-          <DialogBox
+        <DialogBox
             custom_class="confirmationDialog"
-            title="Please fill out all of the required fields."
-            subtitle="The remaining outstanding questions are:"
+            title="Please fill out all required fields."
             show={this.state.validationModal}
             >
             <div>
-              {requiredList()}
+              
+              <h4>Here are your remaining questions:</h4>
+              <ul className="section">
+                { requiredList() }
+              </ul>
+
+              <h4>
+                Note: All required fields are <span className="required">underlined in red.</span>
+              </h4>
+              
               <br/>
 
               <ButtonGroup>
-                <Button className="btn secondary" onClick={this.okValidationModal}>Ok</Button>
+                <Button className="btn secondary" onClick={this.handleValidationOk}>Return to the Form</Button>
               </ButtonGroup>
             </div>
 
         </DialogBox>
+
       </div>
     );
   }

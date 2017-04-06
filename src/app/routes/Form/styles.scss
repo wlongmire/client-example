@@ -124,3 +124,17 @@
 
   }
 }
+
+.confirmationDialog {
+    .section {
+        padding: 1em;
+    }
+
+    .required {
+        border-bottom: 2px solid #e22929
+    }
+
+    .remainingField {
+        color: #e22929;
+    }
+}

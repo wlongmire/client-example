@@ -1,5 +1,7 @@
 import React from 'react'
 import isDefined from '../utils/isDefined'
+import classNames from 'classnames'
+
 import {
   FormGroup,
   Radio,
@@ -100,8 +102,9 @@ class RadioContainer extends React.Component {
         { this.props.data.text && <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
           <ControlLabel>{this.props.data.text}</ControlLabel>
         </OverlayTrigger> }
-       
-        {options}
+        <div className="options">
+          {options}
+        </div>
        </FormGroup>
     )
   }
