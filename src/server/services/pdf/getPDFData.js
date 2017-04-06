@@ -42,6 +42,8 @@ export default async function getPDFData(token, pdfType) {
       type = submission.type
     }
 
+    console.log(submission.rating[type]);
+
     const pdfData = {
       namedInsured: submission.primaryInsuredName,
       quotedPremium: `$${utilities.commifyNumber(submission.rating[type].premium)}`,
@@ -76,30 +78,26 @@ export default async function getPDFData(token, pdfType) {
       greaterThanTwoAdditional: submission.additionalInsuredOther == 'true',
       additionalName: submission.hasAdditionalInsuredName != '' ? submission.additionalInsuredName : 'No Additional Insured',
       additionalRole: submission.hasAdditionalInsuredName != '' ? submission.additionalInsuredRole : 'N/A',
-      additionalRelationship: ssubmission.hasAdditionalInsuredName != '' ? submission.additionalInsuredRelationship : 'N/A',
+      additionalRelationship: submission.hasAdditionalInsuredName != '' ? submission.additionalInsuredRelationship : 'N/A',
       occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
       aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
-      // willHaveOccupancy: submission.occupancyDetails && submission.occupancyDetails.willHave === 'yes' ? true : false,
-      // occupancyBuildingAccessLimited: submission.occupancyDetails && submission.occupancyDetails.buildingAccessLimited === 'yes' ? true : false,
-      // occupancySecurityCameras: submission.occupancyDetails && submission.occupancyDetails.securityCameras === 'yes' ? true : false,
-      // occupancyDoorman: submission.occupancyDetails && submission.occupancyDetails.doorman === 'yes' ? true : false,
-      // occupancySecurityPersonnel: submission.occupancyDetails && submission.occupancyDetails.securityPersonnel === 'yes' ? true : false,
-      // occupancySeparateEntry: submission.occupancyDetails && submission.occupancyDetails.separateEntry === 'yes' ? true : false,
-      // occupancySeparateStairwells: submission.occupancyDetails && submission.occupancyDetails.separateStairwells === 'yes' ? true : false,
-      // occupancyLossesInLastFiveYears: submission.occupancyDetails && submission.occupancyDetails.lossesInLastFiveYears === 'yes' ? true : false,
-      // occupancySquareFootage: submission.occupancyDetails ? submission.occupancyDetails.squareFootage : 'N/A',
-      // occupancyNumberOfUnits: submission.occupancyUnits ? submission.occupancyDetails.numberOfUnits : 'N/A',
-      // occupancyType: submission.occupancyType ? submission.occupancyDetails.type : 'N/A',
-      // occupancyIsCoverageDesired: submission.occupancyDetails && submission.occupancyDetails.isCoverageDesired === 'yes' ? true : false,
-      // willHaveDemoDetails: submission.demoDetails && submission.demoDetails.willHave === 'yes' ? true : false,
-      // demoDetailsPedestrianSafetyPrecautions: submission.exteriorDemoPrecautions ? submission.demoDetails.pedestrianSafetyPrecautions : 'N/A',
-      // demoDetailsDuration: submission.exteriorDemoTerm ? submission.demoDetails.duration : 'N/A',
-      // demoDetailsCosts: submission.exteriorDemoCost ? submission.demoDetails.costs : 'N/A',
-      // demoDetailsSubcontractor: submission.exteriorDemoSubcontractor,
+      occupancyBuildingAccessLimited: submission.occupancyAccess,
+      occupancySecurityCameras: submission.occupancyCameras,
+      occupancyDoorman: submission.occupancyDoorman,
+      occupancySecurityPersonnel: submission.occupancySecurityPersonel,
+      occupancySeparateEntry: submission.occupancySeparateEntrance,
+      occupancySeparateStairwells: submission.occupancyStairwells,
+      occupancyLossesInLastFiveYears: submission.occupancyDetails,
+      occupancySquareFootage: submission.occupancyDetails,
+      occupancyNumberOfUnits: submission.occupancyUnits,
+      occupancyType: submission.occupancyType,
+       demoDetailsPedestrianSafetyPrecautions: submission.exteriorDemoPrecautions,
+       demoDetailsDuration: submission.exteriorDemoTerm,
+       demoDetailsCosts: submission.exteriorDemoCost,
+       demoDetailsSubcontractor: submission.exteriorDemoSubcontractor,
        towerCraneUse: submission.towerCraneUse == 'true',
-      // anyWorkCompleted: submission.workDetails && submission.workDetails.whatsCompleted !== '' ? true : false,
-      // workStartDate: submission.workDetails ? submission.workDetails.startDate : 'N/A',
-      // whatsCompleted: submission.workDetails ? submission.workDetails.whatsCompleted : 'N/A',
+      workStartDate: submission.workStartDate,
+      whatsCompleted: submission.workStartDateDescription,
       brokerName: submission.broker.name,
       deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
       anticipatedFinishDate: submission.anticipatedFinishDate,
@@ -108,14 +106,14 @@ export default async function getPDFData(token, pdfType) {
       projectRequirements: submission.projectRequirements,
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
       excessLimits: `$ ${utilities.commifyNumber(parseInt(submission.excessLimitAmount))}`,
-      baseExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`,
-      terrorExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`,
-      totalExcess: `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`,
+      baseExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`: '',
+      terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`: '',
+      totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`: '',
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
     }
-    
+
     if (submission.additionalInsuredOther == 'true' ) {
       pdfData.hasAdditionalInsuredExist = true;
     }

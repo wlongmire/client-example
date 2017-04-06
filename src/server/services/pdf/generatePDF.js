@@ -7,7 +7,6 @@ import { getPDFData } from './';
 export default async function generatePDF(token, type) {
    return new Promise(async (resolve, reject) => {
     try {
-      console.log(`type: ${type}, token: ${token}`)
       let htmlUrl;
       const data = await getPDFData(token);
       switch (type) {
@@ -24,7 +23,6 @@ export default async function generatePDF(token, type) {
           htmlUrl = config.excessPDFUrl
           break;
       }
-      console.log(htmlUrl);
       const body = await rp(htmlUrl);
       let html = generateHTML(body, data);
       pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {

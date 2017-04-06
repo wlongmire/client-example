@@ -108,7 +108,6 @@ async function getRating(req, res) {
 		paramsObject.broker = broker;
 		paramsObject.submittedBy = user;
 		let ratingResult = await getRatingInternal(paramsObject);
-		console.log(ratingResult);
 		let ratingObject = JSON.parse(ratingResult)
 		return res.status(200).json({
 			success: true,
@@ -274,11 +273,11 @@ async function getRatingInternal(paramsObject) {
 async function sendEmailInternal(submissionId, emailAddress, emailType) {
 
 	console.log('sending email')
-	
+
 	const submission = await submissionService.getSubmissionById(submissionId);
 	console.log('submission retrieved')
 
-  	const pdfArray = await generatePDFsInternal(submissionId);
+  const pdfArray = await generatePDFsInternal(submissionId);
 	console.log('pdfs retrieved')
 
 	let templateId;
@@ -297,7 +296,7 @@ async function sendEmailInternal(submissionId, emailAddress, emailType) {
 			templateId = config.brokerTemplateId;
 			break;
 	}
-	
+
 	return await emailService.sendMail(emailType, emailAddress, submission, templateId, pdfArray);
 }
 
@@ -315,7 +314,7 @@ async function generatePDFsInternal(submissionId) {
 		let ocpQuote = await pdfService.generatePDF(submission.pdfToken, 'ocp');
 		pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Quote`, content: ocpQuote}];
 	}
-	if (utilities.isDefined(submission.rating[0].excessPremium) && submission.rating[0].excessPremium > 0) {
+	if (utilities.isDefined(submission.rating[submission.type].excessPremium) && submission.rating[submission.type].excessPremium > 0) {
 		let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
 		pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Quote`, content: excessQuote}];
 	}
