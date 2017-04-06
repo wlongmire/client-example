@@ -1,28 +1,56 @@
-import React, { Component, PropTypes } from 'react'
-
-import { LinkContainer } from 'react-router-bootstrap'
-
+import React, { Component, PropTypes } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import DialogBox from 'components/shared/DialogBox'
 import { connect } from 'react-redux';
-import { ButtonGroup, Button } from 'react-bootstrap'
-
-import FormBuilder from 'components/shared/FormBuilder'
-
-import form from './form.js'
+import { ButtonGroup, Button } from 'react-bootstrap';
+import FormBuilder from 'components/shared/FormBuilder';
+import form from './form.js';
 
 class Input extends Component {
     constructor(props) {
-        super(props)
-        this.state = {}
+      super(props);
+      this.state = {
+        requiredFields: [],
+        validationModal: false
+      };
 
-        this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleValidationOk = this.handleValidationOk.bind(this);
     }
 
-    handleSubmit(values) {
-        this.props.handleSubmit(values)
+    handleSubmit(values, controlGroups, requiredFields) {
+      if(requiredFields.length > 0){
+
+        this.setState({
+          ...this.state,
+          requiredFields,
+          validationModal: true
+        })
+      } else {
+
+        this.props.handleSubmit(values);
+      }
+    }
+
+    handleValidationOk(){
+      this.setState({
+        ...this.state,
+        validationModal: false
+      })
     }
 
     render() {
-        return (
+      const requiredList = ()=> {
+        return this.state.requiredFields.map((r, idx)=>{
+          const fieldText = (r.questionId == '2c')?"State":r.text
+          
+          return (
+              <li className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
+            );
+        })
+      }
+
+      return (
         <div>
             <h3>First Let's Check for Clearance.</h3>
             <h4>Enter the following information to clear against previous submissions.</h4>
@@ -33,8 +61,34 @@ class Input extends Component {
                 handleSubmit={this.handleSubmit}
             />
 
+
+          <DialogBox
+            custom_class="confirmationDialog"
+            title="Please fill out all required fields."
+            show={this.state.validationModal}
+            >
+            <div>
+              
+              <h4>Here are your remaining questions:</h4>
+              <ul className="section">
+                { requiredList() }
+              </ul>
+
+              <h4>
+                Note: All required fields are <span className="required">underlined in red.</span>
+              </h4>
+              
+              <br/>
+
+              <ButtonGroup>
+                <Button className="btn secondary" onClick={this.handleValidationOk}>Return to the Form</Button>
+              </ButtonGroup>
+            </div>
+
+          </DialogBox>
+
         </div>);
     }
 }
 
-export default connect()(Input)
+export default connect()(Input);

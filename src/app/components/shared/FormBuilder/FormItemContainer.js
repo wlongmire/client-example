@@ -66,6 +66,7 @@ class FormItemContainer extends React.Component {
       <div className={ classNames(hidden, {'required':this.props.data.required}, {'supplementalContainer':this.props.supplementalForm}) }>
         <Control 
           data={this.props.data}
+          required={this.props.data.required}
           supplementalQuestions={this.props.supplementalQuestions} 
           handleSupplementTrigger={this.handleSupplementTrigger}
           handleFormChange={this.handleFormChange}

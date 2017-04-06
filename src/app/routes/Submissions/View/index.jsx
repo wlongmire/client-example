@@ -43,20 +43,21 @@ class SubmissionView extends Component{
   loadSubmissions(submissionsArray){
 
     let list = [];
-
+    console.log('array list 23', submissionsArray);
     for (let item of submissionsArray){
-      const premiumType = item[`${item.type}Premium`];
+      const premiumType = item.rating[`${item.type}`];
+
       const totalCost = premiumType ? (premiumType.totalCost) : '';
       list.push({
         ...item,
-        primaryNamedInsured: item.primaryNamedInsured,
+        primaryInsuredName: item.primaryInsuredName,
         totalCost: (premiumType && premiumType.totalCost) ? formatDollars(premiumType.totalCost) : 'n/a',
-        quotedPremium: (premiumType && premiumType.quotedPremium) ? formatDollars(premiumType.quotedPremium) : 'n/a',
+        quotedPremium: (premiumType && premiumType.premium) ? formatDollars(premiumType.premium) : 'n/a',
         totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
         type: item.type,
         dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
         dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
-        quouteStatus: (premiumType && premiumType.quotedPremium) ? 'Yes' : 'No'
+        quouteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
 
       });
     }
@@ -123,12 +124,12 @@ class SubmissionView extends Component{
             hidden
             ></TableHeaderColumn>
           <TableHeaderColumn
-            dataField="primaryNamedInsured"
+            dataField="primaryInsuredName"
             dataSort={true}
             width="100px"
             >Primary Named Insured</TableHeaderColumn>
           <TableHeaderColumn
-            dataField="quoteStatus"
+            dataField="quouteStatus"
             dataSort={true}
             width="35px"
             >Was <br/>Submission<br/> Quoted?</TableHeaderColumn>
