@@ -272,9 +272,15 @@ async function getRatingInternal(paramsObject) {
 }
 
 async function sendEmailInternal(submissionId, emailAddress, emailType) {
+
 	console.log('sending email')
+	
 	const submission = await submissionService.getSubmissionById(submissionId);
+	console.log('submission retrieved')
+
   	const pdfArray = await generatePDFsInternal(submissionId);
+	console.log('pdfs retrieved')
+
 	let templateId;
 
 	switch (emailType) {
@@ -291,7 +297,7 @@ async function sendEmailInternal(submissionId, emailAddress, emailType) {
 			templateId = config.brokerTemplateId;
 			break;
 	}
-
+	
 	return await emailService.sendMail(emailType, emailAddress, submission, templateId, pdfArray);
 }
 
