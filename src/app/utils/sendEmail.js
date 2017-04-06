@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config';
 let baseURL = config.apiserver.url;
 
-function sendEmail(emailAddress = "warrenlongmire@gmail.com", emailType="nonQuoteBroker", submissionId = "58e64ef6db7bda6f5eae60b0") {
+function sendEmail(emailAddress, emailType, submissionId) {
   return fetch(baseURL + `/api/sendEmail/${submissionId}`, {
     method: 'POST',
     headers: {

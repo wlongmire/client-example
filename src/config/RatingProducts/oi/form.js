@@ -73,6 +73,15 @@ const updatedData =  {
 	    	"controlGroup":"insuredAddress"
 	    }
 	  },
+		{
+	    "questionId": "22",
+	    "name": "projectScope",
+	    "text": "Please describe the scope of work for this project (as much detail as possible - include end use)",
+			"tooltiptext": "Please be as descriptive as possible.",
+			"inputFormat": "text",
+	    "inputType": "freeform",
+	    "required": false
+	  },
 	  {
 	    "questionId": "3", 
 
@@ -403,16 +412,8 @@ const updatedData =  {
 	      ]
 	    }
 		},
-	  {
-	    "questionId": "15",
-	    "name": "generalComments",
-	    "text": "General Comments",
-			"inputFormat": "text",
-	    "inputType": "freeform",
-	    "required": false
-	  },
 		{
-	    "questionId": "16",
+	    "questionId": "15",
 	    "name": "sidewalkMaintaining",
 			"text": "Who is responsible for maintating the sidewalks?",
 	    "inputType": "dropdown-single",
@@ -442,14 +443,14 @@ const updatedData =  {
 	          "text": "Other",
 	          "value": "Other",
 						"supplementalquestionIds": [
-							"16_supplemental1"
+							"15_supplemental1"
 						]
 	        }
 	      ]
 	    }
 		},
 		{
-	    "questionId": "17",
+	    "questionId": "16",
 	    "text": "Is this for a servicing/maintenance contract with several locations?",
 	    "name": "servicingSeveralLocations",
 	    "inputType": "radio",
@@ -472,8 +473,16 @@ const updatedData =  {
 	      ]
 	    }
 		},
+		{
+	    "questionId": "17",
+	    "name": "generalComments",
+	    "text": "General Comments",
+			"inputFormat": "text",
+	    "inputType": "freeform",
+	    "required": false
+	  },
 	  {
-	    "questionId": "20",
+	    "questionId": "18",
 	    "name": "nameInsuredAddressLabel",
 	    "text": "Please provide your contact info to receive your indication:",
 	    "inputFormat": "label",
@@ -483,7 +492,7 @@ const updatedData =  {
 	    }
 	  },
 	  {
-	    "questionId": "20a",
+	    "questionId": "18a",
 	    "name": "nameInsuredEmail",
 	    "inputType": "text",
 	    "inputFormat": "email",
@@ -494,7 +503,7 @@ const updatedData =  {
 	    }
 	  },
 	  {
-	    "questionId": "20b",
+	    "questionId": "18b",
 	    "name": "phone",
 	    "inputType": "text",
 	    "inputFormat": "text",
@@ -1064,8 +1073,6 @@ const updatedData =  {
 			}
 		},
 		
-	  
-	  
 		{
 	    "questionId": "14_supplemental1",
 	    "text": "What excess limits are required?",

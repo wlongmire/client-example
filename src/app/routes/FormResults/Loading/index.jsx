@@ -8,6 +8,8 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 import saveSubmission from 'app/utils/saveSubmission'
 import sendEmail from 'app/utils/sendEmail'
 
+import config from 'config';
+
 class Loading extends Component {
     constructor(props) {
         super(props);
@@ -18,16 +20,19 @@ class Loading extends Component {
         const rating = { instantQuote:false };
         const error = false;
         
-    //   const submissionData = this.props.submission;
-    //   saveSubmission(submissionData);
+        const brokerEmail = "warrenlongmire@gmail.com"
 
-        sendEmail().then((resp)=>{
+        // quotedArgo
+        // quotedBroker
+
+        // nonQuoteArgo
+        // nonQuoteBroker
+
+        
+
+        sendEmail(brokerEmail, "nonQuotedBroker", "58e64bbfdb7bda6f5eae60ae").then((resp)=>{
             console.log(resp)
         });
-
-        // setTimeout(()=>{
-        //     this.props.handleSubmit(error, rating);
-        // }, 2000);
     }
 
     render() {
