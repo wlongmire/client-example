@@ -34,9 +34,10 @@ function ProductChoiceItem(props) {
           );
 
           {/*props.dispatch(push("/clearance"));*/}
-          {props.dispatch(push("/form"));
+          props.dispatch(push("/form"));
 
         }}>
+
         <h1>{name}</h1>
         <p>{description}</p>
       </div>
@@ -55,7 +56,7 @@ class ProductChoice extends Component {
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.SELECTION })
     this.props.dispatch({ type: CLEAR_SUBMISSION })
   }
-
+  
   render() {
     const generateItems = ()=>{
       return Object.keys(ratingProducts).map((productType,idx)=> {

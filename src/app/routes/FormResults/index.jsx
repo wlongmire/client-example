@@ -19,7 +19,8 @@ const STATUS = {
   LOADING: "LOADING",
   ERROR:"ERROR",
   QUOTE: "QUOTE",
-  KNOCKOUT: "KNOCKOUT"
+  KNOCKOUT: "KNOCKOUT",
+  SUCCESS: "SUCCESS"
 }
 
 class FormResults extends Component {
@@ -27,11 +28,13 @@ class FormResults extends Component {
     super(props)
 
     this.state = {
-      status: STATUS.LOADING,
+      quoteStatus: STATUS.LOADING,
+      emailStatus: STATUS.LOADING,
       ratings: {}
     };
 
     this.handleLoadComplete = this.handleLoadComplete.bind(this);
+    this.handleEmailStatus = this.handleEmailStatus.bind(this);
   }
 
   componentWillMount(){
@@ -44,11 +47,17 @@ class FormResults extends Component {
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.QUOTE })
   }
 
+  handleEmailStatus(result) {
+    this.setState({
+      emailStatus: (result.success)?STATUS.SUCCESS:STATUS.ERROR
+    })
+  }
+
   handleLoadComplete(error, ratings) {
     const {submission} = this.props;
 
     this.setState({
-      status: (error)?STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
+      quoteStatus: (error)?STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
       ratings
     })
   }
@@ -56,16 +65,16 @@ class FormResults extends Component {
   render() {
 
     const subcomponentMap = {
-      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} submission={this.props.submission}/>,
+      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} handleEmailStatus={this.handleEmailStatus} submission={this.props.submission}/>,
       "ERROR":    <Error/>,
-      "QUOTE":    <Quote submission={this.props.submission} ratings={this.state.ratings}/>,
-      "KNOCKOUT": <Knockout/>
+      "QUOTE":    <Quote submission={this.props.submission} emailStatus={this.state.emailStatus} ratings={this.state.ratings}/>,
+      "KNOCKOUT": <Knockout emailStatus={this.state.emailStatus}/>
     };
 
     return (
       <div className='page formResults'>
           {
-            subcomponentMap[this.state.status]
+            subcomponentMap[this.state.quoteStatus]
           }
       </div>
     );

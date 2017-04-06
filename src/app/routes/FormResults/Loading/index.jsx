@@ -20,17 +20,13 @@ class Loading extends Component {
 
     componentDidMount() {
         const {submission} = this.props;
-        let ratingPromises;
-
-        switch(submission.type) {
-            case("oi"):
-                ratingPromises = [submission]
-                break;
-            case("ocp"):
-                ratingPromises = [submission, Object.assign({}, submission, {type:"oi"})]
-                break;
+        let typeMap = {
+            "oi":[submission], 
+            "ocp":[submission, Object.assign({}, submission, {type:"oi"})]
         }
-        
+
+        const ratingPromises = typeMap[submission.type];
+
         Promise.all(ratingPromises.map((s)=>(
             getRating(s)
         ))).then((resp)=>{
@@ -42,8 +38,29 @@ class Loading extends Component {
 
             const submissionData = this.props.submission;
             submissionData.rating = ratings
-            saveSubmission(submissionData);
 
+            saveSubmission(submissionData).then((resp)=>{
+                if (resp.success) {
+                    const {submissionId} = resp
+                    const mainRating = ratings[submission.type]
+                    const { instantQuote } = mainRating
+                    
+                    const emailPromises = [
+                        sendEmail("warrenlongmire999@gmail.com", (instantQuote)?"quotedArgo":"nonQuotedArgo", submissionId),
+                        sendEmail("warren@eager.to", (instantQuote)?"quotedArgo":"nonQuotedArgo", submissionId),
+                        sendEmail("warrenlongmire@gmail.com", (instantQuote)?"quotedBroker":"nonQuotedBroker", submissionId)
+                    ]
+
+                    Promise.all(emailPromises).then((resp)=>{
+                        console.log(resp);
+                        this.props.handleEmailStatus({success:true})
+                    })
+                } else {
+                    alert("Submission saveSave not successful");
+                }
+
+            });
+        
             this.props.handleSubmit(!resp[0].success, ratings);
         });
     }

@@ -73,58 +73,14 @@ const updatedData =  {
 	    	"controlGroup":"insuredAddress"
 	    }
 	  },
-		{
-	    "questionId": "22",
-	    "name": "projectScope",
-	    "text": "Please describe the scope of work for this project (as much detail as possible - include end use)",
-			"tooltiptext": "Please be as descriptive as possible.",
-			"inputFormat": "text",
-	    "inputType": "freeform",
-	    "required": false
-	  },
-	  {
-	    "questionId": "3", 
-
-	    "text": "Is project limited to specific floors?",
-
-	    "name": "specificFloors",
-	    "inputType": 	"radio",
-
-	    "tooltiptext": "Please choose if project is limited to specific floors.",
-
-	    "required": true,
-
-	    "attributes": {
-	      "options": [
-	        {
-	          "optionId": "1",
-	          "text": "Yes",
-	          "value": true,
-	          "supplementalquestionIds": ["3_supplemental1"]
-	        },
-	        {
-	          "optionId": "2",
-	          "text": "No",
-	          "value": false,
-	          "supplementalquestionIds": []
-	        }
-	      ]
-	    }
-
-	  },
 
 	  {
 	    "questionId": "4", 
-
 	    "text": "Is there a secondary named insured?",
-
 	    "name": "secondaryInsured",
 	    "inputType": 	"radio",
-
 	    "tooltiptext": "Qualified entities must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
-
 	    "required": true,
-
 	    "attributes": {
 	      "options": [
 	        {
@@ -151,18 +107,13 @@ const updatedData =  {
 	    }
 
 	  },
-    	  {
+    {
 	    "questionId": "5", 
-
 	    "text": "Are there any additional insured?",
-
 	    "name": "additionalInsured",
 	    "inputType": 	"radio",
-
 	    "tooltiptext": "Qualified Additional Insureds must also be named as an Additional Insured on the General Contractor’s General Liability in order to be approved",
-
 	    "required": true,
-
 	    "attributes": {
 	      "options": [
 	        {
@@ -184,8 +135,8 @@ const updatedData =  {
 	        }
 	      ]
 	    }
-
 	  },
+
 		{
 	    "questionId": "6",
 	    "name": "projectAddressLabel",
@@ -243,6 +194,30 @@ const updatedData =  {
 	    }
 	  },
 		{
+	    "questionId": "3", 
+	    "text": "Is project limited to specific floors?",
+	    "name": "specificFloors",
+	    "inputType": 	"radio",
+	    "tooltiptext": "Please choose if project is limited to specific floors.",
+	    "required": true,
+	    "attributes": {
+	      "options": [
+	        {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true,
+	          "supplementalquestionIds": ["3_supplemental1"]
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false,
+	          "supplementalquestionIds": []
+	        }
+	      ]
+			}
+	  },
+		{
 	    "questionId": "7",
 	    "text": "What is the term of the project, in months?",
 	    "name": "projectTerm",
@@ -259,6 +234,15 @@ const updatedData =  {
 	    "inputFormat": "currency",
 	    "required": true
 		},
+		{
+	    "questionId": "22",
+	    "name": "projectScope",
+	    "text": "Please describe the scope of work for this project (as much detail as possible - include end use)",
+			"tooltiptext": "Please be as descriptive as possible.",
+			"inputFormat": "text",
+	    "inputType": "freeform",
+	    "required": false
+	  },
 		{
 	    "questionId": "9",
 	    "text": "Will there be use of a tower crane on this project?",
