@@ -107,6 +107,7 @@ async function getRating(req, res) {
 		let paramsObject = req.body
 		paramsObject.broker = broker
 		paramsObject.submittedBy = user
+		console.log('xx22 THE OBJECT BEFORE SENT Over', paramsObject);
 
 		
 		let ratingResult = await getRatingInternal(paramsObject)

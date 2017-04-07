@@ -77,7 +77,7 @@ class Quote extends Component {
                 basePremium={rating.premium}
                 totalPremium={rating.totalPremium}
                 additionalCoverage={rating.additionalCoverage}
-                terrorismCoverage={rating.terrorismCoverage}
+                terrorismCoverage={rating.terrorPremium}
             />
 
             <ToggleDisplay
