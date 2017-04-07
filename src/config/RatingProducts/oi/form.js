@@ -6,7 +6,7 @@ const updatedData =  {
 
     "questions": [
 	  {
-	    "questionId": "1",    
+	    "questionId": "1",
 	    "text": "Who is the First Named Insured?",
 	    "name": "primaryInsuredName",
 			"required": true,
@@ -21,18 +21,18 @@ const updatedData =  {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"insuredAddress"
-	    }   
+	    }
 	  },
 	  {
 	    "questionId": "2a",
 	    "name": "primaryInsuredAddress",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "Address",
 	    "attributes":{
-	    	"controlGroup":"insuredAddress"	
+	    	"controlGroup":"insuredAddress"
 	    }
 	  },
 
@@ -41,25 +41,25 @@ const updatedData =  {
 	    "name": "primaryInsuredCity",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "City",
 	    "attributes":{
-	    	"controlGroup":"insuredAddress"	
+	    	"controlGroup":"insuredAddress"
 	    }
 	  },
 
 	  {
-	    "questionId": "2c", 
+	    "questionId": "2c",
 	    "name": "primaryInsuredState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": statesArray,
 	    	"controlGroup":"insuredAddress"
 	    }
-	    
+
 	  },
 	  {
 	    "questionId": "2d",
@@ -75,7 +75,7 @@ const updatedData =  {
 	  },
 
 	  {
-	    "questionId": "4", 
+	    "questionId": "4",
 	    "text": "Is there a secondary named insured?",
 	    "name": "secondaryInsured",
 	    "inputType": 	"radio",
@@ -88,12 +88,12 @@ const updatedData =  {
 	          "text": "Yes",
 	          "value": true,
 	          "supplementalquestionIds": [
-	          	"4_supplemental1", 
-	          	"4_supplemental2", 
-	          	"4_supplemental3", 
-	          	"4_supplemental4", 
-	          	"4_supplemental5", 
-	          	"4_supplemental6", 
+	          	"4_supplemental1",
+	          	"4_supplemental2",
+	          	"4_supplemental3",
+	          	"4_supplemental4",
+	          	"4_supplemental5",
+	          	"4_supplemental6",
 	          	"4_supplemental7"
 	          ]
 	        },
@@ -108,7 +108,7 @@ const updatedData =  {
 
 	  },
     {
-	    "questionId": "5", 
+	    "questionId": "5",
 	    "text": "Are there any additional insured?",
 	    "name": "additionalInsured",
 	    "inputType": 	"radio",
@@ -121,9 +121,9 @@ const updatedData =  {
 	          "text": "Yes",
 	          "value": true,
 	          "supplementalquestionIds": [
-	          	"5_supplemental1", 
-	          	"5_supplemental2", 
-	          	"5_supplemental3", 
+	          	"5_supplemental1",
+	          	"5_supplemental2",
+	          	"5_supplemental3",
 	          	"5_supplemental4"
 	          ]
 	        },
@@ -144,18 +144,18 @@ const updatedData =  {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"projectAddress"
-	    }   
+	    }
 	  },
 	  {
 	    "questionId": "6a",
 	    "name": "projectAddress",
 	    "inputFormat": "text",
 	    "inputType": "text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "Address",
 	    "attributes":{
-	    	"controlGroup":"projectAddress"	
+	    	"controlGroup":"projectAddress"
 	    }
 	  },
 	  {
@@ -163,21 +163,21 @@ const updatedData =  {
 	    "name": "projectCity",
 	    "inputFormat": "text",
 	    "inputType": "text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "City",
 	    "attributes":{
-	    	"controlGroup":"projectAddress"	
+	    	"controlGroup":"projectAddress"
 	    }
 	  },
 		{
-	    "questionId": "6c", 
+	    "questionId": "6c",
 	    "name": "projectState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "State",
-	    "attributes":{	
+	    "attributes":{
 	    	"options": statesArray,
 	    	"controlGroup":"projectAddress"
 	    }
@@ -194,7 +194,7 @@ const updatedData =  {
 	    }
 	  },
 		{
-	    "questionId": "3", 
+	    "questionId": "3",
 	    "text": "Is project limited to specific floors?",
 	    "name": "specificFloors",
 	    "inputType": 	"radio",
@@ -222,7 +222,7 @@ const updatedData =  {
 	    "text": "What is the term of the project, in months?",
 	    "name": "projectTerm",
 
-			"inputType": "number",       
+			"inputType": "number",
 	    "inputFormat": "number",
 	    "required": true
 		},
@@ -230,7 +230,7 @@ const updatedData =  {
 	    "questionId": "8",
 	    "text": "What is the total construction value of this project?",
 	    "name": "totalCost",
-			"inputType": "text",       
+			"inputType": "text",
 	    "inputFormat": "currency",
 	    "required": true
 		},
@@ -248,7 +248,7 @@ const updatedData =  {
 	    "text": "Will there be use of a tower crane on this project?",
 	    "name": "towerCraneUse",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": true,
 	    "attributes": {
 	      "options": [
@@ -266,7 +266,7 @@ const updatedData =  {
 	    }
 	  },
 		{
-			"questionId": "10", 
+			"questionId": "10",
 			"text": "Is the General Contractor known?",
 			"name": "generalContractorKnown",
 			"inputType": 	"radio",
@@ -279,7 +279,7 @@ const updatedData =  {
 						"text": "Yes",
 						"value": true,
 						"supplementalquestionIds": [
-							"10_supplemental1", 
+							"10_supplemental1",
 							"10_supplemental2",
 							"10_supplemental3",
 							"10_supplemental4"
@@ -472,12 +472,12 @@ const updatedData =  {
 	    "inputFormat": "label",
 
 	    "attributes":{
-	    	"controlGroup":"contactInfo"	
+	    	"controlGroup":"contactInfo"
 	    }
 	  },
 	  {
 	    "questionId": "18a",
-	    "name": "nameInsuredEmail",
+	    "name": "email",
 	    "inputType": "text",
 	    "inputFormat": "email",
 	    "required": true,
@@ -501,7 +501,7 @@ const updatedData =  {
 
 	"supplementalQuestions": [
 		{
-	    "questionId": "3_supplemental1", 
+	    "questionId": "3_supplemental1",
 	    "text": "Please provide details",
 	    "name": "specificFloorsDetails",
       "inputFormat": "text",
@@ -514,7 +514,7 @@ const updatedData =  {
 	    "questionId": "4_supplemental1",
 	    "name": "secondaryNameInsuredName",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Name",
 	    "attributes" : {
@@ -526,7 +526,7 @@ const updatedData =  {
 	    "questionId": "4_supplemental2",
 	    "name": "secondaryNameInsuredRelationship",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Relationship To Primary",
 	    "attributes" : {
@@ -537,7 +537,7 @@ const updatedData =  {
 	    "questionId": "4_supplemental3",
 	    "name": "secondaryNameInsuredAddress",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Address",
 	    "attributes" : {
@@ -548,7 +548,7 @@ const updatedData =  {
 	    "questionId": "4_supplemental4",
 	    "name": "secondaryNameInsuredCity",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "City",
 	    "attributes" : {
@@ -559,9 +559,9 @@ const updatedData =  {
 	  {
 	    "questionId": "4_supplemental5",
 	    "name": "secondaryNameInsuredState",
-	    "inputType": "dropdown-single",         
+	    "inputType": "dropdown-single",
 	    "required": false,
-	    "attributes": {         
+	    "attributes": {
 	      "options": statesArray,
 				"controlGroup": "secondaryNamedInfo"
 	    },
@@ -572,7 +572,7 @@ const updatedData =  {
 	    "questionId": "4_supplemental6",
 	    "name": "secondaryNameInsuredZipcode",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Zipcode",
 	    "attributes" : {
@@ -585,7 +585,7 @@ const updatedData =  {
 	    "text": "Any other named insured?",
 	    "name": "secondaryNameInsuredOther",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -607,7 +607,7 @@ const updatedData =  {
 	    "questionId": "5_supplemental1",
 	    "name": "additionalInsuredName",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Name",
 	    "attributes" : {
@@ -619,7 +619,7 @@ const updatedData =  {
 	    "questionId": "5_supplemental2",
 	    "name": "additionalInsuredRelationship",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Relationship To Primary",
 	    "attributes" : {
@@ -630,7 +630,7 @@ const updatedData =  {
 	    "questionId": "5_supplemental3",
 	    "name": "additionalInsuredRole",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Role on the Project",
 	    "attributes" : {
@@ -642,7 +642,7 @@ const updatedData =  {
 	    "text": "Any other additional insured?",
 	    "name": "additionalInsuredOther",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -664,7 +664,7 @@ const updatedData =  {
 	    "questionId": "10_supplemental1",
 	    "name": "generalContractorName",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Name of General Contractor",
 	    "attributes" : {
@@ -676,7 +676,7 @@ const updatedData =  {
 	    "questionId": "10_supplemental2",
 	    "name": "generalLiabilityCarrier",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "General Liability Carrier",
 	    "attributes" : {
@@ -687,7 +687,7 @@ const updatedData =  {
 	    "questionId": "10_supplemental3",
 	    "name": "generalContractorAmount",
 	    "inputFormat": "currency",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "attributes" : {
 				"controlGroup": "generalContractorInfo"
@@ -698,7 +698,7 @@ const updatedData =  {
 	    "text": "Is the owner paying, contracting, or supervising any subcontractors other than the GC?",
 	    "name": "otherSubcontractorsPaid",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -721,7 +721,7 @@ const updatedData =  {
 	    "text": "Is coverage for occupancy desired?",
 	    "name": "occupancyCoverageDesired",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -754,7 +754,7 @@ const updatedData =  {
 	    "text": "What type of occupancy?",
 	    "name": "occupancyType",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -777,7 +777,7 @@ const updatedData =  {
 			"questionId": "11_supplementalX",
 			"text": "How many units?",
 			"name": "occupancyUnits",
-			"inputType": "number",       
+			"inputType": "number",
 			"inputFormat": "number",
 			"required": false,
 			"attributes": {
@@ -788,7 +788,7 @@ const updatedData =  {
 			"questionId": "11_supplementalB",
 			"text": "What is the total square footage or number of occupied units?",
 			"name": "occupancySquareFootage",
-			"inputType": "number",       
+			"inputType": "number",
 			"inputFormat": "number",
 			"required": false,
 			"attributes": {
@@ -800,7 +800,7 @@ const updatedData =  {
 	    "text": "Any losses in the last 5 years?",
 	    "name": "occupancylossIn5Years",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -823,7 +823,7 @@ const updatedData =  {
 	    "text": "Will tenants and workers use different stairwells?",
 	    "name": "occupancyStairwells",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -846,7 +846,7 @@ const updatedData =  {
 	    "text": "Will there be separate entry?",
 	    "name": "occupancySeparateEntry",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -869,7 +869,7 @@ const updatedData =  {
 	    "text": "Security Personnel?",
 	    "name": "occupancySecurityPersonnel",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -892,7 +892,7 @@ const updatedData =  {
 	    "text": "Is there a doorman?",
 	    "name": "occupancyDoorman",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -915,7 +915,7 @@ const updatedData =  {
 	    "text": "Are security cameras installed?",
 	    "name": "occupancyCameras",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -938,7 +938,7 @@ const updatedData =  {
 	    "text": "Is building access limited via keys or card access?",
 	    "name": "occupancyAccess",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -961,7 +961,7 @@ const updatedData =  {
 	    "text": "Is the GC hiring a demo subcontractor?",
 	    "name": "exteriorDemoSubcontractor",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -983,7 +983,7 @@ const updatedData =  {
 	    "questionId": "12_supplemental2",
 	    "text": "What are the total demo costs?",
 	    "name": "exteriorDemoCost",
-			"inputType": "text",       
+			"inputType": "text",
 	    "inputFormat": "currency",
 	    "required": false,
 			"attributes": {
@@ -994,7 +994,7 @@ const updatedData =  {
 	    "questionId": "12_supplemental3",
 	    "text": "How long, in months, will demo take?",
 	    "name": "exteriorDemoTerm",
-			"inputType": "number",       
+			"inputType": "number",
 	    "inputFormat": "number",
 	    "required": false,
 			"attributes": {
@@ -1005,7 +1005,7 @@ const updatedData =  {
 	    "questionId": "12_supplemental4",
 	    "text": "What safety precautions, if any, are in place to protect pedestrians?",
 	    "name": "exteriorDemoPrecautions",
-			"inputType": "text",       
+			"inputType": "text",
 	    "inputFormat": "text",
 	    "required": false,
 			"attributes": {
@@ -1016,7 +1016,7 @@ const updatedData =  {
 	    "questionId": "13_supplemental1",
 	    "text": "When did work begin?",
 	    "name": "workStartDate",
-			"inputType": "text",       
+			"inputType": "text",
 	    "inputFormat": "date",
 	    "required": false,
 			"attributes": {
@@ -1027,7 +1027,7 @@ const updatedData =  {
 	    "questionId": "13_supplemental2",
 	    "text": "What has been completed?",
 	    "name": "workStartDescription",
-			"inputType": "text",       
+			"inputType": "text",
 	    "inputFormat": "freeform",
 	    "required": false,
 			"attributes": {
@@ -1038,7 +1038,7 @@ const updatedData =  {
 	    "questionId": "13_supplemental3",
 	    "text": "Total const spent to date?",
 	    "name": "totalSpent",
-			"inputType": "number",       
+			"inputType": "number",
 	    "inputFormat": "number",
 	    "required": false,
 			"attributes": {
@@ -1049,14 +1049,14 @@ const updatedData =  {
 	    "questionId": "13_supplemental4",
 	    "text": "What is the name of the GC responsible for prior work?",
 	    "name": "priorGcResponsible",
-			"inputType": "text",       
+			"inputType": "text",
 	    "inputFormat": "text",
 	    "required": false,
 			"attributes": {
 				"controlGroup":"termDetails"
 			}
 		},
-		
+
 		{
 	    "questionId": "14_supplemental1",
 	    "text": "What excess limits are required?",
@@ -1090,7 +1090,7 @@ const updatedData =  {
 	    "questionId": "16_supplemental1",
 	    "text": "Please provide more details.",
 	    "name": "sidewalkDetails",
-			"inputType": "text",       
+			"inputType": "text",
 	    "inputFormat": "freeform",
 	    "required": false
 		},
@@ -1099,7 +1099,7 @@ const updatedData =  {
 	    "text": "Is the same General Contractor responsible for all sites?",
 	    "name": "contractorSameAllSites",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 	      "options": [
@@ -1132,13 +1132,13 @@ const updatedData =  {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"otherSiteDetails1"
-	    }   
+	    }
 	  },
 		{
 	    "questionId": "17_supplementalB",
 	    "name": "otherSiteAddress1",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Address",
 	    "attributes" : {
@@ -1149,7 +1149,7 @@ const updatedData =  {
 	    "questionId": "17_supplementalC",
 	    "name": "otherSiteCity1",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "City",
 	    "attributes" : {
@@ -1170,7 +1170,7 @@ const updatedData =  {
 	    "questionId": "17_supplementalE",
 	    "name": "otherSiteZipcode1",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Zipcode",
 	    "attributes" : {
@@ -1182,7 +1182,7 @@ const updatedData =  {
 	    "text": "Are there any additional Sites?",
 	    "name": "otherSitesAdditional1",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 				"controlGroup": "otherSiteDetails1",
@@ -1217,13 +1217,13 @@ const updatedData =  {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"otherSiteDetails2"
-	    }   
+	    }
 	  },
 		{
 	    "questionId": "18_supplementalB",
 	    "name": "otherSiteAddress2",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Address",
 	    "attributes" : {
@@ -1234,7 +1234,7 @@ const updatedData =  {
 	    "questionId": "18_supplementalC",
 	    "name": "otherSiteCity2",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "City",
 	    "attributes" : {
@@ -1255,7 +1255,7 @@ const updatedData =  {
 	    "questionId": "18_supplementalE",
 	    "name": "otherSiteZipcode2",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Zipcode",
 	    "attributes" : {
@@ -1267,7 +1267,7 @@ const updatedData =  {
 	    "text": "Are there any additional Sites?",
 	    "name": "otherSitesAdditional2",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 				"controlGroup": "otherSiteDetails2",
@@ -1301,13 +1301,13 @@ const updatedData =  {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"otherSiteDetails3"
-	    }   
+	    }
 	  },
 		{
 	    "questionId": "19_supplementalB",
 	    "name": "otherSiteAddress3",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Address",
 	    "attributes" : {
@@ -1318,7 +1318,7 @@ const updatedData =  {
 	    "questionId": "19_supplementalC",
 	    "name": "otherSiteCity3",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "City",
 	    "attributes" : {
@@ -1339,7 +1339,7 @@ const updatedData =  {
 	    "questionId": "19_supplementalE",
 	    "name": "otherSiteZipcode3",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Zipcode",
 	    "attributes" : {
@@ -1351,7 +1351,7 @@ const updatedData =  {
 	    "text": "Are there any additional Sites?",
 	    "name": "otherSitesAdditional3",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 				"controlGroup": "otherSiteDetails3",
@@ -1386,13 +1386,13 @@ const updatedData =  {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"otherSiteDetails4"
-	    }   
+	    }
 	  },
 		{
 	    "questionId": "20_supplementalB",
 	    "name": "otherSiteAddress4",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Address",
 	    "attributes" : {
@@ -1403,7 +1403,7 @@ const updatedData =  {
 	    "questionId": "20_supplementalC",
 	    "name": "otherSiteCity4",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "City",
 	    "attributes" : {
@@ -1424,7 +1424,7 @@ const updatedData =  {
 	    "questionId": "20_supplementalE",
 	    "name": "otherSiteZipcode4",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Zipcode",
 	    "attributes" : {
@@ -1436,7 +1436,7 @@ const updatedData =  {
 	    "text": "Are there any additional Sites?",
 	    "name": "otherSitesAdditional4",
 	    "inputFormat": "radio",
-	    "inputType": "radio",         
+	    "inputType": "radio",
 	    "required": false,
 	    "attributes": {
 				"controlGroup": "otherSiteDetails4",
@@ -1470,13 +1470,13 @@ const updatedData =  {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"otherSiteDetails5"
-	    }   
+	    }
 	  },
 		{
 	    "questionId": "21_supplementalB",
 	    "name": "otherSiteAddress5",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Address",
 	    "attributes" : {
@@ -1487,7 +1487,7 @@ const updatedData =  {
 	    "questionId": "21_supplementalC",
 	    "name": "otherSiteCity5",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "City",
 	    "attributes" : {
@@ -1508,7 +1508,7 @@ const updatedData =  {
 	    "questionId": "21_supplementalE",
 	    "name": "otherSiteZipcode5",
 	    "inputFormat": "text",
-	    "inputType": "text",         
+	    "inputType": "text",
 	    "required": false,
 	    "placeholder": "Zipcode",
 	    "attributes" : {

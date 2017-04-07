@@ -59,7 +59,7 @@ export default async function getPDFData(token, pdfType) {
       projectState: submission.projectAddress.projectState,
       projectZip: submission.projectAddress.projectZipcode,
       createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
-      projectScope: submission.scope,
+      projectScope: submission.projectScope,
       projectTerm: `${submission.projectTerm} months`,
       projectCosts: `$${utilities.commifyNumber(parseInt(submission.totalCost))}`,
       gcKnown: submission.generalContractorKnown == 'true' ? 'yes' : 'no',
@@ -105,8 +105,8 @@ export default async function getPDFData(token, pdfType) {
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
       excessLimits: `$ ${utilities.commifyNumber(parseInt(submission.excessLimitAmount))}`,
       baseExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`: '',
-      terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`: '',
-      totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`: '',
+      terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTerrorPremium)}`: '',
+      totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].totalExcessPremium)}`: '',
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
