@@ -1,6 +1,8 @@
 import React from 'react'
 import DynamicNumber from 'react-dynamic-number'
 import isDefined from '../utils/isDefined'
+import classNames from 'classnames'
+
 import {
   HelpBlock,
   FormGroup,
@@ -83,13 +85,13 @@ class InputContainer extends React.Component {
     if (['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
       input = <DynamicNumber
                 id={this.props.data.name}
-                className="form-control number-control"
+                className={classNames("form-control", "number-control",{'filled':(this.state.value)} )}
                 separator={'.'}
                 thousand={true}
                 integer={1000}
                 fraction={1000}
                 onChange={this.handleChange}
-                value={parseInt(this.state.value) ? parseInt(this.state.value) : ''} />
+                value={parseInt(this.state.value) ? parseInt(this.state.value) : ''} />;
     } else {
       input = (
         <FormControl

@@ -43,11 +43,10 @@ async function getClearance(req, res) {
 
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(state)])
 			.then(function(resp){
-
 				const submissions = resp[0].map(
 					(s)=>({
-						name:s.primaryNamedInsured,
-						address: `${s.projectAddress.street} ${s.projectAddress.city} ${s.projectAddress.state} ${s.projectAddress.zip}`
+						name:s.primaryInsuredName,
+						address: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
 					})
 				).concat(resp[1].map(
 					(s)=>({
@@ -59,7 +58,7 @@ async function getClearance(req, res) {
 				))
 
 				businessMatchingService.getBusinessMatching(
-					{name, address:`${address} ${state} ${zipcode}`},
+					{name, address:`${address} ${city} ${state} ${zipcode}`},
 					submissions
 				).then((resp)=>{
 
@@ -281,13 +280,8 @@ async function getRatingInternal(paramsObject) {
 
 async function sendEmailInternal(submissionId, emailAddress, emailType) {
 
-	console.log('sending email')
-
 	const submission = await submissionService.getSubmissionById(submissionId);
-	console.log('submission retrieved')
-
-  const pdfArray = await generatePDFsInternal(submissionId);
-	console.log('pdfs retrieved')
+  	const pdfArray = await generatePDFsInternal(submissionId);
 
 	let templateId;
 
@@ -336,6 +330,6 @@ export default {
 	getSubmissions,
 	getClearance,
 	getSingleSubmission,
-  getBroker,
+  	getBroker,
 	saveSubmission
 }

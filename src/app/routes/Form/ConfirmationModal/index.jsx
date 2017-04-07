@@ -12,20 +12,24 @@ const ConfirmationModal = React.createClass({
 
     const flattenedSubmission = flattenObj(submission)
     const flattenedFormItems = form.questions.concat(form.supplementalQuestions);
-    const results = Object.keys(flattenedSubmission).map((item)=>{
-      if (["type", "status", "passedClearance"].indexOf(item) !== -1) {
-        return
-      }
+    const results = Object.keys(flattenedSubmission)
+      .filter((item)=>(
+        flattenedSubmission[item] !== ""
+      ))
+      .map((item)=>{
+        if (["type", "status", "passedClearance"].indexOf(item) !== -1) {
+          return
+        }
 
-      const formItem = flattenedFormItems.find((f)=>(f.name === item));
+        const formItem = flattenedFormItems.find((f)=>(f.name === item));
 
-      return {
-        name:   item,
-        text:   item.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2"),
-        value:  flattenedSubmission[item],
-        controlGroup:  (formItem.attributes && formItem.attributes.controlGroup) || item
-      }
-    }).filter((item)=>(item !== undefined))
+        return {
+          name:   item,
+          text:   item.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2"),
+          value:  flattenedSubmission[item],
+          controlGroup:  (formItem.attributes && formItem.attributes.controlGroup) || item
+        }
+      }).filter((item)=>(item !== undefined))
 
     const reviewQuestions = ()=>(
       results.map((r, idx)=>{

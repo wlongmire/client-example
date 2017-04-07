@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import { Button } from 'react-bootstrap'
+import { Button, Grid, Row, Col } from 'react-bootstrap'
 
 import ratingProducts from 'config/RatingProducts'
 import constants from 'app/constants/app'
@@ -21,7 +21,7 @@ function ProductChoiceItem(props) {
   } = props;
 
   return (
-      <div 
+      <div
         data-type={type} 
         className="selectionCard"
         onClick={()=>{
@@ -71,15 +71,17 @@ class ProductChoice extends Component {
       })
     }
     
+  
+  
     return (
       <div className='page productChoice'>
           <h3>Select Your Insurance Product.</h3>
           <h4></h4>
-
+          
           <div className="selectionCards">
             { generateItems() }
           </div>
-
+        
           <LinkContainer to="/submissions">
               <Button className="btn">Return to Submissions</Button>
             </LinkContainer>

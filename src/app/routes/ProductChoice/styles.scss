@@ -58,3 +58,10 @@
         }
     }
 };
+
+@media (max-width: 600px) {
+    .selectionCard {
+        width: 100%;
+        background-color: red;
+    }
+}

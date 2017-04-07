@@ -80,8 +80,7 @@ const ocpData = {
 	    "name": "projectTerm",
       "required": true,
 	    "inputType": "number",
-	    "inputFormat": "number",
-	    "tooltiptext": "Please provide the anticipated project term. Note: Maximum length of term cannot exceed 60 months."
+	    "inputFormat": "number"
 	   },
 		 {
 	    "questionId": "4",

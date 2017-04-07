@@ -44,7 +44,7 @@ class DropDownContainer extends React.Component {
 
   handleChange(value) {
     let option = this.props.data.attributes.options.filter((option) => {
-      return option.value === value
+      return option.value == value
     })[0]
 
     if(option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {

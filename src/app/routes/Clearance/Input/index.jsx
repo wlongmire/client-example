@@ -57,6 +57,7 @@ class Input extends Component {
 
             <FormBuilder
                 data={form}
+                initialValues={this.props.input}
                 submitTitle="Check For Clearance"
                 handleSubmit={this.handleSubmit}
             />

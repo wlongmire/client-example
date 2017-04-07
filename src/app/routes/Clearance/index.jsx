@@ -66,7 +66,7 @@ class Clearance extends Component {
   
   render() {
     const subcomponentMap = {
-      "INPUT":    <Input    handleSubmit={this.handleInputSubmit}/>,
+      "INPUT":    <Input    input={this.state.input} handleSubmit={this.handleInputSubmit}/>,
       "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} handleCancel={this.handleLoadCancel} input={this.state.input}/>,
       "ERROR":    <Error/>,
       "RESULT":   <Result   handleSubmit={this.handleClearance} input={this.state.input} result={this.state.result}/>

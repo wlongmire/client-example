@@ -12,8 +12,8 @@ function Result(props) {
         buttonLabel: "Fill out Remaining Information"
     }:{
         title: "This Submission Did Not Pass Clearance.",
-        subtitle: "The following submmissions appear to match:",
-        buttonLabel: "Reenter Primary Insured Information"
+        subtitle: "The following submmission(s) appear to match:",
+        buttonLabel: "Reenter Clearance Information"
     }
 
     const matches = (!props.result.success)?
@@ -38,31 +38,31 @@ function Result(props) {
         )
         
     return (
-    <form>
-        <h3>{result.title}</h3>
-        <h4>{result.subtitle}</h4>
-        
-        <div className="matchContainer">
-            { matches }
-        </div>
+        <form>
+            <h3>{result.title}</h3>
+            <h4>{result.subtitle}</h4>
+            
+            <div className="matchContainer">
+                { matches }
+            </div>
 
-        <ButtonGroup>
-            <Button 
-                className="btn secondary" 
-                onClick={
-                    ()=>{
-                        props.handleSubmit(props.result)
-                    }
-                }>
-                {result.buttonLabel}
-            </Button>
+            <ButtonGroup>
+                <Button 
+                    className="btn secondary" 
+                    onClick={
+                        ()=>{
+                            props.handleSubmit(props.result)
+                        }
+                    }>
+                    {result.buttonLabel}
+                </Button>
+                
+                <LinkContainer to="/productChoice">
+                    <Button className="btn"> Return to Product Selection</Button>
+                </LinkContainer>
+            </ButtonGroup>
 
-            <LinkContainer to="/productChoice">
-                <Button className="btn"> Return to Product Selection</Button>
-            </LinkContainer>
-        </ButtonGroup>
-
-    </form>
+        </form>
     );
 }
 

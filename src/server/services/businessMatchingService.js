@@ -12,14 +12,16 @@ function getBusinessMatching(key, compare) {
 
     const matches = _.sortBy(inputs.map((m)=>({
       name: m.webName,
+      compName:m.compName,
       address: m.webAdd,
+      compAddress:m.compAdd,
       nameProb: matcher(`${m.compName}`, `${m.webName}`),
       addressProb: matcher(`${m.compAdd}`, `${m.webAdd}`)
     })), ["nameProb", "addressProb"])
     .reverse()
-    .slice(0,10)
-    .filter((s)=>(s.nameProb > 0.98 || s.addressProb > 0.98))
-    
+    .filter((s)=>(s.nameProb > 0.9 && s.addressProb > 0.9))
+    .slice(0,3)
+
     resolve({
       success:true,
       matches
