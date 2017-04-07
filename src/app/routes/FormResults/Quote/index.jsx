@@ -87,6 +87,7 @@ class Quote extends Component {
             <h3>Your Instant Quote:</h3>
             <div className="quoteBlocks">
 
+
                 <QuoteBlock 
                     title={ratingProduct.name}
                     className={ratingProduct.type}

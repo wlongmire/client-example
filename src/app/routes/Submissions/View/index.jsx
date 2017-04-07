@@ -163,11 +163,11 @@ class SubmissionView extends Component{
             dataField="dateCreated"
             dataSort={true}
             >Date <br/>Updated</TableHeaderColumn>
-          <TableHeaderColumn
+          {/*<TableHeaderColumn
             width="25px"
             dataField="id"
             dataFormat={ selectFormatter }
-            >Edit</TableHeaderColumn>
+            >Edit</TableHeaderColumn>*/}
         </BootstrapTable>
       </div>
     );
