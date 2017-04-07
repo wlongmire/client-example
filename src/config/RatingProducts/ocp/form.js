@@ -239,7 +239,7 @@ const ocpData = {
     {
 	    "questionId": "13",
 	    "text": "What is the scope of the work for this project?",
-	    "name": "scope",
+	    "name": "projectScope",
       "required": false,
 	    "inputType": "freeform",
 	    "inputFormat": "text",
