@@ -13,6 +13,8 @@ import Error from './Error'
 import Quote from './Quote'
 import Knockout from './Knockout'
 
+import {isEmpty} from 'lodash'
+
 import constants from 'app/constants/app'
 
 const STATUS = {
@@ -38,11 +40,14 @@ class FormResults extends Component {
   }
 
   componentWillMount(){
-    if (!this.props.submission)
-      this.props.dispatch(push('/productChoice'));
   }
 
   componentDidMount(){
+    if (isEmpty(this.props.submission)) {
+      this.props.dispatch(push('/productChoice'));
+    }
+      
+
     const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.QUOTE })
   }
@@ -70,6 +75,9 @@ class FormResults extends Component {
       "QUOTE":    <Quote submission={this.props.submission} emailStatus={this.state.emailStatus} ratings={this.state.ratings}/>,
       "KNOCKOUT": <Knockout emailStatus={this.state.emailStatus}/>
     };
+
+    if (isEmpty(this.props.submission))
+      return(<div></div>);
 
     return (
       <div className='page formResults'>

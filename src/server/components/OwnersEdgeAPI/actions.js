@@ -110,8 +110,6 @@ async function getRating(req, res) {
 
 		
 		let ratingResult = await getRatingInternal(paramsObject)
-		
-		console.log(ratingResult)
 
 		let ratingObject = JSON.parse(ratingResult)
 		return res.status(200).json({
@@ -155,28 +153,6 @@ async function saveSubmission(req, res) {
 
 async function getPDF(req, res) {
 	try {
-				if (!req.headers['x-token']) {
-					return res.status(401).json('Authorization token required');
-				}
-				let result = await User.fromAuthToken(req.headers['x-token']);
-					if (!result || !result.user) {
-						return res.status(403).json({
-							type: "AuthError",
-							message: "Access forbidden. Invalid user token."
-						});
-					}
-				const user = result.user;
-				const newAuthToken = result.authToken;
-				const pdfArray = await generatePDFsInternal(req.params.submissionId);
-				return res.status(200).json({success: true, pdfs: pdfArray});
-	}
-	catch (err) {
-
-	}
-}
-
-async function sendEmail(req, res) {
-	try {
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
@@ -187,11 +163,34 @@ async function sendEmail(req, res) {
 					message: "Access forbidden. Invalid user token."
 				});
 			}
-			const user = result.user;
-			const newAuthToken = result.authToken;
+		const user = result.user;
+		const newAuthToken = result.authToken;
+		const pdfArray = await generatePDFsInternal(req.params.submissionId);
+		return res.status(200).json({success: true, pdfs: pdfArray});
+	}
+	catch (err) {
+	}
+}
 
-			sendEmailInternal(req.params.id, req.body.emailAddress, req.body.emailType)
-			return res.status(200).json({success: true});
+async function sendEmail(req, res) {
+	try {
+		if (!req.headers['x-token']) {
+			return res.status(401).json('Authorization token required');
+		}
+		let result = await User.fromAuthToken(req.headers['x-token']);
+
+		if (!result || !result.user) {
+			return res.status(403).json({
+				type: "AuthError",
+				message: "Access forbidden. Invalid user token."
+			});
+		}
+		
+		const user = result.user;
+		const newAuthToken = result.authToken;
+
+		await sendEmailInternal(req.params.id, req.body.emailAddress, req.body.emailType)
+		return res.status(200).json({success: true});
 	}
 	catch (err) {
 
@@ -240,9 +239,9 @@ async function getSubmissions(req, res) {
 async function getBroker(req, res) {
   try {
 
-		if (!req.headers['x-token']) {
-			return res.status(401).json('Authorization token required');
-		}
+	if (!req.headers['x-token']) {
+		return res.status(401).json('Authorization token required');
+	}
 
     Broker.findById(req.params.id).exec()
       .then(broker => {
