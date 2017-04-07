@@ -96,7 +96,7 @@ const submissionSchema = new mongoose.Schema({
   excessLimit: String,
   verticalExpansion: String,
   specificFloors: String,
-  scope: String,
+  projectScope: String,
   isSupervisingSubs: String,
   projectRequirements: String,
   limitsRequested: String,

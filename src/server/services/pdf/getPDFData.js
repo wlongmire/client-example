@@ -59,7 +59,7 @@ export default async function getPDFData(token, pdfType) {
       projectState: submission.projectAddress.projectState,
       projectZip: submission.projectAddress.projectZipcode,
       createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
-      projectScope: submission.scope,
+      projectScope: submission.projectScope,
       projectTerm: `${submission.projectTerm} months`,
       projectCosts: `$${utilities.commifyNumber(parseInt(submission.totalCost))}`,
       gcKnown: submission.generalContractorKnown == 'true' ? 'yes' : 'no',
