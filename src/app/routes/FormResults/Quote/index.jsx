@@ -63,6 +63,8 @@ class Quote extends Component {
         const type = submission.type
         const ratingProduct = ratingProducts[submission.type]
         
+        console.log(ratingProduct);
+
         const emailStatusMap = {
             "LOADING":<p>Emails are currently being sent to you and your argo representative.</p>,
             "ERROR":<p>There appears to be something wrong with our email services. Please contact us to complete this transaction.</p>,
@@ -77,7 +79,7 @@ class Quote extends Component {
                 basePremium={rating.premium}
                 totalPremium={rating.totalPremium}
                 additionalCoverage={rating.additionalCoverage}
-                terrorismCoverage={rating.terrorismCoverage}
+                terrorismCoverage={rating.terrorPremium}
             />
 
             <ToggleDisplay
