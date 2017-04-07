@@ -15,6 +15,7 @@ export default async function buildMail(type, toAddress, submission, templateId,
 
   switch (type) {
     case 'quotedArgo':
+      mail.setSubject(`New Quoted Submission from ${submission.broker.name}`)
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
       personalization.addSubstitution(new helper.Substitution('{{brokerPhone}}', submission.contactInfo.phone));
@@ -22,16 +23,19 @@ export default async function buildMail(type, toAddress, submission, templateId,
     break;
 
     case 'quotedBroker':
+      mail.setSubject(`Your Submission and Pricing Details`)
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.primaryInsuredName));
       personalization.addSubstitution(new helper.Substitution('{{confirmationNumber}}', submission.confirmationNumber))
     break;
 
     case 'nonQuoteArgo':
+      mail.setSubject(`New Non-Quoted Submission from ${submission.broker.name}`)
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
     break;
 
     case 'nonQuoteBroker':
+      mail.setSubject(`Your Submission Details`)
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       let reasonsHTML = buildReasonsHTML(submission);
       personalization.addSubstitution(new helper.Substitution('{{nonQuoteReasons}}', reasonsHTML));
@@ -50,7 +54,6 @@ export default async function buildMail(type, toAddress, submission, templateId,
         mail.addAttachment(attachment)
     });
   }
-  console.log(mail)
   return mail;
 }
 

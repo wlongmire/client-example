@@ -7,7 +7,7 @@ const ocpData = {
 
     "questions": [
 	  {
-	    "questionId": "1",    
+	    "questionId": "1",
 	    "text": "Who is the Primary Named Insured?",
 	    "name": "primaryInsuredName",
       "required": true,
@@ -22,18 +22,18 @@ const ocpData = {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"insuredAddress"
-	    }   
+	    }
 	  },
 	  {
 	    "questionId": "2a",
 	    "name": "primaryInsuredAddress",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "Address",
 	    "attributes":{
-	    	"controlGroup":"insuredAddress"	
+	    	"controlGroup":"insuredAddress"
 	    }
 	  },
 
@@ -42,25 +42,25 @@ const ocpData = {
 	    "name": "primaryInsuredCity",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "City",
 	    "attributes":{
-	    	"controlGroup":"insuredAddress"	
+	    	"controlGroup":"insuredAddress"
 	    }
 	  },
 
 	  {
-	    "questionId": "2c", 
+	    "questionId": "2c",
 	    "name": "primaryInsuredState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": statesArray,
 	    	"controlGroup":"insuredAddress"
 	    }
-	    
+
 	  },
 	  {
 	    "questionId": "2d",
@@ -100,7 +100,7 @@ const ocpData = {
 	    "inputFormat": "date"
 	   },
      {
-	    "questionId": "6",    
+	    "questionId": "6",
 	    "text": "What is the name of the designated contractor?",
 	    "name": "generalContractor",
       "required": false,
@@ -108,7 +108,7 @@ const ocpData = {
 	    "inputFormat": "text"
 	   },
      {
-	    "questionId": "7",    
+	    "questionId": "7",
 	    "text": "Who is the GL Carrier of Contrainer?",
 	    "name": "generalContractorCarrier",
       "required": true,
@@ -116,7 +116,7 @@ const ocpData = {
 	    "inputFormat": "text"
 	   },
      {
-	    "questionId": "8",    
+	    "questionId": "8",
 	    "text": "When is the Expiration Date of the Contactor's GL Policy?",
 	    "name": "generalContractorExpirationDate",
       "required": true,
@@ -125,7 +125,7 @@ const ocpData = {
 	   },
 
      {
-	    "questionId": "9",    
+	    "questionId": "9",
 	    "text": "What are the Excess limits of the Contractor's primary Policy?",
 	    "name": "excessLimit",
       "required": false,
@@ -140,7 +140,7 @@ const ocpData = {
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"projectAddress"
-	    }   
+	    }
 	  },
 
 	  {
@@ -148,11 +148,11 @@ const ocpData = {
 	    "name": "projectAddress",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "Address",
 	    "attributes":{
-	    	"controlGroup":"projectAddress"	
+	    	"controlGroup":"projectAddress"
 	    }
 	  },
 
@@ -161,20 +161,20 @@ const ocpData = {
 	    "name": "projectCity",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
-	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
 	    "placeholder": "City",
 	    "attributes":{
-	    	"controlGroup":"projectAddress"	
+	    	"controlGroup":"projectAddress"
 	    }
 	  },
 	  {
-	    "questionId": "10c", 
+	    "questionId": "10c",
 	    "name": "projectState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
 	    "required": true,
-	    "attributes": {	
+	    "attributes": {
 	    	"options": ocpStatesArray,
 	    	"controlGroup":"projectAddress"
 	    }
@@ -197,7 +197,7 @@ const ocpData = {
 	    "name": "verticalExpansion",
 	    "inputType": "radio",
 	    "required": true,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": [
           {
 	          "optionId": "1",
@@ -211,15 +211,15 @@ const ocpData = {
 	        }
         ]
 	    }
-	    
+
 	  },
     {
-	    "questionId": "12", 
+	    "questionId": "12",
 	    "name": "specificFloors",
       "text": "Is project limited to specific floors?",
 	    "inputType": "radio",
 	    "required": true,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": [
           {
 	          "optionId": "1",
@@ -237,7 +237,7 @@ const ocpData = {
 	    }
 	  },
     {
-	    "questionId": "13",    
+	    "questionId": "13",
 	    "text": "What is the scope of the work for this project?",
 	    "name": "scope",
       "required": false,
@@ -251,7 +251,7 @@ const ocpData = {
       "text": "Will the named insured be involved with any supervision or oversight of the project?",
 	    "inputType": "radio",
 	    "required": false,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": [
           {
 	          "optionId": "1",
@@ -272,7 +272,7 @@ const ocpData = {
       "text": "Does the project require any of the following: Blasting, Airport Runways, Bridge Construction, Parking Garages/Decks, Dam, Underground Tunneling for subways, mines?",
 	    "inputType": "radio",
 	    "required": true,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": [
           {
 	          "optionId": "1",
@@ -293,7 +293,7 @@ const ocpData = {
       "text": "What limits are being requested for this OCP?",
 	    "inputType": "dropdown-single",
 	    "required": true,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": [
           {
 	          "optionId": "1",
@@ -339,7 +339,7 @@ const ocpData = {
       "text": "Is the owner paying, contracting, or supervising any subcontractors other than GC?",
 	    "inputType": "radio",
 	    "required": false,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": [
           {
 	          "optionId": "1",
@@ -362,12 +362,12 @@ const ocpData = {
 	    "inputFormat": "label",
 
 	    "attributes":{
-	    	"controlGroup":"contactInfo"	
+	    	"controlGroup":"contactInfo"
 	    }
 	  },
 	  {
 	    "questionId": "18a",
-	    "name": "nameInsuredEmail",
+	    "name": "email",
 	    "inputType": "text",
 	    "inputFormat": "email",
 	    "required": true,
@@ -391,7 +391,7 @@ const ocpData = {
 
 	"supplementalQuestions": [
     {
-	    "questionId": "12_supplemental1",    
+	    "questionId": "12_supplemental1",
 	    "text": "Please provide details.",
 	    "name": "specificFloorsDetails",
       "required": false,
@@ -399,12 +399,12 @@ const ocpData = {
 	    "inputFormat": "freeform"
 	   },
 		 {
-	    "questionId": "10_supplemental1",     
+	    "questionId": "10_supplemental1",
 	    "name": "nycha",
       "text": "Is this a NYCHA Project?",
 	    "inputType": "radio",
 	    "required": false,
-	    "attributes":{	
+	    "attributes":{
 	    	"options": [
           {
 	          "optionId": "1",
