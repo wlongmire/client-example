@@ -353,9 +353,51 @@ const ocpData = {
         ]
 	    }
 	  },
+		{
+	    "questionId": "18",
+	    "name": "exteriorWorkFourStories",
+      "text": "Is there any exterior work being done over 4 stories?",
+	    "inputType": "radio",
+	    "required": true,
+	    "attributes":{
+	    	"options": [
+          {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+        ]
+	    }
+	  },
+		{
+	    "questionId": "19",
+	    "name": "serviceOrMultiLocation",
+      "text": "Is the project for a servicing agreement or involving multiple locations?",
+	    "inputType": "radio",
+	    "required": true,
+	    "attributes":{
+	    	"options": [
+          {
+	          "optionId": "1",
+	          "text": "Yes",
+	          "value": true
+	        },
+	        {
+	          "optionId": "2",
+	          "text": "No",
+	          "value": false
+	        }
+        ]
+	    }
+	  },
 
     {
-	    "questionId": "18",
+	    "questionId": "20",
 	    "name": "nameInsuredAddressLabel",
 	    "text": "Please provide your contact info to receive your indication:",
 	    "inputFormat": "label",
@@ -365,7 +407,7 @@ const ocpData = {
 	    }
 	  },
 	  {
-	    "questionId": "18a",
+	    "questionId": "20a",
 	    "name": "email",
 	    "inputType": "text",
 	    "inputFormat": "email",
@@ -376,7 +418,7 @@ const ocpData = {
 	    }
 	  },
 	  {
-	    "questionId": "18b",
+	    "questionId": "20b",
 	    "name": "phone",
 	    "inputType": "text",
 	    "inputFormat": "text",

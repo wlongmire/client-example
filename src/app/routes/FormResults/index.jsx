@@ -68,7 +68,6 @@ class FormResults extends Component {
   }
 
   render() {
-
     const subcomponentMap = {
       "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} handleEmailStatus={this.handleEmailStatus} submission={this.props.submission}/>,
       "ERROR":    <Error/>,
