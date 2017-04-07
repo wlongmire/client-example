@@ -105,8 +105,8 @@ export default async function getPDFData(token, pdfType) {
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
       excessLimits: `$ ${utilities.commifyNumber(parseInt(submission.excessLimitAmount))}`,
       baseExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`: '',
-      terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTerror)}`: '',
-      totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTotalPremium)}`: '',
+      terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTerrorPremium)}`: '',
+      totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].totalExcessPremium)}`: '',
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
