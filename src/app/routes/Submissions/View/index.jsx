@@ -24,26 +24,30 @@ class SubmissionView extends Component{
   }
 
   componentDidMount() {
-    if(this.props.submissions.data){
-      this.loadSubmissions(this.props.submissions.data.submissions);
+    console.log('hitting the did mount',this.props.sumbissionData);
+    
+    // if(this.props.submissions.data){
+      this.loadSubmissions(this.props.sumbissionData.submissions);
     }
-  }
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.submissions.data && !this.props.submissions.data){
-      this.loadSubmissions(nextProps.submissions.data.submissions);
-    }
-  }
-  componentWillMount(){
-    if(this.props.user) {
-      this.props.getSubmissions(this.props.user['_brokerId']);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.submissions.data && !this.props.submissions.data){
+  //     this.loadSubmissions(nextProps.submissions.data.submissions);
+  //   }
+  // }
+  // componentWillMount(){
+  //   console.log('hitting the will mount');
+  //   if(this.props.user) {
+  //     this.props.getSubmissions(this.props.user['_brokerId']);
+  //   }
+  // }
 
   loadSubmissions(submissionsArray){
 
     let list = [];
     console.log('array list 23', submissionsArray);
+    console.log('23')
     for (let item of submissionsArray){
       const premiumType = item.rating[`${item.type}`];
 
@@ -51,13 +55,14 @@ class SubmissionView extends Component{
       list.push({
         ...item,
         primaryInsuredName: item.primaryInsuredName,
-        totalCost: (premiumType && premiumType.totalCost) ? formatDollars(premiumType.totalCost) : 'n/a',
+        totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',
         quotedPremium: (premiumType && premiumType.premium) ? formatDollars(premiumType.premium) : 'n/a',
         totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
         type: item.type,
         dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
         dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
         quouteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
+
 
       });
     }
@@ -110,7 +115,7 @@ class SubmissionView extends Component{
           options={options}
           search
           trClassName="submissionHover"
-          //hover
+          key={1}
           pagination
           multiColumnSearch
           >
