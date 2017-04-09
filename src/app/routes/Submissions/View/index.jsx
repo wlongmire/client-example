@@ -24,14 +24,13 @@ class SubmissionView extends Component{
   }
 
   componentDidMount() {
-    this.loadSubmissions(this.props.sumbissionData.submissions);
+      this.loadSubmissions(this.props.sumbissionData.submissions);
   }
-  
 
   loadSubmissions(submissionsArray){
 
     let list = [];
-    for (let item of submissionsArray){
+    for (let item of submissionsArray) {
       const premiumType = item.rating[`${item.type}`];
 
       const totalCost = premiumType ? (premiumType.totalCost) : '';
@@ -127,7 +126,7 @@ class SubmissionView extends Component{
             dataSort={true}
             >Quoted <br/>Premium</TableHeaderColumn>
           <TableHeaderColumn
-            width="30px"
+            width="40px"
             dataField="totalCost"
             dataSort={true}
             >Total <br/>Cost</TableHeaderColumn>

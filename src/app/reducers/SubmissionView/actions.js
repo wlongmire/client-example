@@ -12,11 +12,12 @@ import constants from 'app/constants/app';
 
 let baseURL = config.apiserver.url;
 
-export const cleaSubmissionStatus = () => {
+export const clearSubmissionStatus = () => {
   const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;
-  
-  dispatch({type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE});
-  dispatch({type: CLEAR_SUBMISSION});
+  return((dispatch) => {
+    dispatch({type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE});
+    dispatch({type: CLEAR_SUBMISSION});
+  });
 };
 
 export function getSubmissions(brokerId) {

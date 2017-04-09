@@ -79,7 +79,7 @@ class Quote extends Component {
             "SUCCESS":
                 <div className="emailStatus success">
                     <img src="https://ownersedgeassets.herokuapp.com/images/main/thumbs-up.png"/>
-                    <p>Your submission forms have successfully.</p>
+                    <p>Your submission forms have been successfully processed.</p>
                     <span>Please check your your inbox. Thank you for using Argo Limited.</span>
                 </div>
         }
