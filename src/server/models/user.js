@@ -30,7 +30,7 @@ user.methods.validPassword = function (password) {
 user.methods.generateToken = function () {
   let today = new Date();
   let exp = new Date(today);
-  exp.setMinutes(today.getMinutes() + 60);
+  exp.setMinutes(today.getMinutes() + 60*24*30);
 
   return jwt.sign({
     _id: this._id,

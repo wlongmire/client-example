@@ -24,40 +24,28 @@ class SubmissionView extends Component{
   }
 
   componentDidMount() {
-    if(this.props.submissions.data){
-      this.loadSubmissions(this.props.submissions.data.submissions);
-    }
+    this.loadSubmissions(this.props.sumbissionData.submissions);
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.submissions.data && !this.props.submissions.data){
-      this.loadSubmissions(nextProps.submissions.data.submissions);
-    }
-  }
-  componentWillMount(){
-    if(this.props.user) {
-      this.props.getSubmissions(this.props.user['_brokerId']);
-    }
-  }
+  
 
   loadSubmissions(submissionsArray){
 
     let list = [];
-    
-    for (let item of submissionsArray) {
+    for (let item of submissionsArray){
       const premiumType = item.rating[`${item.type}`];
 
       const totalCost = premiumType ? (premiumType.totalCost) : '';
       list.push({
         ...item,
         primaryInsuredName: item.primaryInsuredName,
-        totalCost: (premiumType && premiumType.totalCost) ? formatDollars(premiumType.totalCost) : 'n/a',
+        totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',
         quotedPremium: (premiumType && premiumType.premium) ? formatDollars(premiumType.premium) : 'n/a',
         totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
         type: item.type,
         dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
         dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
         quouteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
+
 
       });
     }
@@ -110,7 +98,7 @@ class SubmissionView extends Component{
           options={options}
           search
           trClassName="submissionHover"
-          //hover
+          key={1}
           pagination
           multiColumnSearch
           >
