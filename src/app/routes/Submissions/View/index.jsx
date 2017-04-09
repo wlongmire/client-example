@@ -24,24 +24,8 @@ class SubmissionView extends Component{
   }
 
   componentDidMount() {
-    console.log('hitting the did mount',this.props.sumbissionData);
-    
-    // if(this.props.submissions.data){
       this.loadSubmissions(this.props.sumbissionData.submissions);
-    }
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.submissions.data && !this.props.submissions.data){
-  //     this.loadSubmissions(nextProps.submissions.data.submissions);
-  //   }
-  // }
-  // componentWillMount(){
-  //   console.log('hitting the will mount');
-  //   if(this.props.user) {
-  //     this.props.getSubmissions(this.props.user['_brokerId']);
-  //   }
-  // }
+  }
 
   loadSubmissions(submissionsArray){
 
@@ -142,7 +126,7 @@ class SubmissionView extends Component{
             dataSort={true}
             >Quoted <br/>Premium</TableHeaderColumn>
           <TableHeaderColumn
-            width="30px"
+            width="40px"
             dataField="totalCost"
             dataSort={true}
             >Total <br/>Cost</TableHeaderColumn>

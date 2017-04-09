@@ -16,9 +16,6 @@ class Submissions extends Component {
   componentDidMount() {
     const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;
     
-    // this.props.dispatch({type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE})
-    // this.props.dispatch({type: CLEAR_SUBMISSION})
-    // this.props.cleaSubmissionStatus();
     this.props.getSubmissions(this.props.user['_brokerId']);
   }
 
@@ -31,9 +28,7 @@ class Submissions extends Component {
       }
       return {};
     }
-    // const token123 = parseJwt(localStorage.getItem('token'));
-    // console.log('time remain', (token123.iat - token123.exp)/60);
-    // console.log('What is in token', parseJwt(localStorage.getItem('token')));
+
     return (
       <div className='submissions'>
         {this.props.submissions.data &&
