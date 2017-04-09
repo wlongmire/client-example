@@ -9,26 +9,16 @@ import Moment from 'moment';
 
 class Submissions extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {};
   }
 
   componentDidMount() {
-    const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;
-    
+    this.props.clearSubmissionStatus();
     this.props.getSubmissions(this.props.user['_brokerId']);
   }
 
   render() {
-    function parseJwt(token) {
-      if (token) {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        return JSON.parse(window.atob(base64));
-      }
-      return {};
-    }
-
     return (
       <div className='submissions'>
         {this.props.submissions.data &&
