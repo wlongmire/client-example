@@ -46,9 +46,7 @@ class SubmissionView extends Component{
   loadSubmissions(submissionsArray){
 
     let list = [];
-    console.log('array list 23', submissionsArray);
-    console.log('23')
-    for (let item of submissionsArray){
+    for (let item of submissionsArray) {
       const premiumType = item.rating[`${item.type}`];
 
       const totalCost = premiumType ? (premiumType.totalCost) : '';
@@ -168,11 +166,11 @@ class SubmissionView extends Component{
             dataField="dateCreated"
             dataSort={true}
             >Date <br/>Updated</TableHeaderColumn>
-          <TableHeaderColumn
+          {/*<TableHeaderColumn
             width="25px"
             dataField="id"
             dataFormat={ selectFormatter }
-            >Edit</TableHeaderColumn>
+            >Edit</TableHeaderColumn>*/}
         </BootstrapTable>
       </div>
     );

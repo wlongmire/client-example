@@ -23,6 +23,7 @@
 //Routes
 @import '../app/routes/Rating/styles';
 @import '../app/routes/Form/styles';
+@import '../app/routes/FormResults/styles';
 @import '../app/routes/Clearance/styles';
 @import '../app/routes/ProductChoice/styles';
 @import '../app/routes/SignIn/styles';
@@ -97,6 +98,7 @@
     margin: 0 auto;
 
     table {
+      font-family:'Lato';
       width: 100%;
       text-align: left;
       font-size: 14px;

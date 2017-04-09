@@ -26,6 +26,10 @@ class Loading extends Component {
         }
 
         const ratingPromises = typeMap[submission.type];
+        
+        const argoEmail = config.argoEmail;
+        const sgsEmail = config.sgsEmail;
+        const brokerEmail = submission.email;
 
         Promise.all(ratingPromises.map((s)=>(
             getRating(s)
@@ -46,13 +50,12 @@ class Loading extends Component {
                     const { instantQuote } = mainRating
                     
                     const emailPromises = [
-                        sendEmail("warrenlongmire999@gmail.com", (instantQuote)?"quotedArgo":"nonQuotedArgo", submissionId),
-                        sendEmail("warren@eager.to", (instantQuote)?"quotedArgo":"nonQuotedArgo", submissionId),
-                        sendEmail("warrenlongmire@gmail.com", (instantQuote)?"quotedBroker":"nonQuotedBroker", submissionId)
+                        sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+                        // sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+                        sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
                     ]
 
                     Promise.all(emailPromises).then((resp)=>{
-                        console.log(resp);
                         this.props.handleEmailStatus({success:true})
                     })
                 } else {
@@ -69,7 +72,7 @@ class Loading extends Component {
       return (
           <form>
               <h3>Calculating Quote</h3>
-              <h4>Please Wait while we calculate.</h4>
+              <h4>Please wait while we calculate.</h4>
 
               <div className="loadingImg">
                   <img src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>

@@ -45,7 +45,7 @@ class Input extends Component {
           const fieldText = (r.questionId == '2c')?"State":r.text
           
           return (
-              <li className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
+              <li key={idx} className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
             );
         })
       }

@@ -7,7 +7,7 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 import { commifyNumber, isDefined } from 'app/utils/utilities';
-
+import classNames from 'classnames'
 
 import ratingProducts from 'config/RatingProducts'
 
@@ -19,32 +19,33 @@ class QuoteBlock extends Component {
 
     render() {
         const {
-            title, totalPremium, basePremium, terrorismCoverage, additionalCoverage
+            title, className, totalPremium, basePremium, terrorismCoverage, additionalCoverage
         } = this.props;
+        
+        const typeList = [
+            {title:"Total Premium",value: totalPremium},
+            {title:"Base Premium",value: basePremium},
+            {title:"Additional Coverage",value: additionalCoverage},
+            {title:"Terrorism Coverage",value: terrorismCoverage}
+        ]
+        
+        const quoteValues = typeList.map((item, idx)=>(
+            <ToggleDisplay
+                key={idx}
+                show={item.value && item.value > 0}
+                render={() => (
+                    <div className="premiumNumber">
+                        {item.title}
+                        <span>{commifyNumber(item.value || 0)}</span>
+                    </div>)
+                }/>
+        ));
 
         return (
-            <div>
-                <div>{title}</div>
+            <div className={classNames("quoteBlock", className)}>
+                <h4>{title}</h4>
 
-                <div className="premium-number">
-                    Total Premium
-                    <span>{commifyNumber(totalPremium || 0)}</span>
-                </div>
-
-                <div className="premium-number">
-                    Base Premium
-                    <span>{commifyNumber(basePremium || 0)}</span>
-                </div>
-
-                <div className="premium-number">
-                    Additional Coverage
-                    <span>{commifyNumber(additionalCoverage || 0)}</span>
-                </div>
-        
-                <div className="premium-number">
-                    Terrorism Coverage
-                    <span>{commifyNumber(terrorismCoverage || 0)}</span>
-                </div>
+                { quoteValues }
             </div>)
     }
 }
@@ -62,42 +63,81 @@ class Quote extends Component {
 
         const type = submission.type
         const ratingProduct = ratingProducts[submission.type]
-        
+
         const emailStatusMap = {
-            "LOADING":<p>Emails are currently being sent to you and your argo representative.</p>,
-            "ERROR":<p>There appears to be something wrong with our email services. Please contact us to complete this transaction.</p>,
-            "SUCCESS":<p>Your submission forms have successfully arrived in your inbox. Thank you for using Argo Limited.</p>
+            "LOADING":
+                <div className="emailStatus">
+                    <img src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
+                    <p>Emails Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
+                </div>,
+            "ERROR":
+                <div className="emailStatus error">
+                    <p>There appears to be something wrong.</p>
+                    <span>Please contact us to complete this transaction.</span>
+                </div>,
+            "SUCCESS":
+                <div className="emailStatus success">
+                    <img src="https://ownersedgeassets.herokuapp.com/images/main/thumbs-up.png"/>
+                    <p>Your submission forms have successfully.</p>
+                    <span>Please check your your inbox. Thank you for using Argo Limited.</span>
+                </div>
         }
 
         return (
         <div>
-            <h3>Here is your Instant Quote!</h3>
-            <QuoteBlock 
-                title={ratingProduct.name}
-                basePremium={rating.premium}
-                totalPremium={rating.totalPremium}
-                additionalCoverage={rating.additionalCoverage}
-                terrorismCoverage={rating.terrorPremium}
-            />
+            <h3>Your Instant Quote:</h3>
+            <div className="quoteBlocks">
 
-            <ToggleDisplay
-            show={rating.excessPremium > 0}
-            render={() => (
                 <QuoteBlock 
-                    title="Excess"
-                    basePremium={rating.excessPremium}
-                    totalPremium={rating.totalExcessPremium}
-                    terrorismCoverage={rating.excessTerrorPremium}
-                />)}/>
+                    title={ratingProduct.name}
+                    className={ratingProduct.type}
+                    basePremium={rating.premium}
+                    totalPremium={rating.totalPremium}
+                    additionalCoverage={rating.additionalCoverage}
+                    terrorismCoverage={rating.terrorPremium}
+                />
 
-            <p>Please check your email for a more detailed pricing indication and review it for accuracy.</p>
-            <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase</p>
-            <div>{ emailStatusMap[this.props.emailStatus] }</div>
+                <ToggleDisplay
+                show={rating.excessPremium > 0}
+                render={() => (
+                    <QuoteBlock 
+                        title="Excess"
+                        className="Excess"
+                        basePremium={rating.excessPremium}
+                        totalPremium={rating.totalExcessPremium}
+                        terrorismCoverage={rating.excessTerrorPremium}
+                    />)
+                }/>
+                
+                <ToggleDisplay
+                show={submission.type === "ocp"}
+                render={() => (
+                    <div>
+                        <QuoteBlock 
+                            title={"Here is what you would play with an Owner's Interest Policy"}
+                            className="oi upsell"
+                            basePremium={ratings['oi'].premium}
+                            totalPremium={ratings['oi'].totalPremium}
+                            additionalCoverage={ratings['oi'].additionalCoverage}
+                            terrorismCoverage={ratings['oi'].terrorPremium}
+                        />
+                    </div>)
+                }/>
+            </div>
+            
 
-            <p>Jessica Buelow – Supervisor – New York - 212-607-8829</p>
+            <div className="content">
+                <p>One of our following underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+
+                <ul>
+                    <li>Jessica Buelow – Supervisor – New York - 212-607-8829</li>
+                </ul>
+            </div>
+
+            { emailStatusMap[this.props.emailStatus] }
             
             <div className="legalText">
-                The "pricing indication" is issued as a matter of information only  and does not confer any rights upon the insured or constitute a contract between <br /> Colony Specialty and the authorized representative or producer of the insured or the insured.
+                The "pricing indication" is issued as a matter of information only  and does not confer any rights upon the insured or constitute a contract between Colony Specialty and the authorized representative or producer of the insured or the insured.
             </div>
 
 
