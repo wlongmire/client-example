@@ -10,6 +10,7 @@ import { commifyNumber, isDefined } from 'app/utils/utilities';
 import classNames from 'classnames'
 
 import ratingProducts from 'config/RatingProducts'
+import config from 'config';
 
 class QuoteBlock extends Component {
     constructor(props) {
@@ -83,6 +84,10 @@ class Quote extends Component {
                 </div>
         }
 
+        const underwriters = config.underwriters.map((uw, idx)=>(
+            <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
+        ));
+
         return (
         <div>
             <h3>Your Instant Quote:</h3>
@@ -130,7 +135,7 @@ class Quote extends Component {
                 <p>One of our following underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
 
                 <ul>
-                    <li>Jessica Buelow – Supervisor – New York - 212-607-8829</li>
+                    {underwriters}
                 </ul>
             </div>
 

@@ -5,6 +5,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
+import config from 'config';
+
 function Knockout(props) {
     const emailStatusMap = {
         "LOADING":
@@ -28,7 +30,10 @@ function Knockout(props) {
         <div key={idx} className="reason"> {r}</div>
     ))
 
-    
+    const underwriters = config.underwriters.map((uw, idx)=>(
+        <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
+    ));
+
 
     return (
     <form>
@@ -44,7 +49,7 @@ function Knockout(props) {
             <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
 
             <ul>
-                <li>Jessica Buelow – Supervisor – New York - 212-607-8829</li>
+                {underwriters}
             </ul>
         </div>
         

@@ -29,7 +29,7 @@ class Loading extends Component {
         
         const argoEmail = config.argoEmail;
         const sgsEmail = config.sgsEmail;
-        const brokerEmail = submission.email;
+        const brokerEmail = submission.contactInfo.email;
 
         Promise.all(ratingPromises.map((s)=>(
             getRating(s)

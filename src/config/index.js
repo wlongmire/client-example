@@ -4,8 +4,8 @@ var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'warrenlongmire999@gmail.com',
-    sgsEmail: 'warren@eager.to',
+    argoEmail: 'warren@eager.to',
+    sgsEmail: 'warrenlongmire999@gmail.com',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
@@ -20,7 +20,13 @@ var config = {
     ratingsUrl:'https://oe-rating-engine-dev.herokuapp.com',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
-    
+    underwriters:[{
+        "name":"Jessica Buelow",
+        "position":"Supervisor",
+        "location":"New York",
+        "phone":"212-607-8829"
+    }],
+
     analytics: {
         ua: 'xxxxx-xxxxx',
         host: 'www.domain.com'
@@ -43,7 +49,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
+        url: 'http://dev.ownersedge.us',
         port: null
     },
 
@@ -52,7 +58,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
+        url: 'http://dev.ownersedge.us',
         port:  null
     }
 };

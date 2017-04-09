@@ -20,7 +20,13 @@ var config = {
     ratingsUrl:'@ratingsUrl',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
-    
+    underwriters:[{
+        "name":"Jessica Buelow",
+        "position":"Supervisor",
+        "location":"New York",
+        "phone":"212-607-8829"
+    }],
+
     analytics: {
         ua: 'xxxxx-xxxxx',
         host: 'www.domain.com'
