@@ -32,6 +32,19 @@
     }
 }
 
+.reasons {
+    .reason {
+        display: inline-block;
+        padding: 1em;
+        font-weight: bold;
+        font-size: 1em;
+        background: #32a4d8;
+        margin-right: 3px;
+        margin-bottom: 3px;
+        color: black;
+    }
+}
+
 .emailStatus {
     padding: 1em;
     width: 100%;
@@ -69,7 +82,7 @@
 }
 
 .content {
-    margin:2.5em 0;
+    margin:2em 0;
 
     p, ul {
         font-family: "Lato";

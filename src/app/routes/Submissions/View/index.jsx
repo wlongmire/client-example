@@ -43,8 +43,8 @@ class SubmissionView extends Component{
   loadSubmissions(submissionsArray){
 
     let list = [];
-    console.log('array list 23', submissionsArray);
-    for (let item of submissionsArray){
+    
+    for (let item of submissionsArray) {
       const premiumType = item.rating[`${item.type}`];
 
       const totalCost = premiumType ? (premiumType.totalCost) : '';

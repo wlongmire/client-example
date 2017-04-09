@@ -72,7 +72,7 @@ class FormResults extends Component {
       "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} handleEmailStatus={this.handleEmailStatus} submission={this.props.submission}/>,
       "ERROR":    <Error/>,
       "QUOTE":    <Quote submission={this.props.submission} emailStatus={this.state.emailStatus} ratings={this.state.ratings}/>,
-      "KNOCKOUT": <Knockout emailStatus={this.state.emailStatus}/>
+      "KNOCKOUT": <Knockout emailStatus={this.state.emailStatus} ratings={this.state.ratings} submission={this.props.submission}/>
     };
 
     if (isEmpty(this.props.submission))
