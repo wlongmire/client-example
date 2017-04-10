@@ -70,21 +70,22 @@ class InputContainer extends React.PureComponent {
   }
 
   render() {
-    const tooltip = <Tooltip 
+    const tooltip = (<Tooltip 
         id={`tooltip_${this.props.data.questionId}`}
         placement="bottom"
         className="in"> 
         {this.props.data.tooltiptext}
-      </Tooltip>
+      </Tooltip>);
     
     let inputFormat = this.props.data.inputFormat;
     if (inputFormat === 'currency') inputFormat = 'number';
     let input;
 
     // Using a different input type for number and currency. It will format the number but the value will remain the raw number value
-    if (['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
+    // id={this.props.data.name}
+    /*if (['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
       input = <DynamicNumber
-                id={this.props.data.name}
+                
                 className={classNames("form-control", "number-control",{'filled':(this.state.value)} )}
                 separator={'.'}
                 thousand={true}
@@ -92,18 +93,18 @@ class InputContainer extends React.PureComponent {
                 fraction={1000}
                 onChange={this.handleChange}
                 value={parseInt(this.state.value) ? parseInt(this.state.value) : ''} />;
-    } else {
-      input = (
-        <FormControl
-            placeholder={this.props.data.placeholder}
-            className={this.state.value && 'filled'}
-            type={inputFormat}
-            onChange={this.handleChange}
-            componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
-            value={this.state.value}
-          />
-      )
-    }
+    } else {*/
+    input = (
+      <FormControl
+          placeholder={this.props.data.placeholder}
+          className={this.state.value && 'filled'}
+          type={inputFormat}
+          onChange={this.handleChange}
+          componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
+          value={this.state.value}
+        />
+    );
+    // }
 
     const overlay = (
       <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
