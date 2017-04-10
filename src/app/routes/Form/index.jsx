@@ -101,7 +101,6 @@ class Form extends Component {
 
     if (!ratingProduct)
       return <div></div>
-
     return (
       <div className='page productChoice'>
         <h3>Fill out the rest of the details.</h3>
