@@ -1,7 +1,7 @@
-import React from 'react'
-import DynamicNumber from 'react-dynamic-number'
-import isDefined from '../utils/isDefined'
-import classNames from 'classnames'
+import React from 'react';
+import DynamicNumber from 'react-dynamic-number';
+import isDefined from '../utils/isDefined';
+import classNames from 'classnames';
 
 import {
   HelpBlock,
@@ -12,9 +12,9 @@ import {
   Tooltip,
   Popover,
   OverlayTrigger
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 
-class InputContainer extends React.Component {
+class InputContainer extends React.PureComponent {
   constructor(props) {
     super(props)
     const name = this.props.data.name;
@@ -33,9 +33,9 @@ class InputContainer extends React.Component {
     // We want get validation to trigger a validation function and when results are back we need to call it again
     // But this breaks the loops
     if (this.state.isValid) {
-      let isValid = this.state.isValid
-      this.state.isValid = null
-      return isValid
+      let isValid = this.state.isValid;
+      this.state.isValid = null;
+      return isValid;
     }
 
     //only trigger validation if the value changes
@@ -45,20 +45,20 @@ class InputContainer extends React.Component {
         this.props.validation[this.props.data.attributes.validationFunc](this.state.value).then((result)=> {
           this.setState({
             isValid: (result) ? 'success' : 'error'
-          })
-        })
+          });
+        });
     }
 
     if (this.state.isValid !== null) {
-      return this.state.isValid
+      return this.state.isValid;
     }
 
     if (this.props.data.attributes && this.props.data.attributes.validationRegEx) {
-      let regex = new RegExp(unescape(this.props.data.attributes.validationRegEx))
-      return (regex.test(this.state.value)) ? 'success' : 'error'
+      let regex = new RegExp(unescape(this.props.data.attributes.validationRegEx));
+      return (regex.test(this.state.value)) ? 'success' : 'error';
     }
 
-    return
+    return;
 
   }
 
@@ -66,7 +66,7 @@ class InputContainer extends React.Component {
     this.setState({
       value: event.target.value
     });
-    this.props.handleFormChange()
+    this.props.handleFormChange();
   }
 
   render() {
@@ -77,9 +77,9 @@ class InputContainer extends React.Component {
         {this.props.data.tooltiptext}
       </Tooltip>
     
-    let inputFormat = this.props.data.inputFormat
-    if (inputFormat === 'currency') inputFormat = 'number'
-    let input
+    let inputFormat = this.props.data.inputFormat;
+    if (inputFormat === 'currency') inputFormat = 'number';
+    let input;
 
     // Using a different input type for number and currency. It will format the number but the value will remain the raw number value
     if (['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
@@ -121,8 +121,8 @@ class InputContainer extends React.Component {
         {helpBlock}
 
        </FormGroup>
-    )
+    );
   }
 }
 
-export default InputContainer
+export default InputContainer;
