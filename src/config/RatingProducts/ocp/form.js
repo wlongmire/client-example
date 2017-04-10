@@ -100,7 +100,7 @@ const ocpData = {
 	   },
      {
 	    "questionId": "6",
-	    "text": "What is the name of the designated contractor?",
+	    "text": "What is the name of the designated Contractor?",
 	    "name": "generalContractor",
       "required": false,
 	    "inputType": "text",
@@ -108,7 +108,7 @@ const ocpData = {
 	   },
      {
 	    "questionId": "7",
-	    "text": "Who is the GL Carrier of Contrainer?",
+	    "text": "Who is the GL Carrier of Contactor?",
 	    "name": "generalContractorCarrier",
       "required": true,
 	    "inputType": "text",
