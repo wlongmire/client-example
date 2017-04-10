@@ -23,8 +23,10 @@ var config = require('./src/config');
 
 gulp.task('transform:prod', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
-  .pipe(replace('@sgsEmail', 'owners@colonyspecialty.com'))
+  // .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
+  // .pipe(replace('@sgsEmail', 'owners@colonyspecialty.com'))
+  .pipe(replace('@argoEmail', 'warrenlongmire999@gmail.com'))
+  .pipe(replace('@sgsEmail', 'warren@eager.to'))
   .pipe(replace('@serverUrl', 'http://www.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://xxread:xxread@52.25.41.113:27017/ownersedgedev'))
