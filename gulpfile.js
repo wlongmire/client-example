@@ -45,12 +45,12 @@ gulp.task('transform:dev', function(){
 
 gulp.task('transform:beta', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsEmail', 'intake@ownersedge.us'))
-  .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
+  .pipe(replace('@sgsEmail', 'warren.longmire@argogroupus.com'))
+  .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
   .pipe(replace('@serverUrl', 'http://beta.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'https://oe-rating-engine-dev.herokuapp.com'))
+  .pipe(replace('@ratingsUrl', 'https://oe-rating-engine.herokuapp.com'))
   .pipe(gulp.dest('src/config/'));
 });
 

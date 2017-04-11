@@ -37,8 +37,6 @@ class Loading extends Component {
             getRating(s)
         ))).then((resp)=> {
 
-            console.log(resp);
-
             let ratings = {}
             ratingPromises.map((ratingSubmission, idx)=>{
                 ratings[ratingSubmission.type] = resp[idx].rating
@@ -55,7 +53,7 @@ class Loading extends Component {
                     
                     const emailPromises = [
                         sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-                        sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+                        // sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
                         sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
                     ]
 
