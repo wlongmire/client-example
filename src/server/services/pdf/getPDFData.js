@@ -8,7 +8,8 @@ export default async function getPDFData(token, pdfType) {
     const submission = await getSubmissionByToken(token, pdfType)
 
     let aggregateLimit;
-    let halvedCost = Math.ceil(((submission.totalCost / 2) * 1000000) / 1000000);
+    let halvedCost = Math.ceil(((parseInt(submission.totalCost) / 2) * 1000000) / 1000000);
+
     if (halvedCost < 5000000) {
       aggregateLimit = 5000000
     } else if (aggregateLimit > 50000000) {
@@ -16,9 +17,50 @@ export default async function getPDFData(token, pdfType) {
     } else {
       aggregateLimit = halvedCost;
     }
+    let genAggLimit;
+    let occAggLimit;
+    switch(submission.type){
+      case 'oi':
+        occAggLimit = aggregateLimit + 1000000
+        genAggLimit = aggregateLimit + 2000000
+        break;
+      case 'ocp':
+        {
+          switch (submission.limitsRequested){
+            case '12':
+              occAggLimit = 1000000
+              genAggLimit = 2000000
+            break;
+            case '22':
+              occAggLimit = 2000000
+              genAggLimit = 2000000
+            break;
+            case '24':
+              occAggLimit = 2000000
+              genAggLimit = 4000000
+            break;
+            case '33':
+              occAggLimit = 3000000
+              genAggLimit = 3000000
+            break;
+            case '44':
+              occAggLimit = 4000000
+              genAggLimit = 4000000
+            break;
+            case '55':
+              occAggLimit = 5000000
+              genAggLimit = 5000000
+            break;
+          }
+        }
 
-    let occAggLimit = aggregateLimit + 1000000
-    let genAggLimit = aggregateLimit + 2000000
+    }
+
+    let contractorLimits = '';
+
+    if (submission.type == 'ocp') {
+      contractorLimits = calcContractorLimits(parseInt(submission.totalCost), submission.projectAddress.projectState, submission.exteriorWorkFourStories, submission.verticalExpansion)
+    }
 
     const limits = [
       {12:'1m/2m'},
@@ -89,11 +131,11 @@ export default async function getPDFData(token, pdfType) {
       occupancySquareFootage: utilities.isDefined(submission.occupancySquareFootage) ? submission.occupancySquareFootage : '',
       occupancyNumberOfUnits: utilities.isDefined(submission.occupancyUnits) ? submission.occupancyUnits : '',
       occupancyType: utilities.isDefined(submission.occupancyType) ? submission.occupancyType : '',
-       demoDetailsPedestrianSafetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
-       demoDetailsDuration: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
-       demoDetailsCosts: utilities.isDefined(submission.exteriorDemoCost) ? submission.exteriorDemoCost : '',
-       demoDetailsSubcontractor: utilities.isDefined(submission.exteriorDemoSubcontractor) ? submission.exteriorDemoSubcontractor : '',
-       towerCraneUse: utilities.isDefined(submission.towerCraneUse) && submission.towerCraneUse == 'true' ? 'yes' : 'no',
+      demoDetailsPedestrianSafetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
+      demoDetailsDuration: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
+      demoDetailsCosts: utilities.isDefined(submission.exteriorDemoCost) ? submission.exteriorDemoCost : '',
+      demoDetailsSubcontractor: utilities.isDefined(submission.exteriorDemoSubcontractor) ? submission.exteriorDemoSubcontractor : '',
+      towerCraneUse: utilities.isDefined(submission.towerCraneUse) && submission.towerCraneUse == 'true' ? 'yes' : 'no',
       workStartDate: utilities.isDefined(submission.workStartDate) ? submission.workStartDate : '',
       whatsCompleted: utilities.isDefined(submission.workStartDateDescription) ? submission.workStartDateDescription : '',
       brokerName: submission.broker.name,
@@ -107,6 +149,10 @@ export default async function getPDFData(token, pdfType) {
       baseExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`: '',
       terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTerrorPremium)}`: '',
       totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].totalExcessPremium)}`: '',
+      contractorLimits: contractorLimits,
+      verticalAddition: submission.verticalExpansion == 'true' ? 'Yes': 'No',
+      overFourFloors: submission.exteriorWorkFourStories == 'true' ? 'Yes' : 'No'
+
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
@@ -119,10 +165,45 @@ export default async function getPDFData(token, pdfType) {
     if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
       pdfData.marshBroker = true;
     }
+
+    if (submission.projectRequirements == 'true') {
+      pdfData.willHaveDangerous = true;
+    }
+
     console.log(pdfData);
     return pdfData;
   } catch (err) {
     console.log(err)
   }
 }
+
+function calcContractorLimits(costs, state, fourFloors, verticalExpansion) {
+  let minimumOcc = 1
+  let minimumAgg = 2
+  switch (state) {
+    case 'NY': {
+      let halvedCost = Math.ceil((((costs/ 2) * 1000000) / 1000000) / 1000000);
+      if ((halvedCost) > minimumAgg) {
+        minimumAgg, minimumOcc = halvedCost;
+      }
+    }
+    break;
+    default:
+     if (costs > 10000000 && costs < 20000000) {
+        minimumAgg, minimumOcc = 5
+      } else if (costs > 20000000) {
+        minimumAgg, minimumOcc = 10
+      }
+    }
+
+    if (fourFloors == 'true' && minimumAgg < 5) {
+      minimumAgg, minimumOcc = 5
+    }
+
+    if (verticalExpansion == 'true' && minimumAgg < 10) {
+      minimumAgg, minimumOcc = 10
+    }
+
+    return `$${minimumOcc}M/${minimumAgg}M`
+  }
 
