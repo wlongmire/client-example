@@ -2,10 +2,9 @@ import ocpStatesArray from './states';
 import statesArray from './../states';
 
 const ocpData = {
-		"questionSetId": "OCPFORM",
-		"name": "OCPFORM",
-
-    "questions": [
+	"questionSetId": "OCPFORM",
+	"name": "OCPFORM",
+	"questions": [
 	  {
 	    "questionId": "1",
 	    "text": "Who is the Primary Named Insured?",
@@ -99,31 +98,6 @@ const ocpData = {
 	    "inputFormat": "date"
 	   },
      {
-	    "questionId": "6",
-	    "text": "What is the name of the designated contractor?",
-	    "name": "generalContractor",
-      "required": false,
-	    "inputType": "text",
-	    "inputFormat": "text"
-	   },
-     {
-	    "questionId": "7",
-	    "text": "Who is the GL Carrier of Contractor?",
-	    "name": "generalContractorCarrier",
-      "required": true,
-	    "inputType": "text",
-	    "inputFormat": "text"
-	   },
-     {
-	    "questionId": "8",
-	    "text": "When is the Expiration Date of the Contactor's GL Policy?",
-	    "name": "generalContractorExpirationDate",
-      "required": true,
-	    "inputType": "text",
-	    "inputFormat": "date"
-	   },
-
-     {
 	    "questionId": "9",
 	    "text": "What are the Excess limits of the Contractor's primary Policy?",
 	    "name": "excessLimit",
@@ -135,7 +109,7 @@ const ocpData = {
      {
 	    "questionId": "10",
 	    "name": "nameInsuredAddressLabel",
-	    "text": "What is the address of this project",
+	    "text": "What is the address of this project?",
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"projectAddress"
@@ -190,6 +164,15 @@ const ocpData = {
 	    	"controlGroup":"projectAddress"
 	    }
 	  },
+		{
+	    "questionId": "13",
+	    "text": "What is the scope of the work for this project?",
+	    "name": "projectScope",
+      "required": false,
+	    "inputType": "freeform",
+	    "inputFormat": "text",
+	    "tooltiptext": "Please provide as descriptive of a scope of work as possible including end use."
+	   },
     {
 	    "questionId": "11",
       "text": "Does the project include the addition of any stories or vertical expansion?",
@@ -211,16 +194,31 @@ const ocpData = {
         ]
 	    }
 	  },
-    {
-	    "questionId": "13",
-	    "text": "What is the scope of the work for this project?",
-	    "name": "projectScope",
+		 {
+	    "questionId": "6",
+	    "text": "What is the name of the designated contractor?",
+	    "name": "generalContractor",
       "required": false,
-	    "inputType": "freeform",
-	    "inputFormat": "text",
-	    "tooltiptext": "Please provide as descriptive of a scope of work as possible including end use."
+	    "inputType": "text",
+	    "inputFormat": "text"
 	   },
-    {
+     {
+	    "questionId": "7",
+	    "text": "Who is the GL Carrier of Contractor?",
+	    "name": "generalContractorCarrier",
+      "required": true,
+	    "inputType": "text",
+	    "inputFormat": "text"
+	   },
+     {
+	    "questionId": "8",
+	    "text": "When is the Expiration Date of the Contactor's GL Policy?",
+	    "name": "generalContractorExpirationDate",
+      "required": true,
+	    "inputType": "text",
+	    "inputFormat": "date"
+	   },
+     {
 	    "questionId": "14",
 	    "name": "isSupervisingSubs",
       "text": "Will the named insured be involved with any supervision or oversight of the project?",
