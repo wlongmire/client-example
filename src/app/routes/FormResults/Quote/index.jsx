@@ -69,7 +69,7 @@ class Quote extends Component {
             "LOADING":
                 <div className="emailStatus">
                     <img src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
-                    <p>Emails Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
+                    <p>Emails/Submission Forms Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
                 </div>,
             "ERROR":
                 <div className="emailStatus error">
@@ -80,7 +80,7 @@ class Quote extends Component {
                 <div className="emailStatus success">
                     <img src="https://ownersedgeassets.herokuapp.com/images/main/thumbs-up.png"/>
                     <p>Your submission forms have been successfully processed.</p>
-                    <span>Please check your your inbox. Thank you for using Argo Limited.</span>
+                    <span>The approparte forms should appear in your inbox within the next minute. Thank you for using Argo Limited.</span>
                 </div>
         }
 
