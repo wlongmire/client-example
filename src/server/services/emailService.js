@@ -5,6 +5,7 @@ const helper = require('sendgrid').mail;
 
 async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()
+  // let fromEmail = new helper.Email('warren.longmire@argogroupus.com', 'Owners Edge Submission Service');
   let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
 
   mail.setFrom(fromEmail);

@@ -34,8 +34,8 @@ gulp.task('transform:prod', function(){
 
 gulp.task('transform:dev', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsEmail', 'warrenlongmire999@gmail.com'))
-  .pipe(replace('@argoEmail', 'warren@eager.to'))
+  .pipe(replace('@sgsEmail', 'warren.longmire@argogroupus.com'))
+  .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
   .pipe(replace('@serverUrl', 'http://dev.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
@@ -56,8 +56,8 @@ gulp.task('transform:beta', function(){
 
 gulp.task('transform:local', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsEmail', 'warren@eager.to'))
-  .pipe(replace('@argoEmail', 'warrenlongmire999@gmail.com'))
+  .pipe(replace('@sgsEmail', 'warren.longmire@argogroupus.com'))
+  .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))

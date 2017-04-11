@@ -24,7 +24,7 @@ export default async function generatePDF(token, type) {
           break;
       }
       const body = await rp(htmlUrl);
-      let html = generateHTML(body, data);
+      let html = await generateHTML(body, data);
       pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
         return resolve(buffer);
       });
@@ -35,7 +35,14 @@ export default async function generatePDF(token, type) {
 }
 
 function generateHTML(body, pdfData) {
+  return new Promise((resolve, reject) => {
+  try{
   let handleTemplate = handlebars.compile(body);
   let html = handleTemplate(Object.assign({}, pdfData));
-  return html;
+  return resolve(html);
+  } catch (err) {
+    console.log(err.message)
+    return reject(err)
+  }
+  })
 }
