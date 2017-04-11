@@ -28,11 +28,13 @@ class SubmissionView extends Component{
   }
 
   loadSubmissions(submissionsArray){
-
     let list = [];
     for (let item of submissionsArray) {
-      const premiumType = item.rating[`${item.type}`];
+      if (!item.rating)
+        continue;
 
+      const premiumType = item.rating[`${item.type}`];
+      
       const totalCost = premiumType ? (premiumType.totalCost) : '';
       list.push({
         ...item,
