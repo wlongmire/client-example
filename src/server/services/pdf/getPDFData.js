@@ -181,27 +181,32 @@ function calcContractorLimits(costs, state, fourFloors, verticalExpansion) {
   let minimumOcc = 1
   let minimumAgg = 2
   switch (state) {
-    case 'NY': {
+    case 'New York': {
       let halvedCost = Math.ceil((((costs/ 2) * 1000000) / 1000000) / 1000000);
       if ((halvedCost) > minimumAgg) {
-        minimumAgg, minimumOcc = halvedCost;
+        minimumAgg = halvedCost;
+        minimumOcc = halvedCost;
       }
     }
     break;
     default:
      if (costs > 10000000 && costs < 20000000) {
-        minimumAgg, minimumOcc = 5
+        minimumAgg = 5;
+        minimumOcc = 5
       } else if (costs > 20000000) {
-        minimumAgg, minimumOcc = 10
+        minimumAgg = 10;
+        minimumOcc = 10
       }
     }
 
     if (fourFloors == 'true' && minimumAgg < 5) {
-      minimumAgg, minimumOcc = 5
+      minimumAgg = 5;
+      minimumOcc = 5
     }
 
     if (verticalExpansion == 'true' && minimumAgg < 10) {
-      minimumAgg, minimumOcc = 10
+      minimumAgg = 10;
+      minimumOcc = 10;
     }
 
     return `$${minimumOcc}M/${minimumAgg}M`
