@@ -152,8 +152,8 @@ export default async function getPDFData(token, pdfType) {
       contractorLimits: contractorLimits,
       verticalAddition: submission.verticalExpansion == 'true' ? 'Yes': 'No',
       overFourFloors: submission.exteriorWorkFourStories == 'true' ? 'Yes' : 'No',
-      servicingAgreement: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No'
-
+      servicingAgreement: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No',
+      nychaProject: submission.nycha == ' true' ? 'Yes': 'No'
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
