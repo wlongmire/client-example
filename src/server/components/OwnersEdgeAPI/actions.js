@@ -108,7 +108,7 @@ async function getRating(req, res) {
 		paramsObject.broker = broker
 		paramsObject.submittedBy = user
 
-		
+
 		let ratingResult = await getRatingInternal(paramsObject)
 
 		let ratingObject = JSON.parse(ratingResult)
@@ -128,7 +128,7 @@ async function saveSubmission(req, res) {
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
-		
+
 		let result = await User.fromAuthToken(req.headers['x-token']);
 			if (!result || !result.user) {
 				return res.status(403).json({
@@ -185,7 +185,7 @@ async function sendEmail(req, res) {
 				message: "Access forbidden. Invalid user token."
 			});
 		}
-		
+
 		const user = result.user;
 		const newAuthToken = result.authToken;
 
@@ -280,7 +280,7 @@ async function getRatingInternal(paramsObject) {
 async function sendEmailInternal(submissionId, emailAddress, emailType) {
 
 	const submission = await submissionService.getSubmissionById(submissionId);
-  	const pdfArray = await generatePDFsInternal(submissionId);
+  const pdfArray = await generatePDFsInternal(submissionId);
 
 	let templateId;
 
@@ -298,7 +298,7 @@ async function sendEmailInternal(submissionId, emailAddress, emailType) {
 			templateId = config.brokerTemplateId;
 			break;
 	}
-
+	console.log('got pdfs - on to mail')
 	return await emailService.sendMail(emailType, emailAddress, submission, templateId, pdfArray);
 }
 
@@ -320,6 +320,7 @@ async function generatePDFsInternal(submissionId) {
 		let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
 		pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Quote`, content: excessQuote}];
 	}
+	console.log('finished generating pdfs');
 	return pdfArray;
 }
 
