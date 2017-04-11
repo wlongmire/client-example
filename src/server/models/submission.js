@@ -107,7 +107,8 @@ const submissionSchema = new mongoose.Schema({
   pdfToken: String,
   confirmationNumber: String,
   serviceOrMultiLocation: String,
-  exteriorWorkFourStories: String
+  exteriorWorkFourStories: String,
+  servicingSeveralLocations: String
 
 }, {timestamps: true});
 
