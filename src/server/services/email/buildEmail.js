@@ -7,7 +7,7 @@ export default async function buildMail(type, toAddress, submission, templateId,
   let mail = new helper.Mail()
   // let fromEmail = new helper.Email('warren.longmire@argogroupus.com', 'Owners Edge Submission Service');
   let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
-
+  console.log('building the mail!')
   mail.setFrom(fromEmail);
 
   let personalization = new helper.Personalization()
