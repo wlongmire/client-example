@@ -12,7 +12,7 @@ const ocpData = {
       "required": true,
       "inputType": "text",
       "inputFormat": "text",
-      "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless indemnification and additional insured status from the hired General Contractor"
+      "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless indemnification and additional insured status from the hired General Contractor"
     },
     {
       "questionId": "2",
@@ -86,38 +86,22 @@ const ocpData = {
       "text": "What is the total cost of this project?",
       "name": "totalCost",
       "required": true,
+      "inputType": "text",
+      "inputFormat": "currency"
+    },
+    {
+      "questionId": "5",
+      "text": "What is the anticipated finish date of project?",
+      "name": "anticipatedFinishDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+    {
 
-	    "inputType": "text",
-	    "inputFormat": "date"
-	   },
-     {
-	    "questionId": "6",
-	    "text": "What is the name of the designated Contractor?",
-	    "name": "generalContractor",
-      "required": false,
-	    "inputType": "text",
-	    "inputFormat": "text"
-	   },
-     {
-	    "questionId": "7",
-	    "text": "Who is the GL Carrier of Contractor?",
-	    "name": "generalContractorCarrier",
-      "required": true,
-	    "inputType": "text",
-	    "inputFormat": "text"
-	   },
-     {
-	    "questionId": "8",
-	    "text": "When is the Expiration Date of the Contactor's GL Policy?",
-	    "name": "generalContractorExpirationDate",
-      "required": true,
-	    "inputType": "text",
-	    "inputFormat": "date"
-	   },
-		{
-	    "questionId": "9",
-	    "text": "What are the Excess limits of the Contractor's primary Policy?",
-	    "name": "excessLimit",
+      "questionId": "9",
+      "text": "What are the Excess limits of the Contractor's primary Policy?",
+      "name": "excessLimit",
       "required": false,
       "inputType": "text",
       "inputFormat": "currency"
