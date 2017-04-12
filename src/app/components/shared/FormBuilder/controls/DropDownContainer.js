@@ -15,6 +15,11 @@ class DropDownContainer extends React.Component {
   constructor(props) {
     super(props)
 
+    const name = this.props.data.name 
+    this.state = {
+      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false
+    }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleChangeEvent  = this.handleChangeEvent.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
@@ -71,14 +76,19 @@ class DropDownContainer extends React.Component {
     this.options = this.props.data.attributes.options.map((data) => {
       return <option value={data.value} key={data.optionId}>{data.text}</option>
     })
-
+        
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
          { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
          
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
            <div className="select">
-            <FormControl value={this.state.value} className={this.state.value && "filled"} onChange={this.handleChangeEvent} componentClass="select">
+            <FormControl 
+              value={this.state.value} 
+              disabled={this.state.disabled}
+              className={this.state.value && "filled"} 
+              onChange={this.handleChangeEvent} 
+              componentClass="select">
               {this.options}
             </FormControl>
           </div>

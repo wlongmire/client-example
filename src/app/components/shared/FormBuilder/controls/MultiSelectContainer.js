@@ -15,6 +15,7 @@ class MultiSelectContainer extends React.Component {
     const name = this.props.data.name;
     this.state = {
       value: isDefined(this.props.initialValues[name]) ? this.props.initialValues[name] : '',
+      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       title: this.props.data.placeholder,
       isValid: null
     }
@@ -76,7 +77,10 @@ class MultiSelectContainer extends React.Component {
           { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
 
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
-           <FormControl componentClass="select" multiple>
+           <FormControl 
+            componentClass="select" 
+            disabled={this.state.disabled}
+            multiple>
             {this.options}
           </FormControl>
         </OverlayTrigger>
