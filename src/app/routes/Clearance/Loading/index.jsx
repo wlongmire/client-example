@@ -15,13 +15,12 @@ class Loading extends Component {
     }
 
     componentDidMount() {
-
         getClearance({
-            name:this.props.input.primaryInsuredName, 
-            address:this.props.input.projectAddress.projectAddress, 
-            state:this.props.input.projectAddress.projectState,
-            city:this.props.input.projectAddress.projectCity,
-            zipcode:this.props.input.projectAddress.projectZipcode
+            name:this.props.input.primaryInsuredName,
+            addresses:[
+                this.props.input.projectAddress,
+                this.props.input.insuredAddress
+            ]
         }).then((resp)=> {
             this.props.handleSubmit(false, {success:(resp.matches.length === 0), matches:resp.matches});
         })
