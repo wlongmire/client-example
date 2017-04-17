@@ -88,6 +88,7 @@ class Form extends Component {
   render() {
     const { submission } = this.state;
     const { ratingProduct } = this.props;
+    const { submissionFormParams } = this.props;
 
     const requiredList = ()=> {
       return this.state.requiredFields.map((r, idx)=>{
@@ -101,6 +102,7 @@ class Form extends Component {
 
     if (!ratingProduct)
       return <div></div>
+
     return (
       <div className='page productChoice'>
         <h3>Fill out the rest of the details.</h3>
@@ -110,6 +112,7 @@ class Form extends Component {
             data={ratingProduct.formJSON}
             Validation={ratingProduct.Validation}
             initialValues={submission}
+            initialParams={submissionFormParams}
             submitTitle="Review Submission"
             handleSubmit={this.handleSubmitForReview}
         />
@@ -170,6 +173,7 @@ export default connect((store)=>{
 
   return({
     submission,
+    submissionFormParams:store.app.submissionFormParams,
     ratingProduct: ratingProducts[submission.type]
   })
 })(Form);
