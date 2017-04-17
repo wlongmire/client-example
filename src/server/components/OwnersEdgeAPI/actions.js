@@ -53,37 +53,26 @@ async function getClearance(req, res) {
 
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
-				// const submissions = resp[0].map(
-				// 	(s)=>({
-				// 		compName:	name,
-				// 		webName:	s.primaryInsuredName,
-				// 		compAddress: `${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${s.projectAddress.zipcode}`,
-				// 		webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
-				// 	})
-				// ).concat(resp[1].map(
-				// 	(s)=>({
-				// 		compName:	name,
-				// 		webName:	s.CUST_NAME,
-				// 		compAddress:	`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
-				// 		webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
-				// 	})
-				// ))
-				
-				const submissions = resp[1].map(
+				const submissions = resp[0].map(
 					(s)=>({
-						compName: name,
-						webName: s.CUST_NAME,
-						compAddress: `${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
-						webAddress: `${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
+						compName:	name,
+						webName:	s.primaryInsuredName,
+						compAddress: `${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${s.projectAddress.zipcode}`,
+						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
 					})
-				)
-
+				).concat(resp[1].map(
+					(s)=>({
+						compName:	name,
+						webName:	s.CUST_NAME,
+						compAddress:	`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
+						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
+					})
+				))
+				
 
 				businessMatchingService.getBusinessMatching(
 					submissions
 				).then((resp)=>{
-					console.log(resp);
-
 					return res.status(200).json({
 						success: resp.success,
 						matches: resp.matches

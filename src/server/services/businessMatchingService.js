@@ -6,23 +6,23 @@ function getBusinessMatching(submissions) {
   return new Promise((resolve, reject) => {
 
     const inputs = submissions.map((c)=>({
-      "compName":c.compName.toLowerCase(), "compAdd":c.compAddress.toLowerCase(),
-      "webName":c.webName.toLowerCase(), "webAdd":c.webAddress.toLowerCase()
+      "compName":c.compName, "compAdd":c.compAddress,
+      "webName":c.webName, "webAdd":c.webAddress
     }))
 
-    const matches = _.sortBy(inputs.map((m)=>({
-      name: m.webName,
-      compName:m.compName,
-      address: m.webAdd,
-      compAddress:m.compAdd,
-      nameProb: matcher(`${m.compName.toLower()}`, `${m.webName.toLower()}`),
-      addressProb: matcher(`${m.compAdd.toLower()}`, `${m.webAdd.toLower()}`)
-    })), ["nameProb", "addressProb"])
+    const matches = _.sortBy(inputs.map((m)=> ({
+        name: m.webName,
+        compName:m.compName,
+        address: m.webAdd,
+        compAddress:m.compAdd,
+        nameProb: matcher(`${m.compName.toLowerCase()}`, `${m.webName.toLowerCase()}`),
+        addressProb: matcher(`${m.compAdd.toLowerCase()}`, `${m.webAdd.toLowerCase()}`)
+      })
+    ), ["nameProb", "addressProb"])
     .reverse()
     .filter((s)=>(s.nameProb > 0.9 && s.addressProb > 0.9))
     .slice(0,3)
     
-    console.log("matches", matches)
 
     resolve({
       success:true,
