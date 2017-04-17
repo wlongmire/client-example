@@ -1,5 +1,6 @@
 import React from 'react'
 import isDefined from '../utils/isDefined'
+import classNames from 'classnames'
 import {
   FormGroup,
   FormControl,
@@ -79,6 +80,7 @@ class MultiSelectContainer extends React.Component {
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
            <FormControl 
             componentClass="select" 
+            className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
             disabled={this.state.disabled}
             multiple>
             {this.options}

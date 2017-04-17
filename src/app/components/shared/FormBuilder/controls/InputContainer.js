@@ -85,7 +85,7 @@ class InputContainer extends React.PureComponent {
     input = (
       <FormControl
           placeholder={this.props.data.placeholder}
-          className={this.state.value && 'filled'}
+          className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
           disabled={this.state.disabled}
           type={inputFormat}
           onChange={this.handleChange}

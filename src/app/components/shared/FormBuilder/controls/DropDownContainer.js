@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import classNames from 'classnames'
 import {
   FormGroup,
   DropdownButton,
@@ -37,7 +37,6 @@ class DropDownContainer extends React.Component {
   }
 
   componentWillMount() {
-
     if (this.props.initialValues[this.props.data.name]) {
       this.handleChange(this.props.initialValues[this.props.data.name])
     } else {
@@ -84,9 +83,9 @@ class DropDownContainer extends React.Component {
          <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
            <div className="select">
             <FormControl 
-              value={this.state.value} 
+              value={this.state.value}
+              className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
               disabled={this.state.disabled}
-              className={this.state.value && "filled"} 
               onChange={this.handleChangeEvent} 
               componentClass="select">
               {this.options}
