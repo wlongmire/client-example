@@ -61,6 +61,12 @@ class Clearance extends Component {
         submission, 
         submissionFormParams:{
           primaryInsuredName:{ disabled:true },
+
+          primaryInsuredAddress:{ disabled:true },
+          primaryInsuredCity:{ disabled:true },
+          primaryInsuredState:{ disabled:true },
+          primaryInsuredZipcode:{ disabled:true },
+
           projectAddress:{ disabled:true },
           projectCity:{ disabled:true },
           projectState:{ disabled:true },
