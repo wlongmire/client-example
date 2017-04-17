@@ -57,6 +57,7 @@ async function getClearance(req, res) {
 					s.name && s.address
 				))
 
+
 				businessMatchingService.getBusinessMatching(
 					{name, address:`${address} ${city} ${state} ${zipcode}`},
 					submissions
