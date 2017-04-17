@@ -17,7 +17,7 @@ import appReducer from '../reducers/appReducer';
 import submissionsReducer from '../reducers/SubmissionView/reducer';
 
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import submissionFormReducer from '../reducers/submissionReducer';
+import submissionFormReducer from '../reducers/submissionFormReducer';
 
 const appReducers = combineReducers({
   user: userReducer,

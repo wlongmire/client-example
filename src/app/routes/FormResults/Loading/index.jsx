@@ -20,7 +20,6 @@ class Loading extends Component {
 
     componentDidMount() {
         const {submission} = this.props;
-        console.log(submission);
         
         let typeMap = {
             "oi":[submission], 

@@ -20,6 +20,7 @@ class InputContainer extends React.PureComponent {
     const name = this.props.data.name;
     this.state = {
       value: isDefined(this.props.initialValues[name]) ? this.props.initialValues[name] : '',
+      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       isValid: null
     }
 
@@ -84,7 +85,8 @@ class InputContainer extends React.PureComponent {
     input = (
       <FormControl
           placeholder={this.props.data.placeholder}
-          className={this.state.value && 'filled'}
+          className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
+          disabled={this.state.disabled}
           type={inputFormat}
           onChange={this.handleChange}
           componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
