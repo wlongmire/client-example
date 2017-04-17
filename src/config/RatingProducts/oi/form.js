@@ -269,7 +269,7 @@ const updatedData =  {
       "text": "Is the General Contractor known?",
       "name": "generalContractorKnown",
       "inputType":   "radio",
-      "tooltiptext": "Please choose if project is limited to specific floors.",
+      "tooltiptext": "Note: Coverage will be quoted subject to form U658 until the General  Contractor is reviewed and approved.  To approve the General Contractor  we will need at a minimum, fully executed contract, certificate of insurance, and endorsement listing from the GC’s General Liability.",
       "required": true,
       "attributes": {
         "options": [

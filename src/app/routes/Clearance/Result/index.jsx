@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 
 import { connect } from 'react-redux';
 import { ButtonGroup, Button, Panel } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import { ButtonGroup, Button, Panel } from 'react-bootstrap';
 function Result(props) {
     const result = (props.result.success)?{
         title: "This Submission Passed Clearance!",
-        subtitle: "You are the first to submitt this insured for review. Now we can enter additional quote information.",
+        subtitle: "You are the first to submit this insured for review. Now we can enter additional quote information.",
         buttonLabel: "Fill out Remaining Information"
     }:{
         title: "This Submission Did Not Pass Clearance.",
