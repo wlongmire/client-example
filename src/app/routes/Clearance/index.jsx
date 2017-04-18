@@ -99,6 +99,6 @@ class Clearance extends Component {
 
 export default connect((store)=>{
   return({
-    submissiom:store.app.submission
-  })
+    submission:store.app.submission
+  });
 })(Clearance);
