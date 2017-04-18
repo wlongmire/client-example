@@ -12,28 +12,21 @@ from 'redux';
 
 import userReducer from '../reducers/userReducer';
 import errorReducer from '../reducers/errorReducer';
-import interfaceReducer from '../reducers/interfaceReducer';
 import appReducer from '../reducers/appReducer';
 
 import submissionsReducer from '../reducers/SubmissionView/reducer';
 
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import submissionFormReducer from '../reducers/submissionReducer';
-
-// NOTE: Alias is required to get the formReducer reducer working correctly.
+import submissionFormReducer from '../reducers/submissionFormReducer';
 
 const appReducers = combineReducers({
   user: userReducer,
-  
-  form: submissionFormReducer,
-
   routing: routerReducer,
   error: errorReducer,
-
-  interface: interfaceReducer,
   submissions: submissionsReducer,
+  app:appReducer,
 
-  app:appReducer
+  form: submissionFormReducer
 });
 
 

@@ -21,9 +21,6 @@ import Clearance from 'routes/Clearance';
 import SignIn from 'routes/SignIn';
 import SignUp from 'routes/SignUp';
 
-import RatingResults from 'routes/RatingResults';
-import Rating from 'routes/Rating';
-
 import Http404 from 'routes/Http404';
 
 const UserIsAuthenticated = UserAuthWrapper({
@@ -85,16 +82,6 @@ export default (
     <Route
       path='formResults'
       component={UserIsAuthenticated(FormResults)}
-    />
-
-    <Route
-      path='oiform'
-      component={UserIsAuthenticated(Rating)}
-    />
-
-    <Route
-      path='quote'
-      component={UserIsAuthenticated(RatingResults)}
     />
 
     <Route

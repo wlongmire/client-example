@@ -20,6 +20,7 @@ class Loading extends Component {
 
     componentDidMount() {
         const {submission} = this.props;
+        
         let typeMap = {
             "oi":[submission], 
             "ocp":[submission, Object.assign({}, submission, {type:"oi"})]
@@ -33,7 +34,7 @@ class Loading extends Component {
 
         Promise.all(ratingPromises.map((s)=>(
             getRating(s)
-        ))).then((resp)=>{
+        ))).then((resp)=> {
 
             let ratings = {}
             ratingPromises.map((ratingSubmission, idx)=>{
@@ -51,7 +52,7 @@ class Loading extends Component {
                     
                     const emailPromises = [
                         sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-                        sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+                        // sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
                         sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
                     ]
 
@@ -62,7 +63,9 @@ class Loading extends Component {
                     alert("Submission saveSave not successful");
                 }
 
-            });
+            }).catch((e)=>{
+                alert("Not able to get rating.");
+            })
         
             this.props.handleSubmit(!resp[0].success, ratings);
         });

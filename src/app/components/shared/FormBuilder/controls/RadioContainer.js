@@ -17,15 +17,16 @@ class RadioContainer extends React.Component {
 
     this.onChangeHandler = this.onChangeHandler.bind(this)
     const name = this.props.data.name
+
     this.state = {
       value: isDefined(this.props.initialValues[name]) ? this.props.initialValues.name : null,
+      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       options: [].concat(this.props.data.attributes.options),
       isValid: null
     }
   }
 
   getValidationState() {
-
     // this bit of code acts as a circuit breaker
     // We want get validation to trigger a validation function and when results are back we need to call it again
     // But this breaks the loops
@@ -86,9 +87,10 @@ class RadioContainer extends React.Component {
       return (
           <Radio 
             className={this.props.data.name} 
-            key={index} 
+            key={index}
             onChange={this.onChangeHandler} 
             value={data.value}
+            disabled={this.state.disabled}
             name={`optionGroup_${this.props.data.questionId}`}>
             <span className="radioText">{data.text}</span>
           </Radio>

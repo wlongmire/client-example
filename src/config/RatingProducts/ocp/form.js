@@ -12,7 +12,7 @@ const ocpData = {
       "required": true,
       "inputType": "text",
       "inputFormat": "text",
-      "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless indemnification and additional insured status from the hired General Contractor"
+      "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless indemnification and additional insured status from the hired General Contractor"
     },
     {
       "questionId": "2",

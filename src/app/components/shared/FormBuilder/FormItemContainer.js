@@ -13,6 +13,7 @@ class FormItemContainer extends React.Component {
       visibleSupplementQuestions : []
     }
     this.initialValues = this.props.initialValues;
+    this.initialParams = this.props.initialParams;
 
     this.handleSupplementTrigger = this.handleSupplementTrigger.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
@@ -40,7 +41,7 @@ class FormItemContainer extends React.Component {
         let hidden = this.state.visibleSupplementQuestions.indexOf(item.questionId) === -1
 
         return (
-          <FormItemContainer 
+          <FormItemContainer
             hidden={hidden}
             key={index}
             data={item}
@@ -48,6 +49,7 @@ class FormItemContainer extends React.Component {
             supplementalForm={ true }
             validation={this.props.validation}
             initialValues={this.initialValues}
+            initialParams= {this.initialParams}
             handleFormChange={this.props.handleFormChange}
           />
         )
@@ -71,6 +73,7 @@ class FormItemContainer extends React.Component {
           handleSupplementTrigger={this.handleSupplementTrigger}
           handleFormChange={this.handleFormChange}
           validation={this.props.validation}
+          initialParams= {this.initialParams}
           initialValues={this.initialValues}/>
         { result }
       </div>
