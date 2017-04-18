@@ -16,7 +16,7 @@ const updatedData =  {
     {
       "questionId": "2",
       "name": "primaryInsuredAddressLabel",
-      "text": "What is the address of the Named Insured?",
+      "text": "What is the Named Insured's address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"insuredAddress"
@@ -139,7 +139,7 @@ const updatedData =  {
     {
       "questionId": "6",
       "name": "projectAddressLabel",
-      "text": "What is the address of the project?",
+      "text": "What is the Project Address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"projectAddress"

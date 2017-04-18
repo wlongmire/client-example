@@ -17,7 +17,7 @@ const ocpData = {
     {
       "questionId": "2",
       "name": "primaryInsuredAddressLabel",
-      "text": "What is the address of the Named Insured?",
+      "text": "What is the Named Insured's address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"insuredAddress"
@@ -110,7 +110,7 @@ const ocpData = {
      {
       "questionId": "10",
       "name": "nameInsuredAddressLabel",
-      "text": "What is the address of this project?",
+      "text": "What is the Project address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"projectAddress"
@@ -215,7 +215,7 @@ const ocpData = {
       "questionId": "8",
       "text": "When is the Expiration Date of the Contactor's GL Policy?",
       "name": "generalContractorExpirationDate",
-      "required": true,
+      "required": false,
       "inputType": "text",
       "inputFormat": "date"
     },
