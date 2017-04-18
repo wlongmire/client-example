@@ -68,7 +68,7 @@ async function getClearance(req, res) {
 						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
 					})
 				))
-				
+
 
 				businessMatchingService.getBusinessMatching(
 					submissions
@@ -317,7 +317,7 @@ async function generatePDFsInternal(submissionId) {
 	const submission = await submissionService.getSubmissionById(submissionId);
 	let pdfArray = [];
 
-	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind');
+	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind', submission.type);
 	let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
 	let excessQuote = await pdfService
 	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder},

@@ -14,6 +14,7 @@ var config = {
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
     ownersEdgeQuotationPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
+    ocpBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/OCPnpm r_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
