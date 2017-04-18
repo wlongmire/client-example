@@ -31,7 +31,6 @@ class Submissions extends Component {
 }
 
 function mapStateToProps(state){
-  console.log('STATE', state.submissions);
   return {
     user: state.user,
     submissions: state.submissions

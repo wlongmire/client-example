@@ -56,7 +56,7 @@ class Clearance extends Component {
 
       const { CHANGE_SUBMISSION } = constants
       const submission = Object.assign(this.state.input, {passedClearance:true, status:"SUBMISSION"});
-
+      
       this.props.dispatch({ type:CHANGE_SUBMISSION, submission })
       this.props.dispatch(push("/form"))
     } else {
@@ -84,6 +84,6 @@ class Clearance extends Component {
 
 export default connect((store)=>{
   return({
-    submissiom:store.app.submission
-  })
+    submission:store.app.submission
+  });
 })(Clearance);
