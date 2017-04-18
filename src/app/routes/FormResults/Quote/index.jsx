@@ -119,7 +119,7 @@ class Quote extends Component {
                 render={() => (
                     <div>
                         <QuoteBlock 
-                            title={"Here is what you would play with an Owner's Interest Policy"}
+                            title={"Here is what you would pay with an Owner's Interest Policy"}
                             className="oi upsell"
                             basePremium={ratings['oi'].premium}
                             totalPremium={ratings['oi'].totalPremium}
