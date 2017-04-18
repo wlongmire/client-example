@@ -95,7 +95,7 @@ class Quote extends Component {
 
                 <QuoteBlock 
                     title={ratingProduct.name}
-                    className={ratingProduct.type}
+                    className={classNames(ratingProduct.type, "primaryPricing")}
                     basePremium={rating.premium}
                     totalPremium={rating.totalPremium}
                     additionalCoverage={rating.additionalCoverage}
@@ -107,7 +107,7 @@ class Quote extends Component {
                 render={() => (
                     <QuoteBlock 
                         title="Excess"
-                        className="Excess"
+                        className="excess"
                         basePremium={rating.excessPremium}
                         totalPremium={rating.totalExcessPremium}
                         terrorismCoverage={rating.excessTerrorPremium}
