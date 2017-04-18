@@ -6,7 +6,7 @@ import { formatDollars } from 'app/utils/utilities';
 import * as actions from 'src/app/reducers/SubmissionView/actions';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Button, Panel } from 'react-bootstrap';
+import { Button, Panel, FormControl } from 'react-bootstrap';
 
 import mx from 'app/utils/MixpanelInterface';
 import constants from 'app/constants/app';
@@ -92,7 +92,9 @@ class SubmissionView extends Component{
     return (
       <div>
         <h3>Your Submissions</h3>
-
+        {/*<FormControl
+          type="date"
+        />*/}
         <BootstrapTable
           data={this.state.chartData}
           condensed={true}
