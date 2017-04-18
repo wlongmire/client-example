@@ -49,7 +49,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://beta.ownersedge.us',
+        url: 'http://dev.ownersedge.us',
         port: null
     },
 
@@ -58,7 +58,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://beta.ownersedge.us',
+        url: 'http://dev.ownersedge.us',
         port:  null
     }
 };
