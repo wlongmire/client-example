@@ -8,7 +8,7 @@ import { ButtonGroup, Button, Panel } from 'react-bootstrap';
 class Result extends Component {
   render() {
     const result = (this.props.result.success)?{
-      title: "This Submission Passed Clearance!",
+      title: "This Submission Has Passed Clearance!",
       subtitle: "You are the first to submit this insured for review. Now we can enter additional quote information.",
       buttonLabel: "Fill out Remaining Information"
     }:{
