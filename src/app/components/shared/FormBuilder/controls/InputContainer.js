@@ -2,6 +2,7 @@ import React from 'react';
 import DynamicNumber from 'react-dynamic-number';
 import isDefined from '../utils/isDefined';
 import classNames from 'classnames';
+import Cleave from 'cleave.js/dist/cleave-react';
 
 import {
   HelpBlock,
@@ -26,6 +27,7 @@ class InputContainer extends React.PureComponent {
 
     this.handleChange = this.handleChange.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
+    this.handleNumberChange = this.handleNumberChange.bind(this)
   }
 
   getValidationState() {
@@ -64,8 +66,18 @@ class InputContainer extends React.PureComponent {
   }
 
   handleChange(event) {
+    console.log('event', event);
+    console.log('event.target.value', event.target.value);
     this.setState({
       value: event.target.value
+    });
+    this.props.handleFormChange();
+  }
+
+  handleNumberChange(event) {
+    console.log('VALUE RAW VALUE', event.target.rawValue);
+    this.setState({
+      value: event.target.rawValue
     });
     this.props.handleFormChange();
   }
@@ -81,24 +93,35 @@ class InputContainer extends React.PureComponent {
     let inputFormat = this.props.data.inputFormat;
     if (inputFormat === 'currency') inputFormat = 'number';
     let input;
+    const maxDate = (inputFormat === 'date')? '2099-12-31': '';
+    if(['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
+      const initalValue = parseInt(this.state.value);
+      input = <Cleave className="input-numeral"
+                      id={this.props.data.name}
+                      className="form-control number-control"
+                      options={{numeral: true, numeralThousandsGroupStyle: 'thousand'}}
+                      onChange={this.handleNumberChange}/>;
 
-    input = (
-      <FormControl
-          placeholder={this.props.data.placeholder}
-          className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
-          disabled={this.state.disabled}
-          type={inputFormat}
-          onChange={this.handleChange}
-          componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
-          value={this.state.value}
-        />
+    } else {   
+      input = (
+        <FormControl
+            placeholder={this.props.data.placeholder}
+            className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
+            disabled={this.state.disabled}
+            type={inputFormat}
+            onChange={this.handleChange}
+            max={maxDate}
+            componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
+            value={this.state.value}
+          />
     );
+    }
 
     const overlay = (
       <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
         {input}
       </OverlayTrigger>
-    )
+    );
 
     const wrapper = (this.props.data.inputFormat === 'currency') ? <InputGroup><InputGroup.Addon>$</InputGroup.Addon>{overlay}</InputGroup> : overlay
     const helpBlock = (this.state.isValid === 'error') ? <HelpBlock>{this.props.data.validationMessage}</HelpBlock> : null;
