@@ -26,7 +26,7 @@ export default function(state) {
 
 
       if (document.getElementById(name).classList.contains('number-control')) {
-        val = val.replace(/,/g, '')
+        val = val.replace(/[,$]/g, '')
       }
 
       //get all select values

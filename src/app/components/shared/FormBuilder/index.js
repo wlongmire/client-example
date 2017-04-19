@@ -33,7 +33,9 @@ class FormBuilder extends React.Component {
 
     event.preventDefault();
     let values = getFormData(this.state);
+
     let flatValues = flatten(values);
+
     let allRequiredArray = [];
     for (const item of this.state.questions) {
 
