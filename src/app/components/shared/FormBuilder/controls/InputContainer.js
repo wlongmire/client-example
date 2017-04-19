@@ -27,7 +27,6 @@ class InputContainer extends React.PureComponent {
 
     this.handleChange = this.handleChange.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
-    this.handleNumberChange = this.handleNumberChange.bind(this)
   }
 
   getValidationState() {
@@ -66,21 +65,19 @@ class InputContainer extends React.PureComponent {
   }
 
   handleChange(event) {
-    console.log('event', event);
-    console.log('event.target.value', event.target.value);
     this.setState({
-      value: event.target.value
+      value: event.target.rawValue ? event.target.rawValue : event.target.value
     });
     this.props.handleFormChange();
   }
 
-  handleNumberChange(event) {
-    console.log('VALUE RAW VALUE', event.target.rawValue);
-    this.setState({
-      value: event.target.rawValue
-    });
-    this.props.handleFormChange();
-  }
+  // handleNumberChange(event) {
+  //   console.log('VALUE RAW VALUE', event.target.rawValue);
+  //   this.setState({
+  //     value: event.target.rawValue
+  //   });
+  //   this.props.handleFormChange();
+  // }
 
   render() {
     const tooltip = (<Tooltip 
@@ -91,17 +88,16 @@ class InputContainer extends React.PureComponent {
       </Tooltip>);
     
     let inputFormat = this.props.data.inputFormat;
-    if (inputFormat === 'currency') inputFormat = 'number';
+    
     let input;
     const maxDate = (inputFormat === 'date')? '2099-12-31': '';
     if(['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
-      const initalValue = parseInt(this.state.value);
+      const dollarPrefix = (this.props.data.inputFormat === 'currency') ? '$' : '';
       input = <Cleave className="input-numeral"
                       id={this.props.data.name}
                       className="form-control number-control"
-                      options={{numeral: true, numeralThousandsGroupStyle: 'thousand'}}
-                      onChange={this.handleNumberChange}/>;
-
+                      options={{numeral: true, numeralThousandsGroupStyle: 'thousand', prefix: dollarPrefix}}
+                      onChange={this.handleChange}/>;
     } else {   
       input = (
         <FormControl
@@ -123,13 +119,12 @@ class InputContainer extends React.PureComponent {
       </OverlayTrigger>
     );
 
-    const wrapper = (this.props.data.inputFormat === 'currency') ? <InputGroup><InputGroup.Addon>$</InputGroup.Addon>{overlay}</InputGroup> : overlay
     const helpBlock = (this.state.isValid === 'error') ? <HelpBlock>{this.props.data.validationMessage}</HelpBlock> : null;
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
         { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
 
-        {wrapper}
+        {overlay}
         {helpBlock}
 
        </FormGroup>
