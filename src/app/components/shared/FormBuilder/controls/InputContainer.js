@@ -65,20 +65,11 @@ class InputContainer extends React.PureComponent {
   }
 
   handleChange(event) {
-    if(event.target.rawValue) console.log('event.target.rawValue', event.target.rawValue);
     this.setState({
       value: event.target.rawValue ? event.target.rawValue : event.target.value
     });
     this.props.handleFormChange();
   }
-
-  // handleNumberChange(event) {
-  //   console.log('VALUE RAW VALUE', event.target.rawValue);
-  //   this.setState({
-  //     value: event.target.rawValue
-  //   });
-  //   this.props.handleFormChange();
-  // }
 
   render() {
     const tooltip = (<Tooltip 
