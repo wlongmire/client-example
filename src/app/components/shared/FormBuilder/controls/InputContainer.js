@@ -65,6 +65,7 @@ class InputContainer extends React.PureComponent {
   }
 
   handleChange(event) {
+    if(event.target.rawValue) console.log('event.target.rawValue', event.target.rawValue);
     this.setState({
       value: event.target.rawValue ? event.target.rawValue : event.target.value
     });
