@@ -110,7 +110,7 @@ export default async function getPDFData(token, pdfType) {
       glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) ? submission.generalContractorExpirationDate : '',
       gcSupervisingSubs: submission.otherSubcontractorsPaid == 'true' ? 'yes' : 'no',
       argoEmail: config.argoEmail,
-      willHaveOtherNamed: utilities.isDefined(submission.secondaryNameInsuredName) ? 'yes' : 'no',
+      willHaveOtherNamed: utilities.isDefined(submission.secondaryNameInsuredName) && submission.secondaryNameInsuredName.length > 1 ? 'yes' : 'no',
       otherRole: utilities.isDefined(submission.secondaryNameInsuredRole) ? submission.secondaryNameInsuredRole : 'No other Named Insured entities submitted',
       otherRelationship: utilities.isDefined(submission.secondaryNameInsuredRelationship) ? submission.secondaryNameInsuredRelationship : 'N/A',
       otherContractors: submission.otherSubcontractorsPaid == 'true' ? 'yes' : 'no',
