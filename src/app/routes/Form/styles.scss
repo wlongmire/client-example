@@ -76,10 +76,11 @@
     padding:3em;
   }
 
+  .questionBlocks {
+    margin-bottom: 1em;
+  }
+
   .questionSet {
-    margin: 10px 0;
-    border-bottom: 1px white solid;
-    padding:5px 0;
     
     .question {
         display:block;
@@ -88,6 +89,8 @@
         text-transform: capitalize;
         font-family: 'Lato';
         color: #62a6e0;
+        border-bottom: 2px solid;
+        padding-top: 1em;
     }
 
     .answer {
