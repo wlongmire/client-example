@@ -110,7 +110,7 @@ const ocpData = {
      {
       "questionId": "10",
       "name": "nameInsuredAddressLabel",
-      "text": "What is the Project address?",
+      "text": "What is the Project Address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"projectAddress"
