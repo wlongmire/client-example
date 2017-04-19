@@ -97,7 +97,12 @@ class InputContainer extends React.PureComponent {
       input = <Cleave className="input-numeral"
                       id={this.props.data.name}
                       className="form-control number-control"
-                      options={{numeral: true, numeralThousandsGroupStyle: 'thousand', prefix: dollarPrefix}}
+                      value={this.state.value}
+                      options={{
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: dollarPrefix,
+                        rawValueTrimPrefix: true}}
                       onChange={this.handleChange}/>;
     } else {   
       input = (
@@ -105,6 +110,7 @@ class InputContainer extends React.PureComponent {
             placeholder={this.props.data.placeholder}
             className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
             disabled={this.state.disabled}
+            id={this.props.data.name}
             type={inputFormat}
             onChange={this.handleChange}
             max={maxDate}
