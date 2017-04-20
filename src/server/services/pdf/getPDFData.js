@@ -157,7 +157,10 @@ export default async function getPDFData(token, pdfType) {
       nychaProject: submission.nycha == 'true' ? 'Yes': 'No',
       specificFloors: submission.specificFloors == 'true' ? 'Yes': 'No',
       sidewalkMaintaining: submission.sidewalkMaintaining,
-      anticipatedFinishDate: submission.anticipatedFinishDate
+      anticipatedFinishDate: submission.anticipatedFinishDate,
+      projectRequirements: submission.projectRequirements == 'true' ? 'Yes': 'No',
+      willHaveDemo: submission.exteriorDemo == 'true' ? 'Yes':'No',
+      willHaveOccupancy: submission.occupancy == 'true' ? 'Yes': 'No'
 
 
     }
