@@ -112,7 +112,7 @@ export default async function getPDFData(token, pdfType) {
       glLimit: `$${utilities.commifyNumber(submission.excessLimit)}`,
       argoEmail: config.argoEmail,
       willHaveOtherNamed: utilities.isDefined(submission.secondaryNameInsuredName) && submission.secondaryNameInsuredName.length > 1 ? 'yes' : 'no',
-      otherRole: utilities.isDefined(submission.secondaryNameInsuredRole) ? submission.secondaryNameInsuredRole : 'No other Named Insured entities submitted',
+      otherRole: utilities.isDefined(submission.secondaryNameInsuredRole) ? submission.secondaryNameInsuredRole : 'N/A',
       otherRelationship: utilities.isDefined(submission.secondaryNameInsuredRelationship) ? submission.secondaryNameInsuredRelationship : 'N/A',
       otherContractors: submission.otherSubcontractorsPaid == 'true' ? 'yes' : 'no',
       otherName: utilities.isDefined(submission.secondaryNameInsuredName) ? submission.secondaryNameInsuredName : 'No AI Entities Submitted',
@@ -122,23 +122,24 @@ export default async function getPDFData(token, pdfType) {
       additionalRelationship: utilities.isDefined(submission.additionalInsuredRelationship) ? submission.additionalInsuredRelationship : 'N/A',
       occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
       aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
-      occupancyBuildingAccessLimited: utilities.isDefined(submission.occupancyAccess) ? submission.occupancyAccess : '',
-      occupancySecurityCameras: utilities.isDefined(submission.occupancyCameras) ? submission.occupancyCameras : '',
+      occupancyAccess: utilities.isDefined(submission.occupancyAccess) ? submission.occupancyAccess : '',
+      occupancyCameras: utilities.isDefined(submission.occupancyCameras) ? submission.occupancyCameras : '',
       occupancyDoorman: utilities.isDefined(submission.occupancyDoorman) ? submission.occupancySecurityDoorman : '',
       occupancySecurityPersonnel: utilities.isDefined(submission.occupancySecurityPersonel) ? submission.occupancySecurityPersonel : '',
       occupancySeparateEntry: utilities.isDefined(submission.occupancySeparateEntry) ? submission.occupancySeparateEntry : '',
-      occupancySeparateStairwells: utilities.isDefined(submission.occupancyStairwells) ? submission.occupancyStairwells : '',
-      occupancyLossesInLastFiveYears: utilities.isDefined(submission.occupancylossIn5Years) ? submission.occupancylossIn5Years : '',
+      occupancyStairwells: utilities.isDefined(submission.occupancyStairwells) ? submission.occupancyStairwells : '',
+      occupancylossInFiveYears: utilities.isDefined(submission.occupancylossIn5Years) ? submission.occupancylossIn5Years : '',
       occupancySquareFootage: utilities.isDefined(submission.occupancySquareFootage) ? submission.occupancySquareFootage : '',
-      occupancyNumberOfUnits: utilities.isDefined(submission.occupancyUnits) ? submission.occupancyUnits : '',
+      occupancyUnits: utilities.isDefined(submission.occupancyUnits) ? submission.occupancyUnits : '',
+      occupancyCoverage: submission.occupancyCoverage == 'true' ? 'Yes' : 'No',
       occupancyType: utilities.isDefined(submission.occupancyType) ? submission.occupancyType : '',
-      demoDetailsPedestrianSafetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
-      demoDetailsDuration: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
-      demoDetailsCosts: utilities.isDefined(submission.exteriorDemoCost) ? submission.exteriorDemoCost : '',
-      demoDetailsSubcontractor: utilities.isDefined(submission.exteriorDemoSubcontractor) ? submission.exteriorDemoSubcontractor : '',
+      safetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
+      demoTerm: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
+      demoCosts: utilities.isDefined(submission.exteriorDemoCost) ? submission.exteriorDemoCost : '',
+      demoSubcontractor: utilities.isDefined(submission.exteriorDemoSubcontractor) ? submission.exteriorDemoSubcontractor : '',
       towerCraneUse: utilities.isDefined(submission.towerCraneUse) && submission.towerCraneUse == 'true' ? 'yes' : 'no',
-      workStartDate: utilities.isDefined(submission.workStartDate) ? submission.workStartDate : '',
-      whatsCompleted: utilities.isDefined(submission.workStartDateDescription) ? submission.workStartDateDescription : '',
+      workStartDate: utilities.isDefined(submission.workStartDate) ? submission.workStartDate.toISOString() : '',
+      workDescription: utilities.isDefined(submission.workStartDateDescription) ? submission.workStartDateDescription : '',
       brokerName: submission.broker.name,
       deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
       anticipatedFinishDate: utilities.isDefined(submission.anticipatedFinishDate) ? submission.anticipatedFinishDate : '',
@@ -153,14 +154,21 @@ export default async function getPDFData(token, pdfType) {
       contractorLimits: contractorLimits,
       verticalAddition: submission.verticalExpansion == 'true' ? 'Yes': 'No',
       overFourFloors: submission.exteriorWorkFourStories == 'true' ? 'Yes' : 'No',
-      servicingAgreement: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No',
+      multipleLocations: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No',
       nychaProject: submission.nycha == 'true' ? 'Yes': 'No',
       specificFloors: submission.specificFloors == 'true' ? 'Yes': 'No',
       sidewalkMaintaining: submission.sidewalkMaintaining,
       anticipatedFinishDate: submission.anticipatedFinishDate,
       projectRequirements: submission.projectRequirements == 'true' ? 'Yes': 'No',
       willHaveDemo: submission.exteriorDemo == 'true' ? 'Yes':'No',
-      willHaveOccupancy: submission.occupancy == 'true' ? 'Yes': 'No'
+      willHaveOccupancy: submission.occupancy == 'true' ? 'Yes': 'No',
+      site1Details:submission.otherSitesAdditional1 == 'true' ? `${submission.otherSiteAddress1} ${submission.otherSiteCity1}, ${submission.otherSiteState1} ${submission.otherSiteZipcode1}` : '',
+      site2Details:submission.otherSitesAdditional2 == 'true' ? `${submission.otherSiteAddress2} ${submission.otherSiteCity2}, ${submission.otherSiteState2} ${submission.otherSiteZipcode2}` : '',
+      site3Details:submission.otherSitesAdditional3 == 'true' ? `${submission.otherSiteAddress3} ${submission.otherSiteCity3}, ${submission.otherSiteState3} ${submission.otherSiteZipcode3}` : '',
+      site4Details:submission.otherSitesAdditional4 == 'true' ? `${submission.otherSiteAddress4} ${submission.otherSiteCity4}, ${submission.otherSiteState4} ${submission.otherSiteZipcode4}` : '',
+      generalComments: submission.generalComments,
+      greaterThanTwoNamed: submission.secondaryNameInsuredOther == 'true' ? 'Yes': 'No',
+      workStarted: submission.workStarted == 'true' ? 'Yes' : 'No'
 
 
     }
@@ -171,8 +179,36 @@ export default async function getPDFData(token, pdfType) {
       pdfData.hasAdditionalInsuredExist = true;
     }
 
+    if (submission.serviceOrMultiLocation == 'true') {
+      pdfData.multipleLocationsYes = true;
+    }
+
+    if (submission.contractorSameAllSites == 'true'){
+      pdfData.contractorSameAllSitesYes = true;
+    }
+
+    if (submission.workStarted == 'true') {
+      pdfData.workStartedYes = true;
+    }
+
+    if (submission.occupancy == 'true') {
+      pdfData.willHaveOccupancyYes = true;
+    }
+
+    if (submission.exteriorDemo == 'true') {
+      pdfData.willHaveDemoYes = true
+    }
+
     if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
       pdfData.marshBroker = true;
+    }
+
+    if (submission.specificFloors == 'true') {
+      pdfData.specificFloorsYes = true;
+    }
+
+    if (submission.sidewalkMaintaining == 'Other') {
+      pdfData.sidewalkMaintainingOther = true
     }
 
     if (submission.projectRequirements == 'true') {
