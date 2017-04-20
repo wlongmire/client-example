@@ -1,6 +1,5 @@
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import { formatDollars } from '../utils/utilities';
 
 import {
     applyMiddleware,

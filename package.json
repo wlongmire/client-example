@@ -17,6 +17,7 @@
     "bootstrap-sass": "^3.3.6",
     "chart.js": "^1.1.1",
     "classnames": "^2.2.5",
+    "cleave.js": "^0.7.15",
     "config": "^1.19.0",
     "connect-history-api-fallback": "^1.2.0",
     "cors": "^2.7.1",
