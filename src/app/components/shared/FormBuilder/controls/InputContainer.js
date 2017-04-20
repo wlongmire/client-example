@@ -95,18 +95,6 @@ class InputContainer extends React.PureComponent {
                         prefix: dollarPrefix,
                         rawValueTrimPrefix: true}}
                       onChange={this.handleChange}/>;
-    /*} else if (this.props.data.inputType === 'freeform'){
-
-      input = <FormControl
-                id={this.props.data.name}
-                placeholder={this.props.data.placeholder}
-                className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
-                disabled={this.state.disabled}
-                rows="3"
-                componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
-                onChange={this.handleChange}
-                value={this.state.value}
-              />;*/
     } else {
       const maxDate = (inputFormat === 'date')? '2099-12-31': '';
       input = (
