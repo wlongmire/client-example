@@ -12,7 +12,6 @@ import {
 } from 'react-bootstrap';
 
 import styles from './styles';
-import mx from 'app/utils/MixpanelInterface';
 
 class Header extends Component{
   constructor(props){

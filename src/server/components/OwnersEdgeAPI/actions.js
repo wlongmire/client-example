@@ -36,43 +36,55 @@ async function getClearance(req, res) {
 			const user = result.user;
 
 			const name = req.query.name || '';
-			const address = req.query.address || '';
-			const city = req.query.city || '';
-			const state = req.query.state || '';
-			const zipcode = req.query.zipcode || '';
 
-			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(state)])
+			const projectAddress = {
+				address:req.query.projectAddress || '',
+				city:req.query.projectCity || '',
+				state:req.query.projectState || '',
+				zipcode:req.query.projectZipcode || '',
+			}
+
+			const insuredAddress = {
+				address:req.query.insuredAddress || '',
+				city:req.query.insuredCity || '',
+				state:req.query.insuredState || '',
+				zipcode:req.query.insuredZipcode || '',
+			}
+
+			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
 				const submissions = resp[0].map(
 					(s)=>({
-						name:s.primaryInsuredName,
-						address: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
+						compName:	name,
+						compAddress:`${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${projectAddress.zipcode}`,
+						webName:	s.primaryInsuredName,
+						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
 					})
 				).concat(resp[1].map(
 					(s)=>({
-						name:(s.CUST_NAME),
-						address:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
+						compName:	name,
+						compAddress:`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
+						webName:	s.CUST_NAME,
+						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
 					})
-				)).filter((s)=>(
-					s.name && s.address
 				))
 
 				businessMatchingService.getBusinessMatching(
-					{name, address:`${address} ${city} ${state} ${zipcode}`},
 					submissions
 				).then((resp)=>{
-
 					return res.status(200).json({
 						success: resp.success,
 						matches: resp.matches
 					});
 				})
 				.catch(error => {
+					console.log(error)
+
 					return res.status(200).json({
-						success: false
+						success: false,
+						matches: []
 					});
 				})
-
 			})
 		}).catch(error => {
 			return res.status(403).json({
@@ -307,7 +319,7 @@ async function generatePDFsInternal(submissionId) {
 	const submission = await submissionService.getSubmissionById(submissionId);
 	let pdfArray = [];
 
-	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind');
+	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind', submission.type);
 	let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
 	let excessQuote = await pdfService
 	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder},

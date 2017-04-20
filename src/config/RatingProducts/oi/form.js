@@ -16,7 +16,7 @@ const updatedData =  {
     {
       "questionId": "2",
       "name": "primaryInsuredAddressLabel",
-      "text": "What is the address of the Named Insured?",
+      "text": "What is the Named Insured's address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"insuredAddress"
@@ -139,7 +139,7 @@ const updatedData =  {
     {
       "questionId": "6",
       "name": "projectAddressLabel",
-      "text": "What is the address of the project?",
+      "text": "What is the Project Address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"projectAddress"
@@ -407,7 +407,7 @@ const updatedData =  {
             "optionId": "1",
             "text": "Select",
             "value": "",
-            "supplementalquestionIds": []
+            "supplementalquestionIds": ["15_supplemental1"]
           },
           {
             "optionId": "2",
@@ -1062,11 +1062,11 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "16_supplemental1",
-      "text": "Please provide more details.",
+      "questionId": "15_supplemental1",
       "name": "sidewalkDetails",
-      "inputType": "text",
-      "inputFormat": "freeform",
+      "text": "Please provide details.",
+      "inputFormat": "text",
+      "inputType": "freeform",
       "required": false
     }
 

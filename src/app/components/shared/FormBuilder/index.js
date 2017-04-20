@@ -23,6 +23,7 @@ class FormBuilder extends React.Component {
     
     this.controlGroups = getControlGroups(this.state.questions);
     this.initialValues = flatten(this.props.initialValues || {});
+    this.initialParams = (this.props.initialParams || {});
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onFormChange = this.onFormChange.bind(this);
@@ -32,7 +33,9 @@ class FormBuilder extends React.Component {
 
     event.preventDefault();
     let values = getFormData(this.state);
+
     let flatValues = flatten(values);
+
     let allRequiredArray = [];
     for (const item of this.state.questions) {
 
@@ -54,7 +57,7 @@ class FormBuilder extends React.Component {
     let Validation = this.props.Validation || DefaultValidation;
     
     let result = [];
-    
+
     for (let group in controlGroups) {
       let formItemContainers = controlGroups[group].map((item, index) => {
 
@@ -68,6 +71,7 @@ class FormBuilder extends React.Component {
             supplementalQuestions={this.state.supplementalQuestions}
             handleFormChange={this.onFormChange}
             validation={new Validation(validationClosure)}
+            initialParams= {this.initialParams}
             initialValues= {this.initialValues}/>
         );
       });

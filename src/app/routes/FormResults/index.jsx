@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
-
+import mx from 'app/utils/MixpanelInterface';
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button, ButtonGroup } from 'react-bootstrap';
 import ToggleDisplay from 'components/shared/ToggleDisplay';
@@ -27,7 +27,7 @@ const STATUS = {
 
 class FormResults extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       quoteStatus: STATUS.LOADING,
@@ -37,9 +37,6 @@ class FormResults extends Component {
 
     this.handleLoadComplete = this.handleLoadComplete.bind(this);
     this.handleEmailStatus = this.handleEmailStatus.bind(this);
-  }
-
-  componentWillMount(){
   }
 
   componentDidMount(){
@@ -62,9 +59,30 @@ class FormResults extends Component {
     const {submission} = this.props;
 
     this.setState({
-      quoteStatus: (error)?STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
+      quoteStatus: (error) ? STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
       ratings
-    })
+    });
+
+    // mixpanel triggers
+    if (error) {
+      mx.customEvent(
+          "submission",
+          "error",
+          { "Type": this.props.submission }
+        );
+    } else if (ratings[submission.type].instantQuote) {
+      mx.customEvent(
+          "submission",
+          "quoted",
+          { "Type": this.props.submission.type }
+        );
+    } else {
+      mx.customEvent(
+          "submission",
+          "knockout",
+          { "Type": this.props.submission.type }
+        );
+    }
   }
 
   render() {

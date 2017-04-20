@@ -17,7 +17,7 @@ const ocpData = {
     {
       "questionId": "2",
       "name": "primaryInsuredAddressLabel",
-      "text": "What is the address of the Named Insured?",
+      "text": "What is the Named Insured's address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"insuredAddress"
@@ -110,7 +110,7 @@ const ocpData = {
      {
       "questionId": "10",
       "name": "nameInsuredAddressLabel",
-      "text": "What is the address of this project?",
+      "text": "What is the Project Address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"projectAddress"
@@ -199,7 +199,7 @@ const ocpData = {
       "questionId": "6",
       "text": "What is the name of the designated contractor?",
       "name": "generalContractor",
-      "required": false,
+      "required": true,
       "inputType": "text",
       "inputFormat": "text"
     },
@@ -215,7 +215,7 @@ const ocpData = {
       "questionId": "8",
       "text": "When is the Expiration Date of the Contactor's GL Policy?",
       "name": "generalContractorExpirationDate",
-      "required": true,
+      "required": false,
       "inputType": "text",
       "inputFormat": "date"
     },
@@ -224,7 +224,7 @@ const ocpData = {
       "name": "isSupervisingSubs",
       "text": "Will the named insured be involved with any supervision or oversight of the project?",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes":{
         "options": [
           {
@@ -312,7 +312,7 @@ const ocpData = {
       "name": "otherSubcontractorsPaid",
       "text": "Is the owner paying, contracting, or supervising any subcontractors other than GC?",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes":{
         "options": [
           {
@@ -373,9 +373,17 @@ const ocpData = {
         ]
       }
     },
-
     {
       "questionId": "20",
+      "name": "generalComments",
+      "text": "General Comments",
+      "inputFormat": "text",
+      "inputType": "freeform",
+      "required": false
+    },
+
+    {
+      "questionId": "21",
       "name": "nameInsuredAddressLabel",
       "text": "Please provide your contact info to receive your indication:",
       "inputFormat": "label",
@@ -385,7 +393,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20a",
+      "questionId": "21a",
       "name": "email",
       "inputType": "text",
       "inputFormat": "email",
@@ -396,7 +404,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20b",
+      "questionId": "21b",
       "name": "phone",
       "inputType": "text",
       "inputFormat": "text",

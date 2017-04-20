@@ -4,7 +4,7 @@ import handlebars from 'handlebars';
 import pdf from 'html-pdf';
 import { getPDFData } from './';
 
-export default async function generatePDF(token, type) {
+export default async function generatePDF(token, type, submissionType = '') {
    return new Promise(async (resolve, reject) => {
     try {
       let htmlUrl;
@@ -17,7 +17,11 @@ export default async function generatePDF(token, type) {
           htmlUrl = config.ownersEdgeQuotationPDFUrl
           break;
         case 'bind':
-          htmlUrl = config.ownersBindOrderPDFUrl
+          if (submissionType == 'ocp') {
+            htmlUrl = config.ocpBindOrderPDFUrl
+          } else {
+            htmlUrl = config.ownersBindOrderPDFUrl
+          }
           break;
         case 'excess':
           htmlUrl = config.excessPDFUrl

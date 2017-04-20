@@ -24,9 +24,27 @@
             }
         }
 
+        h4 {
+            font-size:1.4em;
+        }
+        
+        &.primaryPricing {
+            h4 {
+                color:white;
+            }
+
+            background-color:rgba(0, 0, 0, 0.28);
+        }
+
+        &.excess {
+            background-color:rgba(0, 0, 0, 0.28);
+        }
 
         &.upsell {
-            background-color:rgba(0, 0, 0, 0.28);
+            background-color:#08415c !important;
+        }
+
+        &.upsell, &.primaryPricing, &.excess {    
             padding:0.5em 1em 1em 1em;
         }
     }
@@ -83,7 +101,8 @@
 
 .content {
     margin:2em 0;
-
+    padding:0.5em 1em 1em 1em;
+    
     p, ul {
         font-family: "Lato";
         margin-bottom: 0.5em;
