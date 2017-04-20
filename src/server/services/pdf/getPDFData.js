@@ -109,6 +109,7 @@ export default async function getPDFData(token, pdfType) {
       gcCarrier: utilities.isDefined(submission.generalLiabilityCarrier) ? submission.generalLiabilityCarrier : '',
       glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) ? submission.generalContractorExpirationDate : '',
       gcSupervisingSubs: submission.otherSubcontractorsPaid == 'true' ? 'yes' : 'no',
+      glLimit: `$${utilities.commifyNumber(submission.excessLimit)}`,
       argoEmail: config.argoEmail,
       willHaveOtherNamed: utilities.isDefined(submission.secondaryNameInsuredName) && submission.secondaryNameInsuredName.length > 1 ? 'yes' : 'no',
       otherRole: utilities.isDefined(submission.secondaryNameInsuredRole) ? submission.secondaryNameInsuredRole : 'No other Named Insured entities submitted',
@@ -155,8 +156,9 @@ export default async function getPDFData(token, pdfType) {
       servicingAgreement: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No',
       nychaProject: submission.nycha == 'true' ? 'Yes': 'No',
       specificFloors: submission.specificFloors == 'true' ? 'Yes': 'No',
-      sidewalkMaintaining: submission.sidewalkMaintaining,
-      anticipatedFinishDate: submission.anticipatedFinishDate
+      sidewalkMaintaining: submission.sidewalkMaintaining == 'true' ? 'Yes': 'No',
+      anticipatedFinishDate: submission.anticipatedFinishDate,
+
 
     }
     if (submission.secondaryNameInsuredOther == 'true') {
