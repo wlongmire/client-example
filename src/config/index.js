@@ -4,7 +4,7 @@ var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'jbuelow@colonyspecialty.com',
+    argoEmail: 'warrenlongmire@gmail.com',
     sgsEmail: 'warren.longmire@argogroupus.com',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
@@ -50,7 +50,11 @@ var config = {
     app: {},
 
     server: {
+<<<<<<< HEAD
         url: 'http://beta.ownersedge.us',
+=======
+        url: 'http://localhost',
+>>>>>>> ak_fix_8
         port: null
     },
 
@@ -59,7 +63,11 @@ var config = {
     },
 
     apiserver: {
+<<<<<<< HEAD
         url: 'http://beta.ownersedge.us',
+=======
+        url: 'http://localhost',
+>>>>>>> ak_fix_8
         port:  null
     }
 };
