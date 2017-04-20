@@ -109,7 +109,8 @@ const submissionSchema = new mongoose.Schema({
   serviceOrMultiLocation: String,
   exteriorWorkFourStories: String,
   servicingSeveralLocations: String,
-  generalContractorExpirationDate: Date
+  generalContractorExpirationDate: Date,
+  sidewalkDetails: String
 
 }, {timestamps: true});
 
