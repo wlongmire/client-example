@@ -156,8 +156,8 @@ export default async function getPDFData(token, pdfType) {
       servicingAgreement: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No',
       nychaProject: submission.nycha == 'true' ? 'Yes': 'No',
       specificFloors: submission.specificFloors == 'true' ? 'Yes': 'No',
-      sidewalkMaintaining: submission.sidewalkMaintaining == 'true' ? 'Yes': 'No',
-      anticipatedFinishDate: submission.anticipatedFinishDate,
+      sidewalkMaintaining: submission.sidewalkMaintaining,
+      anticipatedFinishDate: submission.anticipatedFinishDate
 
 
     }
