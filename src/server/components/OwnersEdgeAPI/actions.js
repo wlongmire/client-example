@@ -56,19 +56,18 @@ async function getClearance(req, res) {
 				const submissions = resp[0].map(
 					(s)=>({
 						compName:	name,
-						compAddress: `${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${s.projectAddress.zipcode}`,
+						compAddress:`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
 						webName:	s.primaryInsuredName,
 						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
 					})
 				).concat(resp[1].map(
 					(s)=>({
 						compName:	name,
-						compAddress:	`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
+						compAddress:`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
 						webName:	s.CUST_NAME,
 						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
 					})
 				))
-
 
 				businessMatchingService.getBusinessMatching(
 					submissions
@@ -79,8 +78,11 @@ async function getClearance(req, res) {
 					});
 				})
 				.catch(error => {
+					console.log(error)
+
 					return res.status(200).json({
-						success: false
+						success: false,
+						matches: []
 					});
 				})
 			})
