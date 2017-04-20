@@ -50,11 +50,7 @@ var config = {
     app: {},
 
     server: {
-<<<<<<< HEAD
-        url: 'http://beta.ownersedge.us',
-=======
         url: 'http://localhost',
->>>>>>> ak_fix_8
         port: null
     },
 
@@ -63,11 +59,7 @@ var config = {
     },
 
     apiserver: {
-<<<<<<< HEAD
-        url: 'http://beta.ownersedge.us',
-=======
         url: 'http://localhost',
->>>>>>> ak_fix_8
         port:  null
     }
 };
