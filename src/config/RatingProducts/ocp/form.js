@@ -372,9 +372,16 @@ const ocpData = {
         ]
       }
     },
-
-    {
+    {		
       "questionId": "20",
+      "name": "generalComments",		
+      "text": "General Comments",		
+      "inputFormat": "text",		
+      "inputType": "freeform",		
+      "required": false		
+    },
+    {
+      "questionId": "21",
       "name": "nameInsuredAddressLabel",
       "text": "Please provide your contact info to receive your indication:",
       "inputFormat": "label",
@@ -384,7 +391,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20a",
+      "questionId": "21a",
       "name": "email",
       "inputType": "text",
       "inputFormat": "email",
@@ -395,7 +402,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20b",
+      "questionId": "21b",
       "name": "phone",
       "inputType": "text",
       "inputFormat": "text",
