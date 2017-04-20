@@ -82,7 +82,7 @@ class InputContainer extends React.PureComponent {
     let inputFormat = this.props.data.inputFormat;
     
     let input;
-    const maxDate = (inputFormat === 'date')? '2099-12-31': '';
+    
     if(['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
       const dollarPrefix = (this.props.data.inputFormat === 'currency') ? '$' : '';
       input = <Cleave className="input-numeral"
@@ -95,7 +95,8 @@ class InputContainer extends React.PureComponent {
                         prefix: dollarPrefix,
                         rawValueTrimPrefix: true}}
                       onChange={this.handleChange}/>;
-    } else {   
+    } else {
+      const maxDate = (inputFormat === 'date')? '2099-12-31': '';
       input = (
         <FormControl
             placeholder={this.props.data.placeholder}
@@ -108,7 +109,7 @@ class InputContainer extends React.PureComponent {
             componentClass={(this.props.data.inputType === 'freeform') ? 'textarea' : 'input'}
             value={this.state.value}
           />
-    );
+        );
     }
 
     const overlay = (
