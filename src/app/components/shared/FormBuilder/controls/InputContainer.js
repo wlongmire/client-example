@@ -65,9 +65,18 @@ class InputContainer extends React.PureComponent {
   }
 
   handleChange(event) {
-    this.setState({
-      value: event.target.rawValue ? event.target.rawValue : event.target.value
-    });
+    let value;
+
+    switch (this.props.data.inputFormat) {
+      case("currency"):
+      case("number"):
+        value = event.target.rawValue
+        break;
+      default:
+        value = event.target.value
+    }
+
+    this.setState({ value });
     this.props.handleFormChange();
   }
 
@@ -87,13 +96,15 @@ class InputContainer extends React.PureComponent {
       const dollarPrefix = (this.props.data.inputFormat === 'currency') ? '$' : '';
       input = <Cleave className="input-numeral"
                       id={this.props.data.name}
-                      className="form-control number-control"
+                      className={classNames("form-control", "number-control", {'filled':this.state.value}, {disabled:this.state.disabled})}
                       value={this.state.value}
-                      options={{
-                        numeral: true,
-                        numeralThousandsGroupStyle: 'thousand',
-                        prefix: dollarPrefix,
-                        rawValueTrimPrefix: true}}
+                      options={
+                        {
+                          numeral: true,
+                          numeralThousandsGroupStyle: 'thousand',
+                          prefix: dollarPrefix,
+                          rawValueTrimPrefix: true}
+                        }
                       onChange={this.handleChange}/>;
     } else {
       const maxDate = (inputFormat === 'date')? '2099-12-31': '';
