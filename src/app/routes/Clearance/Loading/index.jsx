@@ -22,7 +22,7 @@ class Loading extends Component {
                 this.props.input.insuredAddress
             ]
         }).then((resp)=> {
-            this.props.handleSubmit(false, {success:(resp.matches.length === 0), matches:resp.matches});
+            this.props.handleSubmit(!resp.success, {success:(resp.matches.length === 0), matches:resp.matches});
         })
     }
 
