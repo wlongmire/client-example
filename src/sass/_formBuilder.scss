@@ -60,12 +60,12 @@
       transition: background-color 1s;
 
       &.filled{
-        background-color:#FAFFBD;
+        background-color:#FAFFBD !important;
         color:black;
       }
 
       &.disabled {
-        background-color: bfbfbf;
+        background-color: #bfbfbf !important;
         border: 0;
         cursor: default;
       }
