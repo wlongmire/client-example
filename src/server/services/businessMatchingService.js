@@ -32,6 +32,8 @@ function getBusinessMatching(submissions) {
       "webAdd":     cleanInput(s.webAdd)
     }))
 
+    
+
     const matches = _.sortBy(inputs.map((s, idx)=> ({
         name: s.webName,
         compName:s.compName,
@@ -43,8 +45,8 @@ function getBusinessMatching(submissions) {
     ), ["nameProb", "addressProb"])
     .reverse()
     .filter((s)=>(s.nameProb > 0.9 && s.addressProb > 0.9))
-    .slice(0,3)
-
+    .slice(0,5)
+    
     resolve({
       success:true,
       matches

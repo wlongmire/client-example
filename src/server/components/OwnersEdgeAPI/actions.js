@@ -56,7 +56,7 @@ async function getClearance(req, res) {
 				const submissions = resp[0].map(
 					(s)=>({
 						compName:	name,
-						compAddress:`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
+						compAddress:`${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${projectAddress.zipcode}`,
 						webName:	s.primaryInsuredName,
 						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
 					})
