@@ -153,12 +153,15 @@ export default async function getPDFData(token, pdfType) {
       verticalAddition: submission.verticalExpansion == 'true' ? 'Yes': 'No',
       overFourFloors: submission.exteriorWorkFourStories == 'true' ? 'Yes' : 'No',
       servicingAgreement: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No',
-      nychaProject: submission.nycha == 'true' ? 'Yes': 'No'
+      nychaProject: submission.nycha == 'true' ? 'Yes': 'No',
+      specificFloors: submission.specificFloors == 'true' ? 'Yes': 'No',
+      sidewalkMaintaining: submission.sidewalkMaintaining,
+      anticipatedFinishDate: submission.anticipatedFinishDate
+
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
     }
-
     if (submission.additionalInsuredOther == 'true' ) {
       pdfData.hasAdditionalInsuredExist = true;
     }
