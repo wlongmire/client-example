@@ -13,7 +13,6 @@ const submissionSchema = new mongoose.Schema({
   specificFloors: String,
   secondaryInsured: String,
   additionalInsured: String,
-  projectTerm: String,
   totalCost: String,
   towerCraneUse: String,
   generalContractorKnown: String,
