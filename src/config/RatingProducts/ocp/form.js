@@ -75,19 +75,19 @@ const ocpData = {
     },
     {
       "questionId": "3",
-      "text": "What is the term of the project, in months?",
-      "name": "projectTerm",
-      "required": true,
-      "inputType": "number",
-      "inputFormat": "number"
-    },
-    {
-      "questionId": "4",
       "text": "What is the total cost of this project?",
       "name": "totalCost",
       "required": true,
       "inputType": "text",
       "inputFormat": "currency"
+    },
+    {
+      "questionId": "4",
+      "text": "What is the anticipated start date of project?",
+      "name": "anticipatedStartDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
     },
     {
       "questionId": "5",
@@ -106,7 +106,6 @@ const ocpData = {
       "inputType": "text",
       "inputFormat": "currency"
      },
-
      {
       "questionId": "10",
       "name": "nameInsuredAddressLabel",
@@ -195,7 +194,7 @@ const ocpData = {
         ]
       }
     },
-     {
+    {
       "questionId": "6",
       "text": "What is the name of the designated contractor?",
       "name": "generalContractor",
@@ -373,9 +372,16 @@ const ocpData = {
         ]
       }
     },
-
-    {
+    {		
       "questionId": "20",
+      "name": "generalComments",		
+      "text": "General Comments",		
+      "inputFormat": "text",		
+      "inputType": "freeform",		
+      "required": false		
+    },
+    {
+      "questionId": "21",
       "name": "nameInsuredAddressLabel",
       "text": "Please provide your contact info to receive your indication:",
       "inputFormat": "label",
@@ -385,7 +391,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20a",
+      "questionId": "21a",
       "name": "email",
       "inputType": "text",
       "inputFormat": "email",
@@ -396,7 +402,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20b",
+      "questionId": "21b",
       "name": "phone",
       "inputType": "text",
       "inputFormat": "text",

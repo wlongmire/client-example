@@ -217,13 +217,20 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "7",
-      "text": "What is the term of the project, in months?",
-      "name": "projectTerm",
-
-      "inputType": "number",
-      "inputFormat": "number",
-      "required": true
+      "questionId": "7a",
+      "text": "What is the anticipated start date of project?",
+      "name": "anticipatedStartDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+    {
+      "questionId": "7b",
+      "text": "What is the anticipated finish date of project?",
+      "name": "anticipatedFinishDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
     },
     {
       "questionId": "8",
@@ -407,7 +414,7 @@ const updatedData =  {
             "optionId": "1",
             "text": "Select",
             "value": "",
-            "supplementalquestionIds": []
+            "supplementalquestionIds": ["15_supplemental1"]
           },
           {
             "optionId": "2",
@@ -1062,11 +1069,11 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "16_supplemental1",
-      "text": "Please provide more details.",
+      "questionId": "15_supplemental1",
       "name": "sidewalkDetails",
-      "inputType": "text",
-      "inputFormat": "freeform",
+      "text": "Please provide details.",
+      "inputFormat": "text",
+      "inputType": "freeform",
       "required": false
     }
 
