@@ -167,7 +167,7 @@ export default async function getPDFData(token, pdfType) {
       site2Details:submission.otherSitesAdditional2 == 'true' ? `${submission.otherSiteAddress2} ${submission.otherSiteCity2}, ${submission.otherSiteState2} ${submission.otherSiteZipcode2}` : '',
       site3Details:submission.otherSitesAdditional3 == 'true' ? `${submission.otherSiteAddress3} ${submission.otherSiteCity3}, ${submission.otherSiteState3} ${submission.otherSiteZipcode3}` : '',
       site4Details:submission.otherSitesAdditional4 == 'true' ? `${submission.otherSiteAddress4} ${submission.otherSiteCity4}, ${submission.otherSiteState4} ${submission.otherSiteZipcode4}` : '',
-      generalComments: submission.isDefined(submission.generalComments) ? submission.generalComments : '',
+      generalComments: utilities.isDefined(submission.generalComments) ? submission.generalComments : '',
       greaterThanTwoNamed: submission.secondaryNameInsuredOther == 'true' ? 'Yes': 'No',
       workStarted: submission.workStarted == 'true' ? 'Yes' : 'No'
 
