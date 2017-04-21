@@ -52,17 +52,17 @@ function getBusinessMatching(submissions) {
   })
 }
 
-function getBusinessMatchingHercules(key, compare) {
+function getBusinessMatchingHercules(submissions) {
   return new Promise((resolve, reject) => {
 
     var params = {
       "authToken": "1231213",
       "functionality": "clearanceMatching",
       "input": [{
-        "compName": "Argo Group right in Soho", 
-        "compAddress": "600 Broadway Street, 10019", 
-        "webName": "Argo Group on top of Soho | ArgoGroup on Mars | Argo Group right in Soho", 
-        "webAddress": "600 Broadway Street, 10019 | 600 Houston, NY | 600 Broadway Street, 10019"
+        "compName":     cleanInput(submissions[0].compName), 
+        "compAddress":  cleanInput(submissions[0].compAddress),
+        "webName":      submissions.reduce( (result, s)=> (`${result} | ${cleanInput(s.webName)}`), "" ).slice(3),
+        "webAddress":   submissions.reduce( (result, s)=> (`${result} | ${cleanInput(s.webAddress)}`), "" ).slice(3)
       }]
     }
 
@@ -70,38 +70,20 @@ function getBusinessMatchingHercules(key, compare) {
         method:"POST",
         uri:"http://35.167.95.103:7070/SmartSearch/getHerculesData",
         body:JSON.stringify(params)
-    };
+    }
 
     return rp(options).then((resp)=>{
-
-      console.log(resp)
-      resolve({ success:true, matches:[] })
+      const respConverted = JSON.parse(resp)
+      
+      resolve({ 
+        success:respConverted.success,
+        matches:respConverted.response
+      })
 
     }, (error) => {
+      resolve({ success:false, matches:[] })
     });
     
-
-    // const inputs = compare.map((c)=>({
-    //   "compName":key.name, "compAdd":key.address,
-    //   "webName":c.name, "webAdd":c.address
-    // }))
-
-    // const matches = _.sortBy(inputs.map((m)=>({
-    //   name: m.webName,
-    //   compName:m.compName,
-    //   address: m.webAdd,
-    //   compAddress:m.compAdd,
-    //   nameProb: matcher(`${m.compName}`, `${m.webName}`),
-    //   addressProb: matcher(`${m.compAdd}`, `${m.webAdd}`)
-    // })), ["nameProb", "addressProb"])
-    // .reverse()
-    // .filter((s)=>(s.nameProb > 0.9 && s.addressProb > 0.9))
-    // .slice(0,3)
-
-    // resolve({
-    //   success:true,
-    //   matches
-    // })
   })
 }
 
