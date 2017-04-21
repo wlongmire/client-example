@@ -217,13 +217,20 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "7",
-      "text": "What is the term of the project, in months?",
-      "name": "projectTerm",
-
-      "inputType": "number",
-      "inputFormat": "number",
-      "required": true
+      "questionId": "7a",
+      "text": "What is the anticipated start date of project?",
+      "name": "anticipatedStartDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+    {
+      "questionId": "7b",
+      "text": "What is the anticipated finish date of project?",
+      "name": "anticipatedFinishDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
     },
     {
       "questionId": "8",
