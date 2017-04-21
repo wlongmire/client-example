@@ -8,7 +8,7 @@ import * as emailService from '../../services/email';
 import  * as submissionService  from  '../../services/submission';
 import * as pdfService from '../../services/pdf';
 
-import { edgeSubmissionService, businessMatchingService } from '../../services'
+import { edgeSubmissionService, businessMatchingService, getBusinessMatchingHercules } from '../../services'
 import {
   utilities
 } from '../../utils'
@@ -69,7 +69,7 @@ async function getClearance(req, res) {
 					})
 				))
 
-				businessMatchingService.getBusinessMatching(
+				businessMatchingService.getBusinessMatchingHercules(
 					submissions
 				).then((resp)=>{
 					return res.status(200).json({

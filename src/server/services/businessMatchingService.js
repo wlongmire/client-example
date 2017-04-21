@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import matcher from 'jaro-winkler';
-import request from 'request-promise';
+import rp from 'request-promise';
 
 function cleanInput(input) {
   const commonWords = [
@@ -31,8 +31,6 @@ function getBusinessMatching(submissions) {
       "webName":    cleanInput(s.webName), 
       "webAdd":     cleanInput(s.webAdd)
     }))
-
-    
 
     const matches = _.sortBy(inputs.map((s, idx)=> ({
         name: s.webName,
@@ -69,20 +67,19 @@ function getBusinessMatchingHercules(key, compare) {
     }
 
     var options = {
-        method: 'POST',
-        uri: 'http://35.167.95.103:7070/SmartSearch/getHerculesData',
-        body: params,
-        headers: {
-          "Content-Type":"application/json"
-        }
+        method:"POST",
+        uri:"http://35.167.95.103:7070/SmartSearch/getHerculesData",
+        body:JSON.stringify(params)
     };
 
-    request(options).then((resp)=>{
-      resolve({
-        success:true,
-        matches:[]
-      })
+    return rp(options).then((resp)=>{
+
+      console.log(resp)
+      resolve({ success:true, matches:[] })
+
+    }, (error) => {
     });
+    
 
     // const inputs = compare.map((c)=>({
     //   "compName":key.name, "compAdd":key.address,
