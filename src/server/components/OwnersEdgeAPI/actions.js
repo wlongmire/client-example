@@ -104,7 +104,7 @@ async function getClearance(req, res) {
 
 					results = _.sortBy(results,['match', 'prob'])
 								.reverse()
-								.filter((s)=>(s.match && s.prob > 0.6))
+								.filter((s)=>(s.match))
 								.slice(0,5)
 
 					return res.status(200).json({

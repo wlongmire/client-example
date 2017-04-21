@@ -71,8 +71,6 @@ function getBusinessMatchingHercules(submissions) {
         uri:"http://35.167.95.103:7070/SmartSearch/getHerculesData",
         body:JSON.stringify(params)
     }
-
-    console.log(submissions)
     
     return rp(options).then((resp)=>{
       const respConverted = JSON.parse(resp)
