@@ -226,6 +226,14 @@ export default async function getPDFData(token, pdfType) {
       pdfData.willHaveDangerous = true;
     }
 
+    if (utilities.isDefined(submission.generalLiabilityCarrier) && submission.generalLiabilityCarrier.length > 0 ) {
+      pdfData.gcCarrierListed = true
+    }
+
+    if (utilities.isDefined(submission.generalContractorExpirationDate) && submission.generalContractorExpirationDate != null) {
+      pdfData.gcExpirationDateListed = true
+    }
+
     console.log(pdfData);
     return pdfData;
   } catch (err) {
