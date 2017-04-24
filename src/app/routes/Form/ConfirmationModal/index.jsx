@@ -48,7 +48,10 @@ const ConfirmationModal = React.createClass({
     const flattenedFormItems = form.questions.concat(form.supplementalQuestions);
     const flattenedSubmission = flattenObj(submission)
     const controlGroups = getControlGroups(flattenedFormItems)
-    
+
+    // console.log(flattenedFormItems)
+    // console.log(flattendSubmission)
+
     let results = []
 
     Object.keys(controlGroups).map((key)=>{
