@@ -190,6 +190,14 @@ export default async function getPDFData(token, pdfType) {
       pdfData.hasAdditionalInsuredExist = true;
     }
 
+    if (utilities.isDefined(submission.secondaryNameInsuredName) && submission.secondaryNameInsuredName.length > 0) {
+      pdfData.willHaveOtherNamedInsured = true
+    }
+
+    if (utilities.isDefined(submission.additionalInsuredName) && submission.additionalInsuredName.length > 0) {
+      pdfData.willHaveAdditionalInsured = true
+    }
+
     if (submission.servicingSeveralLocations == 'true') {
       pdfData.multipleLocationsYes = true;
     }
@@ -232,6 +240,10 @@ export default async function getPDFData(token, pdfType) {
 
     if (utilities.isDefined(submission.generalContractorExpirationDate) && submission.generalContractorExpirationDate != null) {
       pdfData.gcExpirationDateListed = true
+    }
+
+    if (submission.generalContractorKnown == 'true') {
+      pdfData.generalContractorKnown = true
     }
 
     console.log(pdfData);
