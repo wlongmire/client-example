@@ -10,14 +10,26 @@ export default async function getPDFData(token, pdfType) {
 
     let aggregateLimit;
     let halvedCost = Math.ceil(((parseInt(submission.totalCost) / 2) * 1000000) / 1000000);
-
-    if (halvedCost < 5000000) {
-      aggregateLimit = 5000000
-    } else if (aggregateLimit > 50000000) {
-      aggregateLimit = 50000000
-    } else {
-      aggregateLimit = halvedCost;
+    switch (submission.insuredState) {
+      case 'New York':
+        if (halvedCost < 5000000) {
+          aggregateLimit = 5000000
+        } else if (aggregateLimit > 50000000) {
+          aggregateLimit = 50000000
+        } else {
+          aggregateLimit = halvedCost;
+        }
+        break;
+      default:
+        if (halvedCost < 1000000) {
+          aggregateLimit = 0
+        } else if (aggregateLimit > 50000000) {
+          aggregateLimit = 50000000
+        } else {
+          aggregateLimit = halvedCost;
+        }
     }
+
     let genAggLimit;
     let occAggLimit;
     switch(submission.type){
