@@ -197,7 +197,7 @@ const ocpData = {
     {
       "questionId": "6",
       "text": "What is the name of the designated contractor?",
-      "name": "generalContractor",
+      "name": "generalContractorName",
       "required": false,
       "inputType": "text",
       "inputFormat": "text"
