@@ -207,7 +207,7 @@ const ocpData = {
       "questionId": "7",
       "text": "Who is the GL Carrier of Contractor?",
       "name": "generalLiabilityCarrier",
-      "required": true,
+      "required": false,
       "inputType": "text",
       "inputFormat": "text"
     },
