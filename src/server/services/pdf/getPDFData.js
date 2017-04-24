@@ -135,7 +135,7 @@ export default async function getPDFData(token, pdfType) {
       occupancylossInFiveYears: submission.occupancylossIn5Years == 'true' ? 'Yes' : 'No',
       occupancySquareFootage: utilities.isDefined(submission.occupancySquareFootage) ? submission.occupancySquareFootage : '',
       occupancyUnits: utilities.isDefined(submission.occupancyUnits) ? submission.occupancyUnits : '',
-      occupancyCoverage: submission.occupancyCoverage == 'true' ? 'Yes' : 'No',
+      occupancyCoverage: submission.occupancyCoverageDesired == 'true' ? 'Yes' : 'No',
       occupancyType: utilities.isDefined(submission.occupancyType) ? submission.occupancyType : '',
       safetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
       demoTerm: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
