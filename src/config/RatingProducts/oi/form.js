@@ -217,6 +217,27 @@ const updatedData =  {
       }
     },
     {
+      "questionId": "30",
+      "text": "Does the project include the addition of any stories or vertical expansion?",
+      "name": "verticalExpansion",
+      "inputType": "radio",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
       "questionId": "7a",
       "text": "What is the anticipated start date of project?",
       "name": "anticipatedStartDate",
