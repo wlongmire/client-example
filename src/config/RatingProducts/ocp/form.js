@@ -77,7 +77,7 @@ const ocpData = {
 
       "questionId": "9",
       "text": "What are the Excess limits of the Contractor's primary Policy?",
-      "name": "excessLimit",
+      "name": "generalContractorAmount",
       "required": false,
       "inputType": "text",
       "inputFormat": "currency"
@@ -164,7 +164,7 @@ const ocpData = {
       "inputType": "text",
       "inputFormat": "date"
     },
-    
+
     {
       "questionId": "13",
       "text": "What is the scope of the work for this project?",
@@ -373,13 +373,13 @@ const ocpData = {
         ]
       }
     },
-    {		
+    {
       "questionId": "20",
-      "name": "generalComments",		
-      "text": "General Comments",		
-      "inputFormat": "text",		
-      "inputType": "freeform",		
-      "required": false		
+      "name": "generalComments",
+      "text": "General Comments",
+      "inputFormat": "text",
+      "inputType": "freeform",
+      "required": false
     },
     {
       "questionId": "21",
