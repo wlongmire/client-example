@@ -1018,10 +1018,10 @@ const updatedData =  {
     },
     {
       "questionId": "13_supplemental3",
-      "text": "Total const spent to date?",
+      "text": "Total spent to date?",
       "name": "totalSpent",
       "inputType": "number",
-      "inputFormat": "number",
+      "inputFormat": "currency",
       "required": false,
       "attributes": {
         "controlGroup":"termDetails"
