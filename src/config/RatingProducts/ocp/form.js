@@ -74,34 +74,10 @@ const ocpData = {
       }
     },
     {
-      "questionId": "3",
-      "text": "What is the total cost of this project?",
-      "name": "totalCost",
-      "required": true,
-      "inputType": "text",
-      "inputFormat": "currency"
-    },
-    {
-      "questionId": "4",
-      "text": "What is the anticipated start date of project?",
-      "name": "anticipatedStartDate",
-      "required": true,
-      "inputType": "text",
-      "inputFormat": "date"
-    },
-    {
-      "questionId": "5",
-      "text": "What is the anticipated finish date of project?",
-      "name": "anticipatedFinishDate",
-      "required": true,
-      "inputType": "text",
-      "inputFormat": "date"
-    },
-    {
 
       "questionId": "9",
       "text": "What are the Excess limits of the Contractor's primary Policy?",
-      "name": "excessLimit",
+      "name": "generalContractorAmount",
       "required": false,
       "inputType": "text",
       "inputFormat": "currency"
@@ -165,6 +141,31 @@ const ocpData = {
       }
     },
     {
+      "questionId": "3",
+      "text": "What is the total cost of this project?",
+      "name": "totalCost",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "currency"
+    },
+    {
+      "questionId": "4",
+      "text": "What is the anticipated start date of project?",
+      "name": "anticipatedStartDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+    {
+      "questionId": "5",
+      "text": "What is the anticipated finish date of project?",
+      "name": "anticipatedFinishDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+
+    {
       "questionId": "13",
       "text": "What is the scope of the work for this project?",
       "name": "projectScope",
@@ -197,7 +198,7 @@ const ocpData = {
     {
       "questionId": "6",
       "text": "What is the name of the designated contractor?",
-      "name": "generalContractor",
+      "name": "generalContractorName",
       "required": false,
       "inputType": "text",
       "inputFormat": "text"
@@ -205,10 +206,56 @@ const ocpData = {
     {
       "questionId": "7",
       "text": "Who is the GL Carrier of Contractor?",
-      "name": "generalContractorCarrier",
-      "required": true,
+      "name": "generalLiabilityCarrier",
+      "required": false,
       "inputType": "text",
       "inputFormat": "text"
+    },
+    {
+      "questionId": "16",
+      "name": "limitsRequested",
+      "text": "What GL limits are being requested for this OCP?",
+      "inputType": "dropdown-single",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Select",
+            "value": ""
+          },
+          {
+            "optionId": "2",
+            "text": "1m/2m",
+            "value": "12"
+          },
+          {
+            "optionId": "3",
+            "text": "2m/2m",
+            "value": "22"
+          },
+          {
+            "optionId": "4",
+            "text": "2m/4m",
+            "value": "24"
+          },
+          {
+            "optionId": "5",
+            "text": "3m/3m",
+            "value": "33"
+          },
+          {
+            "optionId": "6",
+            "text": "4m/4m",
+            "value": "44"
+          },
+          {
+            "optionId": "7",
+            "text": "5m/5m",
+            "value": "55"
+          }
+        ]
+      }
     },
     {
       "questionId": "8",
@@ -256,52 +303,6 @@ const ocpData = {
             "optionId": "2",
             "text": "No",
             "value": false
-          }
-        ]
-      }
-    },
-    {
-      "questionId": "16",
-      "name": "limitsRequested",
-      "text": "What limits are being requested for this OCP?",
-      "inputType": "dropdown-single",
-      "required": true,
-      "attributes":{
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Select",
-            "value": ""
-          },
-          {
-            "optionId": "2",
-            "text": "1m/2m",
-            "value": "12"
-          },
-          {
-            "optionId": "3",
-            "text": "2m/2m",
-            "value": "22"
-          },
-          {
-            "optionId": "4",
-            "text": "2m/4m",
-            "value": "24"
-          },
-          {
-            "optionId": "5",
-            "text": "3m/3m",
-            "value": "33"
-          },
-          {
-            "optionId": "6",
-            "text": "4m/4m",
-            "value": "44"
-          },
-          {
-            "optionId": "7",
-            "text": "5m/5m",
-            "value": "55"
           }
         ]
       }
@@ -372,13 +373,13 @@ const ocpData = {
         ]
       }
     },
-    {		
+    {
       "questionId": "20",
-      "name": "generalComments",		
-      "text": "General Comments",		
-      "inputFormat": "text",		
-      "inputType": "freeform",		
-      "required": false		
+      "name": "generalComments",
+      "text": "General Comments",
+      "inputFormat": "text",
+      "inputType": "freeform",
+      "required": false
     },
     {
       "questionId": "21",

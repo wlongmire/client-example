@@ -2,6 +2,7 @@ import { getSubmissionByToken } from '../submission';
 import filter from 'lodash/filter';
 import utilities from '../../utils/utilities'
 import config from '../../../config';
+import moment from 'moment';
 
 export default async function getPDFData(token, pdfType) {
   try {
@@ -102,46 +103,54 @@ export default async function getPDFData(token, pdfType) {
       projectZip: submission.projectAddress.projectZipcode,
       createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
       projectScope: submission.projectScope,
-      projectTerm: `${submission.projectTerm} months`,
+      projectTerm: `${moment.utc(submission.anticipatedStartDate).format('MM/DD/YYYY')} to ${moment.utc(submission.anticipatedFinishDate).format('MM/DD/YYYY')} `,
       projectCosts: `$${utilities.commifyNumber(parseInt(submission.totalCost))}`,
-      gcKnown: submission.generalContractorKnown == 'true' ? 'yes' : 'no',
+      gcKnown: submission.generalContractorKnown == 'true' ? 'Yes' : 'No',
       gcName: utilities.isDefined(submission.generalContractorName) ? submission.generalContractorName : '',
       gcCarrier: utilities.isDefined(submission.generalLiabilityCarrier) ? submission.generalLiabilityCarrier : '',
-      glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) ? submission.generalContractorExpirationDate : '',
-      gcSupervisingSubs: submission.otherSubcontractorsPaid == 'true' ? 'yes' : 'no',
+      glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) && submission.generalContractorExpirationDate != null ? moment.utc(submission.generalContractorExpirationDate).format('MM/DD/YYYY') : '',
+      gcSupervisingSubs: submission.otherSubcontractorsPaid == 'true' ? 'Yes' : 'No',
+      glLimit: `$${utilities.commifyNumber(submission.generalContractorAmount)}`,
       argoEmail: config.argoEmail,
-      willHaveOtherNamed: utilities.isDefined(submission.secondaryNameInsuredName) ? 'yes' : 'no',
-      otherRole: utilities.isDefined(submission.secondaryNameInsuredRole) ? submission.secondaryNameInsuredRole : 'No other Named Insured entities submitted',
+      willHaveOtherNamed: utilities.isDefined(submission.secondaryNameInsuredName) && submission.secondaryNameInsuredName.length > 1 ? 'Yes' : 'No',
+      otherRole: utilities.isDefined(submission.secondaryNameInsuredRole) ? submission.secondaryNameInsuredRole : 'N/A',
       otherRelationship: utilities.isDefined(submission.secondaryNameInsuredRelationship) ? submission.secondaryNameInsuredRelationship : 'N/A',
-      otherContractors: submission.otherSubcontractorsPaid == 'true' ? 'yes' : 'no',
+      otherContractors: submission.otherSubcontractorsPaid == 'true' ? 'Yes' : 'No',
       otherName: utilities.isDefined(submission.secondaryNameInsuredName) ? submission.secondaryNameInsuredName : 'No AI Entities Submitted',
-      greaterThanTwoAdditional: submission.additionalInsuredOther == 'true' ? 'yes' : 'no',
+      otherAddress: utilities.isDefined(submission.secondaryNameInsuredAddress) ? submission.secondaryNameInsuredAddress : '',
+      otherCity:utilities.isDefined(submission.secondaryNameInsuredCity) ? submission.secondaryNameInsuredCity : '',
+      otherState:utilities.isDefined(submission.secondaryNameInsuredState) ? submission.secondaryNameInsuredState : '',
+      otherZip:utilities.isDefined(submission.secondaryNameInsuredZipcode) ? submission.secondaryNameInsuredZipcode : '',
+      greaterThanTwoAdditional: submission.additionalInsuredOther == 'true' ? 'Yes' : 'No',
       additionalName: utilities.isDefined(submission.additionalInsuredName) ? submission.additionalInsuredName : 'No Additional Insured',
       additionalRole: utilities.isDefined(submission.additionalInsuredRole) ? submission.additionalInsuredRole : 'N/A',
       additionalRelationship: utilities.isDefined(submission.additionalInsuredRelationship) ? submission.additionalInsuredRelationship : 'N/A',
       occurenceLimit: `$${utilities.commifyNumber(occAggLimit)}`,
       aggregateLimit: `$${utilities.commifyNumber(genAggLimit)}`,
-      occupancyBuildingAccessLimited: utilities.isDefined(submission.occupancyAccess) ? submission.occupancyAccess : '',
-      occupancySecurityCameras: utilities.isDefined(submission.occupancyCameras) ? submission.occupancyCameras : '',
-      occupancyDoorman: utilities.isDefined(submission.occupancyDoorman) ? submission.occupancySecurityDoorman : '',
-      occupancySecurityPersonnel: utilities.isDefined(submission.occupancySecurityPersonel) ? submission.occupancySecurityPersonel : '',
-      occupancySeparateEntry: utilities.isDefined(submission.occupancySeparateEntry) ? submission.occupancySeparateEntry : '',
-      occupancySeparateStairwells: utilities.isDefined(submission.occupancyStairwells) ? submission.occupancyStairwells : '',
-      occupancyLossesInLastFiveYears: utilities.isDefined(submission.occupancylossIn5Years) ? submission.occupancylossIn5Years : '',
+      occupancyAccess: submission.occupancyAccess == 'true' ? 'Yes' : 'No',
+      occupancyCameras: submission.occupancyCameras == 'true' ? 'Yes' : 'No',
+      occupancyDoorman: submission.occupancyDoorman == 'true' ? 'Yes' : 'No',
+      occupancySecurityPersonnel: submission.occupancySecurityPersonnel == 'true' ? 'Yes' : 'No',
+      occupancySeparateEntry: submission.occupancySeparateEntry == 'true' ? 'Yes' : 'No',
+      occupancyStairwells: submission.occupancyStairwells == 'true' ? 'Yes' : 'No',
+      occupancylossInFiveYears: submission.occupancylossIn5Years == 'true' ? 'Yes' : 'No',
       occupancySquareFootage: utilities.isDefined(submission.occupancySquareFootage) ? submission.occupancySquareFootage : '',
-      occupancyNumberOfUnits: utilities.isDefined(submission.occupancyUnits) ? submission.occupancyUnits : '',
+      occupancyUnits: utilities.isDefined(submission.occupancyUnits) ? submission.occupancyUnits : '',
+      occupancyCoverage: submission.occupancyCoverageDesired == 'true' ? 'Yes' : 'No',
       occupancyType: utilities.isDefined(submission.occupancyType) ? submission.occupancyType : '',
-      demoDetailsPedestrianSafetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
-      demoDetailsDuration: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
-      demoDetailsCosts: utilities.isDefined(submission.exteriorDemoCost) ? submission.exteriorDemoCost : '',
-      demoDetailsSubcontractor: utilities.isDefined(submission.exteriorDemoSubcontractor) ? submission.exteriorDemoSubcontractor : '',
-      towerCraneUse: utilities.isDefined(submission.towerCraneUse) && submission.towerCraneUse == 'true' ? 'yes' : 'no',
-      workStartDate: utilities.isDefined(submission.workStartDate) ? submission.workStartDate : '',
-      whatsCompleted: utilities.isDefined(submission.workStartDateDescription) ? submission.workStartDateDescription : '',
+      safetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
+      demoTerm: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
+      demoCosts: utilities.isDefined(submission.exteriorDemoCost) ? `$${utilities.commifyNumber(submission.exteriorDemoCost)}` : '',
+      demoSubcontractor: submission.exteriorDemoSubcontractor == 'true' ? 'Yes' : 'No',
+      towerCraneUse: utilities.isDefined(submission.towerCraneUse) && submission.towerCraneUse == 'true' ? 'Yes' : 'No',
+      workStartDate: utilities.isDefined(submission.workStartDate) && submission.workStartDate != null ? moment.utc(submission.workStartDate).format('MM/DD/YYYY') : '',
+      workDescription: utilities.isDefined(submission.workStartDescription) ? submission.workStartDescription : '',
+      workCost: utilities.isDefined(submission.totalSpent) ? `$${utilities.commifyNumber(submission.totalSpent)}` : '',
+      workGCResponsible: utilities.isDefined(submission.priorGcResponsible) ? submission.priorGcResponsible : '',
       brokerName: submission.broker.name,
-      deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
+      deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'New York' ? '$10,0000' : '$2,500',
       anticipatedFinishDate: utilities.isDefined(submission.anticipatedFinishDate) ? submission.anticipatedFinishDate : '',
-      projectDefinedAreaScope: submission.projectDefinedAreaScope == 'true' ? 'yes' : 'no',
+      projectDefinedAreaScope: submission.projectDefinedAreaScope == 'true' ? 'Yes' : 'No',
       projectDefinedAreaScopeDetails: utilities.isDefined(submission.projectDefinedAreaScopeDetails) ? submission.projectDefinedAreaScopeDetails : '',
       projectRequirements: utilities.isDefined(submission.projectRequirements) ? submission.projectRequirements : '',
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
@@ -152,23 +161,89 @@ export default async function getPDFData(token, pdfType) {
       contractorLimits: contractorLimits,
       verticalAddition: submission.verticalExpansion == 'true' ? 'Yes': 'No',
       overFourFloors: submission.exteriorWorkFourStories == 'true' ? 'Yes' : 'No',
-      servicingAgreement: submission.serviceOrMultiLocation == 'true' ? 'Yes': 'No',
-      nychaProject: submission.nycha == 'true' ? 'Yes': 'No'
+      multipleLocations: submission.servicingSeveralLocations == 'true' ? 'Yes': 'No',
+      nychaProject: submission.nycha == 'true' ? 'Yes': 'No',
+      specificFloors: submission.specificFloors == 'true' ? 'Yes': 'No',
+      specificFloorsDetails: utilities.isDefined(submission.specificFloorsDetails) ? submission.specificFloorsDetails : '',
+      sidewalkMaintaining: utilities.isDefined(submission.sidewalkMaintaining) ? submission.sidewalkMaintaining : '',
+      sidewalkDetails: utilities.isDefined(submission.sidewalkDetails) ? submission.sidewalkDetails : '',
+      anticipatedFinishDate: submission.anticipatedFinishDate.toISOString(),
+      anticipatedStartDate: submission.anticipatedStartDate.toISOString(),
+      projectRequirements: submission.projectRequirements == 'true' ? 'Yes': 'No',
+      willHaveDemo: submission.exteriorDemo == 'true' ? 'Yes':'No',
+      willHaveOccupancy: submission.occupancy == 'true' ? 'Yes': 'No',
+      site1Details:submission.otherSitesAdditional1 == 'true' ? `${submission.otherSiteAddress1} ${submission.otherSiteCity1}, ${submission.otherSiteState1} ${submission.otherSiteZipcode1}` : '',
+      site2Details:submission.otherSitesAdditional2 == 'true' ? `${submission.otherSiteAddress2} ${submission.otherSiteCity2}, ${submission.otherSiteState2} ${submission.otherSiteZipcode2}` : '',
+      site3Details:submission.otherSitesAdditional3 == 'true' ? `${submission.otherSiteAddress3} ${submission.otherSiteCity3}, ${submission.otherSiteState3} ${submission.otherSiteZipcode3}` : '',
+      site4Details:submission.otherSitesAdditional4 == 'true' ? `${submission.otherSiteAddress4} ${submission.otherSiteCity4}, ${submission.otherSiteState4} ${submission.otherSiteZipcode4}` : '',
+      generalComments: utilities.isDefined(submission.generalComments) ? submission.generalComments : '',
+      greaterThanTwoNamed: submission.secondaryNameInsuredOther == 'true' ? 'Yes': 'No',
+      workStarted: submission.workStarted == 'true' ? 'Yes' : 'No',
+      contractorSameAllSites: submission.contractorSameAllSites == 'true' ? 'Yes' : 'No'
+
+
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
     }
-
     if (submission.additionalInsuredOther == 'true' ) {
       pdfData.hasAdditionalInsuredExist = true;
+    }
+
+    if (utilities.isDefined(submission.secondaryNameInsuredName) && submission.secondaryNameInsuredName.length > 0) {
+      pdfData.willHaveOtherNamedInsured = true
+    }
+
+    if (utilities.isDefined(submission.additionalInsuredName) && submission.additionalInsuredName.length > 0) {
+      pdfData.willHaveAdditionalInsured = true
+    }
+
+    if (submission.servicingSeveralLocations == 'true') {
+      pdfData.multipleLocationsYes = true;
+    }
+
+    if (submission.contractorSameAllSites == 'true'){
+      pdfData.contractorSameAllSitesYes = true;
+    }
+
+    if (submission.workStarted == 'true') {
+      pdfData.workStartedYes = true;
+    }
+
+    if (submission.occupancy == 'true') {
+      pdfData.willHaveOccupancyYes = true;
+    }
+
+    if (submission.exteriorDemo == 'true') {
+      pdfData.willHaveDemoYes = true
     }
 
     if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
       pdfData.marshBroker = true;
     }
 
+    if (submission.specificFloors == 'true') {
+      pdfData.specificFloorsYes = true;
+    }
+
+    if (submission.sidewalkMaintaining == 'Other') {
+      pdfData.sidewalkMaintainingOther = true
+    }
+
     if (submission.projectRequirements == 'true') {
       pdfData.willHaveDangerous = true;
+    }
+
+    if (utilities.isDefined(submission.generalLiabilityCarrier) && submission.generalLiabilityCarrier.length > 0 ) {
+      pdfData.gcCarrierListed = true
+    }
+
+    if (utilities.isDefined(submission.generalContractorExpirationDate) && submission.generalContractorExpirationDate != null) {
+      pdfData.gcExpirationDateListed = true
+    }
+
+    if (submission.generalContractorKnown == 'true') {
+      pdfData.generalContractorKnown = true
     }
 
     console.log(pdfData);
