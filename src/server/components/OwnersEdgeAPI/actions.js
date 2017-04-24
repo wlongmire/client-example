@@ -1,14 +1,16 @@
 import request from 'request';
+import moment from 'moment';
 import rp from 'request-promise';
 import filter from 'lodash/filter';
 import config from '../../../config';
+import _ from 'lodash';
 import { User, Broker } from '../../models';
 
 import * as emailService from '../../services/email';
 import  * as submissionService  from  '../../services/submission';
 import * as pdfService from '../../services/pdf';
 
-import { edgeSubmissionService, businessMatchingService } from '../../services'
+import { edgeSubmissionService, businessMatchingService, getBusinessMatchingHercules } from '../../services'
 import {
   utilities
 } from '../../utils'
@@ -53,38 +55,64 @@ async function getClearance(req, res) {
 
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
-				const submissions = resp[0].map(
+
+				const ownerSubmissions = resp[0].map(
 					(s)=>({
 						compName:	name,
 						compAddress:`${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${projectAddress.zipcode}`,
 						webName:	s.primaryInsuredName,
 						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
 					})
-				).concat(resp[1].map(
+				)
+				
+				const edgeSubmissions = resp[1].map(
 					(s)=>({
 						compName:	name,
 						compAddress:`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
 						webName:	s.CUST_NAME,
 						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
 					})
-				))
+				)
 
-				businessMatchingService.getBusinessMatching(
-					submissions
-				).then((resp)=>{
+				Promise.all([
+					businessMatchingService.getBusinessMatchingHercules(ownerSubmissions),
+					businessMatchingService.getBusinessMatchingHercules(edgeSubmissions)
+				]).then((resp)=>{
+					let results = []
+					
+					if (resp[0].success) {
+						resp[0].matches.map((s, idx)=>{
+							results.push({
+								name:ownerSubmissions[idx].webName,
+								address:ownerSubmissions[idx].webAddress,
+								match:(s.result === 1),
+								prob:s.prob
+							})
+						})
+					}
+					
+					if (resp[1].success) {
+						resp[1].matches.map((s, idx)=>{
+							results.push({
+								name:edgeSubmissions[idx].webName,
+								address:edgeSubmissions[idx].webAddress,
+								match:(s.result === 1),
+								prob:s.prob
+							})
+						})
+					}
+
+					results = _.sortBy(results,['match', 'prob'])
+								.reverse()
+								.filter((s)=>(s.match))
+								.slice(0,5)
+
 					return res.status(200).json({
-						success: resp.success,
-						matches: resp.matches
+						success: (resp[0].success && resp[1].success),
+						matches: results
 					});
 				})
-				.catch(error => {
-					console.log(error)
 
-					return res.status(200).json({
-						success: false,
-						matches: []
-					});
-				})
 			})
 		}).catch(error => {
 			return res.status(403).json({
