@@ -137,7 +137,7 @@ export default async function getPDFData(token, pdfType) {
       occupancyUnits: utilities.isDefined(submission.occupancyUnits) ? submission.occupancyUnits : '',
       occupancyCoverage: submission.occupancyCoverage == 'true' ? 'Yes' : 'No',
       occupancyType: utilities.isDefined(submission.occupancyType) ? submission.occupancyType : '',
-      safetyPrecautions: submission.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
+      safetyPrecautions: utilities.isDefined(submission.exteriorDemoPrecautions) ? submission.exteriorDemoPrecautions : '',
       demoTerm: utilities.isDefined(submission.exteriorDemoTerm) ? submission.exteriorDemoTerm : '',
       demoCosts: utilities.isDefined(submission.exteriorDemoCost) ? `$${utilities.commifyNumber(submission.exteriorDemoCost)}` : '',
       demoSubcontractor: submission.exteriorDemoSubcontractor == 'true' ? 'Yes' : 'No',
