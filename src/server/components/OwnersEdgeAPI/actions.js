@@ -64,7 +64,7 @@ async function getClearance(req, res) {
 						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
 					})
 				)
-				
+
 				const edgeSubmissions = resp[1].map(
 					(s)=>({
 						compName:	name,
@@ -79,7 +79,7 @@ async function getClearance(req, res) {
 					businessMatchingService.getBusinessMatchingHercules(edgeSubmissions)
 				]).then((resp)=>{
 					let results = []
-					
+
 					if (resp[0].success) {
 						resp[0].matches.map((s, idx)=>{
 							results.push({
@@ -90,7 +90,7 @@ async function getClearance(req, res) {
 							})
 						})
 					}
-					
+
 					if (resp[1].success) {
 						resp[1].matches.map((s, idx)=>{
 							results.push({
@@ -348,17 +348,20 @@ async function generatePDFsInternal(submissionId) {
 	let pdfArray = [];
 
 	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind', submission.type);
-	let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
-	let excessQuote = await pdfService
-	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder},
-											{title:`Owner's Interest - General Quote`, content: oiQuote}]
-	if (submission.type === 'ocp') {
-		let ocpQuote = await pdfService.generatePDF(submission.pdfToken, 'ocp');
-		pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Quote`, content: ocpQuote}];
-	}
-	if (utilities.isDefined(submission.rating[submission.type].excessPremium) && submission.rating[submission.type].excessPremium > 0) {
-		let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
-		pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Quote`, content: excessQuote}];
+	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder}]
+
+	if (submission.rating[submission.type].instantQuote) {
+		if (submission.type === 'ocp') {
+			let ocpQuote = await pdfService.generatePDF(submission.pdfToken, 'ocp');
+			pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Pricing Indication`, content: ocpQuote}];
+		} else if (submission.type === 'oi') {
+				let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
+				pdfArray = [...pdfArray, {title:`Owner's Interest - General Pricing Indication`, content: oiQuote}]
+		}
+		if (utilities.isDefined(submission.rating[submission.type].excessPremium) && submission.rating[submission.type].excessPremium > 0) {
+			let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
+			pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Pricing Indication`, content: excessQuote}];
+		}
 	}
 	console.log('finished generating pdfs');
 	return pdfArray;
