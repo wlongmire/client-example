@@ -148,7 +148,7 @@ export default async function getPDFData(token, pdfType) {
       workCost: utilities.isDefined(submission.totalSpent) ? `$${utilities.commifyNumber(submission.totalSpent)}` : '',
       workGCResponsible: utilities.isDefined(submission.priorGcResponsible) ? submission.priorGcResponsible : '',
       brokerName: submission.broker.name,
-      deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'NY' ? '$10,0000' : '$2,500',
+      deductibleText: submission.insuredAddress && submission.insuredAddress.state === 'New York' ? '$10,0000' : '$2,500',
       anticipatedFinishDate: utilities.isDefined(submission.anticipatedFinishDate) ? submission.anticipatedFinishDate : '',
       projectDefinedAreaScope: submission.projectDefinedAreaScope == 'true' ? 'Yes' : 'No',
       projectDefinedAreaScopeDetails: utilities.isDefined(submission.projectDefinedAreaScopeDetails) ? submission.projectDefinedAreaScopeDetails : '',
