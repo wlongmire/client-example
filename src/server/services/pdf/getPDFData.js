@@ -2,6 +2,7 @@ import { getSubmissionByToken } from '../submission';
 import filter from 'lodash/filter';
 import utilities from '../../utils/utilities'
 import config from '../../../config';
+import moment from 'moment';
 
 export default async function getPDFData(token, pdfType) {
   try {
@@ -102,12 +103,12 @@ export default async function getPDFData(token, pdfType) {
       projectZip: submission.projectAddress.projectZipcode,
       createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
       projectScope: submission.projectScope,
-      projectTerm: `${submission.anticipatedStartDate.toLocaleDateString()} to ${submission.anticipatedFinishDate.toLocaleDateString()} `,
+      projectTerm: `${moment.utc(submission.anticipatedStartDate).format('MM/DD/YYYY')} to ${moment.utc(submission.anticipatedFinishDate).format('MM/DD/YYYY')} `,
       projectCosts: `$${utilities.commifyNumber(parseInt(submission.totalCost))}`,
       gcKnown: submission.generalContractorKnown == 'true' ? 'Yes' : 'No',
       gcName: utilities.isDefined(submission.generalContractorName) ? submission.generalContractorName : '',
       gcCarrier: utilities.isDefined(submission.generalLiabilityCarrier) ? submission.generalLiabilityCarrier : '',
-      glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) && submission.generalContractorExpirationDate != null ? submission.generalContractorExpirationDate.toLocaleDateString() : '',
+      glExpirationDate: utilities.isDefined(submission.generalContractorExpirationDate) && submission.generalContractorExpirationDate != null ? moment.utc(submission.generalContractorExpirationDate).format('MM/DD/YYYY') : '',
       gcSupervisingSubs: submission.otherSubcontractorsPaid == 'true' ? 'Yes' : 'No',
       glLimit: `$${utilities.commifyNumber(submission.generalContractorAmount)}`,
       argoEmail: config.argoEmail,
@@ -142,7 +143,7 @@ export default async function getPDFData(token, pdfType) {
       demoCosts: utilities.isDefined(submission.exteriorDemoCost) ? `$${utilities.commifyNumber(submission.exteriorDemoCost)}` : '',
       demoSubcontractor: submission.exteriorDemoSubcontractor == 'true' ? 'Yes' : 'No',
       towerCraneUse: utilities.isDefined(submission.towerCraneUse) && submission.towerCraneUse == 'true' ? 'Yes' : 'No',
-      workStartDate: utilities.isDefined(submission.workStartDate) && submission.workStartDate != null ? submission.workStartDate.toLocaleDateString() : '',
+      workStartDate: utilities.isDefined(submission.workStartDate) && submission.workStartDate != null ? moment.utc(submission.workStartDate).format('MM/DD/YYYY') : '',
       workDescription: utilities.isDefined(submission.workStartDescription) ? submission.workStartDescription : '',
       workCost: utilities.isDefined(submission.totalSpent) ? `$${utilities.commifyNumber(submission.totalSpent)}` : '',
       workGCResponsible: utilities.isDefined(submission.priorGcResponsible) ? submission.priorGcResponsible : '',
