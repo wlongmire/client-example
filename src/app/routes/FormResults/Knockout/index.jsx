@@ -40,7 +40,7 @@ function Knockout(props) {
         <h3>We are reviewing your Submission.</h3>
         
         <div className="content">
-            <p>Based on your answers, we couldn't provide you with an instant quote for the following reasons:</p>
+            <p>Based on your answers, we couldn't provide you with a instant pricing indication for the following reasons:</p>
             
             <div className="reasons">
                 { reasonDisplay }

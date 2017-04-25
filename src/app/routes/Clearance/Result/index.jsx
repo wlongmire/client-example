@@ -9,7 +9,7 @@ class Result extends Component {
   render() {
     const result = (this.props.result.success)?{
       title: "This Submission Has Passed Clearance!",
-      subtitle: "You are the first to submit this insured for review. Now we can enter additional quote information.",
+      subtitle: "You are the first to submit this insured for review. Now we can enter additional pricing information.",
       additionalContent: "",
       buttonLabel: "Fill out Remaining Information"
     }:{

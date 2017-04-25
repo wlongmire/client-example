@@ -90,7 +90,7 @@ class Quote extends Component {
 
         return (
         <div>
-            <h3>Your Instant Quote:</h3>
+            <h3>Instant Pricing Indication:</h3>
             <div className="quoteBlocks">
 
                 <QuoteBlock 
