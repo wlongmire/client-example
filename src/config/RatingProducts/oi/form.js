@@ -238,6 +238,27 @@ const updatedData =  {
       }
     },
     {
+      "questionId": "31",
+      "name": "exteriorWorkFiveStories",
+      "text": "Is there any exterior work being done over 5 stories?",
+      "inputType": "radio",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
       "questionId": "7a",
       "text": "What is the anticipated start date of project?",
       "name": "anticipatedStartDate",
