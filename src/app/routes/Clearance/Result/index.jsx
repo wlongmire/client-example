@@ -9,13 +9,17 @@ class Result extends Component {
   render() {
     const result = (this.props.result.success)?{
       title: "This Submission Has Passed Clearance!",
-      subtitle: "You are the first to submit this insured for review. Now we can enter additional quote information.",
+      subtitle: "You are the first to submit this insured for review. Now we can enter additional pricing information.",
+      additionalContent: "",
       buttonLabel: "Fill out Remaining Information"
     }:{
       title: "This Submission Did Not Pass Clearance.",
       subtitle: "The following submmission(s) appear to match:",
+      additionalContent: <div className="additionalContent">
+        <h4>If we have blocked you in error or if none of these entiries matches your submission. please message us through the <img src="https://ownersedgeassets.herokuapp.com/images/main/chatIcon.png"/> icon below.</h4>
+    </div>,
       buttonLabel: "Reenter Clearance Information"
-    };
+    }
 
   // mixpanel events
     if (this.props.result.success) {
@@ -61,6 +65,8 @@ class Result extends Component {
             <div className="matchContainer">
                 { matches }
             </div>
+
+            { result.additionalContent }
 
             <ButtonGroup>
                 <Button 

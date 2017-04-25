@@ -126,7 +126,7 @@ class Form extends Component {
         <DialogBox
             custom_class="confirmationDialog"
             title="Is your data correct?"
-            subtitle="Double check your values and push Get Quote to confirm"
+            subtitle="Double check your values and push Get Pricing to confirm"
             show={this.state.confirmation}
             >
             <div>
@@ -136,7 +136,7 @@ class Form extends Component {
               />
 
               <ButtonGroup>
-                <Button className="btn secondary" onClick={this.handleSubmitQuote}>Get Quote</Button>
+                <Button className="btn secondary" onClick={this.handleSubmitQuote}>Get Pricing</Button>
                 <Button className="btn" onClick={this.handleCancelDialog}>Cancel</Button>
               </ButtonGroup>
             </div>

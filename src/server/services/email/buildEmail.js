@@ -16,7 +16,7 @@ export default async function buildMail(type, toAddress, submission, templateId,
 
   switch (type) {
     case 'quotedArgo':
-      mail.setSubject(`New Quoted Submission from ${submission.broker.name}`)
+      mail.setSubject(`New Priced Submission from ${submission.broker.name}`)
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
       personalization.addSubstitution(new helper.Substitution('{{brokerPhone}}', submission.contactInfo.phone));
@@ -31,7 +31,7 @@ export default async function buildMail(type, toAddress, submission, templateId,
     break;
 
     case 'nonQuoteArgo':
-      mail.setSubject(`New Non-Quoted Submission from ${submission.broker.name}`)
+      mail.setSubject(`New Non-Priced Submission from ${submission.broker.name}`)
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
     break;
 

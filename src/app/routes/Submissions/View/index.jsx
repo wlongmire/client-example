@@ -119,7 +119,7 @@ class SubmissionView extends Component{
             dataField="quouteStatus"
             dataSort={true}
             width="35px"
-            >Was <br/>Submission<br/> Quoted?</TableHeaderColumn>
+            >Was <br/>Submission<br/> Priced?</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="quotedPremium"

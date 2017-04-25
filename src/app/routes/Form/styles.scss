@@ -91,6 +91,13 @@
         color: #62a6e0;
         border-bottom: 2px solid;
         padding-top: 1em;
+
+        &.supplemental {
+            color: #5b91bf !important;
+            font-size:1em;
+            color:#b5b7b4;
+            margin-left: 3px;
+        }
     }
 
     .answer {
@@ -98,6 +105,11 @@
         font-size: 1.3em;
         font-family: 'Lato';
 
+        &.supplemental {
+            font-size:1em;
+            color:#b5b7b4;
+            margin-left: 3px;
+        }
     }
   }
   
