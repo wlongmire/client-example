@@ -214,7 +214,7 @@ const ocpData = {
     {
       "questionId": "16",
       "name": "limitsRequested",
-      "text": "What GL limits are being requested for this OCP?",
+      "text": "What GL limits are being requested for this OCP? (If the limit you require is not listed, please contact us through the chat interface below.)",
       "inputType": "dropdown-single",
       "required": true,
       "attributes":{
