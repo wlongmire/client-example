@@ -107,7 +107,7 @@ class Form extends Component {
     if (!ratingProduct)
       return <div></div>
 
-    const initialValues = exampleSubmission//submission
+    const initialValues = submission//exampleSubmission
 
     return (
       <div className='page productChoice'>

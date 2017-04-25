@@ -47,10 +47,6 @@ const ConfirmationModal = React.createClass({
       form
     } = this.props
 
-    // const flattenedFormItems = form.questions.concat(form.supplementalQuestions);
-    // const flattenedSubmission = flattenObj(submission)
-    // const controlGroups = getControlGroups(flattenedFormItems)
-
     const flattenedFormItems = form.questions
     const flattenedSubmission = flattenObj(submission)
 
