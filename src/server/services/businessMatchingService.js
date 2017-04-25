@@ -54,8 +54,8 @@ function getBusinessMatchingHercules(submissions) {
       "input": [{
         "compName":     cleanInput(submissions[0].compName), 
         "compAddress":  cleanInput(submissions[0].compAddress),
-        "webName":      submissions.reduce( (result, s)=> (`${result} | ${cleanInput(s.webName)}`), "" ).slice(3),
-        "webAddress":   submissions.reduce( (result, s)=> (`${result} | ${cleanInput(s.webAddress)}`), "" ).slice(3)
+        "webName":      submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webName)}`), "" ).slice(3),
+        "webAddress":   submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webAddress)}`), "" ).slice(3)
       }]
     }
 

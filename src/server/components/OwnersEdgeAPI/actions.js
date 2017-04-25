@@ -61,7 +61,7 @@ async function getClearance(req, res) {
 						compName:	name,
 						compAddress:`${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${projectAddress.zipcode}`,
 						webName:	s.primaryInsuredName,
-						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
+						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectZipcode}`
 					})
 				)
 
@@ -70,7 +70,7 @@ async function getClearance(req, res) {
 						compName:	name,
 						compAddress:`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
 						webName:	s.CUST_NAME,
-						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
+						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.ZIP_CODE}`
 					})
 				)
 
@@ -101,7 +101,7 @@ async function getClearance(req, res) {
 							})
 						})
 					}
-
+ 
 					results = _.sortBy(results,['match', 'prob'])
 								.reverse()
 								.filter((s)=>(s.match))
