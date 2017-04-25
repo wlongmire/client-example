@@ -19,11 +19,12 @@ class RadioContainer extends React.Component {
     const name = this.props.data.name
 
     this.state = {
-      value: isDefined(this.props.initialValues[name]) ? this.props.initialValues.name : null,
+      value: this.props.initialValues[name] ? this.props.initialValues[name] : null,
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       options: [].concat(this.props.data.attributes.options),
       isValid: null
     }
+
   }
 
   getValidationState() {
@@ -84,12 +85,15 @@ class RadioContainer extends React.Component {
     const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
 
     let options = this.props.data.attributes.options.map((data, index) => {
+      const checked = ((this.state.value) && (this.state.value.toString() === data.value.toString()))
+
       return (
           <Radio 
             className={this.props.data.name} 
             key={index}
             onChange={this.onChangeHandler} 
             value={data.value}
+            checked={checked}
             disabled={this.state.disabled}
             name={`optionGroup_${this.props.data.questionId}`}>
             <span className="radioText">{data.text}</span>

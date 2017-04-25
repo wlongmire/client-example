@@ -74,15 +74,6 @@ const ocpData = {
       }
     },
     {
-
-      "questionId": "9",
-      "text": "What are the Excess limits of the Contractor's primary Policy?",
-      "name": "generalContractorAmount",
-      "required": false,
-      "inputType": "text",
-      "inputFormat": "currency"
-     },
-     {
       "questionId": "10",
       "name": "nameInsuredAddressLabel",
       "text": "What is the Project Address?",
@@ -197,7 +188,7 @@ const ocpData = {
     },
     {
       "questionId": "6",
-      "text": "What is the name of the designated contractor?",
+      "text": "What is the name of the General Contractor?",
       "name": "generalContractorName",
       "required": false,
       "inputType": "text",
@@ -211,6 +202,15 @@ const ocpData = {
       "inputType": "text",
       "inputFormat": "text"
     },
+    {
+
+      "questionId": "9",
+      "text": "What are the excess limits of the Contractor's Primary Policy?",
+      "name": "generalContractorAmount",
+      "required": false,
+      "inputType": "text",
+      "inputFormat": "currency"
+     },
     {
       "questionId": "16",
       "name": "limitsRequested",

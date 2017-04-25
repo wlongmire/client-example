@@ -434,8 +434,7 @@ const updatedData =  {
           {
             "optionId": "1",
             "text": "Select",
-            "value": "",
-            "supplementalquestionIds": ["15_supplemental1"]
+            "value": ""
           },
           {
             "optionId": "2",
@@ -690,6 +689,7 @@ const updatedData =  {
       "questionId": "10_supplemental3",
       "name": "generalContractorAmount",
       "inputFormat": "currency",
+      "placeholder": "Limit Amount",
       "inputType": "text",
       "required": false,
       "attributes" : {
