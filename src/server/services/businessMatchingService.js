@@ -3,14 +3,7 @@ import matcher from 'jaro-winkler';
 import rp from 'request-promise';
 
 function cleanInput(input) {
-  const commonWords = [
-    "street",
-    "st"
-  ]
-
   const rtn = input
-    .replace(/[_+-.,!@#$%^&*();\\\/|<>]/g, "")
-    .toLowerCase()
   
   return(
     _.trim(rtn)
@@ -61,8 +54,8 @@ function getBusinessMatchingHercules(submissions) {
       "input": [{
         "compName":     cleanInput(submissions[0].compName), 
         "compAddress":  cleanInput(submissions[0].compAddress),
-        "webName":      submissions.reduce( (result, s)=> (`${result} | ${cleanInput(s.webName)}`), "" ).slice(3),
-        "webAddress":   submissions.reduce( (result, s)=> (`${result} | ${cleanInput(s.webAddress)}`), "" ).slice(3)
+        "webName":      submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webName)}`), "" ).slice(3),
+        "webAddress":   submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webAddress)}`), "" ).slice(3)
       }]
     }
 
