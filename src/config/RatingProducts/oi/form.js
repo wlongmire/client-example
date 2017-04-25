@@ -1083,7 +1083,7 @@ const updatedData =  {
 
     {
       "questionId": "14_supplemental1",
-      "text": "What excess limits are required?",
+      "text": "What excess limits are required? (If the limit you require is not listed, please contact us through the chat interface below.)",
       "name": "excessLimitAmount",
       "inputType": "dropdown-single",
       "required": false,
