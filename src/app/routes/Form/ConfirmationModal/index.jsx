@@ -60,7 +60,7 @@ const ConfirmationModal = React.createClass({
               const subItem = _.find(form.supplementalQuestions, (s)=>(supIdx === s.questionId))
               rtn.push( {...subItem, supplemental:true} )
 
-              const subSupItems = (subItem.attributes && subItem.attributes.options)?insertSupplementalItems(subItem):[]
+              const subSupItems = (subItem && subItem.attributes && subItem.attributes.options)?insertSupplementalItems(subItem):[]
               rtn = _.concat(rtn, subSupItems)
             })
           }
