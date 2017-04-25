@@ -434,8 +434,7 @@ const updatedData =  {
           {
             "optionId": "1",
             "text": "Select",
-            "value": "",
-            "supplementalquestionIds": ["15_supplemental1"]
+            "value": ""
           },
           {
             "optionId": "2",
