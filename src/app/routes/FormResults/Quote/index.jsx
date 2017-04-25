@@ -37,7 +37,7 @@ class QuoteBlock extends Component {
                 render={() => (
                     <div className="premiumNumber">
                         {item.title}
-                        <span>{commifyNumber(item.value || 0)}</span>
+                        <span>${commifyNumber(item.value || 0)}</span>
                     </div>)
                 }/>
         ));

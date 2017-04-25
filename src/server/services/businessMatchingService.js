@@ -3,14 +3,7 @@ import matcher from 'jaro-winkler';
 import rp from 'request-promise';
 
 function cleanInput(input) {
-  const commonWords = [
-    "street",
-    "st"
-  ]
-
   const rtn = input
-    .replace(/[_+-.,!@#$%^&*();\\\/|<>]/g, "")
-    .toLowerCase()
   
   return(
     _.trim(rtn)

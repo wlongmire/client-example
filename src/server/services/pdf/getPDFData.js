@@ -30,6 +30,10 @@ export default async function getPDFData(token, pdfType) {
         }
     }
 
+    if (submission.exteriorWorkFiveStories == 'true' && aggregateLimit < 10000000) {
+      aggregateLimit = 10000000
+    }
+
     let genAggLimit;
     let occAggLimit;
     switch(submission.type){
@@ -191,9 +195,8 @@ export default async function getPDFData(token, pdfType) {
       generalComments: utilities.isDefined(submission.generalComments) ? submission.generalComments : '',
       greaterThanTwoNamed: submission.secondaryNameInsuredOther == 'true' ? 'Yes': 'No',
       workStarted: submission.workStarted == 'true' ? 'Yes' : 'No',
-      contractorSameAllSites: submission.contractorSameAllSites == 'true' ? 'Yes' : 'No'
-
-
+      contractorSameAllSites: submission.contractorSameAllSites == 'true' ? 'Yes' : 'No',
+      exteriorWorkFiveStories: submission.exteriorWorkFiveStories == 'true' ? 'Yes' : 'No'
     }
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
