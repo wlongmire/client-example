@@ -690,6 +690,7 @@ const updatedData =  {
       "questionId": "10_supplemental3",
       "name": "generalContractorAmount",
       "inputFormat": "currency",
+      "placeholder": "Limit Amount",
       "inputType": "text",
       "required": false,
       "attributes" : {
