@@ -160,7 +160,7 @@ const ocpData = {
       "questionId": "13",
       "text": "What is the scope of the work for this project?",
       "name": "projectScope",
-      "required": false,
+      "required": true,
       "inputType": "freeform",
       "inputFormat": "text",
       "tooltiptext": "Please provide as descriptive of a scope of work as possible including end use."

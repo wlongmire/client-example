@@ -289,7 +289,7 @@ const updatedData =  {
       "tooltiptext": "Please be as descriptive as possible.",
       "inputFormat": "text",
       "inputType": "freeform",
-      "required": false
+      "required": true
     },
     {
       "questionId": "9",
@@ -347,7 +347,7 @@ const updatedData =  {
       "text": "Will there be occupancy during the project?",
       "name": "occupancy",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
@@ -371,7 +371,7 @@ const updatedData =  {
       "text": "Will there be demo of exterior walls or roof?",
       "name": "exteriorDemo",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
@@ -398,7 +398,7 @@ const updatedData =  {
       "text": "Has Work started on this project?",
       "name": "workStarted",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
@@ -449,7 +449,7 @@ const updatedData =  {
       "name": "sidewalkMaintaining",
       "text": "Who is responsible for maintating the sidewalks?",
       "inputType": "dropdown-single",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
