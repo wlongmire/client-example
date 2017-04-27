@@ -344,3 +344,4 @@ function calcContractorLimits(costs, state, fourFloors, verticalExpansion, limit
       return `$${minimumOcc}M/${minimumAgg}M`
   }
 
+}
