@@ -36,38 +36,38 @@ export default async function getPDFData(token, pdfType) {
 
     let genAggLimit;
     let occAggLimit;
-    switch(submission.type){
+    switch (submission.type) {
       case 'oi':
         occAggLimit = aggregateLimit + 1000000
         genAggLimit = aggregateLimit + 2000000
         break;
       case 'ocp':
         {
-          switch (submission.limitsRequested){
+          switch (submission.limitsRequested) {
             case '12':
               occAggLimit = 1000000
               genAggLimit = 2000000
-            break;
+              break;
             case '22':
               occAggLimit = 2000000
               genAggLimit = 2000000
-            break;
+              break;
             case '24':
               occAggLimit = 2000000
               genAggLimit = 4000000
-            break;
+              break;
             case '33':
               occAggLimit = 3000000
               genAggLimit = 3000000
-            break;
+              break;
             case '44':
               occAggLimit = 4000000
               genAggLimit = 4000000
-            break;
+              break;
             case '55':
               occAggLimit = 5000000
               genAggLimit = 5000000
-            break;
+              break;
           }
         }
 
@@ -76,22 +76,26 @@ export default async function getPDFData(token, pdfType) {
     let contractorLimits = '';
 
     if (submission.type == 'ocp') {
-      contractorLimits = calcContractorLimits(parseInt(submission.totalCost), submission.projectAddress.projectState, submission.exteriorWorkFourStories, submission.verticalExpansion)
+      contractorLimits = calcContractorLimits(parseInt(submission.totalCost),
+                                              submission.projectAddress.projectState,
+                                              submission.exteriorWorkFourStories,
+                                              submission.verticalExpansion,
+                                              submission.limitsRequested)
     }
 
     const limits = [
-      {12:'1m/2m'},
-      {22:'2m/2m'},
-      {24:'2m/4m'},
-      {33:'3m/3m'},
-      {44:'4m/4m'},
-      {55:'5m/5m'}
+      { 12: '1m/2m' },
+      { 22: '2m/2m' },
+      { 24: '2m/4m' },
+      { 33: '3m/3m' },
+      { 44: '4m/4m' },
+      { 55: '5m/5m' }
     ];
 
     let limitsRequested;
 
-    if(submission.limitsRequested){
-        limitsRequested = filter(limits, function(o) {
+    if (submission.limitsRequested) {
+      limitsRequested = filter(limits, function (o) {
         let key = Object.keys(o);
         return key[0] === String(submission.limitsRequested);
       });
@@ -117,7 +121,7 @@ export default async function getPDFData(token, pdfType) {
       projectCity: submission.projectAddress.projectCity,
       projectState: submission.projectAddress.projectState,
       projectZip: submission.projectAddress.projectZipcode,
-      createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString(): '',
+      createdDate: submission.createdAt ? submission.createdAt.toLocaleDateString() : '',
       projectScope: submission.projectScope,
       projectTerm: `${moment.utc(submission.anticipatedStartDate).format('MM/DD/YYYY')} to ${moment.utc(submission.anticipatedFinishDate).format('MM/DD/YYYY')} `,
       projectCosts: `$${utilities.commifyNumber(parseInt(submission.totalCost))}`,
@@ -134,9 +138,9 @@ export default async function getPDFData(token, pdfType) {
       otherContractors: submission.otherSubcontractorsPaid == 'true' ? 'Yes' : 'No',
       otherName: utilities.isDefined(submission.secondaryNameInsuredName) ? submission.secondaryNameInsuredName : 'No AI Entities Submitted',
       otherAddress: utilities.isDefined(submission.secondaryNameInsuredAddress) ? submission.secondaryNameInsuredAddress : '',
-      otherCity:utilities.isDefined(submission.secondaryNameInsuredCity) ? submission.secondaryNameInsuredCity : '',
-      otherState:utilities.isDefined(submission.secondaryNameInsuredState) ? submission.secondaryNameInsuredState : '',
-      otherZip:utilities.isDefined(submission.secondaryNameInsuredZipcode) ? submission.secondaryNameInsuredZipcode : '',
+      otherCity: utilities.isDefined(submission.secondaryNameInsuredCity) ? submission.secondaryNameInsuredCity : '',
+      otherState: utilities.isDefined(submission.secondaryNameInsuredState) ? submission.secondaryNameInsuredState : '',
+      otherZip: utilities.isDefined(submission.secondaryNameInsuredZipcode) ? submission.secondaryNameInsuredZipcode : '',
       greaterThanTwoAdditional: submission.additionalInsuredOther == 'true' ? 'Yes' : 'No',
       additionalName: utilities.isDefined(submission.additionalInsuredName) ? submission.additionalInsuredName : 'No Additional Insured',
       additionalRole: utilities.isDefined(submission.additionalInsuredRole) ? submission.additionalInsuredRole : 'N/A',
@@ -171,29 +175,29 @@ export default async function getPDFData(token, pdfType) {
       projectRequirements: utilities.isDefined(submission.projectRequirements) ? submission.projectRequirements : '',
       limitsRequested: submission.limitsRequested ? limitsRequested[0][submission.limitsRequested] : 'N/A',
       excessLimits: `$ ${utilities.commifyNumber(parseInt(submission.excessLimitAmount))}`,
-      baseExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}`: '',
-      terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].excessTerrorPremium)}`: '',
-      totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ?  `$ ${utilities.commifyNumber(submission.rating[type].totalExcessPremium)}`: '',
+      baseExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].excessPremium)}` : '',
+      terrorExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].excessTerrorPremium)}` : '',
+      totalExcess: utilities.isDefined(submission.rating[type]) && submission.rating[type].instantQuote ? `$ ${utilities.commifyNumber(submission.rating[type].totalExcessPremium)}` : '',
       contractorLimits: contractorLimits,
-      verticalAddition: submission.verticalExpansion == 'true' ? 'Yes': 'No',
+      verticalAddition: submission.verticalExpansion == 'true' ? 'Yes' : 'No',
       overFourFloors: submission.exteriorWorkFourStories == 'true' ? 'Yes' : 'No',
-      multipleLocations: submission.servicingSeveralLocations == 'true' ? 'Yes': 'No',
-      nychaProject: submission.nycha == 'true' ? 'Yes': 'No',
-      specificFloors: submission.specificFloors == 'true' ? 'Yes': 'No',
+      multipleLocations: submission.servicingSeveralLocations == 'true' ? 'Yes' : 'No',
+      nychaProject: submission.nycha == 'true' ? 'Yes' : 'No',
+      specificFloors: submission.specificFloors == 'true' ? 'Yes' : 'No',
       specificFloorsDetails: utilities.isDefined(submission.specificFloorsDetails) ? submission.specificFloorsDetails : '',
       sidewalkMaintaining: utilities.isDefined(submission.sidewalkMaintaining) ? submission.sidewalkMaintaining : '',
       sidewalkDetails: utilities.isDefined(submission.sidewalkDetails) ? submission.sidewalkDetails : '',
       anticipatedFinishDate: submission.anticipatedFinishDate.toISOString(),
       anticipatedStartDate: submission.anticipatedStartDate.toISOString(),
-      projectRequirements: submission.projectRequirements == 'true' ? 'Yes': 'No',
-      willHaveDemo: submission.exteriorDemo == 'true' ? 'Yes':'No',
-      willHaveOccupancy: submission.occupancy == 'true' ? 'Yes': 'No',
-      site1Details:submission.otherSitesAdditional1 == 'true' ? `${submission.otherSiteAddress1} ${submission.otherSiteCity1}, ${submission.otherSiteState1} ${submission.otherSiteZipcode1}` : '',
-      site2Details:submission.otherSitesAdditional2 == 'true' ? `${submission.otherSiteAddress2} ${submission.otherSiteCity2}, ${submission.otherSiteState2} ${submission.otherSiteZipcode2}` : '',
-      site3Details:submission.otherSitesAdditional3 == 'true' ? `${submission.otherSiteAddress3} ${submission.otherSiteCity3}, ${submission.otherSiteState3} ${submission.otherSiteZipcode3}` : '',
-      site4Details:submission.otherSitesAdditional4 == 'true' ? `${submission.otherSiteAddress4} ${submission.otherSiteCity4}, ${submission.otherSiteState4} ${submission.otherSiteZipcode4}` : '',
+      projectRequirements: submission.projectRequirements == 'true' ? 'Yes' : 'No',
+      willHaveDemo: submission.exteriorDemo == 'true' ? 'Yes' : 'No',
+      willHaveOccupancy: submission.occupancy == 'true' ? 'Yes' : 'No',
+      site1Details: submission.otherSitesAdditional1 == 'true' ? `${submission.otherSiteAddress1} ${submission.otherSiteCity1}, ${submission.otherSiteState1} ${submission.otherSiteZipcode1}` : '',
+      site2Details: submission.otherSitesAdditional2 == 'true' ? `${submission.otherSiteAddress2} ${submission.otherSiteCity2}, ${submission.otherSiteState2} ${submission.otherSiteZipcode2}` : '',
+      site3Details: submission.otherSitesAdditional3 == 'true' ? `${submission.otherSiteAddress3} ${submission.otherSiteCity3}, ${submission.otherSiteState3} ${submission.otherSiteZipcode3}` : '',
+      site4Details: submission.otherSitesAdditional4 == 'true' ? `${submission.otherSiteAddress4} ${submission.otherSiteCity4}, ${submission.otherSiteState4} ${submission.otherSiteZipcode4}` : '',
       generalComments: utilities.isDefined(submission.generalComments) ? submission.generalComments : '',
-      greaterThanTwoNamed: submission.secondaryNameInsuredOther == 'true' ? 'Yes': 'No',
+      greaterThanTwoNamed: submission.secondaryNameInsuredOther == 'true' ? 'Yes' : 'No',
       workStarted: submission.workStarted == 'true' ? 'Yes' : 'No',
       contractorSameAllSites: submission.contractorSameAllSites == 'true' ? 'Yes' : 'No',
       exteriorWorkFiveStories: submission.exteriorWorkFiveStories == 'true' ? 'Yes' : 'No'
@@ -201,7 +205,7 @@ export default async function getPDFData(token, pdfType) {
     if (submission.secondaryNameInsuredOther == 'true') {
       pdfData.hasOtherNamedInsuredExist = true;
     }
-    if (submission.additionalInsuredOther == 'true' ) {
+    if (submission.additionalInsuredOther == 'true') {
       pdfData.hasAdditionalInsuredExist = true;
     }
 
@@ -217,7 +221,7 @@ export default async function getPDFData(token, pdfType) {
       pdfData.multipleLocationsYes = true;
     }
 
-    if (submission.contractorSameAllSites == 'true'){
+    if (submission.contractorSameAllSites == 'true') {
       pdfData.contractorSameAllSitesYes = true;
     }
 
@@ -233,7 +237,7 @@ export default async function getPDFData(token, pdfType) {
       pdfData.willHaveDemoYes = true
     }
 
-    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty'){
+    if (submission.broker.name === 'Marsh USA Inc./R-T Specialty') {
       pdfData.marshBroker = true;
     }
 
@@ -249,7 +253,7 @@ export default async function getPDFData(token, pdfType) {
       pdfData.willHaveDangerous = true;
     }
 
-    if (utilities.isDefined(submission.generalLiabilityCarrier) && submission.generalLiabilityCarrier.length > 0 ) {
+    if (utilities.isDefined(submission.generalLiabilityCarrier) && submission.generalLiabilityCarrier.length > 0) {
       pdfData.gcCarrierListed = true
     }
 
@@ -268,38 +272,75 @@ export default async function getPDFData(token, pdfType) {
   }
 }
 
-function calcContractorLimits(costs, state, fourFloors, verticalExpansion) {
-  let minimumOcc = 1
-  let minimumAgg = 2
-  switch (state) {
-    case 'New York': {
-      let halvedCost = Math.ceil((((costs/ 2) * 1000000) / 1000000) / 1000000);
-      if ((halvedCost) > minimumAgg) {
-        minimumAgg = halvedCost;
-        minimumOcc = halvedCost;
+function calcContractorLimits(costs, state, fourFloors, verticalExpansion, limitsRequested) {
+  switch (limitsRequested) {
+    case '12':
+      {
+        let minimumOcc = 1
+        let minimumAgg = 2
       }
-    }
-    break;
-    default:
-     if (costs > 10000000 && costs < 20000000) {
+      break;
+    case '22':
+      {
+        let minimumOcc = 2
+        let minimumAgg = 2
+      }
+      break;
+    case '24':
+      {
+        let minimumOcc = 2
+        let minimumAgg = 4
+      }
+      break;
+    case '33':
+      {
+        let minimumOcc = 3
+        let minimumAgg = 3
+      }
+      break;
+    case '44':
+      {
+        let minimumOcc = 4
+        let minimumAgg = 4
+      }
+      break;
+    case '55':
+      {
+        let minimumOcc = 5
+        let minimumAgg = 5
+      }
+      break;
+      switch (state) {
+        case 'New York': {
+          let halvedCost = Math.ceil((((costs / 2) * 1000000) / 1000000) / 1000000);
+          if ((halvedCost) > minimumAgg) {
+            minimumAgg = halvedCost;
+            minimumOcc = halvedCost;
+          }
+        }
+          break;
+        default:
+          if (costs > 10000000 && costs < 20000000) {
+            if (minimumAgg < 5) {
+              minimumAgg = 5;
+              minimumOcc = 5
+            }
+          } else if (costs > 20000000) {
+            minimumAgg = 10;
+            minimumOcc = 10
+          }
+      }
+
+      if (fourFloors == 'true' && minimumAgg < 5) {
         minimumAgg = 5;
         minimumOcc = 5
-      } else if (costs > 20000000) {
-        minimumAgg = 10;
-        minimumOcc = 10
       }
-    }
 
-    if (fourFloors == 'true' && minimumAgg < 5) {
-      minimumAgg = 5;
-      minimumOcc = 5
-    }
+      if (verticalExpansion == 'true' && minimumAgg < 10) {
+        minimumAgg = 10;
+        minimumOcc = 10;
+      }
 
-    if (verticalExpansion == 'true' && minimumAgg < 10) {
-      minimumAgg = 10;
-      minimumOcc = 10;
-    }
-
-    return `$${minimumOcc}M/${minimumAgg}M`
+      return `$${minimumOcc}M/${minimumAgg}M`
   }
 
