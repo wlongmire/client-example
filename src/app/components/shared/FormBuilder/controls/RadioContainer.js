@@ -19,12 +19,27 @@ class RadioContainer extends React.Component {
     const name = this.props.data.name
 
     this.state = {
-      value: this.props.initialValues[name] ? this.props.initialValues[name] : null,
+      //value: this.props.initialValues[name] ? this.props.initialValues[name] : null,
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       options: [].concat(this.props.data.attributes.options),
       isValid: null
     }
 
+  }
+
+  componentWillMount() {
+    if (this.props.initialValues[this.props.data.name]) {
+      let event = {
+        target: {
+          value: this.props.initialValues[this.props.data.name]
+        }
+      }
+      this.onChangeHandler(event);
+    } else {
+      this.setState({
+        value: null
+      })
+    }
   }
 
   getValidationState() {
@@ -88,10 +103,10 @@ class RadioContainer extends React.Component {
       const checked = ((this.state.value) && (this.state.value.toString() === data.value.toString()))
 
       return (
-          <Radio 
-            className={this.props.data.name} 
+          <Radio
+            className={this.props.data.name}
             key={index}
-            onChange={this.onChangeHandler} 
+            onChange={this.onChangeHandler}
             value={data.value}
             checked={checked}
             disabled={this.state.disabled}
