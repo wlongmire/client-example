@@ -58,8 +58,8 @@ async function getClearance(req, res) {
 
 				const ownerSubmissions = resp[0].map(
 					(s)=>({
-						compName:	name,
-						compAddress:`${projectAddress.address} ${projectAddress.city} ${projectAddress.state} ${projectAddress.zipcode}`,
+						compName:	_.trim(name),
+						compAddress:`${_.trim(projectAddress.address)} ${_.trim(projectAddress.city)} ${_.trim(projectAddress.state)} ${_.trim(projectAddress.zipcode)}`,
 						webName:	s.primaryInsuredName,
 						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectZipcode}`
 					})
@@ -67,8 +67,8 @@ async function getClearance(req, res) {
 
 				const edgeSubmissions = resp[1].map(
 					(s)=>({
-						compName:	name,
-						compAddress:`${insuredAddress.address} ${insuredAddress.city} ${insuredAddress.state} ${insuredAddress.zipcode}`,
+						compName:	_.trim(name),
+						compAddress:`${_.trim(insuredAddress.address)} ${_.trim(insuredAddress.city)} ${_.trim(insuredAddress.state)} ${_.trim(insuredAddress.zipcode)}`,
 						webName:	s.CUST_NAME,
 						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.ZIP_CODE}`
 					})
@@ -91,6 +91,7 @@ async function getClearance(req, res) {
 						})
 					}
 
+					
 					if (resp[1].success) {
 						resp[1].matches.map((s, idx)=>{
 							results.push({
@@ -101,7 +102,8 @@ async function getClearance(req, res) {
 							})
 						})
 					}
- 
+					
+					
 					results = _.sortBy(results,['match', 'prob'])
 								.reverse()
 								.filter((s)=>(s.match))

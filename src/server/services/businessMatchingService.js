@@ -19,10 +19,8 @@ function getBusinessMatching(submissions) {
     }))
 
     const inputsCleaned = inputs.map((s)=>({
-      "compName":   cleanInput(s.compName), 
-      "compAdd":    cleanInput(s.compAdd),
-      "webName":    cleanInput(s.webName), 
-      "webAdd":     cleanInput(s.webAdd)
+      "compName":   cleanInput(s.compName), "compAdd":    cleanInput(s.compAdd),
+      "webName":    cleanInput(s.webName), "webAdd":     cleanInput(s.webAdd)
     }))
 
     const matches = _.sortBy(inputs.map((s, idx)=> ({
@@ -54,8 +52,8 @@ function getBusinessMatchingHercules(submissions) {
       "input": [{
         "compName":     cleanInput(submissions[0].compName), 
         "compAddress":  cleanInput(submissions[0].compAddress),
-        "webName":      submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webName)}`), "" ).slice(3),
-        "webAddress":   submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webAddress)}`), "" ).slice(3)
+        "webName":      submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webName)}`), "" ).slice(1),
+        "webAddress":   submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webAddress)}`), "" ).slice(1)
       }]
     }
 
@@ -67,7 +65,7 @@ function getBusinessMatchingHercules(submissions) {
     
     return rp(options).then((resp)=>{
       const respConverted = JSON.parse(resp)
-      
+
       resolve({ 
         success:respConverted.success,
         matches:respConverted.response
