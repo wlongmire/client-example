@@ -73,6 +73,7 @@ function getBusinessMatchingHercules(submissions) {
       })
 
     }, (error) => {
+      console.log('errored after parsing');
       resolve({ success:false, matches:[] })
     });
 
