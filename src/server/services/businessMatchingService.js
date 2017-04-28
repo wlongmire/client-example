@@ -66,7 +66,7 @@ function getBusinessMatchingHercules(submissions) {
     return rp(options).then((resp)=>{
       console.log('Received response from Hercules')
       const respConverted = JSON.parse(resp)
-
+      console.log('Parsed the JSON');
       resolve({
         success:respConverted.success,
         matches:respConverted.response

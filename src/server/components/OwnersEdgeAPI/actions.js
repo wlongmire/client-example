@@ -79,6 +79,7 @@ async function getClearance(req, res) {
 					businessMatchingService.getBusinessMatchingHercules(edgeSubmissions)
 				]).then((resp)=>{
 					let results = []
+
 					console.log('Building the results array')
 					if (resp[0].success) {
 						resp[0].matches.map((s, idx)=>{
