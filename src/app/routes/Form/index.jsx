@@ -14,6 +14,8 @@ import FormBuilder from 'components/shared/FormBuilder'
 import constants from 'app/constants/app'
 import ratingProducts from 'config/RatingProducts'
 
+import exampleSubmission from 'config/exampleSubmission'
+
 class Form extends Component {
   constructor(props) {
     super(props)
@@ -68,7 +70,9 @@ class Form extends Component {
       })
     } else {
       const submission = Object.assign(this.state.submission, sub);
+      const { CHANGE_SUBMISSION } = constants
 
+      this.props.dispatch({ type:CHANGE_SUBMISSION, submission })
       this.setState({
         ...this.state,
         requiredFields: [],
@@ -103,6 +107,8 @@ class Form extends Component {
     if (!ratingProduct)
       return <div></div>
 
+    const initialValues = submission//exampleSubmission
+
     return (
       <div className='page productChoice'>
         <h3>Fill out the rest of the details.</h3>
@@ -111,7 +117,7 @@ class Form extends Component {
         <FormBuilder
             data={ratingProduct.formJSON}
             Validation={ratingProduct.Validation}
-            initialValues={submission}
+            initialValues={initialValues}
             initialParams={submissionFormParams}
             submitTitle="Review Submission"
             handleSubmit={this.handleSubmitForReview}
@@ -120,7 +126,7 @@ class Form extends Component {
         <DialogBox
             custom_class="confirmationDialog"
             title="Is your data correct?"
-            subtitle="Double check your values and push Get Quote to confirm"
+            subtitle="Double check your values and push Get Pricing to confirm"
             show={this.state.confirmation}
             >
             <div>
@@ -130,7 +136,7 @@ class Form extends Component {
               />
 
               <ButtonGroup>
-                <Button className="btn secondary" onClick={this.handleSubmitQuote}>Get Quote</Button>
+                <Button className="btn secondary" onClick={this.handleSubmitQuote}>Get Pricing</Button>
                 <Button className="btn" onClick={this.handleCancelDialog}>Cancel</Button>
               </ButtonGroup>
             </div>

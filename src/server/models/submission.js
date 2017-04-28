@@ -13,7 +13,6 @@ const submissionSchema = new mongoose.Schema({
   specificFloors: String,
   secondaryInsured: String,
   additionalInsured: String,
-  projectTerm: String,
   totalCost: String,
   towerCraneUse: String,
   generalContractorKnown: String,
@@ -108,7 +107,10 @@ const submissionSchema = new mongoose.Schema({
   confirmationNumber: String,
   serviceOrMultiLocation: String,
   exteriorWorkFourStories: String,
-  servicingSeveralLocations: String
+  servicingSeveralLocations: String,
+  generalContractorExpirationDate: Date,
+  anticipatedStartDate: Date,
+  exteriorWorkFiveStories: String
 
 }, {timestamps: true});
 

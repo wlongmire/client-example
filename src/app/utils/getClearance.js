@@ -4,7 +4,7 @@ import config from '../../config';
 let baseURL = config.apiserver.url;
 
 function getClearance(params) {
-  const url = encodeURI(baseURL + `/api/getClearance?name=${_.trim(params.name)}&address=${_.trim(params.address.replace("#",""))}&state=${_.trim(params.state)}&city=${_.trim(params.city)}&zipcode=${_.trim(params.zipcode)}`)
+  const url = encodeURI(baseURL + `/api/getClearance?name=${_.trim(params.name)}&projectAddress=${_.trim(params.addresses[0].projectAddress.replace("#",""))}&projectState=${_.trim(params.addresses[0].projectState)}&projectCity=${_.trim(params.addresses[0].projectCity)}&projectZipcode=${_.trim(params.addresses[0].projectZipcode)}&insuredAddress=${_.trim(params.addresses[1].primaryInsuredAddress.replace("#",""))}&insuredState=${_.trim(params.addresses[1].primaryInsuredState)}&insuredCity=${_.trim(params.addresses[1].primaryInsuredCity)}&insuredZipcode=${_.trim(params.addresses[1].primaryInsuredZipcode)}`)
 
   return fetch(url, {
     method: 'GET',

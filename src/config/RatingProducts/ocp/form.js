@@ -17,7 +17,7 @@ const ocpData = {
     {
       "questionId": "2",
       "name": "primaryInsuredAddressLabel",
-      "text": "What is the address of the Named Insured?",
+      "text": "What is the Named Insured's address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"insuredAddress"
@@ -74,43 +74,9 @@ const ocpData = {
       }
     },
     {
-      "questionId": "3",
-      "text": "What is the term of the project, in months?",
-      "name": "projectTerm",
-      "required": true,
-      "inputType": "number",
-      "inputFormat": "number"
-    },
-    {
-      "questionId": "4",
-      "text": "What is the total cost of this project?",
-      "name": "totalCost",
-      "required": true,
-      "inputType": "text",
-      "inputFormat": "currency"
-    },
-    {
-      "questionId": "5",
-      "text": "What is the anticipated finish date of project?",
-      "name": "anticipatedFinishDate",
-      "required": true,
-      "inputType": "text",
-      "inputFormat": "date"
-    },
-    {
-
-      "questionId": "9",
-      "text": "What are the Excess limits of the Contractor's primary Policy?",
-      "name": "excessLimit",
-      "required": false,
-      "inputType": "text",
-      "inputFormat": "currency"
-     },
-
-     {
       "questionId": "10",
       "name": "nameInsuredAddressLabel",
-      "text": "What is the address of this project?",
+      "text": "What is the Project Address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"projectAddress"
@@ -166,10 +132,35 @@ const ocpData = {
       }
     },
     {
+      "questionId": "3",
+      "text": "What is the total cost of this project?",
+      "name": "totalCost",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "currency"
+    },
+    {
+      "questionId": "4",
+      "text": "What is the anticipated start date of project?",
+      "name": "anticipatedStartDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+    {
+      "questionId": "5",
+      "text": "What is the anticipated finish date of project?",
+      "name": "anticipatedFinishDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+
+    {
       "questionId": "13",
       "text": "What is the scope of the work for this project?",
       "name": "projectScope",
-      "required": false,
+      "required": true,
       "inputType": "freeform",
       "inputFormat": "text",
       "tooltiptext": "Please provide as descriptive of a scope of work as possible including end use."
@@ -195,10 +186,10 @@ const ocpData = {
         ]
       }
     },
-     {
+    {
       "questionId": "6",
-      "text": "What is the name of the designated contractor?",
-      "name": "generalContractor",
+      "text": "What is the name of the General Contractor?",
+      "name": "generalContractorName",
       "required": false,
       "inputType": "text",
       "inputFormat": "text"
@@ -206,16 +197,71 @@ const ocpData = {
     {
       "questionId": "7",
       "text": "Who is the GL Carrier of Contractor?",
-      "name": "generalContractorCarrier",
-      "required": true,
+      "name": "generalLiabilityCarrier",
+      "required": false,
       "inputType": "text",
       "inputFormat": "text"
+    },
+    {
+
+      "questionId": "9",
+      "text": "What are the excess limits of the Contractor's Primary Policy?",
+      "name": "generalContractorAmount",
+      "required": false,
+      "inputType": "text",
+      "inputFormat": "currency"
+     },
+    {
+      "questionId": "16",
+      "name": "limitsRequested",
+      "text": "What GL limits are being requested for this OCP? (If the limit you require is not listed, please contact us through the chat interface below)",
+      "inputType": "dropdown-single",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Select",
+            "value": ""
+          },
+          {
+            "optionId": "2",
+            "text": "1m/2m",
+            "value": "12"
+          },
+          {
+            "optionId": "3",
+            "text": "2m/2m",
+            "value": "22"
+          },
+          {
+            "optionId": "4",
+            "text": "2m/4m",
+            "value": "24"
+          },
+          {
+            "optionId": "5",
+            "text": "3m/3m",
+            "value": "33"
+          },
+          {
+            "optionId": "6",
+            "text": "4m/4m",
+            "value": "44"
+          },
+          {
+            "optionId": "7",
+            "text": "5m/5m",
+            "value": "55"
+          }
+        ]
+      }
     },
     {
       "questionId": "8",
       "text": "When is the Expiration Date of the Contactor's GL Policy?",
       "name": "generalContractorExpirationDate",
-      "required": true,
+      "required": false,
       "inputType": "text",
       "inputFormat": "date"
     },
@@ -257,52 +303,6 @@ const ocpData = {
             "optionId": "2",
             "text": "No",
             "value": false
-          }
-        ]
-      }
-    },
-    {
-      "questionId": "16",
-      "name": "limitsRequested",
-      "text": "What limits are being requested for this OCP?",
-      "inputType": "dropdown-single",
-      "required": true,
-      "attributes":{
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Select",
-            "value": ""
-          },
-          {
-            "optionId": "2",
-            "text": "1m/2m",
-            "value": "12"
-          },
-          {
-            "optionId": "3",
-            "text": "2m/2m",
-            "value": "22"
-          },
-          {
-            "optionId": "4",
-            "text": "2m/4m",
-            "value": "24"
-          },
-          {
-            "optionId": "5",
-            "text": "3m/3m",
-            "value": "33"
-          },
-          {
-            "optionId": "6",
-            "text": "4m/4m",
-            "value": "44"
-          },
-          {
-            "optionId": "7",
-            "text": "5m/5m",
-            "value": "55"
           }
         ]
       }
@@ -373,9 +373,16 @@ const ocpData = {
         ]
       }
     },
-
     {
       "questionId": "20",
+      "name": "generalComments",
+      "text": "General Comments",
+      "inputFormat": "text",
+      "inputType": "freeform",
+      "required": false
+    },
+    {
+      "questionId": "21",
       "name": "nameInsuredAddressLabel",
       "text": "Please provide your contact info to receive your indication:",
       "inputFormat": "label",
@@ -385,7 +392,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20a",
+      "questionId": "21a",
       "name": "email",
       "inputType": "text",
       "inputFormat": "email",
@@ -396,7 +403,7 @@ const ocpData = {
       }
     },
     {
-      "questionId": "20b",
+      "questionId": "21b",
       "name": "phone",
       "inputType": "text",
       "inputFormat": "text",

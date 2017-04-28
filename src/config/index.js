@@ -4,7 +4,7 @@ var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'intake@ownersedge.us',
+    argoEmail: 'warrenlongmire@gmail.com',
     sgsEmail: 'warren.longmire@argogroupus.com',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
@@ -14,6 +14,7 @@ var config = {
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
     ownersEdgeQuotationPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
+    ocpBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/OCP_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
@@ -49,7 +50,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://dev.ownersedge.us',
+        url: 'http://localhost',
         port: null
     },
 
@@ -58,7 +59,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://dev.ownersedge.us',
+        url: 'http://localhost',
         port:  null
     }
 };

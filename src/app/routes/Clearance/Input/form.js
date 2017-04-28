@@ -15,11 +15,74 @@ const formData = {
 	    "required": true
 	   },
 	    
-	  
 	  {
 	    "questionId": "2",
 	    "name": "primaryAddressLabel",
-	    "text": "What is the address of the Project?",
+	    "text": "What is the First Named Insured's Address?",
+	    "inputFormat": "label",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"
+	    }
+	    
+	  },
+
+	  {
+	    "questionId": "2a",
+	    "name": "primaryInsuredAddress",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "required": true,
+	    "placeholder": "Address",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"	
+	    }
+	  },
+
+	  {
+	    "questionId": "2b",
+	    "name": "primaryInsuredCity",
+	    "inputFormat": 	"text",
+	    "inputType": 		"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",           
+	    "required": true,
+	    "placeholder": "City",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"	
+	    }
+	  },
+
+	  {
+	    "questionId": "2c",
+	    "name": "primaryInsuredState",
+	    "inputType": "dropdown-single",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
+	    "required": true,
+	    "placeholder": "State",
+	    "attributes":{	
+	    	"options": statesArray,
+	    	"controlGroup":"insuredAddress"
+	    }
+	    
+	  },
+
+	  {
+	    "questionId": "2d",
+	    "name": "primaryInsuredZipcode",
+	    "inputType": 		"text",
+	    "inputFormat": 	"text",
+	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
+	    "required": true,
+	    "placeholder": "Zip Code",
+	    "attributes":{
+	    	"controlGroup":"insuredAddress"
+	    }
+	  },
+
+	  {
+	    "questionId": "3",
+	    "name": "primaryAddressLabel",
+	    "text": "What is the Project Address?",
 	    "inputFormat": "label",
 	    "attributes":{
 	    	"controlGroup":"projectAddress"
@@ -28,7 +91,7 @@ const formData = {
 	  },
 
 	  {
-	    "questionId": "2a",
+	    "questionId": "3a",
 	    "name": "projectAddress",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
@@ -41,7 +104,7 @@ const formData = {
 	  },
 
 	  {
-	    "questionId": "2b",
+	    "questionId": "3b",
 	    "name": "projectCity",
 	    "inputFormat": 	"text",
 	    "inputType": 		"text",
@@ -54,7 +117,7 @@ const formData = {
 	  },
 
 	  {
-	    "questionId": "2c",
+	    "questionId": "3c",
 	    "name": "projectState",
 	    "inputType": "dropdown-single",
 	    "tooltiptext": "Please provide as descriptive of a street address as possible.",
@@ -68,7 +131,7 @@ const formData = {
 	  },
 
 	  {
-	    "questionId": "2d",
+	    "questionId": "3d",
 	    "name": "projectZipcode",
 	    "inputType": 		"text",
 	    "inputFormat": 	"text",

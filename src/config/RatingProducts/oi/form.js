@@ -16,7 +16,7 @@ const updatedData =  {
     {
       "questionId": "2",
       "name": "primaryInsuredAddressLabel",
-      "text": "What is the address of the Named Insured?",
+      "text": "What is the Named Insured's address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"insuredAddress"
@@ -139,7 +139,7 @@ const updatedData =  {
     {
       "questionId": "6",
       "name": "projectAddressLabel",
-      "text": "What is the address of the project?",
+      "text": "What is the Project Address?",
       "inputFormat": "label",
       "attributes":{
         "controlGroup":"projectAddress"
@@ -217,13 +217,62 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "7",
-      "text": "What is the term of the project, in months?",
-      "name": "projectTerm",
-
-      "inputType": "number",
-      "inputFormat": "number",
-      "required": true
+      "questionId": "30",
+      "text": "Does the project include the addition of any stories or vertical expansion?",
+      "name": "verticalExpansion",
+      "inputType": "radio",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "questionId": "31",
+      "name": "exteriorWorkFiveStories",
+      "text": "Is there any exterior work being done over 5 stories?",
+      "inputType": "radio",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "questionId": "7a",
+      "text": "What is the anticipated start date of project?",
+      "name": "anticipatedStartDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
+    },
+    {
+      "questionId": "7b",
+      "text": "What is the anticipated finish date of project?",
+      "name": "anticipatedFinishDate",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "date"
     },
     {
       "questionId": "8",
@@ -240,7 +289,7 @@ const updatedData =  {
       "tooltiptext": "Please be as descriptive as possible.",
       "inputFormat": "text",
       "inputType": "freeform",
-      "required": false
+      "required": true
     },
     {
       "questionId": "9",
@@ -269,7 +318,7 @@ const updatedData =  {
       "text": "Is the General Contractor known?",
       "name": "generalContractorKnown",
       "inputType":   "radio",
-      "tooltiptext": "Note: Coverage will be quoted subject to form U658 until the General  Contractor is reviewed and approved.  To approve the General Contractor  we will need at a minimum, fully executed contract, certificate of insurance, and endorsement listing from the GC’s General Liability.",
+      "tooltiptext": "Note: Coverage will be priced subject to form U658 until the General  Contractor is reviewed and approved.  To approve the General Contractor  we will need at a minimum, fully executed contract, certificate of insurance, and endorsement listing from the GC’s General Liability.",
       "required": true,
       "attributes": {
         "options": [
@@ -298,7 +347,7 @@ const updatedData =  {
       "text": "Will there be occupancy during the project?",
       "name": "occupancy",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
@@ -322,7 +371,7 @@ const updatedData =  {
       "text": "Will there be demo of exterior walls or roof?",
       "name": "exteriorDemo",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
@@ -349,7 +398,7 @@ const updatedData =  {
       "text": "Has Work started on this project?",
       "name": "workStarted",
       "inputType": "radio",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
@@ -400,14 +449,13 @@ const updatedData =  {
       "name": "sidewalkMaintaining",
       "text": "Who is responsible for maintating the sidewalks?",
       "inputType": "dropdown-single",
-      "required": false,
+      "required": true,
       "attributes": {
         "options": [
           {
             "optionId": "1",
             "text": "Select",
-            "value": "",
-            "supplementalquestionIds": []
+            "value": ""
           },
           {
             "optionId": "2",
@@ -662,6 +710,7 @@ const updatedData =  {
       "questionId": "10_supplemental3",
       "name": "generalContractorAmount",
       "inputFormat": "currency",
+      "placeholder": "Limit Amount",
       "inputType": "text",
       "required": false,
       "attributes" : {
@@ -1011,10 +1060,10 @@ const updatedData =  {
     },
     {
       "questionId": "13_supplemental3",
-      "text": "Total const spent to date?",
+      "text": "Total spent to date?",
       "name": "totalSpent",
       "inputType": "number",
-      "inputFormat": "number",
+      "inputFormat": "currency",
       "required": false,
       "attributes": {
         "controlGroup":"termDetails"
@@ -1034,7 +1083,7 @@ const updatedData =  {
 
     {
       "questionId": "14_supplemental1",
-      "text": "What excess limits are required?",
+      "text": "What excess limits are required? (If the limit you require is not listed, please contact us through the chat interface below.)",
       "name": "excessLimitAmount",
       "inputType": "dropdown-single",
       "required": false,
@@ -1062,11 +1111,11 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "16_supplemental1",
-      "text": "Please provide more details.",
+      "questionId": "15_supplemental1",
       "name": "sidewalkDetails",
-      "inputType": "text",
-      "inputFormat": "freeform",
+      "text": "Please provide details.",
+      "inputFormat": "text",
+      "inputType": "freeform",
       "required": false
     }
 

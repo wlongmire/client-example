@@ -1,14 +1,16 @@
 import request from 'request';
+import moment from 'moment';
 import rp from 'request-promise';
 import filter from 'lodash/filter';
 import config from '../../../config';
+import _ from 'lodash';
 import { User, Broker } from '../../models';
 
 import * as emailService from '../../services/email';
 import  * as submissionService  from  '../../services/submission';
 import * as pdfService from '../../services/pdf';
 
-import { edgeSubmissionService, businessMatchingService } from '../../services'
+import { edgeSubmissionService, businessMatchingService, getBusinessMatchingHercules } from '../../services'
 import {
   utilities
 } from '../../utils'
@@ -23,7 +25,7 @@ async function getClearance(req, res) {
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
-
+		console.log('Starting Clearance Process')
 		User.fromAuthToken(req.headers['x-token']).then((result) => {
 
 			if (!result || !result.user) {
@@ -32,45 +34,84 @@ async function getClearance(req, res) {
 					message: "Access forbidden. Invalid user token."
 				});
 			}
-
+			console.log('Got a valid user')
 			const user = result.user;
 
 			const name = req.query.name || '';
-			const address = req.query.address || '';
-			const city = req.query.city || '';
-			const state = req.query.state || '';
-			const zipcode = req.query.zipcode || '';
 
-			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(state)])
+			const projectAddress = {
+				address:req.query.projectAddress || '',
+				city:req.query.projectCity || '',
+				state:req.query.projectState || '',
+				zipcode:req.query.projectZipcode || '',
+			}
+
+			const insuredAddress = {
+				address:req.query.insuredAddress || '',
+				city:req.query.insuredCity || '',
+				state:req.query.insuredState || '',
+				zipcode:req.query.insuredZipcode || '',
+			}
+			console.log('querying OE and Edge Submissions')
+			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
-				const submissions = resp[0].map(
+				console.log('Received OE and Edge Submissions')
+				const ownerSubmissions = resp[0].map(
 					(s)=>({
-						name:s.primaryInsuredName,
-						address: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectState} ${s.projectAddress.projectZipcode}`
+						compName:	_.trim(name),
+						compAddress:`${_.trim(projectAddress.address)} ${_.trim(projectAddress.city)} ${_.trim(projectAddress.state)} ${_.trim(projectAddress.zipcode)}`,
+						webName:	s.primaryInsuredName,
+						webAddress: `${s.projectAddress.projectAddress} ${s.projectAddress.projectCity} ${s.projectAddress.projectZipcode}`
 					})
-				).concat(resp[1].map(
+				)
+
+				const edgeSubmissions = resp[1].map(
 					(s)=>({
-						name:(s.CUST_NAME),
-						address:`${s.ADDRESS_1} ${s.CITY} ${s.STATE} ${s.ZIP_CODE}`
+						compName:	_.trim(name),
+						compAddress:`${_.trim(insuredAddress.address)} ${_.trim(insuredAddress.city)} ${_.trim(insuredAddress.state)} ${_.trim(insuredAddress.zipcode)}`,
+						webName:	s.CUST_NAME,
+						webAddress:`${s.ADDRESS_1} ${s.CITY} ${s.ZIP_CODE}`
 					})
-				)).filter((s)=>(
-					s.name && s.address
-				))
+				)
+
+				Promise.all([
+					businessMatchingService.getBusinessMatchingHercules(ownerSubmissions),
+					businessMatchingService.getBusinessMatchingHercules(edgeSubmissions)
+				]).then((resp)=>{
+					let results = []
+					console.log('Building the results array')
+					if (resp[0].success) {
+						resp[0].matches.map((s, idx)=>{
+							results.push({
+								name:ownerSubmissions[idx].webName,
+								address:ownerSubmissions[idx].webAddress,
+								match:(s.result === 1),
+								prob:s.prob
+							})
+						})
+					}
 
 
-				businessMatchingService.getBusinessMatching(
-					{name, address:`${address} ${city} ${state} ${zipcode}`},
-					submissions
-				).then((resp)=>{
+					if (resp[1].success) {
+						resp[1].matches.map((s, idx)=>{
+							results.push({
+								name:edgeSubmissions[idx].webName,
+								address:edgeSubmissions[idx].webAddress,
+								match:(s.result === 1),
+								prob:s.prob
+							})
+						})
+					}
+
+					console.log('sorting the results array')
+					results = _.sortBy(results,['match', 'prob'])
+								.reverse()
+								.filter((s)=>(s.match))
+								.slice(0,5)
 
 					return res.status(200).json({
-						success: resp.success,
-						matches: resp.matches
-					});
-				})
-				.catch(error => {
-					return res.status(200).json({
-						success: false
+						success: (resp[0].success && resp[1].success),
+						matches: results
 					});
 				})
 
@@ -308,18 +349,21 @@ async function generatePDFsInternal(submissionId) {
 	const submission = await submissionService.getSubmissionById(submissionId);
 	let pdfArray = [];
 
-	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind');
-	let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
-	let excessQuote = await pdfService
-	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder},
-											{title:`Owner's Interest - General Quote`, content: oiQuote}]
-	if (submission.type === 'ocp') {
-		let ocpQuote = await pdfService.generatePDF(submission.pdfToken, 'ocp');
-		pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Quote`, content: ocpQuote}];
-	}
-	if (utilities.isDefined(submission.rating[submission.type].excessPremium) && submission.rating[submission.type].excessPremium > 0) {
-		let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
-		pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Quote`, content: excessQuote}];
+	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind', submission.type);
+	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder}]
+
+	if (submission.rating[submission.type].instantQuote) {
+		if (submission.type === 'ocp') {
+			let ocpQuote = await pdfService.generatePDF(submission.pdfToken, 'ocp');
+			pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Pricing Indication`, content: ocpQuote}];
+		} else if (submission.type === 'oi') {
+				let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
+				pdfArray = [...pdfArray, {title:`Owner's Interest - General Pricing Indication`, content: oiQuote}]
+		}
+		if (utilities.isDefined(submission.rating[submission.type].excessPremium) && submission.rating[submission.type].excessPremium > 0) {
+			let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
+			pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Pricing Indication`, content: excessQuote}];
+		}
 	}
 	console.log('finished generating pdfs');
 	return pdfArray;

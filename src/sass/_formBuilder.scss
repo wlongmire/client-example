@@ -57,15 +57,16 @@
       background: #08415c !important;
       border: 1px solid #0e5a7d !important;
       color: white;
-      transition: background-color 1s;
+      transition: all 1s;
 
       &.filled{
-        background-color:#FAFFBD;
+        background-color:#FAFFBD !important;
         color:black;
+        border:0;
       }
 
       &.disabled {
-        background-color: bfbfbf;
+        background-color: #bfbfbf !important;
         border: 0;
         cursor: default;
       }
@@ -79,11 +80,12 @@
       background-color: #08415c;
       border: 1px solid #0e5a7d;
       color: white;
-      transition: background-color 1s;
+      transition: all 1s;
 
       &.filled{
         background-color:#FAFFBD;
         color:black;
+        border:0;
       }
 
       &.disabled {

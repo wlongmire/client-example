@@ -37,7 +37,7 @@ class QuoteBlock extends Component {
                 render={() => (
                     <div className="premiumNumber">
                         {item.title}
-                        <span>{commifyNumber(item.value || 0)}</span>
+                        <span>${commifyNumber(item.value || 0)}</span>
                     </div>)
                 }/>
         ));
@@ -90,12 +90,12 @@ class Quote extends Component {
 
         return (
         <div>
-            <h3>Your Instant Quote:</h3>
+            <h3>Instant Pricing Indication:</h3>
             <div className="quoteBlocks">
 
                 <QuoteBlock 
                     title={ratingProduct.name}
-                    className={ratingProduct.type}
+                    className={classNames(ratingProduct.type, "primaryPricing")}
                     basePremium={rating.premium}
                     totalPremium={rating.totalPremium}
                     additionalCoverage={rating.additionalCoverage}
@@ -107,7 +107,7 @@ class Quote extends Component {
                 render={() => (
                     <QuoteBlock 
                         title="Excess"
-                        className="Excess"
+                        className="excess"
                         basePremium={rating.excessPremium}
                         totalPremium={rating.totalExcessPremium}
                         terrorismCoverage={rating.excessTerrorPremium}
@@ -119,7 +119,7 @@ class Quote extends Component {
                 render={() => (
                     <div>
                         <QuoteBlock 
-                            title={"Here is what you would play with an Owner's Interest Policy"}
+                            title={"Here is what you would pay with an Owner's Interest Policy"}
                             className="oi upsell"
                             basePremium={ratings['oi'].premium}
                             totalPremium={ratings['oi'].totalPremium}

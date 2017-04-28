@@ -61,6 +61,12 @@ class Clearance extends Component {
         submission, 
         submissionFormParams:{
           primaryInsuredName:{ disabled:true },
+
+          primaryInsuredAddress:{ disabled:true },
+          primaryInsuredCity:{ disabled:true },
+          primaryInsuredState:{ disabled:true },
+          primaryInsuredZipcode:{ disabled:true },
+
           projectAddress:{ disabled:true },
           projectCity:{ disabled:true },
           projectState:{ disabled:true },
@@ -93,6 +99,6 @@ class Clearance extends Component {
 
 export default connect((store)=>{
   return({
-    submissiom:store.app.submission
-  })
+    submission:store.app.submission
+  });
 })(Clearance);

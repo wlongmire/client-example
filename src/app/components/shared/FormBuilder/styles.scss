@@ -10,7 +10,7 @@
 
     .required {
         input, select, textarea, .radioGroup .options {
-            border-bottom: 2px solid #e22929
+            border-bottom: 2px solid #e22929 !important;
         }
     }
 
