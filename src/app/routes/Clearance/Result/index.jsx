@@ -70,7 +70,7 @@ class Result extends Component {
 
             <ButtonGroup>
                 <Button 
-                    className="btn secondary" 
+                    className="btn" 
                     onClick={
                         ()=>{
                           this.props.handleSubmit(this.props.result);
@@ -80,7 +80,7 @@ class Result extends Component {
                 </Button>
                 
                 <LinkContainer to="/productChoice">
-                    <Button className="btn"> Return to Product Selection</Button>
+                    <Button className="btn secondary"> Return to Product Selection</Button>
                 </LinkContainer>
             </ButtonGroup>
 
