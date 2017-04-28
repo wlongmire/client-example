@@ -97,6 +97,7 @@ class InputContainer extends React.PureComponent {
       input = <Cleave className="input-numeral"
                       id={this.props.data.name}
                       className={classNames("form-control", "number-control", {'filled':this.state.value}, {disabled:this.state.disabled})}
+                      autoComplete={false}
                       value={this.state.value}
                       options={
                         {
@@ -113,6 +114,7 @@ class InputContainer extends React.PureComponent {
             placeholder={this.props.data.placeholder}
             className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
             disabled={this.state.disabled}
+            autoComplete={false}
             id={this.props.data.name}
             type={inputFormat}
             onChange={this.handleChange}
