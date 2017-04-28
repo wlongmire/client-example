@@ -4,7 +4,7 @@ import rp from 'request-promise';
 
 function cleanInput(input) {
   const rtn = input
-  
+
   return(
     _.trim(rtn)
   )
@@ -35,7 +35,7 @@ function getBusinessMatching(submissions) {
     .reverse()
     .filter((s)=>(s.nameProb > 0.9 && s.addressProb > 0.9))
     .slice(0,5)
-    
+
     resolve({
       success:true,
       matches
@@ -50,7 +50,7 @@ function getBusinessMatchingHercules(submissions) {
       "authToken": "1231213",
       "functionality": "clearanceMatching",
       "input": [{
-        "compName":     cleanInput(submissions[0].compName), 
+        "compName":     cleanInput(submissions[0].compName),
         "compAddress":  cleanInput(submissions[0].compAddress),
         "webName":      submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webName)}`), "" ).slice(1),
         "webAddress":   submissions.reduce( (result, s)=> (`${result}|${cleanInput(s.webAddress)}`), "" ).slice(1)
@@ -62,11 +62,12 @@ function getBusinessMatchingHercules(submissions) {
         uri:"http://35.167.95.103:7070/SmartSearch/getHerculesData",
         body:JSON.stringify(params)
     }
-    
+    console.log('Sending request to Hercules')
     return rp(options).then((resp)=>{
+      console.log('Received response from Hercules')
       const respConverted = JSON.parse(resp)
 
-      resolve({ 
+      resolve({
         success:respConverted.success,
         matches:respConverted.response
       })
@@ -74,7 +75,7 @@ function getBusinessMatchingHercules(submissions) {
     }, (error) => {
       resolve({ success:false, matches:[] })
     });
-    
+
   })
 }
 
