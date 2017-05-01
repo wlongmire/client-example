@@ -9,7 +9,7 @@ import config from 'config';
 import {
 	SIGNUP_STATUS,
 	USER_LOGGED_IN
-} from 'constants';
+} from 'app/constants/user';
 
 import validate from './validate';
 import _ from 'lodash';
@@ -44,13 +44,9 @@ const handleSubmit = (values, dispatch) => {
 		})
 		.then(res => res.json())
 		.then((res) => {
-			dispatch({
-				type: SIGNUP_STATUS,
-				payload: res.message
-			})
 
 			switch(res.message) {
-				case("Sorry, that user name is not available. Please try something else."):
+				case('Sorry, that user name is not available. Please try something else.'):
 					return dispatch({
 						type: 'SET_FORM_ERROR',
 						payload: {
@@ -78,12 +74,12 @@ const handleSubmit = (values, dispatch) => {
 				});
 
 				mx.registrationEvent(
-					email
+					user.email
 				);
 
 				mx.loginEvent(
-					email,
-					email
+					user.email,
+					user.email
 				);
 
 				return dispatch(push({

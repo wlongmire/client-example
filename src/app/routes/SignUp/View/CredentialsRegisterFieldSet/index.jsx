@@ -16,6 +16,9 @@ function CredentialsRegisterFieldSet(props) {
     errors
   } = props;
 
+  console.log('x22 password', password);
+  console.log('x22 retype password', retypePassword);
+
   return (
     <div>
       <PureInput
