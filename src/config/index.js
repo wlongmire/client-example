@@ -4,9 +4,9 @@ var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'jbuelow@colonyspecialty.com',
-    sgsEmail: 'owners@colonyspecialty.com',
-    mongoURI: 'mongodb://xxread:xxread@52.25.41.113:27017/ownersedgedev',
+    argoEmail: 'intake@ownersedge.us',
+    sgsEmail: 'warren.longmire@argogroupus.com',
+    mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
     brokerTemplateId: '365b9c92-9e3d-4699-88ff-d9ea688e769b',
@@ -18,7 +18,7 @@ var config = {
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
-    ratingsUrl:'https://oe-rating-engine.herokuapp.com',
+    ratingsUrl:'https://oe-rating-engine-dev.herokuapp.com',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
     underwriters:[{
@@ -50,7 +50,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://www.ownersedge.us',
+        url: 'http://dev.ownersedge.us',
         port: null
     },
 
@@ -59,7 +59,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://www.ownersedge.us',
+        url: 'http://dev.ownersedge.us',
         port:  null
     }
 };
