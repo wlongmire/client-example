@@ -46,6 +46,10 @@ function getBusinessMatching(submissions) {
 function getBusinessMatchingHercules(submissions) {
   return new Promise((resolve, reject) => {
 
+    if (submissions.length <= 0) {
+      resolve({ success:true, matches:[] })
+    }
+
     var params = {
       "authToken": "1231213",
       "functionality": "clearanceMatching",
