@@ -77,10 +77,10 @@ export default async function getPDFData(token, pdfType) {
 
     if (submission.type == 'ocp') {
       contractorLimits = calcContractorLimits(parseInt(submission.totalCost),
-                                              submission.projectAddress.projectState,
-                                              submission.exteriorWorkFourStories,
-                                              submission.verticalExpansion,
-                                              submission.limitsRequested)
+        submission.projectAddress.projectState,
+        submission.exteriorWorkFourStories,
+        submission.verticalExpansion,
+        submission.limitsRequested)
     }
 
     const limits = [
@@ -265,7 +265,6 @@ export default async function getPDFData(token, pdfType) {
       pdfData.generalContractorKnown = true
     }
 
-    console.log(pdfData);
     return pdfData;
   } catch (err) {
     console.log(err)
@@ -273,75 +272,75 @@ export default async function getPDFData(token, pdfType) {
 }
 
 function calcContractorLimits(costs, state, fourFloors, verticalExpansion, limitsRequested) {
+  let minimumOcc, minimumAgg;
   switch (limitsRequested) {
     case '12':
       {
-        let minimumOcc = 1
-        let minimumAgg = 2
+        minimumOcc = 1
+        minimumAgg = 2
       }
       break;
     case '22':
       {
-        let minimumOcc = 2
-        let minimumAgg = 2
+        minimumOcc = 2
+        minimumAgg = 2
       }
       break;
     case '24':
       {
-        let minimumOcc = 2
-        let minimumAgg = 4
+        minimumOcc = 2
+        minimumAgg = 4
       }
       break;
     case '33':
       {
-        let minimumOcc = 3
-        let minimumAgg = 3
+        minimumOcc = 3
+        minimumAgg = 3
       }
       break;
     case '44':
       {
-        let minimumOcc = 4
-        let minimumAgg = 4
+        minimumOcc = 4
+        minimumAgg = 4
       }
       break;
     case '55':
       {
-        let minimumOcc = 5
-        let minimumAgg = 5
+        minimumOcc = 5
+        minimumAgg = 5
       }
       break;
-      switch (state) {
-        case 'New York': {
-          let halvedCost = Math.ceil((((costs / 2) * 1000000) / 1000000) / 1000000);
-          if ((halvedCost) > minimumAgg) {
-            minimumAgg = halvedCost;
-            minimumOcc = halvedCost;
-          }
+  }
+  switch (state) {
+    case 'New York': {
+      let halvedCost = Math.ceil((((costs / 2) * 1000000) / 1000000) / 1000000);
+      if ((halvedCost) > minimumAgg) {
+        minimumAgg = halvedCost;
+        minimumOcc = halvedCost;
+      }
+    }
+      break;
+    default:
+      if (costs > 10000000 && costs < 20000000) {
+        if (minimumAgg < 5) {
+          minimumAgg = 5;
+          minimumOcc = 5
         }
-          break;
-        default:
-          if (costs > 10000000 && costs < 20000000) {
-            if (minimumAgg < 5) {
-              minimumAgg = 5;
-              minimumOcc = 5
-            }
-          } else if (costs > 20000000) {
-            minimumAgg = 10;
-            minimumOcc = 10
-          }
-      }
-
-      if (fourFloors == 'true' && minimumAgg < 5) {
-        minimumAgg = 5;
-        minimumOcc = 5
-      }
-
-      if (verticalExpansion == 'true' && minimumAgg < 10) {
+      } else if (costs > 20000000) {
         minimumAgg = 10;
-        minimumOcc = 10;
+        minimumOcc = 10
       }
-
-      return `$${minimumOcc}M/${minimumAgg}M`
   }
 
+  if (fourFloors == 'true' && minimumAgg < 5) {
+    minimumAgg = 5;
+    minimumOcc = 5
+  }
+
+  if (verticalExpansion == 'true' && minimumAgg < 10) {
+    minimumAgg = 10;
+    minimumOcc = 10;
+  }
+
+  return `$${minimumOcc}M/${minimumAgg}M`
 }

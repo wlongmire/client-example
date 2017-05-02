@@ -56,8 +56,6 @@ async function getClearance(req, res) {
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
 				console.log('Received OE and Edge Submissions')
-				console.log('***OE Submissions***')
-				console.log(resp[0]);
 				const ownerSubmissions = resp[0].map(
 					(s)=>({
 						compName:	_.trim(name),
