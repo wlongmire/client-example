@@ -42,7 +42,7 @@ class CredentialsRegisterFieldSet extends Component{
 
           <PurePassword
             field={retypePassword}
-            placeholder="Password"
+            placeholder="Confirm Password"
             validation_status={ validationStatus(errors, "retypePassword") }
             validation_message={ validationMessage(errors, "retypePassword") }
             />
