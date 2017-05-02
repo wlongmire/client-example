@@ -29,7 +29,7 @@ class Loading extends Component {
         const ratingPromises = typeMap[submission.type];
 
         const argoEmail = config.argoEmail;
-        const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsEmail;
+        const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail;
         const brokerEmail = submission.contactInfo.email;
 
         Promise.all(ratingPromises.map((s)=>(
