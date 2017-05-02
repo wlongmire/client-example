@@ -116,9 +116,13 @@
     "serve:development": "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/server -d dist/server --copy-files; babel src/config -d dist/config --copy-files",
-    "start": "NODE_ENV='production' node dist/server/index.js"
+    "start": "NODE_ENV='production' node dist/server/index.js",
+    "test": " nodemon --exec 'mocha --compilers js:babel-core/register test/*.js --timeout 5000' || true"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.3.0",
     "redux-logger": "^2.6.1"
   }
 }
