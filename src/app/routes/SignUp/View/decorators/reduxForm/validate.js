@@ -20,8 +20,8 @@ export default function validate(values) {
         errors.credentials.retypePassword = 'Password is required';
     }
 
-    // Assert password == retypePassword
-    if (values.credentials.password && values.credentials.password !== values.credentials.retypePassword) {
+    if (values.credentials.password && (values.credentials.password != values.credentials.retypePassword)) {
+      console.log('hitting it');
       errors.credentials.retypePassword = 'Passwords do not match';
     }
 
