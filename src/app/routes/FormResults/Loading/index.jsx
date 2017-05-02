@@ -20,16 +20,16 @@ class Loading extends Component {
 
     componentDidMount() {
         const {submission} = this.props;
-        
+
         let typeMap = {
-            "oi":[submission], 
+            "oi":[submission],
             "ocp":[submission, Object.assign({}, submission, {type:"oi"})]
         }
 
         const ratingPromises = typeMap[submission.type];
-        
+
         const argoEmail = config.argoEmail;
-        const sgsEmail = config.sgsEmail;
+        const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsEmail;
         const brokerEmail = submission.contactInfo.email;
 
         Promise.all(ratingPromises.map((s)=>(
@@ -49,10 +49,10 @@ class Loading extends Component {
                     const {submissionId} = resp
                     const mainRating = ratings[submission.type]
                     const { instantQuote } = mainRating
-                    
+
                     const emailPromises = [
                         sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-                        // sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+                        sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
                         sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
                     ]
 
@@ -66,7 +66,7 @@ class Loading extends Component {
             }).catch((e)=>{
                 alert("Not able to get rating.");
             })
-        
+
             this.props.handleSubmit(!resp[0].success, ratings);
         });
     }
