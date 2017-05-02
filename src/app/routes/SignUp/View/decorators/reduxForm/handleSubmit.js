@@ -21,6 +21,7 @@ import mx from 'app/utils/MixpanelInterface';
 let baseURL = config.apiserver.url;
 
 const handleSubmit = (values, dispatch) => {
+
 	const errors = validate(values);
 
 	if (_.every(Object.keys(errors), (field)=>!_.isEmpty(errors[field]))) {
@@ -29,6 +30,34 @@ const handleSubmit = (values, dispatch) => {
 			type: 'SET_FORM_ERROR',
 			payload: {
 				signup:errors
+			}
+		});
+	}
+	const regularExpression  = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+	
+	if (values.credentials.password.length < 6 || !regularExpression.test(values.credentials.password)) {
+		console.log('33 Test pass regex', regularExpression.test(values.credentials.password));
+		return dispatch({
+			type: 'SET_FORM_ERROR',
+			payload: {
+				signup: {
+					credentials: {
+						password: "Password must have at least 6 characters, have an upper case and special character"
+					}
+				}
+			}
+		});
+	}
+
+	if (values.credentials.password != values.credentials.retypePassword ) {
+		return dispatch({
+			type: 'SET_FORM_ERROR',
+			payload: {
+				signup: {
+					credentials: {
+						retypePassword: "Passwords must match!"
+					}
+				}
 			}
 		});
 	}
