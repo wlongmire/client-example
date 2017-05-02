@@ -36,7 +36,6 @@ const handleSubmit = (values, dispatch) => {
 	const regularExpression  = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 	
 	if (values.credentials.password.length < 6 || !regularExpression.test(values.credentials.password)) {
-		console.log('33 Test pass regex', regularExpression.test(values.credentials.password));
 		return dispatch({
 			type: 'SET_FORM_ERROR',
 			payload: {

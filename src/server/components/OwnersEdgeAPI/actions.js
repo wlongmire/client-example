@@ -21,7 +21,6 @@ const sgsEmail = config.sgsEmail;
 const ratingsUrl = config.ratingsUrl;
 
 async function getClearance(req, res) {
-	console.log('hitting it', req.query);
 	try {
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
