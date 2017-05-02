@@ -9,7 +9,7 @@ import config from 'config';
 import {
 	SIGNUP_STATUS,
 	USER_LOGGED_IN
-} from 'constants';
+} from 'app/constants/user';
 
 import validate from './validate';
 import _ from 'lodash';
@@ -21,6 +21,7 @@ import mx from 'app/utils/MixpanelInterface';
 let baseURL = config.apiserver.url;
 
 const handleSubmit = (values, dispatch) => {
+
 	const errors = validate(values);
 
 	if (_.every(Object.keys(errors), (field)=>!_.isEmpty(errors[field]))) {
@@ -29,6 +30,33 @@ const handleSubmit = (values, dispatch) => {
 			type: 'SET_FORM_ERROR',
 			payload: {
 				signup:errors
+			}
+		});
+	}
+	const regularExpression  = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+	
+	if (values.credentials.password.length < 6 || !regularExpression.test(values.credentials.password)) {
+		return dispatch({
+			type: 'SET_FORM_ERROR',
+			payload: {
+				signup: {
+					credentials: {
+						password: "Password must have at least 6 characters, have an upper case and special character"
+					}
+				}
+			}
+		});
+	}
+
+	if (values.credentials.password != values.credentials.retypePassword ) {
+		return dispatch({
+			type: 'SET_FORM_ERROR',
+			payload: {
+				signup: {
+					credentials: {
+						retypePassword: "Passwords must match!"
+					}
+				}
 			}
 		});
 	}
@@ -44,13 +72,9 @@ const handleSubmit = (values, dispatch) => {
 		})
 		.then(res => res.json())
 		.then((res) => {
-			dispatch({
-				type: SIGNUP_STATUS,
-				payload: res.message
-			})
 
 			switch(res.message) {
-				case("Sorry, that user name is not available. Please try something else."):
+				case('Sorry, that user name is not available. Please try something else.'):
 					return dispatch({
 						type: 'SET_FORM_ERROR',
 						payload: {
@@ -78,12 +102,12 @@ const handleSubmit = (values, dispatch) => {
 				});
 
 				mx.registrationEvent(
-					email
+					user.email
 				);
 
 				mx.loginEvent(
-					email,
-					email
+					user.email,
+					user.email
 				);
 
 				return dispatch(push({

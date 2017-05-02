@@ -25,7 +25,7 @@ async function getClearance(req, res) {
 		if (!req.headers['x-token']) {
 			return res.status(401).json('Authorization token required');
 		}
-
+		console.log('Starting Clearance Process')
 		User.fromAuthToken(req.headers['x-token']).then((result) => {
 
 			if (!result || !result.user) {
@@ -52,10 +52,10 @@ async function getClearance(req, res) {
 				state:req.query.insuredState || '',
 				zipcode:req.query.insuredZipcode || '',
 			}
-
+			console.log('querying OE and Edge Submissions')
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
-
+				console.log('Received OE and Edge Submissions')
 				const ownerSubmissions = resp[0].map(
 					(s)=>({
 						compName:	_.trim(name),
@@ -80,6 +80,7 @@ async function getClearance(req, res) {
 				]).then((resp)=>{
 					let results = []
 
+					console.log('Building the results array')
 					if (resp[0].success) {
 						resp[0].matches.map((s, idx)=>{
 							results.push({
@@ -91,7 +92,7 @@ async function getClearance(req, res) {
 						})
 					}
 
-					
+
 					if (resp[1].success) {
 						resp[1].matches.map((s, idx)=>{
 							results.push({
@@ -102,8 +103,8 @@ async function getClearance(req, res) {
 							})
 						})
 					}
-					
-					
+
+					console.log('sorting the results array')
 					results = _.sortBy(results,['match', 'prob'])
 								.reverse()
 								.filter((s)=>(s.match))
