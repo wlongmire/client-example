@@ -351,19 +351,19 @@ async function generatePDFsInternal(submissionId) {
 	let pdfArray = [];
 
 	let bindOrder = await pdfService.generatePDF(submission.pdfToken, 'bind', submission.type);
-	pdfArray = [{title:`Owner's Edge Bind Order`, content: bindOrder}]
+	pdfArray = [{title:`Owner's Edge Bind Order.pdf`, content: bindOrder}]
 
 	if (submission.rating[submission.type].instantQuote) {
 		if (submission.type === 'ocp') {
 			let ocpQuote = await pdfService.generatePDF(submission.pdfToken, 'ocp');
-			pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Pricing Indication`, content: ocpQuote}];
+			pdfArray = [...pdfArray, {title:`Owner's Contractor's Protective Pricing Indication.pdf`, content: ocpQuote}];
 		} else if (submission.type === 'oi') {
 				let oiQuote = await pdfService.generatePDF(submission.pdfToken, 'oi');
-				pdfArray = [...pdfArray, {title:`Owner's Interest - General Pricing Indication`, content: oiQuote}]
+				pdfArray = [...pdfArray, {title:`Owner's Interest - General Pricing Indication.pdf`, content: oiQuote}]
 		}
 		if (utilities.isDefined(submission.rating[submission.type].excessPremium) && submission.rating[submission.type].excessPremium > 0) {
 			let excessQuote = await pdfService.generatePDF(submission.pdfToken, 'excess');
-			pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Pricing Indication`, content: excessQuote}];
+			pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Pricing Indication.pdf`, content: excessQuote}];
 		}
 	}
 	console.log('finished generating pdfs');
