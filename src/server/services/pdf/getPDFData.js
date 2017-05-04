@@ -9,7 +9,7 @@ export default async function getPDFData(token, pdfType) {
     const submission = await getSubmissionByToken(token, pdfType)
 
     let aggregateLimit;
-    let halvedCost = Math.ceil(((parseInt(submission.totalCost) / 2) * 1000000) / 1000000);
+    let halvedCost = Math.round(((parseInt(submission.totalCost) / 2) / 1000000)) * 1000000
     switch (submission.insuredState) {
       case 'New York':
         if (halvedCost < 5000000) {
@@ -168,7 +168,7 @@ export default async function getPDFData(token, pdfType) {
       workCost: utilities.isDefined(submission.totalSpent) ? `$${utilities.commifyNumber(submission.totalSpent)}` : '',
       workGCResponsible: utilities.isDefined(submission.priorGcResponsible) ? submission.priorGcResponsible : '',
       brokerName: submission.broker.name,
-      deductibleText: submission.projectAddress && submission.projectAddress.projectState === 'New York' ? '$10,0000' : '$2,500',
+      deductibleText: submission.projectAddress && submission.projectAddress.projectState === 'New York' ? '$10,000' : '$2,500',
       anticipatedFinishDate: utilities.isDefined(submission.anticipatedFinishDate) ? submission.anticipatedFinishDate : '',
       projectDefinedAreaScope: submission.projectDefinedAreaScope == 'true' ? 'Yes' : 'No',
       projectDefinedAreaScopeDetails: utilities.isDefined(submission.projectDefinedAreaScopeDetails) ? submission.projectDefinedAreaScopeDetails : '',
