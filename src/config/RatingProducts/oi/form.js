@@ -449,7 +449,7 @@ const updatedData =  {
       "name": "sidewalkMaintaining",
       "text": "Who is responsible for maintating the sidewalks?",
       "inputType": "dropdown-single",
-      "required": true,
+      "required": false,
       "attributes": {
         "options": [
           {
