@@ -343,6 +343,7 @@ async function sendEmailInternal(submissionId, emailAddress, emailType) {
 			templateId = config.brokerTemplateId;
 			break;
 	}
+
 	console.log('got pdfs - on to mail')
 	return await emailService.sendMail(emailType, emailAddress, submission, templateId, pdfArray);
 }
@@ -368,6 +369,10 @@ async function generatePDFsInternal(submissionId) {
 			pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Pricing Indication`, content: excessQuote}];
 		}
 	}
+
+	let triaForm = await pdfService.generatePDF(submission.pdfToken, 'tria')
+	pdfArray = [...pdfArray, {title: `Tria Form`, content: triaForm}];
+
 	console.log('finished generating pdfs');
 	return pdfArray;
 }

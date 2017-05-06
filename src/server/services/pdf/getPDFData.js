@@ -265,7 +265,6 @@ export default async function getPDFData(token, pdfType) {
       pdfData.generalContractorKnown = true
     }
 
-    console.log(pdfData);
     return pdfData;
   } catch (err) {
     console.log(err)

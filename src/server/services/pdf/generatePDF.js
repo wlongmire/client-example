@@ -8,7 +8,7 @@ export default async function generatePDF(token, type, submissionType = '') {
    return new Promise(async (resolve, reject) => {
     try {
       let htmlUrl;
-      const data = await getPDFData(token);
+      let data = await getPDFData(token);
       switch (type) {
         case 'ocp':
           htmlUrl = config.ownersContractorsProtectivePDFUrl
@@ -26,7 +26,22 @@ export default async function generatePDF(token, type, submissionType = '') {
         case 'excess':
           htmlUrl = config.excessPDFUrl
           break;
+        case 'tria':
+          data = {
+            "Company":"Warren Longmire",
+            "Pol_Num":"Warren Longmire",
+            "Ins_Name":"Warren Longmire",
+            "Agt_Num":"121312312",
+            "Agt_Name":"Warren Longmire",
+            "Agt_City": "Warren Longmire",
+            "Agt_State": "Warren Longmire",
+            "Agt_Zip": "Warren Longmire"
+          }
+          
+          htmlUrl = config.triaPDFUrl
+          break;
       }
+
       const body = await rp(htmlUrl);
       let html = await generateHTML(body, data);
       pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {

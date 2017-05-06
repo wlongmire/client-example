@@ -16,6 +16,7 @@ var config = {
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
     ocpBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/OCP_Bind_Order.html',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
+    triaPDFUrl: 'http://assets.ownersedge.us/templates/tria_form.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
     ratingsUrl:'@ratingsUrl',
