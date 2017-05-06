@@ -14,6 +14,10 @@ class Input extends Component {
         validationModal: false
       };
 
+      this.state = {
+        status: STATUS.INPUT,
+      };
+
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleValidationOk = this.handleValidationOk.bind(this);
     }

@@ -10,6 +10,7 @@ const formData = {
 	    "inputType": "text",
 	    "inputFormat": "text",
       "placeholder": "Username",
+			"required":"true",
       "attributes": {
         "validationFunc":"usernameValFunc"
       }
@@ -18,8 +19,9 @@ const formData = {
 	    "questionId": "2",
 	    "name": "password",
 	    "inputType": "text",
-	    "inputFormat": "text",
-      "placeholder": "Passwords",
+	    "inputFormat": "password",
+      "placeholder": "Password",
+			"required":"true",
       "attributes": {
         "validationFunc":"passwordValFunc"
       }

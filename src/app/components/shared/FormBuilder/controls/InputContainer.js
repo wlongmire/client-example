@@ -109,6 +109,7 @@ class InputContainer extends React.PureComponent {
                       onChange={this.handleChange}/>;
     } else {
       const maxDate = (inputFormat === 'date')? '2099-12-31': '';
+      
       input = (
         <FormControl
             placeholder={this.props.data.placeholder}
