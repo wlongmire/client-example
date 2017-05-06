@@ -1,29 +1,64 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import CredentialsFieldSet from './CredentialsFieldSet';
-import { Button } from 'react-bootstrap';
+import FormBuilder from 'components/shared/FormBuilder'
+import form from './form.js'
 
-import decorator from './decorators';
+import CredentialsFieldSet from './CredentialsFieldSet'
+import { Button } from 'react-bootstrap'
 
-function SignInForm(props) {
-    const {
-        fields: {
-            credentials
-        },
-        handleSubmit,
-        errors
-    } = props;
+import decorator from './decorators'
 
-    return (
-    <form className="SignInForm__container" onSubmit={handleSubmit}>
-        <CredentialsFieldSet field={credentials} errors={errors.credentials}/>
+class SignInForm extends Component {
+    constructor(props) {
+      super(props);
+      
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-        <Button bsStyle="primary" type="submit">Sign In</Button>
-        <Button bsStyle="primary" href="/signup">Register</Button>
+    handleSubmit(values, controlGroups, requiredFields) {
+        console.log(values)
+        
+    //   if(requiredFields.length > 0){
+    //     this.setState({
+    //       ...this.state,
+    //       requiredFields,
+    //       validationModal: true
+    //     })
+    //   } else {
+    //     this.props.handleSubmit(values);
+    //   }
+    }
 
-    </form>
-    );
+    render() {
+        const {
+            fields: {
+                credentials
+            },
+            handleSubmit,
+            errors
+        } = this.props;
+
+        return (
+        <div className="SignInForm__container">
+
+            <h1>Welcome</h1>
+            <h3>Please Sign In</h3>
+
+            <FormBuilder
+                data={form}
+                submitTitle="Sign In"
+                submissionButtons={()=>(
+                    <div>
+                        <Button bsStyle="primary" type="submit">Sign In</Button>
+                        <Button bsStyle="primary" href="/signup">Register</Button>
+                    </div>
+                )}
+                handleSubmit={this.handleSubmit}
+            />
+
+        </div>)
+    }
 }
 
 export default decorator(

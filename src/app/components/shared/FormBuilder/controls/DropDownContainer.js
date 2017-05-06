@@ -17,7 +17,8 @@ class DropDownContainer extends React.Component {
 
     const name = this.props.data.name 
     this.state = {
-      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false
+      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
+      validationMessage:""
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -34,6 +35,30 @@ class DropDownContainer extends React.Component {
       this.state.isValid = null
       return isValid
     }
+
+    //only trigger validation if the value changes
+    if (this.state.value !== '' &&
+        this.props.data.attributes &&
+        this.props.data.attributes.validationFunc &&
+        this.props.validation[this.props.data.attributes.validationFunc]) {
+          
+        this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result)=> {
+          this.setState({
+            isValid: (result) ? 'success' : 'error',
+            validationMessage:(result.status) ? "" : result.message
+          })
+        })
+    }
+
+    if (this.state.isValid !== null) {
+      return this.state.isValid
+    }
+
+    if (this.props.data.attributes && this.props.data.attributes.validationRegEx) {
+      let regex = new RegExp(unescape(this.props.data.attributes.validationRegEx))
+      return (regex.test(this.state.value)) ? 'success' : 'error'
+    }
+
   }
 
   componentWillMount() {

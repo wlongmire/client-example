@@ -85,18 +85,25 @@ class FormBuilder extends React.Component {
     }
 
     // show button only if the form elements are created
-    let button = (result.length > 0) ? (
-      <Button type="submit">
-          { this.props.submitTitle || "Submit" }
-        </Button>
-    ) : null;
+    let button;
+    
 
+    if (this.props.submissionButtons) {
+      button = this.props.submissionButtons()
+    } else {
+      button = (result.length > 0) ? (
+        <Button type="submit">
+            { this.props.submitTitle || "Submit" }
+        </Button>
+      ) : null;
+    }
+
+    
     return (
       <form className={`formBuilderElement ${this.state.name}`} onSubmit={this.onSubmit}>
         <div className="form">
           
           {result}
-          
           {button}
         </div>
         
