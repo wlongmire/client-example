@@ -102,8 +102,9 @@ class RadioContainer extends React.Component {
 
   render() {
     const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
+    const optionsItems = this.props.data.attributes.options || []
 
-    let options = this.props.data.attributes.options.map((data, index) => {
+    let options = optionsItems.map((data, index) => {
       const checked = ((this.state.value) && (this.state.value.toString() === data.value.toString()))
 
       return (

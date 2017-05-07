@@ -66,14 +66,14 @@ class DropDownContainer extends React.Component {
       this.handleChange(this.props.initialValues[this.props.data.name])
     } else {
       this.setState({
-        value: this.props.data.attributes.options[0].value
+        value: this.props.data.attributes.options?this.props.data.attributes.options[0].value:""
       })
     }
   }
 
   handleChange(value) {
     let option = this.props.data.attributes.options.filter((option) => {
-      return option.value == value
+      return String(option.value) == String(value)
     })[0]
 
     if(option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
@@ -97,10 +97,11 @@ class DropDownContainer extends React.Component {
   render() {
     const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
 
-    this.options = this.props.data.attributes.options.map((data) => {
-      return <option value={data.value} key={data.optionId}>{data.text}</option>
-    })
-        
+    this.options = this.props.data.attributes.options ?
+      this.props.data.attributes.options.map((data) => {
+        return <option value={data.value} key={data.optionId}>{data.text}</option>
+      }):[]
+    
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
          { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }

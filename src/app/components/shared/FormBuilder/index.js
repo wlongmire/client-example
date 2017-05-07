@@ -27,6 +27,7 @@ class FormBuilder extends React.Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onFormChange = this.onFormChange.bind(this);
+    this.loadOptions = this.loadOptions.bind(this);
   }
 
   onSubmit(event) {
@@ -52,12 +53,58 @@ class FormBuilder extends React.Component {
     const form = this.state.questions;
   }
 
+  loadOptions(questionSet) {
+    const options = this.props.options || {}
+    let loadedItems = []
+    
+    const promises = questionSet.map((item, idx)=>{
+    
+      if (item.attributes && item.attributes.optionsFunc && options[item.attributes.optionsFunc]) {
+        loadedItems.push(idx)
+        return(options[item.attributes.optionsFunc]())
+      }
+        
+    }).filter((item)=>(item))
+    
+    return Promise.all(promises).then((resp)=>{
+
+      resp.map((options, idx)=>{
+        questionSet[loadedItems[idx]].attributes.options = options
+      })
+
+      return(questionSet)
+    })
+  }
+
+  componentWillMount() {
+    let questionsInitial = Object.assign([], this.state.questions)
+    let supplementalQuestionsInitial = Object.assign([], this.state.supplementalQuestions)
+    
+    Promise.all(
+      [
+        this.loadOptions(supplementalQuestionsInitial),
+        this.loadOptions(questionsInitial)
+      ]).then(
+        (resp)=>{
+          const supplementalQuestions = resp[0]
+          const questions = resp[1]
+
+          // console.log(supplementalQuestions)
+
+          this.setState({
+            ...this.state,
+            questions,
+            supplementalQuestions
+          })
+    })
+    
+  }
+
   render() {
     let { controlGroups } = this;
     let Validation = this.props.Validation || DefaultValidation;
-    
-    let result = [];
 
+    let result = [];
     for (let group in controlGroups) {
       let formItemContainers = controlGroups[group].map((item, index) => {
 
@@ -65,7 +112,7 @@ class FormBuilder extends React.Component {
         let validationClosure = function() {
           return getFormData(closureState);
         };
-        
+
         return (
           <FormItemContainer key={index} data={item}
             supplementalQuestions={this.state.supplementalQuestions}
@@ -87,7 +134,6 @@ class FormBuilder extends React.Component {
     // show button only if the form elements are created
     let button;
     
-
     if (this.props.submissionButtons) {
       button = this.props.submissionButtons()
     } else {

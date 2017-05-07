@@ -10,7 +10,6 @@ import {
 from 'redux';
 
 import userReducer from '../reducers/userReducer';
-import errorReducer from '../reducers/errorReducer';
 import appReducer from '../reducers/appReducer';
 
 import submissionsReducer from '../reducers/SubmissionView/reducer';
@@ -21,7 +20,6 @@ import submissionFormReducer from '../reducers/submissionFormReducer';
 const appReducers = combineReducers({
   user: userReducer,
   routing: routerReducer,
-  error: errorReducer,
   submissions: submissionsReducer,
   app:appReducer,
 

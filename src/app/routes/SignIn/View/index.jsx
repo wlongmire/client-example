@@ -75,10 +75,16 @@ class SignInForm extends Component {
                     error:false,
                     errorMessage:""
                 })
+                
+                this.props.dispatch(push({
+                    pathname: '/submissions',
 
-                this.props.dispatch(
-                    push('/submissions')
-                );
+                    state: {
+                        type: 'USER_LOGGED_IN',
+                        payload: res,
+                        user: user
+                    }
+                }));
             })
             .catch((e) => {
                 this.setState({
