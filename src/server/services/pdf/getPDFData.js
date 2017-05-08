@@ -9,7 +9,7 @@ export default async function getPDFData(token, pdfType) {
     const submission = await getSubmissionByToken(token, pdfType)
 
     let aggregateLimit;
-    let halvedCost = Math.ceil(((parseInt(submission.totalCost) / 2) * 1000000) / 1000000);
+    let halvedCost = Math.round(((parseInt(submission.totalCost) / 2) / 1000000)) * 1000000
     switch (submission.insuredState) {
       case 'New York':
         if (halvedCost < 5000000) {
@@ -77,10 +77,10 @@ export default async function getPDFData(token, pdfType) {
 
     if (submission.type == 'ocp') {
       contractorLimits = calcContractorLimits(parseInt(submission.totalCost),
-                                              submission.projectAddress.projectState,
-                                              submission.exteriorWorkFourStories,
-                                              submission.verticalExpansion,
-                                              submission.limitsRequested)
+        submission.projectAddress.projectState,
+        submission.exteriorWorkFourStories,
+        submission.verticalExpansion,
+        submission.limitsRequested)
     }
 
     const limits = [
@@ -168,7 +168,7 @@ export default async function getPDFData(token, pdfType) {
       workCost: utilities.isDefined(submission.totalSpent) ? `$${utilities.commifyNumber(submission.totalSpent)}` : '',
       workGCResponsible: utilities.isDefined(submission.priorGcResponsible) ? submission.priorGcResponsible : '',
       brokerName: submission.broker.name,
-      deductibleText: submission.projectAddress && submission.projectAddress.projectState === 'New York' ? '$10,0000' : '$2,500',
+      deductibleText: submission.projectAddress && submission.projectAddress.projectState === 'New York' ? '$10,000' : '$2,500',
       anticipatedFinishDate: utilities.isDefined(submission.anticipatedFinishDate) ? submission.anticipatedFinishDate : '',
       projectDefinedAreaScope: submission.projectDefinedAreaScope == 'true' ? 'Yes' : 'No',
       projectDefinedAreaScopeDetails: utilities.isDefined(submission.projectDefinedAreaScopeDetails) ? submission.projectDefinedAreaScopeDetails : '',
@@ -265,7 +265,6 @@ export default async function getPDFData(token, pdfType) {
       pdfData.generalContractorKnown = true
     }
 
-    console.log(pdfData);
     return pdfData;
   } catch (err) {
     console.log(err)
@@ -273,75 +272,75 @@ export default async function getPDFData(token, pdfType) {
 }
 
 function calcContractorLimits(costs, state, fourFloors, verticalExpansion, limitsRequested) {
+  let minimumOcc, minimumAgg;
   switch (limitsRequested) {
     case '12':
       {
-        let minimumOcc = 1
-        let minimumAgg = 2
+        minimumOcc = 1
+        minimumAgg = 2
       }
       break;
     case '22':
       {
-        let minimumOcc = 2
-        let minimumAgg = 2
+        minimumOcc = 2
+        minimumAgg = 2
       }
       break;
     case '24':
       {
-        let minimumOcc = 2
-        let minimumAgg = 4
+        minimumOcc = 2
+        minimumAgg = 4
       }
       break;
     case '33':
       {
-        let minimumOcc = 3
-        let minimumAgg = 3
+        minimumOcc = 3
+        minimumAgg = 3
       }
       break;
     case '44':
       {
-        let minimumOcc = 4
-        let minimumAgg = 4
+        minimumOcc = 4
+        minimumAgg = 4
       }
       break;
     case '55':
       {
-        let minimumOcc = 5
-        let minimumAgg = 5
+        minimumOcc = 5
+        minimumAgg = 5
       }
       break;
-      switch (state) {
-        case 'New York': {
-          let halvedCost = Math.ceil((((costs / 2) * 1000000) / 1000000) / 1000000);
-          if ((halvedCost) > minimumAgg) {
-            minimumAgg = halvedCost;
-            minimumOcc = halvedCost;
-          }
+  }
+  switch (state) {
+    case 'New York': {
+      let halvedCost = Math.ceil((((costs / 2) * 1000000) / 1000000) / 1000000);
+      if ((halvedCost) > minimumAgg) {
+        minimumAgg = halvedCost;
+        minimumOcc = halvedCost;
+      }
+    }
+      break;
+    default:
+      if (costs > 10000000 && costs < 20000000) {
+        if (minimumAgg < 5) {
+          minimumAgg = 5;
+          minimumOcc = 5
         }
-          break;
-        default:
-          if (costs > 10000000 && costs < 20000000) {
-            if (minimumAgg < 5) {
-              minimumAgg = 5;
-              minimumOcc = 5
-            }
-          } else if (costs > 20000000) {
-            minimumAgg = 10;
-            minimumOcc = 10
-          }
-      }
-
-      if (fourFloors == 'true' && minimumAgg < 5) {
-        minimumAgg = 5;
-        minimumOcc = 5
-      }
-
-      if (verticalExpansion == 'true' && minimumAgg < 10) {
+      } else if (costs > 20000000) {
         minimumAgg = 10;
-        minimumOcc = 10;
+        minimumOcc = 10
       }
-
-      return `$${minimumOcc}M/${minimumAgg}M`
   }
 
+  if (fourFloors == 'true' && minimumAgg < 5) {
+    minimumAgg = 5;
+    minimumOcc = 5
+  }
+
+  if (verticalExpansion == 'true' && minimumAgg < 10) {
+    minimumAgg = 10;
+    minimumOcc = 10;
+  }
+
+  return `$${minimumOcc}M/${minimumAgg}M`
 }
