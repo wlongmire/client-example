@@ -27,4 +27,26 @@
     margin: 0.3em 0.3em;
     width:9em;
   }
+
+  .errorMessage {
+    color:red;
+    padding: 0 1em 1em 1em;
+  }
+
+  .formBuilderElement {
+
+    .group {
+      padding: 0px;
+      margin: 0px;
+      border-bottom: 0px;
+      background-color: transparent;
+      
+      input, select {
+        background-color: white;
+        margin: 0 0 1em 0;
+      }
+    }
+
+  }
+
 }

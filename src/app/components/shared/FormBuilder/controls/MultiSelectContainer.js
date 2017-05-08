@@ -18,7 +18,8 @@ class MultiSelectContainer extends React.Component {
       value: isDefined(this.props.initialValues[name]) ? this.props.initialValues[name] : '',
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       title: this.props.data.placeholder,
-      isValid: null
+      isValid: null,
+      validationMessage:""
     }
 
     this.handleSelect = this.handleSelect.bind(this)
@@ -46,10 +47,13 @@ class MultiSelectContainer extends React.Component {
     //only trigger validation if the value changes
     if (this.state.value !== '' &&
         this.props.data.attributes &&
-        this.props.data.attributes.validationFunc) {
-        this.props.validation[this.props.data.attributes.validationFunc](this.state.value).then((result)=> {
+        this.props.data.attributes.validationFunc &&
+        this.props.validation[this.props.data.attributes.validationFunc]) {
+        
+        this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result)=> {
           this.setState({
-            isValid: (result) ? 'success' : 'error'
+            isValid: (result) ? 'success' : 'error',
+            validationMessage:(result.status) ? "" : result.message
           })
         })
     }

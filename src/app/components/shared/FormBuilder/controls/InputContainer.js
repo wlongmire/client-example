@@ -22,7 +22,8 @@ class InputContainer extends React.PureComponent {
     this.state = {
       value: isDefined(this.props.initialValues[name]) ? this.props.initialValues[name] : '',
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
-      isValid: null
+      isValid: null,
+      validationMessage: ""
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -38,26 +39,25 @@ class InputContainer extends React.PureComponent {
       let isValid = this.state.isValid;
       this.state.isValid = null;
       return isValid;
-    }
+    } 
 
     //only trigger validation if the value changes
     if (this.state.value !== '' &&
         this.props.data.attributes &&
-        this.props.data.attributes.validationFunc) {
-        this.props.validation[this.props.data.attributes.validationFunc](this.state.value).then((result)=> {
+        this.props.data.attributes.validationFunc &&
+        this.props.validation[this.props.data.attributes.validationFunc]) {
+
+        this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result)=> {
           this.setState({
-            isValid: (result) ? 'success' : 'error'
+            isValid: (result.status) ? 'success' : 'error',
+            validationMessage:(result.status) ? "" : result.message
           });
+          
         });
     }
 
     if (this.state.isValid !== null) {
       return this.state.isValid;
-    }
-
-    if (this.props.data.attributes && this.props.data.attributes.validationRegEx) {
-      let regex = new RegExp(unescape(this.props.data.attributes.validationRegEx));
-      return (regex.test(this.state.value)) ? 'success' : 'error';
     }
 
     return;
@@ -109,6 +109,7 @@ class InputContainer extends React.PureComponent {
                       onChange={this.handleChange}/>;
     } else {
       const maxDate = (inputFormat === 'date')? '2099-12-31': '';
+      
       input = (
         <FormControl
             placeholder={this.props.data.placeholder}
@@ -131,7 +132,7 @@ class InputContainer extends React.PureComponent {
       </OverlayTrigger>
     );
 
-    const helpBlock = (this.state.isValid === 'error') ? <HelpBlock>{this.props.data.validationMessage}</HelpBlock> : null;
+    const helpBlock = (this.state.isValid === 'error') ? <HelpBlock>{this.state.validationMessage}</HelpBlock> : null;
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
         { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
