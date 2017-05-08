@@ -42,9 +42,9 @@
 
       select{
         // height: 42px;
-        // -webkit-appearance: none;
-        // -moz-appearance: none;
-        // appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
 
         padding: 0 0 0px 20px;        
         color: #929997;
@@ -80,7 +80,6 @@
     input, select {
       font-family: "Lato";
       margin: 0 0 1em 0;
-      // padding: 20px;
       border-radius: 3px;
       background-color: #08415c;
       border: 1px solid #0e5a7d;
