@@ -23,7 +23,7 @@ var config = require('./src/config');
 
 gulp.task('transform:prod', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsOIEmail', 'owners@gcolonyspecialty.com'))
+  .pipe(replace('@sgsOIEmail', 'owners@colonyspecialty.com'))
   .pipe(replace('@sgsOCPEmail', 'OCPSubmissions@colonyspecialty.com'))
   .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
   .pipe(replace('@serverUrl', 'http://www.ownersedge.us'))
