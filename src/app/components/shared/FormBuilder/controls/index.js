@@ -10,6 +10,7 @@ const maps = {
   'freeform': InputContainer,
   'label': LabelContainer,
   'number': InputContainer,
+  'password': InputContainer,
   'dropdown-single': DropDownContainer,
   'dropdown-multi': MultiSelectContainer,
   'radio': RadioContainer
