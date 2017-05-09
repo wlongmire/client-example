@@ -44,7 +44,7 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
       let reasonsHTML = buildReasonsHTML(submission);
       personalization.addSubstitution(new helper.Substitution('{{nonQuoteReasons}}', reasonsHTML));
 
-    }
+  }
   mail.addPersonalization(personalization);
   mail.setTemplateId(templateId);
 

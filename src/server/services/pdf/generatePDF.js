@@ -27,9 +27,9 @@ export default async function generatePDF(token, type, submissionType = '') {
           htmlUrl = config.excessPDFUrl
           break;
         case 'tria':
+
           data = {
-            "Company":"Warren Longmire",
-            "Pol_Num":"Warren Longmire",
+            "Pol_Num":data.primaryInsuredName,
             "Ins_Name":"Warren Longmire",
             "Agt_Num":"121312312",
             "Agt_Name":"Warren Longmire",

@@ -381,6 +381,6 @@ export default {
 	getSubmissions,
 	getClearance,
 	getSingleSubmission,
-  	getBroker,
+  getBroker,
 	saveSubmission
 }

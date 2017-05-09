@@ -1,24 +1,27 @@
-import React, { Component, PropTypes } from 'react';
-import {connect}  from 'react-redux';
-import ReactDOM from 'react-dom';
-import Helmet from 'react-helmet';
-import * as actions from 'src/app/reducers/SubmissionView/actions';
-import SubmissionView from './View';
-import constants from 'app/constants/app';
-import Moment from 'moment';
+import React, { Component, PropTypes } from 'react'
+import {connect}  from 'react-redux'
+import ReactDOM from 'react-dom'
+import Helmet from 'react-helmet'
+import * as actions from 'src/app/reducers/SubmissionView/actions'
+import SubmissionView from './View'
+import constants from 'app/constants/app'
+import Moment from 'moment'
+import doScript from 'app/utils/doScript'
 
 class Submissions extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {}
   }
 
   componentDidMount() {
-    this.props.clearSubmissionStatus();
-    this.props.getSubmissions(this.props.user['_brokerId']);
+    this.props.clearSubmissionStatus()
+    this.props.getSubmissions(this.props.user['_brokerId'])
   }
 
   render() {
+    doScript()
+
     return (
       <div className='submissions'>
         {this.props.submissions.data &&
@@ -34,7 +37,7 @@ function mapStateToProps(state){
   return {
     user: state.user,
     submissions: state.submissions
-  };
+  }
 }
 
 export default connect(mapStateToProps, actions)(Submissions);
