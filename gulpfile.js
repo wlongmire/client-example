@@ -24,7 +24,7 @@ var config = require('./src/config');
 gulp.task('transform:prod', function(){
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'owners@colonyspecialty.com'))
-  .pipe(replace('@sgsOCPEmail', 'OCPSubmissions@colonyspecialty.com'))
+  .pipe(replace('@sgsOCPEmail', 'ocpsubmissions@colonyspecialty.com'))
   .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
   .pipe(replace('@serverUrl', 'http://www.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
@@ -59,8 +59,8 @@ gulp.task('transform:beta', function(){
 
 gulp.task('transform:local', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsOIEmail', 'allisonesteranko@gmail.com'))
-  .pipe(replace('@sgsOCPEmail', 'justin.steranko@gmail.com'))
+  .pipe(replace('@sgsOIEmail', 'warren@eager.to'))
+  .pipe(replace('@sgsOCPEmail', 'warren@eager.to'))
   .pipe(replace('@argoEmail', 'warrenlongmire@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
