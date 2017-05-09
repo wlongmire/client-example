@@ -22,7 +22,8 @@ class RadioContainer extends React.Component {
       //value: this.props.initialValues[name] ? this.props.initialValues[name] : null,
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       options: [].concat(this.props.data.attributes.options),
-      isValid: null
+      isValid: null,
+      validationMessage:""
     }
 
   }
@@ -55,10 +56,13 @@ class RadioContainer extends React.Component {
     //only trigger validation if the value changes
     if (this.state.value !== '' &&
         this.props.data.attributes &&
-        this.props.data.attributes.validationFunc) {
-        this.props.validation[this.props.data.attributes.validationFunc](this.state.value).then((result)=> {
+        this.props.data.attributes.validationFunc &&
+        this.props.validation[this.props.data.attributes.validationFunc]) {
+
+        this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result)=> {
           this.setState({
-            isValid: (result) ? 'success' : 'error'
+            isValid: (result) ? 'success' : 'error',
+            validationMessage:(result.status) ? "" : result.message
           })
         })
     }
@@ -98,8 +102,9 @@ class RadioContainer extends React.Component {
 
   render() {
     const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
+    const optionsItems = this.props.data.attributes.options || []
 
-    let options = this.props.data.attributes.options.map((data, index) => {
+    let options = optionsItems.map((data, index) => {
       const checked = ((this.state.value) && (this.state.value.toString() === data.value.toString()))
 
       return (

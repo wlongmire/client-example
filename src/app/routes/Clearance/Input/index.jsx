@@ -6,12 +6,20 @@ import { ButtonGroup, Button } from 'react-bootstrap';
 import FormBuilder from 'components/shared/FormBuilder';
 import form from './form.js';
 
+const STATUS = {
+  INPUT:"INPUT",
+  LOADING: "LOADING",
+  ERROR: "ERROR",
+  RESULT: "RESULT"
+}
+
 class Input extends Component {
     constructor(props) {
       super(props);
       this.state = {
         requiredFields: [],
-        validationModal: false
+        validationModal: false,
+        status: STATUS.INPUT
       };
 
       this.handleSubmit = this.handleSubmit.bind(this);

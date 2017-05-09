@@ -63,6 +63,8 @@ class FormResults extends Component {
       ratings
     });
 
+    console.log(this.props.submission)
+
     // mixpanel triggers
     if (error) {
       mx.customEvent(
@@ -74,13 +76,20 @@ class FormResults extends Component {
       mx.customEvent(
           "submission",
           "quoted",
-          { "Type": this.props.submission.type }
+          { 
+            "Type": this.props.submission.type,
+            "TotalPremium": this.props.submission.rating[this.props.submission.type].totalPremium,
+            "TotalExcessPremium": this.props.submission.rating[this.props.submission.type].excessPremium
+          }
         );
     } else {
       mx.customEvent(
           "submission",
           "knockout",
-          { "Type": this.props.submission.type }
+          { 
+            "Type": this.props.submission.type,
+            "Reasons": this.props.submission.rating[this.props.submission.type].reason
+          }
         );
     }
   }
