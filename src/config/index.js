@@ -4,10 +4,10 @@ var config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'warrenlongmire@gmail.com',
+    argoEmail: 'jbuelow@colonyspecialty.com',
     sgsOIEmail: 'owners@colonyspecialty.com',
     sgsOCPEmail: 'ocpsubmissions@colonyspecialty.com',
-    mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
+    mongoURI: 'mongodb://xxread:xxread@52.25.41.113:27017/ownersedgedev',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
     brokerTemplateId: '365b9c92-9e3d-4699-88ff-d9ea688e769b',
@@ -51,11 +51,7 @@ var config = {
     app: {},
 
     server: {
-<<<<<<< HEAD
         url: 'http://www.ownersedge.us',
-=======
-        url: 'http://localhost',
->>>>>>> dev
         port: null
     },
 
@@ -64,11 +60,7 @@ var config = {
     },
 
     apiserver: {
-<<<<<<< HEAD
         url: 'http://www.ownersedge.us',
-=======
-        url: 'http://localhost',
->>>>>>> dev
         port:  null
     }
 };
