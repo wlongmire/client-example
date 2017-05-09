@@ -3,12 +3,7 @@ import DynamicNumber from 'react-dynamic-number';
 import isDefined from '../utils/isDefined';
 import classNames from 'classnames';
 import Cleave from 'cleave.js/dist/cleave-react';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
-// import DatePicker from 'react-bootstrap-date-picker';
-import Datetime from 'react-datetime';
 import moment from 'moment';
-import 'react-datetime/css/react-datetime';
 
 import {
   HelpBlock,
