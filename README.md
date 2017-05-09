@@ -46,7 +46,9 @@ use gulp:transform:[dev/prod/local] to change config variables
 #### Linter Rules:
 We are using airbnb linter. All the rules can be found in package.json under 'eslintConfig'
 
-To set up proper linting in VScode, all you need to do is install the ESLint plugin and restart the editor. If you are using VScode, make sure you tab settings are configured to 2 spaces. You can see what your config is at the bottom right of the editor
+To set up proper linting in VScode, all you need to do is install the ESLint plugin and restart the editor. If you are using VScode, make sure you tab settings are configured to 2 spaces. You can see what your space/tab config is at the bottom right of the editor
 
 Some notable configs we did, is underlinining semicolons as errors and making sure tabs are two spaces. If you find any rule unneccessary, talk with the team and if everyone agrees, feel free to add it to the rules in package.json
+
+Every files that are going to be changed in future PRs, should follow the linting rules before being merged.
 
