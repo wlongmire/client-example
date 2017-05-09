@@ -113,7 +113,7 @@ class InputContainer extends React.PureComponent {
       const dollarPrefix = (this.props.data.inputFormat === 'currency') ? '$' : '';
       input = <Cleave className="input-numeral"
                       id={this.props.data.name}
-                      className={classNames("form-control", "number-control", 'additional-padding', {'filled':this.state.value}, {disabled:this.state.disabled})}
+                      className={classNames("form-control", "number-control", {'filled':this.state.value}, {disabled:this.state.disabled})}
                       autoComplete={false}
                       value={this.state.value}
                       options={
@@ -127,7 +127,7 @@ class InputContainer extends React.PureComponent {
     } else if(['date'].indexOf(this.props.data.inputFormat) > -1){
       input = <Cleave className="input-numeral"
                       id={this.props.data.name}
-                      className={classNames("form-control", "number-control", 'additional-padding', {'filled':this.state.value}, {disabled:this.state.disabled})}
+                      className={classNames("form-control", "number-control", {'filled':this.state.value}, {disabled:this.state.disabled})}
                       autoComplete={false}
                       placeholder="mm/dd/yyyy"
                       options={
@@ -141,7 +141,7 @@ class InputContainer extends React.PureComponent {
       input = (
         <FormControl
             placeholder={this.props.data.placeholder}
-            className={classNames({'filled':this.state.value}, {disabled:this.state.disabled}, 'additional-padding')}
+            className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
             disabled={this.state.disabled}
             autoComplete={false}
             id={this.props.data.name}
