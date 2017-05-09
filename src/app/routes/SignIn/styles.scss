@@ -28,4 +28,25 @@
     margin: 0.3em 0.3em;
     width:9em;
   }
+
+  .errorMessage {
+    color:red;
+    padding: 0 1em 1em 1em;
+  }
+
+  .formBuilderElement {
+
+    .group {
+      padding: 0px;
+      margin: 0px;
+      border-bottom: 0px;
+
+      input {
+        background-color: white;
+      }
+    }
+
+  }
 }
+
+
