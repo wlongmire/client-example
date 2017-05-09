@@ -84,7 +84,7 @@ class DropDownContainer extends React.Component {
            <div className="select">
             <FormControl 
               value={this.state.value}
-              className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
+              className={classNames({'filled':this.state.value}, {disabled:this.state.disabled}, 'test123')}
               disabled={this.state.disabled}
               onChange={this.handleChangeEvent} 
               componentClass="select">

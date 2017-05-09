@@ -41,7 +41,7 @@
       width:100%;
 
       select{
-        // height: 42px;
+      //  margin-left: -30px;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -52,10 +52,9 @@
       }
     }
 
-    .test123{
-      font-size: 30px;
-      color: white !important;
-    }
+    // .test123{
+    //   // margin-left: -10px;
+    // }
 
     textarea {
       font-family: "Lato";
@@ -77,12 +76,21 @@
       }
     }
 
+    input[type=text] {
+      padding-left: 20px !important; 
+    }
+
+    input[type=email] {
+      padding-left: 20px !important; 
+    }
+
     input, select {
       font-family: "Lato";
       margin: 0 0 1em 0;
       border-radius: 3px;
       background-color: #08415c;
       border: 1px solid #0e5a7d;
+
       color: white;
       transition: all 1s;
 

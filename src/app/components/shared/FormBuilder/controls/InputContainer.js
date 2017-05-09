@@ -3,6 +3,12 @@ import DynamicNumber from 'react-dynamic-number';
 import isDefined from '../utils/isDefined';
 import classNames from 'classnames';
 import Cleave from 'cleave.js/dist/cleave-react';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
+// import DatePicker from 'react-bootstrap-date-picker';
+import Datetime from 'react-datetime';
+import moment from 'moment';
+import 'react-datetime/css/react-datetime';
 
 import {
   HelpBlock,
@@ -17,16 +23,17 @@ import {
 
 class InputContainer extends React.PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
     const name = this.props.data.name;
     this.state = {
       value: isDefined(this.props.initialValues[name]) ? this.props.initialValues[name] : '',
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
       isValid: null
-    }
+    };
 
-    this.handleChange = this.handleChange.bind(this)
-    this.getValidationState = this.getValidationState.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   getValidationState() {
@@ -70,33 +77,48 @@ class InputContainer extends React.PureComponent {
     switch (this.props.data.inputFormat) {
       case("currency"):
       case("number"):
-        value = event.target.rawValue
+        value = event.target.rawValue;
         break;
       default:
-        value = event.target.value
+        value = event.target.value;
     }
-
     this.setState({ value });
     this.props.handleFormChange();
   }
 
+    handleDateChange(event) {
+      const formattedDate = moment(event.target.value, "MM/DD/YYYY").toISOString();
+
+      if (formattedDate === 'Invalid date') {
+        this.setState({
+          value: null
+        });
+        console.log('THIS IS INVALID DATE');
+        return;
+      }
+      this.setState({
+        value: formattedDate
+      });
+      this.props.handleFormChange();
+    }
+
   render() {
-    const tooltip = (<Tooltip 
+    const tooltip = (<Tooltip
         id={`tooltip_${this.props.data.questionId}`}
         placement="bottom"
-        className="in"> 
+        className="in">
         {this.props.data.tooltiptext}
       </Tooltip>);
-    
+
     let inputFormat = this.props.data.inputFormat;
-    
+
     let input;
-    
+
     if(['currency', 'number'].indexOf(this.props.data.inputFormat) > -1) {
       const dollarPrefix = (this.props.data.inputFormat === 'currency') ? '$' : '';
       input = <Cleave className="input-numeral"
                       id={this.props.data.name}
-                      className={classNames("form-control", "number-control", {'filled':this.state.value}, {disabled:this.state.disabled})}
+                      className={classNames("form-control", "number-control", 'additional-padding', {'filled':this.state.value}, {disabled:this.state.disabled})}
                       autoComplete={false}
                       value={this.state.value}
                       options={
@@ -107,12 +129,24 @@ class InputContainer extends React.PureComponent {
                           rawValueTrimPrefix: true}
                         }
                       onChange={this.handleChange}/>;
+    } else if(['date'].indexOf(this.props.data.inputFormat) > -1){
+      input = <Cleave className="input-numeral"
+                      id={this.props.data.name}
+                      className={classNames("form-control", "number-control", 'additional-padding', {'filled':this.state.value}, {disabled:this.state.disabled})}
+                      autoComplete={false}
+                      placeholder="mm/dd/yyyy"
+                      options={
+                        {
+                          date: true,
+                          datePattern: ['m', 'd', 'Y']
+                        }}
+                      onChange={this.handleDateChange}/>;
     } else {
       const maxDate = (inputFormat === 'date')? '2099-12-31': '';
       input = (
         <FormControl
             placeholder={this.props.data.placeholder}
-            className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
+            className={classNames({'filled':this.state.value}, {disabled:this.state.disabled}, 'additional-padding')}
             disabled={this.state.disabled}
             autoComplete={false}
             id={this.props.data.name}
