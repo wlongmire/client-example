@@ -58,7 +58,6 @@ class DropDownContainer extends React.Component {
       let regex = new RegExp(unescape(this.props.data.attributes.validationRegEx))
       return (regex.test(this.state.value)) ? 'success' : 'error'
     }
-
   }
 
   componentWillMount() {
