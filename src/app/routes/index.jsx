@@ -23,6 +23,7 @@ import SignUp from 'routes/SignUp';
 
 import Http404 from 'routes/Http404';
 
+
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector:         state => state.user,
   redirectAction:       routerActions.replace,
