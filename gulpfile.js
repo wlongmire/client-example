@@ -110,7 +110,7 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest('dist/public/fonts'));
 });
 
-gulp.task('webpack:build', ['lint'], function (callback) {
+gulp.task('webpack:build', function (callback) {
   return webpack(webpackConfigProd, function (err, stats) {
     if (err) throw err;
     console.log('[webpack:build]', stats.toString({
