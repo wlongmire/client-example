@@ -5,8 +5,7 @@ const helper = require('sendgrid').mail;
 
 export default async function buildMail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()
-  // let fromEmail = new helper.Email('warren.longmire@argogroupus.com', 'Owners Edge Submission Service');
-  let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
+  let fromEmail = new helper.Email('digital.ventures.argo@gmail.com', 'Owners Edge Submission Service');
   console.log('building the mail!')
   mail.setFrom(fromEmail);
 
@@ -16,7 +15,7 @@ export default async function buildMail(type, toAddress, submission, templateId,
 
   switch (type) {
     case 'quotedArgo':
-      mail.setSubject(`New Priced Submission from ${submission.broker.name}`)
+      mail.setSubject(`Priced : ${submission.broker.name} ${submission.primaryInsuredName}`)
       personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
       personalization.addSubstitution(new helper.Substitution('{{brokerPhone}}', submission.contactInfo.phone));
@@ -31,8 +30,11 @@ export default async function buildMail(type, toAddress, submission, templateId,
     break;
 
     case 'nonQuoteArgo':
-      mail.setSubject(`New Non-Priced Submission from ${submission.broker.name}`)
+      mail.setSubject(`Not Priced : ${submission.broker.name} ${submission.primaryInsuredName}`)
+      personalization.addSubstitution(new helper.Substitution('{{brokerName}}', submission.broker.name));
       personalization.addSubstitution(new helper.Substitution('{{brokerEmail}}', submission.contactInfo.email));
+      personalization.addSubstitution(new helper.Substitution('{{brokerPhone}}', submission.contactInfo.phone));
+      personalization.addSubstitution(new helper.Substitution('{{namedInsured}}', submission.primaryInsuredName));
     break;
 
     case 'nonQuoteBroker':

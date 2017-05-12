@@ -22,7 +22,7 @@ class Form extends Component {
 
     this.state = {
       confirmation:false,
-      submission: this.props.submission,
+      submission: exampleSubmission,//this.props.submission,
       validationModal:false,
       requiredFields: []
     };
