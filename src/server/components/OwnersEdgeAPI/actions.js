@@ -371,7 +371,6 @@ async function generatePDFsInternal(submissionId) {
 	let triaForm = await pdfService.generatePDF(submission.pdfToken, 'tria')
 	pdfArray = [...pdfArray, {title: `Tria Form`, content: triaForm}];
 
-	console.log('finished generating pdfs');
 	return pdfArray;
 }
 
