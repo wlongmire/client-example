@@ -25,9 +25,6 @@ export default async function generatePDF(token, type, submissionType = '') {
         case 'excess':
           htmlUrl = config.excessPDFUrl
           break;
-        case 'tria':
-          htmlUrl = config.triaPDFUrl
-          break;
       }
 
       const body = await rp(htmlUrl);
@@ -36,6 +33,7 @@ export default async function generatePDF(token, type, submissionType = '') {
         return resolve(buffer);
       });
     } catch (err) {
+      console.log(err)
       return reject(err);
     }
   });

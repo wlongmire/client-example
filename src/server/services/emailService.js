@@ -6,7 +6,6 @@ const helper = require('sendgrid').mail;
 async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()
   let fromEmail = new helper.Email('digital.ventures.argo@gmail.com', 'Owners Edge Submission Service');
-  // let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
 
   mail.setFrom(fromEmail);
   mail.setSubject("Submission Received")
@@ -47,8 +46,8 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
   }
   mail.addPersonalization(personalization);
   mail.setTemplateId(templateId);
-
- console.log('---set Personalization---')
+  
+  console.log('---set Personalization---')
   if (pdfArray.length > 0) {
       pdfArray.forEach(pdf => {
         let attachment = new helper.Attachment()

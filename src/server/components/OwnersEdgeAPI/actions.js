@@ -367,10 +367,7 @@ async function generatePDFsInternal(submissionId) {
 			pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Pricing Indication.pdf`, content: excessQuote}];
 		}
 	}
-
-	let triaForm = await pdfService.generatePDF(submission.pdfToken, 'tria')
-	pdfArray = [...pdfArray, {title: `Tria Form`, content: triaForm}];
-
+	
 	return pdfArray;
 }
 
