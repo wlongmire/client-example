@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
-import { LinkContainer } from 'react-router-bootstrap';
-import mx from 'app/utils/MixpanelInterface';
-import { connect } from 'react-redux';
-import { ButtonGroup, Button, Panel } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap'
+import mx from 'app/utils/MixpanelInterface'
+import { connect } from 'react-redux'
+import { ButtonGroup, Button, Panel } from 'react-bootstrap'
+import ToggleDisplay from 'components/shared/ToggleDisplay'
 
 class Result extends Component {
   render() {
@@ -14,12 +15,15 @@ class Result extends Component {
       buttonLabel: "Fill out Remaining Information"
     }:{
       title: "This Submission Did Not Pass Clearance.",
-      subtitle: "The following submmission(s) appear to match:",
+      subtitle: "Your business as listed below matches a previously processed submission.",
       additionalContent: <div className="additionalContent">
         <h4>If we have blocked you in error or if none of these entiries matches your submission. please message us through the <img src="https://ownersedgeassets.herokuapp.com/images/main/chatIcon.png"/> icon below.</h4>
     </div>,
       buttonLabel: "Reenter Clearance Information"
     }
+
+
+    const showMatchResults = false
 
   // mixpanel events
     if (this.props.result.success) {
@@ -32,11 +36,13 @@ class Result extends Component {
       mx.customEvent(
           "submission",
           "failClearance",
-          { "Type": this.props.submission.type }
-          );
+          { 
+              "Type": this.props.submission.type,
+              "matches": this.props.result.matches,
+          });
     }
 
-    const matches = (!this.props.result.success)?
+    const matches = (showMatchResults && !this.props.result.success)?
         (this.props.result.matches.map((m, idx)=> (
             <div key={idx} className="match">
                 <div>
@@ -60,11 +66,15 @@ class Result extends Component {
     return (
         <form>
             <h3>{result.title}</h3>
-            <h4>{result.subtitle}</h4>
             
-            <div className="matchContainer">
-                { matches }
+            
+            <div>
+                <h4>{result.subtitle}</h4>
+                <div className="matchContainer">
+                    { matches }
+                </div>
             </div>
+        
 
             { result.additionalContent }
 
