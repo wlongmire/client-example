@@ -7,19 +7,18 @@ import config from 'config'
 import Header from 'components/Header'
 
 let query = querystring.parse(window.location.search.slice(1))
-
 let content = require('content');
 
 const App = React.createClass({
   render() {
-    let baseMeta = [
+    const baseMeta = [
       {
-        'name': 'description',
-        'content': content.description
+        name: 'description',
+        content: content.description
       },
       {
-        'property': 'og:type',
-        'content': 'site'
+        property: 'og:type',
+        content: 'site'
       }
     ];
 
