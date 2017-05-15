@@ -14,9 +14,9 @@ var config = {
     argoNonQuoteTemplate: '52173414-ee4e-42cd-a609-38b3c180ddfe',
     brokerNonQuoteTemplate: '9fa37d89-9241-4795-b662-1d424a432701',
     ownersEdgeQuotationPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
-    ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/Owners_Bind_Order.html',
-    ocpBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/OCP_Bind_Order.html',
-    excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess.html',
+    ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/owners_bind-order_2.html',
+    ocpBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/ocp_bind-order_2.html',
+    excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess_2.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
     ratingsUrl:'https://oe-rating-engine-dev.herokuapp.com',
@@ -51,7 +51,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
+        url: 'http://dev.ownersedge.us',
         port: null
     },
 
@@ -60,7 +60,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
+        url: 'http://dev.ownersedge.us',
         port:  null
     }
 };

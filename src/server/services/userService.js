@@ -15,6 +15,7 @@ function verifyUser(id)
 
     return true;
 }
+
 // Check to see if user.role is included within roles array (indexed)
 function assertRole(user, roles) {
     if (roles.includes(user.role)) {

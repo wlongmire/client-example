@@ -43,11 +43,11 @@ async function sendSubmissionEmail(type, toAddress, submission, templateId, pdfA
       let reasonsHTML = buildReasonsHTML(submission);
       personalization.addSubstitution(new helper.Substitution('{{nonQuoteReasons}}', reasonsHTML));
 
-    }
+  }
   mail.addPersonalization(personalization);
   mail.setTemplateId(templateId);
-
- console.log('---set Personalization---')
+  
+  console.log('---set Personalization---')
   if (pdfArray.length > 0) {
       pdfArray.forEach(pdf => {
         let attachment = new helper.Attachment()

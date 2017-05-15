@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
 
 import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { LinkContainer } from 'react-router-bootstrap'
 import { Button, ButtonGroup } from 'react-bootstrap'
 
 import DialogBox from 'components/shared/DialogBox'

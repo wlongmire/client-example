@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
 import SignInFormView from './View';
