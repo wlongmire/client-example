@@ -52,10 +52,13 @@ async function getClearance(req, res) {
 				state:req.query.insuredState || '',
 				zipcode:req.query.insuredZipcode || '',
 			}
+
 			console.log('querying OE and Edge Submissions')
+
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
 				console.log('Received OE and Edge Submissions')
+
 				const ownerSubmissions = resp[0].map(
 					(s)=>({
 						compName:	_.trim(name),
@@ -341,6 +344,7 @@ async function sendEmailInternal(submissionId, emailAddress, emailType) {
 			templateId = config.brokerTemplateId;
 			break;
 	}
+
 	console.log('got pdfs - on to mail')
 	return await emailService.sendMail(emailType, emailAddress, submission, templateId, pdfArray);
 }
@@ -366,7 +370,7 @@ async function generatePDFsInternal(submissionId) {
 			pdfArray = [...pdfArray, {title: `Owner's Interest - Excess Pricing Indication.pdf`, content: excessQuote}];
 		}
 	}
-	console.log('finished generating pdfs');
+	
 	return pdfArray;
 }
 
@@ -376,6 +380,6 @@ export default {
 	getSubmissions,
 	getClearance,
 	getSingleSubmission,
-  	getBroker,
+  getBroker,
 	saveSubmission
 }

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 
 import ToggleDisplay from 'components/shared/ToggleDisplay';
-import { commifyNumber, isDefined } from 'app/utils/utilities';
+import { commifyNumber } from 'app/utils/utilities';
 import classNames from 'classnames'
 
 import ratingProducts from 'config/RatingProducts'

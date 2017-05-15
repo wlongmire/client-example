@@ -117,7 +117,7 @@ class SignInForm extends Component {
                             show={this.state.error}
                             render={()=><div className="errorMessage">{ this.state.errorMessage }</div>}/>
                         <Button bsStyle="primary" type="submit">Sign In</Button>
-                        <Button bsStyle="primary" href="/signup">Register</Button>
+                        {/*<Button bsStyle="primary" href="/signup">Register</Button>*/}
                     </div>
                 )}
                 handleSubmit={this.handleSubmit}

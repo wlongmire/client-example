@@ -35,9 +35,9 @@ gulp.task('transform:prod', function(){
 
 gulp.task('transform:dev', function(){
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsOIEmail', 'allisonesteranko@gmail.com'))
-  .pipe(replace('@sgsOCPEmail', 'justin.steranko@gmail.com'))
-  .pipe(replace('@argoEmail', 'intake@ownersedge.us'))
+  .pipe(replace('@sgsOIEmail', 'warren@eager.to'))
+  .pipe(replace('@sgsOCPEmail', 'warren@eager.to'))
+  .pipe(replace('@argoEmail', 'warrenlongmire@gmail.com'))
   .pipe(replace('@serverUrl', 'http://dev.ownersedge.us'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))

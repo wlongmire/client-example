@@ -14,7 +14,7 @@ export default async function sendMail (type, toAddress, submission, templateId,
     requestPost.method = 'POST';
     requestPost.path = '/v3/mail/send';
     requestPost.body = requestBody;
-
+    
     sg.API(requestPost, function (error, response) {
       console.log('sent the mail!')
 

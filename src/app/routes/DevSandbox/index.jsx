@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 
 const DevSandbox = React.createClass({
