@@ -5,7 +5,7 @@ const helper = require('sendgrid').mail;
 
 export default async function buildMail(type, toAddress, submission, templateId, pdfArray) {
   let mail = new helper.Mail()
-  let fromEmail = new helper.Email('submissions@ownersedge.us', 'Owners Edge Submission Service');
+  let fromEmail = new helper.Email('digital.ventures.argo@gmail.com', 'Owners Edge Submission Service');
   
   console.log('building the mail!')
   mail.setFrom(fromEmail);

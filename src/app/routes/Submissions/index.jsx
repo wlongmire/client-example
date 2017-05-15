@@ -6,7 +6,6 @@ import * as actions from 'src/app/reducers/SubmissionView/actions'
 import SubmissionView from './View'
 import constants from 'app/constants/app'
 import Moment from 'moment'
-import doScript from 'app/utils/doScript'
 
 class Submissions extends Component {
   constructor(props) {
@@ -20,8 +19,6 @@ class Submissions extends Component {
   }
 
   render() {
-    doScript()
-
     return (
       <div className='submissions'>
         {this.props.submissions.data &&
