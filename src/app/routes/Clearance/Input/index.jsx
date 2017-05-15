@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
+import React, { Component } from 'react';
+
 import DialogBox from 'components/shared/DialogBox'
 import { connect } from 'react-redux';
 import { ButtonGroup, Button } from 'react-bootstrap';

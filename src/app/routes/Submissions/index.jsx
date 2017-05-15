@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+
 import {connect}  from 'react-redux'
-import ReactDOM from 'react-dom'
 import Helmet from 'react-helmet'
+
 import * as actions from 'src/app/reducers/SubmissionView/actions'
 import SubmissionView from './View'
 import constants from 'app/constants/app'
