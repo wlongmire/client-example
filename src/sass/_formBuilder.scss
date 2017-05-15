@@ -71,14 +71,10 @@
       }
     }
 
-    input[type=text] {
+    input[type=text], input[type=password], input[type=email]{
       padding-left: 20px !important; 
     }
-
-    input[type=email] {
-      padding-left: 20px !important; 
-    }
-
+    
     input, select {
       font-family: "Lato";
       margin: 0 0 1em 0;
