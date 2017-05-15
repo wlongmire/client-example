@@ -2,6 +2,7 @@ import { Submission } from '../../models'
 import uuid from 'uuid';
 import randomstring from 'randomstring';
 import { getSubmissionById } from './'
+import { Broker } from '../../models';
 
 export default async function createSubmission(requestBody) {
 	return new Promise(async (resolve, reject) => {

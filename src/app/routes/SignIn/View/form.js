@@ -2,8 +2,7 @@ const formData = {
 	"questionSetId": "SignIn",
 	"name": "SignIn",
 
-  "questions": [
-	  {
+  "questions": [{
 	    "questionId": "1",    
 	    "text": "",
 	    "name": "username",

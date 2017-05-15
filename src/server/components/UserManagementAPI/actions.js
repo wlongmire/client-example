@@ -4,10 +4,12 @@ import {
 	userService, emailService
 }
 from '../../services';
+
 import {
 	User, Broker, Submission
 }
 from '../../models';
+
 import {
 	passport as passportLocal
 }
@@ -29,9 +31,6 @@ function login(req, res, next) {
 			return next(err);
 		}
 		if (user) {
-			// if (user.isAdmin){
-			//   return res.json({ userId: user._id, token: user.generateAdminToken() })
-			// }
 			if (user.accountPending) {
 				return res.status(400).json({
 					message: `Your account has not been verified. Please contact your administrator.`

@@ -3,12 +3,11 @@ import rp from 'request-promise';
 import handlebars from 'handlebars';
 import pdf from 'html-pdf';
 import { getPDFData } from './';
-
 export default async function generatePDF(token, type, submissionType = '') {
    return new Promise(async (resolve, reject) => {
     try {
       let htmlUrl;
-      const data = await getPDFData(token);
+      let data = await getPDFData(token);
       switch (type) {
         case 'ocp':
           htmlUrl = config.ownersContractorsProtectivePDFUrl
@@ -27,12 +26,14 @@ export default async function generatePDF(token, type, submissionType = '') {
           htmlUrl = config.excessPDFUrl
           break;
       }
+
       const body = await rp(htmlUrl);
       let html = await generateHTML(body, data);
       pdf.create(html, config.pdfOptions).toBuffer(function (err, buffer) {
         return resolve(buffer);
       });
     } catch (err) {
+      console.log(err)
       return reject(err);
     }
   });
