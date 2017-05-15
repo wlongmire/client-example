@@ -52,10 +52,13 @@ async function getClearance(req, res) {
 				state:req.query.insuredState || '',
 				zipcode:req.query.insuredZipcode || '',
 			}
+
 			console.log('querying OE and Edge Submissions')
+
 			Promise.all([submissionService.getAllSubmissions(), edgeSubmissionService.getAllSubmissionsByState(insuredAddress.state)])
 			.then(function(resp){
 				console.log('Received OE and Edge Submissions')
+
 				const ownerSubmissions = resp[0].map(
 					(s)=>({
 						compName:	_.trim(name),
