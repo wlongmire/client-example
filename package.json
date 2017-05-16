@@ -150,6 +150,7 @@
       "arrow-body-style": "off",
       "no-lonely-if": "off",
       "eqeqeq": "off",
+      "react/jsx-boolean-value": "off",
       "no-extra-semi": "error",
       "semi": ["error", "never"],
       "import/no-extraneous-dependencies": [
