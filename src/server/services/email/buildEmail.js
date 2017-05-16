@@ -63,8 +63,9 @@ function buildReasonsHTML(submission){
   let reasons = submission.rating[submission.type].reason
   let htmlString = '<div><table>'
   reasons.map(reason => {
-    htmlString += '<tr><td>${reason}</td></tr>'
+    htmlString += `<tr><td>${reason}</td></tr>`
   })
   htmlString += '</table></div>'
+
   return htmlString
 }
