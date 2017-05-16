@@ -4,6 +4,7 @@ import getSubmissionById from './getSubmissionById';
 import getSubmissionByToken from './getSubmissionByToken';
 import getSubmissionsByBroker from './getSubmissionsByBroker';
 import updateSubmission from './updateSubmission';
+import getSingleSubmission from './getSingleSubmission'
 
 export {
   createSubmission,
@@ -11,7 +12,8 @@ export {
   getSubmissionById,
   getSubmissionByToken,
   getSubmissionsByBroker,
-  updateSubmission
+  updateSubmission,
+  getSingleSubmission
 }
 
 export default {
@@ -20,5 +22,6 @@ export default {
   getSubmissionById,
   getSubmissionByToken,
   getSubmissionsByBroker,
-  updateSubmission
+  updateSubmission,
+  getSingleSubmission
 }

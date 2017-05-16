@@ -27,7 +27,11 @@ export default function (state = initialState, action) {
       return Object.assign(state,{
         submission,
         submissionFormParams:Object.assign(state.submissionFormParams,action.submissionFormParams)
-      });
+      })
+    // case EDIT_SUBMISSION:
+    //   return Object.assign(state, {
+    //     submission: action.payload
+    //   })
       
     case CLEAR_SUBMISSION:
       return Object.assign(state,{

@@ -8,7 +8,9 @@ export default function (state = {}, action) {
     case FETCH_SUBMISSIONS:
       return {...state, data: action.payload}
     case EDIT_SUBMISSION:
-      return {...state, selectedSubmission: action.payload}
+      return Object.assign(state, {
+        submission: action.payload
+      })
   }
 
   return state
