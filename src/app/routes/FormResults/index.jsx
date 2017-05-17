@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
 
 import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 import mx from 'app/utils/MixpanelInterface';
-import { LinkContainer } from 'react-router-bootstrap'
-import { Button, ButtonGroup } from 'react-bootstrap';
+
+import { Button } from 'react-bootstrap';
 import ToggleDisplay from 'components/shared/ToggleDisplay';
 
 import Loading from './Loading'

@@ -1,11 +1,10 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
 
 import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import { Button, Grid, Row, Col } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 import ratingProducts from 'config/RatingProducts'
 import constants from 'app/constants/app'

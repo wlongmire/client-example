@@ -7,6 +7,8 @@ import {auth} from '../../utils';
 class OwnersEdge extends Component {
 
  routes (router) {
+    router.route('/')
+      .get();
     router.route('/getRating')
       .post(actions.getRating);
     router.route('/getSubmissions')
@@ -17,8 +19,6 @@ class OwnersEdge extends Component {
       .get(actions.getBroker)
     router.route('/sendEmail/:id')
       .post(actions.sendEmail)
-    router.route('/')
-      .get();
     router.route('/save')
       .post(actions.saveSubmission);
     return router;

@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
+
 import {connect} from 'react-redux'
 import { push } from 'react-router-redux';
-
-import { Button } from 'react-bootstrap'
 
 import Input from './Input'
 import Loading from './Loading'
