@@ -33,7 +33,6 @@ class Form extends Component {
   }
 
   componentWillMount() {
-    console.log('this.props.submission.type', this.props.submission.type)
     if (!this.props.submission.type) {
       this.props.dispatch(push('/productChoice'))
     }
@@ -189,9 +188,7 @@ Form.propTypes = {
 }
 
 export default connect((store) => {
-  console.log('xx22 STORE IN FORM', store)
   const submission = store.app.submission
-  console.log('xx22 SUBMISSION in STORE', store.app.submission)
 
   return ({
     submission,

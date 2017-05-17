@@ -62,7 +62,6 @@ class SubmissionView extends Component {
       }
     )
 
-    console.log('submission on edit', submission)
     this.props.editSubmission(submission)
   }
 

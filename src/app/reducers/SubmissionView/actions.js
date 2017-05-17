@@ -57,7 +57,6 @@ export function getSubmissions(brokerId) {
 
 
 export function editSubmission(submission) {
-  console.log('hitting EDIT SUBMISSION', submission)
   const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
 
   return (dispatch) => {
