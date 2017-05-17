@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Moment from 'moment'
 
 import { formatDollars } from 'app/utils/utilities'
 import * as actions from 'src/app/reducers/SubmissionView/actions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import { Button, Panel } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 import mx from 'app/utils/MixpanelInterface'
 import constants from 'app/constants/app'
@@ -28,11 +28,10 @@ class SubmissionView extends Component {
   loadSubmissions(submissionsArray) {
     const list = []
     for (let item of submissionsArray) {
-      if (!item.rating)
-        continue;
+      // if (!item.rating)
+      //   continue
 
-      const premiumType = item.rating[`${item.type}`];    
-      const totalCost = premiumType ? (premiumType.totalCost) : '';
+      const premiumType = item.rating[`${item.type}`]
       list.push({
         ...item,
         primaryInsuredName: item.primaryInsuredName,
@@ -43,8 +42,6 @@ class SubmissionView extends Component {
         dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
         dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
         quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
-
-
       })
     }
 
@@ -82,8 +79,6 @@ class SubmissionView extends Component {
       }
       return ''
     }
-
-    console.log('xx22 this.state', this.state)
 
     const options = {
       defaultSortName: 'updatedAt',  // default sort column name
@@ -164,8 +159,13 @@ class SubmissionView extends Component {
   }
 }
 
+SubmissionView.propTypes = {
+  editSubmission: PropTypes.func.isRequired,
+  sumbissionData: PropTypes.object.isRequired
+
+}
+
 function mapStateToProps(state) {
-  console.log('xx22 CURRENT STORE', state)
   return {
     user: state.user,
     submissions: state.submissions

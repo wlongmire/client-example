@@ -136,6 +136,9 @@
       "browser": true,
       "node": true
     },
+    "settings": {
+
+    },
     "extends": "airbnb",
     "rules": {
       "import/no-mutable-exports": "off",
@@ -150,6 +153,7 @@
       "arrow-body-style": "off",
       "no-lonely-if": "off",
       "eqeqeq": "off",
+      "react/forbid-prop-types": "off",
       "react/jsx-boolean-value": "off",
       "no-extra-semi": "error",
       "semi": ["error", "never"],

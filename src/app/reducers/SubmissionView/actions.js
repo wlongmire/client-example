@@ -71,8 +71,6 @@ export function editSubmission(submission) {
     })
     .then(res => res.json())
     .then((res) => {
-      console.log('RESPONSE in CLIENT', res)
-      console.log('RESPONSE in CLIENT BODY', res.body)
       if (res.type && res.type === 'TokenExpired') {
         dispatch({
           type: USER_LOGGED_OUT,
