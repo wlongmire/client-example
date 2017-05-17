@@ -99,8 +99,6 @@ class Form extends Component {
       return this.state.requiredFields.map((r, idx) => {
         const fieldText = (r.questionId == '2c') ? 'State' : r.text
         
-        console.log(r)
-        
         return (
           <li
             key={idx} 
