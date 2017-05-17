@@ -57,7 +57,7 @@ export function getSubmissions(brokerId) {
 
 
 export function editSubmission(submission) {
-  console.log('hitting EDIT SUBMISSION', submission);
+  console.log('hitting EDIT SUBMISSION', submission)
   const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
 
   return (dispatch) => {
@@ -99,7 +99,7 @@ export function editSubmission(submission) {
     //   type: constants.CHANGE_SUBMISSION,
     //   submission: { type: submission.type, status: constants.SUBMISSION_STATUS.EDIT } })
 
-    // localStorage.setItem('editing', true);
+    // TO_DO_AK: PUSH the user to a specific Route
     // dispatch(push('/form'))
   }
 }

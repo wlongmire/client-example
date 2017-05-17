@@ -244,7 +244,6 @@ async function sendEmail(req, res) {
 }
 
 function getSingleSubmission(req, res) {
-  console.log('GETTING HERE')
   try {
     if (!req.headers['x-token']) {
       return res.status(401).json('Authorization token required')
@@ -258,11 +257,8 @@ function getSingleSubmission(req, res) {
         })
       }
 
-      const user = result.user
-      console.log('REQUEST', req.params.id)
       submissionService.getSingleSubmission(req.params.id)
       .then((submission) => {
-        console.log("RESULT", submission)
         return res.status(200).json({
           success: true,
           submission

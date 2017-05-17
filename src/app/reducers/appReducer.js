@@ -1,4 +1,7 @@
 import constants from 'src/app/constants/app';
+import { 
+  EDIT_SUBMISSION 
+} from 'src/app/constants/user';
 
 const initialState = {
   status:constants.SUBMISSION_STATUS.NONE,
@@ -22,22 +25,22 @@ export default function (state = initialState, action) {
     
 
     case CHANGE_SUBMISSION:
-      const submission = Object.assign(state.submission, action.submission)
-      
-      return Object.assign(state,{
+      const submission = Object.assign(state.submission, action.submission)   
+      return Object.assign(state, {
         submission,
         submissionFormParams:Object.assign(state.submissionFormParams,action.submissionFormParams)
       })
-    // case EDIT_SUBMISSION:
-    //   return Object.assign(state, {
-    //     submission: action.payload
-    //   })
-      
+    case EDIT_SUBMISSION:
+      return Object.assign(state, {
+        submission: action.payload
+      })
     case CLEAR_SUBMISSION:
       return Object.assign(state,{
         submission:{},
         submissionFormParams:{}
-      });
+      })
+    default:
+      return state
   }
 
   return state;
