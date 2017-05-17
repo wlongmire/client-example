@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { Button, ButtonGroup } from 'react-bootstrap'
@@ -12,16 +12,16 @@ import FormBuilder from 'components/shared/FormBuilder'
 import constants from 'app/constants/app'
 import ratingProducts from 'config/RatingProducts'
 
-import exampleSubmission from 'config/exampleSubmission'
+// import exampleSubmission from 'config/exampleSubmission'
 
 class Form extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      confirmation:false,
+      confirmation: false,
       submission: this.props.submission,
-      validationModal:false,
+      validationModal: false,
       requiredFields: []
     };
 
@@ -155,12 +155,14 @@ class Form extends Component {
 
               <h4>
                 Note: All required fields are <span className="required">underlined in red.</span>
-              </h4>
-              
-              <br/>
-
+              </h4><br />
               <ButtonGroup>
-                <Button className="btn secondary" onClick={this.handleValidationOk}>Return to the Form</Button>
+                <Button
+                  className="btn secondary"
+                  onClick={this.handleValidationOk}
+                >
+                  Return to the Form
+                </Button>
               </ButtonGroup>
             </div>
 
@@ -172,12 +174,11 @@ class Form extends Component {
 
 }
 
-export default connect((store)=>{
-  const submission = store.app.submission
-
-  return({
+export default connect((store) => {
+  const { submission, submissionFormParams } = store.app
+  return ({
     submission,
-    submissionFormParams:store.app.submissionFormParams,
+    submissionFormParams,
     ratingProduct: ratingProducts[submission.type]
   })
-})(Form);
+})(Form)

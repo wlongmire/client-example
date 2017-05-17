@@ -81,21 +81,8 @@ export function editSubmission(submission) {
         dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
       }
     })
-    // adds the submission info to submissions.selectedSubmission
-    // once we hit the api, we can dispatch this with the all of the submission data
-    // dispatch({ type: EDIT_SUBMISSION, payload: submission })
-
-    // changes app.status to: EDIT
-    dispatch({
-      type: CHANGE_SUBMISSION_STATUS,
-      status: SUBMISSION_STATUS.EDIT })
-
-    // indicates if submission is oi or ocp in submission.type ...
-    // however, not sure why status is here. it's already in app.state
-    // dispatch({
-    //   type: constants.CHANGE_SUBMISSION,
-    //   submission: { type: submission.type, status: constants.SUBMISSION_STATUS.EDIT } })
-
+    
+    dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
     dispatch(push('/form'))
   }
 }
