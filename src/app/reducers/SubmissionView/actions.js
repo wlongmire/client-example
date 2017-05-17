@@ -3,26 +3,26 @@ import config from 'config'
 import { push } from 'react-router-redux'
 
 import { 
-  FETCH_SUBMISSIONS, 
-  USER_LOGGED_OUT, 
-  EDIT_SUBMISSION 
+  FETCH_SUBMISSIONS,
+  USER_LOGGED_OUT,
+  EDIT_SUBMISSION
 } from 'src/app/constants/user'
 
 import constants from 'app/constants/app'
 
-let baseURL = config.apiserver.url
+const baseURL = config.apiserver.url
 
 export const clearSubmissionStatus = () => {
   const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants
   return ((dispatch) => {
     dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE })
-    dispatch({ type: CLEAR_SUBMISSION});
+    dispatch({ type: CLEAR_SUBMISSION })
   })
 }
 
 export function getSubmissions(brokerId) {
   return (dispatch) => {
-    fetch(baseURL + '/api/getSubmissions', {
+    fetch(`${baseURL}/api/getSubmissions`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -57,7 +57,6 @@ export function getSubmissions(brokerId) {
 
 
 export function editSubmission(submission) {
-  console.log('hitting EDIT SUBMISSION', submission)
   const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
 
   return (dispatch) => {
@@ -97,8 +96,7 @@ export function editSubmission(submission) {
     //   type: constants.CHANGE_SUBMISSION,
     //   submission: { type: submission.type, status: constants.SUBMISSION_STATUS.EDIT } })
 
-    // TO_DO_AK: PUSH the user to a specific Route
-    // dispatch(push('/form'))
+    dispatch(push('/form'))
   }
 }
 

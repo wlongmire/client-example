@@ -21,11 +21,11 @@ class Header extends Component{
   }
 
   logout(){
-    this.props.logout();
+    this.props.logout()
   }
 
   resetForm(){
-    this.props.resetForm();
+    this.props.resetForm()
   }
 
   resetEdit(e) {
