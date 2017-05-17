@@ -146,6 +146,8 @@
     "extends": "airbnb",
     "rules": {
       "import/no-mutable-exports": "off",
+      "array-callback-return": "off",
+      "default-case": "off",
       "eol-last": "off",
       "comma-dangle": "off",
       "no-underscore-dangle": "off",
