@@ -19,7 +19,7 @@ var config = {
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess_2.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
-    ratingsUrl:'https://oe-rating-engine.herokuapp.com',
+    ratingsUrl:'https://oe-rating-engine-dev.herokuapp.com',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
     underwriters:[{
@@ -51,7 +51,7 @@ var config = {
     app: {},
 
     server: {
-        url: 'http://www.ownersedge.us',
+        url: 'http://localhost',
         port: null
     },
 
@@ -60,7 +60,7 @@ var config = {
     },
 
     apiserver: {
-        url: 'http://www.ownersedge.us',
+        url: 'http://localhost',
         port:  null
     }
 };
