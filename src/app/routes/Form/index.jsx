@@ -172,7 +172,6 @@ class Form extends Component {
               >Return to the Form</Button>
             </ButtonGroup>
           </div>
-
         </DialogBox>
 
       </div>

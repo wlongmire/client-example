@@ -3,9 +3,9 @@ import config from 'config'
 import { push } from 'react-router-redux'
 
 import { 
-  FETCH_SUBMISSIONS, 
-  USER_LOGGED_OUT, 
-  EDIT_SUBMISSION 
+  FETCH_SUBMISSIONS,
+  USER_LOGGED_OUT,
+  EDIT_SUBMISSION
 } from 'src/app/constants/user'
 
 import constants from 'app/constants/app'
@@ -16,7 +16,7 @@ export const clearSubmissionStatus = () => {
   const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants
   return ((dispatch) => {
     dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE })
-    dispatch({ type: CLEAR_SUBMISSION})
+    dispatch({ type: CLEAR_SUBMISSION })
   })
 }
 
