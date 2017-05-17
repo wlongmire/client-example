@@ -10,7 +10,7 @@ export default async function getPDFData(token, pdfType) {
 
     let aggregateLimit;
     let halvedCost = Math.round(((parseInt(submission.totalCost) / 2) / 1000000)) * 1000000
-    switch (submission.insuredState) {
+    switch (submission.projectAddress.projectState) {
       case 'New York':
         if (halvedCost < 5000000) {
           aggregateLimit = 5000000
