@@ -10,19 +10,19 @@ import {
 
 import constants from 'app/constants/app'
 
-let baseURL = config.apiserver.url
+const baseURL = config.apiserver.url
 
 export const clearSubmissionStatus = () => {
   const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants
   return ((dispatch) => {
     dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE })
-    dispatch({ type: CLEAR_SUBMISSION});
+    dispatch({ type: CLEAR_SUBMISSION})
   })
 }
 
 export function getSubmissions(brokerId) {
   return (dispatch) => {
-    fetch(baseURL + '/api/getSubmissions', {
+    fetch(`${baseURL}/api/getSubmissions`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -79,26 +79,18 @@ export function editSubmission(submission) {
         })
         dispatch(push('/'))
       } else {
+        // add the entire submission in store in -> app.submission
         dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
+
+        // changes app.status to: EDIT
+        dispatch({
+          type: CHANGE_SUBMISSION_STATUS,
+          status: SUBMISSION_STATUS.EDIT })
+
+        // push the user to the form
+        dispatch(push('/form'))
       }
     })
-    // adds the submission info to submissions.selectedSubmission
-    // once we hit the api, we can dispatch this with the all of the submission data
-    // dispatch({ type: EDIT_SUBMISSION, payload: submission })
-
-    // changes app.status to: EDIT
-    dispatch({
-      type: CHANGE_SUBMISSION_STATUS,
-      status: SUBMISSION_STATUS.EDIT })
-
-    // indicates if submission is oi or ocp in submission.type ...
-    // however, not sure why status is here. it's already in app.state
-    // dispatch({
-    //   type: constants.CHANGE_SUBMISSION,
-    //   submission: { type: submission.type, status: constants.SUBMISSION_STATUS.EDIT } })
-
-    // TO_DO_AK: PUSH the user to a specific Route
-    // dispatch(push('/form'))
   }
 }
 

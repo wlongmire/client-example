@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { Button, ButtonGroup } from 'react-bootstrap'
@@ -12,18 +12,19 @@ import FormBuilder from 'components/shared/FormBuilder'
 import constants from 'app/constants/app'
 import ratingProducts from 'config/RatingProducts'
 
-import exampleSubmission from 'config/exampleSubmission'
+// for testing purposes only
+// import exampleSubmission from 'config/exampleSubmission'
 
 class Form extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      confirmation:false,
+      confirmation: false,
       submission: this.props.submission,
-      validationModal:false,
+      validationModal: false,
       requiredFields: []
-    };
+    }
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this)
     this.handleCancelDialog = this.handleCancelDialog.bind(this)
@@ -31,35 +32,37 @@ class Form extends Component {
     this.handleValidationOk = this.handleValidationOk.bind(this)
   }
 
-  componentWillMount(){
-    if (!this.props.submission.type)
-      this.props.dispatch(push('/productChoice'));
+  componentWillMount() {
+    console.log('this.props.submission.type', this.props.submission.type)
+    if (!this.props.submission.type) {
+      this.props.dispatch(push('/productChoice'))
+    }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
   }
 
   handleSubmitQuote() {
     const { CHANGE_SUBMISSION } = constants
-    const submission = Object.assign(this.state.submission, {status:"QUOTE"})
+    const submission = Object.assign(this.state.submission, { status: 'QUOTE' })
 
-    this.props.dispatch({ type:CHANGE_SUBMISSION, submission })
-    this.setState({confirmation:false})
+    this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
+    this.setState({ confirmation: false })
 
-    this.props.dispatch(push("/formResults"));
+    this.props.dispatch(push('/formResults'))
   }
 
   handleCancelDialog() {
     this.setState({
       ...this.state,
-      confirmation:false
+      confirmation: false
     })
   }
 
   handleSubmitForReview(sub, controlGroups, requiredFields) {
-    if(requiredFields.length > 0){
+    if (requiredFields.length > 0) {
       this.setState({
         ...this.state,
         validationModal: true,
@@ -67,20 +70,20 @@ class Form extends Component {
 
       })
     } else {
-      const submission = Object.assign(this.state.submission, sub);
+      const submission = Object.assign(this.state.submission, sub)
       const { CHANGE_SUBMISSION } = constants
 
-      this.props.dispatch({ type:CHANGE_SUBMISSION, submission })
+      this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
       this.setState({
         ...this.state,
         requiredFields: [],
         submission,
-        confirmation:true
-      });
+        confirmation: true
+      })
     }
   }
 
-  handleValidationOk(){
+  handleValidationOk() {
     this.setState({
       ...this.state,
       validationModal: false
@@ -88,96 +91,111 @@ class Form extends Component {
   }
 
   render() {
-    const { submission } = this.state;
-    const { ratingProduct } = this.props;
-    const { submissionFormParams } = this.props;
+    const { submission } = this.state
+    const { ratingProduct } = this.props
+    const { submissionFormParams } = this.props
 
-    const requiredList = ()=> {
-      return this.state.requiredFields.map((r, idx)=>{
-        const fieldText = (r.questionId == '2c')?"State":r.text
-        
+    const requiredList = () => {
+      return this.state.requiredFields.map((r) => {
+        const fieldText = (r.questionId == '2c') ? 'State' : r.text
         return (
-            <li key={idx} className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
-          );
+          <li key={r.questionId} className="remainingField">{(fieldText || r.placeholder)}</li>
+        )
       })
     }
 
-    if (!ratingProduct)
-      return <div></div>
+    if (!ratingProduct) {
+      return <div />
+    }
 
-    const initialValues = submission//exampleSubmission
+    const initialValues = submission // exampleSubmission
 
     return (
-      <div className='page productChoice'>
+      <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
         <h4><strong>{ratingProduct.name}</strong> Submission</h4>
-      
-        <FormBuilder
-            data={ratingProduct.formJSON}
-            Validation={ratingProduct.Validation}
-            initialValues={initialValues}
-            initialParams={submissionFormParams}
-            submitTitle="Review Submission"
-            handleSubmit={this.handleSubmitForReview}
-        />
-      
-        <DialogBox
-            custom_class="confirmationDialog"
-            title="Is your data correct?"
-            subtitle="Double check your values and push Get Pricing to confirm"
-            show={this.state.confirmation}
-            >
-            <div>
-              <ConfirmationModal 
-                form={ratingProduct.formJSON}
-                submission={submission}
-              />
 
-              <ButtonGroup>
-                <Button className="btn secondary" onClick={this.handleSubmitQuote}>Get Pricing</Button>
-                <Button className="btn" onClick={this.handleCancelDialog}>Cancel</Button>
-              </ButtonGroup>
-            </div>
+        <FormBuilder
+          data={ratingProduct.formJSON}
+          Validation={ratingProduct.Validation}
+          initialValues={initialValues}
+          initialParams={submissionFormParams}
+          submitTitle="Review Submission"
+          handleSubmit={this.handleSubmitForReview}
+        />
+
+        <DialogBox
+          custom_class="confirmationDialog"
+          title="Is your data correct?"
+          subtitle="Double check your values and push Get Pricing to confirm"
+          show={this.state.confirmation}
+        >
+          <div>
+            <ConfirmationModal
+              form={ratingProduct.formJSON}
+              submission={submission}
+            />
+
+            <ButtonGroup>
+              <Button
+                className="btn secondary"
+                onClick={this.handleSubmitQuote}
+              >Get Pricing</Button>
+              <Button
+                className="btn"
+                onClick={this.handleCancelDialog}
+              >Cancel</Button>
+            </ButtonGroup>
+          </div>
 
         </DialogBox>
 
         <DialogBox
-            custom_class="confirmationDialog"
-            title="Please fill out all required fields."
-            show={this.state.validationModal}
-            >
-            <div>
-              
-              <h4>Here are your remaining questions:</h4>
-              <ul className="section">
-                { requiredList() }
-              </ul>
+          custom_class="confirmationDialog"
+          title="Please fill out all required fields."
+          show={this.state.validationModal}
+        >
+          <div>
+            <h4>Here are your remaining questions:</h4>
+            <ul className="section">
+              { requiredList() }
+            </ul>
 
-              <h4>
-                Note: All required fields are <span className="required">underlined in red.</span>
-              </h4>
-              
-              <br/>
+            <h4>
+              Note: All required fields are <span className="required">underlined in red.</span>
+            </h4>
+            <br />
 
-              <ButtonGroup>
-                <Button className="btn secondary" onClick={this.handleValidationOk}>Return to the Form</Button>
-              </ButtonGroup>
-            </div>
+            <ButtonGroup>
+              <Button
+                className="btn secondary"
+                onClick={this.handleValidationOk}
+              >Return to the Form</Button>
+            </ButtonGroup>
+          </div>
 
         </DialogBox>
 
       </div>
-    );
+    )
   }
-
 }
 
-export default connect((store)=>{
-  const submission = store.app.submission
+Form.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  submission: PropTypes.object.isRequired,
+  ratingProduct: PropTypes.object.isRequired,
+  submissionFormParams: PropTypes.object.isRequired,
+}
 
-  return({
+export default connect((store) => {
+  console.log('xx22 STORE IN FORM', store)
+  const submission = store.app.submission
+  console.log('xx22 SUBMISSION in STORE', store.app.submission)
+
+  return ({
     submission,
-    submissionFormParams:store.app.submissionFormParams,
+    submissionFormParams: store.app.submissionFormParams,
     ratingProduct: ratingProducts[submission.type]
   })
-})(Form);
+})(Form)
