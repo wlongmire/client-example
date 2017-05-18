@@ -19,36 +19,36 @@ gulp.task('transform:prod', () => {
   .pipe(replace('@sgsOIEmail', 'owners@colonyspecialty.com'))
   .pipe(replace('@sgsOCPEmail', 'ocpsubmissions@colonyspecialty.com'))
   .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
-  .pipe(replace('@serverUrl', 'http://www.ownersedge.us'))
+  .pipe(replace('@serverUrl', 'http://ownersedge-production.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  .pipe(replace('@mongoURI', 'mongodb://xxread:xxread@52.25.41.113:27017/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'https://oe-rating-engine.herokuapp.com'))
-  .pipe(gulp.dest('src/config/'))
-})
+  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
+  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
+  .pipe(gulp.dest('src/config/'));
+});
 
 gulp.task('transform:dev', () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'warren@eager.to'))
   .pipe(replace('@sgsOCPEmail', 'warren@eager.to'))
   .pipe(replace('@argoEmail', 'warrenlongmire@gmail.com'))
-  .pipe(replace('@serverUrl', 'http://dev.ownersedge.us'))
+  .pipe(replace('@serverUrl', 'http://ownersedge-production.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'https://oe-rating-engine-dev.herokuapp.com'))
-  .pipe(gulp.dest('src/config/'))
-})
+  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
+  .pipe(gulp.dest('src/config/'));
+});
 
 gulp.task('transform:beta', () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'allisonesteranko@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'justin.steranko@gmail.com'))
   .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
-  .pipe(replace('@serverUrl', 'http://beta.ownersedge.us'))
+  .pipe(replace('@serverUrl', 'http://ownersedge-production.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'https://oe-rating-engine-dev.herokuapp.com'))
-  .pipe(gulp.dest('src/config/'))
-})
+  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
+  .pipe(gulp.dest('src/config/'));
+});
 
 gulp.task('transform:local', () => {
   gulp.src('configTemplate/*')
@@ -58,9 +58,9 @@ gulp.task('transform:local', () => {
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'https://oe-rating-engine-dev.herokuapp.com'))
-  .pipe(gulp.dest('src/config/'))
-})
+  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
+  .pipe(gulp.dest('src/config/'));
+});
 
 /*
  * tasks
