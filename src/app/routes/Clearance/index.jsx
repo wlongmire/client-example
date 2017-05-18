@@ -17,19 +17,6 @@ const STATUS = {
 }
 
 class Clearance extends Component {
-  // AK_TEST: if you want to test the result replace input: {}, result: {} with the following
-  // input: {
-  //       primaryInsuredName: 'test',
-  //       projectAddress: {
-  //         projectAddress: 'random',
-  //         projectCity: 'Brooklyn',
-  //         projectState: 'New York',
-  //         projectZipcode: '11222'
-  //       }
-  //     },
-  //     result: {
-  //       success: true
-  //     }
   constructor(props) {
     super(props)
     this.state = {
@@ -96,17 +83,22 @@ class Clearance extends Component {
   render() {
     const subcomponentMap = {
       INPUT: <Input input={this.state.input} handleSubmit={this.handleInputSubmit} />,
-      LOADING: <Loading handleSubmit={this.handleLoadComplete} handleCancel={this.handleLoadCancel} input={this.state.input} />,
+      LOADING: <Loading
+        handleSubmit={this.handleLoadComplete}
+        handleCancel={this.handleLoadCancel}
+        input={this.state.input}
+      />,
       ERROR: <Error />,
-      RESULT: <Result handleSubmit={this.handleClearance} input={this.state.input} result={this.state.result} />
+      RESULT: <Result
+        handleSubmit={this.handleClearance}
+        input={this.state.input} result={this.state.result}
+      />
     }
 
-    console.log('status in clearnce', this.state.status)
-    // AK_TEST: if you want to test the result replace subcomponentMap... with subcomponentMap['RESULT']
     return (
       <div className="page clearance">
         {
-          subcomponentMap['this.state.status']
+          subcomponentMap[this.state.status]
         }
       </div>
     )
