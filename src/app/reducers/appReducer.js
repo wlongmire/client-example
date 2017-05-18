@@ -1,40 +1,50 @@
 import constants from 'src/app/constants/app';
+import { 
+  EDIT_SUBMISSION 
+} from 'src/app/constants/user';
 
 const initialState = {
-	status:constants.SUBMISSION_STATUS.NONE,
-	submission:{},
-	submissionFormParams:{}
+  status:constants.SUBMISSION_STATUS.NONE,
+  submission:{},
+  submissionFormParams:{}
 };
 
 export default function (state = initialState, action) {
-	const {
-		CHANGE_SUBMISSION_STATUS,
-		CHANGE_SUBMISSION,
-		CHANGE_SUBMISSION_PARAMS,
-		CLEAR_SUBMISSION
-	} = constants;
+  const {
+    CHANGE_SUBMISSION_STATUS,
+    CHANGE_SUBMISSION,
+    CHANGE_SUBMISSION_PARAMS,
+    CLEAR_SUBMISSION
+  } = constants
 
-	switch (action.type) {
-		case CHANGE_SUBMISSION_STATUS:
-			return Object.assign(state,{
-				status:action.status
-			});
-		
+  switch (action.type) {
+    case CHANGE_SUBMISSION_STATUS:
+      return Object.assign(state,{
+        status: action.status
+      })
+    
 
-		case CHANGE_SUBMISSION:
-			const submission = Object.assign(state.submission, action.submission)
-			
-			return Object.assign(state,{
-				submission,
-				submissionFormParams:Object.assign(state.submissionFormParams,action.submissionFormParams)
-			});
-			
-		case CLEAR_SUBMISSION:
-			return Object.assign(state,{
-				submission:{},
-				submissionFormParams:{}
-			});
-	}
+    case CHANGE_SUBMISSION:
+      const submission = Object.assign(state.submission, action.submission)   
+      return Object.assign(state, {
+        submission,
+        submissionFormParams: Object.assign(state.submissionFormParams,action.submissionFormParams)
+      })
 
-	return state;
+    case EDIT_SUBMISSION:
+      return Object.assign(state, {
+        submission: action.payload
+      })
+
+    case CLEAR_SUBMISSION:
+      return Object.assign(state,{
+        submission:{},
+        submissionFormParams:{}
+      })
+
+    default:
+      return state
+  }
+
+  return state
 }
