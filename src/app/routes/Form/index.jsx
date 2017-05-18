@@ -38,11 +38,6 @@ class Form extends Component {
     }
   }
 
-  componentDidMount() {
-    const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
-    this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
-  }
-
   handleSubmitQuote() {
     const { CHANGE_SUBMISSION } = constants
     const submission = Object.assign(this.state.submission, { status: 'QUOTE' })
