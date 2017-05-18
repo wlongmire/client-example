@@ -5,10 +5,14 @@ phases:
     commands:
       - echo Installing dependencies...
       - npm install
+  pre_build:
+    commands:
+      - echo Setting production env variables...
+      - npm run gulp transform:prod
   build:
     commands:
       - echo Building deployment assets...
-      - gulp build
+      - npm run gulp build
 artifacts:
   files:
     - 'node_modules/**/*'
