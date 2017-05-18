@@ -21,10 +21,10 @@ class Form extends Component {
 
     this.state = {
       confirmation: false,
-      submission: exampleSubmission, // this.props.submission,
+      submission: this.props.submission,
       validationModal: false,
       requiredFields: []
-    };
+    }
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this)
     this.handleCancelDialog = this.handleCancelDialog.bind(this)
@@ -45,9 +45,9 @@ class Form extends Component {
 
   handleSubmitQuote() {
     const { CHANGE_SUBMISSION } = constants
-    const submission = Object.assign(this.state.submission, { status:"QUOTE" })
+    const submission = Object.assign(this.state.submission, { status: 'QUOTE' })
 
-    this.props.dispatch({ type:CHANGE_SUBMISSION, submission })
+    this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
     this.setState({
       confirmation: false
     })
@@ -111,16 +111,15 @@ class Form extends Component {
     }
 
     if (!ratingProduct) {
-      return <div></div>
+      return <div />
     }
 
-    const initialValues = submission// exampleSubmission
+    const initialValues = submission
 
     return (
       <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
-        <h4><strong>{ratingProduct.name}</strong> Submission</h4>
-      
+        <h4><strong>{ratingProduct.name}</strong> Submission</h4>     
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}
@@ -132,7 +131,7 @@ class Form extends Component {
             <ButtonGroup>
               <Button className="btn" type="submit">Submit</Button>
               <LinkContainer to="/submissions">
-                <Button className="btn">Cancel</Button>
+                <a className="cancelLink">Cancel</a>
               </LinkContainer>
             </ButtonGroup>
           )}
