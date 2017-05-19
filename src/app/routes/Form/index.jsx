@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
@@ -13,7 +14,8 @@ import FormBuilder from 'components/shared/FormBuilder'
 import constants from 'app/constants/app'
 import ratingProducts from 'config/RatingProducts'
 
-import exampleSubmission from 'config/exampleSubmission'
+// for testing purposes only
+// import exampleSubmission from 'config/exampleSubmission'
 
 class Form extends Component {
   constructor(props) {
@@ -51,7 +53,6 @@ class Form extends Component {
     this.setState({
       confirmation: false
     })
-
     this.props.dispatch(push('/formResults'))
   }
 
@@ -71,7 +72,7 @@ class Form extends Component {
 
       })
     } else {
-      const submission = Object.assign(this.state.submission, sub);
+      const submission = Object.assign(this.state.submission, sub)
       const { CHANGE_SUBMISSION } = constants
 
       this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
@@ -80,7 +81,7 @@ class Form extends Component {
         requiredFields: [],
         submission,
         confirmation: true
-      });
+      })
     }
   }
 
@@ -93,20 +94,15 @@ class Form extends Component {
 
   render() {
     const { submission } = this.state
-    const { ratingProduct, submissionFormParams } = this.props
+    const { ratingProduct } = this.props
+    const { submissionFormParams } = this.props
 
     const requiredList = () => {
-      return this.state.requiredFields.map((r, idx) => {
+      return this.state.requiredFields.map((r) => {
         const fieldText = (r.questionId == '2c') ? 'State' : r.text
-        
         return (
-          <li
-            key={idx} 
-            className="remainingField"
-          >
-            {fieldText && r.placeholder}
-          </li>
-        );
+          <li key={r.questionId} className="remainingField">{(fieldText || r.placeholder)}</li>
+        )
       })
     }
 
@@ -119,7 +115,8 @@ class Form extends Component {
     return (
       <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
-        <h4><strong>{ratingProduct.name}</strong> Submission</h4>     
+        <h4><strong>{ratingProduct.name}</strong> Submission</h4>
+
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}
@@ -153,11 +150,11 @@ class Form extends Component {
               <Button
                 className="btn secondary"
                 onClick={this.handleSubmitQuote}
-              >
-                  Get Pricing
-              </Button>
-
-              <Button className="btn" onClick={this.handleCancelDialog}>Cancel</Button>
+              >Get Pricing</Button>
+              <Button
+                className="btn"
+                onClick={this.handleCancelDialog}
+              >Cancel</Button>
             </ButtonGroup>
           </div>
         </DialogBox>
@@ -177,6 +174,7 @@ class Form extends Component {
               Note: All required fields are <span className="required">underlined in red.</span>
             </h4>
             <br />
+
             <ButtonGroup>
               <Button
                 className="btn secondary"
@@ -186,13 +184,17 @@ class Form extends Component {
               </Button>
             </ButtonGroup>
           </div>
-
         </DialogBox>
-
       </div>
     )
   }
+}
 
+Form.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  submission: PropTypes.object.isRequired,
+  ratingProduct: PropTypes.object.isRequired,
+  submissionFormParams: PropTypes.object.isRequired,
 }
 
 export default connect((store) => {

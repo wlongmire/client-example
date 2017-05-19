@@ -1,41 +1,35 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import Moment from 'moment';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import Moment from 'moment'
 
-import { formatDollars } from 'app/utils/utilities';
-import * as actions from 'src/app/reducers/SubmissionView/actions';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Button, Panel } from 'react-bootstrap';
+import { formatDollars } from 'app/utils/utilities'
+import * as actions from 'src/app/reducers/SubmissionView/actions'
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
+import { Button } from 'react-bootstrap'
 
-import mx from 'app/utils/MixpanelInterface';
-import constants from 'app/constants/app';
+import mx from 'app/utils/MixpanelInterface'
+import constants from 'app/constants/app'
 
-class SubmissionView extends Component{
-  constructor(){
-    super();
+class SubmissionView extends Component {
+  constructor() {
+    super()
 
-    localStorage.setItem('editing', false);
+    localStorage.setItem('editing', false)
 
     this.state = ({
       chartData: []
-    });
-    
+    })
   }
 
   componentDidMount() {
-      this.loadSubmissions(this.props.sumbissionData.submissions);
+    this.loadSubmissions(this.props.sumbissionData.submissions)
   }
 
-  loadSubmissions(submissionsArray){
-    let list = [];
-    for (let item of submissionsArray) {
-      if (!item.rating)
-        continue;
+  loadSubmissions(submissionsArray) {
+    const list = submissionsArray.map((item) => {
+      const premiumType = item.rating[item.type]
 
-      const premiumType = item.rating[`${item.type}`];
-      
-      const totalCost = premiumType ? (premiumType.totalCost) : '';
-      list.push({
+      return ({
         ...item,
         primaryInsuredName: item.primaryInsuredName,
         totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',
@@ -44,49 +38,47 @@ class SubmissionView extends Component{
         type: item.type,
         dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
         dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
-        quouteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
-
-
-      });
-    }
+        quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
+      })
+    })
 
     this.setState({
       chartData: list
-    });
+    })
   }
 
   goToPage(submission) {
     mx.customEvent(
-      "submission",
-      "edit",
+      'submission',
+      'edit',
       {
-        "Named Insured":submission.primaryNamedInsured,
-        "Quoted": submission.instantQuote,
-        "Confirmation Number": submission.confirmationNumber,
-        "Type": submission.type
+        'Named Insured': submission.primaryNamedInsured,
+        Quoted: submission.instantQuote,
+        'Confirmation Number': submission.confirmationNumber,
+        Type: submission.type
       }
-    );
-
-    this.props.editSubmission(submission);
+    )
+    this.props.editSubmission(submission)
   }
 
-  render(){
-
+  render() {
     const selectFormatter = (cell, row) => {
-      return (
-        <Button onClick={ 
-          () => { 
-            
-            this.goToPage(row);
-          }
-        }>Edit</Button>
-      );
-    };
+      if (row.quoteStatus === 'Yes') {
+        return (
+          <Button
+            onClick={() => {
+              this.goToPage(row)
+            }}
+          >Edit</Button>
+        )
+      }
+      return ''
+    }
 
     const options = {
       defaultSortName: 'updatedAt',  // default sort column name
       defaultSortOrder: 'desc'  // default sort order,
-    };
+    }
 
     return (
       <div>
@@ -100,72 +92,79 @@ class SubmissionView extends Component{
           key={1}
           pagination
           multiColumnSearch
-          >
+        >
           <TableHeaderColumn
             dataField="_id"
             isKey={true}
             hidden
-            ></TableHeaderColumn>
-            <TableHeaderColumn
+          />
+          <TableHeaderColumn
             dataField="updatedAt"
             hidden
-            ></TableHeaderColumn>
+          />
           <TableHeaderColumn
             dataField="primaryInsuredName"
             dataSort={true}
             width="100px"
-            >Primary Named Insured</TableHeaderColumn>
+          >Primary Named Insured</TableHeaderColumn>
           <TableHeaderColumn
-            dataField="quouteStatus"
+            dataField="quoteStatus"
             dataSort={true}
             width="35px"
-            >Was <br/>Submission<br/> Priced?</TableHeaderColumn>
+          >Was <br />Submission <br />Priced?</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="quotedPremium"
             dataSort={true}
-            >Quoted <br/>Premium</TableHeaderColumn>
+          >Quoted <br />Premium</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="totalCost"
             dataSort={true}
-            >Total <br/>Cost</TableHeaderColumn>
+          >Total <br />Cost</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="totalPremium"
             dataSort={true}
-            >Total <br/>Premium</TableHeaderColumn>
+          >Total <br />Premium</TableHeaderColumn>
           <TableHeaderColumn
             width="20px"
             dataField="type"
             dataSort={true}
-            >Type</TableHeaderColumn>
+          >Type</TableHeaderColumn>
           <TableHeaderColumn
             width="55px"
             dataField="dateCreated"
             dataSort={true}
-            >Date <br/>Created</TableHeaderColumn>
-            <TableHeaderColumn
+          >Date <br />Created</TableHeaderColumn>
+          <TableHeaderColumn
             width="55px"
             dataField="dateCreated"
             dataSort={true}
-            >Date <br/>Updated</TableHeaderColumn>
-          {/*<TableHeaderColumn
+          >Date <br />Updated</TableHeaderColumn>
+          <TableHeaderColumn
             width="25px"
             dataField="id"
-            dataFormat={ selectFormatter }
-            >Edit</TableHeaderColumn>*/}
+            hidden={false}
+            dataFormat={selectFormatter}
+          >Edit</TableHeaderColumn>
         </BootstrapTable>
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state){
+SubmissionView.propTypes = {
+  editSubmission: PropTypes.func.isRequired,
+  sumbissionData: PropTypes.object.isRequired
+
+}
+
+function mapStateToProps(state) {
   return {
     user: state.user,
     submissions: state.submissions
-  };
+  }
 }
 
-export default connect(mapStateToProps, actions)(SubmissionView);
+export default connect(mapStateToProps, actions)(SubmissionView)
