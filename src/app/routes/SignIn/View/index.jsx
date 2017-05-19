@@ -105,8 +105,6 @@ class SignInForm extends Component {
 
             <h1>Welcome</h1>
             <h3>Please Sign In</h3>
-
-            <h3>test</h3>
             
             <FormBuilder
                 data={form}
