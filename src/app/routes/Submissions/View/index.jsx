@@ -26,13 +26,10 @@ class SubmissionView extends Component {
   }
 
   loadSubmissions(submissionsArray) {
-    const list = []
-    for (let item of submissionsArray) {
-      // if (!item.rating)
-      //   continue
+    const list = submissionsArray.map((item) => {
+      const premiumType = item.rating[item.type]
 
-      const premiumType = item.rating[`${item.type}`]
-      list.push({
+      return ({
         ...item,
         primaryInsuredName: item.primaryInsuredName,
         totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',
@@ -43,7 +40,7 @@ class SubmissionView extends Component {
         dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
         quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
       })
-    }
+    })
 
     this.setState({
       chartData: list
@@ -61,8 +58,6 @@ class SubmissionView extends Component {
         Type: submission.type
       }
     )
-
-    console.log('submission on edit', submission)
     this.props.editSubmission(submission)
   }
 
