@@ -25,13 +25,18 @@ class Form extends Component {
       confirmation: false,
       submission: this.props.submission,
       validationModal: false,
+      cancelModal: false,
       requiredFields: []
     }
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this)
-    this.handleCancelDialog = this.handleCancelDialog.bind(this)
+    this.handleCancelQuote = this.handleCancelQuote.bind(this)
     this.handleSubmitForReview = this.handleSubmitForReview.bind(this)
     this.handleValidationOk = this.handleValidationOk.bind(this)
+
+    this.handleCancelDialog = this.handleCancelDialog.bind(this)
+    this.handleCancelOK = this.handleCancelOK.bind(this)
+    this.handleCancelBack = this.handleCancelBack.bind(this)
   }
 
   componentWillMount() {
@@ -56,7 +61,7 @@ class Form extends Component {
     this.props.dispatch(push('/formResults'))
   }
 
-  handleCancelDialog() {
+  handleCancelQuote() {
     this.setState({
       ...this.state,
       confirmation: false
@@ -92,6 +97,29 @@ class Form extends Component {
     })
   }
 
+  handleCancelDialog() {
+    this.setState({
+      ...this.state,
+      cancelModal: true
+    })
+  }
+
+  handleCancelOK() {
+    this.setState({
+      ...this.state,
+      cancelModal: false
+    })
+
+    this.props.dispatch(push('/submissions'))
+  }
+
+  handleCancelBack() {
+    this.setState({
+      ...this.state,
+      cancelModal: false
+    })
+  }
+
   render() {
     const { submission } = this.state
     const { ratingProduct } = this.props
@@ -116,7 +144,7 @@ class Form extends Component {
       <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
         <h4><strong>{ratingProduct.name}</strong> Submission</h4>
-
+        
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}
@@ -127,9 +155,7 @@ class Form extends Component {
           submissionButtons={() => (
             <ButtonGroup>
               <Button className="btn" type="submit">Submit</Button>
-              <LinkContainer to="/submissions">
-                <a className="cancelLink">Cancel</a>
-              </LinkContainer>
+              <a role="link" className="cancelLink" onClick={this.handleCancelDialog} >Cancel</a>
             </ButtonGroup>
           )}
         />
@@ -153,7 +179,7 @@ class Form extends Component {
               >Get Pricing</Button>
               <Button
                 className="btn"
-                onClick={this.handleCancelDialog}
+                onClick={this.handleCancelQuote}
               >Cancel</Button>
             </ButtonGroup>
           </div>
@@ -179,6 +205,29 @@ class Form extends Component {
               <Button
                 className="btn secondary"
                 onClick={this.handleValidationOk}
+              >
+                Return to the Form
+              </Button>
+            </ButtonGroup>
+          </div>
+        </DialogBox>
+
+        <DialogBox
+          custom_class="cancelDialog"
+          title="Are you sure you want to cancel?"
+          show={this.state.cancelModal}
+        >
+          <div>
+            <h4>Canceling now will remove all changes without saving. </h4>
+
+            <ButtonGroup>
+              <Button
+                className="btn secondary"
+                onClick={this.handleCancelOK}
+              >OK</Button>
+              <Button
+                className="btn"
+                onClick={this.handleCancelBack}
               >
                 Return to the Form
               </Button>

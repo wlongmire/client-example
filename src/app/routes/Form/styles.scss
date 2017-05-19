@@ -21,6 +21,7 @@
     padding: 1em;
     display: inline-block;
     color: white;
+    cursor: pointer;
 }
 
 .selectionCards {
@@ -65,7 +66,7 @@
     }
 }
 
-.confirmationDialog {
+.confirmationDialog, .cancelDialog {
   .modal-header {
     padding: 1em 3em;
     background-color: white;
@@ -146,7 +147,7 @@
   }
 }
 
-.confirmationDialog {
+.confirmationDialog, .cancelDialog {
     .section {
         padding: 1em;
     }
