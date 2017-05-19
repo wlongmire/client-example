@@ -46,7 +46,8 @@ class InputContainer extends React.PureComponent {
         this.props.data.attributes.validationFunc &&
         this.props.validation[this.props.data.attributes.validationFunc]) {
 
-        this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result) => {
+        this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value)
+        .then((result) => {
           this.setState({
             isValid: (result.status) ? 'success' : 'error',
             validationMessage: (result.status) ? '' : result.message
