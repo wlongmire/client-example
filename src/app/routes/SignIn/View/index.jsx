@@ -64,7 +64,7 @@ class SignInForm extends Component {
                         })
                         return;
                 }
-
+                
                 const {user, token} = res;
 
                 localStorage.setItem('token', token);
