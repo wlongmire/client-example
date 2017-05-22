@@ -119,7 +119,7 @@ gulp.task('s', ['serve:dev'])
 gulp.task('serve', ['serve:dev'])
 gulp.task('serve:dev', ['serve:development'])
 
-gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts', 'build:node'],
+gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts'],
 () => {
   new WebpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
@@ -140,7 +140,7 @@ gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts', 'b
     // for example on Heroku, to serve the static dir.
     // To use it, uncomment the next line
 
-    gulp.run('serve:node:development')
+    // gulp.run('serve:node:development')
 
     setTimeout(() => {
       console.log(`███ ███ WebPack Dev Server at http://localhost: ${config.webpackserver.port}`);
