@@ -8,8 +8,6 @@ function SignIn(props, context) {
     content
   } = context
 
-  console.log('pushed')
-
   return (
     <div className="signin">
       <Helmet title={content.title} />
