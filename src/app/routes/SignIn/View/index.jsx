@@ -53,13 +53,35 @@ class SignInForm extends Component {
 
       cognitoUser.authenticateUser(authenticationData, {
         onSuccess: (resp) => {
-          console.log("login successful ",resp)
+          console.log("login successful", resp)
+
+          // localStorage.setItem('token', token)
+          // localStorage.setItem('viewer', JSON.stringify(user))
+
+          // this.setState({ error: false, errorMessage: ""})
+
+          // this.props.dispatch(push({
+          //     pathname: '/submissions',
+          //     state: { type: 'USER_LOGGED_IN', payload: res, user: user }
+          // }))
+
         },
         onFailure: (resp) => {
           console.log("failed login ", resp)
         },
         newPasswordRequired: (resp) => {
           console.log("new password required ", resp)
+
+          // localStorage.setItem('token', token)
+          // localStorage.setItem('viewer', JSON.stringify(user))
+
+          // this.setState({ error: false, errorMessage: ""})
+
+          // this.props.dispatch(push({
+          //     pathname: '/submissions',
+          //     state: { type: 'USER_LOGGED_IN', payload: res, user: user }
+          // }))
+          
         }
       })
     }
