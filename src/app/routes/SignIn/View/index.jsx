@@ -13,7 +13,6 @@ import fetch from 'isomorphic-fetch';
 import mx from 'app/utils/MixpanelInterface';
 import { Button } from 'react-bootstrap'
 
-
 class SignInForm extends Component {
     constructor(props) {
       super(props);
@@ -74,7 +73,6 @@ class SignInForm extends Component {
                     error:false,
                     errorMessage:""
                 })
-                
                 this.props.dispatch(push({
                     pathname: '/submissions',
 
@@ -106,7 +104,7 @@ class SignInForm extends Component {
 
             <h1>Welcome</h1>
             <h3>Please Sign In</h3>
-
+            
             <FormBuilder
                 data={form}
                 submitTitle="Sign In"

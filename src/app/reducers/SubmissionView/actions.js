@@ -3,36 +3,36 @@ import config from '../../../config'
 import { push } from 'react-router-redux'
 
 import { 
-  FETCH_SUBMISSIONS, 
-  USER_LOGGED_OUT, 
-  EDIT_SUBMISSION 
+  FETCH_SUBMISSIONS,
+  USER_LOGGED_OUT,
+  EDIT_SUBMISSION
 } from 'app/constants/user'
 
 import constants from 'app/constants/app'
 
-let baseURL = config.apiserver.url
+const baseURL = config.apiserver.url
 
 export const clearSubmissionStatus = () => {
   const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants
-  return((dispatch) => {
-    dispatch({type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE})
-    dispatch({type: CLEAR_SUBMISSION})
+  return ((dispatch) => {
+    dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE })
+    dispatch({ type: CLEAR_SUBMISSION })
   })
 }
 
 export function getSubmissions(brokerId) {
   return (dispatch) => {
-    fetch(baseURL + '/api/getSubmissions', {
+    fetch(`${baseURL}/api/getSubmissions`, {
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-token': localStorage.getItem('token')
       }
     })
     .then(res => res.json())
     .then((res) => {
-      if(res.type && res.type === 'TokenExpired') {
+      if (res.type && res.type === 'TokenExpired') {
         dispatch({
           type: USER_LOGGED_OUT,
           payload: {},
@@ -46,10 +46,8 @@ export function getSubmissions(brokerId) {
 
       // empty previous edited submission in the store
       dispatch({ type: EDIT_SUBMISSION, payload: {} })
-
     })
     .catch((error) => {
-
       return Promise.reject({
         _error: error.message
       })
@@ -59,41 +57,57 @@ export function getSubmissions(brokerId) {
 
 
 export function editSubmission(submission) {
-  console.log('TEST 123', submission)
+  const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
+
   return (dispatch) => {
+    fetch(`${baseURL}/api/getSubmission/${submission._id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'x-token': localStorage.getItem('token')
+      }
+    })
+    .then(res => res.json())
+    .then((res) => {
+      if (res.type && res.type === 'TokenExpired') {
+        dispatch({
+          type: USER_LOGGED_OUT,
+          payload: {},
+          user: {}
+        })
+        dispatch(push('/'))
+      } else {
+        // add the entire submission in store in -> app.submission
+        dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
 
-    dispatch({ type: EDIT_SUBMISSION,   payload: submission })
-    
-    const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
+        // changes app.status to: EDIT
+        dispatch({
+          type: CHANGE_SUBMISSION_STATUS,
+          status: SUBMISSION_STATUS.EDIT })
 
-    dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
-    dispatch({ type: constants.CHANGE_SUBMISSION, submission: { type: submission.type, status: constants.SUBMISSION_STATUS.CLEARANCE } })
-
-    localStorage.setItem('editing', true)
-    dispatch(push('/oiform'))
-
+        // push the user to the form
+        dispatch(push('/form'))
+      }
+    })
   }
 }
 
 export function resetForm() {
   return (dispatch) => {
-
     dispatch({ type: EDIT_SUBMISSION, payload: {} })
     dispatch(push('/oiform'))
-
   }
 }
 
 export function resetContractorsForm() {
   return (dispatch) => {
-
     dispatch({
       type: EDIT_SUBMISSION,
       payload: {}
     })
 
     dispatch(push('/contractorsform'))
-
   }
 }
 
@@ -104,6 +118,5 @@ export function logout() {
   return (dispatch) => {
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
-
   }
 }

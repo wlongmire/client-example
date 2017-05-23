@@ -1,0 +1,19 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - npm install
+  pre_build:
+    commands:
+      - echo setting development env config...
+      - npm run gulp transform:dev
+  build:
+    commands:
+      - echo Building deployment assets...
+      - npm run gulp build
+artifacts:
+  files:
+    - 'node_modules/**/*'
+    - 'dist/**/*'
