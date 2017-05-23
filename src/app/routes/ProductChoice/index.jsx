@@ -9,6 +9,8 @@ import ProductChoiceItem from './ProductChoiceItem'
 import ratingProducts from 'config/RatingProducts'
 import constants from 'app/constants/app'
 
+import mx from 'app/utils/MixpanelInterface'
+
 class ProductChoice extends Component {
   componentDidMount() {
     const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants

@@ -7,8 +7,8 @@ phases:
       - npm install
   pre_build:
     commands:
-      - echo Setting production env config...
-      - npm run gulp transform:prod
+      - echo setting development env config...
+      - npm run gulp transform:dev
   build:
     commands:
       - echo Building deployment assets...
