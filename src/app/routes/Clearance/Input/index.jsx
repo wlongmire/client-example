@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 import DialogBox from 'components/shared/DialogBox'
-import { connect } from 'react-redux';
-import { ButtonGroup, Button } from 'react-bootstrap';
-import FormBuilder from 'components/shared/FormBuilder';
-import form from './form.js';
+import { connect } from 'react-redux'
+import { ButtonGroup, Button } from 'react-bootstrap'
+import FormBuilder from 'components/shared/FormBuilder'
+import form from './form.js'
 
 const STATUS = {
   INPUT:"INPUT",
@@ -15,7 +15,7 @@ const STATUS = {
 
 class Input extends Component {
     constructor(props) {
-      super(props);
+      super(props)
       this.state = {
         requiredFields: [],
         validationModal: false,
@@ -27,7 +27,7 @@ class Input extends Component {
     }
 
     handleSubmit(values, controlGroups, requiredFields) {
-      if(requiredFields.length > 0){
+      if (requiredFields.length > 0) {
 
         this.setState({
           ...this.state,
@@ -36,7 +36,7 @@ class Input extends Component {
         })
       } else {
 
-        this.props.handleSubmit(values);
+        this.props.handleSubmit(values)
       }
     }
 
@@ -54,7 +54,7 @@ class Input extends Component {
           
           return (
               <li key={idx} className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
-            );
+            )
         })
       }
 
@@ -75,9 +75,8 @@ class Input extends Component {
             custom_class="confirmationDialog"
             title="Please fill out all required fields."
             show={this.state.validationModal}
-            >
-            <div>
-              
+          >
+            <div> 
               <h4>Here are your remaining questions:</h4>
               <ul className="section">
                 { requiredList() }
@@ -86,18 +85,21 @@ class Input extends Component {
               <h4>
                 Note: All required fields are <span className="required">underlined in red.</span>
               </h4>
-              
-              <br/>
-
+              <br />
               <ButtonGroup>
-                <Button className="btn secondary" onClick={this.handleValidationOk}>Return to the Form</Button>
+                <Button
+                  className="btn secondary"
+                  onClick={this.handleValidationOk}
+                >
+                  Return to the Form
+                </Button>
               </ButtonGroup>
             </div>
 
           </DialogBox>
 
-        </div>);
+        </div>)
     }
 }
 
-export default connect()(Input);
+export default connect()(Input)
