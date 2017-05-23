@@ -24,10 +24,10 @@ const config = {
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:35542332-4207-4161-81ca-22dca501dbff',
-        userPoolId: 'us-east-1_DdxblSokM',
-        region: 'us-east-1',
-        clientId: '6kd2kc58pr8oafjvaijejnh0ct'
+        identityPoolId: '@identityPoolId',
+        userPoolId: '@userPoolId',
+        region: '@region',
+        clientId: '@clientId'
     },
 
     underwriters:[{

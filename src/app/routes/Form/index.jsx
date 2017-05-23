@@ -15,7 +15,7 @@ import constants from 'app/constants/app'
 import ratingProducts from 'config/RatingProducts'
 
 // for testing purposes only
-// import exampleSubmission from 'config/exampleSubmission'
+import exampleSubmission from 'config/exampleSubmission'
 
 class Form extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class Form extends Component {
 
     this.state = {
       confirmation: false,
-      submission: exampleSubmission, // this.props.submission,
+      submission: this.props.submission,
       validationModal: false,
       cancelModal: false,
       requiredFields: []
