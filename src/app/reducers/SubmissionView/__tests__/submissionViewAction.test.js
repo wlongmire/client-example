@@ -11,10 +11,8 @@ import {
   EDIT_SUBMISSION 
 } from 'app/constants/user'
 import constants from 'app/constants/app'
-import config from '../../../../config'
 
-const baseURL = config.apiserver.url
-
+// mocking local storage
 global.localStorage = new LocalStorageMock()
 
 describe('>>> Action - reset Form', () => {
@@ -42,57 +40,36 @@ describe('>>> Action - reset Form', () => {
 })
 
 describe('>>> Action - editSubmission', () => {
-  let http = {
-      editSubmission: jest.fn(() => Promise.resolve({ test: 'test345' })),
-    };
-  beforeEach(() => {
-    // Mock the TMDB configuration request response
-    nock(baseURL)
-      .get('/api/getSubmission/randomId')
-      .reply(200, { test: 'test1234' })
+  afterEach(() => {
+    nock.cleanAll()
   })
 
+  // mocking the http request / response
+  nock('http://localhost:8888')
+    .get('/api/getSubmission/randomId')
+    .reply(200, { submission: { _id: 'test123' } })
 
-  it('successful call should dispatch someAction', () => {
-    const submission = {
-      _id: 'randomId',
-      test: 123
-    }
+  it('successful call should dispatch someAction', (done) => {
     const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
 
     // create mock thunk & store
     const createMockStore = configureMockStore([thunk])
     // expected results once action is dispatched
     const expectedActions = [
-      { type: EDIT_SUBMISSION, payload: submission },
+      { payload: { _id: 'test123' }, type: EDIT_SUBMISSION },
       { type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT },
-      { type: constants.CHANGE_SUBMISSION,
-        submission: { type: submission.type, status: constants.SUBMISSION_STATUS.CLEARANCE } },
-      { payload: { args: ['/oiform'], method: 'push' },
-        type: '@@router/CALL_HISTORY_METHOD',
-      },
+      { payload: { args: ['/form'], method: 'push' }, type: '@@router/CALL_HISTORY_METHOD' },
     ]
-    const initialAppState = {}
 
-    const store = createMockStore(initialAppState)
+    const store = createMockStore({})
 
     // Act.
-    store.dispatch(actions.editSubmission(submission))
-
-    // Assert.
-    const dispatchedActions = store.getActions()
-    expect(dispatchedActions).toEqual(expectedActions)
+    store.dispatch(actions.editSubmission({ _id: 'randomId' })).then(() => {
+      // Assert.
+      const dispatchedActions = store.getActions()
+      expect(dispatchedActions).toEqual(expectedActions)
+    })
+    .then(done)
+    .catch(done.fail)
   })
 })
-
-// describe('', () => {
-//   it('', (done) => {
-//     nock(baseURL)
-//       .post('/api/submissions')
-//       .reply(201, {
-//         json: () => ({
-          
-//         })
-//       })
-//   })
-// })

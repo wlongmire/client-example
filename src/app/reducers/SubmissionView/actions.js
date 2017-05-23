@@ -60,7 +60,7 @@ export function editSubmission(submission) {
   const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
 
   return (dispatch) => {
-    fetch(`${baseURL}/api/getSubmission/${submission._id}`, {
+    return fetch(`${baseURL}/api/getSubmission/${submission._id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
