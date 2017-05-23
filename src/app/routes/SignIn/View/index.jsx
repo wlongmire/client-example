@@ -39,7 +39,6 @@ class SignInForm extends Component {
                 errorMessage:"Please Enter a Valid Password."
             })
         } else {
-            
             fetch(baseURL + '/um/login', {
                 method: 'POST',
                 headers: {

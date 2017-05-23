@@ -1,16 +1,16 @@
 import fetch from 'isomorphic-fetch';
-import config from 'config';
+import config from '../../../config'
 import { push } from 'react-router-redux';
 
 import { 
   FETCH_SUBMISSIONS, 
   USER_LOGGED_OUT, 
   EDIT_SUBMISSION 
-} from 'src/app/constants/user';
+} from 'app/constants/user';
 
 import constants from 'app/constants/app';
 
-let baseURL = config.apiserver.url;
+let baseURL = config.apiserver.url
 
 export const clearSubmissionStatus = () => {
   const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants;

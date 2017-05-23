@@ -1,7 +1,7 @@
 import { 
   FETCH_SUBMISSIONS, 
   EDIT_SUBMISSION 
-} from 'src/app/constants/user';
+} from 'app/constants/user';
 
 export default function (state = {}, action) {
   switch (action.type) {
