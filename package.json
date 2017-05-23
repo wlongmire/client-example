@@ -124,7 +124,8 @@
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/server -d dist/server --copy-files; babel src/config -d dist/config --copy-files",
     "start": "NODE_ENV='production' node dist/server/index.js",
-    "test": "NODE_PATH=./src jest"
+    "test": "NODE_PATH=./src jest",
+    "coverage-test": "NODE_PATH=./src jest --config jest.config.json --runInBand && codecov"
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",

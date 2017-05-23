@@ -66,7 +66,7 @@ export class Header extends Component {
 }
 
 Header.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   resetForm: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired
 }

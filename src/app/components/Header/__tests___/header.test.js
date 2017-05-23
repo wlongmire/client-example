@@ -11,7 +11,7 @@ import ConnectedHeader, { Header } from '../index'
 // Snapshot for Home Header Component
 describe('>>> Header --- Snapshot', () => {
   it('+++capturing Snapshot of Header without User', () => {
-    const renderedValue = renderer.create(<Header />).toJSON()
+    const renderedValue = renderer.create(<Header user={null} logout={jest.fn()} resetForm={jest.fn()} />).toJSON()
     expect(renderedValue).toMatchSnapshot()
   })
 })
@@ -19,7 +19,7 @@ describe('>>> Header --- Snapshot', () => {
 // Snapshot for Home Header Component
 describe('>>> Header --- Snapshot', () => {
   it('+++capturing Snapshot of Header with User', () => {
-    const renderedValue = renderer.create(<Header user={initialState.user} />).toJSON()
+    const renderedValue = renderer.create(<Header user={initialState.user} logout={jest.fn()} resetForm={jest.fn()} />).toJSON()
     expect(renderedValue).toMatchSnapshot()
   })
 })
@@ -38,7 +38,12 @@ describe('>>> Header--- Shallow + passing the {store} directly', () => {
   let container
 
   beforeEach(() => {
-    container = shallow(<Header user={initialState.user} />)
+    container = shallow(
+      <Header
+        user={initialState.user}
+        logout={jest.fn()}
+        resetForm={jest.fn()}
+      />)
   })
 
   it('+++ check Prop matches with initialState', () => {
