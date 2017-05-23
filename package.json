@@ -119,7 +119,7 @@
     "build": "babel src/server -d dist/server --copy-files; babel src/config -d dist/config --copy-files",
     "start": "NODE_ENV='production' node dist/server/index.js",
     "test": "NODE_PATH='./src' NODE_ENV='development' jest",
-    "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand && codecov"
+    "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
   },
   "devDependencies": {
     "babel-jest": "^20.0.3",
