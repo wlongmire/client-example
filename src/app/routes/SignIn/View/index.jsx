@@ -89,7 +89,6 @@ class SignInForm extends Component {
           Password: values.password
       }), {
         onSuccess: (resp) => {
-          console.log('login successful', resp)
           this.setState({ error: false, errorMessage: '' })
 
           this.props.dispatch({
@@ -166,7 +165,6 @@ class SignInForm extends Component {
             handleOK={this.handleResetModalOk}
             handleCancel={this.handleResetModalCancel}
           />
-          
         </DialogBox>
 
       </div>)

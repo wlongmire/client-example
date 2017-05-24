@@ -8,29 +8,24 @@ import {
   EDIT_SUBMISSION
 } from 'src/app/constants/user'
 
-import { 
-  CHANGE_SUBMISSION_STATUS, 
-  CLEAR_SUBMISSION, 
-  SUBMISSION_STATUS 
-}  from 'app/constants/app'
+import constants from 'app/constants/app'
 
 const baseURL = config.apiserver.url
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {
-    dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE })
-    dispatch({ type: CLEAR_SUBMISSION })
+    dispatch({ type: constants.CHANGE_SUBMISSION_STATUS, status: constants.SUBMISSION_STATUS.NONE })
+    dispatch({ type: constants.CLEAR_SUBMISSION })
   })
 }
 
-export function getSubmissions() {
+export function getSubmissions(brokerID) {
   return (dispatch) => {
     fetch(`${baseURL}/api/getSubmissions`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'x-token': localStorage.getItem('token')
+        'Content-Type': 'application/json'
       }
     })
     .then(res => res.json())
@@ -65,8 +60,7 @@ export function editSubmission(submission) {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'x-token': localStorage.getItem('token')
+        'Content-Type': 'application/json'
       }
     })
     .then(res => res.json())
@@ -84,8 +78,8 @@ export function editSubmission(submission) {
 
         // changes app.status to: EDIT
         dispatch({
-          type: CHANGE_SUBMISSION_STATUS,
-          status: SUBMISSION_STATUS.EDIT })
+          type: constants.CHANGE_SUBMISSION_STATUS,
+          status: constants.SUBMISSION_STATUS.EDIT })
 
         // push the user to the form
         dispatch(push('/form'))
@@ -95,8 +89,6 @@ export function editSubmission(submission) {
 }
 
 export function logout() {
-  localStorage.removeItem('token')
-  localStorage.removeItem('viewer')
   return (dispatch) => {
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
