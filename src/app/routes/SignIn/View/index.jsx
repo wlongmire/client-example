@@ -16,6 +16,11 @@ import PasswordResetModal from './PasswordResetModal'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
+const userPool = new CognitoUserPool({
+  UserPoolId: config.awsCognito.userPoolId,
+  ClientId: config.awsCognito.clientId
+})
+
 class SignInForm extends Component {
   constructor(props) {
     super(props)
@@ -50,7 +55,7 @@ class SignInForm extends Component {
           name: this.state.userAttributes.email
         },
         {
-          onSuccess: (result) => {
+          onSuccess: () => {
             this.setState({ showResetModal: false })
           },
           onFailure: (err) => {
@@ -60,6 +65,7 @@ class SignInForm extends Component {
           }
         })
     }
+
   }
 
   handleResetModalCancel() {
@@ -72,34 +78,40 @@ class SignInForm extends Component {
     } else if (values.password === '') {
       this.setState({ error: true, errorMessage: 'Please Enter a Valid Password.' })
     } else {
-      const userPool = new CognitoUserPool({
-        UserPoolId: config.awsCognito.userPoolId,
-        ClientId: config.awsCognito.clientId
-      })
-
       const cognitoUser = new CognitoUser({
         Username: values.username,
         Pool: userPool
       })
 
-      const authenticationData = new AuthenticationDetails({
-        Username: values.username,
-        Password: values.password
-      })
-
-      cognitoUser.authenticateUser(authenticationData, {
+      cognitoUser.authenticateUser(
+        new AuthenticationDetails({
+          Username: values.username,
+          Password: values.password
+      }), {
         onSuccess: (resp) => {
           console.log('login successful', resp)
+          this.setState({ error: false, errorMessage: '' })
 
-          // localStorage.setItem('token', token)
-          // localStorage.setItem('viewer', JSON.stringify(resp))
+          this.props.dispatch({
+            type: 'USER_LOGGED_IN',
+            payload: {
+              congito: resp,
+              username: values.username,
+              email: values.username,
+              broker: {
+                id: '123213131312',
+                name: 'Broker',
+                address: '2923 N 27th Street',
+                city: 'philadelphia',
+                state: 'PA',
+                zipcode: '19132'
+              }
+            }
+          })
 
-          // this.setState({ error: false, errorMessage: '' })
-
-          // this.props.dispatch(push({
-          //   pathname: '/submissions',
-          //   state: { type: 'USER_LOGGED_IN', payload: resp, user: resp }
-          // }))
+          this.props.dispatch(push({
+            pathname: '/submissions'
+          }))
         },
         onFailure: (err) => {
           const errorMap = {
@@ -107,8 +119,7 @@ class SignInForm extends Component {
             UserNotFoundException: 'This Username is not within our records.'
           }
           const error = String(err)
-          const errorType = error.slice(0, error.indexOf(':'))
-          
+          const errorType = error.slice(0, error.indexOf(':'))      
           this.setState({ error: true, errorMessage: errorMap[errorType] })
         },
         newPasswordRequired: (userAttributes) => {
