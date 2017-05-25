@@ -15,8 +15,7 @@ import constants from 'app/constants/app'
 import ratingProducts from 'config/RatingProducts'
 
 // for testing purposes only
-// import exampleSubmission from 'config/exampleSubmission'
-// exampleSubmission, 
+import exampleSubmission from 'config/exampleSubmission'
 
 class Form extends Component {
   constructor(props) {
@@ -24,7 +23,7 @@ class Form extends Component {
 
     this.state = {
       confirmation: false,
-      submission: this.props.submission,
+      submission: this.props.submission, // exampleSubmission
       validationModal: false,
       cancelModal: false,
       requiredFields: []
@@ -145,7 +144,7 @@ class Form extends Component {
       <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
         <h4><strong>{ratingProduct.name}</strong> Submission</h4>
-        
+       
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}

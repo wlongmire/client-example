@@ -1,33 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from 'app/reducers/SubmissionView/actions'
+import * as actions from 'app/actions/submissionActions'
 import PropTypes from 'prop-types'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
+
 import {
   Nav,
   NavItem,
   Navbar
 } from 'react-bootstrap'
 
-export class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props)
     this.logout = this.logout.bind(this)
-    this.resetForm = this.resetForm.bind(this)
   }
 
   logout() {
     this.props.logout()
-  }
-
-  resetForm() {
-    this.props.resetForm()
-  }
-
-  resetEdit(e) {
-    e.preventDefault()
-
-    localStorage.setItem('editing', false)
   }
 
   render() {
@@ -76,4 +66,5 @@ function mapStateToProps(store) {
     user: store.user
   }
 }
+
 export default connect(mapStateToProps, actions, null, { pure: false })(Header)

@@ -1,12 +1,15 @@
-import * as constants from '../constants/user';
+import {
+  USER_LOGGED_IN,
+  USER_LOGGED_OUT
+} from '../constants/user'
 
-const userReducer = (state = {}, {type, payload}) => {
-  if (payload && payload.state && payload.state.type === constants.USER_LOGGED_IN) {
-    return payload.state.user;
+export default function (state = {}, actions) {
+  switch (actions.type) {
+    case (USER_LOGGED_IN):
+      return Object.assign({}, state, actions.payload)
+    case (USER_LOGGED_OUT):
+      return null
+    default:
+      return state
   }
-  if (type === constants.USER_LOGGED_OUT) { 
-    return null;
-  }
-  return state;
-};
-export default userReducer;
+}
