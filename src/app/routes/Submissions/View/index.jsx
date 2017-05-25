@@ -8,7 +8,6 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 
 import mx from 'app/utils/MixpanelInterface'
-import constants from 'app/constants/app'
 
 class SubmissionView extends Component {
   constructor() {
@@ -20,7 +19,7 @@ class SubmissionView extends Component {
   }
 
   componentDidMount() {
-    this.loadSubmissions(this.props.sumbissionData.submissions)
+    this.loadSubmissions(this.props.submissionData.submissions)
   }
 
   loadSubmissions(submissionsArray) {
@@ -154,15 +153,12 @@ class SubmissionView extends Component {
 
 SubmissionView.propTypes = {
   editSubmission: PropTypes.func.isRequired,
-  sumbissionData: PropTypes.object.isRequired
-
+  submissionData: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
+export default connect((state) => {
   return {
     user: state.user,
     submissions: state.submissions
   }
-}
-
-export default connect(mapStateToProps, actions)(SubmissionView)
+}, actions)(SubmissionView)

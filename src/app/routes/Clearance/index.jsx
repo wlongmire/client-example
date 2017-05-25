@@ -7,14 +7,15 @@ import Loading from './Loading'
 import Error from './Error'
 import Result from './Result'
 
-import constants from 'app/constants/app'
+import {
+  CHANGE_SUBMISSION_STATUS,
+  SUBMISSION_STATUS,
+  CHANGE_SUBMISSION
+} from 'app/constants/submission'
 
-const STATUS = {
-  INPUT: 'INPUT',
-  LOADING: 'LOADING',
-  ERROR: 'ERROR',
-  RESULT: 'RESULT'
-}
+import {
+  STATUS
+} from 'app/constants'
 
 class Clearance extends Component {
   constructor(props) {
@@ -32,7 +33,6 @@ class Clearance extends Component {
   }
 
   componentWillMount() {
-    const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CLEARANCE })
   }
 
@@ -50,7 +50,6 @@ class Clearance extends Component {
 
   handleClearance(result) {
     if (result.success) {
-      const { CHANGE_SUBMISSION } = constants
       const submission = Object.assign(this.state.input, { passedClearance: true, status: 'SUBMISSION' })
 
       this.props.dispatch({ type: CHANGE_SUBMISSION,
@@ -69,9 +68,7 @@ class Clearance extends Component {
           projectZipcode: { disabled: true }
         }
       })
-
-      const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
-
+      
       this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
 
       this.props.dispatch(push('/form'))
@@ -108,6 +105,7 @@ class Clearance extends Component {
 Clearance.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
+
 export default connect((store) => {
   return ({
     submission: store.app.submission

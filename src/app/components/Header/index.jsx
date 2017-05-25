@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import * as actions from 'app/actions/submissionActions'
+import * as actions from 'app/actions/userActions'
 
 import {LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
@@ -10,8 +10,6 @@ import {
   NavItem,
   Navbar
 } from 'react-bootstrap'
-
-import styles from './styles'
 
 class Header extends Component {
   constructor(props) {
@@ -65,9 +63,8 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export default connect((state) => {
   return {
     user: state.user
   }
-}
-export default connect(mapStateToProps, actions, null, { pure: false })(Header)
+}, actions, null, { pure: false })(Header)

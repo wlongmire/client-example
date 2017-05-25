@@ -7,14 +7,16 @@ import { Button } from 'react-bootstrap'
 import ProductChoiceItem from './ProductChoiceItem'
 
 import ratingProducts from 'config/RatingProducts'
-import constants from 'app/constants/app'
+import {
+  CHANGE_SUBMISSION_STATUS,
+  CLEAR_SUBMISSION,
+  SUBMISSION_STATUS
+} from 'app/constants/submission'
 
 import mx from 'app/utils/MixpanelInterface'
 
 class ProductChoice extends Component {
   componentDidMount() {
-    const { CHANGE_SUBMISSION_STATUS, CLEAR_SUBMISSION, SUBMISSION_STATUS } = constants
-
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.SELECTION })
     this.props.dispatch({ type: CLEAR_SUBMISSION })
   }
