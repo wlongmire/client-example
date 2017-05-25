@@ -1,0 +1,11 @@
+{
+  "testPathDirs": [
+    "<rootDir>/src"
+  ],
+  "testEnvironment": "node",
+  "moduleNameMapper": {
+    "^.+\\.s?css$": "identity-obj-proxy"
+  },
+  "coverageDirectory": "<rootDir>/coverage",
+  "collectCoverage": true
+}

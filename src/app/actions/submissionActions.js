@@ -1,16 +1,14 @@
 import fetch from 'isomorphic-fetch'
-import config from 'config'
+import config from 'src/config'
 import { push } from 'react-router-redux'
 
 import { 
   FETCH_SUBMISSIONS,
   USER_LOGGED_OUT,
   EDIT_SUBMISSION
-} from 'src/app/constants/user'
+} from 'app/constants/user'
 
 import constants from 'app/constants/app'
-
-const baseURL = config.apiserver.url
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {
@@ -21,7 +19,7 @@ export const clearSubmissionStatus = () => {
 
 export function getSubmissions(brokerID) {
   return (dispatch) => {
-    fetch(`${baseURL}/api/getSubmissions`, {
+    fetch(`${config.apiserver.url}/api/getSubmissions`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -56,7 +54,7 @@ export function getSubmissions(brokerID) {
 
 export function editSubmission(submission) {
   return (dispatch) => {
-    fetch(`${baseURL}/api/getSubmission/${submission._id}`, {
+    return fetch(`${config.apiserver.url}/api/getSubmission/${submission._id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

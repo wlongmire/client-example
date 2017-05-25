@@ -65,7 +65,6 @@ class SignInForm extends Component {
           }
         })
     }
-
   }
 
   handleResetModalCancel() {
@@ -87,7 +86,7 @@ class SignInForm extends Component {
         new AuthenticationDetails({
           Username: values.username,
           Password: values.password
-      }), {
+        }), {
         onSuccess: (resp) => {
           this.setState({ error: false, errorMessage: '' })
 
