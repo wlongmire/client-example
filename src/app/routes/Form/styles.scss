@@ -17,6 +17,13 @@
     }
 }
 
+.cancelLink {
+    padding: 1em;
+    display: inline-block;
+    color: white;
+    cursor: pointer;
+}
+
 .selectionCards {
     width:100%;
 
@@ -59,19 +66,7 @@
     }
 }
 
-.confirmationDialog {
-  .section {
-    padding: 1em;
-  }
-
-  .required {
-    border-bottom: 2px solid #e22929
-  }
-
-  .remainingField {
-    color: #e22929;
-  }
-
+.confirmationDialog, .cancelDialog {
   .modal-header {
     padding: 1em 3em;
     background-color: white;
@@ -150,4 +145,19 @@
     }
 
   }
+
+}
+
+.confirmationDialog, .cancelDialog {
+    .section {
+        padding: 1em;
+    }
+
+    .required {
+        border-bottom: 2px solid #e22929
+    }
+
+    .remainingField {
+        color: #e22929;
+    }
 }

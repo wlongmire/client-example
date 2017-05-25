@@ -10,14 +10,13 @@ const defaultValues = {
   broker: {}
 }
 
-export default function (state = defaultValues, actions) {
+export default function (state = {}, actions) {
   switch (actions.type) {
     case (USER_LOGGED_IN):
       return Object.assign({}, state, actions.payload)
     case (USER_LOGGED_OUT):
-      return Object.assign({}, state, defaultValues)
+      return null
     default:
       return state
   }
-  return state
 }

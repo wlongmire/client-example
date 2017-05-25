@@ -1,23 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react'
 import {
-  Modal,
-  Button
-} from 'react-bootstrap';
-import classnames from 'classnames';
+  Modal
+} from 'react-bootstrap'
+import classnames from 'classnames'
 
-const DialogBox = React.createClass({
-  handleClose () {
-    this.props.handleClose();
-  },
+class DialogBox extends Component {
+  handleClose() {
+    this.props.handleClose()
+  }
 
-  defaultProps () {
-    return {
-      show: false,
-      title: 'Modal Title'
-    };
-  },
-
-  render: function () {
+  render() {
     const { show, title, subtitle, custom_class } = this.props;
 
     return (
@@ -35,8 +27,13 @@ const DialogBox = React.createClass({
         </Modal.Body>
 
       </Modal>
-    );
+    )
   }
-});
+}
 
-export default DialogBox;
+DialogBox.defaultProps = {
+  show: false,
+  title: 'Modal Title'
+}
+
+export default DialogBox

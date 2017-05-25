@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import Helmet from 'react-helmet'
 import querystring from 'querystring'
@@ -7,9 +7,9 @@ import config from 'config'
 import Header from 'components/Header'
 
 let query = querystring.parse(window.location.search.slice(1))
-let content = require('content');
+let content = require('content')
 
-const App = React.createClass({
+class App extends Component {
   render() {
     const baseMeta = [
       {
@@ -20,15 +20,15 @@ const App = React.createClass({
         property: 'og:type',
         content: 'site'
       }
-    ];
+    ]
 
-    let titleTemplate = content.title + ' | %s';
+    const titleTemplate = `${content.title} | %s`
 
     return (
-      <div className='app'>
+      <div className="app">
         <Helmet
-          titleTemplate={ titleTemplate }
-          meta={ baseMeta }
+          titleTemplate={titleTemplate}
+          meta={baseMeta}
         />
 
         <Header />
@@ -36,20 +36,17 @@ const App = React.createClass({
         { this.props.children }
       </div>
     );
-  },
-
-  childContextTypes: {
-    config: React.PropTypes.object.isRequired,
-    content: React.PropTypes.object.isRequired
-  },
-
-  getChildContext () {
-    return {
-      config: config,
-      content: content
-    };
   }
 
-});
+  getChildContext() {
+    return { config, content }
+  }
 
-export default App;
+}
+
+App.childContextTypes = {
+  config: React.PropTypes.object.isRequired,
+  content: React.PropTypes.object.isRequired
+}
+
+export default App

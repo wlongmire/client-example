@@ -89,8 +89,6 @@ class FormBuilder extends React.Component {
           const supplementalQuestions = resp[0]
           const questions = resp[1]
 
-          // console.log(supplementalQuestions)
-
           this.setState({
             ...this.state,
             questions,

@@ -144,7 +144,7 @@ class Form extends Component {
       <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
         <h4><strong>{ratingProduct.name}</strong> Submission</h4>
-
+        
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}
