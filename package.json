@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "For developing new ventures at Argo.",
   "dependencies": {
+    "amazon-cognito-identity-js": "^1.18.0",
     "babel": "^6.5.2",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
@@ -15,11 +16,9 @@
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.3.6",
-    "chart.js": "^1.1.1",
     "classnames": "^2.2.5",
     "cleave.js": "^0.7.15",
     "config": "^1.19.0",
-    "connect-history-api-fallback": "^1.2.0",
     "cors": "^2.7.1",
     "crypto": "0.0.3",
     "css-loader": "^0.23.1",
@@ -123,11 +122,17 @@
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/server -d dist/server --copy-files; babel src/config -d dist/config --copy-files",
     "start": "NODE_ENV='production' node dist/server/index.js",
-    "test": " nodemon --exec 'mocha --compilers js:babel-core/register test/*.js --timeout 5000' || true"
+    "test": "jest"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "jest-cli": "^20.0.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.0.0",
     "mocha": "^3.3.0",
     "redux-logger": "^2.6.1"
   },
@@ -141,6 +146,8 @@
     "extends": "airbnb",
     "rules": {
       "import/no-mutable-exports": "off",
+      "array-callback-return": "off",
+      "default-case": "off",
       "eol-last": "off",
       "comma-dangle": "off",
       "no-underscore-dangle": "off",

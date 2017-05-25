@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Moment from 'moment'
 
 import { formatDollars } from 'app/utils/utilities'
-import * as actions from 'src/app/reducers/SubmissionView/actions'
+import * as actions from 'src/app/actions/submissionActions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 
@@ -13,8 +13,6 @@ import constants from 'app/constants/app'
 class SubmissionView extends Component {
   constructor() {
     super()
-
-    localStorage.setItem('editing', false)
 
     this.state = ({
       chartData: []
