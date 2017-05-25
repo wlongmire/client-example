@@ -7,7 +7,6 @@ import {
 
 import { routerActions } from 'react-router-redux'
 
-
 import { UserAuthWrapper } from 'redux-auth-wrapper'
 import { browserHistory } from 'react-redux'
 
@@ -18,8 +17,6 @@ import FormResults from 'routes/FormResults'
 import ProductChoice from 'routes/ProductChoice'
 import Clearance from 'routes/Clearance'
 import SignIn from 'routes/SignIn'
-import SignUp from 'routes/SignUp'
-
 import Http404 from 'routes/Http404'
 
 
@@ -30,6 +27,7 @@ const UserIsAuthenticated = UserAuthWrapper({
   failureRedirectPath: '/' // Go back to sign in page at /
 })
 
+
 export default (
   <Route
     path="/"
@@ -37,11 +35,6 @@ export default (
   >
     <IndexRoute
       component={SignIn}
-    />
-
-    <Route
-      path="signup"
-      component={SignUp}
     />
 
     <Route

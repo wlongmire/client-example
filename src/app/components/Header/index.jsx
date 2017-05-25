@@ -1,37 +1,32 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import * as actions from 'app/reducers/SubmissionView/actions';
+import React, { Component } from 'react'
+import { Link } from 'react-router'
+import { connect } from 'react-redux'
+import * as actions from 'app/actions/submissionActions'
 
-import {LinkContainer, IndexLinkContainer} from 'react-router-bootstrap';
+import {LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
 import {
   Nav,
   NavItem,
   Navbar
-} from 'react-bootstrap';
+} from 'react-bootstrap'
 
-import styles from './styles';
+import styles from './styles'
 
-class Header extends Component{
-  constructor(props){
-    super(props);
-    this.logout = this.logout.bind(this);
-    this.resetForm = this.resetForm.bind(this);
+class Header extends Component {
+  constructor(props) {
+    super(props)
+    this.logout = this.logout.bind(this)
   }
 
-  logout(){
+  logout() {
     this.props.logout()
   }
 
-  resetForm(){
-    this.props.resetForm()
-  }
-
   resetEdit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
-    localStorage.setItem('editing', false);
+    localStorage.setItem('editing', false)
   }
 
   render(){
@@ -70,9 +65,9 @@ class Header extends Component{
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     user: state.user
-  };
+  }
 }
-export default connect(mapStateToProps, actions, null, {pure: false})(Header);
+export default connect(mapStateToProps, actions, null, { pure: false })(Header)

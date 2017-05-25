@@ -1,0 +1,92 @@
+.custom-modal {
+  .section {
+    padding: 1em;
+  }
+
+  .required {
+    border-bottom: 2px solid #e22929
+  }
+
+  .remainingField {
+    color: #e22929;
+  }
+
+  .modal-header {
+    padding: 1em 3em;
+    background-color: white;
+    color: dimgrey;
+
+    .modal-title {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+  }
+
+  .modal-body {
+    padding:3em;
+  }
+
+  .questionBlocks {
+    margin-bottom: 1em;
+  }
+
+  .questionSet {
+    
+    .question {
+        display:block;
+        font-size: 1em;
+        font-weight: 100;
+        text-transform: capitalize;
+        font-family: 'Lato';
+        color: #62a6e0;
+        border-bottom: 2px solid;
+        padding-top: 1em;
+
+        &.supplemental {
+            color: #5b91bf !important;
+            font-size:1em;
+            color:#b5b7b4;
+            margin-left: 3px;
+        }
+    }
+
+    .answer {
+        display:block;
+        font-size: 1.3em;
+        font-family: 'Lato';
+
+        &.supplemental {
+            font-size:1em;
+            color:#b5b7b4;
+            margin-left: 3px;
+        }
+    }
+  }
+  
+  .modal-content {
+    border-radius: 0px;
+    background-color: rgba(8, 65, 92, 0.98);
+
+    .item {
+      padding: 0.3em 0px;
+
+      .left {
+        font-weight: normal;
+        font-size: 0.7em;
+        padding: 0px;
+        float:none;
+        text-decoration: underline;
+      }
+
+      .text {
+        display: inline-block;
+        color: white;
+        padding: 0px;
+        font-size: 1em;
+      }
+
+    }
+
+  }
+}
