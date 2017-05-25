@@ -3,13 +3,6 @@ import {
   USER_LOGGED_OUT
 } from '../constants/user'
 
-const defaultValues = {
-  congito: null,
-  email: '',
-  name: '',
-  broker: {}
-}
-
 export default function (state = {}, actions) {
   switch (actions.type) {
     case (USER_LOGGED_IN):
