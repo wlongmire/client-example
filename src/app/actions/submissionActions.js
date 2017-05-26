@@ -1,19 +1,19 @@
 import fetch from 'isomorphic-fetch'
-import config from 'src/config'
 import { push } from 'react-router-redux'
+import config from 'config'
 
-import { 
+import {
   FETCH_SUBMISSIONS,
-  USER_LOGGED_OUT,
-  EDIT_SUBMISSION
-} from 'app/constants/user'
-
-import constants from 'app/constants/app'
+  EDIT_SUBMISSION,
+  CHANGE_SUBMISSION_STATUS,
+  SUBMISSION_STATUS,
+  CLEAR_SUBMISSION
+} from 'src/app/constants/submission'
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {
-    dispatch({ type: constants.CHANGE_SUBMISSION_STATUS, status: constants.SUBMISSION_STATUS.NONE })
-    dispatch({ type: constants.CLEAR_SUBMISSION })
+    dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.NONE })
+    dispatch({ type: CLEAR_SUBMISSION })
   })
 }
 
@@ -28,16 +28,6 @@ export function getSubmissions(brokerID) {
     })
     .then(res => res.json())
     .then((res) => {
-      if (res.type && res.type === 'TokenExpired') {
-        dispatch({
-          type: USER_LOGGED_OUT,
-          payload: {},
-          user: {}
-        })
-
-        dispatch(push('/'))
-      }
-
       dispatch({ type: FETCH_SUBMISSIONS, payload: res })
 
       // empty previous edited submission in the store
@@ -53,42 +43,24 @@ export function getSubmissions(brokerID) {
 
 
 export function editSubmission(submission) {
-  return (dispatch) => {
-    return fetch(`${config.apiserver.url}/api/getSubmission/${submission._id}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then((res) => {
-      if (res.type && res.type === 'TokenExpired') {
-        dispatch({
-          type: USER_LOGGED_OUT,
-          payload: {},
-          user: {}
-        })
-        dispatch(push('/'))
-      } else {
-        // add the entire submission in store in -> app.submission
-        dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
+  return fetch(`${config.apiserver.url}/api/getSubmission/${submission._id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then((res) => {
+    // add the entire submission in store in -> app.submission
+    dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
 
-        // changes app.status to: EDIT
-        dispatch({
-          type: constants.CHANGE_SUBMISSION_STATUS,
-          status: constants.SUBMISSION_STATUS.EDIT })
+    // changes app.status to: EDIT
+    dispatch({
+      type: CHANGE_SUBMISSION_STATUS,
+      status: SUBMISSION_STATUS.EDIT })
 
-        // push the user to the form
-        dispatch(push('/form'))
-      }
-    })
-  }
-}
-
-export function logout() {
-  return (dispatch) => {
-    dispatch({ type: USER_LOGGED_OUT })
-    dispatch(push('/'))
-  }
+    // push the user to the form
+    dispatch(push('/form'))
+  })
 }

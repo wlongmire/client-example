@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from 'app/actions/submissionActions'
+import * as actions from 'app/actions/userActions'
 import PropTypes from 'prop-types'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
@@ -57,14 +57,11 @@ class Header extends Component {
 
 Header.propTypes = {
   user: PropTypes.object,
-  resetForm: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired
 }
 
-function mapStateToProps(store) {
+export default connect((store) => {
   return {
     user: store.user
   }
-}
-
-export default connect(mapStateToProps, actions, null, { pure: false })(Header)
+}, actions, null, { pure: false })(Header)

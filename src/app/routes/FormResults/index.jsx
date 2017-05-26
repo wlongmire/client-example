@@ -12,17 +12,16 @@ import Error from './Error'
 import Quote from './Quote'
 import Knockout from './Knockout'
 
-import {isEmpty} from 'lodash'
+import { isEmpty } from 'lodash'
 
-import constants from 'app/constants/app'
+import {
+  CHANGE_SUBMISSION_STATUS,
+  SUBMISSION_STATUS
+} from 'app/constants/submission'
 
-const STATUS = {
-  LOADING: "LOADING",
-  ERROR:"ERROR",
-  QUOTE: "QUOTE",
-  KNOCKOUT: "KNOCKOUT",
-  SUCCESS: "SUCCESS"
-}
+import {
+  STATUS
+} from 'app/constants'
 
 class FormResults extends Component {
   constructor(props) {
@@ -42,9 +41,7 @@ class FormResults extends Component {
     if (isEmpty(this.props.submission)) {
       this.props.dispatch(push('/productChoice'));
     }
-      
 
-    const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.QUOTE })
   }
 
@@ -60,64 +57,74 @@ class FormResults extends Component {
     this.setState({
       quoteStatus: (error) ? STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
       ratings
-    });
-
-    console.log(this.props.submission)
+    })
 
     // mixpanel triggers
     if (error) {
       mx.customEvent(
-          "submission",
-          "error",
-          { "Type": this.props.submission }
+          'submission',
+          'error',
+          { Type: this.props.submission }
         );
     } else if (ratings[submission.type].instantQuote) {
       mx.customEvent(
-          "submission",
-          "quoted",
-          { 
-            "Type": this.props.submission.type,
-            "TotalPremium": this.props.submission.rating[this.props.submission.type].totalPremium,
-            "TotalExcessPremium": this.props.submission.rating[this.props.submission.type].excessPremium
+          'submission',
+          'quoted',
+          {
+            Type: this.props.submission.type,
+            TotalPremium: this.props.submission.rating[this.props.submission.type].totalPremium,
+            TotalExcessPremium: 
+              this.props.submission.rating[this.props.submission.type].excessPremium
           }
         );
     } else {
       mx.customEvent(
-          "submission",
-          "knockout",
-          { 
-            "Type": this.props.submission.type,
-            "Reasons": this.props.submission.rating[this.props.submission.type].reason
+          'submission',
+          'knockout',
+          {
+            Type: this.props.submission.type,
+            Reasons: this.props.submission.rating[this.props.submission.type].reason
           }
-        );
+        )
     }
   }
 
   render() {
     const subcomponentMap = {
-      "LOADING":  <Loading  handleSubmit={this.handleLoadComplete} handleEmailStatus={this.handleEmailStatus} submission={this.props.submission}/>,
-      "ERROR":    <Error/>,
-      "QUOTE":    <Quote submission={this.props.submission} emailStatus={this.state.emailStatus} ratings={this.state.ratings}/>,
-      "KNOCKOUT": <Knockout emailStatus={this.state.emailStatus} ratings={this.state.ratings} submission={this.props.submission}/>
-    };
+      LOADING: <Loading
+        handleSubmit={this.handleLoadComplete}
+        handleEmailStatus={this.handleEmailStatus}
+        submission={this.props.submission}
+      />,
+      ERROR: <Error />,
+      QUOTE: <Quote 
+        submission={this.props.submission}
+        emailStatus={this.state.emailStatus}
+        ratings={this.state.ratings}
+      />,
+      KNOCKOUT: <Knockout
+        emailStatus={this.state.emailStatus}
+        ratings={this.state.ratings}
+        submission={this.props.submission} 
+      />
+    }
 
     if (isEmpty(this.props.submission))
-      return(<div></div>);
+      return (<div></div>)
 
     return (
-      <div className='page formResults'>
-          {
-            subcomponentMap[this.state.quoteStatus]
-          }
+      <div className="page formResults">
+        {
+          subcomponentMap[this.state.quoteStatus]
+        }
       </div>
-    );
+    )
   }
 
 }
 
-export default connect((store)=>{
-
-  return({
-    submission:store.app.submission
+export default connect((store) => {
+  return ({
+    submission: store.app.submission
   })
-})(FormResults);
+})(FormResults)

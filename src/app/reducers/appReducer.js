@@ -1,21 +1,16 @@
-import constants from 'src/app/constants/app'
-
 import { 
-  EDIT_SUBMISSION 
-} from 'src/app/constants/user'
+  EDIT_SUBMISSION,
+  SUBMISSION_STATUS,
+  CHANGE_SUBMISSION_STATUS,
+  CHANGE_SUBMISSION,
+  CLEAR_SUBMISSION
+} from 'src/app/constants/submission'
 
 export default function (state = {
-  status: constants.SUBMISSION_STATUS.NONE,
+  status: SUBMISSION_STATUS.NONE,
   submission: {},
   submissionFormParams: {}
 }, action) {
-  const {
-    CHANGE_SUBMISSION_STATUS,
-    CHANGE_SUBMISSION,
-    CHANGE_SUBMISSION_PARAMS,
-    CLEAR_SUBMISSION
-  } = constants
-
   switch (action.type) {
     case CHANGE_SUBMISSION:
       const submission = Object.assign(state.submission, action.submission)

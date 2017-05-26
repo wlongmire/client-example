@@ -29,6 +29,8 @@ gulp.task('transform:prod', () => {
   .pipe(replace('@userPoolId', 'us-east-1_xHMTRwuln'))
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clientId', '3n1q5qr2eldkqdnm98btc9dd9e'))
+  .pipe(replace('@dynoKey', 'AKIAJU2YDIVHKSKOL5YQ'))
+  .pipe(replace('@secretAccessKey', 'Z3P8/uEPmjcEVL/BTycLZKCvi2c3mAbuPaqco6KP'))
   .pipe(gulp.dest('src/config/'));
 });
 
@@ -45,6 +47,8 @@ gulp.task('transform:dev', () => {
   .pipe(replace('@userPoolId', 'us-east-1_DdxblSokM'))
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clientId', '6kd2kc58pr8oafjvaijejnh0ct'))
+  .pipe(replace('@dynoKey', 'AKIAJU2YDIVHKSKOL5YQ'))
+  .pipe(replace('@secretAccessKey', 'Z3P8/uEPmjcEVL/BTycLZKCvi2c3mAbuPaqco6KP'))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -61,6 +65,8 @@ gulp.task('transform:beta', () => {
   .pipe(replace('@userPoolId', 'us-east-1_DdxblSokM'))
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clientId', '6kd2kc58pr8oafjvaijejnh0ct'))
+  .pipe(replace('@dynoKey', 'AKIAJU2YDIVHKSKOL5YQ'))
+  .pipe(replace('@secretAccessKey', 'Z3P8/uEPmjcEVL/BTycLZKCvi2c3mAbuPaqco6KP'))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -77,6 +83,8 @@ gulp.task('transform:local', () => {
   .pipe(replace('@userPoolId', 'us-east-1_DdxblSokM'))
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clientId', '6kd2kc58pr8oafjvaijejnh0ct'))
+  .pipe(replace('@dynoKey', 'AKIAJU2YDIVHKSKOL5YQ'))
+  .pipe(replace('@dynoSecretAccessKey', 'Z3P8/uEPmjcEVL/BTycLZKCvi2c3mAbuPaqco6KP'))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -137,7 +145,7 @@ gulp.task('s', ['serve:dev'])
 gulp.task('serve', ['serve:dev'])
 gulp.task('serve:dev', ['serve:development'])
 
-gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts', 'build:node'],
+gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts'],
 () => {
   new WebpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
@@ -158,7 +166,7 @@ gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts', 'b
     // for example on Heroku, to serve the static dir.
     // To use it, uncomment the next line
 
-    gulp.run('serve:node:development')
+    // gulp.run('serve:node:development')
 
     setTimeout(() => {
       console.log(`███ ███ WebPack Dev Server at http://localhost: ${config.webpackserver.port}`);

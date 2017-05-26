@@ -1,6 +1,6 @@
 import { 
-  FETCH_SUBMISSIONS, 
-  EDIT_SUBMISSION 
+  FETCH_SUBMISSIONS,
+  EDIT_SUBMISSION
 } from 'app/constants/user'
 
 export default function (state = {}, action) {

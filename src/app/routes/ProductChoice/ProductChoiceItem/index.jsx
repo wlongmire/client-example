@@ -3,7 +3,11 @@ import { connect } from 'react-redux'
 
 import { push } from 'react-router-redux'
 
-import constants from 'app/constants/app'
+import {
+  CHANGE_SUBMISSION,
+  SUBMISSION_STATUS
+} from 'app/constants/submission'
+
 import mx from 'app/utils/MixpanelInterface'
 
 function ProductChoiceItem(props) {
@@ -20,8 +24,8 @@ function ProductChoiceItem(props) {
       className="selectionCard"
       onClick={() => {
         props.dispatch({
-          type: constants.CHANGE_SUBMISSION,
-          submission: { type, status: constants.SUBMISSION_STATUS.CLEARANCE }
+          type: CHANGE_SUBMISSION,
+          submission: { type, status: SUBMISSION_STATUS.CLEARANCE }
         })
 
         mx.customEvent(

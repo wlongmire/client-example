@@ -3,23 +3,15 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 
 import FormBuilder from 'components/shared/FormBuilder'
-import config from 'config'
 import form from './form.js'
 
 import ToggleDisplay from 'components/shared/ToggleDisplay'
 import DialogBox from 'components/shared/DialogBox'
 
-import mx from 'app/utils/MixpanelInterface'
 import { Button } from 'react-bootstrap'
 
 import PasswordResetModal from './PasswordResetModal'
-
-import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
-
-const userPool = new CognitoUserPool({
-  UserPoolId: config.awsCognito.userPoolId,
-  ClientId: config.awsCognito.clientId
-})
+import { login, getUserAttributes, getDynoUser, getDynoBroker, setNewPassword } from 'app/actions/userActions'
 
 class SignInForm extends Component {
   constructor(props) {
@@ -48,21 +40,20 @@ class SignInForm extends Component {
     } else if (newPassword !== rePassword) {
       this.setState({ passwordResetError: true, passwordResetErrorMessage: 'Your passwords do not match.' })
     } else {
-      this.state.cognitoUser.completeNewPasswordChallenge(
+      setNewPassword(
+        this.state.cognitoUser,
         newPassword,
         {
           email: this.state.userAttributes.email,
           name: this.state.userAttributes.email
         },
-        {
-          onSuccess: () => {
-            this.setState({ showResetModal: false })
-          },
-          onFailure: (err) => {
-            const error = String(err)
-            const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
-            this.setState({ passwordResetError: true, passwordResetErrorMessage: `${errorType}.` })
-          }
+        () => {
+          this.setState({ showResetModal: false })
+        },
+        (err) => {
+          const error = String(err)
+          const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
+          this.setState({ passwordResetError: true, passwordResetErrorMessage: `${errorType}.` })
         })
     }
   }
@@ -77,53 +68,60 @@ class SignInForm extends Component {
     } else if (values.password === '') {
       this.setState({ error: true, errorMessage: 'Please Enter a Valid Password.' })
     } else {
-      const cognitoUser = new CognitoUser({
-        Username: values.username,
-        Pool: userPool
-      })
-
-      cognitoUser.authenticateUser(
-        new AuthenticationDetails({
-          Username: values.username,
-          Password: values.password
-        }), {
-        onSuccess: (resp) => {
+      this.props.dispatch(login(
+        values.username,
+        values.password,
+        (cognito, cognitoUser) => {
           this.setState({ error: false, errorMessage: '' })
-
-          this.props.dispatch({
-            type: 'USER_LOGGED_IN',
-            payload: {
-              congito: resp,
-              username: values.username,
-              email: values.username,
-              broker: {
-                id: '123213131312',
-                name: 'Broker',
-                address: '2923 N 27th Street',
-                city: 'philadelphia',
-                state: 'PA',
-                zipcode: '19132'
-              }
+          getUserAttributes(cognitoUser).then(({ err, result }) => {
+            if (err) {
+              console.log(err)
+              alert('error ', err)
             }
-          })
 
-          this.props.dispatch(push({
-            pathname: '/submissions'
-          }))
+            this.props.dispatch({
+              type: 'USER_LOGGED_IN',
+              payload: {
+                cognito,
+                subId: result[0].Value,
+                username: values.username,
+                email: values.username,
+                broker: {
+                  id: '123213131312',
+                  name: 'Broker',
+                  address: '2923 N 27th Street',
+                  city: 'philadelphia',
+                  state: 'PA',
+                  zipcode: '19132'
+                }
+              }
+            })
+
+            this.props.dispatch(
+              push({ pathname: '/submissions' })
+            )
+          
+          })
         },
-        onFailure: (err) => {
+        (err) => {
           const errorMap = {
             NotAuthorizedException: 'Your Username/Password combination does not match our records.',
             UserNotFoundException: 'This Username is not within our records.'
           }
           const error = String(err)
-          const errorType = error.slice(0, error.indexOf(':'))      
+          const errorType = error.slice(0, error.indexOf(':'))
           this.setState({ error: true, errorMessage: errorMap[errorType] })
         },
-        newPasswordRequired: (userAttributes) => {
-          this.setState({ error: false, errorMessage: '', showResetModal: true, cognitoUser, userAttributes })
+        (userAttributes, cognitoUser) => {
+          this.setState({
+            error: false,
+            errorMessage: '',
+            showResetModal: true,
+            cognitoUser,
+            userAttributes
+          })
         }
-      })
+      ))
     }
   }
 

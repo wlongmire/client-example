@@ -11,7 +11,12 @@ import DialogBox from 'components/shared/DialogBox'
 import ConfirmationModal from './ConfirmationModal'
 import FormBuilder from 'components/shared/FormBuilder'
 
-import constants from 'app/constants/app'
+import {
+  CHANGE_SUBMISSION_STATUS,
+  SUBMISSION_STATUS,
+  CHANGE_SUBMISSION
+} from 'app/constants/submission'
+
 import ratingProducts from 'config/RatingProducts'
 
 // for testing purposes only
@@ -46,12 +51,11 @@ class Form extends Component {
   }
 
   componentDidMount(){
-    const { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } = constants
+
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
   }
 
   handleSubmitQuote() {
-    const { CHANGE_SUBMISSION } = constants
     const submission = Object.assign(this.state.submission, { status: 'QUOTE' })
 
     this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
@@ -78,7 +82,6 @@ class Form extends Component {
       })
     } else {
       const submission = Object.assign(this.state.submission, sub)
-      const { CHANGE_SUBMISSION } = constants
 
       this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
       this.setState({
