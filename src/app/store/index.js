@@ -7,29 +7,23 @@ import {
     compose,
     createStore
 }
-from 'redux';
+from 'redux'
 
-import userReducer from '../reducers/userReducer';
-import appReducer from '../reducers/appReducer';
+import userReducer from '../reducers/userReducer'
+import appReducer from '../reducers/appReducer'
+import submissionsReducer from '../reducers/submissionReducer'
 
-import submissionsReducer from '../reducers/SubmissionView/reducer';
-
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerReducer, routerMiddleware } from 'react-router-redux'
 
 const appReducers = combineReducers({
-  
   routing: routerReducer,
-  user: userReducer,
-  
   submissions: submissionsReducer,
-  app:appReducer
-});
+  user: userReducer,
+  app: appReducer
+})
 
-
-let configureStore;
-
+let configureStore
 if (process.env.NODE_ENV === 'production') {
-
     /* PRODUCTION */
   configureStore = (history, initialState) => {
     return createStore(
@@ -39,11 +33,10 @@ if (process.env.NODE_ENV === 'production') {
                 routerMiddleware(history),
                 thunkMiddleware
             )
-        );
-  };
+        )
+  }
 } else {
-
-  const loggerMiddleware = createLogger();
+  const loggerMiddleware = createLogger()
 
     /* NON-PRODUCTION (Dev, Debug, etc) */
   configureStore = (history, initialState) => {
@@ -54,14 +47,14 @@ if (process.env.NODE_ENV === 'production') {
         thunkMiddleware
       ),
       window.devToolsExtension ? window.devToolsExtension() : f => f
-    );
+    )
 
     return createStore(
-            appReducers,
-            initialState,
-            enhancer
-        );
-  };
+      appReducers,
+      initialState,
+      enhancer
+    )
+  }
 }
 
-export default configureStore;
+export default configureStore

@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-var config = {
+const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
@@ -22,11 +22,21 @@ var config = {
     ratingsUrl:'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
+
+    awsCognito:{
+        identityPoolId: 'us-east-1:35542332-4207-4161-81ca-22dca501dbff',
+        userPoolId: 'us-east-1_DdxblSokM',
+        region: 'us-east-1',
+        clientId: '6kd2kc58pr8oafjvaijejnh0ct',
+        dynoKey:'AKIAJU2YDIVHKSKOL5YQ',
+        dynoSecretAccessKey:'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'
+    },
+
     underwriters:[{
-        "name":"Jessica Buelow",
-        "position":"Supervisor",
-        "location":"New York",
-        "phone":"212-607-8829"
+        name: 'Jessica Buelow',
+        position: 'Supervisor',
+        location: 'New York',
+        phone: '212-607-8829'
     }],
 
     analytics: {
@@ -35,16 +45,15 @@ var config = {
     },
 
     pdfOptions: {
-
-        "height": "11in", // allowed units: mm, cm, in, px
-        "width": "8.5in", // allowed units: mm, cm, in, px
-        "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
-        "orientation": "portrait", // portrait or landscape
-        "border": {
-            "top": "12mm", // default is 0, units: mm, cm, in, px
-            "right": "6mm",
-            "bottom": "12mm",
-            "left": "6mm"
+        height: '11in', // allowed units: mm, cm, in, px
+        width: '8.5in', // allowed units: mm, cm, in, px
+        format: 'Letter', // allowed units: A3, A4, A5, Legal, Letter, Tabloid
+        orientation: 'portrait', // portrait or landscape
+        border: {
+            top: '12mm', // default is 0, units: mm, cm, in, px
+            right: '6mm',
+            bottom: '12mm',
+            left: '6mm'
         }
     },
 
@@ -75,19 +84,5 @@ if (config.env === 'development') {
         origin: 'http://localhost:' + config.webpackserver.port
     };
 }
-
-// else if (config.env === 'devdeploy') {
-//     config.server.url = 'http://dev.ownersedge.us';
-//     config.apiserver.url = 'http://dev.ownersedge.us';
-//     config.apiserver.port = null;
-// } else if (config.env === 'production') {
-//     config.server.url = 'http://ownersedge.us';
-//     config.apiserver.url = 'http://ownersedge.us';
-//     config.apiserver.port = null;
-// } else if (config.env === 'qaDeploy') {
-//     config.server.url = 'http://beta.ownersedge.us';
-//     config.apiserver.url = 'http://beta.ownersedge.us';
-//     config.apiserver.port = null;
-// }
 
 module.exports = config;

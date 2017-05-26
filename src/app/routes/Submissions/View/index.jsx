@@ -1,20 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Moment from 'moment'
-
 import { formatDollars } from 'app/utils/utilities'
-import * as actions from 'src/app/reducers/SubmissionView/actions'
+import * as actions from 'src/app/actions/submissionActions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 
 import mx from 'app/utils/MixpanelInterface'
-import constants from 'app/constants/app'
 
 class SubmissionView extends Component {
   constructor() {
     super()
-
-    localStorage.setItem('editing', false)
 
     this.state = ({
       chartData: []
@@ -22,7 +18,7 @@ class SubmissionView extends Component {
   }
 
   componentDidMount() {
-    this.loadSubmissions(this.props.sumbissionData.submissions)
+    this.loadSubmissions(this.props.submissionData.submissions)
   }
 
   loadSubmissions(submissionsArray) {
@@ -156,15 +152,12 @@ class SubmissionView extends Component {
 
 SubmissionView.propTypes = {
   editSubmission: PropTypes.func.isRequired,
-  sumbissionData: PropTypes.object.isRequired
-
+  submissionData: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
+export default connect((state) => {
   return {
     user: state.user,
     submissions: state.submissions
   }
-}
-
-export default connect(mapStateToProps, actions)(SubmissionView)
+}, actions)(SubmissionView)

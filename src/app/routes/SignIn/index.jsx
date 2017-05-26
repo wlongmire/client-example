@@ -4,10 +4,7 @@ import Helmet from 'react-helmet'
 import SignInFormView from './View'
 
 function SignIn(props, context) {
-  const {
-    content
-  } = context
-
+  const { content } = context
   return (
     <div className="signin">
       <Helmet title={content.title} />

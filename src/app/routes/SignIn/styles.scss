@@ -1,4 +1,4 @@
-.SignInForm__container{
+.SignInForm__container {
   text-align: center;
   width: 45%;
   min-width:410px;
@@ -28,12 +28,10 @@
     margin: 0.3em 0.3em;
     width:9em;
   }
+}
 
-  .errorMessage {
-    color:red;
-    padding: 0 1em 1em 1em;
-  }
 
+.SignInForm__container, .PasswordReset {
   .formBuilderElement {
 
     .group {
@@ -47,6 +45,9 @@
     }
 
   }
+
+  .errorMessage {
+    color:red;
+    padding: 0 1em 1em 1em;
+  }
 }
-
-

@@ -1,19 +1,26 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { Button, ButtonGroup } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 import DialogBox from 'components/shared/DialogBox'
 import ConfirmationModal from './ConfirmationModal'
 import FormBuilder from 'components/shared/FormBuilder'
 
-import constants from 'app/constants/app'
+import {
+  CHANGE_SUBMISSION_STATUS,
+  SUBMISSION_STATUS,
+  CHANGE_SUBMISSION
+} from 'app/constants/submission'
+
 import ratingProducts from 'config/RatingProducts'
 
 // for testing purposes only
-// import exampleSubmission from 'config/exampleSubmission'
+import exampleSubmission from 'config/exampleSubmission'
 
 class Form extends Component {
   constructor(props) {
@@ -21,15 +28,20 @@ class Form extends Component {
 
     this.state = {
       confirmation: false,
-      submission: this.props.submission,
+      submission: this.props.submission, // exampleSubmission
       validationModal: false,
+      cancelModal: false,
       requiredFields: []
     }
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this)
-    this.handleCancelDialog = this.handleCancelDialog.bind(this)
+    this.handleCancelQuote = this.handleCancelQuote.bind(this)
     this.handleSubmitForReview = this.handleSubmitForReview.bind(this)
     this.handleValidationOk = this.handleValidationOk.bind(this)
+
+    this.handleCancelDialog = this.handleCancelDialog.bind(this)
+    this.handleCancelOK = this.handleCancelOK.bind(this)
+    this.handleCancelBack = this.handleCancelBack.bind(this)
   }
 
   componentWillMount() {
@@ -38,17 +50,22 @@ class Form extends Component {
     }
   }
 
+  componentDidMount(){
+
+    this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
+  }
+
   handleSubmitQuote() {
-    const { CHANGE_SUBMISSION } = constants
     const submission = Object.assign(this.state.submission, { status: 'QUOTE' })
 
     this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
-    this.setState({ confirmation: false })
-
+    this.setState({
+      confirmation: false
+    })
     this.props.dispatch(push('/formResults'))
   }
 
-  handleCancelDialog() {
+  handleCancelQuote() {
     this.setState({
       ...this.state,
       confirmation: false
@@ -65,7 +82,6 @@ class Form extends Component {
       })
     } else {
       const submission = Object.assign(this.state.submission, sub)
-      const { CHANGE_SUBMISSION } = constants
 
       this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
       this.setState({
@@ -81,6 +97,29 @@ class Form extends Component {
     this.setState({
       ...this.state,
       validationModal: false
+    })
+  }
+
+  handleCancelDialog() {
+    this.setState({
+      ...this.state,
+      cancelModal: true
+    })
+  }
+
+  handleCancelOK() {
+    this.setState({
+      ...this.state,
+      cancelModal: false
+    })
+
+    this.props.dispatch(push('/submissions'))
+  }
+
+  handleCancelBack() {
+    this.setState({
+      ...this.state,
+      cancelModal: false
     })
   }
 
@@ -102,13 +141,13 @@ class Form extends Component {
       return <div />
     }
 
-    const initialValues = submission // exampleSubmission
+    const initialValues = submission
 
     return (
       <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
         <h4><strong>{ratingProduct.name}</strong> Submission</h4>
-
+       
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}
@@ -116,6 +155,12 @@ class Form extends Component {
           initialParams={submissionFormParams}
           submitTitle="Review Submission"
           handleSubmit={this.handleSubmitForReview}
+          submissionButtons={() => (
+            <ButtonGroup>
+              <Button className="btn" type="submit">Submit</Button>
+              <a role="link" className="cancelLink" onClick={this.handleCancelDialog} >Cancel</a>
+            </ButtonGroup>
+          )}
         />
 
         <DialogBox
@@ -137,11 +182,10 @@ class Form extends Component {
               >Get Pricing</Button>
               <Button
                 className="btn"
-                onClick={this.handleCancelDialog}
+                onClick={this.handleCancelQuote}
               >Cancel</Button>
             </ButtonGroup>
           </div>
-
         </DialogBox>
 
         <DialogBox
@@ -164,11 +208,35 @@ class Form extends Component {
               <Button
                 className="btn secondary"
                 onClick={this.handleValidationOk}
-              >Return to the Form</Button>
+              >
+                Return to the Form
+              </Button>
             </ButtonGroup>
           </div>
         </DialogBox>
 
+        <DialogBox
+          custom_class="cancelDialog"
+          title="Are you sure you want to cancel?"
+          show={this.state.cancelModal}
+        >
+          <div>
+            <h4>Canceling now will remove all changes without saving. </h4>
+
+            <ButtonGroup>
+              <Button
+                className="btn secondary"
+                onClick={this.handleCancelOK}
+              >OK</Button>
+              <Button
+                className="btn"
+                onClick={this.handleCancelBack}
+              >
+                Return to the Form
+              </Button>
+            </ButtonGroup>
+          </div>
+        </DialogBox>
       </div>
     )
   }
