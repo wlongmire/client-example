@@ -43,26 +43,24 @@ export function getSubmissions(brokerID) {
 
 
 export function editSubmission(submission) {
-  return (dispatch) => {
-    fetch(`${config.apiserver.url}/api/getSubmission/${submission._id}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then((res) => {
-      // add the entire submission in store in -> app.submission
-      dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
+  return fetch(`${config.apiserver.url}/api/getSubmission/${submission._id}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then((res) => {
+    // add the entire submission in store in -> app.submission
+    dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
 
-      // changes app.status to: EDIT
-      dispatch({
-        type: CHANGE_SUBMISSION_STATUS,
-        status: SUBMISSION_STATUS.EDIT })
+    // changes app.status to: EDIT
+    dispatch({
+      type: CHANGE_SUBMISSION_STATUS,
+      status: SUBMISSION_STATUS.EDIT })
 
-      // push the user to the form
-      dispatch(push('/form'))
-    })
-  }
+    // push the user to the form
+    dispatch(push('/form'))
+  })
 }

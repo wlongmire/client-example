@@ -27,7 +27,9 @@ const config = {
         identityPoolId: '@identityPoolId',
         userPoolId: '@userPoolId',
         region: '@region',
-        clientId: '@clientId'
+        clientId: '@clientId',
+        dynoKey:'@dynoKey',
+        dynoSecretAccessKey:'@dynoSecretAccessKey'
     },
 
     underwriters:[{

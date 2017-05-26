@@ -24,11 +24,6 @@
     "css-loader": "^0.23.1",
     "del": "^2.2.0",
     "es6-promise": "^3.2.1",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^5.0.3",
-    "eslint-plugin-react": "^7.0.0",
     "express": "4.14.0",
     "express-json": "^1.0.0",
     "express-session": "1.5.1",
@@ -122,19 +117,27 @@
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/server -d dist/server --copy-files; babel src/config -d dist/config --copy-files",
     "start": "NODE_ENV='production' node dist/server/index.js",
-    "test": "jest"
+    "test": "NODE_PATH='./src' NODE_ENV='development' jest",
+    "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
   },
   "devDependencies": {
+    "babel-jest": "^20.0.3",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "jest-cli": "^20.0.1",
+    "enzyme": "^2.8.2",
+    "enzyme-to-json": "^1.5.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
+    "jest-cli": "^20.0.1",
     "mocha": "^3.3.0",
-    "redux-logger": "^2.6.1"
+    "nock": "^9.0.13",
+    "react-addons-test-utils": "^15.5.1",
+    "react-test-renderer": "^15.5.4",
+    "redux-logger": "^2.6.1",
+    "redux-mock-store": "^1.2.3"
   },
   "eslintConfig": {
     "root": true,

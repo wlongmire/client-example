@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import * as actions from 'app/actions/userActions'
-
-import {LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
+import PropTypes from 'prop-types'
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
 import {
   Nav,
@@ -21,50 +20,48 @@ class Header extends Component {
     this.props.logout()
   }
 
-  resetEdit(e) {
-    e.preventDefault()
-
-    localStorage.setItem('editing', false)
-  }
-
-  render(){
-
+  render() {
     return (
-        <Navbar inverse>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="/submissions">Owner's Edge</a>
-            </Navbar.Brand>
-            <Navbar.Toggle/>
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-                {this.props.user &&
-                  <IndexLinkContainer to="/submissions">
-                    <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
-                  </IndexLinkContainer>}
+      <Navbar inverse>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="/submissions">Owner's Edge</a>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            {this.props.user &&
+              <IndexLinkContainer to="/submissions">
+                <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
+              </IndexLinkContainer>}
 
-                {this.props.user &&
-                  <LinkContainer  onMouseUp={this.resetEdit} to="/productchoice">
-                    <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
-                  </LinkContainer>}
+            {this.props.user &&
+              <LinkContainer onMouseUp={this.resetEdit} to="/productchoice">
+                <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
+              </LinkContainer>}
 
-                {!this.props.user &&
-                  <LinkContainer  to="/">
-                    <NavItem className="nav-link" eventKey={3}>Log In</NavItem>
-                  </LinkContainer>}
+            {!this.props.user &&
+              <LinkContainer to="/">
+                <NavItem className="nav-link" eventKey={3}>Log In</NavItem>
+              </LinkContainer>}
 
-                {this.props.user &&
-                  <NavItem  onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-      );
+            {this.props.user &&
+              <NavItem onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    )
   }
 }
 
-export default connect((state) => {
+Header.propTypes = {
+  user: PropTypes.object,
+  logout: PropTypes.func.isRequired
+}
+
+export default connect((store) => {
   return {
-    user: state.user
+    user: store.user
   }
 }, actions, null, { pure: false })(Header)

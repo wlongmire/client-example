@@ -3,20 +3,15 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 
 import FormBuilder from 'components/shared/FormBuilder'
-import config from 'config'
 import form from './form.js'
 
 import ToggleDisplay from 'components/shared/ToggleDisplay'
 import DialogBox from 'components/shared/DialogBox'
 
-import mx from 'app/utils/MixpanelInterface'
 import { Button } from 'react-bootstrap'
 
 import PasswordResetModal from './PasswordResetModal'
-
-import { CognitoUserPool } from 'amazon-cognito-identity-js'
-
-import { login, getUserAttributes, setNewPassword } from 'app/actions/userActions'
+import { login, getUserAttributes, getDynoUser, getDynoBroker, setNewPassword } from 'app/actions/userActions'
 
 class SignInForm extends Component {
   constructor(props) {
@@ -73,7 +68,6 @@ class SignInForm extends Component {
     } else if (values.password === '') {
       this.setState({ error: true, errorMessage: 'Please Enter a Valid Password.' })
     } else {
-
       this.props.dispatch(login(
         values.username,
         values.password,
@@ -106,10 +100,10 @@ class SignInForm extends Component {
             this.props.dispatch(
               push({ pathname: '/submissions' })
             )
+          
           })
         },
         (err) => {
-          console.log(err)
           const errorMap = {
             NotAuthorizedException: 'Your Username/Password combination does not match our records.',
             UserNotFoundException: 'This Username is not within our records.'
@@ -119,8 +113,13 @@ class SignInForm extends Component {
           this.setState({ error: true, errorMessage: errorMap[errorType] })
         },
         (userAttributes, cognitoUser) => {
-          console.log(userAttributes)
-          this.setState({ error: false, errorMessage: '', showResetModal: true, cognitoUser, userAttributes })
+          this.setState({
+            error: false,
+            errorMessage: '',
+            showResetModal: true,
+            cognitoUser,
+            userAttributes
+          })
         }
       ))
     }
