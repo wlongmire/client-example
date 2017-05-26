@@ -17,9 +17,9 @@ export const clearSubmissionStatus = () => {
   })
 }
 
-export function getSubmissions(brokerID) {
+export function getSubmissions(brokerId) {
   return (dispatch) => {
-    fetch(`${config.apiserver.url}/api/getSubmissions`, {
+    fetch(`https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/api/getSubmissions`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -28,10 +28,11 @@ export function getSubmissions(brokerID) {
     })
     .then(res => res.json())
     .then((res) => {
-      dispatch({ type: FETCH_SUBMISSIONS, payload: res })
+      console.log(res)
+      // dispatch({ type: FETCH_SUBMISSIONS, payload: res })
 
-      // empty previous edited submission in the store
-      dispatch({ type: EDIT_SUBMISSION, payload: {} })
+      // // empty previous edited submission in the store
+      // dispatch({ type: EDIT_SUBMISSION, payload: {} })
     })
     .catch((error) => {
       return Promise.reject({

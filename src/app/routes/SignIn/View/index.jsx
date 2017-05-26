@@ -100,7 +100,6 @@ class SignInForm extends Component {
             this.props.dispatch(
               push({ pathname: '/submissions' })
             )
-          
           })
         },
         (err) => {

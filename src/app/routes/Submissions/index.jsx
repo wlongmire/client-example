@@ -10,6 +10,7 @@ import Moment from 'moment'
 class Submissions extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
+    
     this.props.getSubmissions(this.props.user.broker.id)
   }
 
@@ -26,9 +27,9 @@ class Submissions extends Component {
   }
 }
 
-export default connect((state) => {
+export default connect((store) => {
   return {
-    user: state.user,
-    submissions: state.submissions
+    user: store.user,
+    submissions: store.submissions
   }
 }, actions)(Submissions)
