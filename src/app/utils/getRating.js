@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import config from '../../config'
-let baseURL = config.apiserver.url
 
 function getRating(submission) {
+  let baseURL = config.apiserver.url
   return fetch(baseURL + '/api/getRating', {
     method: 'POST',
     headers: {

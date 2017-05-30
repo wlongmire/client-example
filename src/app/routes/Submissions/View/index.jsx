@@ -18,7 +18,8 @@ class SubmissionView extends Component {
   }
 
   componentDidMount() {
-    this.loadSubmissions(this.props.submissionData.submissions)
+    console.log(this.props)
+    this.loadSubmissions(this.props.submissionData)
   }
 
   loadSubmissions(submissionsArray) {
@@ -58,6 +59,8 @@ class SubmissionView extends Component {
   }
 
   render() {
+    console.log(this.props)
+
     const selectFormatter = (cell, row) => {
       if (row.quoteStatus === 'Yes') {
         return (
@@ -152,12 +155,7 @@ class SubmissionView extends Component {
 
 SubmissionView.propTypes = {
   editSubmission: PropTypes.func.isRequired,
-  submissionData: PropTypes.object.isRequired
+  submissionData: PropTypes.array.isRequired
 }
 
-export default connect((state) => {
-  return {
-    user: state.user,
-    submissions: state.submissions
-  }
-}, actions)(SubmissionView)
+export default SubmissionView

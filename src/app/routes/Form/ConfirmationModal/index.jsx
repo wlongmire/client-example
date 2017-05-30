@@ -5,7 +5,7 @@ import classNames from "classnames"
 import _ from 'lodash'
 
 import getControlGroups from 'components/shared/FormBuilder/utils/getControlGroups'
-import { formatDollars, commifyNumber } from 'app/utils/utilities';
+import { formatDollars, commifyNumber } from 'app/utils/utilities'
 
 class ConfirmationModal extends Component {
   handleInputMask(params) {

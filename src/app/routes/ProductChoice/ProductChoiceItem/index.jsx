@@ -34,8 +34,8 @@ function ProductChoiceItem(props) {
           { Type: type }
         )
 
-        props.dispatch(push("/clearance"))
-        {/*props.dispatch(push("/form"))*/}
+        {/*props.dispatch(push("/clearance"))*/}
+        props.dispatch(push("/form"))
       }}
     >
       <h1>{name}</h1>

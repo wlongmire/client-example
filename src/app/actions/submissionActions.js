@@ -18,8 +18,10 @@ export const clearSubmissionStatus = () => {
 }
 
 export function getSubmissions(brokerId) {
+  const baseURL = config.apiserver.url
+
   return (dispatch) => {
-    fetch(`https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/api/getSubmissions`, {
+    fetch(`${baseURL}/api/getSubmissions`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -28,11 +30,15 @@ export function getSubmissions(brokerId) {
     })
     .then(res => res.json())
     .then((res) => {
-      console.log(res)
-      // dispatch({ type: FETCH_SUBMISSIONS, payload: res })
-
-      // // empty previous edited submission in the store
-      // dispatch({ type: EDIT_SUBMISSION, payload: {} })
+      // empty previous edited submission in the store
+      if (res.success) {
+        console.log(res)
+        dispatch({ type: FETCH_SUBMISSIONS, payload: res.submissions })
+        dispatch({ type: EDIT_SUBMISSION, payload: {} })
+      } else {
+        alert('Error While Accessing Submissions DB.')
+      }
+      
     })
     .catch((error) => {
       return Promise.reject({

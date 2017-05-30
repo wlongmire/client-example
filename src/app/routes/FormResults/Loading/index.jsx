@@ -8,9 +8,8 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 import saveSubmission from 'app/utils/saveSubmission'
 import sendEmail from 'app/utils/sendEmail'
 
-import config from 'config';
-
-import getRating from 'app/utils/getRating';
+import config from 'config'
+import getRating from 'app/utils/getRating'
 
 class Loading extends Component {
     constructor(props) {
@@ -26,48 +25,50 @@ class Loading extends Component {
             "ocp":[submission, Object.assign({}, submission, {type:"oi"})]
         }
 
-        const ratingPromises = typeMap[submission.type];
+        const ratingPromises = typeMap[submission.type]
 
-        const argoEmail = config.argoEmail;
-        const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail;
-        const brokerEmail = submission.contactInfo.email;
+        const argoEmail = config.argoEmail
+        const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
+        const brokerEmail = submission.contactInfo.email
 
-        Promise.all(ratingPromises.map((s)=>(
+        Promise.all(ratingPromises.map(s => (
             getRating(s)
-        ))).then((resp)=> {
+        ))).then((resp) => {
 
-            let ratings = {}
-            ratingPromises.map((ratingSubmission, idx)=>{
-                ratings[ratingSubmission.type] = resp[idx].rating
-            })
+            console.log(resp)
 
-            const submissionData = this.props.submission;
-            submissionData.rating = ratings
+            // let ratings = {}
+            // ratingPromises.map((ratingSubmission, idx)=>{
+            //     ratings[ratingSubmission.type] = resp[idx].rating
+            // })
 
-            saveSubmission(submissionData).then((resp)=>{
-                if (resp.success) {
-                    const {submissionId} = resp
-                    const mainRating = ratings[submission.type]
-                    const { instantQuote } = mainRating
+            // const submissionData = this.props.submission;
+            // submissionData.rating = ratings
 
-                    const emailPromises = [
-                        sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-                        sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-                        sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
-                    ]
+            // saveSubmission(submissionData).then((resp)=>{
+            //     if (resp.success) {
+            //         const {submissionId} = resp
+            //         const mainRating = ratings[submission.type]
+            //         const { instantQuote } = mainRating
 
-                    Promise.all(emailPromises).then((resp)=>{
-                        this.props.handleEmailStatus({success:true})
-                    })
-                } else {
-                    alert("Submission saveSave not successful");
-                }
+            //         const emailPromises = [
+            //             sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+            //             sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+            //             sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
+            //         ]
 
-            }).catch((e)=>{
-                alert("Not able to get rating.");
-            })
+            //         Promise.all(emailPromises).then((resp)=>{
+            //             this.props.handleEmailStatus({success:true})
+            //         })
+            //     } else {
+            //         alert("Submission saveSave not successful")
+            //     }
 
-            this.props.handleSubmit(!resp[0].success, ratings);
+            // }).catch((e)=>{
+            //     alert("Not able to get rating.")
+            // })
+
+            // this.props.handleSubmit(!resp[0].success, ratings)
         });
     }
 

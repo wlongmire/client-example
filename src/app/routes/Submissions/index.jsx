@@ -10,16 +10,15 @@ import Moment from 'moment'
 class Submissions extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
-    
     this.props.getSubmissions(this.props.user.broker.id)
   }
 
   render() {
     return (
       <div className="submissions">
-        {this.props.submissions.data &&
+        {this.props.submissions &&
           <SubmissionView
-            sumbissionData={this.props.submissions.data}
+            submissionData={this.props.submissions}
             dispatch={this.props.dispatch}
           />}
       </div>
@@ -30,6 +29,6 @@ class Submissions extends Component {
 export default connect((store) => {
   return {
     user: store.user,
-    submissions: store.submissions
+    submissions: store.submissions.data
   }
 }, actions)(Submissions)
