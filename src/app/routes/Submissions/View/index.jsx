@@ -59,8 +59,6 @@ class SubmissionView extends Component {
   }
 
   render() {
-    console.log(this.props)
-
     const selectFormatter = (cell, row) => {
       if (row.quoteStatus === 'Yes') {
         return (

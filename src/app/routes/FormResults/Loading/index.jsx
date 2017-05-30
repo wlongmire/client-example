@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { LinkContainer } from 'react-router-bootstrap'
 
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 
 import saveSubmission from 'app/utils/saveSubmission'
@@ -12,86 +12,83 @@ import config from 'config'
 import getRating from 'app/utils/getRating'
 
 class Loading extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+  componentDidMount() {
+    const { submission } = this.props
+    
+    let typeMap = {
+      oi: [submission],
+      ocp: [submission, Object.assign({}, submission, { type:'oi' })]
     }
 
-    componentDidMount() {
-        const {submission} = this.props;
+    const ratingPromises = typeMap[submission.type]
 
-        let typeMap = {
-            "oi":[submission],
-            "ocp":[submission, Object.assign({}, submission, {type:"oi"})]
-        }
+    const argoEmail = config.argoEmail
+    const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
+    const brokerEmail = submission.contactInfo.email
 
-        const ratingPromises = typeMap[submission.type]
+    Promise.all(ratingPromises.map(s => (
+      getRating(s)
+    ))).then((resp) => {
+      const ratings = {}
+      ratingPromises.map((ratingSubmission, idx)=>{
+        ratings[ratingSubmission.type] = resp[idx].rating
+      })
 
-        const argoEmail = config.argoEmail
-        const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
-        const brokerEmail = submission.contactInfo.email
+      const submissionData = this.props.submission
+      submissionData.rating = ratings
 
-        Promise.all(ratingPromises.map(s => (
-            getRating(s)
-        ))).then((resp) => {
+      console.log("got Rating")
+      saveSubmission(submissionData).then((resp) => {
+        console.log(resp)
+        // if (resp.success) {
+        //     const {submissionId} = resp
+        //     const mainRating = ratings[submission.type]
+        //     const { instantQuote } = mainRating
 
-            console.log(resp)
+        //     const emailPromises = [
+        //         sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+        //         sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+        //         sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
+        //     ]
 
-            // let ratings = {}
-            // ratingPromises.map((ratingSubmission, idx)=>{
-            //     ratings[ratingSubmission.type] = resp[idx].rating
-            // })
+        //     Promise.all(emailPromises).then((resp)=>{
+        //         this.props.handleEmailStatus({success:true})
+        //     })
+        // } else {
+        //     alert("Submission saveSave not successful")
+        // }
 
-            // const submissionData = this.props.submission;
-            // submissionData.rating = ratings
+      }).catch(() => {
+        alert('Not able to get rating.')
+      })
 
-            // saveSubmission(submissionData).then((resp)=>{
-            //     if (resp.success) {
-            //         const {submissionId} = resp
-            //         const mainRating = ratings[submission.type]
-            //         const { instantQuote } = mainRating
+      this.props.handleSubmit(!resp[0].success, ratings)
+    })
+  }
 
-            //         const emailPromises = [
-            //             sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-            //             sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-            //             sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
-            //         ]
+  render() {
+    return (
+      <form>
+        <h3>Calculating Quote</h3>
+        <h4>Please wait while we calculate.</h4>
 
-            //         Promise.all(emailPromises).then((resp)=>{
-            //             this.props.handleEmailStatus({success:true})
-            //         })
-            //     } else {
-            //         alert("Submission saveSave not successful")
-            //     }
+        <div className="loadingImg">
+          <img src="https://s3.amazonaws.com/ownersedge-cdn/ajax-loader.gif" />
+        </div>
 
-            // }).catch((e)=>{
-            //     alert("Not able to get rating.")
-            // })
-
-            // this.props.handleSubmit(!resp[0].success, ratings)
-        });
-    }
-
-    render() {
-      return (
-          <form>
-              <h3>Calculating Quote</h3>
-              <h4>Please wait while we calculate.</h4>
-
-              <div className="loadingImg">
-                  <img src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
-              </div>
-
-
-              <ButtonGroup>
-                  <LinkContainer to="/submissions">
-                      <Button className="btn"> Return to Submissions</Button>
-                  </LinkContainer>
-              </ButtonGroup>
-
-          </form>
-      );
-    }
+        <ButtonGroup>
+          <LinkContainer to="/submissions">
+            <Button className="btn"> Return to Submissions</Button>
+          </LinkContainer>
+        </ButtonGroup>
+      </form>
+    )
+  }
 }
 
-export default connect()(Loading);
+export default connect()(Loading)

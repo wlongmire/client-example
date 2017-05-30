@@ -32,13 +32,11 @@ export function getSubmissions(brokerId) {
     .then((res) => {
       // empty previous edited submission in the store
       if (res.success) {
-        console.log(res)
         dispatch({ type: FETCH_SUBMISSIONS, payload: res.submissions })
         dispatch({ type: EDIT_SUBMISSION, payload: {} })
       } else {
         alert('Error While Accessing Submissions DB.')
       }
-      
     })
     .catch((error) => {
       return Promise.reject({

@@ -60,7 +60,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'localhost:8888',
+        url: 'http://localhost',
         port: null
     },
 
@@ -69,7 +69,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'localhost:8888',
+        url: 'http://localhost',
         port:  null
     }
 };
