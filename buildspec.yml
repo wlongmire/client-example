@@ -17,3 +17,4 @@ artifacts:
   files:
     - 'node_modules/**/*'
     - 'dist/**/*'
+    - 'package.json'

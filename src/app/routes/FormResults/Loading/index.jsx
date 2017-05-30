@@ -78,7 +78,7 @@ class Loading extends Component {
               <h4>Please wait while we calculate.</h4>
 
               <div className="loadingImg">
-                  <img src="https://ownersedgeassets.herokuapp.com/images/main/ajax-loader.gif"/>
+                  <img src="https://s3.amazonaws.com/ownersedge-cdn/ajax-loader.gif" />
               </div>
 
 

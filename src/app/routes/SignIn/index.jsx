@@ -16,6 +16,6 @@ function SignIn(props, context) {
 SignIn.contextTypes = {
   config: PropTypes.object.isRequired,
   content: PropTypes.object.isRequired
-};
+}
 
 export default SignIn
