@@ -10,7 +10,7 @@ import Moment from 'moment'
 class Submissions extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
-    this.props.getSubmissions(this.props.user.broker.id)
+    this.props.getSubmissions(this.props.user)
   }
 
   render() {

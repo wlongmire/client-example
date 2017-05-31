@@ -3,7 +3,6 @@ import { push } from 'react-router-redux'
 import AWS from 'aws-sdk'
 
 import {
-  USER_LOGGED_IN,
   USER_LOGGED_OUT
 } from 'src/app/constants/user'
 
@@ -39,50 +38,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         }
       })
   }
-}
-
-export function getDynoUser(sub) {
-  return new Promise((resolve) => {
-    const docClient = new AWS.DynamoDB.DocumentClient()
-
-    const params = {
-      TableName: 'Users',
-      Key: {
-        id: '9192699f-3374-49bc-8e30-49dd2930eca9',
-        sub
-      }
-    }
-
-    docClient.get(params, (err, data) => {
-      console.log(data)
-      if (err) {
-        resolve({ err, data: null })
-      } else {
-        resolve({ err: null, data })
-      }
-    })
-  })
-}
-
-export function getDynoBroker(brokerID) {
-  return new Promise((resolve) => {
-    const docClient = new AWS.DynamoDB.DocumentClient()
-
-    const params = {
-      TableName: 'Brokers',
-      Key:{
-        BrokerId: brokerID
-      }
-    }
-
-    docClient.get(params, function(err, data) {
-      if (err) {
-        resolve({ err, data: null })
-      } else {
-        resolve({ err: null, data })
-      }
-    })
-  })
 }
 
 export function getUserAttributes(cognitoUser) {

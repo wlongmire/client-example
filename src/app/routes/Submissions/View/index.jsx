@@ -18,10 +18,9 @@ class SubmissionView extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     this.loadSubmissions(this.props.submissionData)
   }
-
+  
   loadSubmissions(submissionsArray) {
     const list = submissionsArray.map((item) => {
       const premiumType = item.rating[item.type]
