@@ -22,7 +22,7 @@ class Loading extends Component {
     
     let typeMap = {
       oi: [submission],
-      ocp: [submission, Object.assign({}, submission, { type:'oi' })]
+      ocp: [submission, Object.assign({}, submission, { type: 'oi' })]
     }
 
     const ratingPromises = typeMap[submission.type]
@@ -35,33 +35,32 @@ class Loading extends Component {
       getRating(s)
     ))).then((resp) => {
       const ratings = {}
-      ratingPromises.map((ratingSubmission, idx)=>{
+      ratingPromises.map((ratingSubmission, idx) => {
         ratings[ratingSubmission.type] = resp[idx].rating
       })
 
       const submissionData = this.props.submission
       submissionData.rating = ratings
 
-      console.log("got Rating")
       saveSubmission(submissionData).then((resp) => {
-        console.log(resp)
-        // if (resp.success) {
-        //     const {submissionId} = resp
-        //     const mainRating = ratings[submission.type]
-        //     const { instantQuote } = mainRating
+        
+        if (resp.success) {
+            const {submissionId} = resp
+            const mainRating = ratings[submission.type]
+            const { instantQuote } = mainRating
 
-        //     const emailPromises = [
-        //         sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-        //         sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-        //         sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
-        //     ]
+            const emailPromises = [
+                sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+                sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+                sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
+            ]
 
-        //     Promise.all(emailPromises).then((resp)=>{
-        //         this.props.handleEmailStatus({success:true})
-        //     })
-        // } else {
-        //     alert("Submission saveSave not successful")
-        // }
+            Promise.all(emailPromises).then((resp)=>{
+                this.props.handleEmailStatus({success:true})
+            })
+        } else {
+            alert("Submission saveSave not successful")
+        }
 
       }).catch(() => {
         alert('Not able to get rating.')
