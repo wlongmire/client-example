@@ -18,32 +18,50 @@ export const clearSubmissionStatus = () => {
 }
 
 export function getSubmissions(brokerId) {
-  const baseURL = config.apiserver.url
+  const apigClient = apiGateway.core.apiGatewayClientFactory.newClient({
+    accessKey: 'ACCESS_KEY',
+    secretKey: 'SECRET_KEY',
+    sessionToken: 'SESSION_TOKEN',
+    // OPTIONAL: If you are using temporary credentials you must include the session token
+    region: config.awsCognito.region
+    // OPTIONAL: The region where the API is deployed, by default this parameter is set to us-east-1
+  })
+  console.log(apigClient)
 
-  return (dispatch) => {
-    fetch(`${baseURL}/api/getSubmissions`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then((res) => {
-      // empty previous edited submission in the store
-      if (res.success) {
-        dispatch({ type: FETCH_SUBMISSIONS, payload: res.submissions })
-        dispatch({ type: EDIT_SUBMISSION, payload: {} })
-      } else {
-        alert('Error While Accessing Submissions DB.')
-      }
-    })
-    .catch((error) => {
-      return Promise.reject({
-        _error: error.message
-      })
-    })
-  }
+  // const baseURL = config.apiserver.url
+
+  // return (dispatch) => {
+  //   apigClient.apiGetSubmissionsGet(
+  //     {},
+  //     {},
+  //     {}
+  //   ).then((resp) => {
+  //     console.log(resp)
+  //   })
+
+    // fetch(`${baseURL}/api/getSubmissions`, {
+    //   method: 'GET',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    // .then(res => res.json())
+    // .then((res) => {
+    //   // empty previous edited submission in the store
+    //   if (res.success) {
+    //     dispatch({ type: FETCH_SUBMISSIONS, payload: res.submissions })
+    //     dispatch({ type: EDIT_SUBMISSION, payload: {} })
+    //   } else {
+    //     alert('Error While Accessing Submissions DB.')
+    //   }
+    // })
+    // .catch((error) => {
+    //   return Promise.reject({
+    //     _error: error.message
+    //   })
+    // })
+  // }
 }
 
 

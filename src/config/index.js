@@ -24,10 +24,10 @@ const config = {
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:35542332-4207-4161-81ca-22dca501dbff',
-        userPoolId: 'us-east-1_DdxblSokM',
+        identityPoolId: 'us-east-1:ba19f09e-c0fe-4835-bce6-cf17ff45f4ef',
+        userPoolId: 'us-east-1_xHMTRwuln',
         region: 'us-east-1',
-        clientId: '6kd2kc58pr8oafjvaijejnh0ct',
+        clientId: '3n1q5qr2eldkqdnm98btc9dd9e',
         dynoKey:'AKIAJU2YDIVHKSKOL5YQ',
         dynoSecretAccessKey:'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'
     },

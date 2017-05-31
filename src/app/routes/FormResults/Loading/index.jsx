@@ -45,15 +45,15 @@ class Loading extends Component {
       saveSubmission(submissionData).then((resp) => {
         
         if (resp.success) {
-            const {submissionId} = resp
-            const mainRating = ratings[submission.type]
-            const { instantQuote } = mainRating
+          const {submissionId} = resp
+          const mainRating = ratings[submission.type]
+          const { instantQuote } = mainRating
 
-            const emailPromises = [
-                sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-                sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-                sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
-            ]
+          const emailPromises = [
+            sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+            sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
+            sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
+          ]
 
             Promise.all(emailPromises).then((resp)=>{
                 this.props.handleEmailStatus({success:true})

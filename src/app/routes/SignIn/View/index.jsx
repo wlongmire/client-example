@@ -45,7 +45,8 @@ class SignInForm extends Component {
         newPassword,
         {
           email: this.state.userAttributes.email,
-          name: this.state.userAttributes.email
+          name: this.state.userAttributes.email,
+          preferred_username: this.state.userAttributes.email
         },
         () => {
           this.setState({ showResetModal: false })
