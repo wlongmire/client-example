@@ -51,7 +51,7 @@ export function saveSubmission(submission) {
 
 export function editSubmission(submission) {
   return ((dispatch) => {
-    apigClient.apiGetSubmissionsGet({})
+    apigClient.apiGetSubmissionIdGet({id:submission._id})
     .then((resp) => {
       const data = resp.data
       if (data.success) {
