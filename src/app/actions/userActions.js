@@ -3,7 +3,8 @@ import { push } from 'react-router-redux'
 import AWS from 'aws-sdk'
 
 import {
-  USER_LOGGED_OUT
+  USER_LOGGED_OUT,
+  SET_API_GATEWAY_CLIENT
 } from 'src/app/constants/user'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
@@ -11,12 +12,6 @@ import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cogn
 const userPool = new CognitoUserPool({
   UserPoolId: config.awsCognito.userPoolId,
   ClientId: config.awsCognito.clientId
-})
-
-AWS.config.update({
-  accessKeyId: config.awsCognito.dynoKey,
-  secretAccessKey: config.awsCognito.dynoSecretAccessKey,
-  region: config.awsCognito.region
 })
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
@@ -31,7 +26,15 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         Username: username,
         Password: password
       }), {
-        onSuccess: (resp) => { onSuccess(resp, cognitoUser) },
+        onSuccess: (resp) => {
+          window.apigClient = apigClientFactory.newClient({
+            accessKey: resp.accessToken,
+            secretKey: resp.idToken,
+            region: config.awsCognito.region
+          })
+
+          onSuccess(resp, cognitoUser)
+        },
         onFailure: (err) => { onFailure(err) },
         newPasswordRequired: (userAttributes) => {
           newPasswordRequired(userAttributes, cognitoUser)
@@ -61,9 +64,9 @@ export function setNewPassword(cognitoUser, newPassword, params, onSuccess, onFa
 export function logout() {
   return (dispatch) => {
     const cognitoUser = userPool.getCurrentUser()
-
     cognitoUser.signOut()
 
+    window.apigClient = null
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
   }

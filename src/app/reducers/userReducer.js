@@ -1,7 +1,10 @@
 import {
   USER_LOGGED_IN,
-  USER_LOGGED_OUT
+  USER_LOGGED_OUT,
+  SET_API_GATEWAY_CLIENT
 } from '../constants/user'
+
+import config from 'config'
 
 export default function (state = {}, actions) {
   switch (actions.type) {

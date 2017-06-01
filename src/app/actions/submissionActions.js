@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import config from 'config'
 
@@ -19,12 +18,7 @@ export const clearSubmissionStatus = () => {
 
 export function getSubmissions(user) {
   return ((dispatch) => {
-    const apigClient = apigClientFactory.newClient({
-      accessKey: user.accessToken,
-      secretKey: user.idToken,
-      region: config.awsCognito.region
-    })
-
+    console.log(apigClient)
     apigClient.apiGetSubmissionsGet()
     .then((resp) => {
       const data = resp.data

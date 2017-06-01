@@ -11,7 +11,10 @@ import DialogBox from 'components/shared/DialogBox'
 import { Button } from 'react-bootstrap'
 
 import PasswordResetModal from './PasswordResetModal'
-import { login, getUserAttributes, getDynoUser, getDynoBroker, setNewPassword } from 'app/actions/userActions'
+import config from 'config'
+
+import { login, getUserAttributes, setNewPassword } from 'app/actions/userActions'
+import { USER_LOGGED_IN, SET_API_GATEWAY_CLIENT } from 'src/app/constants/user'
 
 class SignInForm extends Component {
   constructor(props) {
@@ -74,14 +77,15 @@ class SignInForm extends Component {
         values.password,
         (cognito, cognitoUser) => {
           this.setState({ error: false, errorMessage: '' })
+
           getUserAttributes(cognitoUser).then(({ err, result }) => {
             if (err) {
               console.log(err)
               alert('error ', err)
-            }
+            } 
 
             this.props.dispatch({
-              type: 'USER_LOGGED_IN',
+              type: USER_LOGGED_IN,
               payload: {
                 cognito,
                 subId: result[0].Value,
@@ -98,9 +102,7 @@ class SignInForm extends Component {
               }
             })
 
-            this.props.dispatch(
-              push({ pathname: '/submissions' })
-            )
+            this.props.dispatch(push({ pathname: '/submissions' }))
           })
         },
         (err) => {

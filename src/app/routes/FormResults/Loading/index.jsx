@@ -18,50 +18,46 @@ class Loading extends Component {
   }
 
   componentDidMount() {
-    const { submission } = this.props
-    
-    let typeMap = {
+    const typeMap = {
       oi: [submission],
       ocp: [submission, Object.assign({}, submission, { type: 'oi' })]
     }
 
+    const { submission, user } = this.props
     const ratingPromises = typeMap[submission.type]
-
     const argoEmail = config.argoEmail
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
 
     Promise.all(ratingPromises.map(s => (
-      getRating(s)
+      getRating({ submission: s, user })
     ))).then((resp) => {
       const ratings = {}
       ratingPromises.map((ratingSubmission, idx) => {
         ratings[ratingSubmission.type] = resp[idx].rating
       })
 
-      const submissionData = this.props.submission
+      const submissionData = Object.assign({}, submission)
       submissionData.rating = ratings
 
       saveSubmission(submissionData).then((resp) => {
-        
         if (resp.success) {
           const {submissionId} = resp
           const mainRating = ratings[submission.type]
           const { instantQuote } = mainRating
 
           const emailPromises = [
-            sendEmail(argoEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-            sendEmail(sgsEmail, (instantQuote)?"quotedArgo":"nonQuoteArgo", submissionId),
-            sendEmail(brokerEmail, (instantQuote)?"quotedBroker":"nonQuoteBroker", submissionId)
+            sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId),
+            sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId),
+            sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId)
           ]
 
-            Promise.all(emailPromises).then((resp)=>{
-                this.props.handleEmailStatus({success:true})
-            })
+          Promise.all(emailPromises).then((resp) => {
+            this.props.handleEmailStatus({ success: true })
+          })
         } else {
-            alert("Submission saveSave not successful")
+            alert('Submission saveSave not successful')
         }
-
       }).catch(() => {
         alert('Not able to get rating.')
       })
@@ -90,4 +86,8 @@ class Loading extends Component {
   }
 }
 
-export default connect()(Loading)
+export default connect((store) => {
+  return ({
+    user: store.user
+  })
+})(Loading)
