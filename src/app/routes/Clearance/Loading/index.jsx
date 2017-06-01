@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 
-import getClearance from 'app/utils/getClearance'
+import {
+  getClearance 
+} from 'app/src/submissionActions'
 
 class Loading extends Component {
   constructor(props) {

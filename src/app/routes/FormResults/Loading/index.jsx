@@ -5,11 +5,15 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 
-import saveSubmission from 'app/utils/saveSubmission'
-import sendEmail from 'app/utils/sendEmail'
+import {
+  saveSubmission,
+  sendEmail
+} from 'app/actions/submission'
 
 import config from 'config'
-import getRating from 'app/utils/getRating'
+import {
+  getRating 
+} from 'app/actions/submissionAction'
 
 class Loading extends Component {
   constructor(props) {
