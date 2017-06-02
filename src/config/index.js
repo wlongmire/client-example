@@ -24,12 +24,12 @@ const config = {
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:35542332-4207-4161-81ca-22dca501dbff',
-        userPoolId: 'us-east-1_DdxblSokM',
+        identityPoolId: 'us-east-1:ba19f09e-c0fe-4835-bce6-cf17ff45f4ef',
+        userPoolId: 'us-east-1_XWOnd6XH0',
         region: 'us-east-1',
-        clientId: '6kd2kc58pr8oafjvaijejnh0ct',
-        dynoKey:'AKIAJU2YDIVHKSKOL5YQ',
-        dynoSecretAccessKey:'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'
+        clientId: '3n7362ap9pa11lrqv4uas31g36',
+        dynoKey:'@dynoKey',
+        dynoSecretAccessKey:'@dynoSecretAccessKey'
     },
 
     underwriters:[{
