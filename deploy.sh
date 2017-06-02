@@ -23,7 +23,7 @@ upload_website_to_s3()
 {
   printf "~ uploading app to S3 ..."
 
-  ls dist
+  cd dist/public
 
   # upload to s3
   myCmd=$(printf 'aws s3 sync . s3://%s-%s/' $S3_BUCKET_URL_BASE $ENV) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
@@ -35,6 +35,8 @@ upload_website_to_s3()
     echo $message
     exit -1
   fi
+  
+  cd ../
 
   printf "\t[OK]\n"
 }
