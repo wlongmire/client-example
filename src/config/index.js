@@ -4,9 +4,9 @@ const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'jbuelow@colonyspecialty.com',
-    sgsOIEmail: 'owners@colonyspecialty.com',
-    sgsOCPEmail: 'ocpsubmissions@colonyspecialty.com',
+    argoEmail: 'warrenlongmire@gmail.com',
+    sgsOIEmail: 'warren@eager.to',
+    sgsOCPEmail: 'warren@eager.to',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
@@ -24,12 +24,12 @@ const config = {
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:35542332-4207-4161-81ca-22dca501dbff',
-        userPoolId: 'us-east-1_DdxblSokM',
+        identityPoolId: 'us-east-1:ba19f09e-c0fe-4835-bce6-cf17ff45f4ef',
+        userPoolId: 'us-east-1_xHMTRwuln',
         region: 'us-east-1',
-        clientId: '6kd2kc58pr8oafjvaijejnh0ct',
-        dynoKey:'AKIAJU2YDIVHKSKOL5YQ',
-        dynoSecretAccessKey:'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'
+        clientId: '3n1q5qr2eldkqdnm98btc9dd9e',
+        dynoKey:'@dynoKey',
+        dynoSecretAccessKey:'@dynoSecretAccessKey'
     },
 
     underwriters:[{
@@ -60,7 +60,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'http://ownersedge-production.us-east-1.elasticbeanstalk.com/',
+        url: 'http://localhost',
         port: null
     },
 
@@ -69,7 +69,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'http://ownersedge-production.us-east-1.elasticbeanstalk.com/',
+        url: 'http://localhost',
         port:  null
     }
 };
