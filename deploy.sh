@@ -28,13 +28,7 @@ upload_website_to_s3()
   # upload to s3
   myCmd=$(printf 'aws s3 sync . s3://%s-%s/' $S3_BUCKET_URL_BASE $ENV) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
 
-  message=$($($myCmd) 2>&1 | grep -i 'error')
-
-  if [[ $message ]]; then
-    printf "\t[FAIL]\n"
-    echo $message
-    exit -1
-  fi
+  $($myCmd) 2>&1 | grep -i 'error'
   
   cd ../
 
