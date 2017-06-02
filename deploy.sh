@@ -26,7 +26,7 @@ function upload_website_to_s3()
   # upload to s3
   myCmd="aws s3 cp public/* \
         s3://$S3_BUCKET_URL_BASE-$ENV/ \
-        --profile $AWS_PROFILE --recursive"
+        --recursive"
 
   message=$(${myCmd[@]} 2>&1 | grep -i 'error')
 
