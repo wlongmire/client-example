@@ -22,9 +22,11 @@ check_environment()
 upload_website_to_s3()
 {
   printf "~ uploading app to S3 ..."
+  
+  cd public
 
   # upload to s3
-  myCmd=$(printf 'aws s3 cp public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
+  myCmd=$(printf 'aws s3 cp * s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
 
   message=$($($myCmd) 2>&1 | grep -i 'error')
 
@@ -33,6 +35,8 @@ upload_website_to_s3()
     echo $message
     exit -1
   fi
+  
+  cd ../
 
   printf "\t[OK]\n"
 }
