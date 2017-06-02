@@ -4,11 +4,7 @@ CURRENT_PATH=$(pwd)
 S3_BUCKET_URL_BASE="ownersedge"
 ENV=""
 
-echo "1"
-
 usage() { echo "Usage: $0 -e {dev qa, prod}" 1>&2; exit 1; }
-
-echo "2"
 
 check_environment()
 {
@@ -23,16 +19,12 @@ check_environment()
   fi
 }
 
-echo "3"
-
 upload_website_to_s3()
 {
   printf "~ uploading app to S3 ..."
 
   # upload to s3
-  myCmd="aws s3 cp public/* \
-        s3://$S3_BUCKET_URL_BASE-$ENV/ \
-        --recursive"
+  myCmd=$(printf 'aws s3 cp public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
 
   message=$(${myCmd[@]} 2>&1 | grep -i 'error')
 
