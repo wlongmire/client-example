@@ -10,7 +10,7 @@ usage() { echo "Usage: $0 -e {dev qa, prod}" 1>&2; exit 1; }
 
 echo "2"
 
-function check_environment()
+check_environment()
 {
   if [ -z $ENV ]; then
     usage
@@ -25,7 +25,7 @@ function check_environment()
 
 echo "3"
 
-function upload_website_to_s3()
+upload_website_to_s3()
 {
   printf "~ uploading app to S3 ..."
 
