@@ -4,7 +4,11 @@ CURRENT_PATH=$(pwd)
 S3_BUCKET_URL_BASE="ownersedge"
 ENV=""
 
+echo "1"
+
 usage() { echo "Usage: $0 -e {dev qa, prod}" 1>&2; exit 1; }
+
+echo "2"
 
 function check_environment()
 {
@@ -19,9 +23,11 @@ function check_environment()
   fi
 }
 
+echo "3"
+
 function upload_website_to_s3()
 {
-	printf "~ uploading app to S3 ..."
+  printf "~ uploading app to S3 ..."
 
   # upload to s3
   myCmd="aws s3 cp public/* \
@@ -57,4 +63,4 @@ check_environment
 # upload the cf template to s3 for reference
 upload_website_to_s3
 
-echo 'success' > status.txt
+echo "success" > status.txt
