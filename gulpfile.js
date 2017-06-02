@@ -25,14 +25,14 @@ gulp.task('transform:prod', () => {
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
   .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
-  .pipe(replace('@identityPoolId', 'us-east-1:ba19f09e-c0fe-4835-bce6-cf17ff45f4ef'))
-  .pipe(replace('@userPoolId', 'us-east-1_xHMTRwuln'))
+  .pipe(replace('@identityPoolId', 'us-east-1:35542332-4207-4161-81ca-22dca501dbff'))
+  .pipe(replace('@userPoolId', 'us-east-1_DdxblSokM'))
   .pipe(replace('@region', 'us-east-1'))
-  .pipe(replace('@clientId', '3n1q5qr2eldkqdnm98btc9dd9e'))
+  .pipe(replace('@clientId', '6kd2kc58pr8oafjvaijejnh0ct'))
   .pipe(replace('@dynoKey', 'AKIAJU2YDIVHKSKOL5YQ'))
   .pipe(replace('@secretAccessKey', 'Z3P8/uEPmjcEVL/BTycLZKCvi2c3mAbuPaqco6KP'))
-  .pipe(gulp.dest('src/config/'));
-});
+  .pipe(gulp.dest('src/config/'))
+})
 
 gulp.task('transform:dev', () => {
   gulp.src('configTemplate/*')
