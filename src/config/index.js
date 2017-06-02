@@ -4,7 +4,7 @@ const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'warrenlongmire@gmail.com',
+    argoEmail: 'warren@eager.to',
     sgsOIEmail: 'warren@eager.to',
     sgsOCPEmail: 'warren@eager.to',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
@@ -60,7 +60,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
+        url: 'www.ownersedge.us',
         port: null
     },
 
@@ -69,7 +69,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
+        url: 'www.ownersedge.us',
         port:  null
     }
 };
