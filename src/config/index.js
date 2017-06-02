@@ -25,9 +25,9 @@ const config = {
 
     awsCognito:{
         identityPoolId: 'us-east-1:ba19f09e-c0fe-4835-bce6-cf17ff45f4ef',
-        userPoolId: 'us-east-1_xHMTRwuln',
+        userPoolId: 'us-east-1_XWOnd6XH0',
         region: 'us-east-1',
-        clientId: '3n1q5qr2eldkqdnm98btc9dd9e',
+        clientId: '3n7362ap9pa11lrqv4uas31g36',
         dynoKey:'@dynoKey',
         dynoSecretAccessKey:'@dynoSecretAccessKey'
     },
