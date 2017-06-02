@@ -30,7 +30,7 @@ upload_website_to_s3()
 
   $($myCmd) 2>&1 | grep -i 'error'
   
-  cd ../
+  cd ../../
 
   printf "\t[OK]\n"
 }
