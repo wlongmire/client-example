@@ -56,6 +56,8 @@ done
 # check if the environment variable is set and/or if it's correct
 check_environment
 
+ls
+
 # upload the cf template to s3 for reference
 upload_website_to_s3
 
