@@ -44,13 +44,13 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
             }
 
             AWS.config.credentials = credentials
-
-            // window.apigClient = apigClientFactory.newClient({
-            //   accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
-            //   secretKey: AWS.config.credentials.data.Credentials.SecretKey,
-            //   region: config.awsCognito.region
-            // })
-
+            AWS.config.apigClient = apigClientFactory.newClient({
+              accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+              secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+              sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
+              region: config.awsCognito.region
+            })
+            
             onSuccess(resp, cognitoUser)
           })
         },

@@ -19,18 +19,7 @@ export const clearSubmissionStatus = () => {
 export function getSubmissions(user) {
   return ((dispatch) => {
 
-    console.log(AWS.config.credentials.data)
-    
-    const apigClient = apigClientFactory.newClient({
-      accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
-      secretKey: AWS.config.credentials.data.Credentials.SecretKey,
-      sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
-      region: config.awsCognito.region
-    })
-
-    console.log(apigClient)
-
-    apigClient.apiGetSubmissionsGet()
+    AWS.config.apigClient.apiGetSubmissionsGet()
     .then((resp) => {
       const data = resp.data
 
@@ -50,7 +39,7 @@ export function getSubmissions(user) {
 }
 
 export function saveSubmission(submission) {
-  return apigClient.apiSavePost({}, JSON.stringify(submission), {})
+  return AWS.config.apigClient.apiSavePost({}, JSON.stringify(submission), {})
     .then((resp) => {
       return (resp)
     })
@@ -63,7 +52,7 @@ export function saveSubmission(submission) {
 
 export function editSubmission(submission) {
   return ((dispatch) => {
-    apigClient.apiGetSubmissionIdGet({id:submission._id})
+    AWS.config.apigClient.apiGetSubmissionIdGet({id:submission._id})
     .then((resp) => {
       const data = resp.data
       if (data.success) {
@@ -121,7 +110,7 @@ export function getClearance(params) {
     insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
   }
 
-  return apigClient.apiGetClearanceGet(apiparams, {}, {})
+  return AWS.config.apigClient.apiGetClearanceGet(apiparams, {}, {})
     .then((resp) => {
       console.log(resp)
       return (resp)
@@ -136,7 +125,7 @@ export function getClearance(params) {
 export function getRating(params) {
   const { submission } = params
 
-  return apigClient.apiGetRatingPost({}, JSON.stringify(submission), {})
+  return AWS.config.apigClient.apiGetRatingPost({}, JSON.stringify(submission), {})
     .then((resp) => {
       return (resp)
     })
@@ -148,7 +137,7 @@ export function getRating(params) {
 }
 
 export function sendEmail(emailAddress, emailType, submissionId) {
-  return apigClient.apiSendEmailIdPost(
+  return AWS.config.apigClient.apiSendEmailIdPost(
     {},
     JSON.stringify({
       emailAddress,
