@@ -18,6 +18,18 @@ export const clearSubmissionStatus = () => {
 
 export function getSubmissions(user) {
   return ((dispatch) => {
+
+    console.log(AWS.config.credentials.data)
+    
+    const apigClient = apigClientFactory.newClient({
+      accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+      secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+      sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
+      region: config.awsCognito.region
+    })
+
+    console.log(apigClient)
+
     apigClient.apiGetSubmissionsGet()
     .then((resp) => {
       const data = resp.data

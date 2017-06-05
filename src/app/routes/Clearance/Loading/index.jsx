@@ -5,7 +5,7 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 
 import {
   getClearance 
-} from 'app/src/submissionActions'
+} from 'app/actions/submissionActions'
 
 class Loading extends Component {
   constructor(props) {

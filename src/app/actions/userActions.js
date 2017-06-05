@@ -27,13 +27,32 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         Password: password
       }), {
         onSuccess: (resp) => {
-          window.apigClient = apigClientFactory.newClient({
-            accessKey: resp.accessToken,
-            secretKey: resp.idToken,
+          const credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: config.awsCognito.identityPoolId,
+            Logins: {
+              [config.awsCognito.identityProvider]: resp.getIdToken().getJwtToken()
+            }
+          }, {
             region: config.awsCognito.region
           })
 
-          onSuccess(resp, cognitoUser)
+
+          credentials.get((err) => {
+            if (err) {
+              alert(err)
+              return
+            }
+
+            AWS.config.credentials = credentials
+
+            // window.apigClient = apigClientFactory.newClient({
+            //   accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+            //   secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+            //   region: config.awsCognito.region
+            // })
+
+            onSuccess(resp, cognitoUser)
+          })
         },
         onFailure: (err) => { onFailure(err) },
         newPasswordRequired: (userAttributes) => {

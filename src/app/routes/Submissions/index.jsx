@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {connect}  from 'react-redux'
 import Helmet from 'react-helmet'
 
-import * as actions from 'src/app/actions/submissionActions'
+import * as actions from 'app/actions/submissionActions'
 import SubmissionView from './View'
 import Moment from 'moment'
 
