@@ -11,7 +11,7 @@ function Knockout(props) {
     const emailStatusMap = {
         "LOADING":
             <div className="emailStatus">
-                <img src="https://s3.amazonaws.com/ownersedge-cdn/ajax-loader.gif"/>
+                <img src="https://s3.amazonaws.com/ownersedge-cdn/images/ajax-loader.gif"/>
                 <p>Emails Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
             </div>,
         "ERROR":
@@ -20,7 +20,7 @@ function Knockout(props) {
             </div>,
         "SUCCESS":
             <div className="emailStatus success">
-                <img src="https://s3.amazonaws.com/ownersedge-cdn/thumbs-up.png" />
+                <img src="https://s3.amazonaws.com/ownersedge-cdn/images/thumbs-up.png" />
                 <p>Your submission forms have been successfully processed.</p><span>Please check your your inbox. Thank you for using Argo Limited.</span>
             </div>
     }

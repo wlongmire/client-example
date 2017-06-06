@@ -6,8 +6,8 @@ import querystring from 'querystring'
 import config from 'config'
 import Header from 'components/Header'
 
-let query = querystring.parse(window.location.search.slice(1))
-let content = require('content')
+const query = querystring.parse(window.location.search.slice(1))
+const content = require('content')
 
 class App extends Component {
   render() {

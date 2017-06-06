@@ -28,7 +28,7 @@ class Form extends Component {
 
     this.state = {
       confirmation: false,
-      submission: this.props.submission, // exampleSubmission
+      submission: exampleSubmission, //this.props.submission,
       validationModal: false,
       cancelModal: false,
       requiredFields: []
@@ -50,8 +50,7 @@ class Form extends Component {
     }
   }
 
-  componentDidMount(){
-
+  componentDidMount() {
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
   }
 

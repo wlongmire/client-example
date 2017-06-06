@@ -17,7 +17,7 @@ class Result extends Component {
       title: "This Submission Did Not Pass Clearance.",
       subtitle: "Your business as listed below matches a previously processed submission.",
       additionalContent: <div className="additionalContent">
-        <h4>If we have blocked you in error or if none of these entiries matches your submission. please message us through the <img src="https://s3.amazonaws.com/ownersedge-cdn/chatIcon.png" /> icon below.</h4>
+        <h4>If we have blocked you in error or if none of these entiries matches your submission. please message us through the <img src="https://s3.amazonaws.com/ownersedge-cdn/images/chatIcon.png" /> icon below.</h4>
     </div>,
       buttonLabel: "Reenter Clearance Information"
     }

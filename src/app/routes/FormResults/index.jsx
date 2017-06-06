@@ -4,8 +4,8 @@ import {connect} from 'react-redux'
 import { push } from 'react-router-redux'
 import mx from 'app/utils/MixpanelInterface';
 
-import { Button } from 'react-bootstrap';
-import ToggleDisplay from 'components/shared/ToggleDisplay';
+import { Button } from 'react-bootstrap'
+import ToggleDisplay from 'components/shared/ToggleDisplay'
 
 import Loading from './Loading'
 import Error from './Error'
@@ -25,21 +25,21 @@ import {
 
 class FormResults extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       quoteStatus: STATUS.LOADING,
       emailStatus: STATUS.LOADING,
       ratings: {}
-    };
+    }
 
-    this.handleLoadComplete = this.handleLoadComplete.bind(this);
-    this.handleEmailStatus = this.handleEmailStatus.bind(this);
+    this.handleLoadComplete = this.handleLoadComplete.bind(this)
+    this.handleEmailStatus = this.handleEmailStatus.bind(this)
   }
 
   componentDidMount(){
     if (isEmpty(this.props.submission)) {
-      this.props.dispatch(push('/productChoice'));
+      this.props.dispatch(push('/productChoice'))
     }
 
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.QUOTE })

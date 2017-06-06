@@ -3,8 +3,8 @@ import { push } from 'react-router-redux'
 import AWS from 'aws-sdk'
 
 import {
-  USER_LOGGED_IN,
-  USER_LOGGED_OUT
+  USER_LOGGED_OUT,
+  SET_API_GATEWAY_CLIENT
 } from 'src/app/constants/user'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
@@ -12,12 +12,6 @@ import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cogn
 const userPool = new CognitoUserPool({
   UserPoolId: config.awsCognito.userPoolId,
   ClientId: config.awsCognito.clientId
-})
-
-AWS.config.update({
-  accessKeyId: config.awsCognito.dynoKey,
-  secretAccessKey: config.awsCognito.dynoSecretAccessKey,
-  region: config.awsCognito.region
 })
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
@@ -32,57 +26,40 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         Username: username,
         Password: password
       }), {
-        onSuccess: (resp) => { onSuccess(resp, cognitoUser) },
+        onSuccess: (resp) => {
+          const credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: config.awsCognito.identityPoolId,
+            Logins: {
+              [config.awsCognito.identityProvider]: resp.getIdToken().getJwtToken()
+            }
+          }, {
+            region: config.awsCognito.region
+          })
+
+
+          credentials.get((err) => {
+            if (err) {
+              alert(err)
+              return
+            }
+
+            AWS.config.credentials = credentials
+            AWS.config.apigClient = apigClientFactory.newClient({
+              accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+              secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+              sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
+              region: config.awsCognito.region
+            })
+            
+            onSuccess(resp, cognitoUser)
+          })
+        },
         onFailure: (err) => { onFailure(err) },
         newPasswordRequired: (userAttributes) => {
           newPasswordRequired(userAttributes, cognitoUser)
         }
       })
   }
-}
-
-export function getDynoUser(sub) {
-  return new Promise((resolve) => {
-    const docClient = new AWS.DynamoDB.DocumentClient()
-
-    const params = {
-      TableName: 'Users',
-      Key: {
-        id: '9192699f-3374-49bc-8e30-49dd2930eca9',
-        sub
-      }
-    }
-
-    docClient.get(params, (err, data) => {
-      console.log(data)
-      if (err) {
-        resolve({ err, data: null })
-      } else {
-        resolve({ err: null, data })
-      }
-    })
-  })
-}
-
-export function getDynoBroker(brokerID) {
-  return new Promise((resolve) => {
-    const docClient = new AWS.DynamoDB.DocumentClient()
-
-    const params = {
-      TableName: 'Brokers',
-      Key:{
-        BrokerId: brokerID
-      }
-    }
-
-    docClient.get(params, function(err, data) {
-      if (err) {
-        resolve({ err, data: null })
-      } else {
-        resolve({ err: null, data })
-      }
-    })
-  })
 }
 
 export function getUserAttributes(cognitoUser) {
@@ -106,9 +83,9 @@ export function setNewPassword(cognitoUser, newPassword, params, onSuccess, onFa
 export function logout() {
   return (dispatch) => {
     const cognitoUser = userPool.getCurrentUser()
-
     cognitoUser.signOut()
 
+    window.apigClient = null
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
   }

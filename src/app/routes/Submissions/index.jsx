@@ -3,22 +3,22 @@ import React, { Component } from 'react'
 import {connect}  from 'react-redux'
 import Helmet from 'react-helmet'
 
-import * as actions from 'src/app/actions/submissionActions'
+import * as actions from 'app/actions/submissionActions'
 import SubmissionView from './View'
 import Moment from 'moment'
 
 class Submissions extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
-    this.props.getSubmissions(this.props.user.broker.id)
+    this.props.getSubmissions(this.props.user)
   }
 
   render() {
     return (
       <div className="submissions">
-        {this.props.submissions.data &&
+        {this.props.submissions &&
           <SubmissionView
-            sumbissionData={this.props.submissions.data}
+            submissionData={this.props.submissions}
             dispatch={this.props.dispatch}
           />}
       </div>
@@ -26,9 +26,9 @@ class Submissions extends Component {
   }
 }
 
-export default connect((state) => {
+export default connect((store) => {
   return {
-    user: state.user,
-    submissions: state.submissions
+    user: store.user,
+    submissions: store.submissions.data
   }
 }, actions)(Submissions)
