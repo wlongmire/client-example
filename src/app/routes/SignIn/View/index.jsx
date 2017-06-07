@@ -128,7 +128,7 @@ class SignInForm extends Component {
     return (
       <div className="SignInForm__container">
 
-        <h1>Welcome Test</h1>
+        <h1>Welcome</h1>
         <h3>Please Sign In</h3>
 
         <FormBuilder
