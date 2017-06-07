@@ -75,35 +75,28 @@ class SignInForm extends Component {
       this.props.dispatch(login(
         values.username,
         values.password,
-        (cognito, cognitoUser) => {
+        (cognito, subId, cognitoUser) => {
           this.setState({ error: false, errorMessage: '' })
-
-          getUserAttributes(cognitoUser).then(({ err, result }) => {
-            if (err) {
-              console.log(err)
-              alert('error ', err)
-            } 
-
-            this.props.dispatch({
-              type: USER_LOGGED_IN,
-              payload: {
-                cognito,
-                subId: result[0].Value,
-                username: values.username,
-                email: values.username,
-                broker: {
-                  id: '123213131312',
-                  name: 'Broker',
-                  address: '2923 N 27th Street',
-                  city: 'philadelphia',
-                  state: 'PA',
-                  zipcode: '19132'
-                }
+          
+          this.props.dispatch({
+            type: USER_LOGGED_IN,
+            payload: {
+              cognito,
+              subId,
+              username: values.username,
+              email: values.username,
+              broker: {
+                id: '123213131312',
+                name: 'Broker',
+                address: '2923 N 27th Street',
+                city: 'philadelphia',
+                state: 'PA',
+                zipcode: '19132'
               }
-            })
-
-            this.props.dispatch(push({ pathname: '/submissions' }))
+            }
           })
+
+          this.props.dispatch(push({ pathname: '/submissions' }))
         },
         (err) => {
           const errorMap = {
