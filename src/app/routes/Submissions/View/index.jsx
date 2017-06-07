@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Moment from 'moment'
 import { formatDollars } from 'app/utils/utilities'
-import * as actions from 'src/app/actions/submissionActions'
+import * as actions from 'app/actions/submissionActions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 
@@ -18,9 +18,9 @@ class SubmissionView extends Component {
   }
 
   componentDidMount() {
-    this.loadSubmissions(this.props.submissionData.submissions)
+    this.loadSubmissions(this.props.submissionData)
   }
-
+  
   loadSubmissions(submissionsArray) {
     const list = submissionsArray.map((item) => {
       const premiumType = item.rating[item.type]
@@ -152,12 +152,7 @@ class SubmissionView extends Component {
 
 SubmissionView.propTypes = {
   editSubmission: PropTypes.func.isRequired,
-  submissionData: PropTypes.object.isRequired
+  submissionData: PropTypes.array.isRequired
 }
 
-export default connect((state) => {
-  return {
-    user: state.user,
-    submissions: state.submissions
-  }
-}, actions)(SubmissionView)
+export default SubmissionView

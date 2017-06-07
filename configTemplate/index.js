@@ -25,11 +25,10 @@ const config = {
 
     awsCognito:{
         identityPoolId: '@identityPoolId',
+        identityProvider: '@identityProvider',
         userPoolId: '@userPoolId',
         region: '@region',
         clientId: '@clientId',
-        dynoKey:'@dynoKey',
-        dynoSecretAccessKey:'@dynoSecretAccessKey'
     },
 
     underwriters:[{

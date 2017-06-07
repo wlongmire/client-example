@@ -24,7 +24,6 @@
    }
 
    return '';
-
  }
 
  export function isDefined(value) {
