@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux'
 import config from 'config'
+import trim from 'lodash/trim'
 
 import {
   FETCH_SUBMISSIONS,
@@ -19,18 +20,40 @@ export const clearSubmissionStatus = () => {
 export function getSubmissions(user) {
   return ((dispatch) => {
 
-    AWS.config.apigClient.apiGetSubmissionsGet()
-    .then((resp) => {
-      const data = resp.data
+    const body = {
+      brokerId: '58caee0df36d286bfca3cd20'
+    }
 
-      if (data.success) {
-        dispatch({ type: FETCH_SUBMISSIONS, payload: data.submissions })
+    console.log('AWS.config.apigClient', AWS.config.apigClient);
+
+    // eslint-disable-next-line no-undef
+    // AWS.config.
+    const apigClient = apigClientFactory.newClient({
+      // accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+      // secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+      // sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
+      // region: config.awsCognito.region
+    })
+    console.log('apigClient', apigClient)
+
+    // get current cognito user
+    // currentUser.session().isValid()
+      // if true then Andrei will give you code
+      // else send to login
+
+    AWS.config.apigClient.apiGetSubmissionsPost({}, body)
+    .then((resp) => {
+      console.log('RESPONSE SUBMISSIONS', resp)
+
+      if (resp.status === 200) {
+        dispatch({ type: FETCH_SUBMISSIONS, payload: resp.data })
         dispatch({ type: EDIT_SUBMISSION, payload: {} })
       } else {
         alert('Error While Accessing Submissions DB.')
       }
     })
     .catch((error) => {
+      console.log("RESPONSE ERROR", error)
       return Promise.reject({
         _error: error.message
       })
@@ -98,6 +121,7 @@ export function editSubmission(submission) {
 }
 
 export function getClearance(params) {
+  console.log('PARAMS 1223', params)
   const apiparams = {
     name: trim(params.name),
     projectAddress: trim(params.addresses[0].projectAddress.replace('#', '')),
@@ -112,8 +136,8 @@ export function getClearance(params) {
 
   return AWS.config.apigClient.apiGetClearanceGet(apiparams, {}, {})
     .then((resp) => {
-      console.log(resp)
-      return (resp)
+      console.log('CLERANCE RESPONSE', resp)
+      return (resp.data)
     })
     .catch((error) => {
       return Promise.reject({

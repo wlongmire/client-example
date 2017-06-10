@@ -14,14 +14,17 @@ class Loading extends Component {
   }
 
   componentDidMount() {
-    getClearance({
+    const input = {
       name: this.props.input.primaryInsuredName,
       addresses: [
         this.props.input.projectAddress,
         this.props.input.insuredAddress
       ],
       user: this.props.user
-    }).then((resp) => {
+    }
+
+    console.log('input LOADING', input)
+    getClearance(input).then((resp) => {
       this.props.handleSubmit(
         !resp.success,
         {

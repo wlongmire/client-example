@@ -24,7 +24,7 @@ const config = {
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97',
+        identityPoolId: 'us-east-1:57db5f54-9c0c-4d2f-8b92-d3279a07f61c',
         identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0',
         userPoolId: 'us-east-1_XWOnd6XH0',
         region: 'us-east-1',

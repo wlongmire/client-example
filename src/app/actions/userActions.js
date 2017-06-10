@@ -27,6 +27,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         Password: password
       }), {
         onSuccess: (resp) => {
+          console.log('resp 123', resp)
           const credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: config.awsCognito.identityPoolId,
             Logins: {
@@ -42,6 +43,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               alert(err)
               return
             }
+
+            console.log('credentials 123', credentials)
 
             AWS.config.credentials = credentials
             AWS.config.apigClient = apigClientFactory.newClient({

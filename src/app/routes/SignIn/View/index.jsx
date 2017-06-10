@@ -77,12 +77,19 @@ class SignInForm extends Component {
         values.password,
         (cognito, cognitoUser) => {
           this.setState({ error: false, errorMessage: '' })
-
+          // AK_TO_DO
           getUserAttributes(cognitoUser).then(({ err, result }) => {
             if (err) {
               console.log(err)
               alert('error ', err)
-            } 
+            }
+            console.log('USER ATTRIBUTES 23', result)
+
+            const brokerId = result.filter((item) => {
+              return item.Name == 'custom:brokerId'
+            })
+
+            console.log('brokerID xx222', brokerId)
 
             this.props.dispatch({
               type: USER_LOGGED_IN,

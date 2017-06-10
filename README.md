@@ -52,3 +52,11 @@ Some notable configs we did, is underlinining semicolons as errors and making su
 
 Every files that are going to be changed in future PRs, should follow the linting rules before being merged.
 
+#### To Add attributes to Users:
+Since users cannot sign themsesleves up, you are going to add them in the Cognito dashboard.
+
+In order to add attributes to users, get proper permissions for your AWS CLI, and execute the following command:
+```
+aws cognito-idp admin-update-user-attributes --user-pool-id _user_pool_id_ --username _username_ --user-attributes Name=custom:broker_id,Value=_broker_ID_value_
+```
+
