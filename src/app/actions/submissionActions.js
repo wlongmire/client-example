@@ -19,12 +19,11 @@ export const clearSubmissionStatus = () => {
 
 export function getSubmissions(user) {
   return ((dispatch) => {
-
     const body = {
       brokerId: '58caee0df36d286bfca3cd20'
     }
 
-    console.log('AWS.config.apigClient', AWS.config.apigClient);
+    console.log('AWS.config.apigClient', AWS.config.apigClient)
 
     // eslint-disable-next-line no-undef
     // AWS.config.
@@ -62,6 +61,8 @@ export function getSubmissions(user) {
 }
 
 export function saveSubmission(submission) {
+  console.log('SUBMISSION 123123', submission)
+
   return AWS.config.apigClient.apiSavePost({}, JSON.stringify(submission), {})
     .then((resp) => {
       return (resp)
@@ -148,12 +149,14 @@ export function getClearance(params) {
 
 export function getRating(params) {
   const { submission } = params
+ console.log("xx22 PARAMS in GET RATING", params)
 
-  return AWS.config.apigClient.apiGetRatingPost({}, JSON.stringify(submission), {})
+  return AWS.config.apigClient.apiGetRatingPost({}, submission, {})
     .then((resp) => {
       return (resp)
     })
     .catch((error) => {
+      console.log("TEST 123", error)
       return Promise.reject({
         _error: error.message
       })

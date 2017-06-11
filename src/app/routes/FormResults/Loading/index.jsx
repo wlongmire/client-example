@@ -19,20 +19,26 @@ class Loading extends Component {
   }
 
   componentDidMount() {
+    const { submission, user } = this.props
+
     const typeMap = {
       oi: [submission],
       ocp: [submission, Object.assign({}, submission, { type: 'oi' })]
     }
 
-    const { submission, user } = this.props
     const ratingPromises = typeMap[submission.type]
     const argoEmail = config.argoEmail
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
+    // AK_TO_DO 
+    console.log('typeMap xx22', typeMap)
+    console.log('ratingPromises xx22', ratingPromises)
+    console.log('submission defintion xx22', submission)
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s, user })
     ))).then((resp) => {
+      console.log("RESPONSE FROM GET RATING", resp)
       const ratings = {}
       ratingPromises.map((ratingSubmission, idx) => {
         ratings[ratingSubmission.type] = resp[idx].rating
@@ -41,6 +47,7 @@ class Loading extends Component {
       const submissionData = Object.assign({}, submission)
       submissionData.rating = ratings
 
+      // AK_TO_DO
       saveSubmission(submissionData).then((resp) => {
         if (resp.success) {
           const {submissionId} = resp
@@ -64,6 +71,8 @@ class Loading extends Component {
       })
 
       this.props.handleSubmit(!resp[0].success, ratings)
+    }, (err) => {
+      console.log('CONSOLE LOG ERR', err)
     })
   }
 
