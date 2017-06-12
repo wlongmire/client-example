@@ -30,27 +30,32 @@ class Loading extends Component {
     const argoEmail = config.argoEmail
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
-    // AK_TO_DO 
-    console.log('typeMap xx22', typeMap)
-    console.log('ratingPromises xx22', ratingPromises)
+    // AK_TO_DO
     console.log('submission defintion xx22', submission)
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s, user })
     ))).then((resp) => {
-      console.log("RESPONSE FROM GET RATING", resp)
+      console.log('RESPONSE FROM GET RATING', resp)
       const ratings = {}
       ratingPromises.map((ratingSubmission, idx) => {
-        ratings[ratingSubmission.type] = resp[idx].rating
+        const responseRatings = JSON.parse(resp[idx].data)
+
+        ratings[ratingSubmission.type] = responseRatings.results
       })
+
+      console.log('RESULT RATINGS combined xx22', ratings)
 
       const submissionData = Object.assign({}, submission)
       submissionData.rating = ratings
 
       // AK_TO_DO
       saveSubmission(submissionData).then((resp) => {
-        if (resp.success) {
-          const {submissionId} = resp
+        console.log('RESPONSE xx22', resp)
+
+        if (resp.data && resp.data.success === true) {
+
+          const { submissionId } = resp.data
           const mainRating = ratings[submission.type]
           const { instantQuote } = mainRating
 
@@ -61,13 +66,14 @@ class Loading extends Component {
           ]
 
           Promise.all(emailPromises).then((resp) => {
+            console.log('getting the emails xx22', resp)
             this.props.handleEmailStatus({ success: true })
           })
         } else {
             alert('Submission saveSave not successful')
         }
-      }).catch(() => {
-        alert('Not able to get rating.')
+      }).catch((error1) => {
+        console.log('ERROR IN SAVE SUBMISSION xx22', error1)
       })
 
       this.props.handleSubmit(!resp[0].success, ratings)

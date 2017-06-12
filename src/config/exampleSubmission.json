@@ -1,8 +1,7 @@
 {
-    "type": "oi",
     "status": "CLEARANCE",
     
-    "primaryInsuredName": "Warren Longmire",
+    "primaryInsuredName": "Andriy Kulak",
 		"insuredAddress": {
 			"primaryInsuredAddress": "1217 Spring Garden Street",
 			"primaryInsuredCity": "Philadelphia",
@@ -22,6 +21,7 @@
 		"anticipatedStartDate": "2017-10-17T04:00:00.000Z",
 		"anticipatedFinishDate": "2019-11-17T04:00:00.000Z",
 		"totalCost": "10000",
+		"broker": "test-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
 		"projectScope": "asdfdfasdaf",
 		"towerCraneUse": "false",
 		"generalContractorKnown": "false",
@@ -32,7 +32,7 @@
 		"sidewalkMaintaining": "GC",
 		"generalComments": "General Comments",
 		"contactInfo": {
-			"email": "warrenlongmire@gmail.com",
+			"email": "andkulak@gmail.com",
 			"phone": "2153270235"
 		},
 		"specificFloorsDetails": "Details",

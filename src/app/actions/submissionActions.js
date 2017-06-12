@@ -20,7 +20,7 @@ export const clearSubmissionStatus = () => {
 export function getSubmissions(user) {
   return ((dispatch) => {
     const body = {
-      brokerId: '58caee0df36d286bfca3cd20'
+      brokerId: 'test-7fd-b3ff-4fd3-9fc2-e752b9f5b002'
     }
 
     console.log('AWS.config.apigClient', AWS.config.apigClient)
@@ -61,13 +61,16 @@ export function getSubmissions(user) {
 }
 
 export function saveSubmission(submission) {
-  console.log('SUBMISSION 123123', submission)
+  console.log('SUBMISSION xx22 get toe save SUbmissions', submission)
+  console.log('')
 
-  return AWS.config.apigClient.apiSavePost({}, JSON.stringify(submission), {})
+  return AWS.config.apigClient.apiSavePost({}, submission, {})
     .then((resp) => {
+      console.log("RESPONSE save SUBMISSION xx22 =====", resp)
       return (resp)
     })
     .catch((error) => {
+      console.log("ERROR SUBMISSION xx22 ====", error)
       return Promise.reject({
         _error: error.message
       })
@@ -164,17 +167,19 @@ export function getRating(params) {
 }
 
 export function sendEmail(emailAddress, emailType, submissionId) {
+  console.log('getting to send email function')
+  console.log('emailAddress', emailAddress)
+  console.log('emailType', emailType)
   return AWS.config.apigClient.apiSendEmailIdPost(
-    {},
-    JSON.stringify({
-      emailAddress,
-      emailType
-    }),
+    { id: submissionId },
+    { emailAddress, emailType },
     {})
     .then((resp) => {
+      console.log('sucesss 123', resp)
       return (resp)
     })
     .catch((error) => {
+      console.log('ERROR 123', error)
       return Promise.reject({
         _error: error.message
       })

@@ -25,6 +25,7 @@ class SubmissionView extends Component {
     const list = submissionsArray.map((item) => {
       const premiumType = item.rating[item.type]
 
+      console.log('submissionsArray xx22', submissionsArray)
       return ({
         ...item,
         primaryInsuredName: item.primaryInsuredName,
