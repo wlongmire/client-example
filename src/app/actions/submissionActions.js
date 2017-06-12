@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux'
 import config from 'config'
+import trim from 'lodash/trim'
 
 import {
   FETCH_SUBMISSIONS,
@@ -18,19 +19,40 @@ export const clearSubmissionStatus = () => {
 
 export function getSubmissions(user) {
   return ((dispatch) => {
+    const body = {
+      brokerId: 'test-7fd-b3ff-4fd3-9fc2-e752b9f5b002'
+    }
 
-    AWS.config.apigClient.apiGetSubmissionsGet()
+    console.log('AWS.config.apigClient', AWS.config.apigClient)
+
+    // eslint-disable-next-line no-undef
+    // AWS.config.
+    const apigClient = apigClientFactory.newClient({
+      // accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+      // secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+      // sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
+      // region: config.awsCognito.region
+    })
+    console.log('apigClient', apigClient)
+
+    // get current cognito user
+    // currentUser.session().isValid()
+      // if true then Andrei will give you code
+      // else send to login
+
+    AWS.config.apigClient.apiGetSubmissionsPost({}, body)
     .then((resp) => {
-      const data = resp.data
+      console.log('RESPONSE SUBMISSIONS', resp)
 
-      if (data.success) {
-        dispatch({ type: FETCH_SUBMISSIONS, payload: data.submissions })
+      if (resp.status === 200) {
+        dispatch({ type: FETCH_SUBMISSIONS, payload: resp.data })
         dispatch({ type: EDIT_SUBMISSION, payload: {} })
       } else {
         alert('Error While Accessing Submissions DB.')
       }
     })
     .catch((error) => {
+      console.log("RESPONSE ERROR", error)
       return Promise.reject({
         _error: error.message
       })
@@ -39,11 +61,16 @@ export function getSubmissions(user) {
 }
 
 export function saveSubmission(submission) {
-  return AWS.config.apigClient.apiSavePost({}, JSON.stringify(submission), {})
+  console.log('SUBMISSION xx22 get toe save SUbmissions', submission)
+  console.log('')
+
+  return AWS.config.apigClient.apiSavePost({}, submission, {})
     .then((resp) => {
+      console.log("RESPONSE save SUBMISSION xx22 =====", resp)
       return (resp)
     })
     .catch((error) => {
+      console.log("ERROR SUBMISSION xx22 ====", error)
       return Promise.reject({
         _error: error.message
       })
@@ -98,6 +125,7 @@ export function editSubmission(submission) {
 }
 
 export function getClearance(params) {
+  console.log('PARAMS 1223', params)
   const apiparams = {
     name: trim(params.name),
     projectAddress: trim(params.addresses[0].projectAddress.replace('#', '')),
@@ -112,8 +140,8 @@ export function getClearance(params) {
 
   return AWS.config.apigClient.apiGetClearanceGet(apiparams, {}, {})
     .then((resp) => {
-      console.log(resp)
-      return (resp)
+      console.log('CLERANCE RESPONSE', resp)
+      return (resp.data)
     })
     .catch((error) => {
       return Promise.reject({
@@ -125,7 +153,7 @@ export function getClearance(params) {
 export function getRating(params) {
   const { submission } = params
 
-  return AWS.config.apigClient.apiGetRatingPost({}, JSON.stringify(submission), {})
+  return AWS.config.apigClient.apiGetRatingPost({}, submission, {})
     .then((resp) => {
       return (resp)
     })
@@ -138,16 +166,15 @@ export function getRating(params) {
 
 export function sendEmail(emailAddress, emailType, submissionId) {
   return AWS.config.apigClient.apiSendEmailIdPost(
-    {},
-    JSON.stringify({
-      emailAddress,
-      emailType
-    }),
+    { id: submissionId },
+    { emailAddress, emailType },
     {})
     .then((resp) => {
+      console.log('sucesss 123', resp)
       return (resp)
     })
     .catch((error) => {
+      console.log('ERROR 123', error)
       return Promise.reject({
         _error: error.message
       })

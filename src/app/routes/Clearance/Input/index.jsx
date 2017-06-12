@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import DialogBox from 'components/shared/DialogBox'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
@@ -7,7 +6,7 @@ import FormBuilder from 'components/shared/FormBuilder'
 import form from './form.js'
 
 const STATUS = {
-  INPUT:"INPUT",
+  INPUT: "INPUT",
   LOADING: "LOADING",
   ERROR: "ERROR",
   RESULT: "RESULT"
@@ -35,7 +34,7 @@ class Input extends Component {
           validationModal: true
         })
       } else {
-
+        console.log('VALUES', values)
         this.props.handleSubmit(values)
       }
     }
@@ -51,7 +50,7 @@ class Input extends Component {
       const requiredList = ()=> {
         return this.state.requiredFields.map((r, idx)=>{
           const fieldText = (r.questionId == '2c')?"State":r.text
-          
+
           return (
               <li key={idx} className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
             )

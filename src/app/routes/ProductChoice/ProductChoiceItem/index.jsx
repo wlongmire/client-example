@@ -33,7 +33,7 @@ function ProductChoiceItem(props) {
           'create',
           { Type: type }
         )
-
+        /* AK_TO_DO */
         props.dispatch(push("/clearance"))
         {/*props.dispatch(push("/form"))*/}
       }}

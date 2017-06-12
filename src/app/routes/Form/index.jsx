@@ -28,7 +28,8 @@ class Form extends Component {
 
     this.state = {
       confirmation: false,
-      submission: exampleSubmission, //this.props.submission,
+      submission: this.props.submission,
+       // exampleSubmission <--- use this when testing ONLY!
       validationModal: false,
       cancelModal: false,
       requiredFields: []

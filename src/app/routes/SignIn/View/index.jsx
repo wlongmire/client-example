@@ -77,23 +77,39 @@ class SignInForm extends Component {
         values.password,
         (cognito, subId, cognitoUser) => {
           this.setState({ error: false, errorMessage: '' })
-          
-          this.props.dispatch({
-            type: USER_LOGGED_IN,
-            payload: {
-              cognito,
-              subId,
-              username: values.username,
-              email: values.username,
-              broker: {
-                id: '123213131312',
-                name: 'Broker',
-                address: '2923 N 27th Street',
-                city: 'philadelphia',
-                state: 'PA',
-                zipcode: '19132'
-              }
+
+          // AK_TO_DO
+          getUserAttributes(cognitoUser).then(({ err, result }) => {
+            if (err) {
+              console.log(err)
+              alert('error ', err)
             }
+            console.log('USER ATTRIBUTES 23', result)
+
+            const brokerId = result.filter((item) => {
+              return item.Name == 'custom:brokerId'
+            })
+
+            console.log('brokerID xx222', brokerId)
+
+            this.props.dispatch({
+              type: USER_LOGGED_IN,
+              payload: {
+                cognito,
+                subId: result[0].Value,
+                username: values.username,
+                email: values.username,
+                broker: {
+                  id: '123213131312',
+                  name: 'Broker',
+                  address: '2923 N 27th Street',
+                  city: 'philadelphia',
+                  state: 'PA',
+                  zipcode: '19132'
+                }
+
+              }
+            })
           })
 
           this.props.dispatch(push({ pathname: '/submissions' }))
