@@ -54,7 +54,13 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               region: config.awsCognito.region
             })
             
-            onSuccess(resp, cognitoUser)
+            getUserAttributes(cognitoUser).then(({ err, result }) => {
+              if (err) {
+                console.log(err)
+                alert('error ', err)
+              }
+              onSuccess(resp, result[0].Value, cognitoUser)
+            })
           })
         },
         onFailure: (err) => { onFailure(err) },

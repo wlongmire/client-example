@@ -75,8 +75,9 @@ class SignInForm extends Component {
       this.props.dispatch(login(
         values.username,
         values.password,
-        (cognito, cognitoUser) => {
+        (cognito, subId, cognitoUser) => {
           this.setState({ error: false, errorMessage: '' })
+
           // AK_TO_DO
           getUserAttributes(cognitoUser).then(({ err, result }) => {
             if (err) {
@@ -106,11 +107,12 @@ class SignInForm extends Component {
                   state: 'PA',
                   zipcode: '19132'
                 }
+
               }
             })
-
-            this.props.dispatch(push({ pathname: '/submissions' }))
           })
+
+          this.props.dispatch(push({ pathname: '/submissions' }))
         },
         (err) => {
           const errorMap = {
