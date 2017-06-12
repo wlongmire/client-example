@@ -152,14 +152,12 @@ export function getClearance(params) {
 
 export function getRating(params) {
   const { submission } = params
- console.log("xx22 PARAMS in GET RATING", params)
 
   return AWS.config.apigClient.apiGetRatingPost({}, submission, {})
     .then((resp) => {
       return (resp)
     })
     .catch((error) => {
-      console.log("TEST 123", error)
       return Promise.reject({
         _error: error.message
       })
@@ -167,9 +165,6 @@ export function getRating(params) {
 }
 
 export function sendEmail(emailAddress, emailType, submissionId) {
-  console.log('getting to send email function')
-  console.log('emailAddress', emailAddress)
-  console.log('emailType', emailType)
   return AWS.config.apigClient.apiSendEmailIdPost(
     { id: submissionId },
     { emailAddress, emailType },

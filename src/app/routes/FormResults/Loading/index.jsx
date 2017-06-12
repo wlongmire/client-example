@@ -31,12 +31,12 @@ class Loading extends Component {
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
     // AK_TO_DO
-    console.log('submission defintion xx22', submission)
+    console.log('xx22 submissions', submission)
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s, user })
     ))).then((resp) => {
-      console.log('RESPONSE FROM GET RATING', resp)
+      console.log('xx22 rating response', resp)
       const ratings = {}
       ratingPromises.map((ratingSubmission, idx) => {
         const responseRatings = JSON.parse(resp[idx].data)
@@ -76,7 +76,8 @@ class Loading extends Component {
         console.log('ERROR IN SAVE SUBMISSION xx22', error1)
       })
 
-      this.props.handleSubmit(!resp[0].success, ratings)
+      console.log('xx22 RESPONSE IN handle SUBMIT', resp)
+      this.props.handleSubmit(!(resp[0].status === 200), ratings)
     }, (err) => {
       console.log('CONSOLE LOG ERR', err)
     })

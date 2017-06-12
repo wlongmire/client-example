@@ -52,6 +52,9 @@ class FormResults extends Component {
   }
 
   handleLoadComplete(error, ratings) {
+    console.log('xx22 results page - error', error)
+    console.log('xx22 results page - ratings', ratings)
+
     const {submission} = this.props;
 
     this.setState({
