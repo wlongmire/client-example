@@ -23,12 +23,15 @@ export function checkLoginStatus() {
       // NOTE: getSession must be called to authenticate user before calling getUserAttributes
       cognitoUser.getUserAttributes((error, attributes) => {
         if (error) {
+          console.log('get attributes error', error)
             // Handle error
         } else {
           console.log('xx 2233 get Attributes', attributes)
             // Do something with attributes
         }
       })
+
+      console.log('config.awsCognito.identityProvider', config.awsCognito.identityProvider)
 
       const credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: config.awsCognito.identityPoolId,
