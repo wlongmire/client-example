@@ -10,6 +10,7 @@ import Moment from 'moment'
 class Submissions extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
+    console.log('THIS PROPS USER xx22', this.props.user)
     this.props.getSubmissions(this.props.user)
   }
 
@@ -29,6 +30,6 @@ class Submissions extends Component {
 export default connect((store) => {
   return {
     user: store.user,
-    submissions: store.submissions.data
+    submissions: store.submissions.data,
   }
 }, actions)(Submissions)
