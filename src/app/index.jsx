@@ -1,4 +1,4 @@
-'use strict'
+
 import styles from '../sass/main.scss'
 import fontAwesome from 'font-awesome-sass-loader'
 import React from 'react'
@@ -25,37 +25,39 @@ import {
 // checkLoginStatus()
 // cognitoTest2()
 // We have our reducer setup handled by our configureStore() method.
-const store = configureStore(browserHistory, {
-  user: localStorage.getItem('viewer') && JSON.parse(localStorage.getItem('viewer')),
-})
 
-const history = syncHistoryWithStore(
-  browserHistory,
-  store
-)
-
-// Routing middleware
-
-history.listen(() => {
-  window.scrollTo(0, 0)
-
-  const route = window.location.pathname
-  console.log('route change:', route)
-})
-
-// Initialize the app
-onReady(() => {
-  const container = document.getElementsByClassName(
-    'app-container'
-  )[0];
-
-  render(
-    <Provider store={store}>
-      <Router
-        history={history}
-        routes={routes}
-      />
-    </Provider>,
-    container
+cognitoTest2(user => {
+  const store = configureStore(browserHistory, {
+    user,
+    // user: localStorage.getItem('viewer') && JSON.parse(localStorage.getItem('viewer')),
+  });
+  const history = syncHistoryWithStore(
+    browserHistory,
+    store
   )
+  // Routing middleware
+
+  history.listen(() => {
+    window.scrollTo(0, 0)
+
+    const route = window.location.pathname
+    console.log('route change:', route)
+  })
+
+  // Initialize the app
+  onReady(() => {
+    const container = document.getElementsByClassName(
+      'app-container'
+    )[0];
+
+    render(
+      <Provider store={store}>
+        <Router
+          history={history}
+          routes={routes}
+        />
+      </Provider>,
+      container
+    )
+  })
 })

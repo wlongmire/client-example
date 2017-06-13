@@ -28,12 +28,12 @@ export function getSubmissions(user) {
 
     // eslint-disable-next-line no-undef
     // AWS.config.
-    const apigClient = apigClientFactory.newClient({
-      // accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
-      // secretKey: AWS.config.credentials.data.Credentials.SecretKey,
-      // sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
-      // region: config.awsCognito.region
-    })
+    // const apigClient = apigClientFactory.newClient({
+    //   // accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+    //   // secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+    //   // sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
+    //   // region: config.awsCognito.region
+    // })
     console.log('apigClient', apigClient)
 
     // get current cognito user
@@ -41,7 +41,7 @@ export function getSubmissions(user) {
       // if true then Andrei will give you code
       // else send to login
 
-    AWS.config.apigClient.apiGetSubmissionsPost({}, body)
+   apigClient.apiGetSubmissionsPost({}, body)
     .then((resp) => {
       console.log('RESPONSE SUBMISSIONS', resp)
 
@@ -80,7 +80,8 @@ export function saveSubmission(submission) {
 
 export function editSubmission(submission) {
   return ((dispatch) => {
-    AWS.config.apigClient.apiGetSubmissionIdGet({id:submission._id})
+      AWS.config.apigClient.apiGetSubmissionIdGet({id:submission._id})
+    // apigClient.apiGetSubmissionIdGet({id:submission._id})
     .then((resp) => {
       const data = resp.data
       if (data.success) {
