@@ -52,9 +52,6 @@ class FormResults extends Component {
   }
 
   handleLoadComplete(error, ratings) {
-    console.log('xx22 results page - error', error)
-    console.log('xx22 results page - ratings', ratings)
-
     const {submission} = this.props;
 
     this.setState({
@@ -70,16 +67,17 @@ class FormResults extends Component {
           { Type: this.props.submission }
         );
     } else if (ratings[submission.type].instantQuote) {
-      mx.customEvent(
-          'submission',
-          'quoted',
-          {
-            Type: this.props.submission.type,
-            TotalPremium: this.props.submission.rating[this.props.submission.type].totalPremium,
-            TotalExcessPremium: 
-              this.props.submission.rating[this.props.submission.type].excessPremium
-          }
-        );
+      // AK_TO_DO - fix mx
+      // mx.customEvent(
+      //     'submission',
+      //     'quoted',
+      //     {
+      //       Type: this.props.submission.type,
+      //       TotalPremium: this.props.submission.rating[this.props.submission.type].totalPremium,
+      //       TotalExcessPremium: 
+      //         this.props.submission.rating[this.props.submission.type].excessPremium
+      //     }
+      //   );
     } else {
       mx.customEvent(
           'submission',

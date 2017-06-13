@@ -10,7 +10,7 @@ export function getUserAttributes(cognitoUser) {
   })
 }
 
-export function cognitoTest2(callback) {
+export function cognitoPersistUser(callback) {
   const userPool = new CognitoUserPool({
     UserPoolId: config.awsCognito.userPoolId,
     ClientId: config.awsCognito.clientId

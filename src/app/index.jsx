@@ -8,8 +8,7 @@ import onReady from './utils/onReady'
 import configureStore from './store'
 import routes from './routes'
 import config from 'config'
-import { checkLoginStatus } from './utils/cognitoCheckStatus'
-import { cognitoTest2 } from './utils/cognitoTest2'
+import { cognitoPersistUser } from './utils/cognitoPersistUser'
 
 
 import {
@@ -26,11 +25,11 @@ import {
 // cognitoTest2()
 // We have our reducer setup handled by our configureStore() method.
 
-cognitoTest2(user => {
+cognitoPersistUser((user) => {
   const store = configureStore(browserHistory, {
     user,
     // user: localStorage.getItem('viewer') && JSON.parse(localStorage.getItem('viewer')),
-  });
+  })
   const history = syncHistoryWithStore(
     browserHistory,
     store
@@ -46,9 +45,7 @@ cognitoTest2(user => {
 
   // Initialize the app
   onReady(() => {
-    const container = document.getElementsByClassName(
-      'app-container'
-    )[0];
+    const container = document.getElementsByClassName('app-container')[0]
 
     render(
       <Provider store={store}>
