@@ -75,10 +75,8 @@ gulp.task('transform:local', () => {
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  
   .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97'))
-  // .pipe(replace('@identityPoolId', 'us-east-1:57db5f54-9c0c-4d2f-8b92-d3279a07f61c')) prod
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
