@@ -47,13 +47,13 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
             console.log('credentials 123', credentials)
 
             AWS.config.credentials = credentials
-            AWS.config.apigClient = apigClientFactory.newClient({
+            window.apigClient = apigClientFactory.newClient({
               accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
               secretKey: AWS.config.credentials.data.Credentials.SecretKey,
               sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
               region: config.awsCognito.region
             })
-            
+
             getUserAttributes(cognitoUser).then(({ err, result }) => {
               if (err) {
                 console.log(err)

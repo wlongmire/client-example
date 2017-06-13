@@ -24,24 +24,7 @@ export function getSubmissions(user) {
       brokerId: user.broker
     }
 
-    console.log('AWS.config.apigClient', AWS.config.apigClient)
-
-    // eslint-disable-next-line no-undef
-    // AWS.config.
-    const apigClient = apigClientFactory.newClient({
-      // accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
-      // secretKey: AWS.config.credentials.data.Credentials.SecretKey,
-      // sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
-      // region: config.awsCognito.region
-    })
-    console.log('apigClient', apigClient)
-
-    // get current cognito user
-    // currentUser.session().isValid()
-      // if true then Andrei will give you code
-      // else send to login
-
-    AWS.config.apigClient.apiGetSubmissionsPost({}, body)
+   apigClient.apiGetSubmissionsPost({}, body)
     .then((resp) => {
       console.log('RESPONSE SUBMISSIONS', resp)
 
@@ -63,15 +46,15 @@ export function getSubmissions(user) {
 
 export function saveSubmission(submission) {
   console.log('SUBMISSION xx22 get toe save SUbmissions', submission)
-  console.log('')
 
-  return AWS.config.apigClient.apiSavePost({}, submission, {})
+  // eslint-disable-next-line no-undef
+  return apigClient.apiSavePost({}, submission, {})
     .then((resp) => {
-      console.log("RESPONSE save SUBMISSION xx22 =====", resp)
+      console.log('RESPONSE save SUBMISSION xx22 =====', resp)
       return (resp)
     })
     .catch((error) => {
-      console.log("ERROR SUBMISSION xx22 ====", error)
+      console.log('ERROR SUBMISSION xx22 ====', error)
       return Promise.reject({
         _error: error.message
       })
@@ -80,7 +63,8 @@ export function saveSubmission(submission) {
 
 export function editSubmission(submission) {
   return ((dispatch) => {
-    AWS.config.apigClient.apiGetSubmissionIdGet({id:submission._id})
+    // eslint-disable-next-line no-undef
+    apigClient.apiGetSubmissionIdGet({ id: submission._id })
     .then((resp) => {
       const data = resp.data
       if (data.success) {
@@ -139,9 +123,9 @@ export function getClearance(params) {
     insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
   }
 
-  return AWS.config.apigClient.apiGetClearanceGet(apiparams, {}, {})
+  // eslint-disable-next-line no-undef
+  return apigClient.apiGetClearanceGet(apiparams, {}, {})
     .then((resp) => {
-      console.log('CLERANCE RESPONSE', resp)
       return (resp.data)
     })
     .catch((error) => {
@@ -154,7 +138,8 @@ export function getClearance(params) {
 export function getRating(params) {
   const { submission } = params
 
-  return AWS.config.apigClient.apiGetRatingPost({}, submission, {})
+  // eslint-disable-next-line no-undef
+  return apigClient.apiGetRatingPost({}, submission, {})
     .then((resp) => {
       return (resp)
     })
@@ -166,7 +151,8 @@ export function getRating(params) {
 }
 
 export function sendEmail(emailAddress, emailType, submissionId) {
-  return AWS.config.apigClient.apiSendEmailIdPost(
+  // eslint-disable-next-line no-undef
+  return apigClient.apiSendEmailIdPost(
     { id: submissionId },
     { emailAddress, emailType },
     {})
