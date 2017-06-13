@@ -17,22 +17,16 @@ export function cognitoTest2(callback) {
   })
 
   const cognitoUser = userPool.getCurrentUser()
-
- if (cognitoUser === null) return null;
+  if (cognitoUser === null) {
+    callback(null)
+  }
 
   if (cognitoUser != null) {
     cognitoUser.getSession((err, session) => {
       if (err) {
-        alert(err)
-        return
+        console.log('Error in getting session', err)
+        callback(null)
       }
-
-      console.log('session validity: ' + session.isValid())
-
-      console.log('xx 2233')
-
-      // NOTE: getSession must be called to authenticate user before calling getUserAttributes
-      
 
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: config.awsCognito.identityPoolId, // your identity pool id here
@@ -44,15 +38,13 @@ export function cognitoTest2(callback) {
         region: config.awsCognito.region
       })
 
-      console.log('zz 2233 config.awsCognito.identityProvider', config.awsCognito.identityProvider)
-      console.log('xx 2233 AWS.config.credentials', AWS.config.credentials)
+      // call refresh method in order to authenticate user and get new temp credentials
+      getUserAttributes(cognitoUser).then(({ error1, result }) => {
+        if (error1) {
+          console.log('get User attributes error', error1)
+          callback(null)
+        }
 
-        // Instantiate aws sdk service objects now that the credentials have been updated.
-        // example: var s3 = new AWS.S3();
-
-        //call refresh method in order to authenticate user and get new temp credentials
-      getUserAttributes(cognitoUser).then(({ err, result }) => {
-        console.log('get ATTRIBUTES result xx 2233', result)
         AWS.config.credentials.refresh((error, resp) => {
           if (error) {
             console.log('Error refreshing credentials', error)
@@ -60,6 +52,15 @@ export function cognitoTest2(callback) {
           } else {
             console.log('Successfully logged!', resp)
 
+            // getting attributes from response for 'getUserAttributes'
+            const brokerIdQuery = result.filter((item) => { return item.Name == 'custom:broker_id' })
+            const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
+            const usernameQuery = result.filter((item) => { return item.Name == 'preferred_username' })
+            const emailQuery = result.filter((item) => { return item.Name == 'email' })
+
+            // creating a apigClient object which is globally accessible
+            // you can interact with the databse this way
+            // eslint-disable-next-line no-undef
             window.apigClient = apigClientFactory.newClient({
               accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
               secretKey: AWS.config.credentials.data.Credentials.SecretKey,
@@ -68,13 +69,16 @@ export function cognitoTest2(callback) {
             })
             console.log('xx 2233 AWS.config.credentials AFTERWARDS', AWS.config.credentials)
 
-            console.log('xx 2233 AWS.config.apigClient', AWS.config.apigClient)
-            callback('test12334 99')
+            // sending the user info back to the store to be used in the app
+            callback({
+              subId: subIdQuery[0].Value,
+              broker: brokerIdQuery[0].Value,
+              username: usernameQuery[0].Value,
+              email: emailQuery[0].Value
+            })
           }
         })
       })
     })
-
-    console.log('xx 2233 AWS.config.credentials AFTERWARDS', AWS.config.credentials)
   }
 }
