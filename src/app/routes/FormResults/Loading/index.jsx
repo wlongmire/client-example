@@ -44,10 +44,9 @@ class Loading extends Component {
         ratings[ratingSubmission.type] = responseRatings.results
       })
 
-      console.log('RESULT RATINGS combined xx22', ratings)
-
       const submissionData = Object.assign({}, submission)
-      submissionData.rating = ratings
+      submissionData.rating = ratings // adding rating to submission
+      submissionData.broker = this.props.user.broker // adding broker to  submission
 
       // AK_TO_DO
       saveSubmission(submissionData).then((resp) => {

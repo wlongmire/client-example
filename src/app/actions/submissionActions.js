@@ -18,9 +18,10 @@ export const clearSubmissionStatus = () => {
 }
 
 export function getSubmissions(user) {
+  console.log('BROKER in GET SUBMISSIONS', user)
   return ((dispatch) => {
     const body = {
-      brokerId: 'test-7fd-b3ff-4fd3-9fc2-e752b9f5b002'
+      brokerId: user.broker
     }
 
     console.log('AWS.config.apigClient', AWS.config.apigClient)

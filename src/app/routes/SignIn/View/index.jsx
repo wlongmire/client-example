@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-
+import { browserHistory } from 'react-router';
 import FormBuilder from 'components/shared/FormBuilder'
 import form from './form.js'
 
@@ -86,33 +86,25 @@ class SignInForm extends Component {
             }
             console.log('USER ATTRIBUTES 23', result)
 
-            const brokerId = result.filter((item) => {
-              return item.Name == 'custom:brokerId'
-            })
+            const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
+            const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
 
-            console.log('brokerID xx222', brokerId)
+            console.log('broker ID xx22', brokerId)
 
             this.props.dispatch({
               type: USER_LOGGED_IN,
               payload: {
-                cognito,
-                subId: result[0].Value,
+                // cognito,
+                subId: subIdQuery[0].Value,
                 username: values.username,
                 email: values.username,
-                broker: {
-                  id: '123213131312',
-                  name: 'Broker',
-                  address: '2923 N 27th Street',
-                  city: 'philadelphia',
-                  state: 'PA',
-                  zipcode: '19132'
-                }
+                broker: brokerId[0].Value
 
               }
             })
+          }).then(() => {
+            browserHistory.push('/submissions')
           })
-
-          this.props.dispatch(push({ pathname: '/submissions' }))
         },
         (err) => {
           const errorMap = {
