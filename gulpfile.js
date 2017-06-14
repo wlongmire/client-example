@@ -16,11 +16,9 @@ const config = require('./src/config')
 
 gulp.task('transform:prod', () => {
   gulp.src('configTemplate/*')
-  // .pipe(replace('@sgsOIEmail', 'owners@colonyspecialty.com'))
-  // .pipe(replace('@sgsOCPEmail', 'ocpsubmissions@colonyspecialty.com'))
-  .pipe(replace('@sgsOIEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@sgsOCPEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@argoEmail', 'justin.steranko@argogroupus.com ;'))
+  .pipe(replace('@sgsOIEmail', 'owners@colonyspecialty.com'))
+  .pipe(replace('@sgsOCPEmail', 'ocpsubmissions@colonyspecialty.com'))
+  .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
   .pipe(replace('@serverUrl', 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
@@ -35,9 +33,9 @@ gulp.task('transform:prod', () => {
 
 gulp.task('transform:dev', () => {
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsOIEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@sgsOCPEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@argoEmail', 'justin.steranko@argogroupus.com ;'))
+  .pipe(replace('@sgsOIEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@sgsOCPEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@serverUrl', 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
@@ -52,9 +50,9 @@ gulp.task('transform:dev', () => {
 
 gulp.task('transform:beta', () => {
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsOIEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@sgsOCPEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@argoEmail', 'justin.steranko@argogroupus.com ;'))
+  .pipe(replace('@sgsOIEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@sgsOCPEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@serverUrl', 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
@@ -69,9 +67,9 @@ gulp.task('transform:beta', () => {
 
 gulp.task('transform:local', () => {
   gulp.src('configTemplate/*')
-  .pipe(replace('@sgsOIEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@sgsOCPEmail', 'justin.steranko@argogroupus.com ;'))
-  .pipe(replace('@argoEmail', 'justin.steranko@argogroupus.com ;'))
+  .pipe(replace('@sgsOIEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@sgsOCPEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))

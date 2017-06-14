@@ -24,7 +24,7 @@ class Loading extends Component {
     }
 
     console.log('input LOADING', input)
-    getClearance(input).then((resp) => {
+    getClearance(input, this.props.user).then((resp) => {
       console.log("RESPONSE FROM CLEARANCE", resp)
       this.props.handleSubmit(
         !resp.success,

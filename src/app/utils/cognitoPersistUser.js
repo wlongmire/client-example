@@ -25,11 +25,11 @@ export function cognitoPersistUser(callback) {
     cognitoUser.getSession((err, session) => {
       if (err) {
         console.log('Error in getting session', err)
-        
+
         callback(null)
       }
       console.log('GET SESSION', session)
-      
+
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: config.awsCognito.identityPoolId, // your identity pool id here
         Logins: {
@@ -47,13 +47,11 @@ export function cognitoPersistUser(callback) {
           callback(null)
         }
 
-        AWS.config.credentials.refresh((error, resp) => {
+        AWS.config.credentials.refresh((error) => {
           if (error) {
             console.log('Error refreshing credentials', error)
             callback(null)
           } else {
-            console.log('Successfully logged!', resp)
-
             // getting attributes from response for 'getUserAttributes'
             const brokerIdQuery = result.filter((item) => { return item.Name == 'custom:broker_id' })
             const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
@@ -73,6 +71,7 @@ export function cognitoPersistUser(callback) {
 
 
             // "2017-06-14T04:32:02.000Z"
+            // expiration: '2017-06-13T01:32:02.000Z'
             // sending the user info back to the store to be used in the app
             callback({
               subId: subIdQuery[0].Value,
@@ -80,7 +79,6 @@ export function cognitoPersistUser(callback) {
               username: usernameQuery[0].Value,
               email: emailQuery[0].Value,
               expiration: AWS.config.credentials.expireTime
-              // expiration: '2017-06-13T01:32:02.000Z' ->test
             })
           }
         })

@@ -30,11 +30,9 @@ class Loading extends Component {
     const argoEmail = config.argoEmail
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
-    // AK_TO_DO
-    console.log('xx22 submissions', submission)
 
     Promise.all(ratingPromises.map(s => (
-      getRating({ submission: s, user })
+      getRating({ submission: s }, user)
     ))).then((resp) => {
       console.log('xx22 rating response', resp)
       const ratings = {}
@@ -49,23 +47,20 @@ class Loading extends Component {
       submissionData.broker = this.props.user.broker // adding broker to  submission
 
       // AK_TO_DO
-      saveSubmission(submissionData).then((resp) => {
-        console.log('RESPONSE xx22', resp)
-
-        if (resp.data && resp.data.success === true) {
-
-          const { submissionId } = resp.data
+      saveSubmission(submissionData, user).then((respSave) => {
+        if (respSave.data && respSave.data.success === true) {
+          const { submissionId } = respSave.data
           const mainRating = ratings[submission.type]
           const { instantQuote } = mainRating
 
           const emailPromises = [
-            sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId),
-            sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId),
-            sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId)
+            sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
+            sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
+            sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
           ]
 
-          Promise.all(emailPromises).then((resp) => {
-            console.log('getting the emails xx22', resp)
+          Promise.all(emailPromises).then((respEmail) => {
+            console.log('getting the emails xx22', respEmail)
             this.props.handleEmailStatus({ success: true })
           })
         } else {
@@ -75,7 +70,6 @@ class Loading extends Component {
         console.log('ERROR IN SAVE SUBMISSION xx22', error1)
       })
 
-      console.log('xx22 RESPONSE IN handle SUBMIT', resp)
       this.props.handleSubmit(!(resp[0].status === 200), ratings)
     }, (err) => {
       console.log('CONSOLE LOG ERR', err)
