@@ -1,10 +1,12 @@
 import config from 'config'
 import { push } from 'react-router-redux'
 import AWS from 'aws-sdk'
-
+import moment from 'moment'
+import { cognitoPersistUser } from '../utils/cognitoPersistUser'
 import {
   USER_LOGGED_OUT,
-  SET_API_GATEWAY_CLIENT
+  SET_API_GATEWAY_CLIENT,
+  USER_LOGGED_IN,
 } from 'src/app/constants/user'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'

@@ -1,11 +1,17 @@
+import moment from 'moment'
+import { cognitoPersistUser } from './cognitoPersistUser'
 
-export function checkTokenExpiration(expirationTime) {
+export function checkTokenExpiration(user) {
   return new Promise((resolve, reject) => {
-    const currentTime = Date.now()
-    const expireTime = new Date(expirationTime)
-    if (expireTime < currentTime) {
-      resolve('time expired')
+    const isExpired = moment().isAfter(user.expiration)
+    if (isExpired) {
+      // if token is expried (usually expires in one hour), create a new token
+      cognitoPersistUser((updatedUser) => {
+        resolve({ status: 'expired', user: updatedUser })
+      })
+    } else {
+      // if token is not expired, return success
+      resolve({ status: 'success' })
     }
-    resolve('time NOT expired')
   })
 }

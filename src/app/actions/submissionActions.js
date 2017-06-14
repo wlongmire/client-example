@@ -10,6 +10,9 @@ import {
   SUBMISSION_STATUS,
   CLEAR_SUBMISSION
 } from 'src/app/constants/submission'
+import {
+  USER_LOGGED_IN,
+} from 'src/app/constants/user'
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {
@@ -19,53 +22,57 @@ export const clearSubmissionStatus = () => {
 }
 
 export function getSubmissions(user) {
-  console.log('BROKER in GET SUBMISSIONS', user)
   return ((dispatch) => {
     const body = {
       brokerId: user.broker
     }
-    // checkTokenExpiration(user.expiration).then((resp) => {
-    // console.log('RESPONSE in token ========', resp)
-    // eslint-disable-next-line no-undef
-    apigClient.apiGetSubmissionsPost({}, body)
-    .then((resp) => {
-      console.log('RESPONSE SUBMISSIONS', resp)
-
-      if (resp.status === 200) {
-        dispatch({ type: FETCH_SUBMISSIONS, payload: resp.data })
-        dispatch({ type: EDIT_SUBMISSION, payload: {} })
-      } else {
-        alert('Error While Accessing Submissions DB.')
+    checkTokenExpiration(user).then((resp) => {
+      if (resp.status === 'expired') {
+        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
       }
-    })
-    .catch((error) => {
-      console.log("RESPONSE ERROR", error)
-      return Promise.reject({
-        _error: error.message
+
+      apigClient.apiGetSubmissionsPost({}, body)
+      .then((resp) => {
+        console.log('RESPONSE SUBMISSIONS', resp)
+
+        if (resp.status === 200) {
+          dispatch({ type: FETCH_SUBMISSIONS, payload: resp.data })
+          dispatch({ type: EDIT_SUBMISSION, payload: {} })
+        } else {
+          alert('Error While Accessing Submissions DB.')
+        }
+      })
+      .catch((error) => {
+        console.log('get submissions response error =', error)
+        return Promise.reject({
+          _error: error.message
+        })
       })
     })
-    // })
   })
 }
 
-export function saveSubmission(submission) {
+export function saveSubmission(submission, user) {
   console.log('SUBMISSION xx22 get toe save SUbmissions', submission)
 
+  return checkTokenExpiration(user).then(() => {
   // eslint-disable-next-line no-undef
-  return apigClient.apiSavePost({}, submission, {})
-    .then((resp) => {
-      console.log('RESPONSE save SUBMISSION xx22 =====', resp)
-      return (resp)
-    })
-    .catch((error) => {
-      console.log('ERROR SUBMISSION xx22 ====', error)
-      return Promise.reject({
-        _error: error.message
+    return apigClient.apiSavePost({}, submission, {})
+      .then((resp) => {
+        return (resp)
       })
-    })
+      .catch((error) => {
+        console.log('ERROR SUBMISSION xx22 ====', error)
+        return Promise.reject({
+          _error: error.message
+        })
+      })
+  })
 }
 
 export function editSubmission(submission) {
+  // *** need to check if token is expired before
+  // AK_TO_DO
   return ((dispatch) => {
     // eslint-disable-next-line no-undef
     apigClient.apiGetSubmissionIdGet({ id: submission._id })
@@ -113,8 +120,7 @@ export function editSubmission(submission) {
   })
 }
 
-export function getClearance(params) {
-  console.log('PARAMS 1223', params)
+export function getClearance(params, user) {
   const apiparams = {
     name: trim(params.name),
     projectAddress: trim(params.addresses[0].projectAddress.replace('#', '')),
@@ -126,48 +132,53 @@ export function getClearance(params) {
     insuredCity: trim(params.addresses[1].primaryInsuredCity),
     insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
   }
-
-  // eslint-disable-next-line no-undef
-  return apigClient.apiGetClearanceGet(apiparams, {}, {})
-    .then((resp) => {
-      return (resp.data)
-    })
-    .catch((error) => {
-      return Promise.reject({
-        _error: error.message
+  return checkTokenExpiration(user).then(() => {
+    // eslint-disable-next-line no-undef
+    return apigClient.apiGetClearanceGet(apiparams, {}, {})
+      .then((resp) => {
+        return (resp.data)
       })
-    })
+      .catch((error) => {
+        return Promise.reject({
+          _error: error.message
+        })
+      })
+  })
 }
 
-export function getRating(params) {
+export function getRating(params, user) {
+  console.log('get rating user xx55', user)
   const { submission } = params
-
-  // eslint-disable-next-line no-undef
-  return apigClient.apiGetRatingPost({}, submission, {})
-    .then((resp) => {
-      return (resp)
-    })
-    .catch((error) => {
-      return Promise.reject({
-        _error: error.message
+  return checkTokenExpiration(user).then(() => {
+    // eslint-disable-next-line no-undef
+    return apigClient.apiGetRatingPost({}, submission, {})
+      .then((resp) => {
+        return (resp)
       })
-    })
+      .catch((error) => {
+        return Promise.reject({
+          _error: error.message
+        })
+      })
+  })
 }
 
-export function sendEmail(emailAddress, emailType, submissionId) {
-  // eslint-disable-next-line no-undef
-  return apigClient.apiSendEmailIdPost(
-    { id: submissionId },
-    { emailAddress, emailType },
-    {})
-    .then((resp) => {
-      console.log('sucesss 123', resp)
-      return (resp)
-    })
-    .catch((error) => {
-      console.log('ERROR 123', error)
-      return Promise.reject({
-        _error: error.message
+export function sendEmail(emailAddress, emailType, submissionId, user) {
+  checkTokenExpiration(user).then(() => {
+    // eslint-disable-next-line no-undef
+    return apigClient.apiSendEmailIdPost(
+      { id: submissionId },
+      { emailAddress, emailType },
+      {})
+      .then((resp) => {
+        console.log('sucesss 123', resp)
+        return (resp)
       })
-    })
+      .catch((error) => {
+        console.log('ERROR 123', error)
+        return Promise.reject({
+          _error: error.message
+        })
+      })
+  })
 }
