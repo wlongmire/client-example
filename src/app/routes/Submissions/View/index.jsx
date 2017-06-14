@@ -18,6 +18,7 @@ class SubmissionView extends Component {
   }
 
   componentDidMount() {
+    console.log('this.props.submissionData', this.props.submissionData)
     this.loadSubmissions(this.props.submissionData)
   }
   
@@ -138,12 +139,12 @@ class SubmissionView extends Component {
             dataField="dateCreated"
             dataSort={true}
           >Date <br />Updated</TableHeaderColumn>
-          <TableHeaderColumn
+          {/* <TableHeaderColumn
             width="25px"
             dataField="id"
             hidden={false}
             dataFormat={selectFormatter}
-          >Edit</TableHeaderColumn>
+          >Edit</TableHeaderColumn>*/}
         </BootstrapTable>
       </div>
     )
@@ -151,7 +152,7 @@ class SubmissionView extends Component {
 }
 
 SubmissionView.propTypes = {
-  editSubmission: PropTypes.func.isRequired,
+  // editSubmission: PropTypes.func.isRequired,
   submissionData: PropTypes.array.isRequired
 }
 

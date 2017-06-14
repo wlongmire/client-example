@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux'
 import config from 'config'
 import trim from 'lodash/trim'
+import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 
 import {
   FETCH_SUBMISSIONS,
@@ -23,8 +24,10 @@ export function getSubmissions(user) {
     const body = {
       brokerId: user.broker
     }
-
-   apigClient.apiGetSubmissionsPost({}, body)
+    // checkTokenExpiration(user.expiration).then((resp) => {
+    // console.log('RESPONSE in token ========', resp)
+    // eslint-disable-next-line no-undef
+    apigClient.apiGetSubmissionsPost({}, body)
     .then((resp) => {
       console.log('RESPONSE SUBMISSIONS', resp)
 
@@ -41,6 +44,7 @@ export function getSubmissions(user) {
         _error: error.message
       })
     })
+    // })
   })
 }
 
