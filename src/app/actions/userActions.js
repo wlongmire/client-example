@@ -45,6 +45,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
             }
 
             console.log('credentials 123', credentials)
+            console.log('cognitoUser 123', cognitoUser)
 
             AWS.config.credentials = credentials
             window.apigClient = apigClientFactory.newClient({
@@ -59,7 +60,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 console.log(err)
                 alert('error ', err)
               }
-              onSuccess(resp, result[0].Value, cognitoUser)
+              onSuccess(resp, result[0].Value, cognitoUser, credentials.expireTime)
             })
           })
         },

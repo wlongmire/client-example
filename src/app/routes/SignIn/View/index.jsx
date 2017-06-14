@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
 import FormBuilder from 'components/shared/FormBuilder'
 import form from './form.js'
 
@@ -31,6 +31,15 @@ class SignInForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResetModalOk = this.handleResetModalOk.bind(this)
     this.handleResetModalCancel = this.handleResetModalCancel.bind(this)
+  }
+
+  componentDidMount() {
+    // if user is logged in, redirect to submissions page
+    // logged in user should not be able to access login screen unless they are
+    // logged out
+    if (this.props.user && this.props.user.username) {
+      browserHistory.push('/submissions')
+    }
   }
 
   handleResetModalOk(values) {
@@ -75,7 +84,7 @@ class SignInForm extends Component {
       this.props.dispatch(login(
         values.username,
         values.password,
-        (cognito, subId, cognitoUser) => {
+        (cognito, subId, cognitoUser, tokenExpireTime) => {
           this.setState({ error: false, errorMessage: '' })
 
           // AK_TO_DO
@@ -89,8 +98,6 @@ class SignInForm extends Component {
             const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
             const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
 
-            console.log('broker ID xx22', brokerId)
-
             this.props.dispatch({
               type: USER_LOGGED_IN,
               payload: {
@@ -98,7 +105,8 @@ class SignInForm extends Component {
                 subId: subIdQuery[0].Value,
                 username: values.username,
                 email: values.username,
-                broker: brokerId[0].Value
+                broker: brokerId[0].Value,
+                expiration: tokenExpireTime
 
               }
             })
@@ -171,4 +179,13 @@ class SignInForm extends Component {
   }
 }
 
-export default connect()(SignInForm)
+SignInForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object
+}
+
+export default connect((store) => {
+  return {
+    user: store.user
+  }
+})(SignInForm)

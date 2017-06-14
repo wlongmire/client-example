@@ -10,7 +10,6 @@ import Moment from 'moment'
 class Submissions extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
-    console.log('THIS PROPS USER xx22', this.props.user)
     this.props.getSubmissions(this.props.user)
   }
 
@@ -23,7 +22,7 @@ class Submissions extends Component {
             dispatch={this.props.dispatch}
           />}
       </div>
-    );
+    )
   }
 }
 
