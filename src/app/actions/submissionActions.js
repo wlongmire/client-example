@@ -33,7 +33,6 @@ export function getSubmissions(user) {
 
       apigClient.apiGetSubmissionsPost({}, body)
       .then((resp) => {
-        console.log('RESPONSE SUBMISSIONS', resp)
 
         if (resp.status === 200) {
           dispatch({ type: FETCH_SUBMISSIONS, payload: resp.data })
@@ -53,8 +52,6 @@ export function getSubmissions(user) {
 }
 
 export function saveSubmission(submission, user) {
-  console.log('SUBMISSION xx22 get toe save SUbmissions', submission)
-
   return checkTokenExpiration(user).then(() => {
   // eslint-disable-next-line no-undef
     return apigClient.apiSavePost({}, submission, {})
@@ -140,14 +137,13 @@ export function getClearance(params, user) {
       })
       .catch((error) => {
         return Promise.reject({
-          _error: error.message
+          error: error.message
         })
       })
   })
 }
 
 export function getRating(params, user) {
-  console.log('get rating user xx55', user)
   const { submission } = params
   return checkTokenExpiration(user).then(() => {
     // eslint-disable-next-line no-undef
@@ -171,7 +167,6 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
       { emailAddress, emailType },
       {})
       .then((resp) => {
-        console.log('sucesss 123', resp)
         return (resp)
       })
       .catch((error) => {

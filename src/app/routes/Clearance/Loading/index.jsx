@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
@@ -23,15 +23,21 @@ class Loading extends Component {
       user: this.props.user
     }
 
-    console.log('input LOADING', input)
     getClearance(input, this.props.user).then((resp) => {
-      console.log("RESPONSE FROM CLEARANCE", resp)
-      this.props.handleSubmit(
-        !resp.success,
-        {
-          success: (resp.matches.length === 0),
-          matches: resp.matches
-        })
+      console.log('response from clearance', resp)
+
+      if (resp.success && resp.success === true) {
+        const errorFlag = false
+        this.props.handleSubmit(
+          errorFlag,
+          {
+            success: (resp.matches.length === 0),
+            matches: resp.matches
+          })
+      } else {
+        const errorFlag = true
+        this.props.handleSubmit(errorFlag)
+      }
     })
   }
 
@@ -53,6 +59,13 @@ class Loading extends Component {
       </form>
     )
   }
+}
+
+Loading.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  input: PropTypes.object.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default connect((store) => {
