@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Moment from 'moment'
 import { formatDollars } from 'app/utils/utilities'
+import { getSubmissions } from 'app/utils/getSubmissions'
 import * as actions from 'app/actions/submissionActions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
-
 import mx from 'app/utils/MixpanelInterface'
 
 class SubmissionView extends Component {
@@ -18,31 +18,36 @@ class SubmissionView extends Component {
   }
 
   componentDidMount() {
-    console.log('this.props.submissionData', this.props.submissionData)
-    this.loadSubmissions(this.props.submissionData)
+    // console.log('xx55 this.props.submissionData = hitting the specific component', this.props.submissionData)
+    // getSubmissions(this.props.user).then((submissionData) => {
+    //   console.log('submissionData', submissionData)
+    //   this.loadSubmissions(submissionData)
+    // })
+
   }
   
-  loadSubmissions(submissionsArray) {
-    const list = submissionsArray.map((item) => {
-      const premiumType = item.rating[item.type]
+  // loadSubmissions(submissionsArray) {
+  //   const list = submissionsArray.map((item) => {
+  //     const premiumType = item.rating[item.type]
+  //     return ({
+  //       _id: item._id,
+  //       primaryInsuredName: item.primaryInsuredName,
+  //       totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',
+  //       quotedPremium: (premiumType && premiumType.premium) ? formatDollars(premiumType.premium) : 'n/a',
+  //       totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
+  //       type: item.type,
+  //       dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
+  //       dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
+  //       quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
+  //     })
+  //   })
 
-      return ({
-        ...item,
-        primaryInsuredName: item.primaryInsuredName,
-        totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',
-        quotedPremium: (premiumType && premiumType.premium) ? formatDollars(premiumType.premium) : 'n/a',
-        totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
-        type: item.type,
-        dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
-        dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
-        quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
-      })
-    })
+  //   console.log('list', list)
 
-    this.setState({
-      chartData: list
-    })
-  }
+  //   this.setState({
+  //     chartData: list
+  //   })
+  // }
 
   goToPage(submission) {
     mx.customEvent(
@@ -81,7 +86,7 @@ class SubmissionView extends Component {
       <div>
         <h3>Your Submissions</h3>
         <BootstrapTable
-          data={this.state.chartData}
+          data={this.props.submissions}
           condensed={true}
           options={options}
           search
@@ -136,7 +141,7 @@ class SubmissionView extends Component {
           >Date <br />Created</TableHeaderColumn>
           <TableHeaderColumn
             width="55px"
-            dataField="dateCreated"
+            dataField="dateUpdated"
             dataSort={true}
           >Date <br />Updated</TableHeaderColumn>
           {/* <TableHeaderColumn
@@ -156,4 +161,11 @@ SubmissionView.propTypes = {
   submissionData: PropTypes.array.isRequired
 }
 
-export default SubmissionView
+// export default SubmissionView
+
+export default connect((store) => {
+  return {
+    user: store.user,
+    submissions: store.submissions.data,
+  }
+}, actions)(SubmissionView)

@@ -2,6 +2,7 @@ import { push } from 'react-router-redux'
 import config from 'config'
 import trim from 'lodash/trim'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
+import { transformSubmissionData } from '../utils/transformSubmissionData'
 
 import {
   FETCH_SUBMISSIONS,
@@ -32,11 +33,43 @@ export function getSubmissions(user) {
       }
 
       apigClient.apiGetSubmissionsPost({}, body)
-      .then((resp) => {
+      .then((resp2) => {
+        console.log('xx55 hitting the GET SUBMISSION ENDPOINT', resp2)
+        if (resp2.status === 200) {
+          dispatch({ type: FETCH_SUBMISSIONS, payload: resp2.data })
+        } else {
+          alert('Error While Accessing Submissions DB.')
+        }
+      })
+      .catch((error) => {
+        console.log('get submissions response error =', error)
+        return Promise.reject({
+          _error: error.message
+        })
+      })
+    })
+  })
+}
 
-        if (resp.status === 200) {
-          dispatch({ type: FETCH_SUBMISSIONS, payload: resp.data })
-          dispatch({ type: EDIT_SUBMISSION, payload: {} })
+export function getSubmissions2(user) {
+  return ((dispatch) => {
+    const body = {
+      brokerId: user.broker
+    }
+    checkTokenExpiration(user).then((resp) => {
+      if (resp.status === 'expired') {
+        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
+      }
+
+      // eslint-disable-next-line no-undef
+      apigClient.apiGetSubmissionsPost({}, body)
+      .then((resp2) => {
+        console.log('xx55 hitting the GET SUBMISSION ENDPOINT', resp2)
+        if (resp2.status === 200) {
+          transformSubmissionData(resp2.data).then((resp3) => {
+            console.log('RESPONSE 3333', resp3)
+            dispatch({ type: FETCH_SUBMISSIONS, payload: resp3 })
+          })
         } else {
           alert('Error While Accessing Submissions DB.')
         }

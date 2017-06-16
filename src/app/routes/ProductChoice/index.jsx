@@ -29,7 +29,6 @@ class ProductChoice extends Component {
           type={productType}
           name={ratingProducts[productType].name}
           description={ratingProducts[productType].description}
-          dispatch={this.props.dispatch}
         />)
       })
     }

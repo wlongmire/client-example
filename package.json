@@ -163,6 +163,7 @@
       "arrow-body-style": "off",
       "no-lonely-if": "off",
       "eqeqeq": "off",
+      "import/prefer-default-export": "off",
       "react/forbid-prop-types": "off",
       "react/jsx-boolean-value": "off",
       "no-extra-semi": "error",
