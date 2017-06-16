@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> SubmissionView --- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="submissions"
+>
+  <SubmissionView
+    submissions={
+      Array [
+        Object {
+          "_id": "59413679bafa390001ced695",
+          "dateCreated": "06-14-17 09:13am",
+          "dateUpdated": "06-14-17 09:13am",
+          "primaryInsuredName": "Andriy Kulak",
+          "quoteStatus": "Yes",
+          "quotedPremium": "$21,612",
+          "totalCost": "$23,213,234",
+          "totalPremium": "$22,693",
+          "type": "ocp",
+          "updatedAt": "2017-06-14T13:13:29.776Z",
+        },
+      ]
+    }
+  />
+</div>
+`;

@@ -10,10 +10,10 @@ import {
   CHANGE_SUBMISSION_STATUS,
   SUBMISSION_STATUS,
   CLEAR_SUBMISSION
-} from 'src/app/constants/submission'
+} from 'app/constants/submission'
 import {
   USER_LOGGED_IN,
-} from 'src/app/constants/user'
+} from 'app/constants/user'
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {
@@ -23,35 +23,6 @@ export const clearSubmissionStatus = () => {
 }
 
 export function getSubmissions(user) {
-  return ((dispatch) => {
-    const body = {
-      brokerId: user.broker
-    }
-    checkTokenExpiration(user).then((resp) => {
-      if (resp.status === 'expired') {
-        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
-      }
-
-      apigClient.apiGetSubmissionsPost({}, body)
-      .then((resp2) => {
-        console.log('xx55 hitting the GET SUBMISSION ENDPOINT', resp2)
-        if (resp2.status === 200) {
-          dispatch({ type: FETCH_SUBMISSIONS, payload: resp2.data })
-        } else {
-          alert('Error While Accessing Submissions DB.')
-        }
-      })
-      .catch((error) => {
-        console.log('get submissions response error =', error)
-        return Promise.reject({
-          _error: error.message
-        })
-      })
-    })
-  })
-}
-
-export function getSubmissions2(user) {
   return ((dispatch) => {
     const body = {
       brokerId: user.broker

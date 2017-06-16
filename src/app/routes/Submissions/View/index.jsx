@@ -8,46 +8,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 import mx from 'app/utils/MixpanelInterface'
 
-class SubmissionView extends Component {
-  constructor() {
-    super()
-
-    this.state = ({
-      chartData: []
-    })
-  }
-
-  componentDidMount() {
-    // console.log('xx55 this.props.submissionData = hitting the specific component', this.props.submissionData)
-    // getSubmissions(this.props.user).then((submissionData) => {
-    //   console.log('submissionData', submissionData)
-    //   this.loadSubmissions(submissionData)
-    // })
-
-  }
-  
-  // loadSubmissions(submissionsArray) {
-  //   const list = submissionsArray.map((item) => {
-  //     const premiumType = item.rating[item.type]
-  //     return ({
-  //       _id: item._id,
-  //       primaryInsuredName: item.primaryInsuredName,
-  //       totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',
-  //       quotedPremium: (premiumType && premiumType.premium) ? formatDollars(premiumType.premium) : 'n/a',
-  //       totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
-  //       type: item.type,
-  //       dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
-  //       dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
-  //       quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
-  //     })
-  //   })
-
-  //   console.log('list', list)
-
-  //   this.setState({
-  //     chartData: list
-  //   })
-  // }
+export default class SubmissionView extends Component {
 
   goToPage(submission) {
     mx.customEvent(
@@ -158,14 +119,5 @@ class SubmissionView extends Component {
 
 SubmissionView.propTypes = {
   // editSubmission: PropTypes.func.isRequired,
-  submissionData: PropTypes.array.isRequired
+  submissions: PropTypes.array.isRequired
 }
-
-// export default SubmissionView
-
-export default connect((store) => {
-  return {
-    user: store.user,
-    submissions: store.submissions.data,
-  }
-}, actions)(SubmissionView)

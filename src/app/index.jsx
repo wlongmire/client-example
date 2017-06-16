@@ -10,7 +10,6 @@ import routes from './routes'
 import config from 'config'
 import { cognitoPersistUser } from './utils/cognitoPersistUser'
 
-
 import {
   Router,
   Route,
@@ -21,14 +20,9 @@ import {
   syncHistoryWithStore
 } from 'react-router-redux'
 
-// checkLoginStatus()
-// cognitoTest2()
-// We have our reducer setup handled by our configureStore() method.
-
 cognitoPersistUser((user) => {
   const store = configureStore(browserHistory, {
-    user,
-    // user: localStorage.getItem('viewer') && JSON.parse(localStorage.getItem('viewer')),
+    user
   })
   const history = syncHistoryWithStore(
     browserHistory,
