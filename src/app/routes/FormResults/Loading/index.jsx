@@ -34,7 +34,6 @@ class Loading extends Component {
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
     ))).then((resp) => {
-      console.log('xx22 rating response', resp)
       const ratings = {}
       ratingPromises.map((ratingSubmission, idx) => {
         const responseRatings = JSON.parse(resp[idx].data)
@@ -60,7 +59,6 @@ class Loading extends Component {
           ]
 
           Promise.all(emailPromises).then((respEmail) => {
-            console.log('getting the emails xx22', respEmail)
             this.props.handleEmailStatus({ success: true })
           })
         } else {
