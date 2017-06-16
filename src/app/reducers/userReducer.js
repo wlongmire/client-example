@@ -3,8 +3,6 @@ import {
   USER_LOGGED_OUT
 } from '../constants/user'
 
-import config from 'config'
-
 export default function (state = {}, action) {
   switch (action.type) {
     case (USER_LOGGED_IN):

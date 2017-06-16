@@ -59,11 +59,3 @@ describe('User reducer', () => {
     ).toEqual(null)
   })
 })
-
-
-    // case (USER_LOGGED_IN):
-    //   return Object.assign({}, state, actions.payload)
-    // case (USER_LOGGED_OUT):
-    //   return null
-    // default:
-    //   return state
