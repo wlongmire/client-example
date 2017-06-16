@@ -1,12 +1,9 @@
 /* eslint-env node, jest */
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
-import configureStore from 'redux-mock-store'
-import renderer from 'react-test-renderer'
-import { Submissions } from '../index'
+import Input from '../index'
 
 const initialState = {
   user: {
@@ -35,12 +32,12 @@ const initialState = {
 }
 
 // Snapshot for Home Header Component
-describe('>>> Submission Main Component--- Snapshot', () => {
+describe('>>> Clearance Component --- Snapshot', () => {
   it('+++capturing Snapshot with', () => {
     const renderedValue = shallow(
-      <Submissions
+      <Input
         submissions={initialState.submissionData}
-        clearSubmissionStatus={jest.fn()}
+        handleSubmit={jest.fn()}
         getSubmissions={jest.fn()}
         user={initialState.submissionData}
       />)

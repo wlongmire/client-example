@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`>>> SubmissionView --- Snapshot +++capturing Snapshot with 1`] = `
+exports[`>>> Submission Main Component--- Snapshot +++capturing Snapshot with 1`] = `
 <div
   className="submissions"
 >

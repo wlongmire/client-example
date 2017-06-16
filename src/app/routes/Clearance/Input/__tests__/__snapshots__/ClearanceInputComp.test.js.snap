@@ -1,0 +1,711 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Clearance Component --- Snapshot +++capturing Snapshot with 1`] = `
+<div>
+  <h3>
+    First Let's Check for Clearance.
+  </h3>
+  <h4>
+    Enter the following information to clear against previous submissions.
+  </h4>
+  <FormBuilder
+    data={
+      Object {
+        "name": "Clearance",
+        "questionSetId": "Clearance",
+        "questions": Array [
+          Object {
+            "inputFormat": "text",
+            "inputType": "text",
+            "name": "primaryInsuredName",
+            "questionId": "1",
+            "required": true,
+            "text": "Who is the First Named Insured?",
+            "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "insuredAddress",
+            },
+            "inputFormat": "label",
+            "name": "primaryAddressLabel",
+            "questionId": "2",
+            "text": "What is the First Named Insured's Address?",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "insuredAddress",
+            },
+            "inputFormat": "text",
+            "inputType": "text",
+            "name": "primaryInsuredAddress",
+            "placeholder": "Address",
+            "questionId": "2a",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "insuredAddress",
+            },
+            "inputFormat": "text",
+            "inputType": "text",
+            "name": "primaryInsuredCity",
+            "placeholder": "City",
+            "questionId": "2b",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "insuredAddress",
+              "options": Array [
+                Object {
+                  "optionId": "1",
+                  "text": "State",
+                  "value": "",
+                },
+                Object {
+                  "optionId": "2",
+                  "text": "Alabama",
+                  "value": "Alabama",
+                },
+                Object {
+                  "optionId": "3",
+                  "text": "Alaska",
+                  "value": "Alaska",
+                },
+                Object {
+                  "optionId": "4",
+                  "text": "Arizona",
+                  "value": "Arizona",
+                },
+                Object {
+                  "optionId": "5",
+                  "text": "Arkansas",
+                  "value": "Arizona",
+                },
+                Object {
+                  "optionId": "6",
+                  "text": "California",
+                  "value": "California",
+                },
+                Object {
+                  "optionId": "7",
+                  "text": "Colorado",
+                  "value": "Colorado",
+                },
+                Object {
+                  "optionId": "8",
+                  "text": "Connecticut",
+                  "value": "Connecticut",
+                },
+                Object {
+                  "optionId": "9",
+                  "text": "Delaware",
+                  "value": "Delaware",
+                },
+                Object {
+                  "optionId": "10",
+                  "text": "District Of Columbia",
+                  "value": "District Of Columbia",
+                },
+                Object {
+                  "optionId": "11",
+                  "text": "Florida",
+                  "value": "Florida",
+                },
+                Object {
+                  "optionId": "12",
+                  "text": "Georgia",
+                  "value": "Georgia",
+                },
+                Object {
+                  "optionId": "13",
+                  "text": "Hawaii",
+                  "value": "Hawaii",
+                },
+                Object {
+                  "optionId": "14",
+                  "text": "Idaho",
+                  "value": "Idaho",
+                },
+                Object {
+                  "optionId": "15",
+                  "text": "Illinois",
+                  "value": "Illinois",
+                },
+                Object {
+                  "optionId": "16",
+                  "text": "Indiana",
+                  "value": "Indiana",
+                },
+                Object {
+                  "optionId": "17",
+                  "text": "Iowa",
+                  "value": "Iowa",
+                },
+                Object {
+                  "optionId": "18",
+                  "text": "Kansas",
+                  "value": "Kansas",
+                },
+                Object {
+                  "optionId": "19",
+                  "text": "Kentucky",
+                  "value": "Kentucky",
+                },
+                Object {
+                  "optionId": "20",
+                  "text": "Louisiana",
+                  "value": "Louisiana",
+                },
+                Object {
+                  "optionId": "21",
+                  "text": "Maine",
+                  "value": "Maine",
+                },
+                Object {
+                  "optionId": "22",
+                  "text": "Maryland",
+                  "value": "Maryland",
+                },
+                Object {
+                  "optionId": "23",
+                  "text": "Massachusetts",
+                  "value": "Massachusetts",
+                },
+                Object {
+                  "optionId": "24",
+                  "text": "Michigan",
+                  "value": "Michigan",
+                },
+                Object {
+                  "optionId": "25",
+                  "text": "Minnesota",
+                  "value": "Minnesota",
+                },
+                Object {
+                  "optionId": "26",
+                  "text": "Mississippi",
+                  "value": "Mississippi",
+                },
+                Object {
+                  "optionId": "27",
+                  "text": "Missouri",
+                  "value": "Missouri",
+                },
+                Object {
+                  "optionId": "28",
+                  "text": "Montana",
+                  "value": "Montana",
+                },
+                Object {
+                  "optionId": "29",
+                  "text": "Nebraska",
+                  "value": "Nebraska",
+                },
+                Object {
+                  "optionId": "30",
+                  "text": "Nevada",
+                  "value": "Nevada",
+                },
+                Object {
+                  "optionId": "31",
+                  "text": "New Hampshire",
+                  "value": "New Hampshire",
+                },
+                Object {
+                  "optionId": "32",
+                  "text": "New Jersey",
+                  "value": "New Jersey",
+                },
+                Object {
+                  "optionId": "33",
+                  "text": "New Mexico",
+                  "value": "New Mexico",
+                },
+                Object {
+                  "optionId": "34",
+                  "text": "New York",
+                  "value": "New York",
+                },
+                Object {
+                  "optionId": "35",
+                  "text": "North Carolina",
+                  "value": "North Carolina",
+                },
+                Object {
+                  "optionId": "36",
+                  "text": "North Dakota",
+                  "value": "North Dakota",
+                },
+                Object {
+                  "optionId": "37",
+                  "text": "Ohio",
+                  "value": "Ohio",
+                },
+                Object {
+                  "optionId": "38",
+                  "text": "Oklahoma",
+                  "value": "Oklahoma",
+                },
+                Object {
+                  "optionId": "39",
+                  "text": "Oregon",
+                  "value": "Oregon",
+                },
+                Object {
+                  "optionId": "40",
+                  "text": "Pennsylvania",
+                  "value": "Pennsylvania",
+                },
+                Object {
+                  "optionId": "41",
+                  "text": "Rhode Island",
+                  "value": "Rhode Island",
+                },
+                Object {
+                  "optionId": "42",
+                  "text": "South Carolina",
+                  "value": "South Carolina",
+                },
+                Object {
+                  "optionId": "43",
+                  "text": "South Dakota",
+                  "value": "South Dakota",
+                },
+                Object {
+                  "optionId": "44",
+                  "text": "Tennessee",
+                  "value": "Tennessee",
+                },
+                Object {
+                  "optionId": "45",
+                  "text": "Texas",
+                  "value": "Texas",
+                },
+                Object {
+                  "optionId": "46",
+                  "text": "Utah",
+                  "value": "Utah",
+                },
+                Object {
+                  "optionId": "47",
+                  "text": "Vermont",
+                  "value": "Vermont",
+                },
+                Object {
+                  "optionId": "48",
+                  "text": "Virginia",
+                  "value": "Virginia",
+                },
+                Object {
+                  "optionId": "49",
+                  "text": "Washington",
+                  "value": "Washington",
+                },
+                Object {
+                  "optionId": "50",
+                  "text": "West Virginia",
+                  "value": "West Virginia",
+                },
+                Object {
+                  "optionId": "51",
+                  "text": "Wisconsin",
+                  "value": "Wisconsin",
+                },
+                Object {
+                  "optionId": "52",
+                  "text": "Wyoming",
+                  "value": "Wyoming",
+                },
+              ],
+            },
+            "inputType": "dropdown-single",
+            "name": "primaryInsuredState",
+            "placeholder": "State",
+            "questionId": "2c",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "insuredAddress",
+            },
+            "inputFormat": "text",
+            "inputType": "text",
+            "name": "primaryInsuredZipcode",
+            "placeholder": "Zip Code",
+            "questionId": "2d",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "projectAddress",
+            },
+            "inputFormat": "label",
+            "name": "primaryAddressLabel",
+            "questionId": "3",
+            "text": "What is the Project Address?",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "projectAddress",
+            },
+            "inputFormat": "text",
+            "inputType": "text",
+            "name": "projectAddress",
+            "placeholder": "Address",
+            "questionId": "3a",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "projectAddress",
+            },
+            "inputFormat": "text",
+            "inputType": "text",
+            "name": "projectCity",
+            "placeholder": "City",
+            "questionId": "3b",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "projectAddress",
+              "options": Array [
+                Object {
+                  "optionId": "1",
+                  "text": "State",
+                  "value": "",
+                },
+                Object {
+                  "optionId": "2",
+                  "text": "Alabama",
+                  "value": "Alabama",
+                },
+                Object {
+                  "optionId": "3",
+                  "text": "Alaska",
+                  "value": "Alaska",
+                },
+                Object {
+                  "optionId": "4",
+                  "text": "Arizona",
+                  "value": "Arizona",
+                },
+                Object {
+                  "optionId": "5",
+                  "text": "Arkansas",
+                  "value": "Arizona",
+                },
+                Object {
+                  "optionId": "6",
+                  "text": "California",
+                  "value": "California",
+                },
+                Object {
+                  "optionId": "7",
+                  "text": "Colorado",
+                  "value": "Colorado",
+                },
+                Object {
+                  "optionId": "8",
+                  "text": "Connecticut",
+                  "value": "Connecticut",
+                },
+                Object {
+                  "optionId": "9",
+                  "text": "Delaware",
+                  "value": "Delaware",
+                },
+                Object {
+                  "optionId": "10",
+                  "text": "District Of Columbia",
+                  "value": "District Of Columbia",
+                },
+                Object {
+                  "optionId": "11",
+                  "text": "Florida",
+                  "value": "Florida",
+                },
+                Object {
+                  "optionId": "12",
+                  "text": "Georgia",
+                  "value": "Georgia",
+                },
+                Object {
+                  "optionId": "13",
+                  "text": "Hawaii",
+                  "value": "Hawaii",
+                },
+                Object {
+                  "optionId": "14",
+                  "text": "Idaho",
+                  "value": "Idaho",
+                },
+                Object {
+                  "optionId": "15",
+                  "text": "Illinois",
+                  "value": "Illinois",
+                },
+                Object {
+                  "optionId": "16",
+                  "text": "Indiana",
+                  "value": "Indiana",
+                },
+                Object {
+                  "optionId": "17",
+                  "text": "Iowa",
+                  "value": "Iowa",
+                },
+                Object {
+                  "optionId": "18",
+                  "text": "Kansas",
+                  "value": "Kansas",
+                },
+                Object {
+                  "optionId": "19",
+                  "text": "Kentucky",
+                  "value": "Kentucky",
+                },
+                Object {
+                  "optionId": "20",
+                  "text": "Louisiana",
+                  "value": "Louisiana",
+                },
+                Object {
+                  "optionId": "21",
+                  "text": "Maine",
+                  "value": "Maine",
+                },
+                Object {
+                  "optionId": "22",
+                  "text": "Maryland",
+                  "value": "Maryland",
+                },
+                Object {
+                  "optionId": "23",
+                  "text": "Massachusetts",
+                  "value": "Massachusetts",
+                },
+                Object {
+                  "optionId": "24",
+                  "text": "Michigan",
+                  "value": "Michigan",
+                },
+                Object {
+                  "optionId": "25",
+                  "text": "Minnesota",
+                  "value": "Minnesota",
+                },
+                Object {
+                  "optionId": "26",
+                  "text": "Mississippi",
+                  "value": "Mississippi",
+                },
+                Object {
+                  "optionId": "27",
+                  "text": "Missouri",
+                  "value": "Missouri",
+                },
+                Object {
+                  "optionId": "28",
+                  "text": "Montana",
+                  "value": "Montana",
+                },
+                Object {
+                  "optionId": "29",
+                  "text": "Nebraska",
+                  "value": "Nebraska",
+                },
+                Object {
+                  "optionId": "30",
+                  "text": "Nevada",
+                  "value": "Nevada",
+                },
+                Object {
+                  "optionId": "31",
+                  "text": "New Hampshire",
+                  "value": "New Hampshire",
+                },
+                Object {
+                  "optionId": "32",
+                  "text": "New Jersey",
+                  "value": "New Jersey",
+                },
+                Object {
+                  "optionId": "33",
+                  "text": "New Mexico",
+                  "value": "New Mexico",
+                },
+                Object {
+                  "optionId": "34",
+                  "text": "New York",
+                  "value": "New York",
+                },
+                Object {
+                  "optionId": "35",
+                  "text": "North Carolina",
+                  "value": "North Carolina",
+                },
+                Object {
+                  "optionId": "36",
+                  "text": "North Dakota",
+                  "value": "North Dakota",
+                },
+                Object {
+                  "optionId": "37",
+                  "text": "Ohio",
+                  "value": "Ohio",
+                },
+                Object {
+                  "optionId": "38",
+                  "text": "Oklahoma",
+                  "value": "Oklahoma",
+                },
+                Object {
+                  "optionId": "39",
+                  "text": "Oregon",
+                  "value": "Oregon",
+                },
+                Object {
+                  "optionId": "40",
+                  "text": "Pennsylvania",
+                  "value": "Pennsylvania",
+                },
+                Object {
+                  "optionId": "41",
+                  "text": "Rhode Island",
+                  "value": "Rhode Island",
+                },
+                Object {
+                  "optionId": "42",
+                  "text": "South Carolina",
+                  "value": "South Carolina",
+                },
+                Object {
+                  "optionId": "43",
+                  "text": "South Dakota",
+                  "value": "South Dakota",
+                },
+                Object {
+                  "optionId": "44",
+                  "text": "Tennessee",
+                  "value": "Tennessee",
+                },
+                Object {
+                  "optionId": "45",
+                  "text": "Texas",
+                  "value": "Texas",
+                },
+                Object {
+                  "optionId": "46",
+                  "text": "Utah",
+                  "value": "Utah",
+                },
+                Object {
+                  "optionId": "47",
+                  "text": "Vermont",
+                  "value": "Vermont",
+                },
+                Object {
+                  "optionId": "48",
+                  "text": "Virginia",
+                  "value": "Virginia",
+                },
+                Object {
+                  "optionId": "49",
+                  "text": "Washington",
+                  "value": "Washington",
+                },
+                Object {
+                  "optionId": "50",
+                  "text": "West Virginia",
+                  "value": "West Virginia",
+                },
+                Object {
+                  "optionId": "51",
+                  "text": "Wisconsin",
+                  "value": "Wisconsin",
+                },
+                Object {
+                  "optionId": "52",
+                  "text": "Wyoming",
+                  "value": "Wyoming",
+                },
+              ],
+            },
+            "inputType": "dropdown-single",
+            "name": "projectState",
+            "placeholder": "State",
+            "questionId": "3c",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+          Object {
+            "attributes": Object {
+              "controlGroup": "projectAddress",
+            },
+            "inputFormat": "text",
+            "inputType": "text",
+            "name": "projectZipcode",
+            "placeholder": "Zip Code",
+            "questionId": "3d",
+            "required": true,
+            "tooltiptext": "Please provide as descriptive of a street address as possible.",
+          },
+        ],
+        "supplementalQuestions": Array [],
+      }
+    }
+    handleSubmit={[Function]}
+    submitTitle="Check For Clearance"
+  />
+  <DialogBox
+    custom_class="confirmationDialog"
+    show={false}
+    title="Please fill out all required fields."
+  >
+    <div>
+      <h4>
+        Here are your remaining questions:
+      </h4>
+      <ul
+        className="section"
+      />
+      <h4>
+        Note: All required fields are 
+        <span
+          className="required"
+        >
+          underlined in red.
+        </span>
+      </h4>
+      <br />
+      <ButtonGroup
+        block={false}
+        bsClass="btn-group"
+        justified={false}
+        vertical={false}
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="btn secondary"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Return to the Form
+        </Button>
+      </ButtonGroup>
+    </div>
+  </DialogBox>
+</div>
+`;

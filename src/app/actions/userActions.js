@@ -7,7 +7,7 @@ import {
   USER_LOGGED_OUT,
   SET_API_GATEWAY_CLIENT,
   USER_LOGGED_IN,
-} from 'src/app/constants/user'
+} from 'app/constants/user'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 

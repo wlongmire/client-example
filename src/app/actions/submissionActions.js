@@ -38,7 +38,6 @@ export function getSubmissions(user) {
         console.log('xx55 hitting the GET SUBMISSION ENDPOINT', resp2)
         if (resp2.status === 200) {
           transformSubmissionData(resp2.data).then((resp3) => {
-            console.log('RESPONSE 3333', resp3)
             dispatch({ type: FETCH_SUBMISSIONS, payload: resp3 })
           })
         } else {
