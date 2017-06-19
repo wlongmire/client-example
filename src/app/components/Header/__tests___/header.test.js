@@ -6,20 +6,44 @@ import { Provider } from 'react-redux'
 import toJson from 'enzyme-to-json'
 import configureStore from 'redux-mock-store'
 import renderer from 'react-test-renderer'
-import ConnectedHeader, { Header } from '../index'
+import { Header } from '../index'
+
+jest.mock('app/actions/userActions', () => 'testActions')
 
 // Snapshot for Home Header Component
 describe('>>> Header --- Snapshot', () => {
+  beforeEach(() => {
+    global.userPool = {}
+    global.userPoolId = '123123123'
+  })
+
   it('+++capturing Snapshot of Header without User', () => {
-    const renderedValue = renderer.create(<Header user={null} logout={jest.fn()} resetForm={jest.fn()} />).toJSON()
+    const renderedValue = renderer.create(
+      <Header
+        user={null}
+        logout={jest.fn()}
+        resetForm={jest.fn()}
+      />).toJSON()
+
     expect(renderedValue).toMatchSnapshot()
   })
 })
 
 // Snapshot for Home Header Component
 describe('>>> Header --- Snapshot', () => {
+  beforeEach(() => {
+    global.userPool = {}
+    global.userPoolId = '123123123'
+  })
+
   it('+++capturing Snapshot of Header with User', () => {
-    const renderedValue = renderer.create(<Header user={initialState.user} logout={jest.fn()} resetForm={jest.fn()} />).toJSON()
+    const renderedValue = renderer.create(
+      <Header 
+        user={initialState.user}
+        logout={jest.fn()}
+        resetForm={jest.fn()}
+      />).toJSON()
+    
     expect(renderedValue).toMatchSnapshot()
   })
 })
@@ -38,6 +62,9 @@ describe('>>> Header--- Shallow + passing the {store} directly', () => {
   let container
 
   beforeEach(() => {
+    global.userPool = {}
+    global.userPoolId = '123123123'
+
     container = shallow(
       <Header
         user={initialState.user}
@@ -47,13 +74,20 @@ describe('>>> Header--- Shallow + passing the {store} directly', () => {
   })
 
   it('+++ check Prop matches with initialState', () => {
-    // console.dir(container.prop.toString(), { depth: null, colors: true });
+    beforeEach(() => {
+      global.userPool = {}
+      global.userPoolId = '123123123'
+    })
+
     const instance = container.instance()
     expect(instance.props.user.username).toEqual('betamarshuser')
   })
 
   it('+++ check Prop matches with initialState', () => {
-    // console.dir(container.prop.toString(), { depth: null, colors: true });
+    beforeEach(() => {
+      global.userPool = {}
+    })
+
     const instance = container.instance()
     expect(instance.props.user.lastName).toEqual('Beta')
   })

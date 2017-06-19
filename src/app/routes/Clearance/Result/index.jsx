@@ -80,7 +80,7 @@ class Result extends Component {
 
             <ButtonGroup>
                 <Button 
-                    className="btn" 
+                    className="btn clearanceButton"
                     onClick={
                         ()=>{
                           this.props.handleSubmit(this.props.result);

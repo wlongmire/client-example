@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import DialogBox from 'components/shared/DialogBox'
+import DialogBox from 'app/components/shared/DialogBox'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-import FormBuilder from 'components/shared/FormBuilder'
+import FormBuilder from 'app/components/shared/FormBuilder'
 import form from './form.js'
 
 const STATUS = {
@@ -12,34 +12,33 @@ const STATUS = {
   RESULT: "RESULT"
 }
 
-class Input extends Component {
+export default class Input extends Component {
     constructor(props) {
       super(props)
       this.state = {
         requiredFields: [],
         validationModal: false,
         status: STATUS.INPUT
-      };
-
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleValidationOk = this.handleValidationOk.bind(this);
-    }
-
-    handleSubmit(values, controlGroups, requiredFields) {
-      if (requiredFields.length > 0) {
-
-        this.setState({
-          ...this.state,
-          requiredFields,
-          validationModal: true
-        })
-      } else {
-        console.log('VALUES', values)
-        this.props.handleSubmit(values)
       }
+
+      this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleValidationOk = this.handleValidationOk.bind(this)
     }
 
-    handleValidationOk(){
+  handleSubmit(values, controlGroups, requiredFields) {
+    if (requiredFields.length > 0) {
+      this.setState({
+        ...this.state,
+        requiredFields,
+        validationModal: true
+      })
+    } else {
+      console.log('VALUES', values)
+      this.props.handleSubmit(values)
+    }
+  }
+
+    handleValidationOk() {
       this.setState({
         ...this.state,
         validationModal: false
@@ -47,9 +46,9 @@ class Input extends Component {
     }
 
     render() {
-      const requiredList = ()=> {
-        return this.state.requiredFields.map((r, idx)=>{
-          const fieldText = (r.questionId == '2c')?"State":r.text
+      const requiredList = () => {
+        return this.state.requiredFields.map((r, idx) => {
+          const fieldText = (r.questionId == '2c') ? 'State' : r.text
 
           return (
               <li key={idx} className="remainingField">{(fieldText ? fieldText : r.placeholder)}</li>
@@ -100,5 +99,3 @@ class Input extends Component {
         </div>)
     }
 }
-
-export default connect()(Input)

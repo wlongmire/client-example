@@ -7,7 +7,7 @@ import {
   USER_LOGGED_OUT,
   SET_API_GATEWAY_CLIENT,
   USER_LOGGED_IN,
-} from 'src/app/constants/user'
+} from 'app/constants/user'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
@@ -94,9 +94,17 @@ export function setNewPassword(cognitoUser, newPassword, params, onSuccess, onFa
 
 export function logout() {
   return (dispatch) => {
-    const cognitoUser = userPool.getCurrentUser()
-    cognitoUser.signOut()
+    const cognitoParams = {
+      IdentityPoolId: config.awsCognito.identityPoolId
+    }
 
+    const cognitoUser = userPool.getCurrentUser()
+    
+    cognitoUser.signOut()
+    AWS.config.credentials.clearCachedId()
+
+    const cognitoCredentials = new AWS.CognitoIdentityCredentials(cognitoParams)
+    AWS.config.credentials = cognitoCredentials
     window.apigClient = null
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))

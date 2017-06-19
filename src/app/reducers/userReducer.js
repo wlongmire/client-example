@@ -1,15 +1,13 @@
 import {
   USER_LOGGED_IN,
-  USER_LOGGED_OUT,
-  SET_API_GATEWAY_CLIENT
+  USER_LOGGED_OUT
 } from '../constants/user'
 
-import config from 'config'
-
-export default function (state = {}, actions) {
-  switch (actions.type) {
+export default function (state = {}, action) {
+  switch (action.type) {
     case (USER_LOGGED_IN):
-      return Object.assign({}, state, actions.payload)
+      console.log('=======USER_LOGGED_IN======', action)
+      return { ...action.payload }
     case (USER_LOGGED_OUT):
       return null
     default:

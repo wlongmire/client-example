@@ -2,6 +2,7 @@ import { push } from 'react-router-redux'
 import config from 'config'
 import trim from 'lodash/trim'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
+import { transformSubmissionData } from '../utils/transformSubmissionData'
 
 import {
   FETCH_SUBMISSIONS,
@@ -9,10 +10,10 @@ import {
   CHANGE_SUBMISSION_STATUS,
   SUBMISSION_STATUS,
   CLEAR_SUBMISSION
-} from 'src/app/constants/submission'
+} from 'app/constants/submission'
 import {
   USER_LOGGED_IN,
-} from 'src/app/constants/user'
+} from 'app/constants/user'
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {
@@ -31,13 +32,13 @@ export function getSubmissions(user) {
         dispatch({ type: USER_LOGGED_IN, payload: resp.user })
       }
 
+      // eslint-disable-next-line no-undef
       apigClient.apiGetSubmissionsPost({}, body)
-      .then((resp) => {
-        console.log('RESPONSE SUBMISSIONS', resp)
-
-        if (resp.status === 200) {
-          dispatch({ type: FETCH_SUBMISSIONS, payload: resp.data })
-          dispatch({ type: EDIT_SUBMISSION, payload: {} })
+      .then((resp2) => {
+        if (resp2.status === 200) {
+          transformSubmissionData(resp2.data).then((resp3) => {
+            dispatch({ type: FETCH_SUBMISSIONS, payload: resp3 })
+          })
         } else {
           alert('Error While Accessing Submissions DB.')
         }
@@ -53,8 +54,6 @@ export function getSubmissions(user) {
 }
 
 export function saveSubmission(submission, user) {
-  console.log('SUBMISSION xx22 get toe save SUbmissions', submission)
-
   return checkTokenExpiration(user).then(() => {
   // eslint-disable-next-line no-undef
     return apigClient.apiSavePost({}, submission, {})
@@ -140,14 +139,13 @@ export function getClearance(params, user) {
       })
       .catch((error) => {
         return Promise.reject({
-          _error: error.message
+          error: error.message
         })
       })
   })
 }
 
 export function getRating(params, user) {
-  console.log('get rating user xx55', user)
   const { submission } = params
   return checkTokenExpiration(user).then(() => {
     // eslint-disable-next-line no-undef
@@ -171,7 +169,6 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
       { emailAddress, emailType },
       {})
       .then((resp) => {
-        console.log('sucesss 123', resp)
         return (resp)
       })
       .catch((error) => {

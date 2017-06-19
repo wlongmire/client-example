@@ -93,7 +93,6 @@ class SignInForm extends Component {
               console.log(err)
               alert('error ', err)
             }
-            console.log('USER ATTRIBUTES 23', result)
 
             const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
             const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
