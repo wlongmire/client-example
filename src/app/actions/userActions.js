@@ -99,6 +99,7 @@ export function logout() {
     }
 
     const cognitoUser = userPool.getCurrentUser()
+    
     cognitoUser.signOut()
     AWS.config.credentials.clearCachedId()
 

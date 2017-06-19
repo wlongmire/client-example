@@ -68,7 +68,7 @@ exports[`>>> Header --- Snapshot +++capturing Snapshot of Header with User 1`] =
             action="push"
             href="#"
             onClick={[Function]}
-            onMouseUp={[Function]}
+            onMouseUp={undefined}
             role="button"
           >
             Submit New
