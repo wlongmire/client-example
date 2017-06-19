@@ -8,14 +8,23 @@ import configureStore from 'redux-mock-store'
 import renderer from 'react-test-renderer'
 import { Header } from '../index'
 
+jest.mock('app/actions/userActions', () => 'testActions')
+
 // Snapshot for Home Header Component
 describe('>>> Header --- Snapshot', () => {
   beforeEach(() => {
     global.userPool = {}
     global.userPoolId = '123123123'
   })
+
   it('+++capturing Snapshot of Header without User', () => {
-    const renderedValue = renderer.create(<Header user={null} logout={jest.fn()} resetForm={jest.fn()} />).toJSON()
+    const renderedValue = renderer.create(
+      <Header
+        user={null}
+        logout={jest.fn()}
+        resetForm={jest.fn()}
+      />).toJSON()
+
     expect(renderedValue).toMatchSnapshot()
   })
 })
@@ -26,8 +35,15 @@ describe('>>> Header --- Snapshot', () => {
     global.userPool = {}
     global.userPoolId = '123123123'
   })
+
   it('+++capturing Snapshot of Header with User', () => {
-    const renderedValue = renderer.create(<Header user={initialState.user} logout={jest.fn()} resetForm={jest.fn()} />).toJSON()
+    const renderedValue = renderer.create(
+      <Header 
+        user={initialState.user}
+        logout={jest.fn()}
+        resetForm={jest.fn()}
+      />).toJSON()
+    
     expect(renderedValue).toMatchSnapshot()
   })
 })
@@ -48,6 +64,7 @@ describe('>>> Header--- Shallow + passing the {store} directly', () => {
   beforeEach(() => {
     global.userPool = {}
     global.userPoolId = '123123123'
+
     container = shallow(
       <Header
         user={initialState.user}
