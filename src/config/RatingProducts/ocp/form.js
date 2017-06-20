@@ -132,6 +132,27 @@ const ocpData = {
       }
     },
     {
+      "questionId": "10e",
+      "name": "nycha",
+      "text": "Is this a NYCHA Project?",
+      "inputType": "radio",
+      "required": false,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+       }
+     },
+    {
       "questionId": "3",
       "text": "What is the total cost of this project?",
       "name": "totalCost",
@@ -416,27 +437,6 @@ const ocpData = {
   ],
 
   "supplementalQuestions": [
-     {
-      "questionId": "10_supplemental1",
-      "name": "nycha",
-      "text": "Is this a NYCHA Project?",
-      "inputType": "radio",
-      "required": false,
-      "attributes":{
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Yes",
-            "value": true
-          },
-          {
-            "optionId": "2",
-            "text": "No",
-            "value": false
-          }
-        ]
-       }
-     },
      {
       "questionId": "17_supplemental1",
       "text": "Is the same General Contractor responsible for all sites?",

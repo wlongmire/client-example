@@ -50,11 +50,18 @@ class Clearance extends Component {
 
   handleClearance(result) {
     if (result.success) {
-      const submission = Object.assign(this.state.input, { passedClearance: true, status: 'SUBMISSION' })
+      let submission
+      let submissionFormParams
 
-      this.props.dispatch({ type: CHANGE_SUBMISSION,
-        submission,
-        submissionFormParams: {
+      console.log('THIS STATE INPUT', this.state.input)
+      if (
+        this.state.input.projectAddress &&
+        this.state.input.projectAddress.projectState === 'New York' &&
+        this.props.submission.type === 'ocp'
+        ) {
+        // if submission for OCP and STATE is NY
+        submission = Object.assign(this.state.input, { passedClearance: true, status: 'SUBMISSION' })
+        submissionFormParams = {
           primaryInsuredName: { disabled: true },
 
           primaryInsuredAddress: { disabled: true },
@@ -67,10 +74,49 @@ class Clearance extends Component {
           projectState: { disabled: true },
           projectZipcode: { disabled: true }
         }
-      })
-      
-      this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
+      } else if (this.props.submission.type === 'ocp') {
+        // if submission is for OCP and state is NOT NY
+        submission = { ...this.state.input, nycha: 'false', passedClearance: true, status: 'SUBMISSION' }
+        submissionFormParams = {
+          primaryInsuredName: { disabled: true },
 
+          primaryInsuredAddress: { disabled: true },
+          primaryInsuredCity: { disabled: true },
+          primaryInsuredState: { disabled: true },
+          primaryInsuredZipcode: { disabled: true },
+
+          projectAddress: { disabled: true },
+          projectCity: { disabled: true },
+          projectState: { disabled: true },
+          projectZipcode: { disabled: true },
+          // nycha is an additional params that is disabled
+          // when state is not New York
+          nycha: { disabled: true }
+        }
+      } else {
+        // if submission is for OI
+        submission = { ...this.state.input, passedClearance: true, status: 'SUBMISSION' }
+        submissionFormParams = {
+          primaryInsuredName: { disabled: true },
+
+          primaryInsuredAddress: { disabled: true },
+          primaryInsuredCity: { disabled: true },
+          primaryInsuredState: { disabled: true },
+          primaryInsuredZipcode: { disabled: true },
+
+          projectAddress: { disabled: true },
+          projectCity: { disabled: true },
+          projectState: { disabled: true },
+          projectZipcode: { disabled: true },
+        }
+      }
+
+      this.props.dispatch({ type: CHANGE_SUBMISSION,
+        submission,
+        submissionFormParams
+      })
+
+      this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
       this.props.dispatch(push('/form'))
     } else {
       this.setState({ status: STATUS.INPUT })
@@ -103,7 +149,8 @@ class Clearance extends Component {
 }
 
 Clearance.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  submission: PropTypes.object.isRequired
 }
 
 export default connect((store) => {
