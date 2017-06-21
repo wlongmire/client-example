@@ -79,7 +79,7 @@ export function editSubmission(submission) {
       const data = resp.data
       if (data.success) {
         // add the entire submission in store in -> app.submission
-        dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
+        dispatch({ type: EDIT_SUBMISSION, payload: data.submission })
 
         // changes app.status to: EDIT
         dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
