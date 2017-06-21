@@ -21,6 +21,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?/,
       loaders: ['react-hot', 'babel'],
+      useBuiltIns: true,
       include: path.join(__dirname, 'src')
     }, {
       test: /\.s?css$/,

@@ -7,7 +7,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 import mx from 'app/utils/MixpanelInterface'
 
-export default class SubmissionView extends Component {
+class SubmissionView extends Component {
 
   goToPage(submission) {
     mx.customEvent(
@@ -109,7 +109,7 @@ export default class SubmissionView extends Component {
             dataField="id"
             hidden={false}
             dataFormat={selectFormatter}
-          >Edit</TableHeaderColumn>*/}
+          >Edit</TableHeaderColumn> */}
         </BootstrapTable>
       </div>
     )
@@ -117,6 +117,8 @@ export default class SubmissionView extends Component {
 }
 
 SubmissionView.propTypes = {
-  // editSubmission: PropTypes.func.isRequired,
+  editSubmission: PropTypes.func.isRequired,
   submissions: PropTypes.array.isRequired
 }
+
+export default connect(null, actions)(SubmissionView)
