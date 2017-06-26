@@ -31,6 +31,10 @@ const config = {
         clientId: '@clientId',
     },
 
+    apiGateway: {
+        stage: '@ApiStageEnv'
+    },
+
     underwriters:[{
         name: 'Jessica Buelow',
         position: 'Supervisor',

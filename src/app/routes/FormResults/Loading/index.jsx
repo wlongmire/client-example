@@ -36,6 +36,7 @@ class Loading extends Component {
     ))).then((resp) => {
       const ratings = {}
       ratingPromises.map((ratingSubmission, idx) => {
+        console.log("RESPONSE ===== TEST 123", resp)
         const responseRatings = JSON.parse(resp[idx].data)
 
         ratings[ratingSubmission.type] = responseRatings.results

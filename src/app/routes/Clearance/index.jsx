@@ -40,8 +40,11 @@ class Clearance extends Component {
     this.setState({ status: STATUS.LOADING, input })
   }
 
-  handleLoadComplete(error, result) {
+  handleLoadComplete(error, result, input) {
     this.setState({ status: (error) ? STATUS.ERROR : STATUS.RESULT, result })
+    console.log('GETTING TO TOP CLEARANCE -- result', result)
+    console.log('GETTING TO TOP CLEARANCE -- input', input)
+    // AK_TO_DO - hit backend with function
   }
 
   handleLoadCancel() {

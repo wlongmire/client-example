@@ -33,7 +33,7 @@ class Loading extends Component {
           {
             success: (resp.matches.length === 0),
             matches: resp.matches
-          })
+          }, input)
       } else {
         const errorFlag = true
         this.props.handleSubmit(errorFlag)

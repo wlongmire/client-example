@@ -44,6 +44,7 @@ gulp.task('transform:dev', () => {
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
+  .pipe(replace('@ApiStageEnv', 'dev'))
   .pipe(replace('@region', 'us-east-1'))
   .pipe(gulp.dest('src/config/'))
 })
@@ -73,8 +74,9 @@ gulp.task('transform:local', () => {
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
-  .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97'))
+  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/')) // qa
+  // .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // dev
+  .pipe(replace('@identityPoolId', 'us-east-1:6a0b54c3-6f76-4c64-a188-ebee6c0a02c4'))
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
@@ -92,7 +94,7 @@ gulp.task('build:node', shell.task([
 
 gulp.task('build', (cb) => {
   runSequence('clean',
-    ['html', 'images', 'webpack:build', 'fonts', 'build:node'],
+    ['html', 'images', 'webpack:build', 'fonts', 'build:node', 'apiClient'],
     cb)
 })
 
@@ -123,6 +125,11 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest('dist/public/fonts'))
 })
 
+gulp.task('apiClient', () => {
+  return gulp.src('src/apigClient/**/*')
+    .pipe(gulp.dest('dist/public/apigClient'))
+})
+
 gulp.task('webpack:build', (callback) => {
   return webpack(webpackConfigProd, (err, stats) => {
     if (err) throw err
@@ -139,7 +146,7 @@ gulp.task('s', ['serve:dev'])
 gulp.task('serve', ['serve:dev'])
 gulp.task('serve:dev', ['serve:development'])
 
-gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts'],
+gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts', 'apiClient'],
 () => {
   new WebpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
