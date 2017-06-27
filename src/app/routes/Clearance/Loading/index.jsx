@@ -24,8 +24,6 @@ class Loading extends Component {
     }
 
     getClearance(input, this.props.user).then((resp) => {
-      console.log('response from clearance', resp)
-
       if (resp.success && resp.success === true) {
         const errorFlag = false
         this.props.handleSubmit(

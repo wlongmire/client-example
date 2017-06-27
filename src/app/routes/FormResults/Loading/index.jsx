@@ -36,7 +36,6 @@ class Loading extends Component {
     ))).then((resp) => {
       const ratings = {}
       ratingPromises.map((ratingSubmission, idx) => {
-        console.log("RESPONSE ===== TEST 123", resp)
         const responseRatings = JSON.parse(resp[idx].data)
 
         ratings[ratingSubmission.type] = responseRatings.results
@@ -60,10 +59,11 @@ class Loading extends Component {
           ]
 
           Promise.all(emailPromises).then((respEmail) => {
+            console.log('EMAIL RESPONSES', respEmail)
             this.props.handleEmailStatus({ success: true })
           })
         } else {
-            alert('Submission saveSave not successful')
+          alert('Submission saveSave not successful. Please contact support!')
         }
       }).catch((error1) => {
         console.log('ERROR IN SAVE SUBMISSION xx22', error1)

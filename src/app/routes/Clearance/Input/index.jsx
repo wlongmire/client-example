@@ -33,7 +33,7 @@ export default class Input extends Component {
         validationModal: true
       })
     } else {
-      console.log('VALUES', values)
+      // console.log('VALUES', values)
       this.props.handleSubmit(values)
     }
   }
