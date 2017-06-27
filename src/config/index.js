@@ -7,6 +7,8 @@ const config = {
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'argoaccessquickquote@gmail.com',
     sgsOCPEmail: 'argoaccessquickquote@gmail.com',
+    clearanceFailEmail:'argoaccessquickquote@gmail.com',
+    clearanceFailFlag: 'true',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',

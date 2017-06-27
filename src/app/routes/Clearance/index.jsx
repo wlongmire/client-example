@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-
+import config from 'config'
 import Input from './Input'
 import Loading from './Loading'
 import Error from './Error'
 import Result from './Result'
+import { sendClearanceEmail } from 'app/actions/submissionActions'
 
 import {
   CHANGE_SUBMISSION_STATUS,
@@ -45,6 +46,11 @@ class Clearance extends Component {
     console.log('GETTING TO TOP CLEARANCE -- result', result)
     console.log('GETTING TO TOP CLEARANCE -- input', input)
     // AK_TO_DO - hit backend with function
+    console.log('is error', result.success)
+    console.log('config.clearanceFailEmailFlag', config.clearanceFailFlag)
+    if (result.success === false && config.clearanceFailFlag === 'true') {
+      sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
+    }
   }
 
   handleLoadCancel() {
@@ -158,6 +164,7 @@ Clearance.propTypes = {
 
 export default connect((store) => {
   return ({
-    submission: store.app.submission
+    submission: store.app.submission,
+    user: store.user
   })
 })(Clearance)

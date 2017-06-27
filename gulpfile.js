@@ -31,6 +31,8 @@ gulp.task('transform:prod', () => {
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
   .pipe(replace('@region', 'us-east-1'))
+  .pipe(replace('@clearanceFailEmail', 'jbuelow@colonyspecialty.com'))
+  .pipe(replace('@clearanceFailFlag', true))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -51,6 +53,8 @@ gulp.task('transform:dev', () => {
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
   .pipe(replace('@region', 'us-east-1'))
+  .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@clearanceFailFlag', true))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -71,26 +75,8 @@ gulp.task('transform:qa', () => {
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
   .pipe(replace('@region', 'us-east-1'))
-  .pipe(gulp.dest('src/config/'))
-})
-
-gulp.task('transform:beta', () => {
-  gulp.src('src/apigClient/*')
-  .pipe(replace('@ApiStageEnv', 'dev'))
-  .pipe(gulp.dest('dist/public/apigClient'))
-  gulp.src('configTemplate/*')
-  .pipe(replace('@sgsOIEmail', 'argoaccessquickquote@gmail.com'))
-  .pipe(replace('@sgsOCPEmail', 'argoaccessquickquote@gmail.com'))
-  .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
-  .pipe(replace('@serverUrl', 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/'))
-  .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
-  .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // DEV
-  .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
-  .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
-  .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
-  .pipe(replace('@region', 'us-east-1'))
+  .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@clearanceFailFlag', true))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -111,6 +97,8 @@ gulp.task('transform:local', () => {
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
   .pipe(replace('@region', 'us-east-1'))
+  .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@clearanceFailFlag', true))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -131,6 +119,8 @@ gulp.task('transform:local-qa', () => {
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
   .pipe(replace('@region', 'us-east-1'))
+  .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@clearanceFailFlag', false))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -152,6 +142,8 @@ gulp.task('transform:local-prod', () => {
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
   .pipe(replace('@region', 'us-east-1'))
+  .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@clearanceFailFlag', true))
   .pipe(gulp.dest('src/config/'))
 })
 

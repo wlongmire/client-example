@@ -8,7 +8,7 @@ phases:
   pre_build:
     commands:
       - echo setting development env config...
-      - npm run gulp transform:dev
+      - npm run gulp transform:$stageEnv
   build:
     commands:
       - echo Building deployment assets...
