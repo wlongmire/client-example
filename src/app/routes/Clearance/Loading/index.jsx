@@ -24,6 +24,7 @@ class Loading extends Component {
     }
 
     getClearance(input, this.props.user).then((resp) => {
+
       if (resp.success && resp.success === true) {
         const errorFlag = false
         this.props.handleSubmit(
@@ -36,6 +37,9 @@ class Loading extends Component {
         const errorFlag = true
         this.props.handleSubmit(errorFlag)
       }
+    }).catch(() => {
+      const errorFlag = true
+      this.props.handleSubmit(errorFlag)
     })
   }
 
