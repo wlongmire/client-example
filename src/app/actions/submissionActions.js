@@ -179,3 +179,26 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
       })
   })
 }
+
+export function sendClearanceEmail(emailAddress, emailType, user, userInput, clearanceMatches) {
+  checkTokenExpiration(user).then(() => {
+    // eslint-disable-next-line no-undef
+    return apigClient.apiSendEmailIdPost(
+      { id: '12312' },
+      {
+        emailAddress,
+        emailType,
+        input: userInput,
+        matches: clearanceMatches
+      },
+      {})
+      .then((resp) => {
+        return (resp)
+      })
+      .catch((error) => {
+        return Promise.reject({
+          _error: error.message
+        })
+      })
+  })
+}

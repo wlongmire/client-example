@@ -28,7 +28,7 @@ export function cognitoPersistUser(callback) {
 
         callback(null)
       }
-      console.log('GET SESSION', session)
+
 
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: config.awsCognito.identityPoolId, // your identity pool id here
@@ -67,7 +67,6 @@ export function cognitoPersistUser(callback) {
               sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
               region: config.awsCognito.region
             })
-            console.log('xx 2233 AWS.config.credentials AFTERWARDS', AWS.config.credentials)
 
 
             // "2017-06-14T04:32:02.000Z"
