@@ -16,7 +16,7 @@ const config = require('./src/config')
 
 gulp.task('transform:prod', () => {
   gulp.src('src/apigClient/*')
-  .pipe(replace('@ApiStageEnv', 'dev'))
+  .pipe(replace('@ApiStageEnv', 'prod'))
   .pipe(gulp.dest('dist/public/apigClient'))
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'owners@colonyspecialty.com'))
