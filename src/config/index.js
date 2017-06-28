@@ -4,10 +4,10 @@ const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'argoaccessquickquote@gmail.com',
-    sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
-    sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
-    clearanceFailEmail:'argoaccessquickquote@gmail.com',
+    argoEmail: 'jbuelow@colonyspecialty.com',
+    sgsOIEmail: 'owners@colonyspecialty.com',
+    sgsOCPEmail: 'ocpsubmissions@colonyspecialty.com',
+    clearanceFailEmail:'jbuelow@colonyspecialty.com',
     clearanceFailFlag: 'true',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
@@ -21,7 +21,7 @@ const config = {
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess_2.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
-    ratingsUrl:'@ratingsUrl',
+    ratingsUrl:'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
@@ -65,7 +65,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
+        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
         port: null
     },
 
@@ -74,7 +74,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
+        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
         port:  null
     }
 };

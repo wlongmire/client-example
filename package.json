@@ -115,7 +115,7 @@
     "postinstall": "gulp build",
     "serve:development": "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
-    "build": "babel src/config -d dist/public/config --copy-files",
+    "build": "babel src/config -d dist/public/config --copy-files; babel src/apigClient -d dist/public/apigClient --copy-files;",
     "start": "NODE_ENV='production' node dist/server/index.js",
     "test": "NODE_PATH='./src' NODE_ENV='development' jest",
     "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
