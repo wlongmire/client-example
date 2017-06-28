@@ -52,7 +52,7 @@ apigClientFactory.newClient = function (config) {
         config.defaultAcceptType = 'application/json';
     }
 
-    const stageEnv = 'qa'
+    const stageEnv = '@ApiStageEnv'
 
     // extract endpoint and path from url
     var invokeUrl = `https://hotgyzwdq3.execute-api.us-east-1.amazonaws.com/${stageEnv}`;
