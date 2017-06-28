@@ -13,11 +13,9 @@ const webpackConfigProd = require('./webpack.config.prod')
 const WebpackDevServer = require('webpack-dev-server')
 const replace = require('gulp-replace')
 const config = require('./src/config')
+const es = require('event-stream');
 
-gulp.task('transform:prod', () => {
-  gulp.src('apigClientTemplate/*')
-  .pipe(replace('@ApiStageEnv', 'prod'))
-  .pipe(gulp.dest('src/apigClient/'))
+gulp.task('transform:prod', ['apiTransform:prod'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'owners@colonyspecialty.com'))
   .pipe(replace('@sgsOCPEmail', 'ocpsubmissions@colonyspecialty.com'))
@@ -36,10 +34,7 @@ gulp.task('transform:prod', () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:dev', () => {
-  gulp.src('apigClientTemplate/*')
-  .pipe(replace('@ApiStageEnv', 'dev'))
-  .pipe(gulp.dest('src/apigClient/'))
+gulp.task('transform:dev',['apiTransform:dev'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -58,10 +53,7 @@ gulp.task('transform:dev', () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:qa', () => {
-  gulp.src('apigClientTemplate/*')
-  .pipe(replace('@ApiStageEnv', 'qa'))
-  .pipe(gulp.dest('src/apigClient/'))
+gulp.task('transform:qa', ['apiTransform:qa'],() => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -80,16 +72,13 @@ gulp.task('transform:qa', () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:local', () => {
-  gulp.src('apigClientTemplate/*')
-  .pipe(replace('@ApiStageEnv', 'dev'))
-  .pipe(gulp.dest('dist/public/apigClient/'))
+gulp.task('transform:local', ['apiTransform:local'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
-  .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
+  .pipe(replace('@appId', 'appIdorsomething'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
   // .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/')) // qa
   .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // DEV
@@ -102,10 +91,7 @@ gulp.task('transform:local', () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:local-qa', () => {
-  gulp.src('apigClientTemplate/*')
-  .pipe(replace('@ApiStageEnv', 'qa'))
-  .pipe(gulp.dest('dist/public/apigClient/'))
+gulp.task('transform:local-qa',['apiTransform:local-qa'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -124,10 +110,7 @@ gulp.task('transform:local-qa', () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:local-prod', () => {
-  gulp.src('apigClientTemplate/*')
-  .pipe(replace('@ApiStageEnv', 'prod'))
-  .pipe(gulp.dest('dist/public/apigClient/'))
+gulp.task('transform:local-prod',['apiTransform:local-prod'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -147,9 +130,37 @@ gulp.task('transform:local-prod', () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-/*
- * tasks
- */
+gulp.task('apiTransform:local', () => {
+  gulp.src('apigClientTemplate/*')
+  .pipe(replace('@ApiStageEnv', 'dev'))
+  .pipe(gulp.dest('dist/public/apigClient/'))
+})
+gulp.task('apiTransform:local-qa', () => {
+  gulp.src('apigClientTemplate/*')
+  .pipe(replace('@ApiStageEnv', 'qa'))
+  .pipe(gulp.dest('dist/public/apigClient/'))
+})
+gulp.task('apiTransform:local-prod', () => {
+  gulp.src('apigClientTemplate/*')
+  .pipe(replace('@ApiStageEnv', 'prod'))
+  .pipe(gulp.dest('dist/public/apigClient/'))
+})
+
+gulp.task('apiTransform:dev', () => {
+  gulp.src('apigClientTemplate/*')
+  .pipe(replace('@ApiStageEnv', 'dev'))
+  .pipe(gulp.dest('src/apigClient/'))
+})
+gulp.task('apiTransform:qa', () => {
+  gulp.src('apigClientTemplate/*')
+  .pipe(replace('@ApiStageEnv', 'qa'))
+  .pipe(gulp.dest('src/apigClient/'))
+})
+gulp.task('apiTransform:prod', () => {
+  gulp.src('apigClientTemplate/*')
+  .pipe(replace('@ApiStageEnv', 'prod'))
+  .pipe(gulp.dest('src/apigClient/'))
+})
 
 gulp.task('build:node', shell.task([
   'npm run build'
