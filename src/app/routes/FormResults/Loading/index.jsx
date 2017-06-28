@@ -59,10 +59,11 @@ class Loading extends Component {
           ]
 
           Promise.all(emailPromises).then((respEmail) => {
+            console.log('EMAIL RESPONSES', respEmail)
             this.props.handleEmailStatus({ success: true })
           })
         } else {
-            alert('Submission saveSave not successful')
+          alert('Submission saveSave not successful. Please contact support!')
         }
       }).catch((error1) => {
         console.log('ERROR IN SAVE SUBMISSION xx22', error1)
