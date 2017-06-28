@@ -1,3 +1,6 @@
+
+# buildspec.yml is currently not being used !!!!! build scripts are in codeBuild
+
 version: 0.1
 
 phases:
@@ -8,7 +11,7 @@ phases:
   pre_build:
     commands:
       - echo setting development env config...
-      - npm run gulp transform:$stageEnv
+      - npm run gulp transform:dev
   build:
     commands:
       - echo Building deployment assets...
