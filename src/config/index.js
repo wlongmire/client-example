@@ -3,7 +3,7 @@
 const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
-    appId: 'THIS IS A GODDAMN TEST',
+    appId: 'appIdorsomething',
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
@@ -26,7 +26,7 @@ const config = {
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97',
+        identityPoolId: 'us-east-1:6a0b54c3-6f76-4c64-a188-ebee6c0a02c4',
         identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0',
         userPoolId: 'us-east-1_XWOnd6XH0',
         region: 'us-east-1',

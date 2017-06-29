@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import { LinkContainer } from 'react-router-bootstrap'
-
+import * as actions from 'app/actions/userActions'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 
@@ -35,7 +35,12 @@ class Loading extends Component {
       getRating({ submission: s }, user)
     ))).then((resp) => {
       const ratings = {}
+
       ratingPromises.map((ratingSubmission, idx) => {
+        console.log("RATING SAVE SUBMISSION STATUS", resp[idx])
+        if (resp[idx].status === 'authError') {
+          return this.props.logout()
+        }
         const responseRatings = JSON.parse(resp[idx].data)
 
         ratings[ratingSubmission.type] = responseRatings.results
@@ -47,6 +52,11 @@ class Loading extends Component {
 
       // AK_TO_DO
       saveSubmission(submissionData, user).then((respSave) => {
+        if (respSave.status === 'authError') {
+          console.log('GETTING HERE to LOGOUT')
+          this.props.logout()
+        }
+
         if (respSave.data && respSave.data.success === true) {
           const { submissionId } = respSave.data
           const mainRating = ratings[submission.type]
@@ -95,8 +105,16 @@ class Loading extends Component {
   }
 }
 
+Loading.propTypes = {
+  logout: PropTypes.func.isRequired,
+  handleEmailStatus: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired
+}
+
+
 export default connect((store) => {
   return ({
     user: store.user
   })
-})(Loading)
+}, actions)(Loading)
