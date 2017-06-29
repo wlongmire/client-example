@@ -9,7 +9,24 @@ import config from 'config'
 
 class Result extends Component {
   render() {
-    const result = (this.props.result.success)?{
+    const failClearaceMessage = (config.clearanceFailFlag === 'true') ?
+    (<div className="matchMessage">
+      <h3>Sent to an underwriter for review</h3>
+      <br />
+      <h5>
+        If we find that this was declined in error, we will contact you.  Please email Jessica Buelow (<a href="mailto:jbuelow@colonyspecialty.com">jbuelow@colonyspecialty.com</a>) with any questions.
+      </h5>
+    </div>) :
+    (<div className="matchMessage">
+      <h3>Blocked in Error?</h3>
+      <h5>
+        If we have blocked clearance in error, please message us through the
+          <img src="https://s3.amazonaws.com/ownersedge-cdn/images/chatIcon.png" />
+          icon below or contact Jessica Buelow (<a href="mailto:jbuelow@colonyspecialty.com">jbuelow@colonyspecialty.com</a>).
+      </h5>
+    </div>)
+
+    const result = (this.props.result.success) ? {
       title: "This Submission Has Passed Clearance!",
       subtitle: "You are the first to submit this insured for review. Now we can enter additional pricing information.",
       additionalContent: "",
@@ -17,7 +34,9 @@ class Result extends Component {
     }:{
       title: "This Submission Did Not Pass Clearance.",
       subtitle: "Your business as listed below matches a previously processed submission.",
-      additionalContent: <div className="additionalContent"></div>,
+      additionalContent: <div className="additionalContent">
+        {failClearaceMessage}
+      </div>,
       buttonLabel: "Reenter Clearance Information"
     }
 
@@ -41,23 +60,6 @@ class Result extends Component {
           });
     }
 
-    const matchesMessage = (config.clearanceFailFlag === 'true') ?
-    (<div className="matchMessage">
-      <h3>Sent to an underwriter for review</h3>
-      <br />
-      <h5>
-        If we find that this was declined in error, we will contact you.  Please email Jessica Buelow (<a href="mailto:jbuelow@colonyspecialty.com">jbuelow@colonyspecialty.com</a>) with any questions.
-      </h5>
-    </div>) :
-    (<div className="matchMessage">
-      <h3>Blocked in Error?</h3>
-      <h5>
-        If we have blocked clearance in error, please message us through the
-          <img src="https://s3.amazonaws.com/ownersedge-cdn/images/chatIcon.png" />
-          icon below or contact Jessica Buelow (<a href="mailto:jbuelow@colonyspecialty.com">jbuelow@colonyspecialty.com</a>).
-      </h5>
-    </div>)
-
     const matches = (
       <div className="match">
         <h4>First Named Insured:</h4><h5>{this.props.input.primaryInsuredName}</h5>
@@ -76,14 +78,11 @@ class Result extends Component {
             <div>
                 <h4>{result.subtitle}</h4>
                 <div className="matchContainer">
-                  { matchesMessage }
+                  { result.additionalContent }
                   { matches }
                     
                 </div>
             </div>
-        
-
-            { result.additionalContent }
 
           <ButtonGroup>
             <Button

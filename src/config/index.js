@@ -3,12 +3,12 @@
 const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
-    appId: 'appIdorsomething',
+    appId: '57ab6abcf36d2840aa667f6e',
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
     clearanceFailEmail:'argoaccessquickquote@gmail.com',
-    clearanceFailFlag: 'false',
+    clearanceFailFlag: 'true',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
@@ -26,7 +26,7 @@ const config = {
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97',
+        identityPoolId: 'us-east-1:57db5f54-9c0c-4d2f-8b92-d3279a07f61c',
         identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0',
         userPoolId: 'us-east-1_XWOnd6XH0',
         region: 'us-east-1',
