@@ -24,8 +24,7 @@ export class Submissions extends Component {
 Submissions.propTypes = {
   clearSubmissionStatus: PropTypes.func.isRequired,
   getSubmissions: PropTypes.func.isRequired,
-  submissions: PropTypes.array,
-  user: PropTypes.object.isRequired
+  submissions: PropTypes.array
 }
 
 export default connect((store) => {

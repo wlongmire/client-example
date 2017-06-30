@@ -3,7 +3,7 @@
 const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
-    appId: 'THIS IS A GODDAMN TEST',
+    appId: 'appIdorsomething',
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',

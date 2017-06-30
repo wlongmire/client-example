@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-
+import * as actions from 'app/actions/userActions'
 import {
   getClearance 
 } from 'app/actions/submissionActions'
@@ -24,6 +24,9 @@ class Loading extends Component {
     }
 
     getClearance(input, this.props.user).then((resp) => {
+      if (resp.status === 'authError') {
+        return this.props.logout()
+      }
 
       if (resp.success && resp.success === true) {
         const errorFlag = false
@@ -67,11 +70,12 @@ Loading.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   input: PropTypes.object.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 }
 
 export default connect((store) => {
   return ({
     user: store.user
   })
-})(Loading)
+}, actions)(Loading)

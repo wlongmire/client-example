@@ -3,6 +3,7 @@ import config from 'config'
 import trim from 'lodash/trim'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { transformSubmissionData } from '../utils/transformSubmissionData'
+import { logout } from './userActions'
 
 import {
   FETCH_SUBMISSIONS,
@@ -44,10 +45,10 @@ export function getSubmissions(user) {
         }
       })
       .catch((error) => {
-        console.log('get submissions response error =', error)
-        return Promise.reject({
-          _error: error.message
-        })
+        // if there is a problem accessing the api with authorization errors
+        if (error.status === 0 || error.status === 403) {
+          dispatch(logout())
+        }
       })
     })
   })
@@ -62,6 +63,9 @@ export function saveSubmission(submission, user) {
       })
       .catch((error) => {
         console.log('ERROR SUBMISSION xx22 ====', error)
+        if (error.status === 0 || error.status === 403) {
+          return Promise.resolve({ status: 'authError' })
+        }
         return Promise.reject({
           _error: error.message
         })
@@ -95,27 +99,6 @@ export function editSubmission(submission) {
         _error: error.message
       })
     })
-
-    // return fetch(`${config.apiserver.url}/api/getSubmission/${submission._id}`, {
-    //   method: 'GET',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    // .then(res => res.json())
-    // .then((res) => {
-    //   // add the entire submission in store in -> app.submission
-    //   dispatch({ type: EDIT_SUBMISSION, payload: res.submission })
-
-    //   // changes app.status to: EDIT
-    //   dispatch({
-    //     type: CHANGE_SUBMISSION_STATUS,
-    //     status: SUBMISSION_STATUS.EDIT })
-
-    //   // push the user to the form
-    //   dispatch(push('/form'))
-    // })
   })
 }
 
@@ -138,9 +121,10 @@ export function getClearance(params, user) {
         return (resp.data)
       })
       .catch((error) => {
-        return Promise.reject({
-          error: error.message
-        })
+        if (error.status === 0 || error.status === 403) {
+          return Promise.resolve({ status: 'authError' })
+        }
+        return Promise.reject({ error })
       })
   })
 }
@@ -154,6 +138,9 @@ export function getRating(params, user) {
         return (resp)
       })
       .catch((error) => {
+        if (error.status === 0 || error.status === 403) {
+          return Promise.resolve({ status: 'authError' })
+        }
         return Promise.reject({
           _error: error.message
         })

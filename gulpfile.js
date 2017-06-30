@@ -13,7 +13,7 @@ const webpackConfigProd = require('./webpack.config.prod')
 const WebpackDevServer = require('webpack-dev-server')
 const replace = require('gulp-replace')
 const config = require('./src/config')
-const es = require('event-stream');
+const es = require('event-stream')
 
 gulp.task('transform:prod', ['apiTransform:prod'], () => {
   gulp.src('configTemplate/*')
@@ -91,7 +91,7 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:local-qa',['apiTransform:local-qa'], () => {
+gulp.task('transform:local-qa', ['apiTransform:local-qa'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -186,6 +186,7 @@ gulp.task('lint', () => {
 
 gulp.task('html', () => {
   return gulp.src('src/index.html')
+    .pipe(replace('@random', Date.now()))
     .pipe(gulp.dest('dist/public'))
 })
 
