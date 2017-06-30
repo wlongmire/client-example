@@ -29,12 +29,12 @@ gulp.task('transform:prod', ['apiTransform:prod'], () => {
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
   .pipe(replace('@region', 'us-east-1'))
-  .pipe(replace('@clearanceFailEmail', 'jbuelow@colonyspecialty.com'))
+  .pipe(replace('@clearanceFailEmail', 'owners@colonyspecialty.com'))
   .pipe(replace('@clearanceFailFlag', true))
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:dev',['apiTransform:dev'], () => {
+gulp.task('transform:dev', ['apiTransform:dev'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -53,7 +53,7 @@ gulp.task('transform:dev',['apiTransform:dev'], () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:qa', ['apiTransform:qa'],() => {
+gulp.task('transform:qa', ['apiTransform:qa'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -119,8 +119,6 @@ gulp.task('transform:local-prod',['apiTransform:local-prod'], () => {
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
   .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
   .pipe(replace('@identityPoolId', 'us-east-1:57db5f54-9c0c-4d2f-8b92-d3279a07f61c')) // PROD
-  // .pipe(replace('@identityPoolId', 'us-east-1:6a0b54c3-6f76-4c64-a188-ebee6c0a02c4')) // QA
-  // .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // DEV
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
