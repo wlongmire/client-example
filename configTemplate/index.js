@@ -24,6 +24,7 @@ const config = {
     ratingsUrl:'@ratingsUrl',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
+    mixPanelEnvironment: '@stageEnv',
 
     awsCognito:{
         identityPoolId: '@identityPoolId',

@@ -53,6 +53,7 @@ class FormResults extends Component {
 
   handleLoadComplete(error, ratings) {
     const {submission} = this.props;
+    const type = this.props.submission.type;
 
     this.setState({
       quoteStatus: (error) ? STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
@@ -67,24 +68,22 @@ class FormResults extends Component {
           { Type: this.props.submission }
         );
     } else if (ratings[submission.type].instantQuote) {
-      // AK_TO_DO - fix mx
-      // mx.customEvent(
-      //     'submission',
-      //     'quoted',
-      //     {
-      //       Type: this.props.submission.type,
-      //       TotalPremium: this.props.submission.rating[this.props.submission.type].totalPremium,
-      //       TotalExcessPremium: 
-      //         this.props.submission.rating[this.props.submission.type].excessPremium
-      //     }
-      //   );
+      mx.customEvent(
+          'submission',
+          'quoted', {
+            type,
+            premium: ratings[type].premium,
+            terrorPremium: ratings[type].terrorPremium,
+            TotalPremium: ratings[type].totalPremium,
+            TotalExcessPremium: ratings[type].excessPremium
+          }
+        )
     } else {
       mx.customEvent(
           'submission',
-          'knockout',
-          {
-            Type: this.props.submission.type,
-            Reasons: this.props.submission.rating[this.props.submission.type].reason
+          'knockout', {
+            type,
+            reasons: ratings[type].reason
           }
         )
     }

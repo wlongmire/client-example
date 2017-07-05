@@ -31,6 +31,7 @@ gulp.task('transform:prod', ['apiTransform:prod'], () => {
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'owners@colonyspecialty.com'))
   .pipe(replace('@clearanceFailFlag', true))
+  .pipe(replace('@stageEnv', 'prod'))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -50,6 +51,7 @@ gulp.task('transform:dev', ['apiTransform:dev'], () => {
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', true))
+  .pipe(replace('@stageEnv', 'dev'))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -69,6 +71,7 @@ gulp.task('transform:qa', ['apiTransform:qa'], () => {
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', true))
+  .pipe(replace('@stageEnv', 'qa'))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -88,6 +91,7 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', true))
+  .pipe(replace('@stageEnv', 'dev'))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -107,10 +111,11 @@ gulp.task('transform:local-qa', ['apiTransform:local-qa'], () => {
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', false))
+  .pipe(replace('@stageEnv', 'qa'))
   .pipe(gulp.dest('src/config/'))
 })
 
-gulp.task('transform:local-prod',['apiTransform:local-prod'], () => {
+gulp.task('transform:local-prod', ['apiTransform:local-prod'], () => {
   gulp.src('configTemplate/*')
   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
@@ -125,6 +130,7 @@ gulp.task('transform:local-prod',['apiTransform:local-prod'], () => {
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', true))
+  .pipe(replace('@stageEnv', 'dev'))
   .pipe(gulp.dest('src/config/'))
 })
 

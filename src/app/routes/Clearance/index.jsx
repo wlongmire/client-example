@@ -43,11 +43,7 @@ class Clearance extends Component {
 
   handleLoadComplete(error, result, input) {
     this.setState({ status: (error) ? STATUS.ERROR : STATUS.RESULT, result })
-    console.log('GETTING TO TOP CLEARANCE -- result', result)
-    console.log('GETTING TO TOP CLEARANCE -- input', input)
-    // AK_TO_DO - hit backend with function
-    console.log('is error', result.success)
-    console.log('config.clearanceFailEmailFlag', config.clearanceFailFlag)
+
     if (result.success === false && config.clearanceFailFlag === 'true') {
       sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
     }
@@ -62,7 +58,6 @@ class Clearance extends Component {
       let submission
       let submissionFormParams
 
-      console.log('THIS STATE INPUT', this.state.input)
       if (
         this.state.input.projectAddress &&
         this.state.input.projectAddress.projectState === 'New York' &&

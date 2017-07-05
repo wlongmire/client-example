@@ -8,6 +8,7 @@ import {
   SET_API_GATEWAY_CLIENT,
   USER_LOGGED_IN,
 } from 'app/constants/user'
+import mx from 'app/utils/MixpanelInterface'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
@@ -59,6 +60,18 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 alert('error ', err)
               }
               onSuccess(resp, result[0].Value, cognitoUser, credentials.expireTime)
+
+              const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
+              const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
+              mx.customEvent(
+                  'auth',
+                  'login', {
+                    user: cognitoUser.username,
+                    email: cognitoUser.username,
+                    subId: subIdQuery[0].Value,
+                    broker: brokerId[0].Value,
+                  }
+                )
             })
           })
         },

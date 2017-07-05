@@ -37,7 +37,6 @@ class Loading extends Component {
       const ratings = {}
 
       ratingPromises.map((ratingSubmission, idx) => {
-        console.log("RATING SAVE SUBMISSION STATUS", resp[idx])
         if (resp[idx].status === 'authError') {
           return this.props.logout()
         }
@@ -50,10 +49,8 @@ class Loading extends Component {
       submissionData.rating = ratings // adding rating to submission
       submissionData.broker = this.props.user.broker // adding broker to  submission
 
-      // AK_TO_DO
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
-          console.log('GETTING HERE to LOGOUT')
           this.props.logout()
         }
 
