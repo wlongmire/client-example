@@ -62,7 +62,6 @@ export function saveSubmission(submission, user) {
         return (resp)
       })
       .catch((error) => {
-        console.log('ERROR SUBMISSION xx22 ====', error)
         if (error.status === 0 || error.status === 403) {
           return Promise.resolve({ status: 'authError' })
         }
@@ -159,7 +158,6 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
         return (resp)
       })
       .catch((error) => {
-        console.log('ERROR 123', error)
         return Promise.reject({
           _error: error.message
         })
