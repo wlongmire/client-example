@@ -71,9 +71,9 @@ class FormResults extends Component {
       mx.customEvent(
           'submission',
           'quoted', {
-            type,
-            premium: ratings[type].premium,
-            terrorPremium: ratings[type].terrorPremium,
+            Type: type,
+            Premium: ratings[type].premium,
+            TerrorPremium: ratings[type].terrorPremium,
             TotalPremium: ratings[type].totalPremium,
             TotalExcessPremium: ratings[type].excessPremium
           }
@@ -82,8 +82,8 @@ class FormResults extends Component {
       mx.customEvent(
           'submission',
           'knockout', {
-            type,
-            reasons: ratings[type].reason
+            Type: type,
+            Reasons: ratings[type].reason
           }
         )
     }

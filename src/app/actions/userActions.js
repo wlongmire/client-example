@@ -66,10 +66,10 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               mx.customEvent(
                   'auth',
                   'login', {
-                    user: cognitoUser.username,
-                    email: cognitoUser.username,
-                    subId: subIdQuery[0].Value,
-                    broker: brokerId[0].Value,
+                    User: cognitoUser.username,
+                    Email: cognitoUser.username,
+                    SubId: subIdQuery[0].Value,
+                    Broker: brokerId[0].Value,
                   }
                 )
             })

@@ -48,16 +48,15 @@ class Result extends Component {
       mx.customEvent(
           "submission",
           "passClearance",
-          { "Type": this.props.submission.type }
+          { Type: this.props.submission.type }
           );
     } else {
       mx.customEvent(
           "submission",
-          "failClearance",
-          { 
-              "Type": this.props.submission.type,
-              "matches": this.props.result.matches,
-          });
+          "failClearance", { 
+            Type: this.props.submission.type,
+            Matches: this.props.result.matches
+          })
     }
 
     const matches = (
