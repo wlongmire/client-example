@@ -7,7 +7,7 @@ export default {
       mixpanel.track(
        mixPanelEvents[eventCategory][eventType].eventName,
         { ...params,
-          environment: config.mixPanelEnvironment
+          Environment: config.mixPanelEnvironment
         }
       )
 

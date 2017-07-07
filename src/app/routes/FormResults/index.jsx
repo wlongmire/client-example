@@ -60,7 +60,7 @@ class FormResults extends Component {
       ratings
     })
 
-    // mixpanel triggers
+    // mixpanel events
     if (error) {
       mx.customEvent(
           'submission',
