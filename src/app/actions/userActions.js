@@ -63,6 +63,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
               const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
               const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
+
               mx.customEvent(
                   'auth',
                   'login', {
@@ -72,6 +73,13 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     Broker: brokerId[0].Value,
                   }
                 )
+              // adding identity and attributes to
+              // mixpanel user profile
+              mixpanel.identify(cognitoUser.username) // eslint-disable-line
+              mixpanel.people.set({ // eslint-disable-line
+                Broker: brokerId[0].Value,
+                first_name: cognitoUser.username
+              })
             })
           })
         },
@@ -108,7 +116,7 @@ export function logout() {
     }
 
     const cognitoUser = userPool.getCurrentUser()
-    
+
     cognitoUser.signOut()
     AWS.config.credentials.clearCachedId()
 

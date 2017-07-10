@@ -42,20 +42,23 @@ class Result extends Component {
 
 
     const showMatchResults = false
-
   // mixpanel events
     if (this.props.result.success) {
       mx.customEvent(
-          "submission",
-          "passClearance",
-          { Type: this.props.submission.type }
+        "submission",
+        "passClearance",
+        {
+          Type: this.props.submission.type,
+          Broker: this.props.user.broker
+        }
           );
     } else {
       mx.customEvent(
           "submission",
           "failClearance", { 
             Type: this.props.submission.type,
-            Matches: this.props.result.matches
+            Matches: this.props.result.matches,
+            Broker: this.props.user.broker
           })
     }
 
@@ -112,6 +115,7 @@ Result.propTypes = {
 
 export default connect((store) => {
   return ({
-    submission: store.app.submission
+    submission: store.app.submission,
+    user: store.user
   })
 })(Result)
