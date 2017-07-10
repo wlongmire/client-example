@@ -78,8 +78,8 @@ class FormResults extends Component {
             Premium: ratings[type].premium,
             TerrorPremium: ratings[type].terrorPremium,
             TotalPremium: ratings[type].totalPremium,
-            excessPremium: ratings[type].excessPremium,
-            excessTerrorPremium: ratings[type].excessTerrorPremium,
+            ExcessPremium: ratings[type].excessPremium,
+            ExcessTerrorPremium: ratings[type].excessTerrorPremium,
             TotalExcessPremium: ratings[type].totalExcessPremium,
             Broker: this.props.user.broker
           }
