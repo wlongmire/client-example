@@ -26,7 +26,9 @@ function ProductChoiceItem(props) {
       onClick={() => {
         props.dispatch({
           type: CHANGE_SUBMISSION,
-          submission: { type, status: SUBMISSION_STATUS.CLEARANCE }
+          payload: {
+            submission: { type, status: SUBMISSION_STATUS.CLEARANCE }
+          }
         })
 
         mx.customEvent(

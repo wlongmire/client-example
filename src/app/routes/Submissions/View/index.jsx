@@ -7,7 +7,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 import mx from 'app/utils/MixpanelInterface'
 
-class SubmissionView extends Component {
+export class SubmissionView extends Component {
 
   goToPage(submission) {
     mx.customEvent(
@@ -104,12 +104,12 @@ class SubmissionView extends Component {
             dataField="dateUpdated"
             dataSort={true}
           >Date <br />Updated</TableHeaderColumn>
-          {/* <TableHeaderColumn
+          <TableHeaderColumn
             width="25px"
             dataField="id"
             hidden={false}
             dataFormat={selectFormatter}
-          >Edit</TableHeaderColumn> */}
+          >Edit</TableHeaderColumn>
         </BootstrapTable>
       </div>
     )

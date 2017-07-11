@@ -13,10 +13,9 @@ export default function (state = {
 }, action) {
   switch (action.type) {
     case CHANGE_SUBMISSION:
-      const submission = Object.assign(state.submission, action.submission)
       return Object.assign(state, {
-        submission,
-        submissionFormParams: Object.assign(state.submissionFormParams, action.submissionFormParams)
+        submission: Object.assign(state.submission, action.payload.submission),
+        submissionFormParams: action.payload.submissionFormParams
       })
     case CHANGE_SUBMISSION_STATUS:
       return Object.assign(state, {
