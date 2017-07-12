@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1`] = `
+<form>
+  <h3>
+    This Submission Did Not Pass Clearance.
+  </h3>
+  <div>
+    <h4>
+      Your business as listed below matches a previously processed submission.
+    </h4>
+    <div
+      className="matchContainer"
+    >
+      <div
+        className="additionalContent"
+      >
+        <div
+          className="matchMessage"
+        >
+          <h3>
+            Blocked in Error?
+          </h3>
+          <h5>
+            If we have blocked clearance in error, please message us through the
+            <img
+              src="https://s3.amazonaws.com/ownersedge-cdn/images/chatIcon.png"
+            />
+            icon below or contact Jessica Buelow (
+            <a
+              href="mailto:jbuelow@colonyspecialty.com"
+            >
+              jbuelow@colonyspecialty.com
+            </a>
+            ).
+          </h5>
+        </div>
+      </div>
+      <div
+        className="match"
+      >
+        <h4>
+          First Named Insured:
+        </h4>
+        <h5>
+          Test 999
+        </h5>
+        <h4>
+          Project Address:
+        </h4>
+        <h5>
+          Test 999
+          <br />
+          Test 999
+           
+          California
+           
+          Test 999
+        </h5>
+      </div>
+    </div>
+  </div>
+  <ButtonGroup
+    block={false}
+    bsClass="btn-group"
+    justified={false}
+    vertical={false}
+  >
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="btn clearanceButton"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Reenter Clearance Information
+    </Button>
+    <LinkContainer
+      action="push"
+      onlyActiveOnIndex={false}
+      to="/productChoice"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="default"
+        className="btn secondary"
+        disabled={false}
+      >
+         Return to Product Selection
+      </Button>
+    </LinkContainer>
+  </ButtonGroup>
+</form>
+`;

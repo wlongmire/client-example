@@ -7,7 +7,7 @@ import {
   getClearance 
 } from 'app/actions/submissionActions'
 
-class Loading extends Component {
+export class Loading extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -30,7 +30,7 @@ class Loading extends Component {
 
       if (resp.success && resp.success === true) {
         const errorFlag = false
-        this.props.handleSubmit(
+        return this.props.handleSubmit(
           errorFlag,
           {
             success: (resp.matches.length === 0),
@@ -38,7 +38,7 @@ class Loading extends Component {
           }, input)
       } else {
         const errorFlag = true
-        this.props.handleSubmit(errorFlag)
+        return this.props.handleSubmit(errorFlag)
       }
     }).catch(() => {
       const errorFlag = true

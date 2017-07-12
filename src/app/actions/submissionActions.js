@@ -1,5 +1,4 @@
 import { push } from 'react-router-redux'
-import config from 'config'
 import trim from 'lodash/trim'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { transformSubmissionData } from '../utils/transformSubmissionData'
@@ -7,7 +6,6 @@ import { logout } from './userActions'
 
 import {
   FETCH_SUBMISSIONS,
-  EDIT_SUBMISSION,
   CHANGE_SUBMISSION,
   CHANGE_SUBMISSION_STATUS,
   SUBMISSION_STATUS,

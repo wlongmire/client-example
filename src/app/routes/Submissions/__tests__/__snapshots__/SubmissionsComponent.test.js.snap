@@ -4,7 +4,7 @@ exports[`>>> Submission Main Component--- Snapshot +++capturing Snapshot with 1`
 <div
   className="submissions"
 >
-  <SubmissionView
+  <Connect(SubmissionView)
     submissions={
       Array [
         Object {

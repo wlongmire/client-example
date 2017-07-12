@@ -156,7 +156,8 @@ class Clearance extends Component {
 
 Clearance.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  submission: PropTypes.object.isRequired
+  submission: PropTypes.object.isRequired,
+  user: PropTypes.object
 }
 
 export default connect((store) => {

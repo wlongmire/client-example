@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1`] = `
+<form>
+  <h3>
+    Checking Prior Submissions
+  </h3>
+  <h4>
+    Please Wait while we scan for matches.
+  </h4>
+  <div
+    className="loadingImg"
+  >
+    <img
+      src="https://s3.amazonaws.com/ownersedge-cdn/images/ajax-loader.gif"
+    />
+  </div>
+  <ButtonGroup
+    block={false}
+    bsClass="btn-group"
+    justified={false}
+    vertical={false}
+  >
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="btn"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Return to Clearance Form
+    </Button>
+  </ButtonGroup>
+</form>
+`;

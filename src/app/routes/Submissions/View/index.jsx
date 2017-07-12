@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Moment from 'moment'
-import { formatDollars } from 'app/utils/utilities'
 import * as actions from 'app/actions/submissionActions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
