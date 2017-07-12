@@ -29,6 +29,7 @@ class ProductChoice extends Component {
           type={productType}
           name={ratingProducts[productType].name}
           description={ratingProducts[productType].description}
+          broker={this.props.user.broker}
         />)
       })
     }
@@ -46,4 +47,8 @@ class ProductChoice extends Component {
   }
 }
 
-export default connect()(ProductChoice)
+export default connect((store) => {
+  return ({
+    user: store.user
+  })
+})(ProductChoice)

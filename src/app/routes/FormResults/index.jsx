@@ -63,10 +63,13 @@ class FormResults extends Component {
     // mixpanel events
     if (error) {
       mx.customEvent(
-          'submission',
-          'error',
-          { Type: this.props.submission }
-        );
+        'submission',
+        'error',
+        {
+          Type: this.props.submission,
+          Broker: this.props.user.broker
+        }
+        )
     } else if (ratings[submission.type].instantQuote) {
       mx.customEvent(
           'submission',
@@ -75,7 +78,10 @@ class FormResults extends Component {
             Premium: ratings[type].premium,
             TerrorPremium: ratings[type].terrorPremium,
             TotalPremium: ratings[type].totalPremium,
-            TotalExcessPremium: ratings[type].excessPremium
+            ExcessPremium: ratings[type].excessPremium,
+            ExcessTerrorPremium: ratings[type].excessTerrorPremium,
+            TotalExcessPremium: ratings[type].totalExcessPremium,
+            Broker: this.props.user.broker
           }
         )
     } else {
@@ -83,7 +89,8 @@ class FormResults extends Component {
           'submission',
           'knockout', {
             Type: type,
-            Reasons: ratings[type].reason
+            Reasons: ratings[type].reason,
+            Broker: this.props.user.broker 
           }
         )
     }
@@ -125,6 +132,7 @@ class FormResults extends Component {
 
 export default connect((store) => {
   return ({
-    submission: store.app.submission
+    submission: store.app.submission,
+    user: store.user
   })
 })(FormResults)

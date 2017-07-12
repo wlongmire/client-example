@@ -65,8 +65,7 @@ class Loading extends Component {
             sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
           ]
 
-          Promise.all(emailPromises).then((respEmail) => {
-            console.log('EMAIL RESPONSES', respEmail)
+          Promise.all(emailPromises).then(() => {
             this.props.handleEmailStatus({ success: true })
           })
         } else {

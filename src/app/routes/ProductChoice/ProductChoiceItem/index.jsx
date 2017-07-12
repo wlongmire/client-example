@@ -15,7 +15,8 @@ function ProductChoiceItem(props) {
     type,
     name,
     description,
-    dispatch
+    dispatch,
+    broker
   } = props
 
   return (
@@ -31,9 +32,12 @@ function ProductChoiceItem(props) {
         mx.customEvent(
           'submission',
           'create',
-          { Type: type }
+          {
+              Type: type,
+              Broker: broker
+           }
         )
-        /* AK_TO_DO */
+
         props.dispatch(push("/clearance"))
         { /* props.dispatch(push("/form")) */ }
       }}
