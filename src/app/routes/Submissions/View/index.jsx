@@ -18,7 +18,7 @@ export class SubmissionView extends Component {
         Type: submission.type
       }
     )
-    this.props.editSubmission(submission)
+    this.props.editSubmission(submission, this.props.user)
   }
 
   render() {
@@ -116,7 +116,12 @@ export class SubmissionView extends Component {
 
 SubmissionView.propTypes = {
   editSubmission: PropTypes.func.isRequired,
-  submissions: PropTypes.array.isRequired
+  submissions: PropTypes.array.isRequired,
+  user: PropTypes.object
 }
 
-export default connect(null, actions)(SubmissionView)
+export default connect((store) => {
+  return ({
+    user: store.user
+  })
+}, actions)(SubmissionView)

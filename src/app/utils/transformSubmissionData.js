@@ -14,8 +14,8 @@ export function transformSubmissionData(submissionsArray) {
           totalPremium: (premiumType && premiumType.totalPremium) ? formatDollars(premiumType.totalPremium) : 'n/a',
           type: item.type,
           updatedAt: item.updatedAt,
-          dateCreated: Moment(item.createdAt).format('MM-DD-YY hh:mma'),
-          dateUpdated: Moment(item.updatedAt).format('MM-DD-YY hh:mma'),
+          dateCreated: item.createdAt ? Moment(item.createdAt).format('MM-DD-YY hh:mma') : null,
+          dateUpdated: item.updatedAt ? Moment(item.updatedAt).format('MM-DD-YY hh:mma') : null,
           quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
         })
       })
