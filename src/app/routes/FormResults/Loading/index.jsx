@@ -70,7 +70,7 @@ class Loading extends Component {
           if (respSave.updated === true) {
             emailPromises = [
               sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-              // sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
+              sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
               sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user)
             ]
           } else {
