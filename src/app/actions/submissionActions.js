@@ -92,13 +92,15 @@ export function saveSubmission(submission, user) {
 }
 
 export function editSubmission(submission, user) {
+  console.log(' ============================ GETTING HERE ==============================')
   // *** need to check if token is expired before
   // AK_TO_DO
   return ((dispatch) => {
-    checkTokenExpiration(user).then(() => {
+    // checkTokenExpiration(user).then(() => {
       // eslint-disable-next-line no-undef
-      apigClient.apiGetSubmissionIdGet({ id: submission._id })
+    return apigClient.apiGetSubmissionIdGet({ id: submission._id })
       .then((resp) => {
+        console.log(' ============================ GETTING HERE ============================== 222222', resp)
         const data = resp.data
         if (data.success) {
           // add the entire submission in store in -> app.submission
@@ -116,7 +118,7 @@ export function editSubmission(submission, user) {
             projectState: { disabled: true },
             projectZipcode: { disabled: true },
           }
-
+          console.log(' ============================ GETTING HERE ============================== 444444')
           dispatch({
             type: CHANGE_SUBMISSION,
             payload: {
@@ -125,12 +127,15 @@ export function editSubmission(submission, user) {
             }
           })
 
+          console.log(' ============================ GETTING HERE ============================== 555555')
+
           // changes app.status to: EDIT
           dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
 
         // push the user to the form
           dispatch(push('/form'))
         } else {
+          console.log(' ============================ GETTING HERE ============================== 333333')
           alert('Error While Accessing Submissions DB.')
         }
       })
@@ -140,7 +145,7 @@ export function editSubmission(submission, user) {
         })
       })
     })
-  })
+  // })
 }
 
 export function getClearance(params, user) {
