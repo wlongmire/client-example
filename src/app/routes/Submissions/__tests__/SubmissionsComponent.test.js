@@ -8,6 +8,9 @@ import configureStore from 'redux-mock-store'
 import renderer from 'react-test-renderer'
 import { Submissions } from '../index'
 
+jest.mock('app/actions/userActions', () => 'testActions')
+jest.mock('app/actions/submissionActions', () => 'testActions')
+
 const initialState = {
   user: {
     _id: '5807af4bbd9f641100e26138',

@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Moment from 'moment'
-import { formatDollars } from 'app/utils/utilities'
 import * as actions from 'app/actions/submissionActions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 import mx from 'app/utils/MixpanelInterface'
 
-class SubmissionView extends Component {
+export class SubmissionView extends Component {
 
   goToPage(submission) {
     mx.customEvent(
@@ -20,7 +18,7 @@ class SubmissionView extends Component {
         Type: submission.type
       }
     )
-    this.props.editSubmission(submission)
+    this.props.editSubmission(submission, this.props.user)
   }
 
   render() {
@@ -104,12 +102,12 @@ class SubmissionView extends Component {
             dataField="dateUpdated"
             dataSort={true}
           >Date <br />Updated</TableHeaderColumn>
-          {/* <TableHeaderColumn
+          <TableHeaderColumn
             width="25px"
             dataField="id"
             hidden={false}
             dataFormat={selectFormatter}
-          >Edit</TableHeaderColumn> */}
+          >Edit</TableHeaderColumn>
         </BootstrapTable>
       </div>
     )
@@ -118,7 +116,12 @@ class SubmissionView extends Component {
 
 SubmissionView.propTypes = {
   editSubmission: PropTypes.func.isRequired,
-  submissions: PropTypes.array.isRequired
+  submissions: PropTypes.array.isRequired,
+  user: PropTypes.object
 }
 
-export default connect(null, actions)(SubmissionView)
+export default connect((store) => {
+  return ({
+    user: store.user
+  })
+}, actions)(SubmissionView)

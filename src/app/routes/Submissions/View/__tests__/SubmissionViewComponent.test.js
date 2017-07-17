@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import toJson from 'enzyme-to-json'
 import configureStore from 'redux-mock-store'
 import renderer from 'react-test-renderer'
-import SubmissionView from '../index'
+import { SubmissionView } from '../index'
 
 // // Snapshot for Home Header Component
 // describe('>>> Header --- Snapshot', () => {
@@ -16,6 +16,8 @@ import SubmissionView from '../index'
 //   })
 // })
 
+jest.mock('app/actions/userActions', () => 'testActions')
+jest.mock('app/actions/submissionActions', () => 'testActions')
 
 const initialState = {
   user: {

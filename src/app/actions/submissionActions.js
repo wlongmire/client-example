@@ -1,5 +1,4 @@
 import { push } from 'react-router-redux'
-import config from 'config'
 import trim from 'lodash/trim'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { transformSubmissionData } from '../utils/transformSubmissionData'
@@ -7,7 +6,7 @@ import { logout } from './userActions'
 
 import {
   FETCH_SUBMISSIONS,
-  EDIT_SUBMISSION,
+  CHANGE_SUBMISSION,
   CHANGE_SUBMISSION_STATUS,
   SUBMISSION_STATUS,
   CLEAR_SUBMISSION
@@ -56,7 +55,27 @@ export function getSubmissions(user) {
 
 export function saveSubmission(submission, user) {
   return checkTokenExpiration(user).then(() => {
-  // eslint-disable-next-line no-undef
+    const paramsId = submission._id ? { id: submission._id } : {}
+
+    if (submission._id) {
+      return apigClient.apiSaveIdPost(paramsId, submission, {})
+      .then((resp) => {
+        return ({
+          ...resp,
+          updated: true
+        })
+      })
+      .catch((error) => {
+        if (error.status === 0 || error.status === 403) {
+          return Promise.resolve({ status: 'authError' })
+        }
+        return Promise.reject({
+          _error: error.message
+        })
+      })
+    }
+
+    // eslint-disable-next-line no-undef
     return apigClient.apiSavePost({}, submission, {})
       .then((resp) => {
         return (resp)
@@ -72,30 +91,52 @@ export function saveSubmission(submission, user) {
   })
 }
 
-export function editSubmission(submission) {
+export function editSubmission(submission, user) {
   // *** need to check if token is expired before
   // AK_TO_DO
   return ((dispatch) => {
-    // eslint-disable-next-line no-undef
-    apigClient.apiGetSubmissionIdGet({ id: submission._id })
-    .then((resp) => {
-      const data = resp.data
-      if (data.success) {
-        // add the entire submission in store in -> app.submission
-        dispatch({ type: EDIT_SUBMISSION, payload: data.submission })
+    return checkTokenExpiration(user).then(() => {
+      // eslint-disable-next-line no-undef
+    return apigClient.apiGetSubmissionIdGet({ id: submission._id })
+      .then((resp) => {
+        const data = resp.data
+        if (data.success) {
+          // add the entire submission in store in -> app.submission
+          // dispatch({ type: EDIT_SUBMISSION, payload: data.submission })
+          const submissionFormParams = {
+            primaryInsuredName: { disabled: true },
 
-        // changes app.status to: EDIT
-        dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
+            primaryInsuredAddress: { disabled: true },
+            primaryInsuredCity: { disabled: true },
+            primaryInsuredState: { disabled: true },
+            primaryInsuredZipcode: { disabled: true },
 
-       // push the user to the form
-        dispatch(push('/form'))
-      } else {
-        alert('Error While Accessing Submissions DB.')
-      }
-    })
-    .catch((error) => {
-      return Promise.reject({
-        _error: error.message
+            projectAddress: { disabled: true },
+            projectCity: { disabled: true },
+            projectState: { disabled: true },
+            projectZipcode: { disabled: true },
+          }
+          dispatch({
+            type: CHANGE_SUBMISSION,
+            payload: {
+              submission: data.submission,
+              submissionFormParams
+            }
+          })
+
+          // changes app.status to: EDIT
+          dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
+
+        // push the user to the form
+          dispatch(push('/form'))
+        } else {
+          alert('Error While Accessing Submissions DB.')
+        }
+      })
+      .catch((error) => {
+        return Promise.reject({
+          _error: error.message
+        })
       })
     })
   })

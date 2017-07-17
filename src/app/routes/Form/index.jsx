@@ -46,6 +46,8 @@ class Form extends Component {
   }
 
   componentWillMount() {
+    // console.log('this.props.submission.type in FORM', this.props.submission.type)
+    // console.log('this.props.submission in FORM', this.props.submission)
     if (!this.props.submission.type) {
       this.props.dispatch(push('/productChoice'))
     }
@@ -58,7 +60,7 @@ class Form extends Component {
   handleSubmitQuote() {
     const submission = Object.assign(this.state.submission, { status: 'QUOTE' })
 
-    this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
+    this.props.dispatch({ type: CHANGE_SUBMISSION, payload: { submission } })
     this.setState({
       confirmation: false
     })
@@ -83,7 +85,7 @@ class Form extends Component {
     } else {
       const submission = Object.assign(this.state.submission, sub)
 
-      this.props.dispatch({ type: CHANGE_SUBMISSION, submission })
+      this.props.dispatch({ type: CHANGE_SUBMISSION, payload: { submission } })
       this.setState({
         ...this.state,
         requiredFields: [],

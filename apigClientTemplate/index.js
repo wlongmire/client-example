@@ -336,6 +336,21 @@ apigClientFactory.newClient = function (config) {
         return apiGatewayClient.makeRequest(apiSaveOptionsRequest, authType, additionalParams, config.apiKey);
     };
 
+    apigClient.apiSaveIdPost = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+        
+        var apiSaveIdPostRequest = {
+            verb: 'post'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/save/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+         
+        return apiGatewayClient.makeRequest(apiSaveIdPostRequest, authType, additionalParams, config.apiKey);
+    };
 
     apigClient.apiSendEmailIdPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }

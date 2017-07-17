@@ -312,6 +312,29 @@ exports[`>>> SubmissionView --- Snapshot +++capturing Snapshot with 1`] = `
       <br />
       Updated
     </TableHeaderColumn>
+    <TableHeaderColumn
+      className=""
+      columnClassName=""
+      columnTitle={false}
+      dataAlign="left"
+      dataField="id"
+      dataFormat={[Function]}
+      dataSort={false}
+      editColumnClassName=""
+      editable={true}
+      expandable={true}
+      filterFormatted={false}
+      headerTitle={true}
+      hidden={false}
+      hiddenOnInsert={false}
+      invalidEditColumnClassName=""
+      isKey={false}
+      searchable={true}
+      sortIndicator={true}
+      width="25px"
+    >
+      Edit
+    </TableHeaderColumn>
   </BootstrapTable>
 </div>
 `;

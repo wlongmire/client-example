@@ -3,11 +3,11 @@ import React, { Component, PropTypes } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import mx from 'app/utils/MixpanelInterface'
 import { connect } from 'react-redux'
-import { ButtonGroup, Button, Panel } from 'react-bootstrap'
-import ToggleDisplay from 'components/shared/ToggleDisplay'
+import { ButtonGroup, Button } from 'react-bootstrap'
+// import ToggleDisplay from 'components/shared/ToggleDisplay'
 import config from 'config'
 
-class Result extends Component {
+export class Result extends Component {
   render() {
     const failClearaceMessage = (config.clearanceFailFlag === 'true') ?
     (<div className="matchMessage">
@@ -31,7 +31,7 @@ class Result extends Component {
       subtitle: "You are the first to submit this insured for review. Now we can enter additional pricing information.",
       additionalContent: "",
       buttonLabel: "Fill out Remaining Information"
-    }:{
+    } : {
       title: "This Submission Did Not Pass Clearance.",
       subtitle: "Your business as listed below matches a previously processed submission.",
       additionalContent: <div className="additionalContent">

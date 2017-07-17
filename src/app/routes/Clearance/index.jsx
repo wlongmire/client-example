@@ -116,8 +116,10 @@ class Clearance extends Component {
       }
 
       this.props.dispatch({ type: CHANGE_SUBMISSION,
-        submission,
-        submissionFormParams
+        payload: {
+          submission,
+          submissionFormParams
+        }
       })
 
       this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
@@ -154,7 +156,8 @@ class Clearance extends Component {
 
 Clearance.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  submission: PropTypes.object.isRequired
+  submission: PropTypes.object.isRequired,
+  user: PropTypes.object
 }
 
 export default connect((store) => {
