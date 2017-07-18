@@ -120,6 +120,22 @@ apigClientFactory.newClient = function (config) {
         return apiGatewayClient.makeRequest(apiGetBrokerOptionsRequest, authType, additionalParams, config.apiKey);
     };
 
+    apigClient.apiGetBrokerIdGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        console.log('GETTING TO THE APIG CLIENT ======', params)
+        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+        
+        var apiGetBrokerIdGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/getBroker/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        return apiGatewayClient.makeRequest(apiGetBrokerIdGetRequest, authType, additionalParams, config.apiKey);
+    };
+
 
     apigClient.apiGetClearanceGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
