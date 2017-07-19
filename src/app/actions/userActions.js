@@ -30,7 +30,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         Password: password
       }), {
         onSuccess: (resp) => {
-          console.log("RESPONSE FOR SIGNING", resp)
           const credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: config.awsCognito.identityPoolId,
             Logins: {
@@ -48,7 +47,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
             }
 
             AWS.config.credentials = credentials
-            console.log('response123', AWS.config.credentials.data.Credentials)
             window.apigClient = apigClientFactory.newClient({
               accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
               secretKey: AWS.config.credentials.data.Credentials.SecretKey,
@@ -66,11 +64,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
               const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
 
-              console.log('BROKER ID', brokerId[0].Value)
               apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
-                console.log('TEST =================', brokerResp)
                 const brokerInfo = JSON.parse(brokerResp.data)
-                console.log('brokerInfo.Item.Name', brokerInfo.data.Item.name)
                 const brokerName = (brokerInfo.data && brokerInfo.data.Item) ? brokerInfo.data.Item.name : null
 
                 mixpanel.register({
@@ -84,38 +79,18 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 mx.customEvent(
                   'auth',
                   'login')
-              
+
               // adding identity and attributes to
               // mixpanel user profile
               mixpanel.identify(cognitoUser.username) // eslint-disable-line
               mixpanel.people.set({ // eslint-disable-line
                 Broker: brokerId[0].Value,
+                BrokerName: brokerName,
                 first_name: cognitoUser.username
               })
               }, (err) => {
                 console.log('ERROR ================', err)
               })
-
-              // mx.customEvent(
-              //     'auth',
-              //     'login', {
-              //       User: cognitoUser.username,
-              //       Email: cognitoUser.username,
-              //       SubId: subIdQuery[0].Value,
-              //       Broker: brokerId[0].Value,
-              //     }
-              //   )
-              
-              // // adding identity and attributes to
-              // // mixpanel user profile
-              // mixpanel.identify(cognitoUser.username) // eslint-disable-line
-              // mixpanel.people.set({ // eslint-disable-line
-              //   Broker: brokerId[0].Value,
-              //   first_name: cognitoUser.username
-              // })
-              // mixpanel.register({
-              //     BrokerName: brokerInfo.Item.Name
-              // })
             })
           })
         },

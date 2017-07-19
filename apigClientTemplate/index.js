@@ -122,7 +122,6 @@ apigClientFactory.newClient = function (config) {
 
     apigClient.apiGetBrokerIdGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
-        console.log('GETTING TO THE APIG CLIENT ======', params)
         apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
         
         var apiGetBrokerIdGetRequest = {
