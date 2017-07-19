@@ -66,7 +66,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
               apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
                 const brokerInfo = JSON.parse(brokerResp.data)
-                const brokerName = (brokerInfo.data && brokerInfo.data.Item) ? brokerInfo.data.Item.name : null
+                const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
                 mixpanel.register({
                   BrokerName: brokerName,
