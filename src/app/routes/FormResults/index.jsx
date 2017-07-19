@@ -66,8 +66,7 @@ class FormResults extends Component {
         'submission',
         'error',
         {
-          Type: this.props.submission,
-          Broker: this.props.user.broker
+          Type: this.props.submission
         }
         )
     } else if (ratings[submission.type].instantQuote) {
@@ -80,8 +79,7 @@ class FormResults extends Component {
             TotalPremium: ratings[type].totalPremium,
             ExcessPremium: ratings[type].excessPremium,
             ExcessTerrorPremium: ratings[type].excessTerrorPremium,
-            TotalExcessPremium: ratings[type].totalExcessPremium,
-            Broker: this.props.user.broker
+            TotalExcessPremium: ratings[type].totalExcessPremium
           }
         )
     } else {
@@ -90,7 +88,6 @@ class FormResults extends Component {
           'knockout', {
             Type: type,
             Reasons: ratings[type].reason,
-            Broker: this.props.user.broker 
           }
         )
     }

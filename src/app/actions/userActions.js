@@ -64,21 +64,32 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
               const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
 
-              mx.customEvent(
+              apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
+                const brokerInfo = JSON.parse(brokerResp.data)
+                const brokerName = (brokerInfo.data && brokerInfo.data.Item) ? brokerInfo.data.Item.name : null
+
+                mixpanel.register({
+                  BrokerName: brokerName,
+                  User: cognitoUser.username,
+                  Email: cognitoUser.username,
+                  Broker: brokerId[0].Value,
+                  SubId: subIdQuery[0].Value,
+                  Environment: config.mixPanelEnvironment
+                })
+                mx.customEvent(
                   'auth',
-                  'login', {
-                    User: cognitoUser.username,
-                    Email: cognitoUser.username,
-                    SubId: subIdQuery[0].Value,
-                    Broker: brokerId[0].Value,
-                  }
-                )
+                  'login')
+
               // adding identity and attributes to
               // mixpanel user profile
               mixpanel.identify(cognitoUser.username) // eslint-disable-line
               mixpanel.people.set({ // eslint-disable-line
                 Broker: brokerId[0].Value,
+                BrokerName: brokerName,
                 first_name: cognitoUser.username
+              })
+              }, (err) => {
+                console.log('ERROR ================', err)
               })
             })
           })
