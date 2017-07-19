@@ -48,8 +48,7 @@ export class Result extends Component {
         "submission",
         "passClearance",
         {
-          Type: this.props.submission.type,
-          Broker: this.props.user.broker
+          Type: this.props.submission.type
         }
           );
     } else {
@@ -57,8 +56,7 @@ export class Result extends Component {
           "submission",
           "failClearance", { 
             Type: this.props.submission.type,
-            Matches: this.props.result.matches,
-            Broker: this.props.user.broker
+            Matches: this.props.result.matches
           })
     }
 

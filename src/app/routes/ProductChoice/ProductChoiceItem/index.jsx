@@ -35,8 +35,7 @@ function ProductChoiceItem(props) {
           'submission',
           'create',
           {
-              Type: type,
-              Broker: broker
+              Type: type
            }
         )
 
