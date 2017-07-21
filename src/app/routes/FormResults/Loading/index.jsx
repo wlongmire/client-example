@@ -49,14 +49,10 @@ class Loading extends Component {
       submissionData.rating = ratings // adding rating to submission
       submissionData.broker = this.props.user.broker // adding broker to  submission
 
-      // AK_TO_DO
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
           this.props.logout()
         }
-
-        console.log('IS UPDATED TRUE 1', respSave)
-        console.log('IS UPDATED TRUE 2', respSave.updated)
 
         if (respSave.data && respSave.data.success === true) {
           const { submissionId } = respSave.data
@@ -67,6 +63,7 @@ class Loading extends Component {
 
           // if this is an update instead of a new submission
           console.log('instantQuote', instantQuote)
+
           if (respSave.updated === true) {
             emailPromises = [
               sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
@@ -80,12 +77,6 @@ class Loading extends Component {
               sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
             ]
           }
-
-          // const emailPromises = [
-          //   sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-          //   sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-          //   sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
-          // ]
 
           Promise.all(emailPromises).then(() => {
             this.props.handleEmailStatus({ success: true })
