@@ -43,13 +43,10 @@ class Clearance extends Component {
 
   handleLoadComplete(error, result, input) {
     this.setState({ status: (error) ? STATUS.ERROR : STATUS.RESULT, result })
-
+    
     if (result.success === false && config.clearanceFailFlag === 'true') {
       sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
-
-      if (config.env === 'prod') {
-        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
-      }
+      sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
     }
   }
 

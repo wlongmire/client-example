@@ -29,8 +29,7 @@ class Loading extends Component {
     const ratingPromises = typeMap[submission.type]
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
-    const { argoEmail } = config
-    const { ownerEdgeEmail } = config
+    const { argoEmail, ownerEdgeEmail } = config
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
@@ -80,14 +79,12 @@ class Loading extends Component {
             ]
           }
 
-          if (config.env === "prod") {
-            if (respSave.updated === true) {
-              sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user)
-            } else {
-              sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
-            }
+          if (respSave.updated === true) {
+            sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user)
+          } else {
+            sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
           }
-
+          
           Promise.all(emailPromises).then(() => {
             this.props.handleEmailStatus({ success: true })
           })

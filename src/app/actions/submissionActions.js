@@ -154,8 +154,10 @@ export function getClearance(params, user) {
     insuredCity: trim(params.addresses[1].primaryInsuredCity),
     insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
   }
+
   return checkTokenExpiration(user).then(() => {
     // eslint-disable-next-line no-undef
+    
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
         return (resp.data)

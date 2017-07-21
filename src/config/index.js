@@ -7,7 +7,7 @@ const config = {
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
-    ownerEdgeEmail: 'ownersedgesubmissions@gmail.com',
+    ownerEdgeEmail: 'ownersedgesubmissionsdev@gmail.com',
     clearanceFailEmail:'argoaccessquickquote@gmail.com',
     clearanceFailFlag: 'true',
     mongoURI: 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev',
