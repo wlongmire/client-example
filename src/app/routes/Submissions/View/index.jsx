@@ -34,7 +34,7 @@ export class SubmissionView extends Component {
       }
       return ''
     }
-
+    
     const options = {
       defaultSortName: 'updatedAt',  // default sort column name
       defaultSortOrder: 'desc'  // default sort order,

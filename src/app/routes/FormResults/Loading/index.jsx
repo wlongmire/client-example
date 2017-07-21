@@ -69,19 +69,24 @@ class Loading extends Component {
             emailPromises = [
               sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
               sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-              sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user)
+              sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
             ]
           } else {
             emailPromises = [
               sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
               sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
               sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
-              sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user)
+  
             ]
           }
 
-          // if (config.env === "prod")
-          sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user)
+          // if (config.env === "prod") {
+            if (respSave.updated === true) {
+              sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user)
+            } else {
+              sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
+            }
+          // }
 
           Promise.all(emailPromises).then(() => {
             this.props.handleEmailStatus({ success: true })

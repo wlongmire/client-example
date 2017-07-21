@@ -46,8 +46,6 @@ class Form extends Component {
   }
 
   componentWillMount() {
-    // console.log('this.props.submission.type in FORM', this.props.submission.type)
-    // console.log('this.props.submission in FORM', this.props.submission)
     if (!this.props.submission.type) {
       this.props.dispatch(push('/productChoice'))
     }
@@ -64,6 +62,7 @@ class Form extends Component {
     this.setState({
       confirmation: false
     })
+    
     this.props.dispatch(push('/formResults'))
   }
 
