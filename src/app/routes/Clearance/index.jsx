@@ -47,8 +47,9 @@ class Clearance extends Component {
     if (result.success === false && config.clearanceFailFlag === 'true') {
       sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
 
-      // if (config.env === "prod")
-      sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
+      if (config.env === 'prod') {
+        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
+      }
     }
   }
 
