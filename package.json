@@ -131,8 +131,8 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^5.0.1",
-    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "jest-cli": "^20.0.1",
     "mocha": "^3.3.0",
     "nock": "^9.0.13",
@@ -147,7 +147,9 @@
       "browser": true,
       "node": true
     },
-    "settings": {},
+    "parserOptions": {
+      "ecmaVersion": 6
+    },
     "extends": "airbnb",
     "rules": {
       "import/no-mutable-exports": "off",
@@ -164,6 +166,7 @@
       "arrow-body-style": "off",
       "no-lonely-if": "off",
       "eqeqeq": "off",
+      "import/no-absolute-path": "off",
       "react/require-default-props": "off",
       "import/prefer-default-export": "off",
       "react/forbid-prop-types": "off",
@@ -174,12 +177,7 @@
         "error",
         "never"
       ],
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          "devDependencies": true
-        }
-      ]
+      "import/no-extraneous-dependencies": "off"
     }
   }
 }

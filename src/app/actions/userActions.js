@@ -1,12 +1,12 @@
 import config from 'config'
 import { push } from 'react-router-redux'
-import AWS from 'aws-sdk'
-import moment from 'moment'
-import { cognitoPersistUser } from '../utils/cognitoPersistUser'
+// import AWS from 'aws-sdk'
+// import moment from 'moment'
+// import { cognitoPersistUser } from '../utils/cognitoPersistUser'
 import {
   USER_LOGGED_OUT,
-  SET_API_GATEWAY_CLIENT,
-  USER_LOGGED_IN,
+  // SET_API_GATEWAY_CLIENT,
+  // USER_LOGGED_IN,
 } from 'app/constants/user'
 import mx from 'app/utils/MixpanelInterface'
 

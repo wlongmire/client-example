@@ -1,8 +1,8 @@
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-var config = require('./src/config');
+const config = require('./src/config')
 
 module.exports = {
   entry: [
@@ -61,6 +61,10 @@ module.exports = {
       }
     }),
     new webpack.HotModuleReplacementPlugin()
+    // for production minification TO_DO_AK
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: { warnings: false }
+    // }),
   ],
   devtool: 'cheap-module-eval-source-map'
-};
+}
