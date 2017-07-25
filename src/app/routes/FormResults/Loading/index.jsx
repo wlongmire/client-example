@@ -27,9 +27,9 @@ class Loading extends Component {
     }
 
     const ratingPromises = typeMap[submission.type]
-    const argoEmail = config.argoEmail
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
+    const { argoEmail, ownerEdgeEmail } = config
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
@@ -49,14 +49,10 @@ class Loading extends Component {
       submissionData.rating = ratings // adding rating to submission
       submissionData.broker = this.props.user.broker // adding broker to  submission
 
-      // AK_TO_DO
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
           this.props.logout()
         }
-
-        console.log('IS UPDATED TRUE 1', respSave)
-        console.log('IS UPDATED TRUE 2', respSave.updated)
 
         if (respSave.data && respSave.data.success === true) {
           const { submissionId } = respSave.data
@@ -67,26 +63,28 @@ class Loading extends Component {
 
           // if this is an update instead of a new submission
           console.log('instantQuote', instantQuote)
+
           if (respSave.updated === true) {
             emailPromises = [
               sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
               sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-              sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user)
+              sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
             ]
           } else {
             emailPromises = [
               sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
               sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-              sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
+              sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
+  
             ]
           }
 
-          // const emailPromises = [
-          //   sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-          //   sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-          //   sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
-          // ]
-
+          if (respSave.updated === true) {
+            sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user)
+          } else {
+            sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
+          }
+          
           Promise.all(emailPromises).then(() => {
             this.props.handleEmailStatus({ success: true })
           })

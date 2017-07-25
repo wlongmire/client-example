@@ -7,6 +7,7 @@ const config = {
     argoEmail: '@argoEmail',
     sgsOIEmail: '@sgsOIEmail',
     sgsOCPEmail: '@sgsOCPEmail',
+    ownerEdgeEmail: '@ownerEdgeEmail',
     clearanceFailEmail:'@clearanceFailEmail',
     clearanceFailFlag: '@clearanceFailFlag',
     mongoURI: '@mongoURI',
