@@ -56,7 +56,7 @@ export class Loading extends Component {
         <div className="loadingImg">
           <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
         </div>
-
+        
         <ButtonGroup>
           <Button onClick={this.props.handleCancel} className="btn">
             Return to Clearance Form

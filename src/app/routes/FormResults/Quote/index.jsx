@@ -65,7 +65,7 @@ class Quote extends Component {
 
     const emailStatusMap = {
       LOADING: <div className="emailStatus">
-        <img src="https://s3.amazonaws.com/ownersedge-cdn/images/ajax-loader.gif" />
+        <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
         <p>Emails/Submission Forms Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
       </div>,
       ERROR: <div className="emailStatus error">
@@ -73,7 +73,7 @@ class Quote extends Component {
         <span>Please contact us to complete this transaction.</span>
       </div>,
       SUCCESS: <div className="emailStatus success">
-        <img src="https://s3.amazonaws.com/ownersedge-cdn/images/thumbs-up.png" />
+        <img src={`${config.assetsURL}/images/thumbs-up.png`} />
         <p>Your submission forms have been successfully processed.</p>
         <span>The approparte forms should appear in your inbox within the next minute. Thank you for using Argo Limited.</span>
       </div>
