@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
+import config from 'config'
 import * as actions from 'app/actions/userActions'
 import {
   getClearance 
@@ -53,7 +54,7 @@ export class Loading extends Component {
         <h4>Please Wait while we scan for matches.</h4>
 
         <div className="loadingImg">
-          <img src="https://s3.amazonaws.com/ownersedge-cdn/images/ajax-loader.gif" />
+          <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
         </div>
 
         <ButtonGroup>

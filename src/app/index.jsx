@@ -24,6 +24,7 @@ cognitoPersistUser((user) => {
   const store = configureStore(browserHistory, {
     user
   })
+  
   const history = syncHistoryWithStore(
     browserHistory,
     store
