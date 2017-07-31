@@ -1,6 +1,6 @@
-var webpack = require('webpack')
-var path = require('path')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -57,9 +57,9 @@ module.exports = {
       }
     }),
     // for production minification TO_DO_AK
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: { warnings: false }
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    }),
     new ExtractTextPlugin('css/bundle.css', { allChunks: true })
   ]
 }
