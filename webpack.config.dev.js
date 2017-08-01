@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const config = require('./src/config')
+=======
+var webpack = require('webpack')
+var path = require('path')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+var config = require('./src/config')
+>>>>>>> 54ac9c76a8cd1c27e8a80a7587d4f567ed7b6122
 
 module.exports = {
   entry: [
