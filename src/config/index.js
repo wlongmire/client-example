@@ -21,10 +21,6 @@ const config = {
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess_2.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
-<<<<<<< HEAD
-    ratingsUrl:'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/',
-=======
->>>>>>> 54ac9c76a8cd1c27e8a80a7587d4f567ed7b6122
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
     mixPanelEnvironment: 'prod',
