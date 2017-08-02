@@ -9,20 +9,17 @@ import config from 'config';
 
 function Knockout(props) {
     const emailStatusMap = {
-        "LOADING":
-            <div className="emailStatus">
-                <img src="https://s3.amazonaws.com/ownersedge-cdn/images/ajax-loader.gif"/>
-                <p>Emails Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
-            </div>,
-        "ERROR":
-            <div className="emailStatus error">
-                <p>There appears to be something wrong.</p><span>Please contact us to complete this transaction.</span>
-            </div>,
-        "SUCCESS":
-            <div className="emailStatus success">
-                <img src="https://s3.amazonaws.com/ownersedge-cdn/images/thumbs-up.png" />
-                <p>Your submission forms have been successfully processed.</p><span>Please check your your inbox. Thank you for using Argo Limited.</span>
-            </div>
+        LOADING: <div className="emailStatus">
+            <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
+            <p>Emails Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
+        </div>,
+        ERROR: <div className="emailStatus error">
+            <p>There appears to be something wrong.</p><span>Please contact us to complete this transaction.</span>
+        </div>,
+        SUCCESS: <div className="emailStatus success">
+            <img src={`${config.assetsURL}/images/thumbs-up.png`} />
+            <p>Your submission forms have been successfully processed.</p><span>Please check your your inbox. Thank you for using Argo Limited.</span>
+        </div>
     }
     
     const { reason } = props.ratings[props.submission.type];

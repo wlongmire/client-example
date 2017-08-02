@@ -21,7 +21,7 @@ export class Result extends Component {
       <h3>Blocked in Error?</h3>
       <h5>
         If we have blocked clearance in error, please message us through the
-          <img src="https://s3.amazonaws.com/ownersedge-cdn/images/chatIcon.png" />
+          <img src={`${config.assetsURL}/images/chatIcon.png`} />
           icon below or contact Jessica Buelow (<a href="mailto:jbuelow@colonyspecialty.com">jbuelow@colonyspecialty.com</a>).
       </h5>
     </div>)

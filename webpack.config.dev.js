@@ -1,8 +1,8 @@
-const webpack = require('webpack')
-const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+var webpack = require('webpack')
+var path = require('path')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const config = require('./src/config')
+var config = require('./src/config')
 
 module.exports = {
   entry: [

@@ -22,9 +22,8 @@ gulp.task('transform:prod', ['apiTransform:prod'], () => {
   .pipe(replace('@argoEmail', 'jbuelow@colonyspecialty.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissions@gmail.com'))
   .pipe(replace('@serverUrl', 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/'))
+  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-prod'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@identityPoolId', 'us-east-1:57db5f54-9c0c-4d2f-8b92-d3279a07f61c')) // PROD
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
@@ -43,9 +42,8 @@ gulp.task('transform:dev', ['apiTransform:dev'], () => {
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/'))
+  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-dev'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // DEV
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
@@ -64,9 +62,8 @@ gulp.task('transform:qa', ['apiTransform:qa'], () => {
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/qa/'))
+  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-qa'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@identityPoolId', 'us-east-1:6a0b54c3-6f76-4c64-a188-ebee6c0a02c4')) // QA
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
@@ -85,9 +82,8 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
+  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-dev'))
   .pipe(replace('@appId', 'appIdorsomething'))
-  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  // .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/')) // qa
   .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // DEV
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
@@ -106,9 +102,8 @@ gulp.task('transform:local-qa', ['apiTransform:local-qa'], () => {
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
+  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-qa'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
-  .pipe(replace('@ratingsUrl', 'http://ownersedge-ratings-prod.us-east-1.elasticbeanstalk.com/'))
   .pipe(replace('@identityPoolId', 'us-east-1:6a0b54c3-6f76-4c64-a188-ebee6c0a02c4')) // QA
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
@@ -127,8 +122,8 @@ gulp.task('transform:local-prod', ['apiTransform:local-prod'], () => {
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
+  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-prod'))
   .pipe(replace('@appId', '57ab6abcf36d2840aa667f6e'))
-  .pipe(replace('@mongoURI', 'mongodb://apiuser:apipass@ds153765.mlab.com:53765/ownersedgedev'))
   .pipe(replace('@identityPoolId', 'us-east-1:57db5f54-9c0c-4d2f-8b92-d3279a07f61c')) // PROD
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
@@ -141,33 +136,37 @@ gulp.task('transform:local-prod', ['apiTransform:local-prod'], () => {
 })
 
 gulp.task('apiTransform:local', () => {
-  gulp.src('apigClientTemplate/*')
+  gulp.src('apigClientTemplate/*/**')
   .pipe(replace('@ApiStageEnv', 'dev'))
   .pipe(gulp.dest('dist/public/apigClient/'))
 })
+
 gulp.task('apiTransform:local-qa', () => {
-  gulp.src('apigClientTemplate/*')
+  gulp.src('apigClientTemplate/*/**')
   .pipe(replace('@ApiStageEnv', 'qa'))
   .pipe(gulp.dest('dist/public/apigClient/'))
 })
+
 gulp.task('apiTransform:local-prod', () => {
-  gulp.src('apigClientTemplate/*')
+  gulp.src('apigClientTemplate/*/**')
   .pipe(replace('@ApiStageEnv', 'prod'))
   .pipe(gulp.dest('dist/public/apigClient/'))
 })
 
 gulp.task('apiTransform:dev', () => {
-  gulp.src('apigClientTemplate/*')
+  gulp.src('apigClientTemplate/*/**')
   .pipe(replace('@ApiStageEnv', 'dev'))
   .pipe(gulp.dest('src/apigClient/'))
 })
+
 gulp.task('apiTransform:qa', () => {
-  gulp.src('apigClientTemplate/*')
+  gulp.src('apigClientTemplate/*/**')
   .pipe(replace('@ApiStageEnv', 'qa'))
   .pipe(gulp.dest('src/apigClient/'))
 })
+
 gulp.task('apiTransform:prod', () => {
-  gulp.src('apigClientTemplate/*')
+  gulp.src('apigClientTemplate/*/**')
   .pipe(replace('@ApiStageEnv', 'prod'))
   .pipe(gulp.dest('src/apigClient/'))
 })
@@ -209,11 +208,6 @@ gulp.task('fonts', () => {
   return gulp.src('src/fonts/**/*')
     .pipe(gulp.dest('dist/public/fonts'))
 })
-
-// gulp.task('apiClient', () => {
-//   return gulp.src('apigClientTemplate/**/*')
-//     .pipe(gulp.dest('src/apigClient'))
-// })
 
 gulp.task('webpack:build', (callback) => {
   return webpack(webpackConfigProd, (err, stats) => {
