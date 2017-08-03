@@ -3,11 +3,12 @@
 const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
-    appId: '57ab6abcf36d2840aa667f6e',
-    argoEmail: 'jbuelow@colonyspecialty.com',
-    sgsOIEmail: 'owners@colonyspecialty.com',
-    sgsOCPEmail: 'ocpsubmissions@colonyspecialty.com',
-    clearanceFailEmail:'owners@colonyspecialty.com',
+    appId: 'appIdorsomething',
+    argoEmail: 'argoaccessquickquote@gmail.com',
+    sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
+    sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
+    ownerEdgeEmail: 'ownersedgesubmissionsdev@gmail.com',
+    clearanceFailEmail:'argoaccessquickquote@gmail.com',
     clearanceFailFlag: 'true',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
@@ -23,10 +24,10 @@ const config = {
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
-    mixPanelEnvironment: 'prod',
+    mixPanelEnvironment: 'dev',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:57db5f54-9c0c-4d2f-8b92-d3279a07f61c',
+        identityPoolId: 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97',
         identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0',
         userPoolId: 'us-east-1_XWOnd6XH0',
         region: 'us-east-1',
@@ -65,7 +66,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
+        url: 'http://localhost',
         port: null
     },
 
@@ -74,7 +75,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
+        url: 'http://localhost',
         port:  null
     }
 };
