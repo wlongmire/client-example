@@ -1,11 +1,9 @@
 {
-  "name": "skonkworks",
+  "name": "ownersedge",
   "version": "1.0.0",
   "description": "For developing new ventures at Argo.",
   "dependencies": {
     "amazon-cognito-identity-js": "^1.18.0",
-    "babel": "^6.5.2",
-    "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-runtime": "^6.9.0",
@@ -116,12 +114,13 @@
     "postinstall": "gulp build",
     "serve:development": "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
-    "build": "babel src/config -d dist/public/config --copy-files; babel src/apigClient/ -d dist/public/apigClient --copy-files; babel src/apigClient/lib/ -d dist/public/apigClient/lib/ --copy-files; ",
+    "build": "babel src/config -d dist/public/config --copy-files; cp -R src/apigClient/ dist/public/apigClient;",
     "start": "NODE_ENV='production' node dist/server/index.js",
     "test": "NODE_PATH='./src' NODE_ENV='development' jest",
     "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "chai": "^3.5.0",

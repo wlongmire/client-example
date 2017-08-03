@@ -138,37 +138,37 @@ gulp.task('transform:local-prod', ['apiTransform:local-prod'], () => {
 gulp.task('apiTransform:local', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
   .pipe(replace('@ApiStageEnv', 'dev'))
-  .pipe(gulp.dest('dist/public/apigClient/'))
+  .pipe(gulp.dest('src/apigClient/'))
 })
 
 gulp.task('apiTransform:local-qa', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
   .pipe(replace('@ApiStageEnv', 'qa'))
-  .pipe(gulp.dest('dist/public/apigClient/'))
+  .pipe(gulp.dest('src/apigClient/'))
 })
 
 gulp.task('apiTransform:local-prod', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
   .pipe(replace('@ApiStageEnv', 'prod'))
-  .pipe(gulp.dest('dist/public/apigClient/'))
+  .pipe(gulp.dest('src/apigClient/'))
 })
 
 gulp.task('apiTransform:dev', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
   .pipe(replace('@ApiStageEnv', 'dev'))
-  .pipe(gulp.dest('src/publicapigClient/'))
+  .pipe(gulp.dest('src/apigClient/'))
 })
 
 gulp.task('apiTransform:qa', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
   .pipe(replace('@ApiStageEnv', 'qa'))
-  .pipe(gulp.dest('src/public/apigClient/'))
+  .pipe(gulp.dest('src/apigClient/'))
 })
 
 gulp.task('apiTransform:prod', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
   .pipe(replace('@ApiStageEnv', 'prod'))
-  .pipe(gulp.dest('src/public/apigClient/'))
+  .pipe(gulp.dest('src/apigClient/'))
 })
 
 gulp.task('build:node', shell.task([
