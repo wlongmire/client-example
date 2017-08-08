@@ -5,8 +5,8 @@ import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import { Result } from '../index'
 
-jest.mock('app/actions/userActions', () => 'testActions')
-jest.mock('app/actions/submissionActions', () => 'testActions')
+jest.mock('src/app/actions/userActions', () => 'testActions')
+jest.mock('src/app/actions/submissionActions', () => 'testActions')
 
 const initialState = {
   result: {},

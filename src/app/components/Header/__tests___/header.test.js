@@ -8,7 +8,7 @@ import configureStore from 'redux-mock-store'
 import renderer from 'react-test-renderer'
 import { Header } from '../index'
 
-jest.mock('app/actions/userActions', () => 'testActions')
+jest.mock('./../../../actions/userActions', () => 'testActions')
 
 // Snapshot for Home Header Component
 describe('>>> Header --- Snapshot', () => {
