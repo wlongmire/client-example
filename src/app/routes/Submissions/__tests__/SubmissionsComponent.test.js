@@ -8,8 +8,8 @@ import configureStore from 'redux-mock-store'
 import renderer from 'react-test-renderer'
 import { Submissions } from '../index'
 
-jest.mock('src/app/actions/userActions', () => 'testActions')
-jest.mock('src/app/actions/submissionActions', () => 'testActions')
+jest.mock('./../../../actions/userActions', () => 'testActions')
+jest.mock('./../../../actions/submissionActions', () => 'testActions')
 
 const initialState = {
   user: {
