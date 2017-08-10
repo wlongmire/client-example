@@ -50,31 +50,31 @@ gulp.task('transform', ['apiTransform'], () => {
   .pipe(gulp.dest('src/config/'))
 })
 
-// gulp.task('transform:local', ['apiTransform:local'], () => {
-//   gulp.src('configTemplate/*')
-//   .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
-//   .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
-//   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
-//   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
-//   .pipe(replace('@serverUrl', 'http://localhost'))
-//   .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-dev'))
-//   .pipe(replace('@appId', 'appIdorsomething'))
-//   .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // DEV
-//   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
-//   .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
-//   .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
-//   .pipe(replace('@region', 'us-east-1'))
-//   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
-//   .pipe(replace('@clearanceFailFlag', true))
-//   .pipe(replace('@stageEnv', 'dev'))
-//   .pipe(gulp.dest('src/config/'))
-// })
+gulp.task('transform:local', ['apiTransform:local'], () => {
+  gulp.src('configTemplate/*')
+  .pipe(replace('@sgsOIEmail', 'colonyspecialtyquickquote@gmail.com'))
+  .pipe(replace('@sgsOCPEmail', 'colonyspecialtyquickquote@gmail.com'))
+  .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
+  .pipe(replace('@serverUrl', 'http://localhost'))
+  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-dev'))
+  .pipe(replace('@appId', 'appIdorsomething'))
+  .pipe(replace('@identityPoolId', 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97')) // DEV
+  .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'))
+  .pipe(replace('@userPoolId', 'us-east-1_XWOnd6XH0'))
+  .pipe(replace('@clientId', '3n7362ap9pa11lrqv4uas31g36'))
+  .pipe(replace('@region', 'us-east-1'))
+  .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
+  .pipe(replace('@clearanceFailFlag', true))
+  .pipe(replace('@stageEnv', 'dev'))
+  .pipe(gulp.dest('src/config/'))
+})
 
-// gulp.task('apiTransform:local', () => {
-//   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
-//   .pipe(replace('@ApiStageEnv', 'dev'))
-//   .pipe(gulp.dest('src/apigClient/'))
-// })
+gulp.task('apiTransform:local', () => {
+  gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
+  .pipe(replace('@ApiStageEnv', 'dev'))
+  .pipe(gulp.dest('src/apigClient/'))
+})
 
 gulp.task('apiTransform', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])

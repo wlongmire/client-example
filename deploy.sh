@@ -3,8 +3,9 @@
 CURRENT_PATH=$(pwd)
 S3_BUCKET_URL_BASE="ownersedge"
 ENV=""
+REGION=""
 
-usage() { echo "Usage: $0 -e {dev qa, prod}" 1>&2; exit 1; }
+usage() { echo "Usage: $0 -e {dev qa, prod} -r {aws region}" 1>&2; exit 1; }
 
 check_environment()
 {
@@ -25,8 +26,12 @@ upload_website_to_s3()
 
   cd dist/public
 
+  regionCommand=$(printf 'aws configure set region %s' $REGION)
+
+  $($regionCommand) 2>&1 | grep -i 'error'
+
   # upload to s3
-  myCmd=$(printf 'aws s3 sync . s3://%s-%s-client/ --region us-east-1' $S3_BUCKET_URL_BASE $ENV) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
+  myCmd=$(printf 'aws s3 sync . s3://%s-%s-client/' $S3_BUCKET_URL_BASE $ENV) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
 
   $($myCmd) 2>&1 | grep -i 'error'
 
@@ -36,13 +41,13 @@ upload_website_to_s3()
 }
 
 # get flags
-while getopts "e:" o; do
+while getopts "e:r:" o; do
   case "${o}" in
     e)
       ENV=${OPTARG}
       ;;
-    *)
-      usage
+    r)
+      REGION=${OPTARG}
       ;;
   esac
 done
