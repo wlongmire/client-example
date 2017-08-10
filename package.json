@@ -103,7 +103,8 @@
     "uuid": "^2.0.2",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1",
-    "webpack-stream": "^3.1.0"
+    "webpack-stream": "^3.1.0",
+    "uid-safe": "^2.1.4"
   },
   "engines": {
     "node": "5.4.1",
@@ -111,12 +112,13 @@
   },
   "scripts": {
     "gulp": "gulp",
-    "postinstall": "gulp build",
+    "postinstall": "node ./e2e/nightwatch.conf.BASIC.js; gulp build;",
     "serve:development": "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/config -d dist/public/config --copy-files; cp -R src/apigClient/ dist/public/apigClient;",
     "start": "NODE_ENV='production' node dist/server/index.js",
     "test": "NODE_PATH='./src' NODE_ENV='development' jest",
+    "e2e": "node_modules/.bin/nightwatch --config ./e2e/nightwatch.conf.BASIC.js",
     "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
   },
   "devDependencies": {
@@ -134,11 +136,13 @@
     "eslint-plugin-react": "^6.10.3",
     "jest-cli": "^20.0.1",
     "mocha": "^3.3.0",
+    "nightwatch": "^0.9.16",
     "nock": "^9.0.13",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
     "redux-logger": "^2.6.1",
-    "redux-mock-store": "^1.2.3"
+    "redux-mock-store": "^1.2.3",
+    "selenium-download": "^2.0.10"
   },
   "eslintConfig": {
     "root": true,
