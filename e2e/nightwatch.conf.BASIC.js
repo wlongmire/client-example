@@ -21,7 +21,7 @@ module.exports = {
     'default': {
       'screenshots': {
         'enabled': false, // if you want to keep screenshots
-        'path': './screenshots' // save screenshots here
+        'path': './e2e/screenshots' // save screenshots here
       },
       'globals': {
         'waitForConditionTimeout': 5000 // sometimes internet is slow so wait.
