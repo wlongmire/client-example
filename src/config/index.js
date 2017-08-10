@@ -3,7 +3,7 @@
 const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
-    appId: 'appIdorsomething',
+    appId: '57ab6abcf36d2840aa667f6e',
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
@@ -66,7 +66,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
+        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
         port: null
     },
 
@@ -75,7 +75,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
+        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
         port:  null
     }
 };

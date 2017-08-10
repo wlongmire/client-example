@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import DialogBox from 'app/components/shared/DialogBox'
+import DialogBox from './../../../components/shared/DialogBox'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-import FormBuilder from 'app/components/shared/FormBuilder'
+import FormBuilder from './../../../components/shared/FormBuilder'
 import form from './form.js'
 
 const STATUS = {

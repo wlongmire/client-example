@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from 'app/actions/userActions'
+import * as actions from './../../actions/userActions'
 import PropTypes from 'prop-types'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 

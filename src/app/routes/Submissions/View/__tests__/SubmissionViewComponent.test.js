@@ -16,8 +16,8 @@ import { SubmissionView } from '../index'
 //   })
 // })
 
-jest.mock('app/actions/userActions', () => 'testActions')
-jest.mock('app/actions/submissionActions', () => 'testActions')
+jest.mock('./../../../../actions/userActions', () => 'testActions')
+jest.mock('./../../../../actions/submissionActions', () => 'testActions')
 
 const initialState = {
   user: {
