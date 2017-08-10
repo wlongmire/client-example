@@ -1,7 +1,7 @@
 # Owner's Edge
 A broker Facing quoting tool
 
-## Running Locally
+## Running The App Locally
 
 #### Install the modules:
 
