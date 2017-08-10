@@ -1,7 +1,7 @@
 'use strict'
 
 const config = {
-    env: process.env.NODE_ENV,
+    env: process.env.env || 'dev',
     name: 'ownersEdge',
     appId: 'appIdorsomething',
     argoEmail: 'argoaccessquickquote@gmail.com',
