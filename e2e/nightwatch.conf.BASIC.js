@@ -5,7 +5,7 @@ const BINPATH = './node_modules/nightwatch/bin/'
 // we use a nightwatch.conf.js file so we can include comments and helper functions
 module.exports = {
   'src_folders': [
-    './e2e/test/e2e/index.js'// Where you are storing your Nightwatch e2e tests
+    './e2e/tests/e2e/index.js'// Where you are storing your Nightwatch e2e tests
   ],
   'output_folder': './e2e/reports', // reports (test outcome) output by nightwatch
   'selenium': { // downloaded by selenium-download module (see readme)
