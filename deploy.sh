@@ -26,7 +26,7 @@ upload_website_to_s3()
   cd dist/public
 
   # upload to s3
-  myCmd=$(printf 'aws s3 sync . s3://%s-%s-client/' $S3_BUCKET_URL_BASE $ENV) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
+  myCmd=$(printf 'aws s3 sync . s3://%s-%s-client/ --region us-east-1' $S3_BUCKET_URL_BASE $ENV) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
 
   $($myCmd) 2>&1 | grep -i 'error'
 
