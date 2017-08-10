@@ -1,17 +1,60 @@
-13:55:28.752 INFO - Selenium build info: version: '3.3.0', revision: 'b526bd5'
-13:55:28.753 INFO - Launching a standalone Selenium Server
-2017-08-10 13:55:28.800:INFO::main: Logging initialized @571ms to org.seleniumhq.jetty9.util.log.StdErrLog
-13:55:28.925 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+15:23:03.282 INFO - Selenium build info: version: '3.4.0', revision: 'unknown'
+15:23:03.283 INFO - Launching a standalone Selenium Server
+2017-08-10 15:23:03.308:INFO::main: Logging initialized @340ms to org.seleniumhq.jetty9.util.log.StdErrLog
+15:23:03.383 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
  registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match the current platform MAC
-13:55:28.926 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
+15:23:03.385 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
  registration capabilities Capabilities [{browserName=MicrosoftEdge, version=, platform=WINDOWS}] does not match the current platform MAC
-13:55:28.926 INFO - Driver class not found: com.opera.core.systems.OperaDriver
-13:55:28.926 INFO - Driver provider com.opera.core.systems.OperaDriver registration is skipped:
+15:23:03.385 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+15:23:03.385 INFO - Driver provider com.opera.core.systems.OperaDriver registration is skipped:
 Unable to create new instances on this machine.
-13:55:28.926 INFO - Driver class not found: com.opera.core.systems.OperaDriver
-13:55:28.927 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
-2017-08-10 13:55:29.024:INFO:osjs.Server:main: jetty-9.2.20.v20161216
-2017-08-10 13:55:29.103:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@604ed9f0{/,null,AVAILABLE}
-2017-08-10 13:55:29.164:INFO:osjs.AbstractConnector:main: Started ServerConnector@4403d726{HTTP/1.1,[http/1.1]}{0.0.0.0:4444}
-2017-08-10 13:55:29.166:INFO:osjs.Server:main: Started @937ms
-13:55:29.166 INFO - Selenium Server is up and running
+15:23:03.386 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+15:23:03.386 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
+2017-08-10 15:23:03.442:INFO:osjs.Server:main: jetty-9.4.3.v20170317
+2017-08-10 15:23:03.495:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@14acaea5{/,null,AVAILABLE}
+2017-08-10 15:23:03.542:INFO:osjs.AbstractConnector:main: Started ServerConnector@e25b2fe{HTTP/1.1,[http/1.1]}{0.0.0.0:4444}
+2017-08-10 15:23:03.543:INFO:osjs.Server:main: Started @575ms
+15:23:03.543 INFO - Selenium Server is up and running
+15:23:03.913 INFO - SessionCleaner initialized with insideBrowserTimeout 0 and clientGoneTimeout 1800000 polling every 180000
+15:23:03.945 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Index, browserName=chrome, javascriptEnabled=true, platform=ANY}]])
+15:23:03.971 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Index, browserName=chrome, javascriptEnabled=true, platform=ANY}]
+Starting ChromeDriver 2.31.488774 (7e15618d1bf16df8bf0ecf2914ed1964a387ba0b) on port 37440
+Only local connections are allowed.
+15:23:05.478 INFO - Detected dialect: OSS
+15:23:05.511 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Index, browserName=chrome, javascriptEnabled=true, platform=ANY}]]
+15:23:05.545 INFO - Executing: [get: http://ownersedge-dev.s3-website-us-east-1.amazonaws.com/])
+15:23:09.012 INFO - Done: [get: http://ownersedge-dev.s3-website-us-east-1.amazonaws.com/]
+15:23:09.029 INFO - Executing: [find elements: By.cssSelector: body])
+15:23:09.103 INFO - Done: [find elements: By.cssSelector: body]
+15:23:09.114 INFO - Executing: [is displayed: 0 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> css selector: body]])
+15:23:09.156 INFO - Done: [is displayed: 0 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> css selector: body]]
+15:23:09.166 INFO - Executing: [find element: By.cssSelector: #username])
+15:23:09.206 INFO - Done: [find element: By.cssSelector: #username]
+15:23:09.215 INFO - Executing: [send keys: 1 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> css selector: #username], [w, a, r, r, e, n, l, o, n, g, m, i, r, e, @, g, m, a, i, l, ., c, o, m]])
+15:23:09.475 INFO - Done: [send keys: 1 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> css selector: #username], [w, a, r, r, e, n, l, o, n, g, m, i, r, e, @, g, m, a, i, l, ., c, o, m]]
+15:23:09.483 INFO - Executing: [find element: By.cssSelector: #password])
+15:23:09.513 INFO - Done: [find element: By.cssSelector: #password]
+15:23:09.520 INFO - Executing: [send keys: 2 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> css selector: #password], [A, 0, x, t, 1, 9, 8, 2, !, ]])
+15:23:09.951 INFO - Done: [send keys: 2 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> css selector: #password], [A, 0, x, t, 1, 9, 8, 2, !, ]]
+15:23:09.964 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+15:23:09.994 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+15:23:10.500 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+15:23:10.513 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+15:23:11.023 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+15:23:11.034 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+15:23:11.541 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+15:23:11.555 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+15:23:12.066 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+15:23:12.079 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+15:23:12.086 INFO - Executing: [is displayed: 3 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]])
+15:23:12.110 INFO - Done: [is displayed: 3 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]]
+15:23:12.115 INFO - Executing: [find element: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+15:23:12.148 INFO - Done: [find element: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+15:23:12.157 INFO - Executing: [click: 3 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]])
+15:23:12.256 INFO - Done: [click: 3 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]]
+15:23:12.264 INFO - Executing: [find element: By.xpath: /html/body/div[1]/div/div/div/div[1]])
+15:23:12.304 INFO - Done: [find element: By.xpath: /html/body/div[1]/div/div/div/div[1]]
+15:23:12.307 INFO - Executing: [click: 4 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> xpath: /html/body/div[1]/div/div/div/div[1]]])
+15:23:12.444 INFO - Done: [click: 4 [[ChromeDriver: chrome on MAC (a633806d974f06fdf25ededb6cf1804c)] -> xpath: /html/body/div[1]/div/div/div/div[1]]]
+15:23:12.454 INFO - Executing: [delete session: 10959be1-618e-4888-b47b-bfb65c5a5b5b])
+15:23:12.643 INFO - Done: [delete session: 10959be1-618e-4888-b47b-bfb65c5a5b5b]
