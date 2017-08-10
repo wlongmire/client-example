@@ -26,7 +26,7 @@ upload_website_to_s3()
 
   cd dist/public
 
-  regionCommand=$(printf 'aws configure set region %s' $REGION)
+  regionCommand=$(printf 'aws configure set default.region %s' $REGION)
 
   $($regionCommand) 2>&1 | grep -i 'error'
 
