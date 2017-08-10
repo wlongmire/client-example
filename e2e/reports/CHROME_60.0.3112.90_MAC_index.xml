@@ -5,13 +5,9 @@
 
   <testsuite name="index"
     errors="0" failures="0" hostname="" id="" package="index" skipped="0"
-    tests="1" time="33.67" timestamp="Thu, 10 Aug 2017 17:12:22 GMT">
+    tests="1" time="9.554" timestamp="Thu, 10 Aug 2017 19:24:53 GMT">
   
-    <testcase name="OI Fail Clearance" classname="index" time="33.67" assertions="4">
-
-    
-
-    
+    <testcase name="OI Fail Clearance" classname="index" time="9.554" assertions="2">
 
     
 
