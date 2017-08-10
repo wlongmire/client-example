@@ -28,7 +28,7 @@ const awsRegion = process.env.awsRegion || 'us-east-1'
 const userPoolId = process.env.userPoolId || 'us-east-1_jDh40ZNCJ'
 const clientId = process.env.clientId || '6cj67tocg07l1019pfdvomdbb2'
 const clearanceFailEmail = process.env.clearanceFailEmail || 'argoaccessquickquote@gmail.com'
-const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false,
+const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false
 const stage = config.env
 
 gulp.task('transform', ['apiTransform'], () => {
