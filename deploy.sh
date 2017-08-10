@@ -26,12 +26,8 @@ upload_website_to_s3()
 
   cd dist/public
 
-  regionCommand=$(printf 'aws configure set default.region %s' $REGION)
-
-  $($regionCommand) 2>&1 | grep -i 'error'
-
   # upload to s3
-  myCmd=$(printf 'aws s3 sync . s3://%s-%s-client/' $S3_BUCKET_URL_BASE $ENV) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
+  myCmd=$(printf 'aws s3 sync . s3://%s-%s-client/ --region %s' $S3_BUCKET_URL_BASE $ENV $REGION) #'aws s3 cp dist/public/* s3://%s-%s/ --recursive' $S3_BUCKET_URL_BASE $ENV)
 
   $($myCmd) 2>&1 | grep -i 'error'
 
