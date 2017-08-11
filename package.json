@@ -117,7 +117,7 @@
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/config -d dist/public/config --copy-files; cp -R src/apigClient/ dist/public/apigClient;",
     "start": "NODE_ENV='production' node dist/server/index.js",
-    "e2e": "node_modules/.bin/nightwatch --config ./e2e/nightwatch.conf.BASIC.js --verbose",
+    "e2e": "node_modules/.bin/nightwatch --config ./e2e/nightwatch.conf.BASIC.js",
     "test": "gulp transform:dev; NODE_PATH='./src' NODE_ENV='development' jest",
     "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
   },
