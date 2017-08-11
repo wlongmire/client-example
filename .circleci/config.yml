@@ -6,13 +6,6 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
       - image: circleci/node:6.11.1-browsers
 
     working_directory: ~/repo
@@ -37,23 +30,13 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run:
-          name: "Update Chrome version"
-          command: "curl -s https://raw.githubusercontent.com/chronogolf/circleci-google-chrome/master/use_chrome_stable_version.sh | bash"
       
-      - run: 
-          name: "Installing custom image"
-          command: sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
+      - run: sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
 
-      - run:
-          name: "Installing Java"
-          command: |
-            sudo rm -rf /var/lib/apt/lists/*
-            sudo apt-get update
-            sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
-
-
+      - run: |
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
       - run:
           name: "Testing Java"
           command: "java -v"
