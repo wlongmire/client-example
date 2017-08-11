@@ -226,7 +226,7 @@ gulp.task('serve', ['serve:dev'])
 gulp.task('serve:dev', ['serve:development'])
 
 // TEST BACKEND DEV LOCALLY
-gulp.task('serve:development', ['transform:local', 'html', 'images', 'fonts'],
+gulp.task('serve:development', ['html', 'images', 'fonts'],
 () => {
   new WebpackDevServer(webpack(webpackConfigDev), {
     publicPath: webpackConfigDev.output.publicPath,
