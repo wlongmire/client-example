@@ -38,7 +38,7 @@ jobs:
 
       - run: 
           name: Testing Java installation
-          command: java
+          command: java -h
       
       - run:
           command: echo "hello world"
