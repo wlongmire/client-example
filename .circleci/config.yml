@@ -33,8 +33,8 @@ jobs:
       
       # run unit tests
       - run: 
-        name: "Unit Tests"
-        command: "npm test"
+          name: "Unit Tests"
+          command: "npm test"
 
       # run e2e tests
       - run: sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
@@ -43,5 +43,5 @@ jobs:
           sudo apt-get update
           sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
       - run: 
-        name: "End to End Tests"
-        command: "npm run e2e"
+          name: "End to End Tests"
+          command: "npm run e2e"
