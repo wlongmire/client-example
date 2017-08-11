@@ -38,6 +38,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run:
+          name: "Update Chrome version"
+          command: "curl -s https://raw.githubusercontent.com/chronogolf/circleci-google-chrome/master/use_chrome_stable_version.sh | bash"
+      
       - run: 
           name: "Installing custom image"
           command: sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
@@ -49,13 +53,18 @@ jobs:
             sudo apt-get update
             sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
 
-      - run:
-          name: "Testing Java"
-          command: "java -h"
 
       - run:
-          name: "Testing Node"
-          command: "node -h"
+          name: "Testing Java"
+          command: "java -v"
+
+      - run:
+          name: "Testing node"
+          command: "node -v"
+
+      - run:
+          name: "Run E2E"
+          command: "npm run e2e"
 
       - run:
           name: "Success"
