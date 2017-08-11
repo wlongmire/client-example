@@ -10,10 +10,6 @@ jobs:
 
     working_directory: ~/repo
 
-    environment:
-      # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
-
     steps:
       - checkout
 
@@ -37,6 +33,7 @@ jobs:
           sudo rm -rf /var/lib/apt/lists/*
           sudo apt-get update
           sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
+          
       - run:
           name: "Testing Java"
           command: "java -v"
