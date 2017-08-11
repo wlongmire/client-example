@@ -39,7 +39,7 @@ jobs:
 
       - run:
           name: "Running E2E"
-          command: "node_modules/.bin/nightwatch --config ./e2e/nightwatch.conf.BASIC.js"
+          command: "node_modules/.bin/nightwatch -h"
 
       
       - run:
