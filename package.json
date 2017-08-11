@@ -112,12 +112,12 @@
   },
   "scripts": {
     "gulp": "gulp",
-    "postinstall": "node ./e2e/nightwatch.conf.BASIC.js; gulp build;",
+    "postinstall": "node ./e2e/nightwatch.conf.js; gulp build;",
     "serve:development": "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/config -d dist/public/config --copy-files; cp -R src/apigClient/ dist/public/apigClient;",
     "start": "NODE_ENV='production' node dist/server/index.js",
-    "e2e": "node_modules/.bin/nightwatch --config ./e2e/nightwatch.conf.BASIC.js",
+    "e2e": "node_modules/.bin/nightwatch --config ./e2e/nightwatch.conf.js",
     "test": "gulp transform:dev; NODE_PATH='./src' NODE_ENV='development' jest",
     "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
   },

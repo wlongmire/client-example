@@ -1,4 +1,4 @@
-var config = require('../../nightwatch.conf.BASIC.js');
+var config = require('../nightwatch.conf.js');
 const login = require('../utils/login');
 const clearanceFormFillout = require('../utils/clearanceFormFillout');
 const navToOcpClearance = require('../utils/navToOcpClearance');
@@ -28,10 +28,10 @@ module.exports = {
   'OI Fail Clearance': function(browser) {
     login(browser, username, password)
     navToOiClearance(browser)
-    // clearanceFormFillout(browser, false)
-    // clearanceFail(browser)
+    clearanceFormFillout(browser, false)
+    clearanceFail(browser)
     .end()
-  },
+  }
   // 'OCP Fail Clearance': function(browser) {
   //   login(browser, username, password)
   //   navToOcpClearance(browser)
