@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      # - image: circleci/node:7.10
+      - image: circleci/node:7.10
       # - image: circleci/node:6.11.1-browsers
       - image: circleci/openjdk:8-jdk
 
@@ -25,11 +25,11 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
       
       - run: 
           name: "Installing custom image"
           command: sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
+
       - run:
           name: "Installing Java"
           command: |
@@ -38,11 +38,14 @@ jobs:
             sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
 
       - run:
-          name: "Running E2E"
-          command: "node_modules/.bin/nightwatch -h"
+          name: "Testing Java"
+          command: "java -h"
 
-      
       - run:
+          name: "Testing Node"
+          command: "node -h"
+
+      - run:cd n
           name: "Success"
           command: echo "success"
 
