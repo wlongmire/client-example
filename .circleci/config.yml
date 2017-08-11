@@ -40,6 +40,8 @@ jobs:
           name: Testing Java installation
           command: java
       
+      - run:
+          command: echo "hello world"
       # - save_cache:
       #     paths:
       #       - node_modules
