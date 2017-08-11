@@ -6,13 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+      # - image: circleci/node:7.10
       # - image: circleci/node:6.11.1-browsers
       - image: circleci/openjdk:8-jdk
 
@@ -32,15 +26,19 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm install
+      - run:
+          name: Running E2E
+          command: echo Running e2e
+      
+      # - run: npm install
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      # - save_cache:
+      #     paths:
+      #       - node_modules
+      #     key: v1-dependencies-{{ checksum "package.json" }}
 
       # run unit tests!
-      - run: npm run test
+      # - run: npm run test
 
       # run e2e tests!
       
@@ -49,31 +47,31 @@ jobs:
       #     sudo rm -rf /var/lib/apt/lists/*
       #     sudo apt-get update
       #     sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
-      
-      - run:
-          name: Install latest version of ChromeDriver Sample
-          command: |
-            sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get install google-chrome-unstable
 
-      - run:
-          name: Install latest version of ChromeDriver Sample
-          command: |
-            sudo wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
-            sudo unzip chromedriver_linux64.zip
-            sudo rm chromedriver_linux64.zip
-            sudo mv chromedriver /usr/bin/
-            sudo chmod 777 /usr/bin/chromedriver
-            sudo apt-get install libxi6 libgconf-2-4
-            sudo apt-get -y install xvfb gtk2-engines-pixbuf
-            sudo apt-get -y install xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
-            sudo apt-get install xvfb
-            sudo apt-get -y install imagemagick x11-apps
-      
-      - run:
-          name: Running X virtual framebuffer
-          command: Xvfb :0 -ac &
+      # - run:
+      #     name: Install latest version of ChromeDriver Sample
+      #     command: |
+      #       sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      #       sudo sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      #       sudo apt-get update
+      #       sudo apt-get install google-chrome-unstable
 
-      - run: npm run e2e
+      # - run:
+      #     name: Install latest version of ChromeDriver Sample
+      #     command: |
+      #       sudo wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
+      #       sudo unzip chromedriver_linux64.zip
+      #       sudo rm chromedriver_linux64.zip
+      #       sudo mv chromedriver /usr/bin/
+      #       sudo chmod 777 /usr/bin/chromedriver
+      #       sudo apt-get install libxi6 libgconf-2-4
+      #       sudo apt-get -y install xvfb gtk2-engines-pixbuf
+      #       sudo apt-get -y install xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
+      #       sudo apt-get install xvfb
+      #       sudo apt-get -y install imagemagick x11-apps
+      
+      # - run:
+      #     name: Running X virtual framebuffer
+      #     command: Xvfb :0 -ac &
+
+      # - run: npm run e2e
