@@ -13,8 +13,14 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
-      - image: circleci/node:6.11.1-browsers
+      # - image: circleci/node:6.11.1-browsers
+      - image: circleci/openjdk:8-jdk
+
     working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
 
     steps:
       - checkout
@@ -37,9 +43,37 @@ jobs:
       - run: npm run test
 
       # run e2e tests!
-      - run: sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
-      - run: |
-          sudo rm -rf /var/lib/apt/lists/*
-          sudo apt-get update
-          sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
+      
+      # - run: sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
+      # - run: |
+      #     sudo rm -rf /var/lib/apt/lists/*
+      #     sudo apt-get update
+      #     sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
+      
+      - run:
+          name: Install latest version of ChromeDriver Sample
+          command: |
+            sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update
+            sudo apt-get install google-chrome-unstable
+
+      - run:
+          name: Install latest version of ChromeDriver Sample
+          command: |
+            sudo wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
+            sudo unzip chromedriver_linux64.zip
+            sudo rm chromedriver_linux64.zip
+            sudo mv chromedriver /usr/bin/
+            sudo chmod 777 /usr/bin/chromedriver
+            sudo apt-get install libxi6 libgconf-2-4
+            sudo apt-get -y install xvfb gtk2-engines-pixbuf
+            sudo apt-get -y install xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
+            sudo apt-get install xvfb
+            sudo apt-get -y install imagemagick x11-apps
+      
+      - run:
+          name: Running X virtual framebuffer
+          command: Xvfb :0 -ac &
+
       - run: npm run e2e
