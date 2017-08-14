@@ -38,13 +38,13 @@ jobs:
           command: "npm test"
 
       # run e2e tests
-      - run: 
-          name: "End to End Setup"
-          command: |
-            sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
-            sudo rm -rf /var/lib/apt/lists/*
-            sudo apt-get update
-            sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
-      - run: 
-          name: "End to End Tests"
-          command: npm run e2e
+      # - run: 
+      #     name: "End to End Setup"
+      #     command: |
+      #       sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
+      #       sudo rm -rf /var/lib/apt/lists/*
+      #       sudo apt-get update
+      #       sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
+      # - run: 
+      #     name: "End to End Tests"
+      #     command: npm run e2e
