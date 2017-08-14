@@ -8,7 +8,6 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:6.11.1-browsers
-      # - image: selenium/standalone-chrome:3.1.0
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -33,18 +32,24 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       
       # run unit tests
-      - run: 
-          name: "Unit Tests"
-          command: "npm test"
+      # - run: 
+      #     name: "Unit Tests"
+      #     command: "npm test"
 
       # run e2e tests
-      # - run: 
-      #     name: "End to End Setup"
-      #     command: |
-      #       sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
-      #       sudo rm -rf /var/lib/apt/lists/*
-      #       sudo apt-get update
-      #       sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
-      # - run: 
-      #     name: "End to End Tests"
-      #     command: npm run e2e
+      - run: 
+          name: "End to End Setup"
+          command: |
+            sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
+            sudo rm -rf /var/lib/apt/lists/*
+            sudo apt-get update
+            sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
+      - run:
+          name: "install node depenedencies"
+          command: "npm install"
+      - run:
+          name: "build package"
+          command: "gulp serve"
+      - run: 
+          name: "End to End Tests"
+          command: npm run e2e
