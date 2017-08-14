@@ -27,44 +27,44 @@ const editSearchValue = 'Kulak2XgNsptihDo';
 module.exports = {
   'OI Fail Clearance': function(browser) {
     login(browser, username, password)
-    // navToOiClearance(browser)
-    // clearanceFormFillout(browser, false)
-    // clearanceFail(browser)
+    navToOiClearance(browser)
+    clearanceFormFillout(browser, false)
+    clearanceFail(browser)
     .end()
-  }
-  // 'OCP Fail Clearance': function(browser) {
-  //   login(browser, username, password)
-  //   navToOcpClearance(browser)
-  //   clearanceFormFillout(browser, false)
-  //   clearanceFail(browser)
-  //   .end()
-  //  },
-  // 'OCP Successful Form Fillout': function(browser) {
-  //   login(browser, username, password)
-  //   navToOcpClearance(browser)
-  //   clearanceFormFillout(browser, true, ocpPrimaryInsuredName)
-  //   clearancePassAndContinue(browser)
-  //   ocpFormFillout(browser)
-  //   submitForm(browser)
-  //   checkSaveSubmission(browser, ocpPrimaryInsuredName)
-  //   .end()
-  //  },
-  // 'OI Successful Form Fillout': function(browser) {
-  //   login(browser, username, password)
-  //   navToOiClearance(browser)
-  //   clearanceFormFillout(browser, true, oiPrimaryInsuredName)
-  //   clearancePassAndContinue(browser)
-  //   oiFormFillout(browser)
-  //   submitForm(browser)
-  //   checkSaveSubmission(browser, oiPrimaryInsuredName)
-  //   .end()
-  // },
-  //   'OCP Successful *~ Edit ~* Form Fillout': function(browser) {
-  //   login(browser, username, password)
-  //   getToSubmissionsTable(browser)
-  //   editSubmission(browser, randomTotalCost, randomPhoneNumber, editSearchValue)
-  //   submitForm(browser)
-  //   checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
-  //   .end()
-  // }
+  },
+  'OCP Fail Clearance': function(browser) {
+    login(browser, username, password)
+    navToOcpClearance(browser)
+    clearanceFormFillout(browser, false)
+    clearanceFail(browser)
+    .end()
+   },
+  'OCP Successful Form Fillout': function(browser) {
+    login(browser, username, password)
+    navToOcpClearance(browser)
+    clearanceFormFillout(browser, true, ocpPrimaryInsuredName)
+    clearancePassAndContinue(browser)
+    ocpFormFillout(browser)
+    submitForm(browser)
+    checkSaveSubmission(browser, ocpPrimaryInsuredName)
+    .end()
+   },
+  'OI Successful Form Fillout': function(browser) {
+    login(browser, username, password)
+    navToOiClearance(browser)
+    clearanceFormFillout(browser, true, oiPrimaryInsuredName)
+    clearancePassAndContinue(browser)
+    oiFormFillout(browser)
+    submitForm(browser)
+    checkSaveSubmission(browser, oiPrimaryInsuredName)
+    .end()
+  },
+    'OCP Successful *~ Edit ~* Form Fillout': function(browser) {
+      login(browser, username, password)
+      getToSubmissionsTable(browser)
+      editSubmission(browser, randomTotalCost, randomPhoneNumber, editSearchValue)
+      submitForm(browser)
+      checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
+      .end()
+    }
 };
