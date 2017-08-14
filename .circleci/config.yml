@@ -52,7 +52,7 @@ jobs:
           command: "npm install"
       - run:
           name: "build package"
-          command: "gulp serve"
+          command: "npm run gulp serve"
       - run: 
           name: "End to End Tests"
           command: npm run e2e
