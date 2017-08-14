@@ -27,9 +27,9 @@ const editSearchValue = 'Kulak2XgNsptihDo';
 module.exports = {
   'OI Fail Clearance': function(browser) {
     login(browser, username, password)
-    navToOiClearance(browser)
-    clearanceFormFillout(browser, false)
-    clearanceFail(browser)
+    // navToOiClearance(browser)
+    // clearanceFormFillout(browser, false)
+    // clearanceFail(browser)
     .end()
   }
   // 'OCP Fail Clearance': function(browser) {

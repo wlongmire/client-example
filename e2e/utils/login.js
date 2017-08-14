@@ -1,6 +1,5 @@
 function login(browser, username, password) {
   return browser
-      // .url('http://localhost:7777/')
       .url('http://ownersedge-dev.s3-website-us-east-1.amazonaws.com/')
       .waitForElementVisible('body')
       .setValue('#username', username)
