@@ -1,7 +1,7 @@
 'use strict'
 
 const config = {
-    env: process.env.env || 'dev',
+    env: process.env.NODE_ENV,
     name: 'ownersEdge',
     appId: 'appIdorsomething',
     argoEmail: 'argoaccessquickquote@gmail.com',
@@ -27,11 +27,11 @@ const config = {
     mixPanelEnvironment: 'dev',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97',
-        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0',
-        userPoolId: 'us-east-1_XWOnd6XH0',
+        identityPoolId: 'us-east-1:5856863c-66fe-408c-a709-46e87fb4ee19',
+        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_9iDQQlog1',
+        userPoolId: 'us-east-1_9iDQQlog1',
         region: 'us-east-1',
-        clientId: '3n7362ap9pa11lrqv4uas31g36',
+        clientId: '6eqhka8jjv6c2si28bjc8eqvb0',
     },
 
     apiGateway: {
