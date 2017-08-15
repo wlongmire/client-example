@@ -7,4 +7,4 @@ function navToOiClearance(browser) {
       .click('/html/body/div[1]/div/div/div/div[1]')
 }
 
-module.exports = navToOiClearance;
+module.exports = navToOiClearance
