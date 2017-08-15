@@ -56,7 +56,7 @@ jobs:
           background: true
       # - run:
       #     name: "30 seconds time out"
-      #     command: "node -e setTimeout(function(){ console.log("finished time out"); }, 30000);"
+      #     command: "setTimeout(function(){ console.log("finished time out"); }, 30000);"
       - run:
           name: "End to End Tests"
           command: npm run e2e
