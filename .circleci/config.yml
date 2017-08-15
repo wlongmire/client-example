@@ -38,7 +38,6 @@ jobs:
       # - run: 
       #     name: "Unit Tests"
       #     command: "npm test"
-
       # run e2e tests
       - run: 
           name: "End to End Setup"
