@@ -7,8 +7,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      # - image: circleci/node:6.11.1-browsers
-    - image: selenium/node-chrome:latest
+      - image: circleci/node:6.11.1-browsers
+    # - image: selenium/node-chrome:latest
       # - image: circleci/node:6.11.1
       # - image: andriy007/circlecitest:latest
       # Specify service dependencies here if necessary
