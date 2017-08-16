@@ -27,11 +27,11 @@ const config = {
     mixPanelEnvironment: 'dev',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:5856863c-66fe-408c-a709-46e87fb4ee19',
-        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_9iDQQlog1',
-        userPoolId: 'us-east-1_9iDQQlog1',
+        identityPoolId: 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7',
+        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh',
+        userPoolId: 'us-east-1_zbchOMkxh',
         region: 'us-east-1',
-        clientId: '6eqhka8jjv6c2si28bjc8eqvb0',
+        clientId: '7mufec3sdmn9hfp70k41cq3fkc',
     },
 
     apiGateway: {

@@ -74,7 +74,7 @@ describe('>>> Action - editSubmission', () => {
     nock.cleanAll()
   })
 
-  nock('https://hotgyzwdq3.execute-api.us-east-1.amazonaws.com/dev')
+  nock('https://4svl68k4k5.execute-api.us-east-1.amazonaws.com/dev')
     .get('/api/getSubmission/randomId')
     .reply(200, { submission: { _id: 'test123' } })
 

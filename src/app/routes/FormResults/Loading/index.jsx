@@ -55,8 +55,6 @@ class Loading extends Component {
           this.props.logout()
         }
 
-        console.log(respSave)
-
         if (respSave.data && respSave.data.success === true) {
           const { submissionId } = respSave.data
           const mainRating = ratings[submission.type]

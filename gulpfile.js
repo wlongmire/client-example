@@ -21,7 +21,7 @@ const sgsOIEmail = process.env.sgsOIEmail || 'colonyspecialtyquickquote@gmail.co
 const sgsOCPEmail = process.env.sgsOCPEmail || 'colonyspecialtyquickquote@gmail.com'
 const argoEmail = process.env.argoEmail || 'ownersedgesubmissionsdev@gmail.com'
 const ownersEdgeEmail = process.env.ownersEdgeEmail || 'argoaccessquickquote@gmail.com'
-const apiGatewayUrl = process.env.apiGatewayUrl || 'https://e6vgvynzek.execute-api.us-east-1.amazonaws.com/dev'
+const apiGatewayUrl = process.env.apiGatewayUrl || 'https://4svl68k4k5.execute-api.us-east-1.amazonaws.com/dev'
 const assetsUrl = process.env.assetsUrl || 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets'
 const identityPoolId = process.env.identityPoolId || 'us-east-1:6c557c50-d385-401d-9e6a-899299973f52'
 const awsRegion = process.env.awsRegion || 'us-east-1'
@@ -59,10 +59,10 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-dev'))
   .pipe(replace('@appId', 'appIdorsomething'))
-  .pipe(replace('@identityPoolId', 'us-east-1:5856863c-66fe-408c-a709-46e87fb4ee19')) // DEV
-  .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_9iDQQlog1'))
-  .pipe(replace('@userPoolId', 'us-east-1_9iDQQlog1'))
-  .pipe(replace('@clientId', '6eqhka8jjv6c2si28bjc8eqvb0'))
+  .pipe(replace('@identityPoolId', 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7')) // DEV
+  .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh'))
+  .pipe(replace('@userPoolId', 'us-east-1_zbchOMkxh'))
+  .pipe(replace('@clientId', '7mufec3sdmn9hfp70k41cq3fkc'))
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', true))
