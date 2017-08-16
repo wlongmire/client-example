@@ -5,13 +5,11 @@
 version: 2
 jobs:
   build:
-    dependencies:
-      pre:
     docker:
       # specify the version you desire here
       # - image: circleci/node:6.11.1-browsers
-      # - image: selenium/node-chrome:latest
-      - image: andriy007/circlecitest:latest
+      - image: selenium/node-chrome:latest
+    #   - image: andriy007/circlecitest:latest
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
