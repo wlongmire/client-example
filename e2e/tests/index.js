@@ -25,21 +25,21 @@ const randomPhoneNumber = Math.floor(Math.random() * 10000000);
 const editSearchValue = 'Kulak2XgNsptihDo';
 
 module.exports = {
-  // 'OI Fail Clearance': function(browser) {
-  //   login(browser, username, password)
-  //   navToOiClearance(browser)
-  //   clearanceFormFillout(browser, false)
-  //   clearanceFail(browser)
-  //   .end()
-  // },
-  // 'OCP Fail Clearance': function(browser) {
-  //   login(browser, username, password)
-  //   navToOcpClearance(browser)
-  //   clearanceFormFillout(browser, false)
-  //   clearanceFail(browser)
-  //   .end()
-  //  },
-  'OCP Successful Form Fillout': function(browser) {
+  'OI Fail Clearance': (browser) => {
+    login(browser, username, password)
+    navToOiClearance(browser)
+    clearanceFormFillout(browser, false)
+    clearanceFail(browser)
+    .end()
+  },
+  'OCP Fail Clearance': (browser) => {
+    login(browser, username, password)
+    navToOcpClearance(browser)
+    clearanceFormFillout(browser, false)
+    clearanceFail(browser)
+    .end()
+  },
+  'OCP Successful Form Fillout': (browser) => {
     login(browser, username, password)
     navToOcpClearance(browser)
     clearanceFormFillout(browser, true, ocpPrimaryInsuredName)
@@ -48,8 +48,8 @@ module.exports = {
     submitForm(browser)
     checkSaveSubmission(browser, ocpPrimaryInsuredName)
     .end()
-   },
-  'OI Successful Form Fillout': function(browser) {
+  },
+  'OI Successful Form Fillout': (browser) => {
     login(browser, username, password)
     navToOiClearance(browser)
     clearanceFormFillout(browser, true, oiPrimaryInsuredName)
@@ -59,12 +59,12 @@ module.exports = {
     checkSaveSubmission(browser, oiPrimaryInsuredName)
     .end()
   },
-    'OCP Successful *~ Edit ~* Form Fillout': function(browser) {
-      login(browser, username, password)
-      getToSubmissionsTable(browser)
-      editSubmission(browser, randomTotalCost, randomPhoneNumber, editSearchValue)
-      submitForm(browser)
-      checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
-      .end()
-    }
+  'OCP Successful *~ Edit ~* Form Fillout': (browser) => {
+    login(browser, username, password)
+    getToSubmissionsTable(browser)
+    editSubmission(browser, randomTotalCost, randomPhoneNumber, editSearchValue)
+    submitForm(browser)
+    checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
+    .end()
+  }
 };

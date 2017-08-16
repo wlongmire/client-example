@@ -7,8 +7,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:6.11.1-browsers
-    # - image: selenium/node-chrome:latest
+    #   - image: circleci/node:6.11.1-browsers
+    - image: selenium/node-chrome:latest
       # - image: circleci/node:6.11.1
       # - image: andriy007/circlecitest:latest
       # Specify service dependencies here if necessary
@@ -33,20 +33,20 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      
+
       # run unit tests
-      # - run: 
+      # - run:
       #     name: "Unit Tests"
       #     command: "npm test"
       # run e2e tests
     #   - run:
     #       name: "Chrome Setup"
     #       command: |
-    #         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
+    #         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
     #         sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
     #         apt-get update
     #         apt-get install -y google-chrome-stable
-      - run: 
+      - run:
           name: "End to End Setup"
           command: |
             sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
