@@ -57,7 +57,7 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
-  .pipe(replace('@assetsURL', 'https://s3.amazonaws.com/ownersedge-assets-dev'))
+  .pipe(replace('@assetsURL', 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets'))
   .pipe(replace('@appId', 'appIdorsomething'))
   .pipe(replace('@identityPoolId', 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7')) // DEV
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh'))

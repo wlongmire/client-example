@@ -85,12 +85,12 @@ class Loading extends Component {
           } else {
             sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
           }
-          
+        
           Promise.all(emailPromises).then(() => {
             this.props.handleEmailStatus({ success: true })
           })
         } else {
-          alert('Submission saveSave not successful. Please contact support!')
+          alert('Submission save not successful. Please contact support!')
         }
       }).catch((error1) => {
         console.log('ERROR IN SAVE SUBMISSION xx22', error1)
