@@ -7,3 +7,5 @@ private
 coverage
 npm-debug.log
 .env
+!apigClientTemplate/lib/axios/dist
+!src/apigClient/lib/axios/dist
