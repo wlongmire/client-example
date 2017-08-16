@@ -10,9 +10,9 @@ jobs:
       #   - image: circleci/node:6.11.1-browsers
       # - image: selenium/node-chrome:latest
       # - image: ubuntu:16.04
-      # - image: circleci/node:6.11.1-browsers
+      - image: circleci/node:6.11.1-browsers
       # - image: andriy007/circlecitest
-      - image: markadams/chromium-xvfb-js
+      # - image: markadams/chromium-xvfb-js
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -44,20 +44,20 @@ jobs:
       #     name: "Unit Tests"
       #     command: "npm test"
       # run e2e tests
-    #   - run:
-    #       name: "Chrome Setup"
-    #       command: |
-    #         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    #         sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-    #         apt-get update
-    #         apt-get install -y google-chrome-stable
+      - run:
+          name: "Chrome Setup"
+          command: |
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+            sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+            apt-get update
+            apt-get install -y google-chrome-stable
       - run:
           name: "End to End Setup"
           command: |
-            su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
-            rm -rf /var/lib/apt/lists/*
-            apt-get update
-            apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java java-common liblcms2-2 libpcsclite1
+            sudo su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
+            sudo rm -rf /var/lib/apt/lists/*
+            sudo apt-get update
+            sudo apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
       - run:
           name: "making sure node-sass works properly"
           command: "npm rebuild node-sass"
