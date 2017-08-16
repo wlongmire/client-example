@@ -24,7 +24,7 @@
     at runSingle (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:137:13)
     at flush (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:125:13)
       </system-err>
-  
+
   
   </testsuite>
 </testsuites>
