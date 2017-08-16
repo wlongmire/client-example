@@ -66,8 +66,8 @@ jobs:
           command: "npm run gulp serve"
           background: true
       - run:
-          name: "60 seconds time out"
-          command: "sleep 60"
+          name: "35 seconds time out"
+          command: "sleep 35"
       - run:
           name: "End to End Tests"
           command: npm run e2e
