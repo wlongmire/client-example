@@ -39,16 +39,16 @@ module.exports = {
     clearanceFail(browser)
     .end()
   },
-  // 'OCP Successful Form Fillout': (browser) => {
-  //   login(browser, username, password)
-  //   navToOcpClearance(browser)
-  //   clearanceFormFillout(browser, true, ocpPrimaryInsuredName)
-  //   clearancePassAndContinue(browser)
-  //   ocpFormFillout(browser)
-  //   submitForm(browser)
-  //   checkSaveSubmission(browser, ocpPrimaryInsuredName)
-  //   .end()
-  // },
+  'OCP Successful Form Fillout': (browser) => {
+    login(browser, username, password)
+    navToOcpClearance(browser)
+    clearanceFormFillout(browser, true, ocpPrimaryInsuredName)
+    clearancePassAndContinue(browser)
+    ocpFormFillout(browser)
+    submitForm(browser)
+    checkSaveSubmission(browser, ocpPrimaryInsuredName)
+    .end()
+  },
   'OI Successful Form Fillout': (browser) => {
     login(browser, username, password)
     navToOiClearance(browser)
