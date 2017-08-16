@@ -10,7 +10,7 @@ jobs:
       #   - image: circleci/node:6.11.1-browsers
       # - image: selenium/node-chrome:latest
       # - image: ubuntu:16.04
-      - image: circleci/node:6.11.1
+      - image: circleci/node:6.11.1-browsers
       # - image: andriy007/circlecitest:latest
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
