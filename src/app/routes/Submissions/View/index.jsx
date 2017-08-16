@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import * as actions from 'app/actions/submissionActions'
+import * as actions from './../../../actions/submissionActions'
+import mx from './../../../utils/MixpanelInterface'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
-import mx from 'app/utils/MixpanelInterface'
+
 
 export class SubmissionView extends Component {
 

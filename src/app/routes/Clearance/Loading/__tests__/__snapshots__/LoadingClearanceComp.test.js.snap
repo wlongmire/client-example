@@ -12,7 +12,7 @@ exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1
     className="loadingImg"
   >
     <img
-      src="https://s3.amazonaws.com/ownersedge-cdn/images/ajax-loader.gif"
+      src="undefined/images/ajax-loader.gif"
     />
   </div>
   <ButtonGroup
