@@ -3,10 +3,10 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import config from 'config'
-import * as actions from 'app/actions/userActions'
+import * as actions from './../../../actions/userActions'
 import {
   getClearance 
-} from 'app/actions/submissionActions'
+} from './../../../actions/submissionActions'
 
 export class Loading extends Component {
   constructor(props) {

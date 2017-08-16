@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="index"
+    errors="1" failures="0" hostname="" id="" package="index" skipped="0"
+    tests="1" time="0.007000" timestamp="Mon, 24 Jul 2017 16:15:45 GMT">
+  
+    <testcase name="OCP Successful *~ Edit ~* Form Fillout" classname="index" time="0.007000" assertions="0">
+    </testcase>
+      <system-err>
+          Error while running [Index / OCP Successful *~ Edit ~* Form Fillout]:
+
+  ReferenceError: primaryInsuredName is not defined
+    at editSubmission (/Users/andriy.kulak/Sites/aaaNightwatchForOe/test/utils/editSubmission.js:2:43)
+    at Object.OCP Successful *~ Edit ~* Form Fillout (/Users/andriy.kulak/Sites/aaaNightwatchForOe/test/e2e/index.js:53:5)
+    at Module.call (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:796:13)
+    at /Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:556:49
+    at runSingle (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:137:13)
+    at flush (/Users/andriy.kulak/Sites/aaaNightwatchForOe/node_modules/q/q.js:125:13)
+      </system-err>
+  
+  
+  </testsuite>
+</testsuites>

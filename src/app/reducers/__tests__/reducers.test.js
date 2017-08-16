@@ -3,6 +3,7 @@
 import submissionReducer from '../submissionReducer'
 import appReducer from '../appReducer'
 import userReducer from '../userReducer'
+
 import { 
   FETCH_SUBMISSIONS,
   EDIT_SUBMISSION,
@@ -10,12 +11,12 @@ import {
   CHANGE_SUBMISSION_STATUS,
   CHANGE_SUBMISSION,
   CLEAR_SUBMISSION
-} from 'app/constants/submission'
+} from './../../constants/submission'
 
 import {
   USER_LOGGED_IN,
   USER_LOGGED_OUT
-} from '../../constants/user'
+} from './../../constants/user'
 
 describe('Submission View reducer', () => {
   it('FETCH SUBMISSIONS with updated payload', () => {
