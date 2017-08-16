@@ -30,7 +30,7 @@ jobs:
       # - run:
       #     name: "Installing npm"
       #     command: curl https://www.npmjs.org/install.sh | sh
-      # - run: npm install
+      - run: npm install
 
       - save_cache:
           paths:
