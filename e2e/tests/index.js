@@ -25,20 +25,20 @@ const randomPhoneNumber = Math.floor(Math.random() * 10000000);
 const editSearchValue = 'Kulak2XgNsptihDo';
 
 module.exports = {
-  'OI Fail Clearance': function(browser) {
-    login(browser, username, password)
-    navToOiClearance(browser)
-    clearanceFormFillout(browser, false)
-    clearanceFail(browser)
-    .end()
-  },
-  'OCP Fail Clearance': function(browser) {
-    login(browser, username, password)
-    navToOcpClearance(browser)
-    clearanceFormFillout(browser, false)
-    clearanceFail(browser)
-    .end()
-   },
+  // 'OI Fail Clearance': function(browser) {
+  //   login(browser, username, password)
+  //   navToOiClearance(browser)
+  //   clearanceFormFillout(browser, false)
+  //   clearanceFail(browser)
+  //   .end()
+  // },
+  // 'OCP Fail Clearance': function(browser) {
+  //   login(browser, username, password)
+  //   navToOcpClearance(browser)
+  //   clearanceFormFillout(browser, false)
+  //   clearanceFail(browser)
+  //   .end()
+  //  },
   'OCP Successful Form Fillout': function(browser) {
     login(browser, username, password)
     navToOcpClearance(browser)

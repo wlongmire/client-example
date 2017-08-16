@@ -57,9 +57,6 @@ jobs:
           name: "making sure node-sass works properly"
           command: "npm rebuild node-sass"
       - run:
-          name: "install node depenedencies"
-          command: "npm install"
-      - run:
           name: "start server"
           command: "npm run gulp serve"
           background: true
