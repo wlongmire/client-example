@@ -6,7 +6,7 @@ import nock from 'nock'
 import * as actions from '../submissionActions'
 import { editSubmission, saveSubmission } from '../submissionActions'
 import LocalStorageMock from '../../__mocks__/localStorageMock'
-import { SUBMISSION_STATUS, CHANGE_SUBMISSION_STATUS, CHANGE_SUBMISSION } from 'app/constants/submission'
+import { SUBMISSION_STATUS, CHANGE_SUBMISSION_STATUS, CHANGE_SUBMISSION } from './../../constants/submission'
 
 // global.checkTokenExpiration = () => { return Promise.resolve({ success: true }) }
 

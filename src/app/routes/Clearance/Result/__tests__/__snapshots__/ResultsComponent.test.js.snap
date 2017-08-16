@@ -24,7 +24,7 @@ exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1
           <h5>
             If we have blocked clearance in error, please message us through the
             <img
-              src="https://s3.amazonaws.com/ownersedge-cdn/images/chatIcon.png"
+              src="undefined/images/chatIcon.png"
             />
             icon below or contact Jessica Buelow (
             <a

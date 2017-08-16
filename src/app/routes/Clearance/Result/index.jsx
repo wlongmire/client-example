@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import mx from 'app/utils/MixpanelInterface'
+import mx from './../../../utils/MixpanelInterface'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-// import ToggleDisplay from 'components/shared/ToggleDisplay'
 import config from 'config'
 
 export class Result extends Component {

@@ -10,10 +10,10 @@ import {
   CHANGE_SUBMISSION_STATUS,
   SUBMISSION_STATUS,
   CLEAR_SUBMISSION
-} from 'app/constants/submission'
+} from './../constants/submission'
 import {
   USER_LOGGED_IN,
-} from 'app/constants/user'
+} from './../constants/user'
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {

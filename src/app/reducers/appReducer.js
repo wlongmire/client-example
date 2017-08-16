@@ -4,7 +4,7 @@ import {
   CHANGE_SUBMISSION_STATUS,
   CHANGE_SUBMISSION,
   CLEAR_SUBMISSION
-} from 'app/constants/submission'
+} from './../constants/submission'
 
 export default function (state = {
   status: SUBMISSION_STATUS.NONE,
