@@ -3,7 +3,7 @@
 const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
-    appId: 'appIdorsomething',
+    appId: '57ab6abcf36d2840aa667f6e',
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
@@ -18,7 +18,7 @@ const config = {
     ownersEdgeQuotationPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/owners_bind-order_2.html',
     ocpBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/ocp_bind-order_2.html',
-    assetsURL: 'https://s3.amazonaws.com/ownersedge-assets-dev',
+    assetsURL: 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess_2.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
@@ -27,11 +27,11 @@ const config = {
     mixPanelEnvironment: 'dev',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:10911a6b-91ed-46c0-8f60-32d4b8e3ab97',
-        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0',
-        userPoolId: 'us-east-1_XWOnd6XH0',
+        identityPoolId: 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7',
+        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh',
+        userPoolId: 'us-east-1_zbchOMkxh',
         region: 'us-east-1',
-        clientId: '3n7362ap9pa11lrqv4uas31g36',
+        clientId: '7mufec3sdmn9hfp70k41cq3fkc',
     },
 
     apiGateway: {
@@ -66,7 +66,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'http://localhost',
+        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
         port: null
     },
 
@@ -75,7 +75,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'http://localhost',
+        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
         port:  null
     }
 };

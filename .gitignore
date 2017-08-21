@@ -9,3 +9,5 @@ npm-debug.log
 .env
 selenium-debug.log
 e2e/reports/**
+!apigClientTemplate/lib/axios/dist
+!src/apigClient/lib/axios/dist

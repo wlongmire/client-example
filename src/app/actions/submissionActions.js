@@ -36,7 +36,7 @@ export function getSubmissions(user) {
       apigClient.apiGetSubmissionsPost({}, body)
       .then((resp2) => {
         if (resp2.status === 200) {
-          transformSubmissionData(resp2.data).then((resp3) => {
+          transformSubmissionData(resp2.data.submission).then((resp3) => {
             dispatch({ type: FETCH_SUBMISSIONS, payload: resp3 })
           })
         } else {

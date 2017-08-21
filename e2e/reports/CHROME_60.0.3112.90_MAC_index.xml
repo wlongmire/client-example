@@ -32,12 +32,5 @@
       name="OI Successful Form Fillout" classname="index">
       <skipped />
     </testcase>
-    
-    <testcase
-      name="OCP Successful *~ Edit ~* Form Fillout" classname="index">
-      <skipped />
-    </testcase>
-    
-  
   </testsuite>
 </testsuites>

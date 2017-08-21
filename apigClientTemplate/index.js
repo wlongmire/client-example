@@ -52,10 +52,8 @@ apigClientFactory.newClient = function (config) {
         config.defaultAcceptType = 'application/json';
     }
 
-    const stageEnv = '@ApiStageEnv'
-
     // extract endpoint and path from url
-    var invokeUrl = `https://hotgyzwdq3.execute-api.us-east-1.amazonaws.com/${stageEnv}`;
+    var invokeUrl = '@ApiGatewayUrl';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -123,7 +121,7 @@ apigClientFactory.newClient = function (config) {
     apigClient.apiGetBrokerIdGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
-        
+
         var apiGetBrokerIdGetRequest = {
             verb: 'get'.toUpperCase(),
             path: pathComponent + uritemplate('/api/getBroker/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
@@ -131,7 +129,7 @@ apigClientFactory.newClient = function (config) {
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
-        
+
         return apiGatewayClient.makeRequest(apiGetBrokerIdGetRequest, authType, additionalParams, config.apiKey);
     };
 
@@ -353,9 +351,9 @@ apigClientFactory.newClient = function (config) {
 
     apigClient.apiSaveIdPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
-        
+
         apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
-        
+
         var apiSaveIdPostRequest = {
             verb: 'post'.toUpperCase(),
             path: pathComponent + uritemplate('/api/save/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
@@ -363,8 +361,25 @@ apigClientFactory.newClient = function (config) {
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
-         
+
         return apiGatewayClient.makeRequest(apiSaveIdPostRequest, authType, additionalParams, config.apiKey);
+    };
+
+    apigClient.apiSaveIdOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var apiSaveIdOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/save/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(apiSaveIdOptionsRequest, authType, additionalParams, config.apiKey);
     };
 
     apigClient.apiSendEmailIdPost = function (params, body, additionalParams) {

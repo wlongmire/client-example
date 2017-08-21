@@ -56,7 +56,6 @@ class SignInForm extends Component {
         this.state.cognitoUser,
         newPassword,
         {
-          email: this.state.userAttributes.email,
           name: this.state.userAttributes.email,
           preferred_username: this.state.userAttributes.email
         },
