@@ -7,13 +7,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      #   - image: circleci/node:6.11.1-browsers
-      # - image: selenium/node-chrome:latest
-      # - image: ubuntu:16.04
       - image: circleci/node:6.11.1-browsers
-      # - image: andriy007/circlecitest
-      # - image: markadams/chromium-xvfb-js
-      # Specify service dependencies here if necessary
+
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
 
@@ -28,9 +23,7 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      # - run:
-      #     name: "Installing npm"
-      #     command: curl https://www.npmjs.org/install.sh | sh
+
       - run: npm install
 
       - save_cache:
@@ -39,17 +32,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run unit tests
-      # - run:
-      #     name: "Unit Tests"
-      #     command: "npm test"
-      # run e2e tests
       - run:
-          name: "Chrome Setup"
-          command: |
-            sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-            sudo apt-get update
-            sudo apt-get install -y google-chrome-stable
+          name: "Unit Tests"
+          command: "npm test"
       - run:
           name: "End to End Setup"
           command: |
@@ -64,9 +49,9 @@ jobs:
           name: "start server"
           command: "npm run gulp serve"
           background: true
-      - run:
-          name: "35 seconds time out"
-          command: "sleep 35"
+    #   - run:
+    #       name: "35 seconds time out"
+    #       command: "sleep 35"
       - run:
           name: "End to End Tests"
           command: npm run e2e

@@ -83,12 +83,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	var defaults = __webpack_require__(2);
 	var utils = __webpack_require__(3);
 	var dispatchRequest = __webpack_require__(4);
 	var InterceptorManager = __webpack_require__(12);
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	var axios = module.exports = function (config) {
 	  // Allow for axios('example/url'[, config]) a la fetch API
 	  if (typeof config === 'string') {
@@ -96,7 +104,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      url: arguments[0]
 	    }, arguments[1]);
 	  }
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  config = utils.merge({
 	    method: 'get',
 	    headers: {},
@@ -104,6 +116,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    transformRequest: defaults.transformRequest,
 	    transformResponse: defaults.transformResponse
 	  }, config);
+<<<<<<< HEAD
+	
+	  // Don't allow overriding defaults.withCredentials
+	  config.withCredentials = config.withCredentials || defaults.withCredentials;
+	
+	  // Hook up interceptors middleware
+	  var chain = [dispatchRequest, undefined];
+	  var promise = Promise.resolve(config);
+	
+	  axios.interceptors.request.forEach(function (interceptor) {
+	    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+	  });
+	
+	  axios.interceptors.response.forEach(function (interceptor) {
+	    chain.push(interceptor.fulfilled, interceptor.rejected);
+	  });
+	
+	  while (chain.length) {
+	    promise = promise.then(chain.shift(), chain.shift());
+	  }
+	
+	  return promise;
+	};
+	
+	// Expose defaults
+	axios.defaults = defaults;
+	
+=======
 
 	  // Don't allow overriding defaults.withCredentials
 	  config.withCredentials = config.withCredentials || defaults.withCredentials;
@@ -130,18 +170,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Expose defaults
 	axios.defaults = defaults;
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	// Expose all/spread
 	axios.all = function (promises) {
 	  return Promise.all(promises);
 	};
 	axios.spread = __webpack_require__(13);
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	// Expose interceptors
 	axios.interceptors = {
 	  request: new InterceptorManager(),
 	  response: new InterceptorManager()
 	};
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	// Provide aliases for supported request methods
 	(function () {
 	  function createShortMethods() {
@@ -154,7 +203,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	    });
 	  }
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  function createShortMethodsWithData() {
 	    utils.forEach(arguments, function (method) {
 	      axios[method] = function (url, data, config) {
@@ -166,7 +219,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	    });
 	  }
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  createShortMethods('delete', 'get', 'head');
 	  createShortMethodsWithData('post', 'put', 'patch');
 	})();
@@ -177,14 +234,24 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+	var utils = __webpack_require__(3);
+	
+=======
 
 	var utils = __webpack_require__(3);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/json'
 	};
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	module.exports = {
 	  transformRequest: [function (data, headers) {
 	    if(utils.isFormData(data)) {
@@ -204,7 +271,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            headers['Content-Type'] = val;
 	          }
 	        });
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	        if (utils.isUndefined(headers['Content-Type'])) {
 	          headers['Content-Type'] = 'application/json;charset=utf-8';
 	        }
@@ -213,7 +284,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return data;
 	  }],
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  transformResponse: [function (data) {
 	    if (typeof data === 'string') {
 	      data = data.replace(PROTECTION_PREFIX, '');
@@ -223,7 +298,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return data;
 	  }],
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  headers: {
 	    common: {
 	      'Accept': 'application/json, text/plain, */*'
@@ -232,9 +311,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    post: utils.merge(DEFAULT_CONTENT_TYPE),
 	    put: utils.merge(DEFAULT_CONTENT_TYPE)
 	  },
+<<<<<<< HEAD
+	
+	  timeout: 0,
+	
+=======
 
 	  timeout: 0,
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  xsrfCookieName: 'XSRF-TOKEN',
 	  xsrfHeaderName: 'X-XSRF-TOKEN'
 	};
@@ -245,6 +330,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+	/*global toString:true*/
+	
+	// utils is a library of generic helper functions non-specific to axios
+	
+	var toString = Object.prototype.toString;
+	
+=======
 
 	/*global toString:true*/
 
@@ -252,6 +346,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var toString = Object.prototype.toString;
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is an Array
 	 *
@@ -261,7 +356,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isArray(val) {
 	  return toString.call(val) === '[object Array]';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is an ArrayBuffer
 	 *
@@ -271,7 +370,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isArrayBuffer(val) {
 	  return toString.call(val) === '[object ArrayBuffer]';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is a FormData
 	 *
@@ -281,7 +384,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isFormData(val) {
 	  return toString.call(val) === '[object FormData]';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is a view on an ArrayBuffer
 	 *
@@ -295,7 +402,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
 	  }
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is a String
 	 *
@@ -305,7 +416,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isString(val) {
 	  return typeof val === 'string';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is a Number
 	 *
@@ -315,7 +430,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isNumber(val) {
 	  return typeof val === 'number';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is undefined
 	 *
@@ -325,7 +444,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isUndefined(val) {
 	  return typeof val === 'undefined';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is an Object
 	 *
@@ -335,7 +458,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isObject(val) {
 	  return val !== null && typeof val === 'object';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is a Date
 	 *
@@ -345,7 +472,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isDate(val) {
 	  return toString.call(val) === '[object Date]';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is a File
 	 *
@@ -355,7 +486,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isFile(val) {
 	  return toString.call(val) === '[object File]';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is a Blob
 	 *
@@ -365,7 +500,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isBlob(val) {
 	  return toString.call(val) === '[object Blob]';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Trim excess whitespace off the beginning and end of a string
 	 *
@@ -375,7 +514,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function trim(str) {
 	  return str.replace(/^\s*/, '').replace(/\s*$/, '');
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a value is an Arguments object
 	 *
@@ -385,7 +528,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isArguments(val) {
 	  return toString.call(val) === '[object Arguments]';
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if we're running in a standard browser environment
 	 *
@@ -406,7 +553,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    typeof document.createElement === 'function'
 	  );
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Iterate over an Array or an Object invoking a function for each item.
 	 *
@@ -424,15 +575,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (obj === null || typeof obj === 'undefined') {
 	    return;
 	  }
+<<<<<<< HEAD
+	
+	  // Check if obj is array-like
+	  var isArrayLike = isArray(obj) || isArguments(obj);
+	
+=======
 
 	  // Check if obj is array-like
 	  var isArrayLike = isArray(obj) || isArguments(obj);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Force an array if not already something iterable
 	  if (typeof obj !== 'object' && !isArrayLike) {
 	    obj = [obj];
 	  }
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Iterate over array values
 	  if (isArrayLike) {
 	    for (var i = 0, l = obj.length; i < l; i++) {
@@ -448,7 +610,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Accepts varargs expecting each argument to be an object, then
 	 * immutably merges the properties of each object and returns result.
@@ -475,7 +641,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	  return result;
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	module.exports = {
 	  isArray: isArray,
 	  isArrayBuffer: isArrayBuffer,
@@ -500,7 +670,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Dispatch a request to the server using whichever adapter
 	 * is supported by the current environment.
@@ -524,8 +698,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  });
 	};
+<<<<<<< HEAD
+	
+	
+=======
 
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
@@ -533,13 +712,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// shim for using process in browser
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	var process = module.exports = {};
 	var queue = [];
 	var draining = false;
 	var currentQueue;
 	var queueIndex = -1;
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	function cleanUpNextTick() {
 	    draining = false;
 	    if (currentQueue.length) {
@@ -551,14 +738,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        drainQueue();
 	    }
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	function drainQueue() {
 	    if (draining) {
 	        return;
 	    }
 	    var timeout = setTimeout(cleanUpNextTick);
 	    draining = true;
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	    var len = queue.length;
 	    while(len) {
 	        currentQueue = queue;
@@ -575,7 +770,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    draining = false;
 	    clearTimeout(timeout);
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	process.nextTick = function (fun) {
 	    var args = new Array(arguments.length - 1);
 	    if (arguments.length > 1) {
@@ -588,7 +787,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        setTimeout(drainQueue, 0);
 	    }
 	};
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	// v8 likes predictible objects
 	function Item(fun, array) {
 	    this.fun = fun;
@@ -603,9 +806,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.argv = [];
 	process.version = ''; // empty string to avoid regexp issues
 	process.versions = {};
+<<<<<<< HEAD
+	
+	function noop() {}
+	
+=======
 
 	function noop() {}
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	process.on = noop;
 	process.addListener = noop;
 	process.once = noop;
@@ -613,11 +822,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.removeListener = noop;
 	process.removeAllListeners = noop;
 	process.emit = noop;
+<<<<<<< HEAD
+	
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+	
+=======
 
 	process.binding = function (name) {
 	    throw new Error('process.binding is not supported');
 	};
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	process.cwd = function () { return '/' };
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
@@ -630,15 +847,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+	/*global ActiveXObject:true*/
+	
+=======
 
 	/*global ActiveXObject:true*/
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	var defaults = __webpack_require__(2);
 	var utils = __webpack_require__(3);
 	var buildUrl = __webpack_require__(7);
 	var parseHeaders = __webpack_require__(8);
 	var transformData = __webpack_require__(9);
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  // Transform request data
 	  var data = transformData(
@@ -646,18 +873,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	    config.headers,
 	    config.transformRequest
 	  );
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Merge headers
 	  var requestHeaders = utils.merge(
 	    defaults.headers.common,
 	    defaults.headers[config.method] || {},
 	    config.headers || {}
 	  );
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  if (utils.isFormData(data)) {
 	    // Content-Type needs to be sent in all requests so the mapping template can be applied
 	    //delete requestHeaders['Content-Type']; // Let the browser set it
 	  }
+<<<<<<< HEAD
+	
+	  // Create the request
+	  var request = new (XMLHttpRequest || ActiveXObject)('Microsoft.XMLHTTP');
+	  request.open(config.method.toUpperCase(), buildUrl(config.url, config.params), true);
+	
+	  // Set the request timeout in MS
+	  request.timeout = config.timeout;
+	
+=======
 
 	  // Create the request
 	  var request = new (XMLHttpRequest || ActiveXObject)('Microsoft.XMLHTTP');
@@ -666,6 +911,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // Set the request timeout in MS
 	  request.timeout = config.timeout;
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Listen for ready state
 	  request.onreadystatechange = function () {
 	    if (request && request.readyState === 4) {
@@ -683,34 +929,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	        headers: responseHeaders,
 	        config: config
 	      };
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	      // Resolve or reject the Promise based on the status
 	      (request.status >= 200 && request.status < 300 ?
 	        resolve :
 	        reject)(response);
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	      // Clean up request
 	      request = null;
 	    }
 	  };
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Add xsrf header
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
 	    var cookies = __webpack_require__(10);
 	    var urlIsSameOrigin = __webpack_require__(11);
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	    // Add xsrf header
 	    var xsrfValue = urlIsSameOrigin(config.url) ?
 	        cookies.read(config.xsrfCookieName || defaults.xsrfCookieName) :
 	        undefined;
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	    if (xsrfValue) {
 	      requestHeaders[config.xsrfHeaderName || defaults.xsrfHeaderName] = xsrfValue;
 	    }
 	  }
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Add headers to the request
 	  utils.forEach(requestHeaders, function (val, key) {
 	    // Remove Content-Type if data is undefined
@@ -722,12 +992,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      request.setRequestHeader(key, val);
 	    }
 	  });
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Add withCredentials to request if needed
 	  if (config.withCredentials) {
 	    request.withCredentials = true;
 	  }
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Add responseType to request if needed
 	  if (config.responseType) {
 	    try {
@@ -738,11 +1016,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }
+<<<<<<< HEAD
+	
+	  if (utils.isArrayBuffer(data)) {
+	    data = new DataView(data);
+	  }
+	
+=======
 
 	  if (utils.isArrayBuffer(data)) {
 	    data = new DataView(data);
 	  }
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // Send the request
 	  request.send(data);
 	};
@@ -753,9 +1039,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+	var utils = __webpack_require__(3);
+	
+=======
 
 	var utils = __webpack_require__(3);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	function encode(val) {
 	  return encodeURIComponent(val).
 	    replace(/%40/gi, '@').
@@ -766,7 +1058,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    replace(/%5B/gi, '[').
 	    replace(/%5D/gi, ']');
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Build a URL by appending params to the end
 	 *
@@ -778,13 +1074,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!params) {
 	    return url;
 	  }
+<<<<<<< HEAD
+	
+	  var parts = [];
+	
+=======
 
 	  var parts = [];
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  utils.forEach(params, function (val, key) {
 	    if (val === null || typeof val === 'undefined') {
 	      return;
 	    }
+<<<<<<< HEAD
+	
+	    if (utils.isArray(val)) {
+	      key = key + '[]';
+	    }
+	
+	    if (!utils.isArray(val)) {
+	      val = [val];
+	    }
+	
+=======
 
 	    if (utils.isArray(val)) {
 	      key = key + '[]';
@@ -794,6 +1107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      val = [val];
 	    }
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	    utils.forEach(val, function (v) {
 	      if (utils.isDate(v)) {
 	        v = v.toISOString();
@@ -804,11 +1118,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      parts.push(encode(key) + '=' + encode(v));
 	    });
 	  });
+<<<<<<< HEAD
+	
+	  if (parts.length > 0) {
+	    url += (url.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
+	  }
+	
+=======
 
 	  if (parts.length > 0) {
 	    url += (url.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
 	  }
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  return url;
 	};
 
@@ -818,9 +1140,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+	var utils = __webpack_require__(3);
+	
+=======
 
 	var utils = __webpack_require__(3);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Parse headers into an object
 	 *
@@ -836,19 +1164,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	module.exports = function parseHeaders(headers) {
 	  var parsed = {}, key, val, i;
+<<<<<<< HEAD
+	
+	  if (!headers) { return parsed; }
+	
+=======
 
 	  if (!headers) { return parsed; }
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  utils.forEach(headers.split('\n'), function(line) {
 	    i = line.indexOf(':');
 	    key = utils.trim(line.substr(0, i)).toLowerCase();
 	    val = utils.trim(line.substr(i + 1));
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	    if (key) {
 	      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
 	    }
 	  });
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  return parsed;
 	};
 
@@ -858,9 +1200,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+	var utils = __webpack_require__(3);
+	
+=======
 
 	var utils = __webpack_require__(3);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Transform the data for a request or a response
 	 *
@@ -873,7 +1221,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  utils.forEach(fns, function (fn) {
 	    data = fn(data, headers);
 	  });
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  return data;
 	};
 
@@ -883,19 +1235,51 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * WARNING:
 	 *  This file makes references to objects that aren't safe in all environments.
 	 *  Please see lib/utils.isStandardBrowserEnv before including this file.
 	 */
+<<<<<<< HEAD
+	
+	var utils = __webpack_require__(3);
+	
+=======
 
 	var utils = __webpack_require__(3);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	module.exports = {
 	  write: function write(name, value, expires, path, domain, secure) {
 	    var cookie = [];
 	    cookie.push(name + '=' + encodeURIComponent(value));
+<<<<<<< HEAD
+	
+	    if (utils.isNumber(expires)) {
+	      cookie.push('expires=' + new Date(expires).toGMTString());
+	    }
+	
+	    if (utils.isString(path)) {
+	      cookie.push('path=' + path);
+	    }
+	
+	    if (utils.isString(domain)) {
+	      cookie.push('domain=' + domain);
+	    }
+	
+	    if (secure === true) {
+	      cookie.push('secure');
+	    }
+	
+	    document.cookie = cookie.join('; ');
+	  },
+	
+=======
 
 	    if (utils.isNumber(expires)) {
 	      cookie.push('expires=' + new Date(expires).toGMTString());
@@ -916,11 +1300,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    document.cookie = cookie.join('; ');
 	  },
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  read: function read(name) {
 	    var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
 	    return (match ? decodeURIComponent(match[3]) : null);
 	  },
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  remove: function remove(name) {
 	    this.write(name, '', Date.now() - 86400000);
 	  }
@@ -932,18 +1321,30 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * WARNING:
 	 *  This file makes references to objects that aren't safe in all environments.
 	 *  Please see lib/utils.isStandardBrowserEnv before including this file.
 	 */
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	var utils = __webpack_require__(3);
 	var msie = /(msie|trident)/i.test(navigator.userAgent);
 	var urlParsingNode = document.createElement('a');
 	var originUrl;
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Parse a URL to discover it's components
 	 *
@@ -952,15 +1353,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	function urlResolve(url) {
 	  var href = url;
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  if (msie) {
 	    // IE needs attribute set twice to normalize properties
 	    urlParsingNode.setAttribute('href', href);
 	    href = urlParsingNode.href;
 	  }
+<<<<<<< HEAD
+	
+	  urlParsingNode.setAttribute('href', href);
+	
+=======
 
 	  urlParsingNode.setAttribute('href', href);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	  // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
 	  return {
 	    href: urlParsingNode.href,
@@ -975,9 +1386,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	              '/' + urlParsingNode.pathname
 	  };
 	}
+<<<<<<< HEAD
+	
+	originUrl = urlResolve(window.location.href);
+	
+=======
 
 	originUrl = urlResolve(window.location.href);
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Determine if a URL shares the same origin as the current location
 	 *
@@ -996,6 +1413,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+	var utils = __webpack_require__(3);
+	
+	function InterceptorManager() {
+	  this.handlers = [];
+	}
+	
+=======
 
 	var utils = __webpack_require__(3);
 
@@ -1003,6 +1429,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.handlers = [];
 	}
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Add a new interceptor to the stack
 	 *
@@ -1018,7 +1445,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	  return this.handlers.length - 1;
 	};
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Remove an interceptor from the stack
 	 *
@@ -1029,7 +1460,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.handlers[id] = null;
 	  }
 	};
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Iterate over all the registered interceptors
 	 *
@@ -1045,7 +1480,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  });
 	};
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	module.exports = InterceptorManager;
 
 
@@ -1054,7 +1493,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 	/**
 	 * Syntactic sugar for invoking a function and expanding an array for arguments.
 	 *
@@ -1086,4 +1529,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
+<<<<<<< HEAD
 //# sourceMappingURL=axios.map
+=======
+//# sourceMappingURL=axios.map
+>>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a

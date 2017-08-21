@@ -54,7 +54,6 @@ class FormResults extends Component {
   handleLoadComplete(error, ratings) {
     const {submission} = this.props;
     const type = this.props.submission.type;
-
     this.setState({
       quoteStatus: (error) ? STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
       ratings
