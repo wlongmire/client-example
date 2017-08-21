@@ -7,3 +7,5 @@ private
 coverage
 npm-debug.log
 .env
+selenium-debug.log
+e2e/reports/**
