@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-axios v0.7.0 
-=======
 axios v0.7.0
->>>>>>> 2a385fa14d9871e819487b314e17638a75c4806a
 Copyright (c) 2014 Matt Zabriskie
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
