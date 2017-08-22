@@ -15,8 +15,8 @@ const checkSaveSubmission = require('../utils/checkSaveSubmission');
 const uid = require('uid-safe');
 
 // enter your username and password here
-const username = 'warrenlongmire@gmail.com'
-const password = 'A0xt1982!'
+const username = 'andkulak@gmail.com'
+const password = 'Lastpass1@'
 
 const ocpPrimaryInsuredName = uid.sync(15) + 'Test';
 const oiPrimaryInsuredName = uid.sync(15) + 'Test';
