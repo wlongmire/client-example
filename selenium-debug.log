@@ -1,0 +1,62 @@
+10:32:52.142 INFO - Selenium build info: version: '3.4.0', revision: 'unknown'
+10:32:52.144 INFO - Launching a standalone Selenium Server
+2017-08-22 10:32:52.195:INFO::main: Logging initialized @656ms to org.seleniumhq.jetty9.util.log.StdErrLog
+10:32:52.278 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+ registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match the current platform MAC
+10:32:52.278 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
+ registration capabilities Capabilities [{browserName=MicrosoftEdge, version=, platform=WINDOWS}] does not match the current platform MAC
+10:32:52.278 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+10:32:52.279 INFO - Driver provider com.opera.core.systems.OperaDriver registration is skipped:
+Unable to create new instances on this machine.
+10:32:52.279 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+10:32:52.279 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
+2017-08-22 10:32:52.363:INFO:osjs.Server:main: jetty-9.4.3.v20170317
+2017-08-22 10:32:52.410:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@d8355a8{/,null,AVAILABLE}
+2017-08-22 10:32:52.452:INFO:osjs.AbstractConnector:main: Started ServerConnector@146ba0ac{HTTP/1.1,[http/1.1]}{0.0.0.0:4444}
+2017-08-22 10:32:52.453:INFO:osjs.Server:main: Started @914ms
+10:32:52.453 INFO - Selenium Server is up and running
+10:32:53.199 INFO - SessionCleaner initialized with insideBrowserTimeout 0 and clientGoneTimeout 1800000 polling every 180000
+10:32:53.240 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Index, browserName=chrome, javascriptEnabled=true, platform=ANY}]])
+10:32:53.279 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Index, browserName=chrome, javascriptEnabled=true, platform=ANY}]
+Starting ChromeDriver 2.31.488774 (7e15618d1bf16df8bf0ecf2914ed1964a387ba0b) on port 15983
+Only local connections are allowed.
+10:32:54.649 INFO - Detected dialect: OSS
+10:32:54.666 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Index, browserName=chrome, javascriptEnabled=true, platform=ANY}]]
+10:32:54.685 INFO - Executing: [get: http://localhost:7777/])
+10:32:58.139 INFO - Done: [get: http://localhost:7777/]
+10:32:58.150 INFO - Executing: [find elements: By.cssSelector: body])
+10:32:58.200 INFO - Done: [find elements: By.cssSelector: body]
+10:32:58.207 INFO - Executing: [is displayed: 0 [[ChromeDriver: chrome on MAC (7b665e4e0d09f8a07d18126c2271366e)] -> css selector: body]])
+10:32:58.239 INFO - Done: [is displayed: 0 [[ChromeDriver: chrome on MAC (7b665e4e0d09f8a07d18126c2271366e)] -> css selector: body]]
+10:32:58.245 INFO - Executing: [find element: By.cssSelector: #username])
+10:32:58.268 INFO - Done: [find element: By.cssSelector: #username]
+10:32:58.273 INFO - Executing: [send keys: 1 [[ChromeDriver: chrome on MAC (7b665e4e0d09f8a07d18126c2271366e)] -> css selector: #username], [w, a, r, r, e, n, l, o, n, g, m, i, r, e, @, g, m, a, i, l, ., c, o, m]])
+10:32:58.552 INFO - Done: [send keys: 1 [[ChromeDriver: chrome on MAC (7b665e4e0d09f8a07d18126c2271366e)] -> css selector: #username], [w, a, r, r, e, n, l, o, n, g, m, i, r, e, @, g, m, a, i, l, ., c, o, m]]
+10:32:58.559 INFO - Executing: [find element: By.cssSelector: #password])
+10:32:58.585 INFO - Done: [find element: By.cssSelector: #password]
+10:32:58.590 INFO - Executing: [send keys: 2 [[ChromeDriver: chrome on MAC (7b665e4e0d09f8a07d18126c2271366e)] -> css selector: #password], [A, 0, x, t, 1, 9, 8, 2, !, ]])
+10:32:59.111 INFO - Done: [send keys: 2 [[ChromeDriver: chrome on MAC (7b665e4e0d09f8a07d18126c2271366e)] -> css selector: #password], [A, 0, x, t, 1, 9, 8, 2, !, ]]
+10:32:59.118 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:32:59.138 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:32:59.646 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:32:59.655 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:00.165 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:00.174 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:00.681 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:00.690 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:01.200 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:01.209 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:01.722 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:01.731 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:02.238 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:02.247 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:02.755 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:02.801 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:03.306 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:03.315 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:03.821 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:03.830 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:04.334 INFO - Executing: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a])
+10:33:04.343 INFO - Done: [find elements: By.xpath: /html/body/div[1]/div/nav/div/div[2]/ul/li[2]/a]
+10:33:04.348 INFO - Executing: [delete session: 3640fc93-195a-418d-8686-c08d6d6adb50])
+10:33:04.426 INFO - Done: [delete session: 3640fc93-195a-418d-8686-c08d6d6adb50]

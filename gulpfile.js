@@ -58,11 +58,16 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
   .pipe(replace('@assetsURL', 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets'))
-  .pipe(replace('@appId', 'appIdorsomething'))
-  .pipe(replace('@identityPoolId', 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7')) // DEV
-  .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh'))
-  .pipe(replace('@userPoolId', 'us-east-1_zbchOMkxh'))
-  .pipe(replace('@clientId', '7mufec3sdmn9hfp70k41cq3fkc'))
+  // .pipe(replace('@appId', 'appIdorsomething'))
+  .pipe(replace('@appId', '76c9vth2qtg841ivles7aurmvv'))
+  // .pipe(replace('@identityPoolId', 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7')) // DEV
+  .pipe(replace('@identityPoolId', 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b')) // DEV
+  .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_3SgBuYU4O'))
+  // .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh'))
+  .pipe(replace('@userPoolId', 'us-east-1_3SgBuYU4O'))
+  // .pipe(replace('@userPoolId', 'us-east-1_zbchOMkxh'))
+  .pipe(replace('@clientId', '76c9vth2qtg841ivles7aurmvv'))
+  // .pipe(replace('@clientId', '7mufec3sdmn9hfp70k41cq3fkc'))
   .pipe(replace('@region', 'us-east-1'))
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', true))
@@ -72,7 +77,7 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
 
 gulp.task('apiTransform:local', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])
-  .pipe(replace('@ApiStageEnv', 'dev'))
+  .pipe(replace('@ApiGatewayUrl', 'https://c27z16ujzj.execute-api.us-east-1.amazonaws.com/dev'))
   .pipe(gulp.dest('src/apigClient/'))
 })
 

@@ -3,7 +3,7 @@
 const config = {
     env: process.env.NODE_ENV,
     name: 'ownersEdge',
-    appId: '57ab6abcf36d2840aa667f6e',
+    appId: '76c9vth2qtg841ivles7aurmvv',
     argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
@@ -27,11 +27,11 @@ const config = {
     mixPanelEnvironment: 'dev',
 
     awsCognito:{
-        identityPoolId: 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7',
-        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh',
-        userPoolId: 'us-east-1_zbchOMkxh',
+        identityPoolId: 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b',
+        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_3SgBuYU4O',
+        userPoolId: 'us-east-1_3SgBuYU4O',
         region: 'us-east-1',
-        clientId: '7mufec3sdmn9hfp70k41cq3fkc',
+        clientId: '76c9vth2qtg841ivles7aurmvv',
     },
 
     apiGateway: {
@@ -66,7 +66,7 @@ const config = {
     app: {},
 
     server: {
-        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
+        url: 'http://localhost',
         port: null
     },
 
@@ -75,7 +75,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'https://ezn98yxd1k.execute-api.us-east-1.amazonaws.com/dev/',
+        url: 'http://localhost',
         port:  null
     }
 };
