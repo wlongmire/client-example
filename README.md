@@ -58,7 +58,5 @@ Since users cannot sign themsesleves up, you are going to add them in the Cognit
 In order to add attributes to users, get proper permissions for your AWS CLI, and execute the following command:
 ```
 aws cognito-idp admin-update-user-attributes --user-pool-id _user_pool_id_ --username _username_ --user-attributes Name=custom:broker_id,Value=_broker_ID_value_
-```
-
-test 222222222
+``` 
 
