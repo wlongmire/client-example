@@ -1,28 +1,28 @@
-var config = require('../nightwatch.conf.js');
-const login = require('../utils/login');
-const clearanceFormFillout = require('../utils/clearanceFormFillout');
-const navToOcpClearance = require('../utils/navToOcpClearance');
-const navToOiClearance = require('../utils/navToOiClearance');
-const clearancePassAndContinue = require('../utils/clearancePassAndContinue');
-const ocpFormFillout = require('../utils/ocpFormFillout');
-const oiFormFillout = require('../utils/oiFormFillout');
-const clearanceFail = require('../utils/clearanceFail');
-const submitForm = require('../utils/submitForm');
-const getToSubmissionsTable = require('../utils/getToSubmissionsTable');
+const config = require('../nightwatch.conf.js')
+const login = require('../utils/login')
+const clearanceFormFillout = require('../utils/clearanceFormFillout')
+const navToOcpClearance = require('../utils/navToOcpClearance')
+const navToOiClearance = require('../utils/navToOiClearance')
+const clearancePassAndContinue = require('../utils/clearancePassAndContinue')
+const ocpFormFillout = require('../utils/ocpFormFillout')
+const oiFormFillout = require('../utils/oiFormFillout')
+const clearanceFail = require('../utils/clearanceFail')
+const submitForm = require('../utils/submitForm')
+const getToSubmissionsTable = require('../utils/getToSubmissionsTable')
 const editSubmission = require('../utils/editSubmission')
 const checkEditSubmission = require('../utils/checkEditSubmission')
-const checkSaveSubmission = require('../utils/checkSaveSubmission');
-const uid = require('uid-safe');
+const checkSaveSubmission = require('../utils/checkSaveSubmission')
+const uid = require('uid-safe')
 
 // enter your username and password here
 const username = 'andkulak@gmail.com'
 const password = 'Lastpass1@'
 
-const ocpPrimaryInsuredName = uid.sync(15) + 'Test';
-const oiPrimaryInsuredName = uid.sync(15) + 'Test';
-const randomTotalCost = Math.floor(Math.random() * 10000000);
-const randomPhoneNumber = Math.floor(Math.random() * 10000000);
-const editSearchValue = 'Kulak2XgNsptihDo';
+const ocpPrimaryInsuredName = `${uid.sync(15)}Test`
+const oiPrimaryInsuredName = `${uid.sync(15)}Test`
+const randomTotalCost = Math.floor(Math.random() * 10000000)
+const randomPhoneNumber = Math.floor(Math.random() * 10000000)
+const editSearchValue = 'x8xfu__0w0-7TSLGBMBzTest'
 
 module.exports = {
   'OI Fail Clearance': (browser) => {
@@ -67,4 +67,4 @@ module.exports = {
     checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
     .end()
   }
-};
+}
