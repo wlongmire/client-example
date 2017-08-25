@@ -32,6 +32,8 @@ const config = {
         userPoolId: '@userPoolId',
         region: '@region',
         clientId: '@clientId',
+        accessKey: '@accessKey',
+        secretKey: '@secretKey'
     },
 
     apiGateway: {

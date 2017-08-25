@@ -40,7 +40,6 @@ $ gulp build
 ```
 
 The site will be built in `/dist`.
-p
 use gulp:transform:[dev/prod/local] to change config variables
 
 #### Linter Rules:
@@ -59,5 +58,3 @@ In order to add attributes to users, get proper permissions for your AWS CLI, an
 ```
 aws cognito-idp admin-update-user-attributes --user-pool-id _user_pool_id_ --username _username_ --user-attributes Name=custom:broker_id,Value=_broker_ID_value_
 ```
-
-test 2222
