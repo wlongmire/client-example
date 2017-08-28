@@ -10,7 +10,7 @@ import mx from 'app/utils/MixpanelInterface'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
-export function login(username, password, onSuccess, onFailure, newPasswordRequired, migration = false) {
+export function login(username, password, onSuccess, onFailure, newPasswordRequired, migration = true) {
   return (dispatch) => {
     const userPool = new CognitoUserPool({
       UserPoolId: config.awsCognito.userPoolId,

@@ -16,7 +16,7 @@ const argoUserPool = {
   identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_XWOnd6XH0'
 }
 
-export function migrationLogin(username = 'warrenlongmire@gmail.com', password = 'A0xt1982!', onSuccess, onFailure, newPasswordRequired, dispatch) {
+export function migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch) {
   const sourceUserPool = new CognitoUserPool({
     UserPoolId: argoUserPool.userPool,
     ClientId: argoUserPool.clientId
