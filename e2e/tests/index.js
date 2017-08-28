@@ -15,8 +15,8 @@ const checkSaveSubmission = require('../utils/checkSaveSubmission')
 const uid = require('uid-safe')
 
 // enter your username and password here
-const username = 'andkulak@gmail.com'
-const password = 'Lastpass1@'
+const username = 'ownersedgesubmissions@gmail.com'
+const password = 'Argopass1!'
 
 const ocpPrimaryInsuredName = `${uid.sync(15)}Test`
 const oiPrimaryInsuredName = `${uid.sync(15)}Test`
