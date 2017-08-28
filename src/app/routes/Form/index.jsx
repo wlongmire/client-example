@@ -62,7 +62,6 @@ class Form extends Component {
     this.setState({
       confirmation: false
     })
-    
     this.props.dispatch(push('/formResults'))
   }
 
@@ -74,6 +73,16 @@ class Form extends Component {
   }
 
   handleSubmitForReview(sub, controlGroups, requiredFields) {
+    // if exterior Demo is answered Yes, exteriorDemoSubcontractor is required
+    if (sub.exteriorDemo == 'true' && !sub.exteriorDemoSubcontractor) {
+      requiredFields.push({
+        questionId: '12.1',
+        text: 'Is the GC hiring a demo subcontractor?',
+        inputType: 'text',
+        name: 'exteriorDemoSubcontractor'
+      })
+    }
+
     if (requiredFields.length > 0) {
       this.setState({
         ...this.state,
