@@ -10,7 +10,7 @@ import mx from 'app/utils/MixpanelInterface'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
-export function login(username, password, onSuccess, onFailure, newPasswordRequired, migration = true) {
+export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
   return (dispatch) => {
     const userPool = new CognitoUserPool({
       UserPoolId: config.awsCognito.userPoolId,
@@ -93,9 +93,10 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-          if (migration) {
+          console.log("current environment:", config.env)
+          
+          if (config.env === 'prod') {
             migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
-
           } else {
             onFailure(err)
           }

@@ -32,11 +32,6 @@ export function migrationLogin(username, password, onSuccess, onFailure, newPass
     ClientId: config.awsCognito.clientId
   })
 
-  const targetCognitoUser = new CognitoUser({
-    Username: username,
-    Pool: targetUserPool
-  })
-  
   // Authenticate on older system (argoGroup)
   // does user exist?
   sourceCognitoUser.authenticateUser(
@@ -97,6 +92,9 @@ export function migrationLogin(username, password, onSuccess, onFailure, newPass
       },
       onFailure: (err) => {
         onFailure(err)
+      },
+      newPasswordRequired: (userAttributes) => {
+        onFailure('MigrationReset:')
       }
     })
 }
