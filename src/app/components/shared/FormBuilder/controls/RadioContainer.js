@@ -1,15 +1,13 @@
-import React from 'react'
-import isDefined from '../utils/isDefined'
-import classNames from 'classnames'
+import React, { PropTypes } from 'react'
 
 import {
   FormGroup,
   Radio,
   ControlLabel,
-  InputGroup,
   Tooltip,
   OverlayTrigger
 } from 'react-bootstrap'
+import AdditionalInfoComponent from './AdditionalInfoComponent'
 
 class RadioContainer extends React.Component {
   constructor(props) {
@@ -19,23 +17,23 @@ class RadioContainer extends React.Component {
     const name = this.props.data.name
 
     this.state = {
-      //value: this.props.initialValues[name] ? this.props.initialValues[name] : null,
-      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
+      // value: this.props.initialValues[name] ? this.props.initialValues[name] : null,
+      disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled) ?
+        this.props.initialParams[name].disabled : false,
       options: [].concat(this.props.data.attributes.options),
       isValid: null,
-      validationMessage:""
+      validationMessage: ''
     }
-
   }
 
   componentWillMount() {
     if (this.props.initialValues[this.props.data.name]) {
-      let event = {
+      const event = {
         target: {
           value: this.props.initialValues[this.props.data.name]
         }
       }
-      this.onChangeHandler(event);
+      this.onChangeHandler(event)
     } else {
       this.setState({
         value: null
@@ -45,26 +43,26 @@ class RadioContainer extends React.Component {
 
   getValidationState() {
     // this bit of code acts as a circuit breaker
-    // We want get validation to trigger a validation function and when results are back we need to call it again
+    // We want get validation to trigger a validation function
+    // and when results are back we need to call it again
     // But this breaks the loops
     if (this.state.isValid) {
-      let isValid = this.state.isValid
+      const isValid = this.state.isValid
       this.state.isValid = null
       return isValid
     }
 
-    //only trigger validation if the value changes
+    // only trigger validation if the value changes
     if (this.state.value !== '' &&
         this.props.data.attributes &&
         this.props.data.attributes.validationFunc &&
         this.props.validation[this.props.data.attributes.validationFunc]) {
-
-        this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result)=> {
-          this.setState({
-            isValid: (result) ? 'success' : 'error',
-            validationMessage:(result.status) ? "" : result.message
-          })
+      this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result) => {
+        this.setState({
+          isValid: (result) ? 'success' : 'error',
+          validationMessage: (result.status) ? '' : result.message
         })
+      })
     }
 
     if (this.state.isValid !== null) {
@@ -72,7 +70,7 @@ class RadioContainer extends React.Component {
     }
 
     if (this.props.data.attributes && this.props.data.attributes.validationRegEx) {
-      let regex = new RegExp(unescape(this.props.data.attributes.validationRegEx))
+      const regex = new RegExp(unescape(this.props.data.attributes.validationRegEx))
       return (regex.test(this.state.value)) ? 'success' : 'error'
     }
 
@@ -80,19 +78,19 @@ class RadioContainer extends React.Component {
   }
 
   onChangeHandler(event) {
-    //get the data for selected option
-    let option = this.props.data.attributes.options.filter((option) => {
-      return option.value.toString() === event.target.value
+    // get the data for selected option
+    const option = this.props.data.attributes.options.filter((optionResult) => {
+      return optionResult.value.toString() === event.target.value
     })[0]
 
-    //trigger supplemental questions
-    if(option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
+    // trigger supplemental questions
+    if (option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
       this.props.handleSupplementTrigger(option.supplementalquestionIds)
     } else {
       this.props.handleSupplementTrigger([])
     }
 
-    //set value to selected option
+    // set value to selected option
     this.setState({
       value: event.target.value
     })
@@ -101,39 +99,62 @@ class RadioContainer extends React.Component {
   }
 
   render() {
-    const tooltip = <Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>
+    const tooltip = (<Tooltip id={`tooltip_${this.props.data.questionId}`}> {this.props.data.tooltiptext}</Tooltip>)
     const optionsItems = this.props.data.attributes.options || []
 
-    let options = optionsItems.map((data, index) => {
+    const options = optionsItems.map((data, index) => {
       const checked = ((this.state.value) && (this.state.value.toString() === data.value.toString()))
 
       return (
-          <Radio
-            className={this.props.data.name}
-            key={index}
-            onChange={this.onChangeHandler}
-            value={data.value}
-            checked={checked}
-            disabled={this.state.disabled}
-            name={`optionGroup_${this.props.data.questionId}`}>
-            <span className="radioText">{data.text}</span>
-          </Radio>
+        <Radio
+          className={this.props.data.name}
+          key={index}
+          onChange={this.onChangeHandler}
+          value={data.value}
+          checked={checked}
+          inline={this.props.data.verticalRadioAlign}
+          disabled={this.state.disabled}
+          name={`optionGroup_${this.props.data.questionId}`}
+        >
+          <span className="radioText">{data.text}</span>
+        </Radio>
       )
     })
 
     return (
-       <FormGroup className="radioGroup" validationState={this.getValidationState()} controlId={this.props.data.name}>
+      <FormGroup
+        className="radioGroup"
+        validationState={this.getValidationState()}
+        controlId={this.props.data.name}
+      >
         {/* I'm adding the overlay to the ControlLabel in the case of Radio buttons.
         having a tooltip on the Radio buttons felt a little counter-intuitive in terms of UX*/}
-        { this.props.data.text && <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
+        { this.props.data.text && <OverlayTrigger placement="top" overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
           <ControlLabel>{this.props.data.text}</ControlLabel>
         </OverlayTrigger> }
         <div className="options">
           {options}
         </div>
-       </FormGroup>
+        <AdditionalInfoComponent
+          additionalInfo1Color={this.props.data.additionalInfo1Color}
+          additionalInfo1={this.props.data.additionalInfo1}
+          additionalInfo2={this.props.data.additionalInfo2}
+          additionalInfoIcon={this.props.data.additionalInfoIcon}
+        />
+      </FormGroup>
     )
   }
 }
+
+
+RadioContainer.propTypes = {
+  data: PropTypes.object,
+  initialParams: PropTypes.object,
+  initialValues: PropTypes.object,
+  validation: PropTypes.object,
+  handleSupplementTrigger: PropTypes.func,
+  handleFormChange: PropTypes.func
+}
+
 
 export default RadioContainer

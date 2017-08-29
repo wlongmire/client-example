@@ -120,13 +120,24 @@ class FormBuilder extends React.Component {
             initialValues= {this.initialValues}/>
         );
       });
-      
+
+      const questionTitle = () => {
+        if (controlGroups[group][0] && controlGroups[group][0].title) {
+          return (
+            <div className="questionHeader">{controlGroups[group][0].title}
+            </div>
+          )
+        }
+        return <div />
+      }
       result.push(
-        <div key={group} className='group'>
-          {formItemContainers}
+        <div>
+          {questionTitle()}
+          <div key={group} className="group">
+            {formItemContainers}
+          </div>
         </div>
-      );
-    
+      )
     }
 
     // show button only if the form elements are created

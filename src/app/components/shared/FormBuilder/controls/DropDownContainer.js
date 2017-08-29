@@ -9,6 +9,7 @@ import {
   OverlayTrigger,
   FormControl
 } from 'react-bootstrap'
+import AdditionalInfoComponent from './AdditionalInfoComponent'
 
 
 class DropDownContainer extends React.Component {
@@ -117,6 +118,12 @@ class DropDownContainer extends React.Component {
             </FormControl>
           </div>
         </OverlayTrigger>
+        <AdditionalInfoComponent
+          additionalInfo1Color={this.props.data.additionalInfo1Color}
+          additionalInfo1={this.props.data.additionalInfo1}
+          additionalInfo2={this.props.data.additionalInfo2}
+          additionalInfoIcon={this.props.data.additionalInfoIcon}
+        />
        </FormGroup>
     )
   }

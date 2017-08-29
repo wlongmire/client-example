@@ -11,6 +11,7 @@ import {
   OverlayTrigger
 } from 'react-bootstrap'
 import isDefined from '../utils/isDefined'
+import AdditionalInfoComponent from './AdditionalInfoComponent'
 
 class InputContainer extends React.PureComponent {
   constructor(props) {
@@ -155,6 +156,12 @@ class InputContainer extends React.PureComponent {
 
         {overlay}
         {helpBlock}
+        <AdditionalInfoComponent
+          additionalInfo1Color={this.props.data.additionalInfo1Color}
+          additionalInfo1={this.props.data.additionalInfo1}
+          additionalInfo2={this.props.data.additionalInfo2}
+          additionalInfoIcon={this.props.data.additionalInfoIcon}
+        />
 
       </FormGroup>
     )

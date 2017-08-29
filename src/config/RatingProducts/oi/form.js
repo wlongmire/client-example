@@ -217,48 +217,6 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "30",
-      "text": "Does the project include the addition of any stories or vertical expansion?",
-      "name": "verticalExpansion",
-      "inputType": "radio",
-      "required": true,
-      "attributes":{
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Yes",
-            "value": true
-          },
-          {
-            "optionId": "2",
-            "text": "No",
-            "value": false
-          }
-        ]
-      }
-    },
-    {
-      "questionId": "31",
-      "name": "exteriorWorkFiveStories",
-      "text": "Is there any exterior work being done over 5 stories?",
-      "inputType": "radio",
-      "required": true,
-      "attributes":{
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Yes",
-            "value": true
-          },
-          {
-            "optionId": "2",
-            "text": "No",
-            "value": false
-          }
-        ]
-      }
-    },
-    {
       "questionId": "7a",
       "text": "What is the anticipated start date of project?",
       "name": "anticipatedStartDate",
@@ -290,28 +248,6 @@ const updatedData =  {
       "inputFormat": "text",
       "inputType": "freeform",
       "required": true
-    },
-    {
-      "questionId": "9",
-      "text": "Will there be use of a tower crane on this project?",
-      "name": "towerCraneUse",
-      "inputFormat": "radio",
-      "inputType": "radio",
-      "required": true,
-      "attributes": {
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Yes",
-            "value": true
-          },
-          {
-            "optionId": "2",
-            "text": "No",
-            "value": false
-          }
-        ]
-      }
     },
     {
       "questionId": "10",
@@ -364,6 +300,48 @@ const updatedData =  {
       }
     },
     {
+      "questionId": "31",
+      "name": "exteriorWorkFiveStories",
+      "text": "Is there any exterior work being done over 5 stories?",
+      "inputType": "radio",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "questionId": "30",
+      "text": "Does the project include the addition of any stories or vertical expansion?",
+      "name": "verticalExpansion",
+      "inputType": "radio",
+      "required": true,
+      "attributes":{
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
       "questionId": "12",
       "text": "Will there be demo of exterior walls or roof?",
       "name": "exteriorDemo",
@@ -391,11 +369,34 @@ const updatedData =  {
       }
     },
     {
+      "questionId": "9",
+      "text": "Will there be use of a tower crane on this project?",
+      "name": "towerCraneUse",
+      "inputFormat": "radio",
+      "inputType": "radio",
+      "required": true,
+      "attributes": {
+        "options": [
+          {
+            "optionId": "1",
+            "text": "Yes",
+            "value": true
+          },
+          {
+            "optionId": "2",
+            "text": "No",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
       "questionId": "13",
       "text": "Has Work started on this project?",
       "name": "workStarted",
       "inputType": "radio",
       "required": true,
+      "additionalInfo": "TEstarserer",
       "attributes": {
         "options": [
           {
@@ -418,33 +419,9 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "14",
-      "text": "Does this project require excess coverage?",
-      "name": "excessLimit",
-      "inputType": "radio",
-      "required": true,
-      "attributes": {
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Yes",
-            "value": true,
-            "supplementalquestionIds": [
-              "14_supplemental1"
-            ]
-          },
-          {
-            "optionId": "2",
-            "text": "No",
-            "value": false
-          }
-        ]
-      }
-    },
-    {
       "questionId": "15",
       "name": "sidewalkMaintaining",
-      "text": "Who is responsible for maintating the sidewalks?",
+      "text": "Who is responsible for maintaining the sidewalks?",
       "inputType": "dropdown-single",
       "required": false,
       "attributes": {
@@ -515,6 +492,38 @@ const updatedData =  {
       "placeholder": "Phone",
       "attributes":{
         "controlGroup":"contactInfo"
+      }
+    },
+    {
+      "questionId": "14",
+      "text": "Limits for excess coverage.",
+      "name": "excessLimitAmount",
+      "title": "Offer an Excess Quote",
+      "inputType": "radio",
+      "additionalInfo1Color": "#417505",
+      "verticalRadioAlign" : true,
+      "additionalInfoIcon": "border_color",
+      "additionalInfo1": "More options for your client",
+      "additionalInfo2": "Excess policies are follow form to Colony's General Liability policy and subject to the General Contractor having equal or greater limits.",
+      "required": false,
+      "attributes": {
+        "options": [
+          {
+            "optionId": "1",
+            "text": "No Excess",
+            "value": 'noExcess',
+          },
+          {
+            "optionId": "2",
+            "text": "$5,000,000",
+            "value": '5000000'
+          },
+          {
+            "optionId": "3",
+            "text": "$10,000,000",
+            "value": '10000000'
+          }
+        ]
       }
     }
   ],
@@ -835,36 +844,6 @@ const updatedData =  {
       "required": false,
       "attributes": {
         "controlGroup":"termDetails"
-      }
-    },
-
-    {
-      "questionId": "14_supplemental1",
-      "text": "What excess limits are required? (If the limit you require is not listed, please contact us through the chat interface below.)",
-      "name": "excessLimitAmount",
-      "inputType": "dropdown-single",
-      "required": false,
-      "attributes": {
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Select Limit Amount",
-            "value": "",
-            "supplementalquestionIds": []
-          },
-          {
-            "optionId": "2",
-            "text": "$5,000,000",
-            "value": 5000000,
-            "supplementalquestionIds": []
-          },
-          {
-            "optionId": "3",
-            "text": "$10,000,000",
-            "value": 10000000,
-            "supplementalquestionIds": []
-          }
-        ]
       }
     },
     {
