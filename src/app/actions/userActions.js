@@ -68,6 +68,15 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 const brokerInfo = JSON.parse(brokerResp.data)
                 const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
+                FS.identify(cognitoUser.username, {
+                  displayName: cognitoUser.username,
+                  email: cognitoUser.username,
+                  broker: brokerId[0].Value,
+                  subId: subIdQuery[0].Value,
+                  env: config.mixPanelEnvironment,
+                  reviewsWritten_int: 14
+                })
+                
                 mixpanel.register({
                   BrokerName: brokerName,
                   User: cognitoUser.username,
@@ -76,6 +85,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   SubId: subIdQuery[0].Value,
                   Environment: config.mixPanelEnvironment
                 })
+
                 mx.customEvent(
                   'auth',
                   'login')
