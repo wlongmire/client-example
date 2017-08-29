@@ -420,13 +420,15 @@ const updatedData =  {
     },
     {
       "questionId": "14",
-      "text": "Does this project require excess coverage?",
+      "text": "Limits for excess coverage.",
       "name": "excessLimitAmount",
+      "title": "Offer an Excess Quote",
       "inputType": "radio",
       "additionalInfo1Color": "#417505",
+      "verticalRadioAlign" : true,
       "additionalInfo1": "More options for your client",
       "additionalInfo2": "Excess policies are follow form to Colony's General Liability policy and subject to the General Contractor having equal or greater limits.",
-      "required": true,
+      "required": false,
       "attributes": {
         "options": [
           {

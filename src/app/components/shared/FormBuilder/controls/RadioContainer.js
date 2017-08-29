@@ -112,6 +112,7 @@ class RadioContainer extends React.Component {
           onChange={this.onChangeHandler}
           value={data.value}
           checked={checked}
+          inline={this.props.data.verticalRadioAlign}
           disabled={this.state.disabled}
           name={`optionGroup_${this.props.data.questionId}`}
         >
