@@ -8,6 +8,7 @@ import {
   Tooltip,
   OverlayTrigger
 } from 'react-bootstrap'
+import AdditionalInfoComponent from './AdditionalInfoComponent'
 
 class MultiSelectContainer extends React.Component {
   constructor(props) {
@@ -90,6 +91,11 @@ class MultiSelectContainer extends React.Component {
             {this.options}
           </FormControl>
         </OverlayTrigger>
+        <AdditionalInfoComponent
+          additionalInfo1Color={this.props.data.additionalInfo1Color}
+          additionalInfo1={this.props.data.additionalInfo1}
+          additionalInfo2={this.props.data.additionalInfo2}
+        />
        </FormGroup>
     )
   }

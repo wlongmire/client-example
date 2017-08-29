@@ -396,6 +396,7 @@ const updatedData =  {
       "name": "workStarted",
       "inputType": "radio",
       "required": true,
+      "additionalInfo": "TEstarserer",
       "attributes": {
         "options": [
           {
@@ -422,6 +423,9 @@ const updatedData =  {
       "text": "Does this project require excess coverage?",
       "name": "excessLimit",
       "inputType": "radio",
+      "additionalInfo1Color": "#417505",
+      "additionalInfo1": "More options for your client",
+      "additionalInfo2": "Excess policies are follow form to Colony's General Liability policy and subject to the General Contractor having equal or greater limits.",
       "required": true,
       "attributes": {
         "options": [
