@@ -421,7 +421,7 @@ const updatedData =  {
     {
       "questionId": "14",
       "text": "Does this project require excess coverage?",
-      "name": "excessLimit",
+      "name": "excessLimitAmount",
       "inputType": "radio",
       "additionalInfo1Color": "#417505",
       "additionalInfo1": "More options for your client",
@@ -431,16 +431,18 @@ const updatedData =  {
         "options": [
           {
             "optionId": "1",
-            "text": "Yes",
-            "value": true,
-            "supplementalquestionIds": [
-              "14_supplemental1"
-            ]
+            "text": "No Excess",
+            "value": 'noExcess',
           },
           {
             "optionId": "2",
-            "text": "No",
-            "value": false
+            "text": "$5,000,000",
+            "value": '5000000'
+          },
+          {
+            "optionId": "3",
+            "text": "$10,000,000",
+            "value": '10000000'
           }
         ]
       }
@@ -839,36 +841,6 @@ const updatedData =  {
       "required": false,
       "attributes": {
         "controlGroup":"termDetails"
-      }
-    },
-
-    {
-      "questionId": "14_supplemental1",
-      "text": "What excess limits are required? (If the limit you require is not listed, please contact us through the chat interface below.)",
-      "name": "excessLimitAmount",
-      "inputType": "dropdown-single",
-      "required": false,
-      "attributes": {
-        "options": [
-          {
-            "optionId": "1",
-            "text": "Select Limit Amount",
-            "value": "",
-            "supplementalquestionIds": []
-          },
-          {
-            "optionId": "2",
-            "text": "$5,000,000",
-            "value": 5000000,
-            "supplementalquestionIds": []
-          },
-          {
-            "optionId": "3",
-            "text": "$10,000,000",
-            "value": 10000000,
-            "supplementalquestionIds": []
-          }
-        ]
       }
     },
     {
