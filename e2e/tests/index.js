@@ -15,14 +15,14 @@ const checkSaveSubmission = require('../utils/checkSaveSubmission')
 const uid = require('uid-safe')
 
 // enter your username and password here
-const username = 'andkulak@gmail.com'
-const password = 'Lastpass1@'
+const username = 'ownersedgesubmissions@gmail.com'
+const password = 'Argopass1!'
 
 const ocpPrimaryInsuredName = `${uid.sync(15)}Test`
 const oiPrimaryInsuredName = `${uid.sync(15)}Test`
 const randomTotalCost = Math.floor(Math.random() * 10000000)
 const randomPhoneNumber = Math.floor(Math.random() * 10000000)
-const editSearchValue = 'x8xfu__0w0-7TSLGBMBzTest'
+const editSearchValue = '8wWP7vqPmNOVVNrtPGvcTest'
 
 module.exports = {
   'OI Fail Clearance': (browser) => {
@@ -59,12 +59,12 @@ module.exports = {
     checkSaveSubmission(browser, oiPrimaryInsuredName)
     .end()
   },
-  'OCP Successful *~ Edit ~* Form Fillout': (browser) => {
-    login(browser, username, password)
-    getToSubmissionsTable(browser)
-    editSubmission(browser, randomTotalCost, randomPhoneNumber, editSearchValue)
-    submitForm(browser)
-    checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
-    .end()
-  }
+  // 'OCP Successful *~ Edit ~* Form Fillout': (browser) => {
+    // login(browser, username, password)
+    // getToSubmissionsTable(browser)
+    // editSubmisclearsion(browser, randomTotalCost, randomPhoneNumber, editSearchValue)
+    // submitForm(browser)
+    // checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
+    // .end()
+  // }
 }

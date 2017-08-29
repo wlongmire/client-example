@@ -3,6 +3,7 @@ function login(browser, username, password) {
       // .url('http://ownersedge-dev.s3-website-us-east-1.amazonaws.com/')
       .url('http://localhost:7777/')
       .waitForElementVisible('body')
+      .pause(2000)
       .setValue('#username', username)
       .setValue('#password', [password, browser.Keys.ENTER])
       .useXpath()

@@ -32,6 +32,8 @@ const config = {
         userPoolId: 'us-east-1_3SgBuYU4O',
         region: 'us-east-1',
         clientId: '76c9vth2qtg841ivles7aurmvv',
+        accessKey: '@accessKey',
+        secretKey: '@secretKey'
     },
 
     apiGateway: {

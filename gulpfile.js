@@ -21,12 +21,12 @@ const sgsOIEmail = process.env.sgsOIEmail || 'colonyspecialtyquickquote@gmail.co
 const sgsOCPEmail = process.env.sgsOCPEmail || 'colonyspecialtyquickquote@gmail.com'
 const argoEmail = process.env.argoEmail || 'ownersedgesubmissionsdev@gmail.com'
 const ownersEdgeEmail = process.env.ownersEdgeEmail || 'argoaccessquickquote@gmail.com'
-const apiGatewayUrl = process.env.apiGatewayUrl || 'https://4svl68k4k5.execute-api.us-east-1.amazonaws.com/dev'
+const apiGatewayUrl = process.env.apiGatewayUrl || 'https://c27z16ujzj.execute-api.us-east-1.amazonaws.com/dev'
 const assetsUrl = process.env.assetsUrl || 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets'
-const identityPoolId = process.env.identityPoolId || 'us-east-1:6c557c50-d385-401d-9e6a-899299973f52'
+const identityPoolId = process.env.identityPoolId || 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b'
 const awsRegion = process.env.awsRegion || 'us-east-1'
-const userPoolId = process.env.userPoolId || 'us-east-1_jDh40ZNCJ'
-const clientId = process.env.clientId || '6cj67tocg07l1019pfdvomdbb2'
+const userPoolId = process.env.userPoolId || 'us-east-1_3SgBuYU4O'
+const clientId = process.env.clientId || '76c9vth2qtg841ivles7aurmvv'
 const clearanceFailEmail = process.env.clearanceFailEmail || 'argoaccessquickquote@gmail.com'
 const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false
 const stage = config.env
