@@ -255,7 +255,7 @@ class Form extends Component {
 Form.propTypes = {
   dispatch: PropTypes.func.isRequired,
   submission: PropTypes.object.isRequired,
-  ratingProduct: PropTypes.object.isRequired,
+  ratingProduct: PropTypes.object,
   submissionFormParams: PropTypes.object.isRequired,
 }
 

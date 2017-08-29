@@ -426,6 +426,7 @@ const updatedData =  {
       "inputType": "radio",
       "additionalInfo1Color": "#417505",
       "verticalRadioAlign" : true,
+      "additionalInfoIcon": "border_color",
       "additionalInfo1": "More options for your client",
       "additionalInfo2": "Excess policies are follow form to Colony's General Liability policy and subject to the General Contractor having equal or greater limits.",
       "required": false,

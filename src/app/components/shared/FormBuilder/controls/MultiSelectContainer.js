@@ -95,6 +95,7 @@ class MultiSelectContainer extends React.Component {
           additionalInfo1Color={this.props.data.additionalInfo1Color}
           additionalInfo1={this.props.data.additionalInfo1}
           additionalInfo2={this.props.data.additionalInfo2}
+          additionalInfoIcon={this.props.data.additionalInfoIcon}
         />
        </FormGroup>
     )
