@@ -75,7 +75,7 @@ class Quote extends Component {
       SUCCESS: <div className="emailStatus success">
         <img src={`${config.assetsURL}/images/thumbs-up.png`} />
         <p>Your submission forms have been successfully processed.</p>
-        <span>The approparte forms should appear in your inbox within the next minute. Thank you for using Argo Limited.</span>
+        <span>The appropriate forms should appear in your inbox within the next minute. Thank you for using Argo Limited.</span>
       </div>
     }
 
@@ -127,7 +127,7 @@ class Quote extends Component {
         </div>
 
         <div className="content">
-          <p>One of our following underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+          <p>One of the following underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
           <ul>{underwriters}</ul>
         </div>
 
