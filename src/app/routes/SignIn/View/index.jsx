@@ -86,7 +86,6 @@ class SignInForm extends Component {
         (cognito, subId, cognitoUser, tokenExpireTime) => {
           this.setState({ error: false, errorMessage: '' })
 
-          // AK_TO_DO
           getUserAttributes(cognitoUser).then(({ err, result }) => {
             if (err) {
               console.log(err)
@@ -99,7 +98,6 @@ class SignInForm extends Component {
             this.props.dispatch({
               type: USER_LOGGED_IN,
               payload: {
-                // cognito,
                 subId: subIdQuery[0].Value,
                 username: values.username,
                 email: values.username,
@@ -115,7 +113,8 @@ class SignInForm extends Component {
         (err) => {
           const errorMap = {
             NotAuthorizedException: 'Your Username/Password combination does not match our records.',
-            UserNotFoundException: 'This Username is not within our records.'
+            UserNotFoundException: 'This Username is not within our records.',
+            MigrationReset: 'Please contact us to reset your password.'
           }
           const error = String(err)
           const errorType = error.slice(0, error.indexOf(':'))

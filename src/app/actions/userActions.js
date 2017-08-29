@@ -1,24 +1,22 @@
+import AWS from 'aws-sdk'
 import config from 'config'
+import { migrationLogin } from './migrationActions'
 import { push } from 'react-router-redux'
-// import AWS from 'aws-sdk'
-// import moment from 'moment'
-// import { cognitoPersistUser } from '../utils/cognitoPersistUser'
 import {
   USER_LOGGED_OUT,
-  // SET_API_GATEWAY_CLIENT,
-  // USER_LOGGED_IN,
 } from 'app/constants/user'
+
 import mx from 'app/utils/MixpanelInterface'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
-const userPool = new CognitoUserPool({
-  UserPoolId: config.awsCognito.userPoolId,
-  ClientId: config.awsCognito.clientId
-})
-
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
   return (dispatch) => {
+    const userPool = new CognitoUserPool({
+      UserPoolId: config.awsCognito.userPoolId,
+      ClientId: config.awsCognito.clientId
+    })
+
     const cognitoUser = new CognitoUser({
       Username: username,
       Pool: userPool
@@ -94,7 +92,15 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
             })
           })
         },
-        onFailure: (err) => { onFailure(err) },
+        onFailure: (err) => {
+          console.log("current environment:", config.env)
+          
+          if (config.env === 'prod') {
+            migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
+          } else {
+            onFailure(err)
+          }
+        },
         newPasswordRequired: (userAttributes) => {
           newPasswordRequired(userAttributes, cognitoUser)
         }
@@ -125,6 +131,11 @@ export function logout() {
     const cognitoParams = {
       IdentityPoolId: config.awsCognito.identityPoolId
     }
+
+    const userPool = new CognitoUserPool({
+      UserPoolId: config.awsCognito.userPoolId,
+      ClientId: config.awsCognito.clientId
+    })
 
     const cognitoUser = userPool.getCurrentUser()
 
