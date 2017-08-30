@@ -66,7 +66,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 const brokerInfo = JSON.parse(brokerResp.data)
                 const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
-                console.log(cognitoUser.username)
+                console.log("username:", cognitoUser.username)
 
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,
