@@ -59,19 +59,19 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               }
               onSuccess(resp, result[0].Value, cognitoUser, credentials.expireTime)
 
-              const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
-              const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
+                const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
+                const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
 
-              apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
+                apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
                 const brokerInfo = JSON.parse(brokerResp.data)
                 const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
                 console.log("username:", cognitoUser.username)
                 console.log("broker:", brokerId[0].Value)
                 console.log("subId:", subIdQuery[0].Value)
-                console.log("env:", config.env)
-
+                
                 console.log(process.env)
+                console.log(config)
 
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,
