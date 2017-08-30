@@ -56,11 +56,16 @@ export function migrationLogin(username, password, onSuccess, onFailure, newPass
             password,
             [{
               Name: 'email',
-              Value: name
+              Value: username
             }, {
               Name: 'custom:broker_id',
               Value: brokerId
-            }],
+            },
+            {
+              Name: 'preferred_username',
+              Value: username
+            }
+          ],
             null,
             (err, result) => {
               if (err) {
