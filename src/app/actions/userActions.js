@@ -69,13 +69,13 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 console.log("username:", cognitoUser.username)
                 console.log("broker:", brokerId[0].Value)
                 console.log("subId:", subIdQuery[0].Value)
-                console.log("env:", config.mixPanelEnvironment)
+                console.log("env:", config.env)
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,
                   email_str: cognitoUser.username,
                   broker_str: brokerName,
                   subId_str: subIdQuery[0].Value,
-                  env_str: config.mixPanelEnvironment
+                  env_str: config.env
                 })
                 
                 mixpanel.register({
@@ -84,7 +84,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   Email: cognitoUser.username,
                   Broker: brokerId[0].Value,
                   SubId: subIdQuery[0].Value,
-                  Environment: config.mixPanelEnvironment
+                  Environment: config.env
                 })
 
                 mx.customEvent(
@@ -107,7 +107,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         },
         onFailure: (err) => {
 
-          if (config.mixPanelEnvironment === 'prod') {
+          if (config.env === 'prod') {
             migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
             onFailure(err)
