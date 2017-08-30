@@ -66,6 +66,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 const brokerInfo = JSON.parse(brokerResp.data)
                 const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
+                console.log(cognitoUser.username)
+
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,
                   email: cognitoUser.username,
@@ -103,8 +105,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-          console.log("current environment:", config.env)
-          
           if (config.env === 'prod') {
             migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
