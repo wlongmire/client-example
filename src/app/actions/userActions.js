@@ -71,8 +71,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 console.log("subId:", subIdQuery[0].Value)
                 console.log("env:", config.env)
 
-                console.log(process)
-                
+                console.log(process.env)
+
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,
                   email_str: cognitoUser.username,
