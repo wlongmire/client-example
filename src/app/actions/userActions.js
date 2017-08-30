@@ -105,7 +105,9 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-          if (config.env === 'prod') {
+          console.log('env', config.mixPanelEnvironment)
+
+          if (config.mixPanelEnvironment === 'prod') {
             migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
             onFailure(err)
