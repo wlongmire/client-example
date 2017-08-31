@@ -15,12 +15,10 @@ const replace = require('gulp-replace')
 const config = require('./src/config')
 const es = require('event-stream')
 
-
-//moving constants for identity variables
 const env = {
-  "us-east-1_3SgBuYU4O":"dev",
-  "us-east-1_2VIwRSQBm":"qa",
-  "us-east-1_SpwOWoqHA":"prod"
+  'us-east-1_3SgBuYU4O': 'dev',
+  'us-east-1_2VIwRSQBm': 'qa',
+  'us-east-1_SpwOWoqHA': 'prod'
 }
 
 const sgsOIEmail = process.env.sgsOIEmail || 'colonyspecialtyquickquote@gmail.com'
