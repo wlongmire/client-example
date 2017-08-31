@@ -74,12 +74,26 @@ class Form extends Component {
 
   handleSubmitForReview(sub, controlGroups, requiredFields) {
     // if exterior Demo is answered Yes, exteriorDemoSubcontractor is required
+
     if (sub.exteriorDemo == 'true' && !sub.exteriorDemoSubcontractor) {
       requiredFields.push({
         questionId: '12.1',
         text: 'Is the GC hiring a demo subcontractor?',
         inputType: 'text',
         name: 'exteriorDemoSubcontractor'
+      })
+    }
+
+    const startDate = new Date(sub.anticipatedStartDate).getTime()
+    const finishDate = new Date(sub.anticipatedFinishDate).getTime()
+
+    // finish date value cannot be smaller than start date value
+    if (startDate > finishDate) {
+      requiredFields.push({
+        questionId: '100',
+        text: 'Anticipated Finish Date cannot be before Anticipated Start Date',
+        inputType: 'text',
+        name: 'finishDateCannotBeforeStartDate'
       })
     }
 
