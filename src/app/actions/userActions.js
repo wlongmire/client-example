@@ -75,8 +75,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   displayName: cognitoUser.username,
                   email_str: cognitoUser.username,
                   broker_str: brokerName,
-                  subId_str: subIdQuery[0].Value,
-                  env_str: config.env
+                  subId_str: subIdQuery[0].Value
                 })
                 
                 mixpanel.register({
@@ -107,7 +106,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-
           if (config.env === 'prod') {
             migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
