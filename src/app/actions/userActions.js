@@ -75,8 +75,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   displayName: cognitoUser.username,
                   email_str: cognitoUser.username,
                   broker_str: brokerName,
-                  subId_str: subIdQuery[0].Value,
-                  env_str: config.env
+                  subId_str: subIdQuery[0].Value
                 })
                 
                 mixpanel.register({
@@ -84,7 +83,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   User: cognitoUser.username,
                   Email: cognitoUser.username,
                   Broker: brokerId[0].Value,
-                  SubId: subIdQuery[0].Value
+                  SubId: subIdQuery[0].Value,
+                  Environment: config.env
                 })
 
                 mx.customEvent(
