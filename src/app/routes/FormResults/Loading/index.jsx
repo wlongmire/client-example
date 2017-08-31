@@ -63,7 +63,7 @@ class Loading extends Component {
           let emailPromises
 
           // if this is an update instead of a new submission
-          console.log('instantQuote', instantQuote)
+          console.log("submissionData", submissionData)
 
           if (respSave.updated === true) {
             emailPromises = [
