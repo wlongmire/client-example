@@ -8,6 +8,7 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 import ToggleDisplay from 'components/shared/ToggleDisplay'
 import { commifyNumber } from 'app/utils/utilities'
 import classNames from 'classnames'
+import * as actions from '../../../actions/submissionActions'
 
 import ratingProducts from 'config/RatingProducts'
 import config from 'config'
@@ -55,6 +56,10 @@ class Quote extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+  }
+
+  componentDidMount() {
+    this.props.clearSubmissionStatus()
   }
 
   render() {
@@ -149,4 +154,6 @@ class Quote extends Component {
   }
 }
 
-export default connect()(Quote)
+export default connect((store) => {
+  return store
+}, actions)(Quote)
