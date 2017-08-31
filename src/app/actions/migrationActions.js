@@ -78,7 +78,7 @@ export function migrationLogin(username, password, onSuccess, onFailure, newPass
               const CognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
                 apiVersion: '2016-04-19',
                 region: config.awsCognito.region,
-                credentials: new AWS.Credentials('AKIAIEFA36UYFAIOF4HQ', 'V9ND3UOzj2L3C8qniMNlHC4hV0KZF3xTudU2byvs')
+                credentials: new AWS.Credentials('AKIAIPEXC6465WLL5BKA', 'nLab2HPublNwSUXH/3i8TDf24EpbD4D3CwNuW/Ud')
               })
 
               CognitoIdentityServiceProvider.adminConfirmSignUp({
