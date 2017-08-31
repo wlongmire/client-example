@@ -84,8 +84,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   User: cognitoUser.username,
                   Email: cognitoUser.username,
                   Broker: brokerId[0].Value,
-                  SubId: subIdQuery[0].Value,
-                  Environment: config.env
+                  SubId: subIdQuery[0].Value
                 })
 
                 mx.customEvent(
@@ -107,7 +106,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-
           if (config.env === 'prod') {
             migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
