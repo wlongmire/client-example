@@ -106,11 +106,13 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-          if (config.env === 'prod') {
-            migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
-          } else {
-            onFailure(err)
-          }
+          migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
+
+          // if (config.env === 'prod') {
+          //  migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
+          // } else {
+          //   onFailure(err)
+          // }
         },
         newPasswordRequired: (userAttributes) => {
           newPasswordRequired(userAttributes, cognitoUser)
