@@ -69,9 +69,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 console.log("username:", cognitoUser.username)
                 console.log("broker:", brokerId[0].Value)
                 console.log("subId:", subIdQuery[0].Value)
-                
-                console.log(process.env)
-                console.log(config)
+                console.log("env:", config.env)
 
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,

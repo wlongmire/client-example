@@ -3,7 +3,6 @@
 const config = {
     env: '@stageEnv',
     name: 'ownersEdge',
-    appId: '@appId',
     argoEmail: '@argoEmail',
     sgsOIEmail: '@sgsOIEmail',
     sgsOCPEmail: '@sgsOCPEmail',
@@ -23,16 +22,14 @@ const config = {
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
-    formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL'
+    formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
 
     awsCognito:{
         identityPoolId: '@identityPoolId',
         identityProvider: '@identityProvider',
         userPoolId: '@userPoolId',
         region: '@region',
-        clientId: '@clientId',
-        accessKey: '@accessKey',
-        secretKey: '@secretKey'
+        clientId: '@clientId'
     },
 
     apiGateway: {
@@ -63,8 +60,6 @@ const config = {
             left: '6mm'
         }
     },
-
-    app: {},
 
     server: {
         url: '@serverUrl',

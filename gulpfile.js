@@ -22,6 +22,7 @@ const env = {
   "us-east-1_2VIwRSQBm":"qa",
   "us-east-1_SpwOWoqHA":"prod"
 }
+
 const sgsOIEmail = process.env.sgsOIEmail || 'colonyspecialtyquickquote@gmail.com'
 const sgsOCPEmail = process.env.sgsOCPEmail || 'colonyspecialtyquickquote@gmail.com'
 const argoEmail = process.env.argoEmail || 'ownersedgesubmissionsdev@gmail.com'
@@ -35,7 +36,6 @@ const clientId = process.env.clientId || '76c9vth2qtg841ivles7aurmvv'
 const clearanceFailEmail = process.env.clearanceFailEmail || 'argoaccessquickquote@gmail.com'
 const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false
 const stage = env[userPoolId]
-
 
 gulp.task('transform', ['apiTransform'], () => {
   gulp.src('configTemplate/*')
