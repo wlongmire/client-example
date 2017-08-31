@@ -17,6 +17,11 @@ const es = require('event-stream')
 
 
 //moving constants for identity variables
+const env = {
+  "us-east-1_3SgBuYU4O":"dev",
+  "us-east-1_2VIwRSQBm":"qa",
+  "us-east-1_SpwOWoqHA":"prod"
+}
 const sgsOIEmail = process.env.sgsOIEmail || 'colonyspecialtyquickquote@gmail.com'
 const sgsOCPEmail = process.env.sgsOCPEmail || 'colonyspecialtyquickquote@gmail.com'
 const argoEmail = process.env.argoEmail || 'ownersedgesubmissionsdev@gmail.com'
@@ -29,7 +34,8 @@ const userPoolId = process.env.userPoolId || 'us-east-1_3SgBuYU4O'
 const clientId = process.env.clientId || '76c9vth2qtg841ivles7aurmvv'
 const clearanceFailEmail = process.env.clearanceFailEmail || 'argoaccessquickquote@gmail.com'
 const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false
-const stage = config.env
+const stage = env[userPoolId]
+
 
 gulp.task('transform', ['apiTransform'], () => {
   gulp.src('configTemplate/*')

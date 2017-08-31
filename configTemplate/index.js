@@ -1,7 +1,7 @@
 'use strict'
 
 const config = {
-    env: process.env.NODE_ENV,
+    env: '@stageEnv',
     name: 'ownersEdge',
     appId: '@appId',
     argoEmail: '@argoEmail',
@@ -23,8 +23,7 @@ const config = {
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
-    formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
-    mixPanelEnvironment: '@stageEnv',
+    formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL'
 
     awsCognito:{
         identityPoolId: '@identityPoolId',
@@ -37,7 +36,7 @@ const config = {
     },
 
     apiGateway: {
-        stage: '@ApiStageEnv'
+        stage: '@stageEnv'
     },
 
     underwriters:[{
