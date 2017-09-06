@@ -1,5 +1,9 @@
 function oiFormFillout(browser) {
   return browser
+    .useCss()
+    .waitForElementVisible('.sub-header-firstRow', 30000, null, null, 'You got to the the form screen!')
+    .assert.containsText('.sub-header-firstRow', 'CLEARANCE PASSED', 'Passed Clearance')
+    .pause(1000)
     .useXpath()
     .click('/html/body/div[1]/div/div/form/div/div[3]/div[2]/div/div[1]/div[1]/div[2]/label/input') // secondary Named Insured - NO
     .click('/html/body/div[1]/div/div/form/div/div[4]/div[2]/div/div[1]/div[1]/div[2]/label/input') // any additional insured - NO

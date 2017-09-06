@@ -167,10 +167,40 @@ class Form extends Component {
 
     const initialValues = submission
 
+    const clearanceStatus = 'passed'
+
+    const passedDiv = (
+      <div>
+        <div className={'sub-header-firstRow clearance-pass'}>CLEARANCE PASSED</div>
+        <div className="sub-header-secondRow clearance-pass">Submission is available to quote</div>
+        <div className="sub-header-Complete">
+          Complete this application for a quick pricing indication
+        </div>
+      </div>
+    )
+
+    const underReviewDiv = (
+      <div>
+        <div className={'sub-header-firstRow clearance-review'}>CLEARANCE NEEDS REVIEW</div>
+        <div className={'sub-header-secondRow clearance-review'}>A similar submission has been found</div>
+        <div className="sub-header-thirdRow">How to get a quote</div>
+        <ul className="sub-header-bullets">
+          <li>Complete the below application</li>
+          <li>We&apos;ll email the prices after a manual check is conducted.</li>
+        </ul>
+      </div>
+    )
+
     return (
       <div className="page productChoice">
         <h3>Fill out the rest of the details.</h3>
-        <h4><strong>{ratingProduct.name}</strong> Submission</h4>
+        <div className="formSubHeader">You can submit this application online.</div>
+        <br />
+        <div className="submission-status-div">
+          {(clearanceStatus == 'underReview') ? underReviewDiv : passedDiv }
+        </div>
+        <br />
+        <div className="formHeader">{ratingProduct.name} Application</div>
 
         <FormBuilder
           data={ratingProduct.formJSON}
@@ -282,3 +312,30 @@ export default connect((store) => {
     ratingProduct: ratingProducts[submission.type]
   })
 })(Form)
+
+// const submissionStatus = {
+//   passed: {
+//     css: 'clearance-pass',
+//     firstRow: 'CLEARANCE PASSED',
+//     secondRow: 'Submission is available to quote',
+//     thirdRow: 'Complete this application for a quick pricing indication'
+//   },
+//   underReview: {
+//     css: 'clearance-review',
+//     firstRow: 'CLEARANCE NEEDS REVIEW',
+//     secondRow: 'A similar submission has been found',
+//     thirdRow: 'How to get a quote',
+//     bulletOne: 'Complete the below application',
+//     bulletTwo: 'We\'ll email the prices after a manual check is conducted',
+//   }
+// }
+// <div className={`sub-header-firstRow ${submissionStatus[clearanceStatus].css}`}>{submissionStatus[clearanceStatus].firstRow}</div>
+// <div className={`sub-header-secondRow ${submissionStatus[clearanceStatus].css}`}>{submissionStatus[clearanceStatus].secondRow}</div>
+// <div className="sub-header-thirdRow">{submissionStatus[clearanceStatus].thirdRow}</div>
+// {submissionStatus[clearanceStatus].bulletOne && submissionStatus[clearanceStatus].bulletTwo &&
+// <ul className="sub-header-bullets">
+//   <li>{submissionStatus[clearanceStatus].bulletOne}</li>
+//   <li>{submissionStatus[clearanceStatus].bulletTwo}</li>
+// </ul>
+// }
+

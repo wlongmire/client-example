@@ -161,3 +161,77 @@
         color: #e22929;
     }
 }
+
+.submission-status-div {
+    background-color: white;
+    color: #08415c;
+    padding-left: 20px;
+    padding-top: 15px;
+    border-radius: 2px;
+    padding-left: 15px;
+    font-family: Lato;
+    border: 3px solid white;
+    line-height: 1.2em;
+}
+
+.clearance-pass{
+    color: #0fb129
+}
+
+.clearance-review{
+    color: #e65100
+}
+
+.sub-header-firstRow {
+    font-size: 14px;
+    padding-bottom: 15px;
+    padding-top: 0px;
+    margin-top: 0px !important;
+}
+
+.sub-header-secondRow {
+    font-size: 27px;
+    padding-bottom: 20px;
+    font-weight: bold;
+}
+
+.sub-header-thirdRow {
+    font-size: 15px;
+    font-weight: bold !important;
+}
+
+.sub-header-Complete {
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    font-weight: bold !important;
+}
+
+.sub-header-bullets {
+    padding-top: 5px;
+    line-height: 17px;
+    padding-left: 30px;
+    padding-bottom: 20px;
+    font-size: 15px;
+    font-weight: normal !important;
+    font-family: 'Lato' !important;
+}
+
+.formHeader {
+    padding: 15px 15px 15px 0px;
+    font-family: Lato;
+    font-size: 28px;
+    color: #32a4d8;
+}
+
+.formSubHeader {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-family: Lato;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    text-align: left;
+    color: #71b1ce;
+}

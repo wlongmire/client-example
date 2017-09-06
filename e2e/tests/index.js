@@ -22,7 +22,6 @@ const ocpPrimaryInsuredName = `${uid.sync(15)}Test`
 const oiPrimaryInsuredName = `${uid.sync(15)}Test`
 const randomTotalCost = Math.floor(Math.random() * 10000000)
 const randomPhoneNumber = Math.floor(Math.random() * 10000000)
-const editSearchValue = '8wWP7vqPmNOVVNrtPGvcTest'
 
 module.exports = {
   'OI Fail Clearance': (browser) => {
@@ -43,7 +42,6 @@ module.exports = {
     login(browser, username, password)
     navToOcpClearance(browser)
     clearanceFormFillout(browser, true, ocpPrimaryInsuredName)
-    clearancePassAndContinue(browser)
     ocpFormFillout(browser)
     submitForm(browser)
     checkSaveSubmission(browser, ocpPrimaryInsuredName)
@@ -53,18 +51,27 @@ module.exports = {
     login(browser, username, password)
     navToOiClearance(browser)
     clearanceFormFillout(browser, true, oiPrimaryInsuredName)
-    clearancePassAndContinue(browser)
     oiFormFillout(browser)
     submitForm(browser)
     checkSaveSubmission(browser, oiPrimaryInsuredName)
     .end()
   },
-  // 'OCP Successful *~ Edit ~* Form Fillout': (browser) => {
-    // login(browser, username, password)
-    // getToSubmissionsTable(browser)
-    // editSubmisclearsion(browser, randomTotalCost, randomPhoneNumber, editSearchValue)
-    // submitForm(browser)
-    // checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue)
-    // .end()
-  // }
+  'OCP Successful *~ Edit ~* Form Fillout': (browser) => {
+    console.log('ocpPrimaryInsuredName ~~~~>', ocpPrimaryInsuredName)
+    login(browser, username, password)
+    getToSubmissionsTable(browser)
+    editSubmission(browser, randomTotalCost, randomPhoneNumber, ocpPrimaryInsuredName)
+    submitForm(browser)
+    checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, ocpPrimaryInsuredName)
+    .end()
+  },
+  'OI Successful *~ Edit ~* Form Fillout': (browser) => {
+    console.log('oiPrimaryInsuredName ~~~~>', oiPrimaryInsuredName)
+    login(browser, username, password)
+    getToSubmissionsTable(browser)
+    editSubmission(browser, randomTotalCost, randomPhoneNumber, oiPrimaryInsuredName)
+    submitForm(browser)
+    checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, oiPrimaryInsuredName)
+    .end()
+  }
 }
