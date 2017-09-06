@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 import config from 'config'
 import Input from './Input'
 import Loading from './Loading'
@@ -42,11 +43,16 @@ class Clearance extends Component {
   }
 
   handleLoadComplete(error, result, input) {
-    this.setState({ status: (error) ? STATUS.ERROR : STATUS.RESULT, result })
-    
+    if (result.success === false) this.setState({ status: STATUS.RESULT, result })
     if (result.success === false && config.clearanceFailFlag === 'true') {
       sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
       sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
+    }
+
+    if (result.success === true) {
+      this.setState({ status: (error) ? STATUS.ERROR : STATUS.CREATING, result })
+      this.handleClearance(result)
+      browserHistory.push('/form')
     }
   }
 

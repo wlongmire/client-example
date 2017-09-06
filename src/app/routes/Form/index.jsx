@@ -167,24 +167,7 @@ class Form extends Component {
 
     const initialValues = submission
 
-    const submissionStatus = {
-      passed: {
-        css: 'clearance-pass',
-        firstRow: 'CLEARANCE PASSED',
-        secondRow: 'Submission is available to quote',
-        thirdRow: 'Complete this application for a quick pricing indication'
-      },
-      underReview: {
-        css: 'clearance-review',
-        firstRow: 'CLEARANCE NEEDS REVIEW',
-        secondRow: 'A similar submission has been found',
-        thirdRow: 'How to get a quote',
-        bulletOne: 'Complete the below application',
-        bulletTwo: 'We\'ll email the prices after a manual check is conducted',
-      }
-    }
-
-    const clearanceStatus = 'underReview'
+    const clearanceStatus = 'passed'
 
     const passedDiv = (
       <div>
@@ -214,19 +197,10 @@ class Form extends Component {
         <div className="formSubHeader">You can submit this application online.</div>
         <br />
         <div className="submission-status-div">
-          {/* <div className={`sub-header-firstRow ${submissionStatus[clearanceStatus].css}`}>{submissionStatus[clearanceStatus].firstRow}</div>
-          <div className={`sub-header-secondRow ${submissionStatus[clearanceStatus].css}`}>{submissionStatus[clearanceStatus].secondRow}</div>
-          <div className="sub-header-thirdRow">{submissionStatus[clearanceStatus].thirdRow}</div>
-          {submissionStatus[clearanceStatus].bulletOne && submissionStatus[clearanceStatus].bulletTwo &&
-          <ul className="sub-header-bullets">
-            <li>{submissionStatus[clearanceStatus].bulletOne}</li>
-            <li>{submissionStatus[clearanceStatus].bulletTwo}</li>
-          </ul>
-          } */}
           {(clearanceStatus == 'underReview') ? underReviewDiv : passedDiv }
         </div>
         <br />
-        <div className="formHeader">{ratingProduct.name} Appliaction</div>
+        <div className="formHeader">{ratingProduct.name} Application</div>
 
         <FormBuilder
           data={ratingProduct.formJSON}
@@ -338,3 +312,30 @@ export default connect((store) => {
     ratingProduct: ratingProducts[submission.type]
   })
 })(Form)
+
+// const submissionStatus = {
+//   passed: {
+//     css: 'clearance-pass',
+//     firstRow: 'CLEARANCE PASSED',
+//     secondRow: 'Submission is available to quote',
+//     thirdRow: 'Complete this application for a quick pricing indication'
+//   },
+//   underReview: {
+//     css: 'clearance-review',
+//     firstRow: 'CLEARANCE NEEDS REVIEW',
+//     secondRow: 'A similar submission has been found',
+//     thirdRow: 'How to get a quote',
+//     bulletOne: 'Complete the below application',
+//     bulletTwo: 'We\'ll email the prices after a manual check is conducted',
+//   }
+// }
+// <div className={`sub-header-firstRow ${submissionStatus[clearanceStatus].css}`}>{submissionStatus[clearanceStatus].firstRow}</div>
+// <div className={`sub-header-secondRow ${submissionStatus[clearanceStatus].css}`}>{submissionStatus[clearanceStatus].secondRow}</div>
+// <div className="sub-header-thirdRow">{submissionStatus[clearanceStatus].thirdRow}</div>
+// {submissionStatus[clearanceStatus].bulletOne && submissionStatus[clearanceStatus].bulletTwo &&
+// <ul className="sub-header-bullets">
+//   <li>{submissionStatus[clearanceStatus].bulletOne}</li>
+//   <li>{submissionStatus[clearanceStatus].bulletTwo}</li>
+// </ul>
+// }
+

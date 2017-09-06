@@ -170,7 +170,6 @@
     border-radius: 2px;
     padding-left: 15px;
     font-family: Lato;
-    height: 142px;
     border: 3px solid white;
     line-height: 1.2em;
 }
@@ -185,7 +184,7 @@
 
 .sub-header-firstRow {
     font-size: 14px;
-    padding-bottom: 12px;
+    padding-bottom: 15px;
     padding-top: 0px;
     margin-top: 0px !important;
 }
@@ -193,6 +192,7 @@
 .sub-header-secondRow {
     font-size: 27px;
     padding-bottom: 20px;
+    font-weight: bold;
 }
 
 .sub-header-thirdRow {
@@ -202,7 +202,8 @@
 
 .sub-header-Complete {
     font-size: 15px;
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 25px;
     font-weight: bold !important;
 }
 
@@ -210,6 +211,7 @@
     padding-top: 5px;
     line-height: 17px;
     padding-left: 30px;
+    padding-bottom: 20px;
     font-size: 15px;
     font-weight: normal !important;
     font-family: 'Lato' !important;
