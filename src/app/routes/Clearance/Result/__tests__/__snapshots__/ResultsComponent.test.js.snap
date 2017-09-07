@@ -3,39 +3,15 @@
 exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1`] = `
 <form>
   <h3>
-    This Submission Did Not Pass Clearance.
+    This Submission Has Passed Clearance!
   </h3>
   <div>
     <h4>
-      Your business as listed below matches a previously processed submission.
+      You are the first to submit this insured for review. Now we can enter additional pricing information.
     </h4>
     <div
       className="matchContainer"
     >
-      <div
-        className="additionalContent"
-      >
-        <div
-          className="matchMessage"
-        >
-          <h3>
-            Blocked in Error?
-          </h3>
-          <h5>
-            If we have blocked clearance in error, please message us through the
-            <img
-              src="undefined/images/chatIcon.png"
-            />
-            icon below or contact Jessica Buelow (
-            <a
-              href="mailto:jbuelow@colonyspecialty.com"
-            >
-              jbuelow@colonyspecialty.com
-            </a>
-            ).
-          </h5>
-        </div>
-      </div>
       <div
         className="match"
       >
@@ -75,7 +51,7 @@ exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1
       disabled={false}
       onClick={[Function]}
     >
-      Reenter Clearance Information
+      Fill out Remaining Information
     </Button>
     <LinkContainer
       action="push"

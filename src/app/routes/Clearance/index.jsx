@@ -7,6 +7,7 @@ import Input from './Input'
 import Loading from './Loading'
 import Error from './Error'
 import Result from './Result'
+import mx from '../../utils/MixpanelInterface'
 import { sendClearanceEmail } from 'app/actions/submissionActions'
 
 import {
@@ -30,7 +31,7 @@ class Clearance extends Component {
 
     this.handleInputSubmit = this.handleInputSubmit.bind(this)
     this.handleLoadComplete = this.handleLoadComplete.bind(this)
-    this.handleLoadCancel = this.handleLoadCancel.bind(this)
+    this.handleReturnToInput = this.handleReturnToInput.bind(this)
     this.handleClearance = this.handleClearance.bind(this)
   }
 
@@ -42,98 +43,123 @@ class Clearance extends Component {
     this.setState({ status: STATUS.LOADING, input })
   }
 
-  handleLoadComplete(error, result, input) {
-    if (result.success === false) this.setState({ status: STATUS.RESULT, result })
-    if (result.success === false && config.clearanceFailFlag === 'true') {
-      sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
-      sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
+  handleLoadComplete(result, input) {
+    if (!result.success) {
+      return this.setState({ status: STATUS.ERROR, result })
     }
 
-    if (result.success === true) {
-      this.setState({ status: (error) ? STATUS.ERROR : STATUS.CREATING, result })
+    if (result.clearanceStatus === 'fail') {
+      this.setState({ status: STATUS.RESULT, result })
+
+      if (config.clearanceFailEmail) {
+        sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
+        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)      
+      }
+
+      mx.customEvent(
+        'submission',
+        'failClearance', {
+          Type: this.props.submission.type,
+          Matches: result.matches
+        })
+    } else {
+      this.setState({ status: STATUS.CREATING, result })
       this.handleClearance(result)
-      browserHistory.push('/form')
+
+      // mixpanel event
+      if (result.clearanceStatus == 'pass') {
+        mx.customEvent(
+          'submission',
+          'passClearance',
+          {
+            Type: this.props.submission.type
+          })
+      } else if (result.clearanceStatus == 'pending') {
+        mx.customEvent(
+          'submission',
+          'pendingClearance',
+          {
+            Type: this.props.submission.type,
+            Matches: result.matches
+          })
+      }
     }
   }
 
-  handleLoadCancel() {
+  handleReturnToInput() {
     this.setState({ status: STATUS.INPUT })
   }
 
   handleClearance(result) {
-    if (result.success) {
-      let submission
-      let submissionFormParams
+    let submission
+    let submissionFormParams
 
-      if (
-        this.state.input.projectAddress &&
-        this.state.input.projectAddress.projectState === 'New York' &&
-        this.props.submission.type === 'ocp'
-        ) {
-        // if submission for OCP and STATE is NY
-        submission = Object.assign(this.state.input, { passedClearance: true, status: 'SUBMISSION' })
-        submissionFormParams = {
-          primaryInsuredName: { disabled: true },
+    if (
+      this.state.input.projectAddress &&
+      this.state.input.projectAddress.projectState === 'New York' &&
+      this.props.submission.type === 'ocp'
+      ) {
+      // if submission for OCP and STATE is NY
+      submission = Object.assign(this.state.input, { clearanceStatus: result.clearanceStatus, status: 'SUBMISSION' })
+      submissionFormParams = {
+        primaryInsuredName: { disabled: true },
 
-          primaryInsuredAddress: { disabled: true },
-          primaryInsuredCity: { disabled: true },
-          primaryInsuredState: { disabled: true },
-          primaryInsuredZipcode: { disabled: true },
+        primaryInsuredAddress: { disabled: true },
+        primaryInsuredCity: { disabled: true },
+        primaryInsuredState: { disabled: true },
+        primaryInsuredZipcode: { disabled: true },
 
-          projectAddress: { disabled: true },
-          projectCity: { disabled: true },
-          projectState: { disabled: true },
-          projectZipcode: { disabled: true }
-        }
-      } else if (this.props.submission.type === 'ocp') {
-        // if submission is for OCP and state is NOT NY
-        submission = { ...this.state.input, nycha: 'false', passedClearance: true, status: 'SUBMISSION' }
-        submissionFormParams = {
-          primaryInsuredName: { disabled: true },
-
-          primaryInsuredAddress: { disabled: true },
-          primaryInsuredCity: { disabled: true },
-          primaryInsuredState: { disabled: true },
-          primaryInsuredZipcode: { disabled: true },
-
-          projectAddress: { disabled: true },
-          projectCity: { disabled: true },
-          projectState: { disabled: true },
-          projectZipcode: { disabled: true },
-          // nycha is an additional params that is disabled
-          // when state is not New York
-          nycha: { disabled: true }
-        }
-      } else {
-        // if submission is for OI
-        submission = { ...this.state.input, passedClearance: true, status: 'SUBMISSION' }
-        submissionFormParams = {
-          primaryInsuredName: { disabled: true },
-
-          primaryInsuredAddress: { disabled: true },
-          primaryInsuredCity: { disabled: true },
-          primaryInsuredState: { disabled: true },
-          primaryInsuredZipcode: { disabled: true },
-
-          projectAddress: { disabled: true },
-          projectCity: { disabled: true },
-          projectState: { disabled: true },
-          projectZipcode: { disabled: true },
-        }
+        projectAddress: { disabled: true },
+        projectCity: { disabled: true },
+        projectState: { disabled: true },
+        projectZipcode: { disabled: true }
       }
+    } else if (this.props.submission.type === 'ocp') {
+      // if submission is for OCP and state is NOT NY
+      submission = { ...this.state.input, nycha: 'false', clearanceStatus: result.clearanceStatus, status: 'SUBMISSION' }
+      submissionFormParams = {
+        primaryInsuredName: { disabled: true },
 
-      this.props.dispatch({ type: CHANGE_SUBMISSION,
-        payload: {
-          submission,
-          submissionFormParams
-        }
-      })
+        primaryInsuredAddress: { disabled: true },
+        primaryInsuredCity: { disabled: true },
+        primaryInsuredState: { disabled: true },
+        primaryInsuredZipcode: { disabled: true },
 
-      this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
-      this.props.dispatch(push('/form'))
+        projectAddress: { disabled: true },
+        projectCity: { disabled: true },
+        projectState: { disabled: true },
+        projectZipcode: { disabled: true },
+        // nycha is an additional params that is disabled
+        // when state is not New York
+        nycha: { disabled: true }
+      }
     } else {
-      this.setState({ status: STATUS.INPUT })
+      // if submission is for OI
+      submission = { ...this.state.input, clearanceStatus: result.clearanceStatus, status: 'SUBMISSION' }
+      submissionFormParams = {
+        primaryInsuredName: { disabled: true },
+
+        primaryInsuredAddress: { disabled: true },
+        primaryInsuredCity: { disabled: true },
+        primaryInsuredState: { disabled: true },
+        primaryInsuredZipcode: { disabled: true },
+
+        projectAddress: { disabled: true },
+        projectCity: { disabled: true },
+        projectState: { disabled: true },
+        projectZipcode: { disabled: true },
+      }
     }
+
+    this.props.dispatch({ type: CHANGE_SUBMISSION,
+      payload: {
+        submission,
+        submissionFormParams
+      }
+    })
+
+    this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
+    this.props.dispatch(push('/form'))
   }
 
   render() {
@@ -141,12 +167,12 @@ class Clearance extends Component {
       INPUT: <Input input={this.state.input} handleSubmit={this.handleInputSubmit} />,
       LOADING: <Loading
         handleSubmit={this.handleLoadComplete}
-        handleCancel={this.handleLoadCancel}
+        handleCancel={this.handleReturnToInput}
         input={this.state.input}
       />,
       ERROR: <Error />,
       RESULT: <Result
-        handleSubmit={this.handleClearance}
+        handleSubmit={this.handleReturnToInput}
         input={this.state.input} result={this.state.result}
       />
     }

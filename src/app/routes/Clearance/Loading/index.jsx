@@ -25,25 +25,15 @@ export class Loading extends Component {
     }
 
     getClearance(input, this.props.user).then((resp) => {
+      console.log('RESPONSE', resp)
       if (resp.status === 'authError') {
         return this.props.logout()
       }
 
-      if (resp.success && resp.success === true) {
-        const errorFlag = false
-        return this.props.handleSubmit(
-          errorFlag,
-          {
-            success: (resp.matches.length === 0),
-            matches: resp.matches
-          }, input)
-      } else {
-        const errorFlag = true
-        return this.props.handleSubmit(errorFlag)
-      }
-    }).catch(() => {
-      const errorFlag = true
-      this.props.handleSubmit(errorFlag)
+      return this.props.handleSubmit(resp, input)
+    }).catch((error) => {
+      console.log(error)
+      this.props.handleSubmit({ success: false })
     })
   }
 

@@ -25,6 +25,10 @@
       "desc": "Triggered each time clearance prevents user from filling out the rest of the form.",
       "eventName": "Submission: Fail Clearance"
     },
+    "pendingClearance": {
+      "desc": "Triggered each time user pending clearance but is still able to proceed with filling out the rest of the form.",
+      "eventName": "Submission: Pending Clearance"
+    },
 
     "edit": {
       "desc": "Triggered when a submission is openned for editing",
