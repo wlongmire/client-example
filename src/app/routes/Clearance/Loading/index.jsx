@@ -46,12 +46,6 @@ export class Loading extends Component {
         <div className="loadingImg">
           <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
         </div>
-        
-        <ButtonGroup>
-          <Button onClick={this.props.handleCancel} className="btn">
-            Return to Clearance Form
-          </Button>
-        </ButtonGroup>
       </form>
     )
   }
@@ -60,7 +54,6 @@ export class Loading extends Component {
 Loading.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   input: PropTypes.object.isRequired,
-  handleCancel: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
 }
