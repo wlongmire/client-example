@@ -158,7 +158,6 @@ export function getClearance(params, user) {
 
   return checkTokenExpiration(user).then(() => {
     // eslint-disable-next-line no-undef
-    
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
         return (resp.data)

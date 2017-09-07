@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import mx from './../../../utils/MixpanelInterface'
+// import mx from './../../../utils/MixpanelInterface'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import config from 'config'
@@ -25,39 +25,22 @@ export class Result extends Component {
       </h5>
     </div>)
 
-    const result = (this.props.result.success) ? {
-      title: "This Submission Has Passed Clearance!",
-      subtitle: "You are the first to submit this insured for review. Now we can enter additional pricing information.",
-      additionalContent: "",
-      buttonLabel: "Fill out Remaining Information"
-    } : {
+    const result = (this.props.result.clearanceStatus === 'fail') ? {
       title: "This Submission Did Not Pass Clearance.",
       subtitle: "Your business as listed below matches a previously processed submission.",
       additionalContent: <div className="additionalContent">
         {failClearaceMessage}
       </div>,
       buttonLabel: "Reenter Clearance Information"
+    } : {
+      title: "This Submission Has Passed Clearance!",
+      subtitle: "You are the first to submit this insured for review. Now we can enter additional pricing information.",
+      additionalContent: "",
+      buttonLabel: "Fill out Remaining Information"
     }
 
 
     const showMatchResults = false
-  // mixpanel events
-    if (this.props.result.success) {
-      mx.customEvent(
-        "submission",
-        "passClearance",
-        {
-          Type: this.props.submission.type
-        }
-          );
-    } else {
-      mx.customEvent(
-          "submission",
-          "failClearance", { 
-            Type: this.props.submission.type,
-            Matches: this.props.result.matches
-          })
-    }
 
     const matches = (
       <div className="match">
@@ -70,44 +53,44 @@ export class Result extends Component {
       </div>)
 
     return (
-        <form>
-            <h3>{result.title}</h3>
-            
-            
-            <div>
-                <h4>{result.subtitle}</h4>
-                <div className="matchContainer">
-                  { result.additionalContent }
-                  { matches }
-                    
-                </div>
-            </div>
+      <form>
+        <h3>{result.title}</h3>
+        
+        
+        <div>
+          <h4>{result.subtitle}</h4>
+          <div className="matchContainer">
+            { result.additionalContent }
+            { matches }
+              
+          </div>
+        </div>
 
-          <ButtonGroup>
-            <Button
-              className="btn clearanceButton"
-              onClick={
-                  ()=>{
-                    this.props.handleSubmit(this.props.result);
-                  }
-              }>
-              {result.buttonLabel}
-            </Button>
+        <ButtonGroup>
+          <Button
+            className="btn clearanceButton"
+            onClick={
+                () => {
+                  this.props.handleSubmit(this.props.result);
+                }
+            }
+          >
+            {result.buttonLabel}
+          </Button>
 
-            <LinkContainer to="/productChoice">
-              <Button className="btn secondary"> Return to Product Selection</Button>
-            </LinkContainer>
-          </ButtonGroup>
-
-        </form>
+          <LinkContainer to="/productChoice">
+            <Button className="btn secondary"> Return to Product Selection</Button>
+          </LinkContainer>
+        </ButtonGroup>
+      </form>
     )
   }
 }
 
 Result.propTypes = {
   input: PropTypes.object.isRequired,
-  submission: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  result: PropTypes.object
 }
 
 export default connect((store) => {

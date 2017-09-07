@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { Button, ButtonGroup } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-
 import DialogBox from 'components/shared/DialogBox'
 import ConfirmationModal from './ConfirmationModal'
 import FormBuilder from 'components/shared/FormBuilder'
@@ -26,6 +24,7 @@ class Form extends Component {
   constructor(props) {
     super(props)
 
+    console.log('constructing')
     this.state = {
       confirmation: false,
       submission: this.props.submission,
@@ -165,10 +164,6 @@ class Form extends Component {
       return <div />
     }
 
-    const initialValues = submission
-
-    const clearanceStatus = 'passed'
-
     const passedDiv = (
       <div>
         <div className={'sub-header-firstRow clearance-pass'}>CLEARANCE PASSED</div>
@@ -197,7 +192,7 @@ class Form extends Component {
         <div className="formSubHeader">You can submit this application online.</div>
         <br />
         <div className="submission-status-div">
-          {(clearanceStatus == 'underReview') ? underReviewDiv : passedDiv }
+          {(this.props.submission.clearanceStatus == 'pass') ? passedDiv : underReviewDiv }
         </div>
         <br />
         <div className="formHeader">{ratingProduct.name} Application</div>
@@ -205,7 +200,7 @@ class Form extends Component {
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}
-          initialValues={initialValues}
+          initialValues={submission}
           initialParams={submissionFormParams}
           submitTitle="Review Submission"
           handleSubmit={this.handleSubmitForReview}
