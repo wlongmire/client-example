@@ -167,7 +167,6 @@ class Clearance extends Component {
       INPUT: <Input input={this.state.input} handleSubmit={this.handleInputSubmit} />,
       LOADING: <Loading
         handleSubmit={this.handleLoadComplete}
-        handleCancel={this.handleReturnToInput}
         input={this.state.input}
       />,
       ERROR: <Error />,
