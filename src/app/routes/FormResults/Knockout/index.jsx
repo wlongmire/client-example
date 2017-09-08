@@ -13,24 +13,27 @@ class Knockout extends Component {
   render() {
     const emailStatusMap = {
       LOADING: <div className="emailStatus">
-        <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
-        <p>Emails Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
+        <img alt="loader" src={`${config.assetsURL}/images/ajax-loader.gif`} />
+        <p>Emails Currently Being Processed</p>
+        <span>From there, all forms needed will be sent to argo and your inbox.</span>
       </div>,
       ERROR: <div className="emailStatus error">
-        <p>There appears to be something wrong.</p><span>Please contact us to complete this transaction.</span>
+        <p>There appears to be something wrong.</p>
+        <span>Please contact us to complete this transaction.</span>
       </div>,
       SUCCESS: <div className="emailStatus success">
-        <img src={`${config.assetsURL}/images/thumbs-up.png`} />
-        <p>Your submission forms have been successfully processed.</p><span>Please check your your inbox. Thank you for using Argo Limited.</span>
+        <img alt="thubms up" src={`${config.assetsURL}/images/thumbs-up.png`} />
+        <p>Your submission forms have been successfully processed.</p>
+        <span>Please check your your inbox. Thank you for using Argo Limited.</span>
       </div>
     }
 
-    const { reason } = this.props.ratings[this.props.submission.type];
-    const reasonDisplay = reason.map((r, idx)=>(
+    const { reason } = this.props.ratings[this.props.submission.type]
+    const reasonDisplay = reason.map((r, idx) => (
       <div key={idx} className="reason"> {r}</div>
     ))
 
-    const underwriters = config.underwriters.map((uw, idx)=>(
+    const underwriters = config.underwriters.map((uw, idx)=> (
       <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
     ))
 
@@ -43,13 +46,15 @@ class Knockout extends Component {
         <h3>We are reviewing your Submission.</h3>
 
         <div className="content">
-          <p>Based on your answers, we couldn't provide you with a instant pricing indication for the following reasons:</p>
+          <p>Based on your answers, we couldn&apos;t provide you with a
+            instant pricing indication for the following reasons:</p>
 
           <div className="reasons">
             { reasonDisplay }
           </div>
 
-          <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+          <p>One of our underwriters will be in contact with you to
+            finalize your coverage options and assist you with purchase.</p>
 
           <ul>
             {underwriters}
@@ -72,7 +77,8 @@ class Knockout extends Component {
 Knockout.propTypes = {
   clearSubmissionStatus: PropTypes.func,
   emailStatus: PropTypes.string,
-  submission: PropTypes.object
+  submission: PropTypes.object,
+  ratings: PropTypes.object
 }
 
 export default connect(null, actions)(Knockout)

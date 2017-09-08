@@ -24,7 +24,8 @@ export class SubmissionView extends Component {
 
   render() {
     const selectFormatter = (cell, row) => {
-      if (row.quoteStatus === 'Yes') {
+      console.log('row', row)
+      if (row.ableToEdit === 'Yes') {
         return (
           <Button
             onClick={() => {
@@ -104,7 +105,7 @@ export class SubmissionView extends Component {
             dataSort={true}
           >Date <br />Updated</TableHeaderColumn>
           <TableHeaderColumn
-            width="55px"
+            width="35px"
             dataField="clearanceStatus"
             dataSort={true}
           >Clearance <br />Status</TableHeaderColumn>

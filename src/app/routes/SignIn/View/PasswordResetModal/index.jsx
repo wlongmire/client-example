@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import FormBuilder from 'components/shared/FormBuilder'
-import ToggleDisplay from 'components/shared/ToggleDisplay'
+import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 
 import form from './form'
 

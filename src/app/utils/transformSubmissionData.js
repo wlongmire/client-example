@@ -17,7 +17,8 @@ export function transformSubmissionData(submissionsArray) {
           updatedAt: item.updatedAt,
           dateCreated: item.createdAt ? Moment(item.createdAt).format('MM-DD-YY hh:mma') : null,
           dateUpdated: item.updatedAt ? Moment(item.updatedAt).format('MM-DD-YY hh:mma') : null,
-          quoteStatus: (premiumType && premiumType.premium) ? 'Yes' : 'No'
+          ableToEdit: (premiumType && premiumType.premium) ? 'Yes' : 'No',
+          quoteStatus: (premiumType && premiumType.premium) && (item.clearanceStatus === 'pass') ? 'Yes' : 'No'
         })
       })
       resolve(list)

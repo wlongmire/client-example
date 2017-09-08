@@ -30,7 +30,7 @@ class Loading extends Component {
     const ratingPromises = typeMap[submission.type]
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
-    const { argoEmail, ownerEdgeEmail } = config
+    const { argoEmail } = config
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
@@ -42,7 +42,7 @@ class Loading extends Component {
           return this.props.logout()
         }
         const responseRatings = JSON.parse(resp[idx].data)
-
+        console.log('responseRatings ==== ', responseRatings)
         ratings[ratingSubmission.type] = responseRatings.results
       })
 
@@ -119,7 +119,7 @@ class Loading extends Component {
         <h4>Please wait while we calculate.</h4>
 
         <div className="loadingImg">
-          <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
+          <img alt="loading" src={`${config.assetsURL}/images/ajax-loader.gif`} />
         </div>
 
         <ButtonGroup>
@@ -136,7 +136,8 @@ Loading.propTypes = {
   logout: PropTypes.func.isRequired,
   handleEmailStatus: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  submission: PropTypes.object
 }
 
 
