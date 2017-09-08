@@ -9,6 +9,7 @@ import ToggleDisplay from 'components/shared/ToggleDisplay'
 import { commifyNumber } from 'app/utils/utilities'
 import classNames from 'classnames'
 import * as actions from '../../../actions/submissionActions'
+import PendingStatus from '../pendingStatus'
 
 import ratingProducts from 'config/RatingProducts'
 import config from 'config'
@@ -65,6 +66,10 @@ class Quote extends Component {
   render() {
     const { ratings, submission } = this.props
 
+    console.log('submission ===>', submission.clearanceStatus)
+    console.log('ratings ===>', ratings)
+
+
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
 
@@ -87,6 +92,13 @@ class Quote extends Component {
     const underwriters = config.underwriters.map((uw, idx) => (
       <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
     ))
+
+    console.log('<pendingStatus />', <pendingStatus />)
+    console.log('submission.clearanceStatus ===', submission.clearanceStatus)
+    console.log('submission in results ======', submission)
+    if (submission.clearanceStatus === 'pending') {
+      return (<PendingStatus />)
+    }
 
     return (
       <div>

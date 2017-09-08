@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import config from 'config'
+import PendingStatus from '../pendingStatus'
 import * as actions from '../../../actions/submissionActions'
 
 class Knockout extends Component {
@@ -32,6 +33,11 @@ class Knockout extends Component {
     const underwriters = config.underwriters.map((uw, idx)=>(
       <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
     ))
+
+    if (this.props.submission.clearanceStatus === 'pending') {
+      return (<PendingStatus />)
+    }
+
     return (
       <form>
         <h3>We are reviewing your Submission.</h3>
@@ -49,7 +55,7 @@ class Knockout extends Component {
             {underwriters}
           </ul>
         </div>
-        
+
         { emailStatusMap[this.props.emailStatus] }
 
         <ButtonGroup>
@@ -61,6 +67,12 @@ class Knockout extends Component {
       </form>
     )
   }
+}
+
+Knockout.propTypes = {
+  clearSubmissionStatus: PropTypes.func,
+  emailStatus: PropTypes.string,
+  submission: PropTypes.object
 }
 
 export default connect(null, actions)(Knockout)
