@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router'
 import FormBuilder from 'components/shared/FormBuilder'
 import form from './form.js'
 
-import ToggleDisplay from 'components/shared/ToggleDisplay'
+import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import DialogBox from 'components/shared/DialogBox'
 
 import { Button } from 'react-bootstrap'

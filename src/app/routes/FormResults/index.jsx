@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 import mx from 'app/utils/MixpanelInterface';
 
 import { Button } from 'react-bootstrap'
-import ToggleDisplay from 'components/shared/ToggleDisplay'
+import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 
 import Loading from './Loading'
 import Error from './Error'
@@ -55,7 +55,7 @@ class FormResults extends Component {
     const {submission} = this.props;
     const type = this.props.submission.type;
     this.setState({
-      quoteStatus: (error) ? STATUS.ERROR:((ratings[submission.type].instantQuote)?STATUS.QUOTE:STATUS.KNOCKOUT),
+      quoteStatus: (error) ? STATUS.ERROR : ((ratings[submission.type].instantQuote) ? STATUS.QUOTE : STATUS.KNOCKOUT),
       ratings
     })
 

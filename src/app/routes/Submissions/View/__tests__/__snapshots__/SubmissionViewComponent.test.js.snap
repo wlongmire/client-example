@@ -162,13 +162,11 @@ exports[`>>> SubmissionView --- Snapshot +++capturing Snapshot with 1`] = `
       isKey={false}
       searchable={true}
       sortIndicator={true}
-      width="35px"
+      width="50px"
     >
-      Was 
-      <br />
       Submission 
       <br />
-      Priced?
+      Status
     </TableHeaderColumn>
     <TableHeaderColumn
       className=""
@@ -260,7 +258,7 @@ exports[`>>> SubmissionView --- Snapshot +++capturing Snapshot with 1`] = `
       isKey={false}
       searchable={true}
       sortIndicator={true}
-      width="20px"
+      width="25px"
     >
       Type
     </TableHeaderColumn>

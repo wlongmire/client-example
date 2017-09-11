@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import { LinkContainer } from 'react-router-bootstrap'
 
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 
-import ToggleDisplay from 'components/shared/ToggleDisplay'
+import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import { commifyNumber } from 'app/utils/utilities'
 import classNames from 'classnames'
 import * as actions from '../../../actions/submissionActions'
+import PendingStatus from '../pendingStatus'
 
 import ratingProducts from 'config/RatingProducts'
 import config from 'config'
@@ -23,14 +24,14 @@ class QuoteBlock extends Component {
     const {
       title, className, totalPremium, basePremium, terrorismCoverage, additionalCoverage
     } = this.props
-    
+
     const typeList = [
         { title: 'Total Premium', value: totalPremium },
         { title: 'Base Premium', value: basePremium },
         { title: 'Additional Coverage', value: additionalCoverage },
         { title: 'Terrorism Coverage', value: terrorismCoverage }
     ]
-    
+
     const quoteValues = typeList.map((item, idx) => (
       <ToggleDisplay
         key={idx}
@@ -65,28 +66,41 @@ class Quote extends Component {
   render() {
     const { ratings, submission } = this.props
 
+    console.log('submission ===>', submission.clearanceStatus)
+    console.log('ratings ===>', ratings)
+
+
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
 
     const emailStatusMap = {
       LOADING: <div className="emailStatus">
-        <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
-        <p>Emails/Submission Forms Currently Being Processed</p><span>From there, all forms needed will be sent to argo and your inbox.</span>
+        <img alt="loading" src={`${config.assetsURL}/images/ajax-loader.gif`} />
+        <p>Emails/Submission Forms Currently Being Processed</p>
+        <span>From there, all forms needed will be sent to argo and your inbox.</span>
       </div>,
       ERROR: <div className="emailStatus error">
         <p>There appears to be something wrong.</p>
         <span>Please contact us to complete this transaction.</span>
       </div>,
       SUCCESS: <div className="emailStatus success">
-        <img src={`${config.assetsURL}/images/thumbs-up.png`} />
+        <img alt="thumbs up" src={`${config.assetsURL}/images/thumbs-up.png`} />
         <p>Your submission forms have been successfully processed.</p>
-        <span>The appropriate forms should appear in your inbox within the next minute. Thank you for using Argo Limited.</span>
+        <span>The appropriate forms should appear in your inbox within the next minute.
+          Thank you for using Argo Limited.</span>
       </div>
     }
 
     const underwriters = config.underwriters.map((uw, idx) => (
       <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
     ))
+
+    console.log('<pendingStatus />', <pendingStatus />)
+    console.log('submission.clearanceStatus ===', submission.clearanceStatus)
+    console.log('submission in results ======', submission)
+    if (submission.clearanceStatus === 'pending') {
+      return (<PendingStatus />)
+    }
 
     return (
       <div>
@@ -132,14 +146,18 @@ class Quote extends Component {
         </div>
 
         <div className="content">
-          <p>One of the following underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+          <p>One of the following underwriters will be in contact with you
+            to finalize your coverage options and assist you with purchase.</p>
           <ul>{underwriters}</ul>
         </div>
 
         { emailStatusMap[this.props.emailStatus] }
 
         <div className="legalText">
-          The "pricing indication" is issued as a matter of information only  and does not confer any rights upon the insured or constitute a contract between Colony Specialty and the authorized representative or producer of the insured or the insured.
+          The &quot;pricing indication&quot; is issued as a matter of information only
+          and does not confer any rights upon the insured or constitute a contract
+          between Colony Specialty and the authorized representative or
+          producer of the insured or the insured.
         </div>
 
 
@@ -152,6 +170,13 @@ class Quote extends Component {
       </div>
     )
   }
+}
+
+Quote.propTypes = {
+  emailStatus: PropTypes.string,
+  submission: PropTypes.object,
+  ratings: PropTypes.object,
+  clearSubmissionStatus: PropTypes.func
 }
 
 export default connect((store) => {

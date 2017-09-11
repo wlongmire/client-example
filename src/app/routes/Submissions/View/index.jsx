@@ -24,7 +24,8 @@ export class SubmissionView extends Component {
 
   render() {
     const selectFormatter = (cell, row) => {
-      if (row.quoteStatus === 'Yes') {
+      console.log('row', row)
+      if (row.ableToEdit === 'Yes') {
         return (
           <Button
             onClick={() => {
@@ -71,8 +72,8 @@ export class SubmissionView extends Component {
           <TableHeaderColumn
             dataField="quoteStatus"
             dataSort={true}
-            width="35px"
-          >Was <br />Submission <br />Priced?</TableHeaderColumn>
+            width="50px"
+          >Submission <br />Status</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="quotedPremium"
@@ -89,7 +90,7 @@ export class SubmissionView extends Component {
             dataSort={true}
           >Total <br />Premium</TableHeaderColumn>
           <TableHeaderColumn
-            width="20px"
+            width="25px"
             dataField="type"
             dataSort={true}
           >Type</TableHeaderColumn>

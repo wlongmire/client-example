@@ -30,7 +30,7 @@ class Loading extends Component {
     const ratingPromises = typeMap[submission.type]
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
-    const { argoEmail, ownerEdgeEmail } = config
+    const { argoEmail } = config
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
@@ -42,7 +42,7 @@ class Loading extends Component {
           return this.props.logout()
         }
         const responseRatings = JSON.parse(resp[idx].data)
-
+        console.log('responseRatings ==== ', responseRatings)
         ratings[ratingSubmission.type] = responseRatings.results
       })
 
@@ -62,30 +62,40 @@ class Loading extends Component {
 
           let emailPromises
 
-          // if this is an update instead of a new submission
-          console.log("submissionData", submissionData)
-
-          if (respSave.updated === true) {
-            emailPromises = [
-              sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-              sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-              sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
-            ]
-          } else {
-            emailPromises = [
-              sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-              sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-              sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
-  
-            ]
+          // if clearance status is passing
+          if (submissionData.clearanceStatus === 'pass') {
+            // if submission request is an update
+            if (respSave.updated === true) {
+              emailPromises = [
+                sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
+                sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
+              ]
+            // if it is a new submission
+            } else {
+              emailPromises = [
+                sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
+                sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
+              ]
+            }
+          // if clearance status is pending
+          } else if (submissionData.clearanceStatus === 'pending') {
+            // if submission request is an update
+            if (respSave.updated === true) {
+              emailPromises = [
+                sendEmail(argoEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
+              ]
+            // if it is a new submission
+            } else {
+              emailPromises = [
+                sendEmail(argoEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
+              ]
+            }
           }
 
-          if (respSave.updated === true) {
-            sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user)
-          } else {
-            sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
-          }
-        
           Promise.all(emailPromises).then(() => {
             this.props.handleEmailStatus({ success: true })
           })
@@ -109,7 +119,7 @@ class Loading extends Component {
         <h4>Please wait while we calculate.</h4>
 
         <div className="loadingImg">
-          <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
+          <img alt="loading" src={`${config.assetsURL}/images/ajax-loader.gif`} />
         </div>
 
         <ButtonGroup>
@@ -126,7 +136,8 @@ Loading.propTypes = {
   logout: PropTypes.func.isRequired,
   handleEmailStatus: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  submission: PropTypes.object
 }
 
 
