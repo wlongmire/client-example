@@ -72,8 +72,8 @@ export class SubmissionView extends Component {
           <TableHeaderColumn
             dataField="quoteStatus"
             dataSort={true}
-            width="35px"
-          >Was <br />Submission <br />Priced?</TableHeaderColumn>
+            width="50px"
+          >Submission <br />Status</TableHeaderColumn>
           <TableHeaderColumn
             width="40px"
             dataField="quotedPremium"
@@ -104,11 +104,6 @@ export class SubmissionView extends Component {
             dataField="dateUpdated"
             dataSort={true}
           >Date <br />Updated</TableHeaderColumn>
-          <TableHeaderColumn
-            width="35px"
-            dataField="clearanceStatus"
-            dataSort={true}
-          >Clearance <br />Status</TableHeaderColumn>
           <TableHeaderColumn
             width="25px"
             dataField="id"

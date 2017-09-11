@@ -6,6 +6,16 @@ export function transformSubmissionData(submissionsArray) {
     try {
       const list = submissionsArray.map((item) => {
         const premiumType = item.rating[item.type]
+
+        let quoteStatus;
+        if ((premiumType && premiumType.premium) && (item.clearanceStatus === 'pass')) {
+          quoteStatus = 'Priced'
+        } else if(premiumType && !premiumType.premium) {
+          quoteStatus = 'Refferred'
+        } else if ((premiumType && premiumType.premium) && (item.clearanceStatus === 'pending')) {
+          quoteStatus = 'Pending Clearance'
+        }
+        
         return ({
           _id: item._id,
           clearanceStatus: item.clearanceStatus,
@@ -18,7 +28,7 @@ export function transformSubmissionData(submissionsArray) {
           dateCreated: item.createdAt ? Moment(item.createdAt).format('MM-DD-YY hh:mma') : null,
           dateUpdated: item.updatedAt ? Moment(item.updatedAt).format('MM-DD-YY hh:mma') : null,
           ableToEdit: (premiumType && premiumType.premium) ? 'Yes' : 'No',
-          quoteStatus: (premiumType && premiumType.premium) && (item.clearanceStatus === 'pass') ? 'Yes' : 'No'
+          quoteStatus
         })
       })
       resolve(list)
