@@ -73,5 +73,16 @@ module.exports = {
     submitForm(browser)
     checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, oiPrimaryInsuredName)
     .end()
-  }
+  },
+
+  // 'OI Successful PENDING CLEARANCE': (browser) => {
+  //   console.log('oiPrimaryInsuredName ~~~~>', oiPrimaryInsuredName)
+  //   login(browser, username, password)
+  //   navToOiClearance(browser)
+  //   clearanceFormFillout(browser, true, `${oiPrimaryInsuredName}9`)
+  //   oiFormFillout(browser)
+  //   submitForm(browser)
+  //   checkSaveSubmission(browser, `${oiPrimaryInsuredName}9`)
+  //   .end()
+  // }
 }

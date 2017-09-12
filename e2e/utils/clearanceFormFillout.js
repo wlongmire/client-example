@@ -22,7 +22,6 @@ function clearanceFormFillout (browser, unique = true, primaryInsuredName) {
       .setValue('#projectCity', primaryInsuredCity)
       .setValue('#projectState', primaryInsuredState)
       .setValue('#projectZipcode', [primaryInsuredZipcode, browser.Keys.ENTER])
-  
 }
 
-module.exports = clearanceFormFillout;
+module.exports = clearanceFormFillout

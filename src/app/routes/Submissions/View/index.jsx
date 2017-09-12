@@ -15,7 +15,7 @@ export class SubmissionView extends Component {
       {
         'Named Insured': submission.primaryNamedInsured,
         Quoted: submission.instantQuote,
-        'Confirmation Number': submission.confirmationNumber,
+        ClearanceStatus: submission.clearanceStatus,
         Type: submission.type
       }
     )
