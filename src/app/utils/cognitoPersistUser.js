@@ -68,6 +68,19 @@ export function cognitoPersistUser(callback) {
               region: config.awsCognito.region
             })
 
+          apigClient.apiGetBrokerIdGet({ id: brokerIdQuery[0].Value }).then((brokerResp) => {
+            const brokerInfo = JSON.parse(brokerResp.data)
+            const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+            // registering super properties for mixpanel events
+            mixpanel.register({
+              BrokerName: brokerName,
+              User: usernameQuery[0].Value,
+              Email: emailQuery[0].Value,
+              Broker: brokerIdQuery[0].Value,
+              SubId: subIdQuery[0].Value,
+              Environment: config.env
+            })
+          })
 
             // "2017-06-14T04:32:02.000Z"
             // expiration: '2017-06-13T01:32:02.000Z'

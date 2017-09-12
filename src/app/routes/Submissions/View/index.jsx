@@ -24,7 +24,6 @@ export class SubmissionView extends Component {
 
   render() {
     const selectFormatter = (cell, row) => {
-      console.log('row', row)
       if (row.ableToEdit === 'Yes') {
         return (
           <Button
@@ -36,7 +35,7 @@ export class SubmissionView extends Component {
       }
       return ''
     }
-    
+
     const options = {
       defaultSortName: 'updatedAt',  // default sort column name
       defaultSortOrder: 'desc'  // default sort order,
