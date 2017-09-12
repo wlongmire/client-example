@@ -162,13 +162,11 @@ exports[`>>> SubmissionView --- Snapshot +++capturing Snapshot with 1`] = `
       isKey={false}
       searchable={true}
       sortIndicator={true}
-      width="35px"
+      width="50px"
     >
-      Was 
-      <br />
       Submission 
       <br />
-      Priced?
+      Status
     </TableHeaderColumn>
     <TableHeaderColumn
       className=""
@@ -311,30 +309,6 @@ exports[`>>> SubmissionView --- Snapshot +++capturing Snapshot with 1`] = `
       Date 
       <br />
       Updated
-    </TableHeaderColumn>
-    <TableHeaderColumn
-      className=""
-      columnClassName=""
-      columnTitle={false}
-      dataAlign="left"
-      dataField="clearanceStatus"
-      dataSort={true}
-      editColumnClassName=""
-      editable={true}
-      expandable={true}
-      filterFormatted={false}
-      headerTitle={true}
-      hidden={false}
-      hiddenOnInsert={false}
-      invalidEditColumnClassName=""
-      isKey={false}
-      searchable={true}
-      sortIndicator={true}
-      width="35px"
-    >
-      Clearance 
-      <br />
-      Status
     </TableHeaderColumn>
     <TableHeaderColumn
       className=""
