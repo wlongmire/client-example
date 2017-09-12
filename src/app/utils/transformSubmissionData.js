@@ -6,16 +6,15 @@ export function transformSubmissionData(submissionsArray) {
     try {
       const list = submissionsArray.map((item) => {
         const premiumType = item.rating[item.type]
-
-        let quoteStatus;
+        let quoteStatus
         if ((premiumType && premiumType.premium) && (item.clearanceStatus === 'pass')) {
           quoteStatus = 'Priced'
-        } else if(premiumType && !premiumType.premium) {
-          quoteStatus = 'Refferred'
+        } else if (!premiumType || !premiumType.premium) {
+          quoteStatus = 'Referred'
         } else if ((premiumType && premiumType.premium) && (item.clearanceStatus === 'pending')) {
           quoteStatus = 'Pending Clearance'
         }
-        
+
         return ({
           _id: item._id,
           clearanceStatus: item.clearanceStatus,

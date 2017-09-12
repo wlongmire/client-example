@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import mx from 'app/utils/MixpanelInterface';
-
-import { Button } from 'react-bootstrap'
-import ToggleDisplay from 'app/components/shared/ToggleDisplay'
+import mx from 'app/utils/MixpanelInterface'
 
 import Loading from './Loading'
 import Error from './Error'
@@ -47,13 +44,14 @@ class FormResults extends Component {
 
   handleEmailStatus(result) {
     this.setState({
-      emailStatus: (result.success)?STATUS.SUCCESS:STATUS.ERROR
+      emailStatus: (result.success) ? STATUS.SUCCESS : STATUS.ERROR
     })
   }
 
   handleLoadComplete(error, ratings) {
-    const {submission} = this.props;
-    const type = this.props.submission.type;
+    const { submission } = this.props
+    const type = this.props.submission.type
+    console.log('SUBMISSION FOR MIXPANEL', submission)
     this.setState({
       quoteStatus: (error) ? STATUS.ERROR : ((ratings[submission.type].instantQuote) ? STATUS.QUOTE : STATUS.KNOCKOUT),
       ratings
@@ -72,6 +70,8 @@ class FormResults extends Component {
       mx.customEvent(
           'submission',
           'quoted', {
+            SubmissionStatus: submission._id ? 'update' : 'new',
+            ClearanceStatus: submission.clearanceStatus,
             Type: type,
             Premium: ratings[type].premium,
             TerrorPremium: ratings[type].terrorPremium,
@@ -85,6 +85,8 @@ class FormResults extends Component {
       mx.customEvent(
           'submission',
           'knockout', {
+            SubmissionStatus: submission._id ? 'update' : 'new',
+            ClearanceStatus: submission.clearanceStatus,
             Type: type,
             Reasons: ratings[type].reason,
           }
@@ -100,7 +102,7 @@ class FormResults extends Component {
         submission={this.props.submission}
       />,
       ERROR: <Error />,
-      QUOTE: <Quote 
+      QUOTE: <Quote
         submission={this.props.submission}
         emailStatus={this.state.emailStatus}
         ratings={this.state.ratings}
@@ -112,8 +114,9 @@ class FormResults extends Component {
       />
     }
 
-    if (isEmpty(this.props.submission))
-      return (<div></div>)
+    if (isEmpty(this.props.submission)) {
+      return (<div />)
+    }
 
     return (
       <div className="page formResults">
@@ -123,8 +126,13 @@ class FormResults extends Component {
       </div>
     )
   }
-
 }
+
+FormResults.propTypes = {
+  submission: PropTypes.object,
+  dispatch: PropTypes.func
+}
+
 
 export default connect((store) => {
   return ({

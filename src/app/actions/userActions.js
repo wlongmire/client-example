@@ -66,11 +66,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 const brokerInfo = JSON.parse(brokerResp.data)
                 const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
-                console.log("username:", cognitoUser.username)
-                console.log("broker:", brokerId[0].Value)
-                console.log("subId:", subIdQuery[0].Value)
-                console.log("env:", config.env)
-
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,
                   email_str: cognitoUser.username,
