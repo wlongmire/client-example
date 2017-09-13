@@ -45,8 +45,8 @@ const ocpStatesArray = [
         "optionId": "9"
     },
     {
-        "text": "District Of Columbia",
-        "value": "District Of Columbia",
+        "text": "District of Columbia",
+        "value": "District of Columbia",
         "optionId": "10"
     },
     {
