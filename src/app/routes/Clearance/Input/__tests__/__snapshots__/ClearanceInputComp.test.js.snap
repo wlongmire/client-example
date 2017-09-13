@@ -107,8 +107,8 @@ exports[`>>> Clearance Component --- Snapshot +++capturing Snapshot with 1`] = `
                 },
                 Object {
                   "optionId": "10",
-                  "text": "District Of Columbia",
-                  "value": "District Of Columbia",
+                  "text": "District of Columbia",
+                  "value": "District of Columbia",
                 },
                 Object {
                   "optionId": "11",
@@ -425,8 +425,8 @@ exports[`>>> Clearance Component --- Snapshot +++capturing Snapshot with 1`] = `
                 },
                 Object {
                   "optionId": "10",
-                  "text": "District Of Columbia",
-                  "value": "District Of Columbia",
+                  "text": "District of Columbia",
+                  "value": "District of Columbia",
                 },
                 Object {
                   "optionId": "11",
