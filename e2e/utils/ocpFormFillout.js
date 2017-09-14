@@ -1,9 +1,6 @@
 function ocpFormFillout(browser) {
   return browser
       .useCss()
-      .waitForElementVisible('.sub-header-firstRow', 30000, null, null, 'You got to the the form screen!')
-      .assert.containsText('.sub-header-firstRow', 'CLEARANCE PASSED', 'Passed Clearance')
-      .pause(1000)
       .setValue('#totalCost', 5000000)
       .setValue('#anticipatedStartDate', '10/17/2017')
       .setValue('#anticipatedFinishDate', '10/17/2019')

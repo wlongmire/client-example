@@ -9,8 +9,9 @@ function numberWithCommas(x) {
 function checkEditSubmission(browser, randomPhoneNumber, randomTotalCost, editSearchValue) {
  return browser
       .useXpath()
+      .pause(3000)
       .click('/html/body/div[1]/div/nav/div/div[2]/ul/li[1]/a')
-      .pause(7000)
+      .pause(4000)
       .setValue('/html/body/div[1]/div/div/div/div/div[1]/div/div[2]/div/input', editSearchValue)
       .useCss()
       .click('.btn-default')

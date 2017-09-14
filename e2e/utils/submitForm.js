@@ -11,9 +11,9 @@ function submitForm(browser) {
     // .click('.getPricing')
     .useXpath()
     .click('/html/body/div[3]/div/div[2]/div/div/div[2]/div/div[2]/button[1]')
-    .useCss()
-    .waitForElementVisible('.success', 30000, null, null, 'Got To Quote Results Screen!') // wait on pricing page until Owners and Protective Element is present
-    .assert.containsText('.success', 'Your submission forms have been successfully processed.', 'Submission was a success - Emails have been sent and qoute has been saved!')
+    // .useCss()
+    // .waitForElementVisible('.success', 30000, null, null, 'Got To Quote Results Screen!') // wait on pricing page until Owners and Protective Element is present
+    // .assert.containsText('.success', 'Your submission forms have been successfully processed.', 'Submission was a success - Emails have been sent and qoute has been saved!')
 }
 
-module.exports = submitForm;
+module.exports = submitForm

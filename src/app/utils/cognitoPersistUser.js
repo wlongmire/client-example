@@ -72,6 +72,8 @@ export function cognitoPersistUser(callback) {
             const brokerInfo = JSON.parse(brokerResp.data)
             const brokerName = brokerInfo.data ? brokerInfo.data.name : null
             // registering super properties for mixpanel events
+            console.log('brokerName', brokerName)
+            console.log('brokerIdQuery[0].Value', brokerIdQuery[0].Value)
             mixpanel.register({
               BrokerName: brokerName,
               User: usernameQuery[0].Value,
