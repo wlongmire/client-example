@@ -2,7 +2,7 @@
 function clearancePassAndContinue(browser) {
  return browser
       .useCss()
-      .waitForElementVisible('.match', 30000, null, null, 'You got to the clearance result screen!')
+      .waitForElementVisible('.match', 50000, null, null, 'You got to the clearance result screen!')
       .assert.containsText('.clearance', 'This Submission Has Passed Clearance!', 'Passed Clearance')
       .pause(1000)
       .useCss()

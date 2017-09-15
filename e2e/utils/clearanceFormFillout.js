@@ -1,12 +1,12 @@
 const uid = require('uid-safe');
 
 function clearanceFormFillout (browser, unique = true, primaryInsuredName) {
-  const randomString = (unique === true) ? uid.sync(8) : '';
+  const randomString = (unique === true) ? uid.sync(8) : ''
   const insuredName = primaryInsuredName || 'Andriy Kulak' + randomString
-  const primaryInsuredAddress = (unique === true) ? randomString : '347 94th Street';
-  const primaryInsuredCity = (unique === true) ? randomString : 'Brooklyn';
-  const primaryInsuredState = 'New York'
-  const primaryInsuredZipcode = (unique === true) ? randomString : 11209;
+  const primaryInsuredAddress = (unique === true) ? primaryInsuredName : '347 94th Street'
+  const primaryInsuredCity = (unique === true) ? primaryInsuredName : 'Brooklyn'
+  const primaryInsuredState = 'New Jersey'
+  const primaryInsuredZipcode = (unique === true) ? primaryInsuredName : 11209
 
   return browser
       .useCss()
