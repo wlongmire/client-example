@@ -2,10 +2,11 @@ import AWS from 'aws-sdk'
 import config from 'config'
 import { migrationLogin } from './migrationActions'
 import { push } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 import {
   USER_LOGGED_OUT,
+  USER_LOGGED_IN
 } from 'app/constants/user'
-
 import mx from 'app/utils/MixpanelInterface'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
@@ -59,12 +60,26 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               }
               onSuccess(resp, result[0].Value, cognitoUser, credentials.expireTime)
 
-                const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
-                const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
+              const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
+              const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
 
-                apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
+              apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
                 const brokerInfo = JSON.parse(brokerResp.data)
                 const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+
+                dispatch({
+                  type: USER_LOGGED_IN,
+                  payload: {
+                    bundles: brokerInfo.data.bundles,
+                    subId: subIdQuery[0].Value,
+                    username: cognitoUser.username,
+                    email: cognitoUser.username,
+                    broker: brokerId[0].Value,
+                    expiration: credentials.expireTime
+
+                  }
+                })
+                browserHistory.push('/submissions')
 
                 FS.identify(cognitoUser.username, {
                   displayName: cognitoUser.username,
@@ -72,7 +87,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   broker_str: brokerName,
                   subId_str: subIdQuery[0].Value
                 })
-                
+
                 mixpanel.register({
                   BrokerName: brokerName,
                   User: cognitoUser.username,
@@ -101,13 +116,13 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-          
+
           if (config.env === 'prod') {
            migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
             onFailure(err)
           }
-          
+
         },
         newPasswordRequired: (userAttributes) => {
           newPasswordRequired(userAttributes, cognitoUser)

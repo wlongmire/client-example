@@ -27,11 +27,14 @@ class Loading extends Component {
       ocp: [submission, Object.assign({}, submission, { type: 'oi' })]
     }
 
+    // AK_TO_DO UPDATE THE REQUESTS
+    console.log('TYPE MAP ====>', typeMap)
     const ratingPromises = typeMap[submission.type]
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
     const { argoEmail } = config
 
+    console.log('ratingPromises ====>', ratingPromises)
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
     ))).then((resp) => {
