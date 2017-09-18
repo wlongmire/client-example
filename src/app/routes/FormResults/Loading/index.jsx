@@ -34,7 +34,7 @@ class Loading extends Component {
     }
 
     const typeMap = {
-      oi: [submission, ...bundleArray],
+      oi: [...bundleArray, submission],
       ocp: [submission, Object.assign({}, submission, { type: 'oi' })]
     }
 
