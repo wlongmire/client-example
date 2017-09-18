@@ -100,23 +100,35 @@ class Quote extends Component {
         <h3>Instant Pricing Indication:</h3>
         <div className="quoteBlocks">
           {Object.keys(ratings).map((type) => {
-            let mainTitle
-            let excessTitle
+            let mainTitle = ''
+            let excessTitle = ''
+            let pricingClass = ''
 
-            if (this.props.user.bundles.length > 0) {
+            if (submission.type == 'ocp' && type == 'oi') {
+              mainTitle = "Here is what you would pay with an Owner's Interest Policy"
+              excessTitle = 'Excess'
+              pricingClass = 'upsell'
+            } else if (this.props.user.bundles.length > 0 && submission.type == 'oi') {
+              pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
               mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard risk)`
               excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess (standard risk)'
+            } else if (this.props.user.bundles.length > 0 && submission.type == 'ocp') {
+              pricingClass = 'primaryPricing'
+              const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
+              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name}`
             } else {
+              pricingClass = 'primaryPricing'
               mainTitle = `${ratingProduct.name}`
               excessTitle = 'Excess'
             }
+
 
             return (
               <div>
                 <QuoteBlock
                   title={mainTitle}
-                  className={classNames(ratingProduct.type, 'primaryPricing')}
+                  className={classNames(ratingProduct.type, pricingClass)}
                   basePremium={ratings[type].premium}
                   totalPremium={ratings[type].totalPremium}
                   additionalCoverage={ratings[type].additionalCoverage}
@@ -138,22 +150,6 @@ class Quote extends Component {
               </div>
             )
           })}
-
-          <ToggleDisplay
-            show={submission.type === 'ocp'}
-            render={() => (
-              <div>
-                <QuoteBlock
-                  title={"Here is what you would pay with an Owner's Interest Policy"}
-                  className="oi upsell"
-                  basePremium={ratings.oi.premium}
-                  totalPremium={ratings.oi.totalPremium}
-                  additionalCoverage={ratings.oi.additionalCoverage}
-                  terrorismCoverage={ratings.oi.terrorPremium}
-                />
-              </div>)
-            }
-          />
         </div>
 
         <div className="content">
