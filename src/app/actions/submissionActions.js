@@ -93,8 +93,6 @@ export function saveSubmission(submission, user) {
 }
 
 export function editSubmission(submission, user) {
-  // *** need to check if token is expired before
-  // AK_TO_DO
   return ((dispatch) => {
     return checkTokenExpiration(user).then(() => {
       // eslint-disable-next-line no-undef

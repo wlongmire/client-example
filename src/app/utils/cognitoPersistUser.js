@@ -69,7 +69,7 @@ export function cognitoPersistUser(callback) {
             })
 
           apigClient.apiGetBrokerIdGet({ id: brokerIdQuery[0].Value }).then((brokerResp) => {
-            const brokerInfo = JSON.parse(brokerResp.data)
+            const brokerInfo = brokerResp.data
             const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
             // registering super properties for mixpanel events
@@ -83,7 +83,6 @@ export function cognitoPersistUser(callback) {
             })
 
             callback({
-              // AK_TO_DO add rating bundle here
               bundles: brokerInfo.data.bundles,
               subId: subIdQuery[0].Value,
               broker: brokerIdQuery[0].Value,

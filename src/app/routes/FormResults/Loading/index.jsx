@@ -22,19 +22,28 @@ class Loading extends Component {
   componentDidMount() {
     const { submission, user } = this.props
 
+    const bundleArray = []
+    if (user.bundles.length > 0) {
+      user.bundles.map((x, key) => {
+        if (x.productType === 'oi') {
+          // adding price bundle multiplier. also errasssing Excess Limit amount
+          // since the bundle pricing should not count excesss premium
+          bundleArray.push(Object.assign({}, submission, { type: 'oi', bundleMultiplier: x.basePremiumMulitplier, bundleId: x.id, excessLimitAmount: '' }))
+        }
+      })
+    }
+
     const typeMap = {
-      oi: [submission],
+      oi: [submission, ...bundleArray],
       ocp: [submission, Object.assign({}, submission, { type: 'oi' })]
     }
 
     // AK_TO_DO UPDATE THE REQUESTS
-    console.log('TYPE MAP ====>', typeMap)
     const ratingPromises = typeMap[submission.type]
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
     const { argoEmail } = config
 
-    console.log('ratingPromises ====>', ratingPromises)
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
     ))).then((resp) => {
@@ -45,8 +54,8 @@ class Loading extends Component {
           return this.props.logout()
         }
         const responseRatings = JSON.parse(resp[idx].data)
-        console.log('responseRatings ==== ', responseRatings)
-        ratings[ratingSubmission.type] = responseRatings.results
+        const ratingType = ratingSubmission.bundleId ? ratingSubmission.bundleId : ratingSubmission.type
+        ratings[ratingType] = responseRatings.results
       })
 
       const submissionData = Object.assign({}, submission)
