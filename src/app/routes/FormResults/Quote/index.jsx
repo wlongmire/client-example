@@ -66,10 +66,6 @@ class Quote extends Component {
   render() {
     const { ratings, submission } = this.props
 
-    console.log('submission ===>', submission.clearanceStatus)
-    console.log('ratings ===>', ratings)
-
-
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
 
@@ -196,7 +192,6 @@ Quote.propTypes = {
 }
 
 export default connect((store) => {
-  console.log('store.user', store.user)
   return ({
     user: store.user
   })
