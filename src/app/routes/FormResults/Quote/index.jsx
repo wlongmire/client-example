@@ -66,10 +66,6 @@ class Quote extends Component {
   render() {
     const { ratings, submission } = this.props
 
-    console.log('submission ===>', submission.clearanceStatus)
-    console.log('ratings ===>', ratings)
-
-
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
 
@@ -95,9 +91,6 @@ class Quote extends Component {
       <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
     ))
 
-    console.log('<pendingStatus />', <pendingStatus />)
-    console.log('submission.clearanceStatus ===', submission.clearanceStatus)
-    console.log('submission in results ======', submission)
     if (submission.clearanceStatus === 'pending') {
       return (<PendingStatus />)
     }
@@ -106,27 +99,45 @@ class Quote extends Component {
       <div>
         <h3>Instant Pricing Indication:</h3>
         <div className="quoteBlocks">
-          <QuoteBlock
-            title={ratingProduct.name}
-            className={classNames(ratingProduct.type, 'primaryPricing')}
-            basePremium={rating.premium}
-            totalPremium={rating.totalPremium}
-            additionalCoverage={rating.additionalCoverage}
-            terrorismCoverage={rating.terrorPremium}
-          />
+          {Object.keys(ratings).map((type) => {
+            let mainTitle
+            let excessTitle
 
-          <ToggleDisplay
-            show={rating.excessPremium > 0}
-            render={() => (
-              <QuoteBlock
-                title="Excess"
-                className="excess"
-                basePremium={rating.excessPremium}
-                totalPremium={rating.totalExcessPremium}
-                terrorismCoverage={rating.excessTerrorPremium}
-              />)
+            if (this.props.user.bundles.length > 0) {
+              const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
+              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard risk)`
+              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess (standard risk)'
+            } else {
+              mainTitle = `${ratingProduct.name}`
+              excessTitle = 'Excess'
             }
-          />
+
+            return (
+              <div>
+                <QuoteBlock
+                  title={mainTitle}
+                  className={classNames(ratingProduct.type, 'primaryPricing')}
+                  basePremium={ratings[type].premium}
+                  totalPremium={ratings[type].totalPremium}
+                  additionalCoverage={ratings[type].additionalCoverage}
+                  terrorismCoverage={ratings[type].terrorPremium}
+                />
+
+                <ToggleDisplay
+                  show={ratings[type].excessPremium > 0}
+                  render={() => (
+                    <QuoteBlock
+                      title={excessTitle}
+                      className="excess"
+                      basePremium={ratings[type].excessPremium}
+                      totalPremium={ratings[type].totalExcessPremium}
+                      terrorismCoverage={ratings[type].excessTerrorPremium}
+                    />)
+                  }
+                />
+              </div>
+            )
+          })}
 
           <ToggleDisplay
             show={submission.type === 'ocp'}
@@ -175,10 +186,13 @@ class Quote extends Component {
 Quote.propTypes = {
   emailStatus: PropTypes.string,
   submission: PropTypes.object,
+  user: PropTypes.object.isRequired,
   ratings: PropTypes.object,
   clearSubmissionStatus: PropTypes.func
 }
 
 export default connect((store) => {
-  return store
+  return ({
+    user: store.user
+  })
 }, actions)(Quote)

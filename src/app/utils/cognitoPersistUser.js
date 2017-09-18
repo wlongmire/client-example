@@ -69,11 +69,10 @@ export function cognitoPersistUser(callback) {
             })
 
           apigClient.apiGetBrokerIdGet({ id: brokerIdQuery[0].Value }).then((brokerResp) => {
-            const brokerInfo = JSON.parse(brokerResp.data)
+            const brokerInfo = brokerResp.data
             const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+
             // registering super properties for mixpanel events
-            console.log('brokerName', brokerName)
-            console.log('brokerIdQuery[0].Value', brokerIdQuery[0].Value)
             mixpanel.register({
               BrokerName: brokerName,
               User: usernameQuery[0].Value,
@@ -82,18 +81,16 @@ export function cognitoPersistUser(callback) {
               SubId: subIdQuery[0].Value,
               Environment: config.env
             })
-          })
 
-            // "2017-06-14T04:32:02.000Z"
-            // expiration: '2017-06-13T01:32:02.000Z'
-            // sending the user info back to the store to be used in the app
             callback({
+              bundles: brokerInfo.data.bundles,
               subId: subIdQuery[0].Value,
               broker: brokerIdQuery[0].Value,
               username: usernameQuery[0].Value,
               email: emailQuery[0].Value,
               expiration: AWS.config.credentials.expireTime
             })
+          })
           }
         })
       })
