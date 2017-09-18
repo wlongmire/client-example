@@ -12,7 +12,7 @@ import * as actions from '../../../actions/submissionActions'
 import PendingStatus from '../pendingStatus'
 
 import ratingProducts from 'config/RatingProducts'
-import config from 'config'
+import config from '../../../../config'
 
 class QuoteBlock extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class QuoteBlock extends Component {
   }
 }
 
-class Quote extends Component {
+export class Quote extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -65,6 +65,10 @@ class Quote extends Component {
 
   render() {
     const { ratings, submission } = this.props
+
+    console.log("RATINGS ====>", ratings)
+    console.log("SUBMISSION ====>", submission)
+    console.log("EMAIL STATUS", this.props.emailStatus)
 
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
