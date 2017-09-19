@@ -115,8 +115,8 @@ export class Quote extends Component {
             } else if (this.props.user.bundles.length > 0 && submission.type == 'oi') {
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
-              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard risk)`
-              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess (standard risk)'
+              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard rate)`
+              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess'
             } else if (this.props.user.bundles.length > 0 && submission.type == 'ocp') {
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
