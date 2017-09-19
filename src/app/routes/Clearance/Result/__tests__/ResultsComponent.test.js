@@ -8,6 +8,12 @@ import { Result } from '../index'
 jest.mock('./../../../../actions/userActions', () => 'testActions')
 jest.mock('./../../../../actions/submissionActions', () => 'testActions')
 
+
+console.log('SUPPRESS_NO_CONFIG_WARNING: ====================>' + proceess.env)
+process.env.SUPPRESS_NO_CONFIG_WARNING = true
+// console.log('SUPPRESS_NO_CONFIG_WARNING: ' + config.util.getEnv('SUPPRESS_NO_CONFIG_WARNING'));
+
+
 const initialState = {
   result: {},
   input: {

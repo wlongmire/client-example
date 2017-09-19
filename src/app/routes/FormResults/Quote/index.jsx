@@ -66,10 +66,6 @@ export class Quote extends Component {
   render() {
     const { ratings, submission } = this.props
 
-    console.log("RATINGS ====>", ratings)
-    console.log("SUBMISSION ====>", submission)
-    console.log("EMAIL STATUS", this.props.emailStatus)
-
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
 

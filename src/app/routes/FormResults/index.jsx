@@ -95,6 +95,10 @@ class FormResults extends Component {
   }
 
   render() {
+    console.log('emailStatus KNOCKOUT', this.state.emailStatus)
+    console.log('this.state.ratings' ,this.state.ratings)
+    console.log('this.props.submission', this.props.submission)
+
     const subcomponentMap = {
       LOADING: <Loading
         handleSubmit={this.handleLoadComplete}

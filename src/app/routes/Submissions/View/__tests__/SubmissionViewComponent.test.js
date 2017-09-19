@@ -63,6 +63,7 @@ describe('>>> SubmissionView--- Shallow + passing the {store} directly', () => {
   beforeEach(() => {
     container = shallow(
     <SubmissionView
+      submissions={[]}
       submissionData={initialState.submissionData}
       editSubmission={jest.fn()}
     />)
