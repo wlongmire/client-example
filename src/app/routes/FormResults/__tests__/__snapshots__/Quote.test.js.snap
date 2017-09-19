@@ -42,7 +42,7 @@ exports[`>>> Quote Component with Bundles --- Snapshot +++capturing Snapshot wit
         basePremium={4500}
         className="oi primaryPricing"
         terrorismCoverage={225}
-        title="Owner's Interest (standard risk)"
+        title="Owner's Interest (standard rate)"
         totalPremium={4850}
       />
       <ToggleDisplay
