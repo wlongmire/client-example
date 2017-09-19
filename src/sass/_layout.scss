@@ -19,10 +19,6 @@ ul{
 	padding:0;
 }
 
-input[type="submit"] {
-	color: black
-}
-
 .no-bullets{
 	li{list-style-type:none;}
 }
@@ -93,7 +89,6 @@ label{
 
 select{
 	display:inline-block !important;
-	color: black
 }
 
 .zip-input{
