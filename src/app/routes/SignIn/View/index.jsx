@@ -85,30 +85,6 @@ class SignInForm extends Component {
         values.password,
         (cognito, subId, cognitoUser, tokenExpireTime) => {
           this.setState({ error: false, errorMessage: '' })
-
-          getUserAttributes(cognitoUser).then(({ err, result }) => {
-            if (err) {
-              console.log(err)
-              alert('error ', err)
-            }
-
-            const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
-            const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
-
-            this.props.dispatch({
-              type: USER_LOGGED_IN,
-              payload: {
-                subId: subIdQuery[0].Value,
-                username: values.username,
-                email: values.username,
-                broker: brokerId[0].Value,
-                expiration: tokenExpireTime
-
-              }
-            })
-          }).then(() => {
-            browserHistory.push('/submissions')
-          })
         },
         (err) => {
           const errorMap = {

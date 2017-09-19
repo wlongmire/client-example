@@ -12,7 +12,7 @@ import * as actions from '../../../actions/submissionActions'
 import PendingStatus from '../pendingStatus'
 
 import ratingProducts from 'config/RatingProducts'
-import config from 'config'
+import config from '../../../../config'
 
 class QuoteBlock extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class QuoteBlock extends Component {
   }
 }
 
-class Quote extends Component {
+export class Quote extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -66,9 +66,9 @@ class Quote extends Component {
   render() {
     const { ratings, submission } = this.props
 
-    console.log('submission ===>', submission.clearanceStatus)
-    console.log('ratings ===>', ratings)
-
+    console.log("RATINGS ====>", ratings)
+    console.log("SUBMISSION ====>", submission)
+    console.log("EMAIL STATUS", this.props.emailStatus)
 
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
@@ -95,9 +95,6 @@ class Quote extends Component {
       <li key={idx}>{uw.name} – {uw.position} – {uw.location} - {uw.phone}</li>
     ))
 
-    console.log('<pendingStatus />', <pendingStatus />)
-    console.log('submission.clearanceStatus ===', submission.clearanceStatus)
-    console.log('submission in results ======', submission)
     if (submission.clearanceStatus === 'pending') {
       return (<PendingStatus />)
     }
@@ -106,43 +103,57 @@ class Quote extends Component {
       <div>
         <h3>Instant Pricing Indication:</h3>
         <div className="quoteBlocks">
-          <QuoteBlock
-            title={ratingProduct.name}
-            className={classNames(ratingProduct.type, 'primaryPricing')}
-            basePremium={rating.premium}
-            totalPremium={rating.totalPremium}
-            additionalCoverage={rating.additionalCoverage}
-            terrorismCoverage={rating.terrorPremium}
-          />
+          {Object.keys(ratings).map((type) => {
+            let mainTitle = ''
+            let excessTitle = ''
+            let pricingClass = ''
 
-          <ToggleDisplay
-            show={rating.excessPremium > 0}
-            render={() => (
-              <QuoteBlock
-                title="Excess"
-                className="excess"
-                basePremium={rating.excessPremium}
-                totalPremium={rating.totalExcessPremium}
-                terrorismCoverage={rating.excessTerrorPremium}
-              />)
+            if (submission.type == 'ocp' && type == 'oi') {
+              mainTitle = "Here is what you would pay with an Owner's Interest Policy"
+              excessTitle = 'Excess'
+              pricingClass = 'upsell'
+            } else if (this.props.user.bundles.length > 0 && submission.type == 'oi') {
+              pricingClass = 'primaryPricing'
+              const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
+              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard risk)`
+              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess (standard risk)'
+            } else if (this.props.user.bundles.length > 0 && submission.type == 'ocp') {
+              pricingClass = 'primaryPricing'
+              const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
+              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name}`
+            } else {
+              pricingClass = 'primaryPricing'
+              mainTitle = `${ratingProduct.name}`
+              excessTitle = 'Excess'
             }
-          />
 
-          <ToggleDisplay
-            show={submission.type === 'ocp'}
-            render={() => (
+
+            return (
               <div>
                 <QuoteBlock
-                  title={"Here is what you would pay with an Owner's Interest Policy"}
-                  className="oi upsell"
-                  basePremium={ratings.oi.premium}
-                  totalPremium={ratings.oi.totalPremium}
-                  additionalCoverage={ratings.oi.additionalCoverage}
-                  terrorismCoverage={ratings.oi.terrorPremium}
+                  title={mainTitle}
+                  className={classNames(ratingProduct.type, pricingClass)}
+                  basePremium={ratings[type].premium}
+                  totalPremium={ratings[type].totalPremium}
+                  additionalCoverage={ratings[type].additionalCoverage}
+                  terrorismCoverage={ratings[type].terrorPremium}
                 />
-              </div>)
-            }
-          />
+
+                <ToggleDisplay
+                  show={ratings[type].excessPremium > 0}
+                  render={() => (
+                    <QuoteBlock
+                      title={excessTitle}
+                      className="excess"
+                      basePremium={ratings[type].excessPremium}
+                      totalPremium={ratings[type].totalExcessPremium}
+                      terrorismCoverage={ratings[type].excessTerrorPremium}
+                    />)
+                  }
+                />
+              </div>
+            )
+          })}
         </div>
 
         <div className="content">
@@ -175,10 +186,13 @@ class Quote extends Component {
 Quote.propTypes = {
   emailStatus: PropTypes.string,
   submission: PropTypes.object,
+  user: PropTypes.object.isRequired,
   ratings: PropTypes.object,
   clearSubmissionStatus: PropTypes.func
 }
 
 export default connect((store) => {
-  return store
+  return ({
+    user: store.user
+  })
 }, actions)(Quote)

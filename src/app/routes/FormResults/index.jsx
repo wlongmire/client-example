@@ -34,7 +34,7 @@ class FormResults extends Component {
     this.handleEmailStatus = this.handleEmailStatus.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     if (isEmpty(this.props.submission)) {
       this.props.dispatch(push('/productChoice'))
     }
@@ -51,7 +51,7 @@ class FormResults extends Component {
   handleLoadComplete(error, ratings) {
     const { submission } = this.props
     const type = this.props.submission.type
-    console.log('SUBMISSION FOR MIXPANEL', submission)
+
     this.setState({
       quoteStatus: (error) ? STATUS.ERROR : ((ratings[submission.type].instantQuote) ? STATUS.QUOTE : STATUS.KNOCKOUT),
       ratings
