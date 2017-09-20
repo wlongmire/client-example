@@ -37,6 +37,7 @@ describe('>>> Clearance Result Component--- Snapshot', () => {
     const renderedValue = shallow(
       <Loading
         input={initialState.input}
+        logout={jest.fn}
         handleSubmit={jest.fn()}
         user={initialState.user}
         handleCancel={jest.fn()}

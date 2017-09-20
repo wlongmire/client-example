@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-import config from 'config'
+import config from '../../../../config'
 import PendingStatus from '../pendingStatus'
 import * as actions from '../../../actions/submissionActions'
 
-class Knockout extends Component {
+export class Knockout extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
   }

@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 // import mx from './../../../utils/MixpanelInterface'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-import config from 'config'
+import config from '../../../../config'
 
 export class Result extends Component {
   render() {
