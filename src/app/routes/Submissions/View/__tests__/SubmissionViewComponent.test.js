@@ -1,20 +1,9 @@
 /* eslint-env node, jest */
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
-import configureStore from 'redux-mock-store'
-import renderer from 'react-test-renderer'
 import { SubmissionView } from '../index'
-
-// // Snapshot for Home Header Component
-// describe('>>> Header --- Snapshot', () => {
-//   it('+++capturing Snapshot of Header without User', () => {
-//     const renderedValue = renderer.create(<Header user={null} logout={jest.fn()} resetForm={jest.fn()} />).toJSON()
-//     expect(renderedValue).toMatchSnapshot()
-//   })
-// })
 
 jest.mock('./../../../../actions/userActions', () => 'testActions')
 jest.mock('./../../../../actions/submissionActions', () => 'testActions')
@@ -62,11 +51,11 @@ describe('>>> SubmissionView--- Shallow + passing the {store} directly', () => {
 
   beforeEach(() => {
     container = shallow(
-    <SubmissionView
-      submissions={[]}
-      submissionData={initialState.submissionData}
-      editSubmission={jest.fn()}
-    />)
+      <SubmissionView
+        submissions={[]}
+        submissionData={initialState.submissionData}
+        editSubmission={jest.fn()}
+      />)
   })
 
   it('+++ check Prop matches with initialState', () => {

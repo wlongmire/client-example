@@ -175,6 +175,8 @@
       "react/forbid-prop-types": "off",
       "react/jsx-boolean-value": "off",
       "react/prefer-stateless-function": "off",
+      "react/jsx-filename-extension": "off",
+      "max-len": "off",
       "no-extra-semi": "error",
       "semi": [
         "error",

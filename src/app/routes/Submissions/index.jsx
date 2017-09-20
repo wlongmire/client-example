@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import * as actions from './../../actions/submissionActions'
-import SubmissionView from './View'
+import SubmissionViewC from './View'
 
 export class Submissions extends Component {
   componentDidMount() {
@@ -13,7 +13,7 @@ export class Submissions extends Component {
     return (
       <div className="submissions">
         {this.props.submissions &&
-          <SubmissionView
+          <SubmissionViewC
             submissions={this.props.submissions}
           />}
       </div>
@@ -24,7 +24,8 @@ export class Submissions extends Component {
 Submissions.propTypes = {
   clearSubmissionStatus: PropTypes.func.isRequired,
   getSubmissions: PropTypes.func.isRequired,
-  submissions: PropTypes.array
+  submissions: PropTypes.array,
+  user: PropTypes.object
 }
 
 export default connect((store) => {
