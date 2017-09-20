@@ -36,6 +36,7 @@ class FormItemContainer extends React.Component {
     const controlGroups = getControlGroups(formItemSupplementQuestions || [])
     let result = []
 
+    let indexBuilder = 0
     for (let group in controlGroups) {
       let formSupplementContainer = formItemSupplementQuestions.map((item, index) => {
         let hidden = this.state.visibleSupplementQuestions.indexOf(item.questionId) === -1
@@ -46,27 +47,29 @@ class FormItemContainer extends React.Component {
             key={index}
             data={item}
             supplementalQuestions={this.props.supplementalQuestions}
-            supplementalForm={ true }
+            supplementalForm={true}
             validation={this.props.validation}
             initialValues={this.initialValues}
-            initialParams= {this.initialParams}
+            initialParams={this.initialParams}
             handleFormChange={this.props.handleFormChange}
           />
         )
       })
-      
+
+      indexBuilder += 1
+
       result.push(
-        <div key={group}>
+        <div key={indexBuilder}>
           {formSupplementContainer}
         </div>
       )
     }
 
     let hidden = (this.props.hidden) ? 'hidden' : null
-    
+
     return (
       <div className={ classNames(hidden, {'required':this.props.data.required}, {'supplementalContainer':this.props.supplementalForm}) }>
-        <Control 
+        <Control
           data={this.props.data}
           required={this.props.data.required}
           supplementalQuestions={this.props.supplementalQuestions} 

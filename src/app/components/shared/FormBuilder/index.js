@@ -1,125 +1,120 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { PropTypes } from 'react'
+import { Button } from 'react-bootstrap'
+import FormItemContainer from './FormItemContainer'
+import getSupplementalQuestions from './utils/getSupplementalQuestions'
+import getControlGroups from './utils/getControlGroups'
+import getFormData from './utils/getFormData'
+import flatten from './utils/flattenObject'
 
-import {Button} from 'react-bootstrap';
-import FormItemContainer from './FormItemContainer';
-
-import getSupplementalQuestions from './utils/getSupplementalQuestions';
-import getControlGroups from './utils/getControlGroups';
-import getFormData from './utils/getFormData';
-import flatten from './utils/flattenObject';
-
-import DefaultValidation from './utils/DefaultValidation';
+import DefaultValidation from './utils/DefaultValidation'
 
 class FormBuilder extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       questions: []
-    };
+    }
 
-    this.state = this.props.data;
-    
-    this.controlGroups = getControlGroups(this.state.questions);
-    this.initialValues = flatten(this.props.initialValues || {});
-    this.initialParams = (this.props.initialParams || {});
+    this.state = this.props.data
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFormChange = this.onFormChange.bind(this);
-    this.loadOptions = this.loadOptions.bind(this);
+    this.controlGroups = getControlGroups(this.state.questions)
+    this.initialValues = flatten(this.props.initialValues || {})
+    this.initialParams = (this.props.initialParams || {})
+
+    this.onSubmit = this.onSubmit.bind(this)
+    this.onFormChange = this.onFormChange.bind(this)
+    this.loadOptions = this.loadOptions.bind(this)
   }
 
   onSubmit(event) {
+    event.preventDefault()
 
-    event.preventDefault();
-    let values = getFormData(this.state);
+    const values = getFormData(this.state)
+    const flatValues = flatten(values)
+    const allRequiredArray = []
 
-    let flatValues = flatten(values);
-
-    let allRequiredArray = [];
     for (const item of this.state.questions) {
-
-      if( item.required == true && !flatValues[item.name]) {
-        allRequiredArray.push(item);
+      if (item.required == true && !flatValues[item.name]) {
+        allRequiredArray.push(item)
       }
     }
 
-    this.props.handleSubmit(values, this.controlGroups, allRequiredArray);
+    this.props.handleSubmit(values, this.controlGroups, allRequiredArray)
   }
 
   onFormChange(event) {
-    const values = flatten(getFormData(this.state));
-    const form = this.state.questions;
+    const values = flatten(getFormData(this.state))
+    const form = this.state.questions
   }
 
   loadOptions(questionSet) {
     const options = this.props.options || {}
     let loadedItems = []
-    
-    const promises = questionSet.map((item, idx)=>{
-    
+
+    const promises = questionSet.map((item, idx) => {
+
       if (item.attributes && item.attributes.optionsFunc && options[item.attributes.optionsFunc]) {
         loadedItems.push(idx)
-        return(options[item.attributes.optionsFunc]())
+        return (options[item.attributes.optionsFunc]())
       }
-        
-    }).filter((item)=>(item))
-    
-    return Promise.all(promises).then((resp)=>{
+    }).filter(item => (item))
 
-      resp.map((options, idx)=>{
-        questionSet[loadedItems[idx]].attributes.options = options
+    return Promise.all(promises).then((resp) => {
+      resp.map((options3, idx) => {
+        questionSet[loadedItems[idx]].attributes.options = options3
       })
 
-      return(questionSet)
+      return (questionSet)
     })
   }
 
   componentWillMount() {
-    let questionsInitial = Object.assign([], this.state.questions)
-    let supplementalQuestionsInitial = Object.assign([], this.state.supplementalQuestions)
-    
+    const questionsInitial = Object.assign([], this.state.questions)
+    const supplementalQuestionsInitial = Object.assign([], this.state.supplementalQuestions)
+
     Promise.all(
       [
         this.loadOptions(supplementalQuestionsInitial),
         this.loadOptions(questionsInitial)
-      ]).then(
-        (resp)=>{
-          const supplementalQuestions = resp[0]
-          const questions = resp[1]
+      ]).then((resp) => {
+        const supplementalQuestions = resp[0]
+        const questions = resp[1]
 
-          this.setState({
-            ...this.state,
-            questions,
-            supplementalQuestions
-          })
-    })
-    
+        this.setState({
+          ...this.state,
+          questions,
+          supplementalQuestions
+        })
+      })
   }
 
   render() {
     let { controlGroups } = this;
-    let Validation = this.props.Validation || DefaultValidation;
+    let Validation = this.props.Validation || DefaultValidation
 
-    let result = [];
+    let result = []
+    let indexBuilder = 0
+
     for (let group in controlGroups) {
-      let formItemContainers = controlGroups[group].map((item, index) => {
-
-        let closureState = this.state;
+      const formItemContainers = controlGroups[group].map((item, index) => {
+        let closureState = this.state
         let validationClosure = function() {
-          return getFormData(closureState);
-        };
+          return getFormData(closureState)
+        }
 
         return (
-          <FormItemContainer key={index} data={item}
+          <FormItemContainer
+            key={item.questionId}
+            data={item}
             supplementalQuestions={this.state.supplementalQuestions}
             handleFormChange={this.onFormChange}
             validation={new Validation(validationClosure)}
-            initialParams= {this.initialParams}
-            initialValues= {this.initialValues}/>
-        );
-      });
+            initialParams={this.initialParams}
+            initialValues={this.initialValues}
+          />
+        )
+      })
 
       const questionTitle = () => {
         if (controlGroups[group][0] && controlGroups[group][0].title) {
@@ -130,10 +125,12 @@ class FormBuilder extends React.Component {
         }
         return <div />
       }
+
+      indexBuilder += 1
       result.push(
-        <div>
+        <div key={indexBuilder}>
           {questionTitle()}
-          <div key={group} className="group">
+          <div className="group">
             {formItemContainers}
           </div>
         </div>
@@ -141,30 +138,38 @@ class FormBuilder extends React.Component {
     }
 
     // show button only if the form elements are created
-    let button;
-    
+    let button
+
     if (this.props.submissionButtons) {
       button = this.props.submissionButtons()
     } else {
       button = (result.length > 0) ? (
         <Button type="submit">
-            { this.props.submitTitle || "Submit" }
+          { this.props.submitTitle || 'Submit' }
         </Button>
-      ) : null;
+      ) : null
     }
 
-    
     return (
       <form className={`formBuilderElement ${this.state.name}`} onSubmit={this.onSubmit}>
         <div className="form">
-          
+
           {result}
           {button}
         </div>
-        
+
       </form>
-    );
+    )
   }
 }
 
-export default FormBuilder;
+FormBuilder.propTypes = {
+  data: PropTypes.object,
+  initialValues: PropTypes.object,
+  initialParams: PropTypes.object,
+  submitTitle: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  submissionButtons: PropTypes.func
+}
+
+export default FormBuilder
