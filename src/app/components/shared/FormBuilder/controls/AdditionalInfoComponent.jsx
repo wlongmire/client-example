@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-export default function AdditionalInfoComponent(props) {
+export function AdditionalInfoComponent(props) {
   const addInfoColor = props.additionalInfo1Color ? props.additionalInfo1Color : '#417505'
 
   if (props.additionalInfo1 && props.additionalInfo2 && props.additionalInfoIcon) {
@@ -21,6 +21,8 @@ export default function AdditionalInfoComponent(props) {
 
   return (<div />)
 }
+
+export default AdditionalInfoComponent
 
 AdditionalInfoComponent.propTypes = {
   additionalInfo1Color: PropTypes.string,

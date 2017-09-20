@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button } from 'react-bootstrap'
 
-import ProductChoiceItem from './ProductChoiceItem'
+import ProductChoiceItemC from './ProductChoiceItem'
 
-import ratingProducts from 'config/RatingProducts'
+import ratingProducts from '../../../config/RatingProducts'
 import {
   CHANGE_SUBMISSION_STATUS,
   CLEAR_SUBMISSION,
@@ -15,7 +15,7 @@ import {
 
 import mx from 'app/utils/MixpanelInterface'
 
-class ProductChoice extends Component {
+export class ProductChoice extends Component {
   componentDidMount() {
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.SELECTION })
     this.props.dispatch({ type: CLEAR_SUBMISSION })
@@ -24,7 +24,7 @@ class ProductChoice extends Component {
   render() {
     const generateItems = () => {
       return Object.keys(ratingProducts).map((productType, idx) => {
-        return (<ProductChoiceItem
+        return (<ProductChoiceItemC
           key={idx}
           type={productType}
           name={ratingProducts[productType].name}
@@ -45,6 +45,11 @@ class ProductChoice extends Component {
       </div>
     )
   }
+}
+
+ProductChoice.propTypes = {
+  dispatch: PropTypes.func,
+  user: PropTypes.object
 }
 
 export default connect((store) => {

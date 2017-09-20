@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import { push } from 'react-router-redux'
@@ -10,12 +10,11 @@ import {
 
 import mx from 'app/utils/MixpanelInterface'
 
-function ProductChoiceItem(props) {
+export function ProductChoiceItem(props) {
   const {
     type,
     name,
     description,
-    dispatch,
     broker
   } = props
 
@@ -35,17 +34,25 @@ function ProductChoiceItem(props) {
           'submission',
           'create',
           {
-              Type: type
-           }
+            Type: type
+          }
         )
 
-        props.dispatch(push("/clearance"))
-        { /* props.dispatch(push("/form")) */ }
+        props.dispatch(push('/clearance'))
+        /* props.dispatch(push("/form")) */
       }}
     >
       <h1>{name}</h1>
       <p>{description}</p>
     </div>)
 }
+ProductChoiceItem.propTypes = {
+  dispatch: PropTypes.func,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  broker: PropTypes.string
+}
+
 
 export default connect()(ProductChoiceItem)

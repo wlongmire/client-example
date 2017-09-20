@@ -73,8 +73,9 @@ class FormItemContainer extends React.Component {
           handleSupplementTrigger={this.handleSupplementTrigger}
           handleFormChange={this.handleFormChange}
           validation={this.props.validation}
-          initialParams= {this.initialParams}
-          initialValues={this.initialValues}/>
+          initialParams={this.initialParams}
+          initialValues={this.initialValues}
+        />
         { result }
       </div>
     )

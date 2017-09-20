@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> AdditionalInfoComponent Component --- Snapshot +++ provide a dropdown field 1`] = `
+<div
+  className="additional-info-div"
+>
+  <div
+    className="additional-info-row-1"
+    style={
+      Object {
+        "color": "blue",
+      }
+    }
+  >
+    <i
+      className="material-icons"
+    >
+      Additional Info Icon
+    </i>
+    <span
+      className="additional-info-1"
+    >
+      <b>
+        row 111
+      </b>
+    </span>
+  </div>
+  <br />
+  <div
+    className="additional-info-row-2"
+  >
+    row 21123123
+  </div>
+</div>
+`;

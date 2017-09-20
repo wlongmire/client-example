@@ -1,25 +1,24 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 import {
   FormGroup,
-  DropdownButton,
-  MenuItem,
+  // DropdownButton,
+  // MenuItem,
   ControlLabel,
   Tooltip,
   OverlayTrigger,
   FormControl
 } from 'react-bootstrap'
-import AdditionalInfoComponent from './AdditionalInfoComponent'
+import AdditionalInfoComponentC from './AdditionalInfoComponent'
 
-
-class DropDownContainer extends React.Component {
+export class DropDownContainer extends React.Component {
   constructor(props) {
     super(props)
 
-    const name = this.props.data.name 
+    const name = this.props.data.name
     this.state = {
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)?this.props.initialParams[name].disabled:false,
-      validationMessage:""
+      validationMessage: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -29,15 +28,16 @@ class DropDownContainer extends React.Component {
 
   getValidationState() {
     // this bit of code acts as a circuit breaker
-    // We want get validation to trigger a validation function and when results are back we need to call it again
+    // We want get validation to trigger
+    // a validation function and when results are back we need to call it again
     // But this breaks the loops
     if (this.state.isValid) {
-      let isValid = this.state.isValid
+      const isValid = this.state.isValid
       this.state.isValid = null
       return isValid
     }
 
-    //only trigger validation if the value changes
+    // only trigger validation if the value changes
     if (this.state.value !== '' &&
         this.props.data.attributes &&
         this.props.data.attributes.validationFunc &&
@@ -46,7 +46,7 @@ class DropDownContainer extends React.Component {
         this.props.validation[this.props.data.attributes.validationFunc](this.props.data.name, this.state.value).then((result)=> {
           this.setState({
             isValid: (result) ? 'success' : 'error',
-            validationMessage:(result.status) ? "" : result.message
+            validationMessage: (result.status) ? '' : result.message
           })
         })
     }
@@ -56,7 +56,7 @@ class DropDownContainer extends React.Component {
     }
 
     if (this.props.data.attributes && this.props.data.attributes.validationRegEx) {
-      let regex = new RegExp(unescape(this.props.data.attributes.validationRegEx))
+      const regex = new RegExp(unescape(this.props.data.attributes.validationRegEx))
       return (regex.test(this.state.value)) ? 'success' : 'error'
     }
   }
@@ -66,17 +66,17 @@ class DropDownContainer extends React.Component {
       this.handleChange(this.props.initialValues[this.props.data.name])
     } else {
       this.setState({
-        value: this.props.data.attributes.options?this.props.data.attributes.options[0].value:""
+        value: this.props.data.attributes.options ? this.props.data.attributes.options[0].value: ''
       })
     }
   }
 
   handleChange(value) {
-    let option = this.props.data.attributes.options.filter((option) => {
-      return String(option.value) == String(value)
+    const option = this.props.data.attributes.options.filter((option2) => {
+      return String(option2.value) == String(value)
     })[0]
 
-    if(option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
+    if (option.supplementalquestionIds && option.supplementalquestionIds.length > 0) {
       this.props.handleSupplementTrigger(option.supplementalquestionIds)
     } else {
       this.props.handleSupplementTrigger([])
@@ -100,33 +100,41 @@ class DropDownContainer extends React.Component {
     this.options = this.props.data.attributes.options ?
       this.props.data.attributes.options.map((data) => {
         return <option value={data.value} key={data.optionId}>{data.text}</option>
-      }):[]
-    
+      }) : []
+
     return(
        <FormGroup validationState={this.getValidationState()} controlId={this.props.data.name}>
          { this.props.data.text && <ControlLabel>{this.props.data.text}</ControlLabel> }
-         
-         <OverlayTrigger placement='top' overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
+
+         <OverlayTrigger placement="top" overlay={tooltip} trigger={(this.props.data.tooltiptext) ? ['hover', 'focus'] : null}>
            <div className="select">
-            <FormControl 
+            <FormControl
               value={this.state.value}
-              className={classNames({'filled':this.state.value}, {disabled:this.state.disabled})}
+              className={classNames({ filled: this.state.value }, { disabled: this.state.disabled })}
               disabled={this.state.disabled}
-              onChange={this.handleChangeEvent} 
-              componentClass="select">
+              onChange={this.handleChangeEvent}
+              componentClass="select"
+            >
               {this.options}
             </FormControl>
           </div>
-        </OverlayTrigger>
-        <AdditionalInfoComponent
-          additionalInfo1Color={this.props.data.additionalInfo1Color}
-          additionalInfo1={this.props.data.additionalInfo1}
-          additionalInfo2={this.props.data.additionalInfo2}
-          additionalInfoIcon={this.props.data.additionalInfoIcon}
-        />
+         </OverlayTrigger>
+         <AdditionalInfoComponentC
+           additionalInfo1Color={this.props.data.additionalInfo1Color}
+           additionalInfo1={this.props.data.additionalInfo1}
+           additionalInfo2={this.props.data.additionalInfo2}
+           additionalInfoIcon={this.props.data.additionalInfoIcon}
+         />
        </FormGroup>
     )
   }
 }
 
+DropDownContainer.propTypes = {
+  data: PropTypes.object,
+  handleFormChange: PropTypes.func,
+  initialValues: PropTypes.object,
+  initialParams: PropTypes.object,
+  handleSupplementTrigger: PropTypes.func
+}
 export default DropDownContainer
