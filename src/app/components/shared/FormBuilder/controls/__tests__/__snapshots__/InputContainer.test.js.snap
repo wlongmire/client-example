@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Input Container Component (with inital values) --- Snapshot +++ provide a input field (with inital values 1`] = `
+<FormGroup
+  bsClass="form-group"
+  controlId="projectCity"
+>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Tooltip
+        bsClass="tooltip"
+        className="in"
+        id="tooltip_3b"
+        placement="bottom"
+      >
+        Please provide as descriptive of a street address as possible.
+      </Tooltip>
+    }
+    placement="top"
+    trigger={
+      Array [
+        "hover",
+        "focus",
+      ]
+    }
+  >
+    <FormControl
+      autoComplete={false}
+      bsClass="form-control"
+      className="filled disabled"
+      componentClass="input"
+      disabled={true}
+      id="projectCity"
+      onChange={[Function]}
+      placeholder="City"
+      type="text"
+      value="234234 23423489"
+    />
+  </OverlayTrigger>
+  <AdditionalInfoComponent />
+</FormGroup>
+`;
+
+exports[`>>> Input Container Component --- Snapshot +++ provide a input field 1`] = `
+<FormGroup
+  bsClass="form-group"
+  controlId="projectCity"
+>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Tooltip
+        bsClass="tooltip"
+        className="in"
+        id="tooltip_3b"
+        placement="bottom"
+      >
+        Please provide as descriptive of a street address as possible.
+      </Tooltip>
+    }
+    placement="top"
+    trigger={
+      Array [
+        "hover",
+        "focus",
+      ]
+    }
+  >
+    <FormControl
+      autoComplete={false}
+      bsClass="form-control"
+      className=""
+      componentClass="input"
+      disabled={false}
+      id="projectCity"
+      onChange={[Function]}
+      placeholder="City"
+      type="text"
+      value=""
+    />
+  </OverlayTrigger>
+  <AdditionalInfoComponent />
+</FormGroup>
+`;

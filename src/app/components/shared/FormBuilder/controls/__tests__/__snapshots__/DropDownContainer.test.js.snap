@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> DropDownContainer Component (with initial params) --- Snapshot +++ provide a dropdown field 1`] = `
+<FormGroup
+  bsClass="form-group"
+  controlId="projectState"
+>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Tooltip
+        bsClass="tooltip"
+        id="tooltip_undefined"
+        placement="right"
+      >
+         
+        Please provide as descriptive of a street address as possible.
+      </Tooltip>
+    }
+    placement="top"
+    trigger={
+      Array [
+        "hover",
+        "focus",
+      ]
+    }
+  >
+    <div
+      className="select"
+    >
+      <FormControl
+        bsClass="form-control"
+        className="filled disabled"
+        componentClass="select"
+        disabled={true}
+        onChange={[Function]}
+        value="California"
+      >
+        <option
+          value=""
+        >
+          State
+        </option>
+        <option
+          value="New York"
+        >
+          New York
+        </option>
+        <option
+          value="New Jersey"
+        >
+          New Jersey
+        </option>
+        <option
+          value="California"
+        >
+          California
+        </option>
+      </FormControl>
+    </div>
+  </OverlayTrigger>
+  <AdditionalInfoComponent />
+</FormGroup>
+`;
+
+exports[`>>> DropDownContainer Component --- Snapshot +++ provide a dropdown field 1`] = `
+<FormGroup
+  bsClass="form-group"
+  controlId="projectState"
+>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Tooltip
+        bsClass="tooltip"
+        id="tooltip_undefined"
+        placement="right"
+      >
+         
+        Please provide as descriptive of a street address as possible.
+      </Tooltip>
+    }
+    placement="top"
+    trigger={
+      Array [
+        "hover",
+        "focus",
+      ]
+    }
+  >
+    <div
+      className="select"
+    >
+      <FormControl
+        bsClass="form-control"
+        className=""
+        componentClass="select"
+        disabled={false}
+        onChange={[Function]}
+        value=""
+      >
+        <option
+          value=""
+        >
+          State
+        </option>
+        <option
+          value="New York"
+        >
+          New York
+        </option>
+        <option
+          value="New Jersey"
+        >
+          New Jersey
+        </option>
+        <option
+          value="California"
+        >
+          California
+        </option>
+      </FormControl>
+    </div>
+  </OverlayTrigger>
+  <AdditionalInfoComponent />
+</FormGroup>
+`;

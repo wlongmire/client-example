@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> RadioContainer Container Component --- Snapshot +++ provide a radio input field 1`] = `
+<FormGroup
+  bsClass="form-group"
+  className="radioGroup"
+  controlId="occupancy"
+>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Tooltip
+        bsClass="tooltip"
+        id="tooltip_11"
+        placement="right"
+      >
+         
+      </Tooltip>
+    }
+    placement="top"
+    trigger={null}
+  >
+    <ControlLabel
+      bsClass="control-label"
+      srOnly={false}
+    >
+      Will there be occupancy during the project?
+    </ControlLabel>
+  </OverlayTrigger>
+  <div
+    className="options"
+  >
+    <Radio
+      bsClass="radio"
+      checked={null}
+      className="occupancy"
+      disabled={false}
+      inline={false}
+      name="optionGroup_11"
+      onChange={[Function]}
+      value={true}
+    >
+      <span
+        className="radioText"
+      >
+        Yes
+      </span>
+    </Radio>
+    <Radio
+      bsClass="radio"
+      checked={null}
+      className="occupancy"
+      disabled={false}
+      inline={false}
+      name="optionGroup_11"
+      onChange={[Function]}
+      value={false}
+    >
+      <span
+        className="radioText"
+      >
+        No
+      </span>
+    </Radio>
+  </div>
+  <AdditionalInfoComponent />
+</FormGroup>
+`;

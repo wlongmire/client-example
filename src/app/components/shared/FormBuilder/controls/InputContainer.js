@@ -11,9 +11,9 @@ import {
   OverlayTrigger
 } from 'react-bootstrap'
 import isDefined from '../utils/isDefined'
-import AdditionalInfoComponent from './AdditionalInfoComponent'
+import AdditionalInfoComponentC from './AdditionalInfoComponent'
 
-class InputContainer extends React.PureComponent {
+export class InputContainer extends React.PureComponent {
   constructor(props) {
     super(props)
     const name = this.props.data.name
@@ -156,7 +156,7 @@ class InputContainer extends React.PureComponent {
 
         {overlay}
         {helpBlock}
-        <AdditionalInfoComponent
+        <AdditionalInfoComponentC
           additionalInfo1Color={this.props.data.additionalInfo1Color}
           additionalInfo1={this.props.data.additionalInfo1}
           additionalInfo2={this.props.data.additionalInfo2}

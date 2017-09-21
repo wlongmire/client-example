@@ -8,7 +8,7 @@ import { Quote } from '../Quote'
 // jest.mock('./../../../../actions/userActions', () => 'testActions')
 // jest.mock('./../../../../actions/submissionActions', () => 'testActions')
 
-const bundleRatings = {
+const oiBundleRatingsTwoProps = {
   '13bf709d-0440-4c0a-ac26-5698afc956f2': {
     additionalCoverage: 125,
     anticipatedProjectLength: 12,
@@ -47,11 +47,71 @@ const bundleRatings = {
   }
 }
 
+
+const oiBundleRatingsOneProp = {
+  '13bf709d-0440-4c0a-ac26-5698afc956f2': {
+    additionalCoverage: 125,
+    anticipatedProjectLength: 12,
+    excessPremium: 0,
+    excessTerrorPremium: 0,
+    instantQuote: true,
+    premium: 4950,
+    rate: 0,
+    terrorPremium: 248,
+    totalExcessPremium: 0,
+    totalPremium: 5323
+  },
+  oi: {
+    additionalCoverage: 125,
+    anticipatedProjectLength: 12,
+    excessPremium: 20000,
+    excessTerrorPremium: 1000,
+    instantQuote: true,
+    premium: 4500,
+    rate: 0,
+    terrorPremium: 225,
+    totalExcessPremium: 21000,
+    totalPremium: 4850
+  }
+}
+
+
+const ocpRatingsProp = {
+  ocp: {
+    additionalCoverage: null,
+    anticipatedProjectLength: 12,
+    excessPremium: null,
+    excessTerrorPremium: null,
+    instantQuote: true,
+    premium: 10720,
+    rate: 0.87,
+    terrorPremium: 536,
+    totalExcessPremium: null,
+    totalPremium: 11256
+  },
+  oi: {
+    additionalCoverage: 125,
+    anticipatedProjectLength: 12,
+    excessPremium: 20000,
+    excessTerrorPremium: 1000,
+    instantQuote: true,
+    premium: 4500,
+    rate: 0,
+    terrorPremium: 225,
+    totalExcessPremium: 21000,
+    totalPremium: 4850
+  }
+}
+
 const submission = {
   type: 'oi',
   clearanceStatus: 'pass'
 }
 
+const ocpSubmission = {
+  type: 'ocp',
+  clearanceStatus: 'pass'
+}
 const userPropsWithBundles = {
   bundles: [
     {
@@ -89,14 +149,54 @@ const userPropsWithoutBundles = {
   expiration: 'dummyExpiration'
 }
 
-describe('>>> Quote Component with Bundles --- Snapshot', () => {
+describe('>>> Quote Component with OCP Rating --- Snapshot', () => {
+  it('+++capturing Snapshot with', () => {
+    const renderedValue = shallow(
+      <Quote
+        submission={ocpSubmission}
+        user={userPropsWithBundles}
+        emailStatus={'SUCCESS'}
+        ratings={ocpRatingsProp}
+      />)
+    expect(toJson(renderedValue)).toMatchSnapshot()
+  })
+})
+
+
+describe('>>> Quote Component with Two Bundles (with Success Email) --- Snapshot', () => {
   it('+++capturing Snapshot with', () => {
     const renderedValue = shallow(
       <Quote
         submission={submission}
         user={userPropsWithBundles}
         emailStatus={'SUCCESS'}
-        ratings={bundleRatings}
+        ratings={oiBundleRatingsTwoProps}
+      />)
+    expect(toJson(renderedValue)).toMatchSnapshot()
+  })
+})
+
+describe('>>> Quote Component with One Bundle (with Success Email) --- Snapshot', () => {
+  it('+++capturing Snapshot with', () => {
+    const renderedValue = shallow(
+      <Quote
+        submission={submission}
+        user={userPropsWithBundles}
+        emailStatus={'SUCCESS'}
+        ratings={oiBundleRatingsOneProp}
+      />)
+    expect(toJson(renderedValue)).toMatchSnapshot()
+  })
+})
+
+describe('>>> Quote Component with Bundles (with Pending Email) --- Snapshot', () => {
+  it('+++capturing Snapshot with', () => {
+    const renderedValue = shallow(
+      <Quote
+        submission={submission}
+        user={userPropsWithBundles}
+        emailStatus={'PENDING'}
+        ratings={oiBundleRatingsTwoProps}
       />)
     expect(toJson(renderedValue)).toMatchSnapshot()
   })
@@ -110,7 +210,7 @@ describe('>>> Quote Component without Bundles --- Snapshot', () => {
         submission={submission}
         user={userPropsWithoutBundles}
         emailStatus={'SUCCESS'}
-        ratings={bundleRatings}
+        ratings={oiBundleRatingsTwoProps}
       />)
     expect(toJson(renderedValue)).toMatchSnapshot()
   })

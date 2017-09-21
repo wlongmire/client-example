@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import {
-  ControlLabel, 
-  Tooltip, 
-  OverlayTrigger
+  ControlLabel
 } from 'react-bootstrap'
 
 class LabelContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
-    return(
+    return (
       <ControlLabel>{this.props.data.text}</ControlLabel>
     )
   }
+}
+
+LabelContainer.propTypes = {
+  data: PropTypes.object
 }
 
 export default LabelContainer

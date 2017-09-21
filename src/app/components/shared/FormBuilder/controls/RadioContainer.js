@@ -7,9 +7,9 @@ import {
   Tooltip,
   OverlayTrigger
 } from 'react-bootstrap'
-import AdditionalInfoComponent from './AdditionalInfoComponent'
+import AdditionalInfoComponentC from './AdditionalInfoComponent'
 
-class RadioContainer extends React.Component {
+export class RadioContainer extends React.Component {
   constructor(props) {
     super(props)
 
@@ -135,7 +135,7 @@ class RadioContainer extends React.Component {
         <div className="options">
           {options}
         </div>
-        <AdditionalInfoComponent
+        <AdditionalInfoComponentC
           additionalInfo1Color={this.props.data.additionalInfo1Color}
           additionalInfo1={this.props.data.additionalInfo1}
           additionalInfo2={this.props.data.additionalInfo2}
