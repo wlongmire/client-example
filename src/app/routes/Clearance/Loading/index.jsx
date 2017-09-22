@@ -26,6 +26,7 @@ export class Loading extends Component {
 
     getClearance(input, this.props.user).then((resp) => {
       if (resp.status === 'authError') {
+        console.log('THERE WAS AN AUTH ERROR FOR SOME REASON ==>', resp)
         return this.props.logout()
       }
 
