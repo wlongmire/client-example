@@ -151,7 +151,7 @@ class FormBuilder extends React.Component {
     }
 
     return (
-      <form className={`formBuilderElement ${this.state.name}`} onSubmit={this.onSubmit}>
+      <form className={`formBuilderElement ${this.state.name}`} name={this.state.name} onSubmit={this.onSubmit}>
         <div className="form">
 
           {result}
