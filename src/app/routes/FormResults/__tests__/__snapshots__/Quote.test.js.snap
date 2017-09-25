@@ -300,6 +300,106 @@ exports[`>>> Quote Component with One Bundle (with Success Email) --- Snapshot +
 </div>
 `;
 
+exports[`>>> Quote Component with One Bundle and Excess (with Success Email) --- Snapshot +++capturing Snapshot with 1`] = `
+<div>
+  <h3>
+    Instant Pricing Indication:
+  </h3>
+  <div
+    className="quoteBlocks"
+  >
+    <div>
+      <QuoteBlock
+        additionalCoverage={125}
+        basePremium={4950}
+        className="oi primaryPricing"
+        terrorismCoverage={248}
+        title="Owner's Interest (Test discount, contingent on binding with Builder’s Risk Package)"
+        totalPremium={5323}
+      />
+      <ToggleDisplay
+        render={[Function]}
+        show={true}
+      />
+    </div>
+    <div>
+      <QuoteBlock
+        additionalCoverage={125}
+        basePremium={4500}
+        className="oi primaryPricing"
+        terrorismCoverage={225}
+        title="Owner's Interest (standard rate)"
+        totalPremium={4850}
+      />
+      <ToggleDisplay
+        render={[Function]}
+        show={true}
+      />
+    </div>
+  </div>
+  <div
+    className="content"
+  >
+    <p>
+      One of the following underwriters will be in contact with you to finalize your coverage options and assist you with purchase.
+    </p>
+    <ul>
+      <li>
+        Jessica Buelow
+         – 
+        Supervisor
+         – 
+        New York
+         - 
+        212-607-8829
+      </li>
+    </ul>
+  </div>
+  <div
+    className="emailStatus success"
+  >
+    <img
+      alt="thumbs up"
+      src="https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
+    />
+    <p>
+      Your submission forms have been successfully processed.
+    </p>
+    <span>
+      The appropriate forms should appear in your inbox within the next minute. Thank you for using Argo Limited.
+    </span>
+  </div>
+  <div
+    className="legalText"
+  >
+    The "pricing indication" is issued as a matter of information only and does not confer any rights upon the insured or constitute a contract between Colony Specialty and the authorized representative or producer of the insured or the insured.
+  </div>
+  <ButtonGroup
+    block={false}
+    bsClass="btn-group"
+    justified={false}
+    vertical={false}
+  >
+    <LinkContainer
+      action="push"
+      onlyActiveOnIndex={false}
+      to="/submissions"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="default"
+        className="btn"
+        disabled={false}
+      >
+         Return to Submissions
+      </Button>
+    </LinkContainer>
+  </ButtonGroup>
+</div>
+`;
+
 exports[`>>> Quote Component with Two Bundles (with Success Email) --- Snapshot +++capturing Snapshot with 1`] = `
 <div>
   <h3>

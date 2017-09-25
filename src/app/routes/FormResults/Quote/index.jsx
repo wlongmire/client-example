@@ -1,57 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-
 import { LinkContainer } from 'react-router-bootstrap'
-
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-
 import ToggleDisplay from 'app/components/shared/ToggleDisplay'
-import { commifyNumber } from 'app/utils/utilities'
 import classNames from 'classnames'
 import * as actions from '../../../actions/submissionActions'
 import PendingStatus from '../pendingStatus'
 
-import ratingProducts from 'config/RatingProducts'
+import ratingProducts from '../../../../config/RatingProducts'
 import config from '../../../../config'
-
-class QuoteBlock extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  render() {
-    const {
-      title, className, totalPremium, basePremium, terrorismCoverage, additionalCoverage
-    } = this.props
-
-    const typeList = [
-        { title: 'Total Premium', value: totalPremium },
-        { title: 'Base Premium', value: basePremium },
-        { title: 'Additional Coverage', value: additionalCoverage },
-        { title: 'Terrorism Coverage', value: terrorismCoverage }
-    ]
-
-    const quoteValues = typeList.map((item, idx) => (
-      <ToggleDisplay
-        key={idx}
-        show={item.value && item.value > 0}
-        render={() => (
-          <div className="premiumNumber">
-            {item.title}
-            <span>${commifyNumber(item.value || 0)}</span>
-          </div>)
-        }
-      />
-    ))
-
-    return (
-      <div className={classNames('quoteBlock', className)}>
-        <h4>{title}</h4>
-        { quoteValues }
-      </div>)
-  }
-}
+import QuoteBlockC from '../QuoteBlock'
 
 export class Quote extends Component {
   constructor(props) {
@@ -112,7 +70,7 @@ export class Quote extends Component {
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
               mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard rate)`
-              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess'
+              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess (standard rate)'
             } else if (this.props.user.bundles.length > 0 && submission.type == 'ocp') {
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
@@ -126,7 +84,7 @@ export class Quote extends Component {
 
             return (
               <div>
-                <QuoteBlock
+                <QuoteBlockC
                   title={mainTitle}
                   className={classNames(ratingProduct.type, pricingClass)}
                   basePremium={ratings[type].premium}
@@ -138,7 +96,7 @@ export class Quote extends Component {
                 <ToggleDisplay
                   show={ratings[type].excessPremium > 0}
                   render={() => (
-                    <QuoteBlock
+                    <QuoteBlockC
                       title={excessTitle}
                       className="excess"
                       basePremium={ratings[type].excessPremium}

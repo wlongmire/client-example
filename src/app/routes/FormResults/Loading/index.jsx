@@ -28,7 +28,7 @@ class Loading extends Component {
         if (x.productType === 'oi') {
           // adding price bundle multiplier. also errasssing Excess Limit amount
           // since the bundle pricing should not count excesss premium
-          bundleArray.push(Object.assign({}, submission, { type: 'oi', bundleMultiplier: x.basePremiumMulitplier, bundleId: x.id, excessLimitAmount: '' }))
+          bundleArray.push(Object.assign({}, submission, { type: 'oi', bundleMultiplier: x.basePremiumMulitplier, bundleId: x.id }))
         }
       })
     }
