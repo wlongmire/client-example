@@ -295,7 +295,7 @@ Form.propTypes = {
   dispatch: PropTypes.func.isRequired,
   submission: PropTypes.object.isRequired,
   ratingProduct: PropTypes.object,
-  submissionFormParams: PropTypes.object.isRequired,
+  submissionFormParams: PropTypes.object,
 }
 
 export default connect((store) => {

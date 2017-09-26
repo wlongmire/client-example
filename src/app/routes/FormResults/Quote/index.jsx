@@ -55,7 +55,7 @@ export class Quote extends Component {
 
     return (
       <div>
-        <h3>Instant Pricing Indication:</h3>
+        <h3>Pricing Indication:</h3>
         <div className="quoteBlocks">
           {Object.keys(ratings).map((type) => {
             let mainTitle = ''

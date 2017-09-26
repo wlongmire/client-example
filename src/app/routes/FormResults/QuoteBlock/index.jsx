@@ -11,7 +11,7 @@ export class QuoteBlock extends Component {
 
   render() {
     const {
-      mainTitle, className, totalPremium, basePremium, terrorismCoverage, additionalCoverage, ratings, productTitle
+      className, ratings, productTitle, mainTitle
     } = this.props
     console.log('THIS PROPS RATINGS xxxx', this.props.ratings)
 
@@ -46,11 +46,11 @@ export class QuoteBlock extends Component {
     return (
       <div>
         <div className={classNames('quoteBlock', className)}>
-          {mainTitle !== null && <h3 className="quoteTitle">{mainTitle}</h3>}
+          {mainTitle !== null && <h4 className="quoteTitle">{mainTitle}</h4>}
           <h4>{productTitle}</h4>
           { quoteValues(regularTypeList) }
           {ratings.excessPremium > 0 &&
-          <div>
+          <div className="">
             <h4>Excess</h4>
             { quoteValues(excessTypeList)}
           </div>}
@@ -61,12 +61,8 @@ export class QuoteBlock extends Component {
 }
 
 QuoteBlock.propTypes = {
-  title: PropTypes.string,
   className: PropTypes.string,
-  totalPremium: PropTypes.number,
-  basePremium: PropTypes.number,
-  terrorismCoverage: PropTypes.number,
-  additionalCoverage: PropTypes.number
+  ratings: PropTypes.object
 }
 
 export default QuoteBlock
