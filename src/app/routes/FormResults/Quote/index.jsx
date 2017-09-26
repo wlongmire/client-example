@@ -1,57 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-
 import { LinkContainer } from 'react-router-bootstrap'
-
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
-
 import ToggleDisplay from 'app/components/shared/ToggleDisplay'
-import { commifyNumber } from 'app/utils/utilities'
 import classNames from 'classnames'
 import * as actions from '../../../actions/submissionActions'
 import PendingStatus from '../pendingStatus'
 
-import ratingProducts from 'config/RatingProducts'
+import ratingProducts from '../../../../config/RatingProducts'
 import config from '../../../../config'
-
-class QuoteBlock extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  render() {
-    const {
-      title, className, totalPremium, basePremium, terrorismCoverage, additionalCoverage
-    } = this.props
-
-    const typeList = [
-        { title: 'Total Premium', value: totalPremium },
-        { title: 'Base Premium', value: basePremium },
-        { title: 'Additional Coverage', value: additionalCoverage },
-        { title: 'Terrorism Coverage', value: terrorismCoverage }
-    ]
-
-    const quoteValues = typeList.map((item, idx) => (
-      <ToggleDisplay
-        key={idx}
-        show={item.value && item.value > 0}
-        render={() => (
-          <div className="premiumNumber">
-            {item.title}
-            <span>${commifyNumber(item.value || 0)}</span>
-          </div>)
-        }
-      />
-    ))
-
-    return (
-      <div className={classNames('quoteBlock', className)}>
-        <h4>{title}</h4>
-        { quoteValues }
-      </div>)
-  }
-}
+import QuoteBlockC from '../QuoteBlock'
 
 export class Quote extends Component {
   constructor(props) {
@@ -97,55 +55,41 @@ export class Quote extends Component {
 
     return (
       <div>
-        <h3>Instant Pricing Indication:</h3>
+        <h3>Pricing Indication:</h3>
         <div className="quoteBlocks">
           {Object.keys(ratings).map((type) => {
             let mainTitle = ''
-            let excessTitle = ''
             let pricingClass = ''
+            let productTitle = ''
 
             if (submission.type == 'ocp' && type == 'oi') {
               mainTitle = "Here is what you would pay with an Owner's Interest Policy"
-              excessTitle = 'Excess'
+              productTitle = "Owner's Interest"
               pricingClass = 'upsell'
             } else if (this.props.user.bundles.length > 0 && submission.type == 'oi') {
+              productTitle = ratingProduct.name
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
-              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard rate)`
-              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess'
+              mainTitle = bundleInfo ? `${bundleInfo.pricingSummaryContent}` : 'Standard rate'
             } else if (this.props.user.bundles.length > 0 && submission.type == 'ocp') {
+              productTitle = ratingProduct.name
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
-              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name}`
+              mainTitle = bundleInfo ? `${bundleInfo.pricingSummaryContent}` : `${ratingProduct.name}`
             } else {
+              productTitle = ratingProduct.name
               pricingClass = 'primaryPricing'
-              mainTitle = `${ratingProduct.name}`
-              excessTitle = 'Excess'
+              mainTitle = null
             }
 
 
             return (
               <div>
-                <QuoteBlock
-                  title={mainTitle}
+                <QuoteBlockC
+                  mainTitle={mainTitle}
+                  productTitle={productTitle}
                   className={classNames(ratingProduct.type, pricingClass)}
-                  basePremium={ratings[type].premium}
-                  totalPremium={ratings[type].totalPremium}
-                  additionalCoverage={ratings[type].additionalCoverage}
-                  terrorismCoverage={ratings[type].terrorPremium}
-                />
-
-                <ToggleDisplay
-                  show={ratings[type].excessPremium > 0}
-                  render={() => (
-                    <QuoteBlock
-                      title={excessTitle}
-                      className="excess"
-                      basePremium={ratings[type].excessPremium}
-                      totalPremium={ratings[type].totalExcessPremium}
-                      terrorismCoverage={ratings[type].excessTerrorPremium}
-                    />)
-                  }
+                  ratings={ratings[type]}
                 />
               </div>
             )

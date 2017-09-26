@@ -5,9 +5,6 @@ import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import { Quote } from '../Quote'
 
-// jest.mock('./../../../../actions/userActions', () => 'testActions')
-// jest.mock('./../../../../actions/submissionActions', () => 'testActions')
-
 const oiBundleRatingsTwoProps = {
   '13bf709d-0440-4c0a-ac26-5698afc956f2': {
     additionalCoverage: 125,
@@ -59,6 +56,33 @@ const oiBundleRatingsOneProp = {
     rate: 0,
     terrorPremium: 248,
     totalExcessPremium: 0,
+    totalPremium: 5323
+  },
+  oi: {
+    additionalCoverage: 125,
+    anticipatedProjectLength: 12,
+    excessPremium: 20000,
+    excessTerrorPremium: 1000,
+    instantQuote: true,
+    premium: 4500,
+    rate: 0,
+    terrorPremium: 225,
+    totalExcessPremium: 21000,
+    totalPremium: 4850
+  }
+}
+
+const oiBundleRatingsOneWithExcessProp = {
+  '13bf709d-0440-4c0a-ac26-5698afc956f2': {
+    additionalCoverage: 125,
+    anticipatedProjectLength: 12,
+    excessPremium: 10000,
+    excessTerrorPremium: 1000,
+    instantQuote: true,
+    premium: 4950,
+    rate: 0,
+    terrorPremium: 248,
+    totalExcessPremium: 11000,
     totalPremium: 5323
   },
   oi: {
@@ -184,6 +208,19 @@ describe('>>> Quote Component with One Bundle (with Success Email) --- Snapshot'
         user={userPropsWithBundles}
         emailStatus={'SUCCESS'}
         ratings={oiBundleRatingsOneProp}
+      />)
+    expect(toJson(renderedValue)).toMatchSnapshot()
+  })
+})
+
+describe('>>> Quote Component with One Bundle and Excess (with Success Email) --- Snapshot', () => {
+  it('+++capturing Snapshot with', () => {
+    const renderedValue = shallow(
+      <Quote
+        submission={submission}
+        user={userPropsWithBundles}
+        emailStatus={'SUCCESS'}
+        ratings={oiBundleRatingsOneWithExcessProp}
       />)
     expect(toJson(renderedValue)).toMatchSnapshot()
   })
