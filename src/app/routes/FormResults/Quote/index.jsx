@@ -96,19 +96,6 @@ export class Quote extends Component {
                   additionalCoverage={ratings[type].additionalCoverage}
                   terrorismCoverage={ratings[type].terrorPremium}
                 />
-
-                {/* <ToggleDisplay
-                  show={ratings[type].excessPremium > 0}
-                  render={() => (
-                    <QuoteBlockC
-                      title={excessTitle}
-                      className="excess"
-                      basePremium={ratings[type].excessPremium}
-                      totalPremium={ratings[type].totalExcessPremium}
-                      terrorismCoverage={ratings[type].excessTerrorPremium}
-                    />)
-                  }
-                /> */}
               </div>
             )
           })}

@@ -139,6 +139,7 @@ class Loading extends Component {
             <Button className="btn"> Return to Submissions</Button>
           </LinkContainer>
         </ButtonGroup>
+        <script src="//cdn-static.formisimo.com/tracking/js/conversion.js" />
       </form>
     )
   }
