@@ -11,35 +11,52 @@ export class QuoteBlock extends Component {
 
   render() {
     const {
-      title, className, totalPremium, basePremium, terrorismCoverage, additionalCoverage
+      mainTitle, className, totalPremium, basePremium, terrorismCoverage, additionalCoverage, ratings, productTitle
     } = this.props
-    console.log('THIS PROPS xxxx', this.props)
+    console.log('THIS PROPS RATINGS xxxx', this.props.ratings)
 
-    const typeList = [
-        { title: 'Total Premium', value: totalPremium },
-        { title: 'Base Premium', value: basePremium },
-        { title: 'Additional Coverage', value: additionalCoverage },
-        { title: 'Terrorism Coverage', value: terrorismCoverage }
+    const regularTypeList = [
+        { title: 'Total Premium', value: ratings.totalPremium },
+        { title: 'Base Premium', value: ratings.premium },
+        { title: 'Additional Coverage', value: ratings.additionalCoverage },
+        { title: 'Terrorism Coverage', value: ratings.terrorPremium },
     ]
 
-    const quoteValues = typeList.map((item, idx) => (
-      <ToggleDisplay
-        key={idx}
-        show={item.value && item.value > 0}
-        render={() => (
-          <div className="premiumNumber">
-            {item.title}
-            <span>${commifyNumber(item.value || 0)}</span>
-          </div>)
-        }
-      />
-    ))
+    const excessTypeList = [
+          { title: 'Total Premium', value: ratings.totalExcessPremium },
+          { title: 'Base Premium', value: ratings.excessPremium },
+          { title: 'Terrorism Coverage', value: ratings.excessTerrorPremium }
+    ]
+
+    const quoteValues = (list) => {
+      return list.map((item, idx) => {
+        return (<ToggleDisplay
+          key={idx}
+          show={item.value && item.value > 0}
+          render={() => (
+            <div className="premiumNumber">
+              {item.title}
+              <span>${commifyNumber(item.value || 0)}</span>
+            </div>)
+          }
+        />)
+      })
+    }
 
     return (
-      <div className={classNames('quoteBlock', className)}>
-        <h4>{title}</h4>
-        { quoteValues }
-      </div>)
+      <div>
+        <div className={classNames('quoteBlock', className)}>
+          {mainTitle !== null && <h3 className="quoteTitle">{mainTitle}</h3>}
+          <h4>{productTitle}</h4>
+          { quoteValues(regularTypeList) }
+          {ratings.excessPremium > 0 &&
+          <div>
+            <h4>Excess</h4>
+            { quoteValues(excessTypeList)}
+          </div>}
+        </div>
+      </div>
+    )
   }
 }
 

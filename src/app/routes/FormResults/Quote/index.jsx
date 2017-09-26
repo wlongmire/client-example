@@ -59,41 +59,45 @@ export class Quote extends Component {
         <div className="quoteBlocks">
           {Object.keys(ratings).map((type) => {
             let mainTitle = ''
-            let excessTitle = ''
             let pricingClass = ''
+            let productTitle = ''
 
+            console.log('ratingProduct.name', ratingProduct.name)
             if (submission.type == 'ocp' && type == 'oi') {
               mainTitle = "Here is what you would pay with an Owner's Interest Policy"
-              excessTitle = 'Excess'
+              productTitle = "Owner's Interest"
               pricingClass = 'upsell'
             } else if (this.props.user.bundles.length > 0 && submission.type == 'oi') {
+              productTitle = ratingProduct.name
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
-              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name} (standard rate)`
-              excessTitle = bundleInfo ? `Excess (${bundleInfo.pricingSummaryContent})` : 'Excess (standard rate)'
+              mainTitle = bundleInfo ? `${bundleInfo.pricingSummaryContent}` : 'Standard rate'
             } else if (this.props.user.bundles.length > 0 && submission.type == 'ocp') {
+              productTitle = ratingProduct.name
               pricingClass = 'primaryPricing'
               const bundleInfo = this.props.user.bundles.filter((item) => { return item.id == type })[0]
-              mainTitle = bundleInfo ? `${ratingProduct.name} (${bundleInfo.pricingSummaryContent})` : `${ratingProduct.name}`
+              mainTitle = bundleInfo ? `${bundleInfo.pricingSummaryContent}` : `${ratingProduct.name}`
             } else {
+              productTitle = ratingProduct.name
               pricingClass = 'primaryPricing'
-              mainTitle = `${ratingProduct.name}`
-              excessTitle = 'Excess'
+              mainTitle = null
             }
 
 
             return (
               <div>
                 <QuoteBlockC
-                  title={mainTitle}
+                  mainTitle={mainTitle}
+                  productTitle={productTitle}
                   className={classNames(ratingProduct.type, pricingClass)}
+                  ratings={ratings[type]}
                   basePremium={ratings[type].premium}
                   totalPremium={ratings[type].totalPremium}
                   additionalCoverage={ratings[type].additionalCoverage}
                   terrorismCoverage={ratings[type].terrorPremium}
                 />
 
-                <ToggleDisplay
+                {/* <ToggleDisplay
                   show={ratings[type].excessPremium > 0}
                   render={() => (
                     <QuoteBlockC
@@ -104,7 +108,7 @@ export class Quote extends Component {
                       terrorismCoverage={ratings[type].excessTerrorPremium}
                     />)
                   }
-                />
+                /> */}
               </div>
             )
           })}
