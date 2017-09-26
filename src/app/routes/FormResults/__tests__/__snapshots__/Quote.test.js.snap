@@ -3,51 +3,72 @@
 exports[`>>> Quote Component with Bundles (with Pending Email) --- Snapshot +++capturing Snapshot with 1`] = `
 <div>
   <h3>
-    Instant Pricing Indication:
+    Pricing Indication:
   </h3>
   <div
     className="quoteBlocks"
   >
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest (Test discount, contingent on binding with Builder’s Risk Package)"
-        totalPremium={5323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle="Test discount, contingent on binding with Builder’s Risk Package"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 0,
+            "excessTerrorPremium": 0,
+            "instantQuote": true,
+            "premium": 4950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 0,
+            "totalPremium": 5323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={250}
-        basePremium={6950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest (RPS discount, contingent on binding with Builder’s Risk Package)"
-        totalPremium={7323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle="RPS discount, contingent on binding with Builder’s Risk Package"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 250,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 0,
+            "excessTerrorPremium": 0,
+            "instantQuote": true,
+            "premium": 6950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 0,
+            "totalPremium": 7323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4500}
         className="oi primaryPricing"
-        terrorismCoverage={225}
-        title="Owner's Interest (standard rate)"
-        totalPremium={4850}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={true}
+        mainTitle="Standard rate"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 20000,
+            "excessTerrorPremium": 1000,
+            "instantQuote": true,
+            "premium": 4500,
+            "rate": 0,
+            "terrorPremium": 225,
+            "totalExcessPremium": 21000,
+            "totalPremium": 4850,
+          }
+        }
       />
     </div>
   </div>
@@ -103,37 +124,51 @@ exports[`>>> Quote Component with Bundles (with Pending Email) --- Snapshot +++c
 exports[`>>> Quote Component with OCP Rating --- Snapshot +++capturing Snapshot with 1`] = `
 <div>
   <h3>
-    Instant Pricing Indication:
+    Pricing Indication:
   </h3>
   <div
     className="quoteBlocks"
   >
     <div>
       <QuoteBlock
-        additionalCoverage={null}
-        basePremium={10720}
         className="ocp primaryPricing"
-        terrorismCoverage={536}
-        title="Owners and Contractors Protective"
-        totalPremium={11256}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle="Owners and Contractors Protective"
+        productTitle="Owners and Contractors Protective"
+        ratings={
+          Object {
+            "additionalCoverage": null,
+            "anticipatedProjectLength": 12,
+            "excessPremium": null,
+            "excessTerrorPremium": null,
+            "instantQuote": true,
+            "premium": 10720,
+            "rate": 0.87,
+            "terrorPremium": 536,
+            "totalExcessPremium": null,
+            "totalPremium": 11256,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4500}
         className="ocp upsell"
-        terrorismCoverage={225}
-        title="Here is what you would pay with an Owner's Interest Policy"
-        totalPremium={4850}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={true}
+        mainTitle="Here is what you would pay with an Owner's Interest Policy"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 20000,
+            "excessTerrorPremium": 1000,
+            "instantQuote": true,
+            "premium": 4500,
+            "rate": 0,
+            "terrorPremium": 225,
+            "totalExcessPremium": 21000,
+            "totalPremium": 4850,
+          }
+        }
       />
     </div>
   </div>
@@ -203,37 +238,51 @@ exports[`>>> Quote Component with OCP Rating --- Snapshot +++capturing Snapshot 
 exports[`>>> Quote Component with One Bundle (with Success Email) --- Snapshot +++capturing Snapshot with 1`] = `
 <div>
   <h3>
-    Instant Pricing Indication:
+    Pricing Indication:
   </h3>
   <div
     className="quoteBlocks"
   >
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest (Test discount, contingent on binding with Builder’s Risk Package)"
-        totalPremium={5323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle="Test discount, contingent on binding with Builder’s Risk Package"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 0,
+            "excessTerrorPremium": 0,
+            "instantQuote": true,
+            "premium": 4950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 0,
+            "totalPremium": 5323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4500}
         className="oi primaryPricing"
-        terrorismCoverage={225}
-        title="Owner's Interest (standard rate)"
-        totalPremium={4850}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={true}
+        mainTitle="Standard rate"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 20000,
+            "excessTerrorPremium": 1000,
+            "instantQuote": true,
+            "premium": 4500,
+            "rate": 0,
+            "terrorPremium": 225,
+            "totalExcessPremium": 21000,
+            "totalPremium": 4850,
+          }
+        }
       />
     </div>
   </div>
@@ -303,37 +352,51 @@ exports[`>>> Quote Component with One Bundle (with Success Email) --- Snapshot +
 exports[`>>> Quote Component with One Bundle and Excess (with Success Email) --- Snapshot +++capturing Snapshot with 1`] = `
 <div>
   <h3>
-    Instant Pricing Indication:
+    Pricing Indication:
   </h3>
   <div
     className="quoteBlocks"
   >
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest (Test discount, contingent on binding with Builder’s Risk Package)"
-        totalPremium={5323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={true}
+        mainTitle="Test discount, contingent on binding with Builder’s Risk Package"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 10000,
+            "excessTerrorPremium": 1000,
+            "instantQuote": true,
+            "premium": 4950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 11000,
+            "totalPremium": 5323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4500}
         className="oi primaryPricing"
-        terrorismCoverage={225}
-        title="Owner's Interest (standard rate)"
-        totalPremium={4850}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={true}
+        mainTitle="Standard rate"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 20000,
+            "excessTerrorPremium": 1000,
+            "instantQuote": true,
+            "premium": 4500,
+            "rate": 0,
+            "terrorPremium": 225,
+            "totalExcessPremium": 21000,
+            "totalPremium": 4850,
+          }
+        }
       />
     </div>
   </div>
@@ -403,51 +466,72 @@ exports[`>>> Quote Component with One Bundle and Excess (with Success Email) ---
 exports[`>>> Quote Component with Two Bundles (with Success Email) --- Snapshot +++capturing Snapshot with 1`] = `
 <div>
   <h3>
-    Instant Pricing Indication:
+    Pricing Indication:
   </h3>
   <div
     className="quoteBlocks"
   >
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest (Test discount, contingent on binding with Builder’s Risk Package)"
-        totalPremium={5323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle="Test discount, contingent on binding with Builder’s Risk Package"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 0,
+            "excessTerrorPremium": 0,
+            "instantQuote": true,
+            "premium": 4950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 0,
+            "totalPremium": 5323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={250}
-        basePremium={6950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest (RPS discount, contingent on binding with Builder’s Risk Package)"
-        totalPremium={7323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle="RPS discount, contingent on binding with Builder’s Risk Package"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 250,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 0,
+            "excessTerrorPremium": 0,
+            "instantQuote": true,
+            "premium": 6950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 0,
+            "totalPremium": 7323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4500}
         className="oi primaryPricing"
-        terrorismCoverage={225}
-        title="Owner's Interest (standard rate)"
-        totalPremium={4850}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={true}
+        mainTitle="Standard rate"
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 20000,
+            "excessTerrorPremium": 1000,
+            "instantQuote": true,
+            "premium": 4500,
+            "rate": 0,
+            "terrorPremium": 225,
+            "totalExcessPremium": 21000,
+            "totalPremium": 4850,
+          }
+        }
       />
     </div>
   </div>
@@ -517,51 +601,72 @@ exports[`>>> Quote Component with Two Bundles (with Success Email) --- Snapshot 
 exports[`>>> Quote Component without Bundles --- Snapshot +++capturing Snapshot with 1`] = `
 <div>
   <h3>
-    Instant Pricing Indication:
+    Pricing Indication:
   </h3>
   <div
     className="quoteBlocks"
   >
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest"
-        totalPremium={5323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle={null}
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 0,
+            "excessTerrorPremium": 0,
+            "instantQuote": true,
+            "premium": 4950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 0,
+            "totalPremium": 5323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={250}
-        basePremium={6950}
         className="oi primaryPricing"
-        terrorismCoverage={248}
-        title="Owner's Interest"
-        totalPremium={7323}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={false}
+        mainTitle={null}
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 250,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 0,
+            "excessTerrorPremium": 0,
+            "instantQuote": true,
+            "premium": 6950,
+            "rate": 0,
+            "terrorPremium": 248,
+            "totalExcessPremium": 0,
+            "totalPremium": 7323,
+          }
+        }
       />
     </div>
     <div>
       <QuoteBlock
-        additionalCoverage={125}
-        basePremium={4500}
         className="oi primaryPricing"
-        terrorismCoverage={225}
-        title="Owner's Interest"
-        totalPremium={4850}
-      />
-      <ToggleDisplay
-        render={[Function]}
-        show={true}
+        mainTitle={null}
+        productTitle="Owner's Interest"
+        ratings={
+          Object {
+            "additionalCoverage": 125,
+            "anticipatedProjectLength": 12,
+            "excessPremium": 20000,
+            "excessTerrorPremium": 1000,
+            "instantQuote": true,
+            "premium": 4500,
+            "rate": 0,
+            "terrorPremium": 225,
+            "totalExcessPremium": 21000,
+            "totalPremium": 4850,
+          }
+        }
       />
     </div>
   </div>

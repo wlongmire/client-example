@@ -13,7 +13,6 @@ export class QuoteBlock extends Component {
     const {
       className, ratings, productTitle, mainTitle
     } = this.props
-    console.log('THIS PROPS RATINGS xxxx', this.props.ratings)
 
     const regularTypeList = [
         { title: 'Total Premium', value: ratings.totalPremium },

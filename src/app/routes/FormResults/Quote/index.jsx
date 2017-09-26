@@ -62,7 +62,6 @@ export class Quote extends Component {
             let pricingClass = ''
             let productTitle = ''
 
-            console.log('ratingProduct.name', ratingProduct.name)
             if (submission.type == 'ocp' && type == 'oi') {
               mainTitle = "Here is what you would pay with an Owner's Interest Policy"
               productTitle = "Owner's Interest"
@@ -91,10 +90,6 @@ export class Quote extends Component {
                   productTitle={productTitle}
                   className={classNames(ratingProduct.type, pricingClass)}
                   ratings={ratings[type]}
-                  basePremium={ratings[type].premium}
-                  totalPremium={ratings[type].totalPremium}
-                  additionalCoverage={ratings[type].additionalCoverage}
-                  terrorismCoverage={ratings[type].terrorPremium}
                 />
               </div>
             )

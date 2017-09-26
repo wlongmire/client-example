@@ -1,26 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`>>> QuoteBlock Component --- Snapshot +++ tests OI Quote with 1`] = `
-<div
-  className="quoteBlock oi primaryPricing"
->
-  <h4>
-    Owners Interest (standard rate)
-  </h4>
-  <ToggleDisplay
-    render={[Function]}
-    show={true}
-  />
-  <ToggleDisplay
-    render={[Function]}
-  />
-  <ToggleDisplay
-    render={[Function]}
-    show={true}
-  />
-  <ToggleDisplay
-    render={[Function]}
-    show={true}
-  />
+exports[`>>> QuoteBlock Component (OI with excess)--- Snapshot +++ tests OI Quote with 1`] = `
+<div>
+  <div
+    className="quoteBlock oi primaryPricing"
+  >
+    <h4
+      className="quoteTitle"
+    >
+      Discount, contingent on binding with Builder’s Risk Package
+    </h4>
+    <h4>
+      Owners Interest
+    </h4>
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+    <div
+      className=""
+    >
+      <h4>
+        Excess
+      </h4>
+      <ToggleDisplay
+        render={[Function]}
+        show={true}
+      />
+      <ToggleDisplay
+        render={[Function]}
+        show={true}
+      />
+      <ToggleDisplay
+        render={[Function]}
+        show={true}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`>>> QuoteBlock Component (OI without excess)--- Snapshot +++ tests OI Quote with 1`] = `
+<div>
+  <div
+    className="quoteBlock ocp primaryPricing"
+  >
+    <h4
+      className="quoteTitle"
+    >
+      Discount, contingent on binding with Builder’s Risk Package
+    </h4>
+    <h4>
+      Owners Contractors Protective
+    </h4>
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+    <ToggleDisplay
+      render={[Function]}
+      show={true}
+    />
+  </div>
 </div>
 `;
