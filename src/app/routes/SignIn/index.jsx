@@ -7,6 +7,7 @@ function SignIn(props, context) {
   const { content } = context
   return (
     <div className="signin">
+      <h1>Test</h1>
       <Helmet title={content.title} />
       <SignInFormView />
     </div>
