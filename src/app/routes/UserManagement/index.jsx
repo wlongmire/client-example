@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 export class UserManagement extends Component {
   componentDidMount() {
-    if (this.props.user && this.props.user.role !== "broker") {
+    if (this.props.user && this.props.user.role !== 'broker') {
       browserHistory.push('/submissions')
     }
   }
@@ -19,6 +19,7 @@ export class UserManagement extends Component {
 }
 
 UserManagement.propTypes = {
+  user: PropTypes.object
 }
 
 export default connect((store) => {
