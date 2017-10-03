@@ -5,6 +5,10 @@ export function transformSubmissionData(submissionsArray) {
   return new Promise((resolve, reject) => {
     try {
       const list = submissionsArray.map((item) => {
+        if (!item.rating) {
+          return
+        }
+
         const premiumType = item.rating[item.type]
         let quoteStatus
         if ((premiumType && premiumType.premium) && (item.clearanceStatus === 'pass')) {
@@ -30,7 +34,8 @@ export function transformSubmissionData(submissionsArray) {
           quoteStatus
         })
       })
-      resolve(list)
+
+      resolve(list.filter((item)=>(item)))
     } catch (error) {
       reject(error)
     }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 export class UserManagement extends Component {
   componentDidMount() {
-    if (this.props.user && this.props.user.role !== 'broker') {
+    if (this.props.user && this.props.user.role !== 'admin') {
       browserHistory.push('/submissions')
     }
   }
