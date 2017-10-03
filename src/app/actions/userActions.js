@@ -60,6 +60,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               }
               onSuccess(resp, result[0].Value, cognitoUser, credentials.expireTime)
 
+              const role = 'broker'
               const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
               const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
 
@@ -73,6 +74,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     bundles: brokerInfo.data.bundles,
                     subId: subIdQuery[0].Value,
                     username: cognitoUser.username,
+                    role,
                     email: cognitoUser.username,
                     broker: brokerId[0].Value,
                     expiration: credentials.expireTime
