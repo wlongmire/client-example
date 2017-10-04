@@ -14,7 +14,7 @@ module.exports = {
     host: '127.0.0.1',
     port: 4444, // standard selenium port
     cli_args: { // chromedriver is downloaded by selenium-download (see readme)
-      webdriver.chrome.driver : './../node_modules/nightwatch/bin/chromedriver'
+      'webdriver.chrome.driver': './../node_modules/nightwatch/bin/chromedriver'
     }
   },
   test_settings: {
