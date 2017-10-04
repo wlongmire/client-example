@@ -71,9 +71,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
                 const { role, brokerId, id } = result2.data
-                console.log("result ====>", result)
-                console.log("result2.data ====>", result2.data)
-
+                
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data
                   const brokerName = brokerInfo.data ? brokerInfo.data.name : null
