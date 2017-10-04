@@ -51,8 +51,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
               region: config.awsCognito.region
             })
-            
-            //get the current users subId
+
+            // get the current users subId
             getUserAttributes(cognitoUser).then(({ err, result }) => {
               if (err) {
                 onFailure(err)
@@ -60,17 +60,20 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               }
 
               const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
-              
-              apigClient.adminUsersIdGet({ id: subId }).then((resp) => {
-                const result = resp.data.data;
 
-                if (!result.success) {
+              apigClient.adminUsersIdGet({ id: subId }).then((resp) => {
+                const result2 = resp.data;
+
+                if (!result2.success) {
                   onFailure(result.message)
                 }
 
                 onSuccess(resp, subId, cognitoUser, credentials.expireTime)
-          
-                const { role, brokerId, id} = result
+
+                const { role, brokerId, id } = result2.data
+                console.log("result ====>", result)
+                console.log("result2.data ====>", result2.data)
+
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data
                   const brokerName = brokerInfo.data ? brokerInfo.data.name : null
