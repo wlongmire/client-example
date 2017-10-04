@@ -48,7 +48,7 @@ export class Header extends Component {
 
             {this.props.user && this.props.user.role === 'admin' &&
               <LinkContainer onMouseUp={this.resetEdit} to="/users">
-                <NavItem className="nav-link" eventKey={4}>User Management</NavItem>
+                <NavItem className="nav-link" eventKey={4}>Manage User</NavItem>
               </LinkContainer>}
 
             {this.props.user &&
