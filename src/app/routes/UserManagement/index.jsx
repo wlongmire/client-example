@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
+import TableComponent from './../../components/shared/TableComponent'
 
 export class UserManagement extends Component {
   componentDidMount() {
@@ -12,10 +13,12 @@ export class UserManagement extends Component {
   }
 
   render() {
+    console.log(this.props.user)
+
     return (
       <div className="userManagement route">
         <h3>Manage Users</h3>
-        <Grid>
+        <div>
           <Row>
             <Col xs={12} sm={10} md={4} lg={4}>
               <h1>Invite a team member</h1>
@@ -25,19 +28,17 @@ export class UserManagement extends Component {
 
               <Row>
                 <Col xs={12}>
-                  <h1>Pending invites</h1>
-                    <PendingUsersView />
+                  <TableComponent title="Pending invite" />
                 </Col>
                 <Col xs={12}>
-                  <h1>Brokerage users</h1>
-                    <ActiveUsersView />
+                  <TableComponent title="Marsh users" />
                 </Col>
               </Row>
 
             </Col>
 
           </Row>
-        </Grid>
+        </div>
       </div>
     )
   }
