@@ -22,13 +22,15 @@ export class UserManagement extends Component {
             </Col>
 
             <Col xs={12} sm={10} md={8} lg={8}>
-            
+
               <Row>
                 <Col xs={12}>
                   <h1>Pending invites</h1>
+                    <PendingUsersView />
                 </Col>
                 <Col xs={12}>
                   <h1>Brokerage users</h1>
+                    <ActiveUsersView />
                 </Col>
               </Row>
 
