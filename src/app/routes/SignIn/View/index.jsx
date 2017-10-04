@@ -87,13 +87,18 @@ class SignInForm extends Component {
           this.setState({ error: false, errorMessage: '' })
         },
         (err) => {
+          console.log("error: ", err)
+
           const errorMap = {
             NotAuthorizedException: 'Your Username/Password combination does not match our records.',
             UserNotFoundException: 'This Username is not within our records.',
-            MigrationReset: 'Please contact us to reset your password.'
+            MigrationReset: 'Please contact us to reset your password.',
+            InternalError: 'This Username is not within our records.'
           }
           const error = String(err)
-          const errorType = error.slice(0, error.indexOf(':'))
+          const errorType = (error.indexOf(':') !== -1)? error.slice(0, error.indexOf(':')):error
+
+          console.log(errorType)
           this.setState({ error: true, errorMessage: errorMap[errorType] })
         },
         (userAttributes, cognitoUser) => {

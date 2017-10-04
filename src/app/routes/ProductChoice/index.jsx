@@ -29,7 +29,7 @@ export class ProductChoice extends Component {
           type={productType}
           name={ratingProducts[productType].name}
           description={ratingProducts[productType].description}
-          broker={this.props.user.broker}
+          broker={this.props.user.brokerId}
         />)
       })
     }
