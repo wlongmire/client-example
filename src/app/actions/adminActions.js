@@ -19,9 +19,8 @@ export function getUsersByBrokerage(user) {
       }
       apigClient.adminUsersGet({broker: user.brokerId}, {}, {})
         .then(resp1 => {
-          const apiResponse = resp1.body;
-          if (apiResponse.success) {
-            dispatch({type: FETCH_USERS, payload: apiResponse})
+          if (resp1.success) {
+            dispatch({type: FETCH_USERS, payload: resp1.data})
           } else {
             switch (apiResponse.errorCode) {
               //todo - talk about error handling
