@@ -11,7 +11,7 @@ export class UserManagement extends Component {
 
   render() {
     return (
-      <div className="userManagement route">
+      <div className="userManagement routeContainer">
         <h3>User Management</h3>
       </div>
     )

@@ -34,7 +34,7 @@ export class ProductChoice extends Component {
       })
     }
     return (
-      <div className="page productChoice">
+      <div className="productChoice routeContainer">
         <h3>Select Your Insurance Product.</h3>
         <div className="selectionCards">
           { generateItems() }

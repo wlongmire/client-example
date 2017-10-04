@@ -177,7 +177,7 @@ class Clearance extends Component {
     }
 
     return (
-      <div className="page clearance">
+      <div className="clearance routeContainer">
         {
           subcomponentMap[this.state.status]
         }
