@@ -17,7 +17,7 @@ const checkClearancePending = require('../utils/checkClearancePending')
 const checkQuoteSuccessScreen = require('../utils/checkQuoteSuccessScreen')
 const uid = require('uid-safe')
 
-// enter your username and password here
+// enter your username and password
 const username = 'ownersedgesubmissions@gmail.com'
 const password = 'Argopass1!'
 

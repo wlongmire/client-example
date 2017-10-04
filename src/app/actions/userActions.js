@@ -38,7 +38,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
             region: config.awsCognito.region
           })
 
-
           credentials.get((err) => {
             if (err) {
               alert(err)
@@ -53,64 +52,77 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               region: config.awsCognito.region
             })
 
+            // get the current users subId
             getUserAttributes(cognitoUser).then(({ err, result }) => {
               if (err) {
-                console.log(err)
-                alert('error ', err)
+                onFailure(err)
+                return
               }
-              onSuccess(resp, result[0].Value, cognitoUser, credentials.expireTime)
 
-              const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })
-              const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
+              const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
 
-              apigClient.apiGetBrokerIdGet({ id: brokerId[0].Value }).then((brokerResp) => {
-                const brokerInfo = brokerResp.data
-                const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+              apigClient.adminUsersIdGet({ id: subId }).then((resp) => {
+                const result2 = resp.data;
 
-                dispatch({
-                  type: USER_LOGGED_IN,
-                  payload: {
-                    bundles: brokerInfo.data.bundles,
-                    subId: subIdQuery[0].Value,
-                    username: cognitoUser.username,
-                    email: cognitoUser.username,
-                    broker: brokerId[0].Value,
-                    expiration: credentials.expireTime
+                if (!result2.success) {
+                  onFailure(result.message)
+                }
 
-                  }
+                onSuccess(resp, subId, cognitoUser, credentials.expireTime)
+
+                const { role, brokerId, id } = result2.data
+                
+                apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
+                  const brokerInfo = brokerResp.data
+                  const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+
+                  dispatch({
+                    type: USER_LOGGED_IN,
+                    payload: {
+                      bundles: brokerInfo.data.bundles,
+                      username: cognitoUser.username,
+                      id,
+                      role,
+                      brokerId,
+                      email: cognitoUser.username,
+                      expiration: credentials.expireTime
+
+                    }
+                  })
+
+                  browserHistory.push('/submissions')
+
+                  FS.identify(cognitoUser.username, {
+                    displayName: cognitoUser.username,
+                    email_str: cognitoUser.username,
+                    broker_str: brokerName,
+                    subId_str: id
+                  })
+
+                  mixpanel.register({
+                    BrokerName: brokerName,
+                    User: cognitoUser.username,
+                    Email: cognitoUser.username,
+                    Broker: brokerId,
+                    SubId: id,
+                    Environment: config.env
+                  })
+
+                  mx.customEvent(
+                    'auth',
+                    'login')
+
+                  // adding identity and attributes to
+                  // mixpanel user profile
+                  mixpanel.identify(cognitoUser.username)
+                  mixpanel.people.set({ // eslint-disable-line
+                    Broker: brokerId,
+                    BrokerName: brokerName,
+                    first_name: cognitoUser.username
+                  })
+                }, (err) => {
+                  console.log('ERROR ================', err)
                 })
-                browserHistory.push('/submissions')
-
-                FS.identify(cognitoUser.username, {
-                  displayName: cognitoUser.username,
-                  email_str: cognitoUser.username,
-                  broker_str: brokerName,
-                  subId_str: subIdQuery[0].Value
-                })
-
-                mixpanel.register({
-                  BrokerName: brokerName,
-                  User: cognitoUser.username,
-                  Email: cognitoUser.username,
-                  Broker: brokerId[0].Value,
-                  SubId: subIdQuery[0].Value,
-                  Environment: config.env
-                })
-
-                mx.customEvent(
-                  'auth',
-                  'login')
-
-              // adding identity and attributes to
-              // mixpanel user profile
-              mixpanel.identify(cognitoUser.username) // eslint-disable-line
-              mixpanel.people.set({ // eslint-disable-line
-                Broker: brokerId[0].Value,
-                BrokerName: brokerName,
-                first_name: cognitoUser.username
-              })
-              }, (err) => {
-                console.log('ERROR ================', err)
               })
             })
           })

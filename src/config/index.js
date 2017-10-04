@@ -3,12 +3,12 @@
 const config = {
     env: 'dev',
     name: 'ownersEdge',
-    argoEmail: 'ownersedgesubmissionsdev@gmail.com',
+    argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
-    ownerEdgeEmail: 'argoaccessquickquote@gmail.com',
+    ownerEdgeEmail: 'ownersedgesubmissionsdev@gmail.com',
     clearanceFailEmail:'argoaccessquickquote@gmail.com',
-    clearanceFailFlag: 'false',
+    clearanceFailFlag: 'true',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
     brokerTemplateId: '365b9c92-9e3d-4699-88ff-d9ea688e769b',
@@ -62,7 +62,7 @@ const config = {
     },
 
     server: {
-        url: 'https://c27z16ujzj.execute-api.us-east-1.amazonaws.com/dev',
+        url: 'http://localhost',
         port: null
     },
 
@@ -71,7 +71,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'https://c27z16ujzj.execute-api.us-east-1.amazonaws.com/dev',
+        url: 'http://localhost',
         port:  null
     }
 };
