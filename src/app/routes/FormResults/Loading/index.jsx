@@ -60,7 +60,7 @@ class Loading extends Component {
 
       const submissionData = Object.assign({}, submission)
       submissionData.rating = ratings // adding rating to submission
-      submissionData.broker = this.props.user.broker // adding broker to  submission
+      submissionData.broker = this.props.user.brokerId // adding broker to  submission
 
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {

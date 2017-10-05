@@ -11,7 +11,7 @@ export class Submissions extends Component {
 
   render() {
     return (
-      <div className="submissions">
+      <div className="submissions routeContainer">
         {this.props.submissions &&
           <SubmissionViewC
             submissions={this.props.submissions}

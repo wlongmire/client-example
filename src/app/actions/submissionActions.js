@@ -26,7 +26,7 @@ export const clearSubmissionStatus = () => {
 export function getSubmissions(user) {
   return ((dispatch) => {
     const body = {
-      brokerId: user.broker
+      brokerId: user.brokerId
     }
     checkTokenExpiration(user).then((resp) => {
       if (resp.status === 'expired') {

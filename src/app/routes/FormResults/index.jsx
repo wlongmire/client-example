@@ -119,7 +119,7 @@ class FormResults extends Component {
     }
 
     return (
-      <div className="page formResults">
+      <div className="formResults routeContainer">
         {
           subcomponentMap[this.state.quoteStatus]
         }

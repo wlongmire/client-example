@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> UserManagement Component (with Broker)--- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="userManagement route"
+>
+  <h3>
+    User Management
+  </h3>
+</div>
+`;
+
+exports[`>>> UserManagement Component (with NON- Broker)--- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="userManagement route"
+>
+  <h3>
+    User Management
+  </h3>
+</div>
+`;

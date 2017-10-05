@@ -52,6 +52,8 @@ Some notable configs we did, is underlinining semicolons as errors and making su
 Every files that are going to be changed in future PRs, should follow the linting rules before being merged.
 
 #### To Add attributes to Users:
+Use createUser script or
+
 Since users cannot sign themsesleves up, you are going to add them in the Cognito dashboard.
 
 In order to add attributes to users, get proper permissions for your AWS CLI, and execute the following command:
