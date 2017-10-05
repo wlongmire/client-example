@@ -155,6 +155,8 @@
     },
     "extends": "airbnb",
     "rules": {
+      "import/no-unresolved": "off",
+      "import/extensions": "off",
       "import/no-mutable-exports": "off",
       "array-callback-return": "off",
       "default-case": "off",

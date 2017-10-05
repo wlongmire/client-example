@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { Row, Col, Button } from 'react-bootstrap'
 
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
-import { Row, Col, Button } from 'react-bootstrap'
+import { getUsersByBrokerage } from './../../actions/adminActions'
 import TableComponent from './../../components/shared/TableComponent'
 
 export class UserManagement extends Component {
   componentDidMount() {
     if (this.props.user && this.props.user.role !== 'admin') {
       browserHistory.push('/submissions')
+    } else {
+      this.props.dispatch(getUsersByBrokerage(this.props.user))
     }
   }
 

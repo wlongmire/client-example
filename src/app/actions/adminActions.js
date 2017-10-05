@@ -15,23 +15,25 @@ export function getUsersByBrokerage(user) {
         dispatch({ type: USER_LOGGED_IN, payload: resp.user })
       }
       if (!(user.role === 'admin')) {
-        alert('You do not have required permissions to perform this action');
+        alert('You do not have required permissions to perform this action')
       }
-      apigClient.adminUsersGet({broker: user.brokerId}, {}, {})
-        .then(resp1 => {
-          const apiResponse = resp1.body;
+      apigClient.adminUsersGet({ broker: user.brokerId }, {}, {})
+        .then((resp1) => {
+          const apiResponse = resp1.body
+          console.log(apiResponse)
+
           if (apiResponse.success) {
-            dispatch({type: FETCH_USERS, payload: apiResponse})
+            dispatch({ type: FETCH_USERS, payload: apiResponse })
           } else {
+            // todo - talk about error handling
             switch (apiResponse.errorCode) {
-              //todo - talk about error handling
               case 'NoParamError':
-                break;
+                break
               case 'InternalError':
-                break;
+                break
             }
           }
         })
-    });
+    })
   }
 }
