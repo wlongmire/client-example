@@ -1,46 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import uuid from 'uuid'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import { Button } from 'react-bootstrap'
+
+function generateColumns(columns) {
+  return columns.map((col) => {
+    return <TableHeaderColumn
+      key={uuid.v1()}
+      dataField={col.dataField}
+      width={col.width}
+      isKey={col.isKey}
+      dataFormat={col.dataFormat}
+      >{col.title}
+    </TableHeaderColumn>
+  })
+}
 
 function TableComponent(props) {
   const options = Object.assign(
-    {},
+    {
+      sizePerPageList: []
+    },
     props.options
   )
 
-  const updateOptions = (cell, row) => {
-    return (<div className="updateColumn">
-      <Button>Edit</Button>
-      <Button>Cancel</Button>
-    </div>)
-  }
-
-  const columns = [
-    {
-      dataField: 'email',
-      width: '35%',
-      isKey: false,
-      title: 'Email'
-    },
-    {
-      dataField: 'admin',
-      width: '20%',
-      isKey: false,
-      title: 'Admin'
-    },
-    {
-      dataField: 'lastOnline',
-      isKey: false,
-      title: 'Last Online'
-    },
-    {
-      width: '176px',
-      dataFormat:updateOptions,
-      title: 'Update'
-    }
-  ]
   return (
     <div className="tableComponent">
       <h1>{props.title}</h1>
@@ -55,9 +38,7 @@ function TableComponent(props) {
           search
           multiColumnSearch
         >
-          {{
-            generateColumns(columns)
-          }}
+          { generateColumns(props.columns) }
         </BootstrapTable>
       </div>
     </div>
@@ -66,8 +47,10 @@ function TableComponent(props) {
 
 TableComponent.propTypes = {
   title: PropTypes.string.isRequired,
+  columns: PropTypes.array.isRequired,
   options: PropTypes.object,
-  data: PropTypes.array
+  data: PropTypes.array,
+  
 }
 
 export default TableComponent
