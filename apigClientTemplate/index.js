@@ -173,6 +173,24 @@ apigClientFactory.newClient = function (config) {
     };
     
     
+    apigClient.adminUsersGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['status', 'broker'], ['body']);
+        
+        var adminUsersGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/admin/users').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['status', 'broker']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(adminUsersGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.adminUsersPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
