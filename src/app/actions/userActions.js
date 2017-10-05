@@ -86,6 +86,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                       id,
                       role,
                       brokerId,
+                      brokerName,
                       email: cognitoUser.username,
                       expiration: credentials.expireTime
 

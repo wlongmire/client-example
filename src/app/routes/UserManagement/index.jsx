@@ -13,6 +13,8 @@ export class UserManagement extends Component {
   }
 
   render() {
+    const user = this.props.user
+    
     return (
       <div className="userManagement routeContainer">
         <h3>Manage Users</h3>
@@ -26,10 +28,10 @@ export class UserManagement extends Component {
 
               <Row>
                 <Col xs={12}>
-                  <TableComponent title="Pending invite" />
+                  <TableComponent title="Pending invites" />
                 </Col>
                 <Col xs={12}>
-                  <TableComponent title="Marsh users" />
+                  <TableComponent title={`${user.brokerName } users`} />
                 </Col>
               </Row>
 
