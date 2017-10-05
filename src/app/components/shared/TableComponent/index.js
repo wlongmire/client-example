@@ -1,14 +1,14 @@
 import React from 'react'
-import moment from 'moment'
+import PropTypes from 'prop-types'
+
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button } from 'react-bootstrap'
 
 function TableComponent(props) {
-  const options = {
-    sizePerPage: 5,
-    pageStartIndex: 1, // where to start counting the pages
-    paginationSize: 3,  // the pagination bar size.
-  }
+  const options = Object.assign(
+    {},
+    props.options
+  )
 
   const updateOptions = (cell, row) => {
     return (<div className="updateColumn">
@@ -17,60 +17,57 @@ function TableComponent(props) {
     </div>)
   }
 
-  const date = moment(Date()).format('MM-YYYY-DD HH:mm')
-  
-  const data = [
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: '', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date },
-    { email: 'warrenlongmire@gmail.com', admin: 'Yes', lastOnline: date }
+  const columns = [
+    {
+      dataField: 'email',
+      width: '35%',
+      isKey: false,
+      title: 'Email'
+    },
+    {
+      dataField: 'admin',
+      width: '20%',
+      isKey: false,
+      title: 'Admin'
+    },
+    {
+      dataField: 'lastOnline',
+      isKey: false,
+      title: 'Last Online'
+    },
+    {
+      width: '176px',
+      dataFormat:updateOptions,
+      title: 'Update'
+    }
   ]
-
-
   return (
     <div className="tableComponent">
       <h1>{props.title}</h1>
       
       <div className="table">
-        <input type="text" name="search" className="searchInput"/>
+        {/* <input type="text" name="search" className="searchInput"/> */}
         <BootstrapTable
-          data={data}
+          data={props.data}
           bordered={false}
           options={options}
-          pagination
+          pagination={true}
+          search
           multiColumnSearch
         >
-          <TableHeaderColumn
-            dataField="email"
-            width="35%"
-            isKey={true}
-          >Email</TableHeaderColumn>
-
-          <TableHeaderColumn
-            dataField="admin"
-            width="20%"
-          >Admin</TableHeaderColumn>
-
-          <TableHeaderColumn
-            dataField="lastOnline"
-          >Last Online</TableHeaderColumn>
-
-          <TableHeaderColumn
-            dataFormat={updateOptions}
-            className="update"
-            width="176px"
-          >
-            Update</TableHeaderColumn>
+          {{
+            generateColumns(columns)
+          }}
         </BootstrapTable>
       </div>
     </div>
   )
+}
+
+TableComponent.propTypes = {
+  title: PropTypes.string.isRequired,
+  options: PropTypes.object,
+  data: PropTypes.array
 }
 
 export default TableComponent

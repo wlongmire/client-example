@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'

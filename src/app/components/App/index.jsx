@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Helmet from 'react-helmet'
 import querystring from 'querystring'
@@ -6,7 +7,6 @@ import querystring from 'querystring'
 import config from 'config'
 import Header from 'components/Header'
 
-const query = querystring.parse(window.location.search.slice(1))
 const content = require('content')
 
 class App extends Component {
@@ -45,8 +45,8 @@ class App extends Component {
 }
 
 App.childContextTypes = {
-  config: React.PropTypes.object.isRequired,
-  content: React.PropTypes.object.isRequired
+  config: PropTypes.object.isRequired,
+  content: PropTypes.object.isRequired
 }
 
 export default App
