@@ -61,19 +61,19 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
               const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
 
-              apigClient.adminUsersIdGet({ id: subId }).then((resp) => {
-                const result2 = resp.data;
+              apigClient.adminUsersIdGet({ id: subId }).then((adminUsersIdGetResp) => {
+                const userTableEntry = adminUsersIdGetResp.data
 
-                if (!result2.success) {
-                  onFailure(result.message)
+
+                if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
+                  onFailure(userTableEntry.errorCode)
+                  return
                 }
 
                 onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
-                const { role, brokerId, id } = result2.data
-                console.log("result ====>", result)
-                console.log("result2.data ====>", result2.data)
-
+                const { role, brokerId, id } = userTableEntry.data
+                
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data
                   const brokerName = brokerInfo.data ? brokerInfo.data.name : null

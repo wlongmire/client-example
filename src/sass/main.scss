@@ -36,10 +36,8 @@
   cursor: pointer;
 }
 
-.page {
-  width: 80%;
-  margin: 0 auto;
-  padding: 10px;
+.routeContainer {
+  padding:3em;
 
   h3 {
     text-align: left;
@@ -88,14 +86,9 @@
       background-color: #cccccc;
     }
   }
-
-  
 }
 
-.route, .submissions {
-    width: 80%;
-    margin: 0 auto;
-
+.submissions {
     table {
       font-family:'Lato';
       width: 100%;

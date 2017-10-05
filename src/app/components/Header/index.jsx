@@ -23,6 +23,7 @@ export class Header extends Component {
   render() {
     return (
       <Navbar inverse>
+      <div className="">
         <Navbar.Header>
           <Navbar.Brand>
             <a href="/submissions">Owner's Edge</a>
@@ -55,6 +56,7 @@ export class Header extends Component {
               <NavItem onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
           </Nav>
         </Navbar.Collapse>
+      </div>
       </Navbar>
     )
   }

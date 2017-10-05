@@ -24,11 +24,9 @@ export function cognitoPersistUser(callback) {
   if (cognitoUser != null) {
     cognitoUser.getSession((err, session) => {
       if (err) {
-        console.log('Error in getting session', err)
-
+        alert('Error in getting session', err)
         callback(null)
       }
-
 
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: config.awsCognito.identityPoolId, // your identity pool id here
@@ -43,20 +41,20 @@ export function cognitoPersistUser(callback) {
       // call refresh method in order to authenticate user and get new temp credentials
       getUserAttributes(cognitoUser).then(({ error1, result }) => {
         if (error1) {
-          console.log('get User attributes error', error1)
+          console.log('Get User attributes error', error1)
+          cognitoUser.signOut()
+          AWS.config.credentials.clearCachedId()
           callback(null)
         }
 
         AWS.config.credentials.refresh((error) => {
           if (error) {
             console.log('Error refreshing credentials', error)
+            cognitoUser.signOut()
+            AWS.config.credentials.clearCachedId()
             callback(null)
           } else {
-            // getting attributes from response for 'getUserAttributes'
-            const brokerIdQuery = result.filter((item) => { return item.Name == 'custom:broker_id' })
-            const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
-            const usernameQuery = result.filter((item) => { return item.Name == 'preferred_username' })
-            const emailQuery = result.filter((item) => { return item.Name == 'email' })
+            const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value;
 
             // creating a apigClient object which is globally accessible
             // you can interact with the databse this way
@@ -68,29 +66,44 @@ export function cognitoPersistUser(callback) {
               region: config.awsCognito.region
             })
 
-          apigClient.apiGetBrokerIdGet({ id: brokerIdQuery[0].Value }).then((brokerResp) => {
-            const brokerInfo = brokerResp.data
-            const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+            apigClient.adminUsersIdGet({ id: subId }).then((adminUsersIdGetResp) => {
+              const userTableEntry = adminUsersIdGetResp.data
 
-            // registering super properties for mixpanel events
-            mixpanel.register({
-              BrokerName: brokerName,
-              User: usernameQuery[0].Value,
-              Email: emailQuery[0].Value,
-              Broker: brokerIdQuery[0].Value,
-              SubId: subIdQuery[0].Value,
-              Environment: config.env
-            })
+              if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
+                console.log(`${userTableEntry.errorCode}: ${userTableEntry.message}`)
+                cognitoUser.signOut()
+                AWS.config.credentials.clearCachedId()
+                callback(null)
+              }
 
-            callback({
-              bundles: brokerInfo.data.bundles,
-              subId: subIdQuery[0].Value,
-              broker: brokerIdQuery[0].Value,
-              username: usernameQuery[0].Value,
-              email: emailQuery[0].Value,
-              expiration: AWS.config.credentials.expireTime
+              const { role, brokerId, id  } = userTableEntry.data
+
+              apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
+                const brokerInfo = brokerResp.data
+                const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+
+                // registering super properties for mixpanel events
+                mixpanel.register({
+                  BrokerName: brokerName,
+                  User: cognitoUser.username,
+                  Email: cognitoUser.email,
+                  Role: role,
+                  Broker: brokerId,
+                  SubId: id,
+                  Environment: config.env
+                })
+
+                callback({
+                  bundles: brokerInfo.data.bundles,
+                  id,
+                  brokerId,
+                  username: cognitoUser.username,
+                  email: cognitoUser.email,
+                  role,
+                  expiration: AWS.config.credentials.expireTime
+                })
+              })
             })
-          })
           }
         })
       })

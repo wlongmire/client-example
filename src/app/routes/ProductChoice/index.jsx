@@ -29,12 +29,12 @@ export class ProductChoice extends Component {
           type={productType}
           name={ratingProducts[productType].name}
           description={ratingProducts[productType].description}
-          broker={this.props.user.broker}
+          broker={this.props.user.brokerId}
         />)
       })
     }
     return (
-      <div className="page productChoice">
+      <div className="productChoice routeContainer">
         <h3>Select Your Insurance Product.</h3>
         <div className="selectionCards">
           { generateItems() }

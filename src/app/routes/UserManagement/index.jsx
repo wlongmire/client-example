@@ -13,10 +13,8 @@ export class UserManagement extends Component {
   }
 
   render() {
-    console.log(this.props.user)
-
     return (
-      <div className="userManagement route">
+      <div className="userManagement routeContainer">
         <h3>Manage Users</h3>
         <div>
           <Row>
