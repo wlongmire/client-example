@@ -24,23 +24,36 @@ export class UserManagement extends Component {
     const activeUsers = {
       data: this.props.activeUsers,
       columns: [
-        { dataField: 'email', width: '35%', isKey: true, title: 'Email' },
-        { dataField: 'admin', width: '20%', isKey: false, title: 'Admin',
+        { dataField: 'email', width: '35%', isKey: true, title: 'Email', isSortable: true,
+          sortFunc: (a, b, order) => {
+
+            if (a.id === user.id) {
+              return -1
+            } else if (order === 'desc') {
+              return a.email.localeCompare(b.email)
+            } else {
+              return b.email.localeCompare(a.email)
+            }
+          } 
+        },
+        { dataField: 'admin', width: '20%', title: 'Admin',
           dataFormat: (cell, row) => {
             return ((row.role === 'admin')?'Yes':'')
-          } 
+          }
         },
         { isKey: false, title: 'Last Online',
           dataFormat:(cell, row)=>(
             moment(row.lastOnline).format('MM/DD/YY h:mm a')
           )
         },
-        { width: '176px',isKey: false, title: 'Update',
-          dataFormat:(cell, row) => {
-            return (<div className="updateColumn">
+        { width: '176px', title: 'Update',
+          dataFormat: (cell, row) => {
+            const result = (user.id !== row.id) ? (<div className="updateColumn">
               <Button>Edit</Button>
               <Button>Disable</Button>
-            </div>)
+            </div>) : <div />
+
+            return result
           }
         }
       ]
@@ -50,7 +63,7 @@ export class UserManagement extends Component {
     const pendingUsers = {
       data: this.props.pendingUsers,
       columns:[
-        { dataField: 'email', width: '35%', isKey: true, title: 'Email' },
+        { dataField: 'email', width: '35%', isKey: true, title: 'Email', isSortable: true },
         { dataField: 'admin', width: '20%', isKey: false, title: 'Admin',
           dataFormat: (cell, row) => {
             return ((row.role === 'admin')?'Yes':'')
@@ -89,11 +102,7 @@ export class UserManagement extends Component {
                     title="Pending invites"
                     data={pendingUsers.data}
                     columns={pendingUsers.columns}
-                    options={{
-                      sizePerPage: 5,
-                      pageStartIndex: 1,
-                      paginationSize: 3
-                    }}
+                    options={{}}
                   />
                 </Col>
                 <Col xs={12}>
@@ -102,7 +111,9 @@ export class UserManagement extends Component {
                     options={{
                       sizePerPage: 5,
                       pageStartIndex: 1,
-                      paginationSize: 3 
+                      paginationSize: 3,
+                      defaultSortName: 'email',
+                      defaultSortOrder: 'asc'
                     }}
                     data={activeUsers.data}
                     columns={activeUsers.columns}

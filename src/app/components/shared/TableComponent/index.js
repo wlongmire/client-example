@@ -5,14 +5,28 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 
 function generateColumns(columns) {
   return columns.map((col) => {
-    return <TableHeaderColumn
+    const colAttrs = Object.assign(
+      {
+        isSortable: false,
+        isKey: false,
+        sortFunc: null,
+        width: null
+      },
+      col
+    )
+
+    
+    return (<TableHeaderColumn
       key={uuid.v1()}
-      dataField={col.dataField}
-      width={col.width}
-      isKey={col.isKey}
-      dataFormat={col.dataFormat}
-      >{col.title}
-    </TableHeaderColumn>
+      dataField={colAttrs.dataField}
+      width={colAttrs.width}
+      isKey={colAttrs.isKey}
+      dataSort={colAttrs.isSortable}
+      dataFormat={colAttrs.dataFormat}
+      sortFunc={colAttrs.sortFunc}
+    >
+      {col.title}
+    </TableHeaderColumn>)
   })
 }
 
