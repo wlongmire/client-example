@@ -97,6 +97,7 @@ export function cognitoPersistUser(callback) {
                   bundles: brokerInfo.data.bundles,
                   id,
                   brokerId,
+                  brokerName,
                   username: cognitoUser.username,
                   email: cognitoUser.email,
                   role,

@@ -19,6 +19,7 @@
 @import './modal';
 @import './formBuilder';
 @import '../app/components/shared/FormBuilder/styles';
+@import '../app/components/shared/TableComponent/styles';
 
 //Routes
 @import '../app/routes/Form/styles';
@@ -36,7 +37,8 @@
 }
 
 .routeContainer {
-  padding:3em;
+  margin: 0 auto;
+  width: 90%;
 
   h3 {
     text-align: left;
