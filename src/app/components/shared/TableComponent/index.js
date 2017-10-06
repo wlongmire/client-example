@@ -49,8 +49,7 @@ TableComponent.propTypes = {
   title: PropTypes.string.isRequired,
   columns: PropTypes.array.isRequired,
   options: PropTypes.object,
-  data: PropTypes.array,
-  
+  data: PropTypes.array
 }
 
 export default TableComponent

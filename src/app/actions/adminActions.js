@@ -14,16 +14,18 @@ export function getUsersByBrokerage(user) {
       if (resp.status === 'expired') {
         dispatch({ type: USER_LOGGED_IN, payload: resp.user })
       }
+
       if (!(user.role === 'admin')) {
         alert('You do not have required permissions to perform this action')
+        return
       }
+
       apigClient.adminUsersGet({ broker: user.brokerId }, {}, {})
         .then((resp1) => {
-          const apiResponse = resp1.body
-          console.log(apiResponse)
-
+          const apiResponse = resp1.data
+          
           if (apiResponse.success) {
-            dispatch({ type: FETCH_USERS, payload: apiResponse })
+            dispatch({ type: FETCH_USERS, payload: apiResponse.data })
           } else {
             // todo - talk about error handling
             switch (apiResponse.errorCode) {

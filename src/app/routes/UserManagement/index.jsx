@@ -10,7 +10,7 @@ import { getUsersByBrokerage } from './../../actions/adminActions'
 import TableComponent from './../../components/shared/TableComponent'
 
 export class UserManagement extends Component {
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.user && this.props.user.role !== 'admin') {
       browserHistory.push('/submissions')
     } else {
@@ -20,23 +20,9 @@ export class UserManagement extends Component {
 
   render() {
     const user = this.props.user
-    const date = moment(Date()).format('MM/DD/YY HH:mm')
     
     const activeUsers = {
-      data: [
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'broker', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'broker', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'warrenlongmire@gmail.com', role: 'admin', lastOnline: date, invitedOn: date }
-      ],
+      data: this.props.activeUsers,
       columns: [
         { dataField: 'email', width: '35%', isKey: true, title: 'Email' },
         { dataField: 'admin', width: '20%', isKey: false, title: 'Admin',
@@ -44,7 +30,11 @@ export class UserManagement extends Component {
             return ((row.role === 'admin')?'Yes':'')
           } 
         },
-        { dataField: 'lastOnline', isKey: false, title: 'Last Online' },
+        { isKey: false, title: 'Last Online',
+          dataFormat:(cell, row)=>(
+            moment(row.lastOnline).format('MM/DD/YY h:mm a')
+          )
+        },
         { width: '176px',isKey: false, title: 'Update',
           dataFormat:(cell, row) => {
             return (<div className="updateColumn">
@@ -56,12 +46,9 @@ export class UserManagement extends Component {
       ]
     }
 
+    
     const pendingUsers = {
-      data:[
-        { id: '1231', email: 'this@gmail.com', role: 'admin', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'this@gmail.com', role: 'broker', lastOnline: date, invitedOn: date },
-        { id: '1231', email: 'this@gmail.com', role: 'admin', lastOnline: date, invitedOn: date }
-      ],
+      data: this.props.pendingUsers,
       columns:[
         { dataField: 'email', width: '35%', isKey: true, title: 'Email' },
         { dataField: 'admin', width: '20%', isKey: false, title: 'Admin',
@@ -69,7 +56,11 @@ export class UserManagement extends Component {
             return ((row.role === 'admin')?'Yes':'')
           }
         },
-        { dataField: 'invitedOn', isKey: false, title: 'Invited' },
+        { isKey: false, title: 'Invited',
+          dataFormat:(cell, row)=>(
+            moment(row.invitedOn).format('MM/DD/YY')
+          )
+        },
         { width: '176px',  isKey:false, title: 'Update',
           dataFormat:(cell, row) => {
             return (<div className="updateColumn">
@@ -98,6 +89,11 @@ export class UserManagement extends Component {
                     title="Pending invites"
                     data={pendingUsers.data}
                     columns={pendingUsers.columns}
+                    options={{
+                      sizePerPage: 5,
+                      pageStartIndex: 1,
+                      paginationSize: 3
+                    }}
                   />
                 </Col>
                 <Col xs={12}>
@@ -105,8 +101,8 @@ export class UserManagement extends Component {
                     title={`${user.brokerName} users`}
                     options={{
                       sizePerPage: 5,
-                      pageStartIndex: 1, // where to start counting the pages
-                      paginationSize: 3,  // the pagination bar size.
+                      pageStartIndex: 1,
+                      paginationSize: 3 
                     }}
                     data={activeUsers.data}
                     columns={activeUsers.columns}
@@ -124,11 +120,18 @@ export class UserManagement extends Component {
 }
 
 UserManagement.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  dispatch: PropTypes.func,
+  pendingUsers: PropTypes.array,
+  activeUsers: PropTypes.array,
 }
 
 export default connect((store) => {
+  const { users } = store.admin
+
   return {
-    user: store.user
+    user: store.user,
+    pendingUsers: users.filter(user => (user.status === 'pending')),
+    activeUsers: users.filter(user => (user.status === 'active'))
   }
 })(UserManagement)
