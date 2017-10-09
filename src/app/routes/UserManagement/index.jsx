@@ -5,6 +5,7 @@ import { Row, Col, Button } from 'react-bootstrap'
 
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import NewUser from './NewUser'
 
 import { getUsersByBrokerage } from './../../actions/adminActions'
 import TableComponent from './../../components/shared/TableComponent'
@@ -91,7 +92,9 @@ export class UserManagement extends Component {
         <div>
           <Row>
             <Col xs={12} sm={10} md={4} lg={4}>
-              <h1>Invite a team member</h1>
+              <NewUser
+                broker={user.brokerName}
+              />
             </Col>
 
             <Col xs={12} sm={10} md={8} lg={8}>
