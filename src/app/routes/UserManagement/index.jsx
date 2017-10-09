@@ -20,7 +20,6 @@ export class UserManagement extends Component {
 
   render() {
     const user = this.props.user
-    
     const activeUsers = {
       data: this.props.activeUsers,
       columns: [
@@ -134,7 +133,7 @@ UserManagement.propTypes = {
   user: PropTypes.object,
   dispatch: PropTypes.func,
   pendingUsers: PropTypes.array,
-  activeUsers: PropTypes.array,
+  activeUsers: PropTypes.array
 }
 
 export default connect((store) => {

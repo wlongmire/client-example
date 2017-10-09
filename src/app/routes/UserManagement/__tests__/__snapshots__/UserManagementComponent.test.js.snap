@@ -2,20 +2,256 @@
 
 exports[`>>> UserManagement Component (with Broker)--- Snapshot +++capturing Snapshot with 1`] = `
 <div
-  className="userManagement route"
+  className="userManagement routeContainer"
 >
   <h3>
-    User Management
+    Manage Users
   </h3>
+  <div>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={4}
+        md={4}
+        sm={10}
+        xs={12}
+      >
+        <h1>
+          Invite a team member
+        </h1>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={8}
+        md={8}
+        sm={10}
+        xs={12}
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Admin",
+                    "width": "20%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Invited",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Update",
+                    "width": "176px",
+                  },
+                ]
+              }
+              options={Object {}}
+              title="Pending invites"
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "sortFunc": [Function],
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "title": "Admin",
+                    "width": "20%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Last Online",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "title": "Update",
+                    "width": "176px",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "email",
+                  "defaultSortOrder": "asc",
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 5,
+                }
+              }
+              title="undefined users"
+            />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  </div>
 </div>
 `;
 
 exports[`>>> UserManagement Component (with NON- Broker)--- Snapshot +++capturing Snapshot with 1`] = `
 <div
-  className="userManagement route"
+  className="userManagement routeContainer"
 >
   <h3>
-    User Management
+    Manage Users
   </h3>
+  <div>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={4}
+        md={4}
+        sm={10}
+        xs={12}
+      >
+        <h1>
+          Invite a team member
+        </h1>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={8}
+        md={8}
+        sm={10}
+        xs={12}
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Admin",
+                    "width": "20%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Invited",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Update",
+                    "width": "176px",
+                  },
+                ]
+              }
+              options={Object {}}
+              title="Pending invites"
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "sortFunc": [Function],
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "title": "Admin",
+                    "width": "20%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Last Online",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "title": "Update",
+                    "width": "176px",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "email",
+                  "defaultSortOrder": "asc",
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 5,
+                }
+              }
+              title="undefined users"
+            />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  </div>
 </div>
 `;

@@ -2,7 +2,7 @@
 
 exports[`>>> ProductChoice Component --- Snapshot +++ product choice page 1`] = `
 <div
-  className="page productChoice"
+  className="productChoice routeContainer"
 >
   <h3>
     Select Your Insurance Product.
@@ -11,13 +11,11 @@ exports[`>>> ProductChoice Component --- Snapshot +++ product choice page 1`] = 
     className="selectionCards"
   >
     <Connect(ProductChoiceItem)
-      broker="test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002"
       description="Owners of construction projects should have their own liability coverage. The Owner's Interest policy closes the gaps in the owner's liability insurance program and assure more adequate protection."
       name="Owner's Interest"
       type="oi"
     />
     <Connect(ProductChoiceItem)
-      broker="test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002"
       description="The Owners and Contractors Protective policy responds to liability arising out of the insured's own acts or omissions in connection with its general supervision of the contractor's operations."
       name="Owners and Contractors Protective"
       type="ocp"
