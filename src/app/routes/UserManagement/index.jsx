@@ -98,7 +98,7 @@ export class UserManagement extends Component {
 
               <Row>
                 <Col xs={12}>
-                  <TableComponent 
+                  <TableComponent
                     title="Pending invites"
                     data={pendingUsers.data}
                     columns={pendingUsers.columns}
