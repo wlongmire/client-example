@@ -93,6 +93,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                     }
                   })
+                  
                   //update lastOnline time
                   apigClient.adminUsersIdPut({ id }, [
                     {
@@ -100,7 +101,9 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                       fieldValue: new Date().toISOString()
                     }
                   ]).then((result2) => {
-                    if (!result2.success) {
+                    const resp = result2.data
+
+                    if (!resp.success) {
                       alert('Error on update: ', result.message)
                     } else {
                       console.log('Successfully updated')
