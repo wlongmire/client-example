@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import { UserManagement } from '../index'
 
-jest.mock('react-router', () => 'testActions')
+jest.mock('react-router', () => ({ browserHistory: [] }))
 
 describe('>>> UserManagement Component (with Broker)--- Snapshot', () => {
   it('+++capturing Snapshot with', () => {
