@@ -3,28 +3,31 @@ import {
   FormGroup,
   ControlLabel,
   Radio,
-  Button
+  Button,
+  Modal
 } from 'react-bootstrap'
+import { connect } from 'react-redux'
 
 import React, { Component, PropTypes } from 'react'
+import * as actions from '../../../actions/userActions'
 
 class NewUser extends Component {
   constructor() {
     super()
     this.state = {
       isAdmin: 'false',
-      email: ''
+      email: '',
+      modalDisplay: false
     }
     this.onChangeAdmin = this.onChangeAdmin.bind(this)
     this.onChangeEmail = this.onChangeEmail.bind(this)
     this.submitNewUser = this.submitNewUser.bind(this)
+    this.hideModal = this.hideModal.bind(this)
   }
 
   onChangeAdmin(event) {
     console.log('testing type', typeof event.target.value)
     console.log('testing value', event.target.value)
-    console.log('(this.state.isAdmin === true)', (this.state.isAdmin == 'true'))
-    console.log('(this.state.isAdmin === false)', (this.state.isAdmin == 'false'))
     this.setState({
       ...this.state,
       isAdmin: event.target.value
@@ -41,7 +44,14 @@ class NewUser extends Component {
 
   submitNewUser(event) {
     event.preventDefault()
-    // if()
+    this.props.createNewUser(this.state.email, this.state.isAdmin, this.props.user)
+  }
+
+  hideModal() {
+    this.setState({
+      ...this.state,
+      modalDisplay: false
+    })
   }
 
 
@@ -93,16 +103,24 @@ class NewUser extends Component {
           </Button>
         </form>
 
+
+        <Modal.Dialog>
+          <Modal.Header>
+            <Modal.Title>Modal title <Button onClick={this.hideModal}>x</Button></Modal.Title>
+          </Modal.Header>
+        </Modal.Dialog>
       </div>
     )
   }
 }
 
 NewUser.propTypes = {
-  broker: PropTypes.string
+  broker: PropTypes.string.isRequired,
+  createNewUser: PropTypes.func.isRequired,
+  user: PropTypes.object
 }
 
-export default NewUser
+export default connect(null, actions)(NewUser)
 
 
 // style={{ backgroundColor: '#08415c', borderBottom: '2px solid red', color: 'white', width: '232px', height: '34px' }}

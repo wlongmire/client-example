@@ -8,6 +8,7 @@ import {
   USER_LOGGED_IN
 } from 'app/constants/user'
 import mx from 'app/utils/MixpanelInterface'
+import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
@@ -186,4 +187,30 @@ export function logout() {
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
   }
+}
+
+export function createNewUser(email, isAdmin, user) {
+  return ((dispatch) => {
+    console.log('EMAIL -->', email)
+    console.log('isAdmin -->', isAdmin)
+    console.log('user ====>', user)
+    checkTokenExpiration(user).then(() => {
+      console.log("GETTING TO THIS POINT", apigClient)
+      const body = {
+        email,
+        role: isAdmin == 'true' ? 'admin' : 'user',
+        broker_id: user.brokerId
+      }
+
+      apigClient.adminUsersPost({}, body, {}).then((resp) => {
+        console.log("RESPONSE  ====>", resp)
+
+        if (resp.data && resp.data.success === false) {
+          alert(`THERE WAS A PROBLEM ${resp.data.message}`)
+        } else {
+
+        }
+      })
+    })
+  })
 }

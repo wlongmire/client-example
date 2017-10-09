@@ -94,6 +94,7 @@ export class UserManagement extends Component {
             <Col xs={12} sm={10} md={4} lg={4}>
               <NewUser
                 broker={user.brokerName}
+                user={user}
               />
             </Col>
 
