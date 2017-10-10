@@ -1,7 +1,8 @@
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 
 import {
-  FETCH_USERS
+  FETCH_USERS,
+  USER_ALERT_DISPLAY
 } from './../constants/admin'
 
 import {
@@ -37,5 +38,11 @@ export function getUsersByBrokerage(user) {
           }
         })
     })
+  }
+}
+
+export function setAlert(params) {
+  return (dispatch) => {
+    dispatch({ type: USER_ALERT_DISPLAY, payload: params })
   }
 }

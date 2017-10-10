@@ -1,34 +1,42 @@
-.backgroundNewUser {
+.newUserComponent {
   background-color: #0e5a7d;
-  padding: 20px
-}
+  padding:2em;
+  margin-bottom: 3em;
+  
+  h1 {
+    color: #32a4d8;
+    font-size: 28px;
+    margin: 0;
+    margin-bottom: 10px;
+  }
 
-.headerNewUser {
-  color: #32a4d8;
-  font-size: 28px;
-  line-height: 1.11;
-  padding-bottom: 10px;
-}
+  p {
+    font-size: 12px;
+    line-height: 15px;    
+	  font-style: italic;
+	  letter-spacing: 1px;
+	  color: #dcdcdc;
+  }
 
-.newUserEmail {
-  background-color: #08415c;
-  border-bottom: 2px solid red !important;
-  color: white !important;
-  width: 232px;
-  height: 34px;
-}
+  .emailInput {
+    background-color: #08415c;
+    border: none;
+    border-bottom: 2px solid red !important;
+    color: white !important;
+    width: 100%;
+    height: 34px;
+  }
 
-.bodyNewUser {
-  width: 237px;
-  height: 42px;
-  font-size: 13.2px;
-  font-style: italic;
-  line-height: 1.06;
-  letter-spacing: 1px;
-  color: #dcdcdc;
-  margin-bottom: 20px;
-}
-
-#newUserEmail {
- margin-bottom: 30px; 
+  .adminInput {
+    margin-right: 1em;
+    color: #dcdcdc;
+    
+    input {
+      top: -2px;
+    }
+  }
+  
+  #newUserEmail {
+   margin-bottom: 30px; 
+  }
 }

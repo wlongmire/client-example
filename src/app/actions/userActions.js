@@ -7,12 +7,11 @@ import {
   USER_LOGGED_OUT,
   USER_LOGGED_IN
 } from 'app/constants/user'
-import {
-  USER_ALERT_DISPLAY
-} from '../constants/admin'
-import mx from 'app/utils/MixpanelInterface'
-import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 
+import mx from 'app/utils/MixpanelInterface'
+
+import { setAlert } from './adminActions'
+import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
@@ -135,7 +134,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-
           if (config.env === 'prod') {
            migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
@@ -194,55 +192,24 @@ export function logout() {
 
 export function createNewUser(email, isAdmin, user) {
   return ((dispatch) => {
-    console.log('EMAIL -->', email)
-    console.log('isAdmin -->', isAdmin)
-    console.log('user ====>', user)
     checkTokenExpiration(user).then(() => {
-      console.log("GETTING TO THIS POINT", apigClient)
       const body = {
         email,
-        role: isAdmin == 'true' ? 'admin' : 'user',
+        role: isAdmin == 'true' ? 'admin' : 'broker',
         broker_id: user.brokerId
       }
 
       apigClient.adminUsersPost({}, body, {}).then((resp) => {
-        console.log("RESPONSE  ====>", resp)
-
         if (resp.data && resp.data.success === false) {
-          alert(`THERE WAS A PROBLEM ${resp.data.message}`)
-          dispatch({
-            type: USER_ALERT_DISPLAY,
-            payload: {
-              show: true,
-              message: `${resp.data.message}`,
-              bsStyle: 'danger'
-            }
-          })
+          dispatch(
+            setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
+          )
         } else {
-          // dispatch(getUsersByBrokerage(user))
-          dispatch({
-            type: USER_ALERT_DISPLAY,
-            payload: {
-              show: true,
-              message: 'User was successfully created!',
-              bsStyle: 'success'
-            }
-          })
+          dispatch(
+            setAlert({ show: true, message: 'Success: User has been successful created.', bsStyle: 'success' })
+          )
         }
       })
-    })
-  })
-}
-
-export function hideModal() {
-  console.log("HITTING ITTTTTTTTT")
-  return ((dispatch) => {
-    return dispatch({
-      type: USER_ALERT_DISPLAY,
-      payload: {
-        show: false,
-        message: ''
-      }
     })
   })
 }
