@@ -4,8 +4,6 @@ import {
 } from '../constants/admin'
 
 export default function (state = { users: [], alertDisplay: {} }, action) {
-  console.log("reducer", action)
-
   switch (action.type) {
     case (FETCH_USERS):
       return { ...state, users: action.payload }

@@ -10,7 +10,7 @@ import {
 
 import mx from 'app/utils/MixpanelInterface'
 
-import { setAlert } from './adminActions'
+import { setAlert, getUsersByBrokerage } from './adminActions'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
@@ -204,10 +204,12 @@ export function createNewUser(email, isAdmin, user) {
           dispatch(
             setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
           )
+          
         } else {
           dispatch(
             setAlert({ show: true, message: 'Success: User has been successful created.', bsStyle: 'success' })
           )
+          dispatch(getUsersByBrokerage(user))
         }
       })
     })

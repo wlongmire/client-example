@@ -39,6 +39,7 @@ class NewUser extends Component {
   submitNewUser(event) {
     event.preventDefault()
     this.props.createNewUser(this.state.email, this.state.isAdmin, this.props.user)
+    this.state.email = ''
   }
 
   render() {
@@ -52,6 +53,7 @@ class NewUser extends Component {
             <ControlLabel>Email</ControlLabel>
             <FormControl
               type="email"
+              className="adminInput"
               required
               onChange={this.onChangeEmail}
               value={this.state.email}
@@ -102,9 +104,7 @@ NewUser.propTypes = {
 
 export default connect((state)=> {
   return ({
+    user: state.user,
     admin: state.admin
   })
 }, actions)(NewUser)
-
-
-// style={{ backgroundColor: '#08415c', borderBottom: '2px solid red', color: 'white', width: '232px', height: '34px' }}

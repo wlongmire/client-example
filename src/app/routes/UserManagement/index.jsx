@@ -29,7 +29,6 @@ export class UserManagement extends Component {
 
   render() {
     const user = this.props.user
-    
     const activeUsers = {
       data: this.props.activeUsers,
       columns: [
@@ -113,7 +112,6 @@ export class UserManagement extends Component {
 
                 <NewUser
                   broker={user.brokerName}
-                  user={user}
                 />
               </Col>
             </Col>
