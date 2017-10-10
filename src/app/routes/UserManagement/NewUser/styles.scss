@@ -1,11 +1,13 @@
-.background-new-user {
-  background-color: #0e5a7d
+.backgroundNewUser {
+  background-color: #0e5a7d;
+  padding: 20px
 }
 
-.header-new-user {
+.headerNewUser {
   color: #32a4d8;
   font-size: 28px;
   line-height: 1.11;
+  padding-bottom: 10px;
 }
 
 .newUserEmail {
@@ -14,4 +16,19 @@
   color: white !important;
   width: 232px;
   height: 34px;
+}
+
+.bodyNewUser {
+  width: 237px;
+  height: 42px;
+  font-size: 13.2px;
+  font-style: italic;
+  line-height: 1.06;
+  letter-spacing: 1px;
+  color: #dcdcdc;
+  margin-bottom: 20px;
+}
+
+#newUserEmail {
+ margin-bottom: 30px; 
 }

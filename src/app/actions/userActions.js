@@ -7,6 +7,9 @@ import {
   USER_LOGGED_OUT,
   USER_LOGGED_IN
 } from 'app/constants/user'
+import {
+  USER_ALERT_DISPLAY
+} from '../constants/admin'
 import mx from 'app/utils/MixpanelInterface'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 
@@ -207,10 +210,39 @@ export function createNewUser(email, isAdmin, user) {
 
         if (resp.data && resp.data.success === false) {
           alert(`THERE WAS A PROBLEM ${resp.data.message}`)
+          dispatch({
+            type: USER_ALERT_DISPLAY,
+            payload: {
+              show: true,
+              message: `${resp.data.message}`,
+              bsStyle: 'danger'
+            }
+          })
         } else {
-
+          // dispatch(getUsersByBrokerage(user))
+          dispatch({
+            type: USER_ALERT_DISPLAY,
+            payload: {
+              show: true,
+              message: 'User was successfully created!',
+              bsStyle: 'success'
+            }
+          })
         }
       })
+    })
+  })
+}
+
+export function hideModal() {
+  console.log("HITTING ITTTTTTTTT")
+  return ((dispatch) => {
+    return dispatch({
+      type: USER_ALERT_DISPLAY,
+      payload: {
+        show: false,
+        message: ''
+      }
     })
   })
 }
