@@ -7,8 +7,11 @@ import {
   USER_LOGGED_OUT,
   USER_LOGGED_IN
 } from 'app/constants/user'
+
 import mx from 'app/utils/MixpanelInterface'
 
+import { setAlert, getUsersByBrokerage } from './adminActions'
+import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
@@ -131,7 +134,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
           })
         },
         onFailure: (err) => {
-
           if (config.env === 'prod') {
            migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
@@ -186,4 +188,30 @@ export function logout() {
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
   }
+}
+
+export function createNewUser(email, isAdmin, user) {
+  return ((dispatch) => {
+    checkTokenExpiration(user).then(() => {
+      const body = {
+        email,
+        role: isAdmin == 'true' ? 'admin' : 'broker',
+        broker_id: user.brokerId
+      }
+
+      apigClient.adminUsersPost({}, body, {}).then((resp) => {
+        if (resp.data && resp.data.success === false) {
+          dispatch(
+            setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
+          )
+          
+        } else {
+          dispatch(
+            setAlert({ show: true, message: 'Success: User has been successful created.', bsStyle: 'success' })
+          )
+          dispatch(getUsersByBrokerage(user))
+        }
+      })
+    })
+  })
 }

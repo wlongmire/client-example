@@ -27,6 +27,7 @@
 @import '../app/routes/Clearance/styles';
 @import '../app/routes/ProductChoice/styles';
 @import '../app/routes/SignIn/styles';
+@import '../app/routes/UserManagement/NewUser/styles';
 
 .app-container {
   position: relative;
@@ -47,6 +48,7 @@
     color: #32a4d8;
     margin: 0px;
     padding: 0px;
+    padding-bottom: 20px;
   }
 
   h4 {
