@@ -64,9 +64,9 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
               const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
 
+              //get user table entry
               apigClient.adminUsersIdGet({ id: subId }).then((adminUsersIdGetResp) => {
                 const userTableEntry = adminUsersIdGetResp.data
-
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
                   onFailure(userTableEntry.errorCode)
@@ -77,6 +77,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                 const { role, brokerId, id } = userTableEntry.data
                 
+                //get broker information
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data
                   const brokerName = brokerInfo.data ? brokerInfo.data.name : null
@@ -93,6 +94,22 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                       email: cognitoUser.username,
                       expiration: credentials.expireTime
 
+                    }
+                  })
+                  
+                  //update lastOnline time
+                  apigClient.adminUsersIdPut({ id }, [
+                    {
+                      fieldName: 'lastOnline',
+                      fieldValue: new Date().toISOString()
+                    }
+                  ]).then((result2) => {
+                    const resp = result2.data
+
+                    if (!resp.success) {
+                      alert('Error on update: ', result.message)
+                    } else {
+                      console.log('Successfully updated')
                     }
                   })
 
@@ -135,11 +152,10 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
         },
         onFailure: (err) => {
           if (config.env === 'prod') {
-           migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
+            migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
           } else {
             onFailure(err)
           }
-
         },
         newPasswordRequired: (userAttributes) => {
           newPasswordRequired(userAttributes, cognitoUser)
@@ -201,6 +217,8 @@ export function createNewUser(email, isAdmin, user) {
 
       apigClient.adminUsersPost({}, body, {}).then((resp) => {
         if (resp.data && resp.data.success === false) {
+          console.log(resp.data)
+          
           dispatch(
             setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
           )

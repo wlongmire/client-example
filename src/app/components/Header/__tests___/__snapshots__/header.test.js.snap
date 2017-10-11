@@ -8,86 +8,90 @@ exports[`>>> Header --- Snapshot +++capturing Snapshot of Header with User 1`] =
     className="container"
   >
     <div
-      className="navbar-header"
+      className=""
     >
-      <a
-        className="navbar-brand"
-        href="/submissions"
+      <div
+        className="navbar-header"
       >
-        Owner's Edge
-      </a>
-      <button
-        className="navbar-toggle collapsed"
-        onClick={[Function]}
-        type="button"
+        <a
+          className="navbar-brand"
+          href="/submissions"
+        >
+          Owner's Edge
+        </a>
+        <button
+          className="navbar-toggle collapsed"
+          onClick={[Function]}
+          type="button"
+        >
+          <span
+            className="sr-only"
+          >
+            Toggle navigation
+          </span>
+          <span
+            className="icon-bar"
+          />
+          <span
+            className="icon-bar"
+          />
+          <span
+            className="icon-bar"
+          />
+        </button>
+      </div>
+      <div
+        aria-expanded={null}
+        className="navbar-collapse collapse"
       >
-        <span
-          className="sr-only"
+        <ul
+          className="nav navbar-nav navbar-right"
+          role={null}
         >
-          Toggle navigation
-        </span>
-        <span
-          className="icon-bar"
-        />
-        <span
-          className="icon-bar"
-        />
-        <span
-          className="icon-bar"
-        />
-      </button>
-    </div>
-    <div
-      aria-expanded={null}
-      className="navbar-collapse collapse"
-    >
-      <ul
-        className="nav navbar-nav navbar-right"
-        role={null}
-      >
-        <li
-          className="nav-link"
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            action="push"
-            href="#"
-            onClick={[Function]}
-            role="button"
+          <li
+            className="nav-link"
+            role="presentation"
+            style={undefined}
           >
-            Submissions
-          </a>
-        </li>
-        <li
-          className="nav-link"
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            action="push"
-            href="#"
-            onClick={[Function]}
-            onMouseUp={undefined}
-            role="button"
+            <a
+              action="push"
+              href="#"
+              onClick={[Function]}
+              role="button"
+            >
+              Submissions
+            </a>
+          </li>
+          <li
+            className="nav-link"
+            role="presentation"
+            style={undefined}
           >
-            Submit New
-          </a>
-        </li>
-        <li
-          className="nav-link"
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            href="#"
-            onClick={[Function]}
-            role="button"
+            <a
+              action="push"
+              href="#"
+              onClick={[Function]}
+              onMouseUp={undefined}
+              role="button"
+            >
+              Submit New
+            </a>
+          </li>
+          <li
+            className="nav-link"
+            role="presentation"
+            style={undefined}
           >
-            Log Out
-          </a>
-        </li>
-      </ul>
+            <a
+              href="#"
+              onClick={[Function]}
+              role="button"
+            >
+              Log Out
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
@@ -101,58 +105,62 @@ exports[`>>> Header --- Snapshot +++capturing Snapshot of Header without User 1`
     className="container"
   >
     <div
-      className="navbar-header"
+      className=""
     >
-      <a
-        className="navbar-brand"
-        href="/submissions"
+      <div
+        className="navbar-header"
       >
-        Owner's Edge
-      </a>
-      <button
-        className="navbar-toggle collapsed"
-        onClick={[Function]}
-        type="button"
-      >
-        <span
-          className="sr-only"
+        <a
+          className="navbar-brand"
+          href="/submissions"
         >
-          Toggle navigation
-        </span>
-        <span
-          className="icon-bar"
-        />
-        <span
-          className="icon-bar"
-        />
-        <span
-          className="icon-bar"
-        />
-      </button>
-    </div>
-    <div
-      aria-expanded={null}
-      className="navbar-collapse collapse"
-    >
-      <ul
-        className="nav navbar-nav navbar-right"
-        role={null}
-      >
-        <li
-          className="nav-link"
-          role="presentation"
-          style={undefined}
+          Owner's Edge
+        </a>
+        <button
+          className="navbar-toggle collapsed"
+          onClick={[Function]}
+          type="button"
         >
-          <a
-            action="push"
-            href="#"
-            onClick={[Function]}
-            role="button"
+          <span
+            className="sr-only"
           >
-            Log In
-          </a>
-        </li>
-      </ul>
+            Toggle navigation
+          </span>
+          <span
+            className="icon-bar"
+          />
+          <span
+            className="icon-bar"
+          />
+          <span
+            className="icon-bar"
+          />
+        </button>
+      </div>
+      <div
+        aria-expanded={null}
+        className="navbar-collapse collapse"
+      >
+        <ul
+          className="nav navbar-nav navbar-right"
+          role={null}
+        >
+          <li
+            className="nav-link"
+            role="presentation"
+            style={undefined}
+          >
+            <a
+              action="push"
+              href="#"
+              onClick={[Function]}
+              role="button"
+            >
+              Log In
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

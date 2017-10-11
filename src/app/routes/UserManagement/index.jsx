@@ -117,29 +117,30 @@ export class UserManagement extends Component {
             </Col>
 
             <Col xs={12} sm={10} md={8} lg={8}>
-              <Col xs={12}>
-                <TableComponent 
-                  title="Pending invites"
-                  data={pendingUsers.data}
-                  columns={pendingUsers.columns}
-                  options={{}}
-                />
-              </Col>
-              <Col xs={12}>
-                <TableComponent
-                  title={`${user.brokerName} users`}
-                  options={{
-                    sizePerPage: 5,
-                    pageStartIndex: 1,
-                    paginationSize: 3,
-                    defaultSortName: 'email',
-                    defaultSortOrder: 'asc'
-                  }}
-                  data={activeUsers.data}
-                  columns={activeUsers.columns}
-                />
-              </Col>
-            
+              <Row>
+                <Col xs={12}>
+                  <TableComponent
+                    title="Pending invites"
+                    data={pendingUsers.data}
+                    columns={pendingUsers.columns}
+                    options={{}}
+                  />
+                </Col>
+                <Col xs={12}>
+                  <TableComponent
+                    title={`${user.brokerName} users`}
+                    options={{
+                      sizePerPage: 5,
+                      pageStartIndex: 1,
+                      paginationSize: 3,
+                      defaultSortName: 'email',
+                      defaultSortOrder: 'asc'
+                    }}
+                    data={activeUsers.data}
+                    columns={activeUsers.columns}
+                  />
+                </Col>
+              </Row>
 
             </Col>
 
@@ -154,13 +155,12 @@ UserManagement.propTypes = {
   user: PropTypes.object,
   dispatch: PropTypes.func,
   pendingUsers: PropTypes.array,
-  activeUsers: PropTypes.array,
-  alertDisplay: PropTypes.object
+  activeUsers: PropTypes.array
 }
 
 export default connect((store) => {
   const { users, alertDisplay } = store.admin
-  
+
   return {
     user: store.user,
     alertDisplay,
