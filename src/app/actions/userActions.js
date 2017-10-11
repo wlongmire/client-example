@@ -65,12 +65,25 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
 
               apigClient.adminUsersIdGet({ id: subId }).then((adminUsersIdGetResp) => {
+
                 const userTableEntry = adminUsersIdGetResp.data
-
-
+                console.log('userTableEntry', userTableEntry)
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
                   onFailure(userTableEntry.errorCode)
                   return
+                }
+
+                if (userTableEntry.data.status === 'pending') {
+                  apigClient.adminUsersIdPut({ id: subId },
+                    [
+                      { fieldName: 'status', fieldValue: 'active' },
+                      { fieldName: 'lastOnline', fieldValue: Date() }
+                    ])
+                } else if (userTableEntry.data.status === 'active') {
+                  apigClient.adminUsersIdPut({ id: subId },
+                    [
+                      { fieldName: 'lastOnline', fieldValue: Date() }
+                    ])
                 }
 
                 onSuccess(resp, subId, cognitoUser, credentials.expireTime)
@@ -147,6 +160,22 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
       })
   }
 }
+
+
+// export function updateUserDetails(userAttributes) {
+//   console.log("TEST 3123123123", userAttributes)
+//   return new Promise((resolve) => {
+//     const cognitoUser = new CognitoUser({
+//     Username: userAttributes.username,
+//     Pool: config.awsCognito
+//   })
+
+//   getUserAttributes(cognitoUser).then(({ err, result }) => {
+//     console.log("ERROR ======== testv2", err)
+//     console.log("RESULT ======== testv2", result)
+//   })
+//   })
+// }
 
 export function getUserAttributes(cognitoUser) {
   return new Promise((resolve) => {
