@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-
 function isDefined(value) {
   if (typeof value === 'undefined') return false
   if (value === null) return false

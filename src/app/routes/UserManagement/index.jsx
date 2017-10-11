@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { Row, Col, Button } from 'react-bootstrap'
+import { Row, Col, Button, Alert } from 'react-bootstrap'
 
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
-import { getUsersByBrokerage } from './../../actions/adminActions'
+import { getUsersByBrokerage, setAlert } from './../../actions/adminActions'
+
 import TableComponent from './../../components/shared/TableComponent'
+import ToggleDisplay from './../../components/shared/ToggleDisplay'
+import NewUser from './NewUser'
 
 export class UserManagement extends Component {
   componentWillMount() {
@@ -16,6 +19,12 @@ export class UserManagement extends Component {
     } else {
       this.props.dispatch(getUsersByBrokerage(this.props.user))
     }
+
+    this.closeAlert = this.closeAlert.bind(this)
+  }
+
+  closeAlert() {
+    this.props.dispatch(setAlert({ show: false, message: '', bsStyle: '' }))
   }
 
   render() {
@@ -58,7 +67,6 @@ export class UserManagement extends Component {
       ]
     }
 
-    
     const pendingUsers = {
       data: this.props.pendingUsers,
       columns:[
@@ -86,15 +94,29 @@ export class UserManagement extends Component {
 
     return (
       <div className="userManagement routeContainer">
+        <ToggleDisplay
+          show={this.props.alertDisplay.show}
+          render={
+            () => (
+              <Alert bsStyle={this.props.alertDisplay.bsStyle} onDismiss={this.closeAlert}>
+                { this.props.alertDisplay.message }
+              </Alert>)
+          }
+        />
+
         <h3>Manage Users</h3>
         <div>
           <Row>
             <Col xs={12} sm={10} md={4} lg={4}>
-              <h1>Invite a team member</h1>
+              <Col xs={12}>
+
+                <NewUser
+                  broker={user.brokerName}
+                />
+              </Col>
             </Col>
 
             <Col xs={12} sm={10} md={8} lg={8}>
-
               <Row>
                 <Col xs={12}>
                   <TableComponent
@@ -137,10 +159,11 @@ UserManagement.propTypes = {
 }
 
 export default connect((store) => {
-  const { users } = store.admin
+  const { users, alertDisplay } = store.admin
 
   return {
     user: store.user,
+    alertDisplay,
     pendingUsers: users.filter(user => (user.status === 'pending')),
     activeUsers: users.filter(user => (user.status === 'active'))
   }
