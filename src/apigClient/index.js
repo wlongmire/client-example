@@ -297,6 +297,40 @@ apigClientFactory.newClient = function (config) {
         return apiGatewayClient.makeRequest(adminUsersIdOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
+    apigClient.adminUsersIdPut = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+        
+        var adminUsersIdPutRequest = {
+            verb: 'put'.toUpperCase(),
+            path: pathComponent + uritemplate('/admin/users/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(adminUsersIdPutRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.adminUsersIdOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var adminUsersIdOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/admin/users/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(adminUsersIdOptionsRequest, authType, additionalParams, config.apiKey);
+    };
     
     apigClient.apiGetAllBrokersGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }

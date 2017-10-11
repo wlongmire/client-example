@@ -48,6 +48,7 @@ export function migrationLogin(username, password, onSuccess, onFailure, newPass
           }
 
           // get current broker for user (within argoGroup)
+          const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
           const brokerId = result.filter((item) => { return item.Name == 'custom:broker_id' })[0].Value
 
           // create new user within config user pool
@@ -57,9 +58,6 @@ export function migrationLogin(username, password, onSuccess, onFailure, newPass
             [{
               Name: 'email',
               Value: username
-            }, {
-              Name: 'custom:broker_id',
-              Value: brokerId
             },
             {
               Name: 'preferred_username',
@@ -90,7 +88,14 @@ export function migrationLogin(username, password, onSuccess, onFailure, newPass
                   return
                 }
 
-                dispatch(login(username, password, onSuccess, onFailure, newPasswordRequired))
+                apigClient.adminUsersPost({}, { email: username, broker_id: brokerId, role: 'broker' }).then((result2) => {
+                  if (!result2.success) {
+                    onFailure(result2)
+                  } else {
+                    dispatch(login(username, password, onSuccess, onFailure, newPasswordRequired))
+                  }
+                })
+                
               })
           })
         })
