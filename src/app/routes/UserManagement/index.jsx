@@ -34,7 +34,6 @@ export class UserManagement extends Component {
       columns: [
         { dataField: 'email', width: '35%', isKey: true, title: 'Email', isSortable: true,
           sortFunc: (a, b, order) => {
-
             if (a.id === user.id) {
               return -1
             } else if (order === 'desc') {
@@ -136,7 +135,8 @@ export class UserManagement extends Component {
                       defaultSortName: 'email',
                       defaultSortOrder: 'asc'
                     }}
-                    data={activeUsers.data}
+                    data={activeUsers.data.sort((a, b) => { return +(!b.id.localeCompare(user.id)) })
+}
                     columns={activeUsers.columns}
                   />
                 </Col>

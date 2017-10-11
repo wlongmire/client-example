@@ -78,12 +78,12 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   apigClient.adminUsersIdPut({ id: subId },
                     [
                       { fieldName: 'status', fieldValue: 'active' },
-                      { fieldName: 'lastOnline', fieldValue: Date() }
+                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
                     ])
                 } else if (userTableEntry.data.status === 'active') {
                   apigClient.adminUsersIdPut({ id: subId },
                     [
-                      { fieldName: 'lastOnline', fieldValue: Date() }
+                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
                     ])
                 }
 
