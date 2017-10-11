@@ -47,7 +47,7 @@ exports[`>>> Knockout Component with Email Success --- Snapshot +++capturing Sna
   >
     <img
       alt="thubms up"
-      src="https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
+      src="https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
     />
     <p>
       Your submission forms have been successfully processed.

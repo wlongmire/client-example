@@ -155,20 +155,8 @@ export function getClearance(params, user) {
     insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
   }
 
-  // console.log("REAL USER====>", user)
-  // console.log("USER====> TYPE OF", typeof user.expiration)
-  // const testUser = {
-  //   broker: "test-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
-  //   email: "andkulak@gmail.com",
-  //   expiration: new Date(2016),
-  //   subId:"b4a94152-ef9c-40e6-b3b7-8b38fba6ab96",
-  //   username: "andkulak@gmail.com"
-  // }
-
   // user
   return checkTokenExpiration(user).then(() => {
-    // console.log("RESPONSE DATA ====> CLEARNCE", resp)
-    // eslint-disable-next-line no-undef
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
         return (resp.data)

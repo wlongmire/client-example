@@ -195,7 +195,7 @@ exports[`>>> Quote Component with OCP Rating --- Snapshot +++capturing Snapshot 
   >
     <img
       alt="thumbs up"
-      src="https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
+      src="https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
     />
     <p>
       Your submission forms have been successfully processed.
@@ -309,7 +309,7 @@ exports[`>>> Quote Component with One Bundle (with Success Email) --- Snapshot +
   >
     <img
       alt="thumbs up"
-      src="https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
+      src="https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
     />
     <p>
       Your submission forms have been successfully processed.
@@ -423,7 +423,7 @@ exports[`>>> Quote Component with One Bundle and Excess (with Success Email) ---
   >
     <img
       alt="thumbs up"
-      src="https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
+      src="https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
     />
     <p>
       Your submission forms have been successfully processed.
@@ -558,7 +558,7 @@ exports[`>>> Quote Component with Two Bundles (with Success Email) --- Snapshot 
   >
     <img
       alt="thumbs up"
-      src="https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
+      src="https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
     />
     <p>
       Your submission forms have been successfully processed.
@@ -693,7 +693,7 @@ exports[`>>> Quote Component without Bundles --- Snapshot +++capturing Snapshot 
   >
     <img
       alt="thumbs up"
-      src="https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
+      src="https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets/images/thumbs-up.png"
     />
     <p>
       Your submission forms have been successfully processed.

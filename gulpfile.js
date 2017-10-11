@@ -26,7 +26,7 @@ const sgsOCPEmail = process.env.sgsOCPEmail || 'colonyspecialtyquickquote@gmail.
 const argoEmail = process.env.argoEmail || 'ownersedgesubmissionsdev@gmail.com'
 const ownersEdgeEmail = process.env.ownersEdgeEmail || 'argoaccessquickquote@gmail.com'
 const apiGatewayUrl = process.env.apiGatewayUrl || 'https://c27z16ujzj.execute-api.us-east-1.amazonaws.com/dev'
-const assetsUrl = process.env.assetsUrl || 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets'
+const assetsUrl = process.env.assetsUrl || 'https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets'
 const identityPoolId = process.env.identityPoolId || 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b'
 const awsRegion = process.env.awsRegion || 'us-east-1'
 const userPoolId = process.env.userPoolId || 'us-east-1_3SgBuYU4O'
@@ -61,7 +61,7 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(replace('@argoEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@ownerEdgeEmail', 'ownersedgesubmissionsdev@gmail.com'))
   .pipe(replace('@serverUrl', 'http://localhost'))
-  .pipe(replace('@assetsURL', 'https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets/'))
+  .pipe(replace('@assetsURL', 'https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets'))
   .pipe(replace('@appId', '76c9vth2qtg841ivles7aurmvv'))
   .pipe(replace('@identityPoolId', 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b')) // DEV
   .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_3SgBuYU4O'))
@@ -80,7 +80,7 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   // .pipe(replace('@identityProvider', 'cognito-idp.us-east-1.amazonaws.com/us-east-1_zbchOMkxh'))
   // .pipe(replace('@identityPoolId', 'us-east-1:4eea8f56-daa6-4090-9d1f-1c0093d8a7b7')) // DEV
   // .pipe(replace('@appId', 'appIdorsomething'))
-  // .pipe(replace('@assetsURL', 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets'))
+  // .pipe(replace('@assetsURL', 'https://s3.us-east-1V.amazonaws.com/ownersedge-dev-assets'))
 
 gulp.task('apiTransform:local', () => {
   gulp.src(['apigClientTemplate/*/**', 'apigClientTemplate/index.js'])

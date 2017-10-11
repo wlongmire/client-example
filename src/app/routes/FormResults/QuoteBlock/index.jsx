@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import { commifyNumber } from 'app/utils/utilities'
 import classNames from 'classnames'

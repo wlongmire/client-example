@@ -82,6 +82,22 @@ export function cognitoPersistUser(callback) {
                 const brokerInfo = brokerResp.data
                 const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
+                //update lastOnline time
+                apigClient.adminUsersIdPut({ id: subId }, [
+                  {
+                    fieldName: 'lastOnline',
+                    fieldValue: new Date().toISOString()
+                  }
+                ]).then((result2) => {
+                  const resp = result2.data
+
+                  if (!resp.success) {
+                    alert('Error on update: ', result.message)
+                  } else {
+                    console.log('Successfully updated')
+                  }
+                })
+
                 // registering super properties for mixpanel events
                 mixpanel.register({
                   BrokerName: brokerName,
@@ -97,6 +113,7 @@ export function cognitoPersistUser(callback) {
                   bundles: brokerInfo.data.bundles,
                   id,
                   brokerId,
+                  brokerName,
                   username: cognitoUser.username,
                   email: cognitoUser.email,
                   role,
