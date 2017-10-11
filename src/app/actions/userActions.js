@@ -67,7 +67,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               //get user table entry
               apigClient.adminUsersIdGet({ id: subId }).then((adminUsersIdGetResp) => {
                 const userTableEntry = adminUsersIdGetResp.data
-                console.log('userTableEntry', userTableEntry)
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
                   onFailure(userTableEntry.errorCode)
@@ -177,22 +176,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
       })
   }
 }
-
-
-// export function updateUserDetails(userAttributes) {
-//   console.log("TEST 3123123123", userAttributes)
-//   return new Promise((resolve) => {
-//     const cognitoUser = new CognitoUser({
-//     Username: userAttributes.username,
-//     Pool: config.awsCognito
-//   })
-
-//   getUserAttributes(cognitoUser).then(({ err, result }) => {
-//     console.log("ERROR ======== testv2", err)
-//     console.log("RESULT ======== testv2", result)
-//   })
-//   })
-// }
 
 export function getUserAttributes(cognitoUser) {
   return new Promise((resolve) => {
