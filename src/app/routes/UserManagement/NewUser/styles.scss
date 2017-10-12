@@ -19,7 +19,7 @@
   }
 
   .emailInput {
-    background-color: #08415c;
+    background-color: #08415c !important;
     border: none;
     border-bottom: 2px solid red !important;
     color: white !important;
@@ -40,4 +40,5 @@
   #newUserEmail {
    margin-bottom: 30px; 
   }
+
 }
