@@ -46,3 +46,16 @@ export function setAlert(params) {
     dispatch({ type: USER_ALERT_DISPLAY, payload: params })
   }
 }
+
+
+export function updateUser(row, statusType) {
+  return ((dispatch) => {
+    apigClient.adminUsersIdPut({ id: row.id },
+      [
+        { fieldName: 'status', fieldValue: statusType },
+      ]).then((response) => {
+        console.log('RESPONSE 123123123', response)
+        dispatch(getUsersByBrokerage(row))
+      })
+  })
+}
