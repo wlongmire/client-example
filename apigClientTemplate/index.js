@@ -265,7 +265,7 @@ apigClientFactory.newClient = function (config) {
     apigClient.adminUsersIdDelete = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['id']);
         
         var adminUsersIdDeleteRequest = {
             verb: 'delete'.toUpperCase(),
@@ -278,7 +278,6 @@ apigClientFactory.newClient = function (config) {
         
         return apiGatewayClient.makeRequest(adminUsersIdDeleteRequest, authType, additionalParams, config.apiKey);
     };
-    
     
     apigClient.adminUsersIdOptions = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
