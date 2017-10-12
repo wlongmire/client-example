@@ -73,6 +73,19 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   return
                 }
 
+                if (userTableEntry.data.status === 'pending') {
+                  apigClient.adminUsersIdPut({ id: subId },
+                    [
+                      { fieldName: 'status', fieldValue: 'active' },
+                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
+                    ])
+                } else if (userTableEntry.data.status === 'active') {
+                  apigClient.adminUsersIdPut({ id: subId },
+                    [
+                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
+                    ])
+                }
+
                 onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
                 const { role, brokerId, id } = userTableEntry.data
@@ -96,7 +109,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                     }
                   })
-                  
+
                   //update lastOnline time
                   apigClient.adminUsersIdPut({ id }, [
                     {
