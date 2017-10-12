@@ -244,6 +244,42 @@ apigClientFactory.newClient = function (config) {
     };
     
     
+    apigClient.adminUsersIdPut = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+        
+        var adminUsersIdPutRequest = {
+            verb: 'put'.toUpperCase(),
+            path: pathComponent + uritemplate('/admin/users/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(adminUsersIdPutRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.adminUsersIdDelete = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+        
+        var adminUsersIdDeleteRequest = {
+            verb: 'delete'.toUpperCase(),
+            path: pathComponent + uritemplate('/admin/users/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(adminUsersIdDeleteRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.adminUsersIdOptions = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
