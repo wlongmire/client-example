@@ -6,7 +6,7 @@ import { Row, Col, Button, Alert } from 'react-bootstrap'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
-import { getUsersByBrokerage, deleteUser, setAlert } from './../../actions/adminActions'
+import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert } from './../../actions/adminActions'
 
 import TableComponent from './../../components/shared/TableComponent'
 import ToggleDisplay from './../../components/shared/ToggleDisplay'
@@ -28,10 +28,17 @@ export class UserManagement extends Component {
     this.props.dispatch(setAlert({ show: false, message: '', bsStyle: '' }))
   }
 
-  handleDeleteUser() {
+  handleDeleteUser(id) {
     const user = this.props.user
     this.props.dispatch(
-      deleteUser('f6a40e89-d1be-49d8-8445-d25cc9bfe6e8', user)
+      deleteUser(id, user)
+    )
+  }
+
+  handleResendUser(sendUser) {
+    const user = this.props.user
+    this.props.dispatch(
+      resendPasswordUser(sendUser, user)
     )
   }
 
@@ -91,11 +98,14 @@ export class UserManagement extends Component {
         { width: '176px', isKey: false, title: 'Update',
           dataFormat:(cell, row) => {
             return (<div className="updateColumn">
-              <Button>Resend</Button>
               <Button onClick={
                 ()=>{
-                  console.log(row)
-                  // this.handleDeleteUser(row.id)
+                  this.handleResendUser(row)
+                }
+            }>Resend</Button>
+              <Button onClick={
+                ()=>{
+                  this.handleDeleteUser(row.id)
                 }
             }>Cancel</Button>
             </div>)
