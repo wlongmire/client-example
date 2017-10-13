@@ -51,6 +51,29 @@ const partiallyActiveUsers1 = [
   },
 ]
 
+const pendingUsers = [
+  {
+    brokerId: 'test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002',
+    dateCreated: '2017-10-11T18:41:14.000Z',
+    email: 'allison.e.steranko@gmail.com',
+    id: '4cbf72a2-08db-4c32-aa38-500808819b44',
+    lastOnline: 'N/A',
+    role: 'admin',
+    status: 'pending',
+    username: 'allison.e.steranko@gmail.com'
+  },
+  {
+    brokerId: 'test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002',
+    dateCreated: '2017-10-11T18:41:14.000Z',
+    email: 'allison.e.steranko@gmail.com',
+    id: 'asdasdasd-08db-4c32-aa38-500808819b44',
+    lastOnline: 'N/A',
+    role: 'admin',
+    status: 'pending',
+    username: 'asdasdas.e.asdasd@gmail.com'
+  },
+]
+
 jest.mock('react-router', () => ({ browserHistory: [] }))
 
 describe('>>> UserManagement Component (with Non - Admin)--- Snapshot', () => {
@@ -60,6 +83,7 @@ describe('>>> UserManagement Component (with Non - Admin)--- Snapshot', () => {
         user={{ role: 'user' }}
         dispatch={jest.fn()}
         activeUsers={activeUsers1}
+        pendingUsers={pendingUsers}
         alertDisplay={{ bsStyle: 'info', message: 'test123', show: false }}
       />)
     expect(toJson(renderedValue)).toMatchSnapshot()
@@ -73,6 +97,7 @@ describe('>>> UserManagement Component Admin with Active Users --- Snapshot', ()
         user={{ role: 'admin' }}
         dispatch={jest.fn()}
         activeUsers={activeUsers1}
+        pendingUsers={pendingUsers}
         alertDisplay={{ bsStyle: 'info', message: 'test123', show: false }}
       />)
     expect(toJson(renderedValue)).toMatchSnapshot()
@@ -85,6 +110,7 @@ describe('>>> UserManagement Component Admin with Active Users & Disabled Users 
       <UserManagement
         user={{ role: 'admin' }}
         dispatch={jest.fn()}
+        pendingUsers={pendingUsers}
         activeUsers={partiallyActiveUsers1}
         alertDisplay={{ bsStyle: 'info', message: 'test123', show: false }}
       />)

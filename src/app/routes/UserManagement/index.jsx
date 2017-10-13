@@ -121,6 +121,7 @@ export class UserManagement extends Component {
       ]
     }
 
+    console.log('this.props.pendingUsers', this.props.pendingUsers)
     const pendingUsers = {
       data: this.props.pendingUsers,
       columns:[
