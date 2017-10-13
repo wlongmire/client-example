@@ -5,8 +5,7 @@ import { Row, Col, Button, Alert } from 'react-bootstrap'
 
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-
-import { getUsersByBrokerage, setAlert, updateUser } from './../../actions/adminActions'
+import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert, updateUser } from './../../actions/adminActions'
 
 import TableComponent from './../../components/shared/TableComponent'
 import ToggleDisplay from './../../components/shared/ToggleDisplay'
@@ -34,11 +33,25 @@ export class UserManagement extends Component {
   }
 
   disableUser(row) {
-    this.props.dispatch(updateUser(row, 'disabled'))
+    this.props.dispatch(updateUser(row, 'disabled', this.props.user))
   }
 
   enableUser(row) {
-    this.props.dispatch(updateUser(row, 'active'))
+    this.props.dispatch(updateUser(row, 'active', this.props.user))
+  }
+
+  handleDeleteUser(id) {
+    const user = this.props.user
+    this.props.dispatch(
+      deleteUser(id, user)
+    )
+  }
+
+  handleResendUser(sendUser) {
+    const user = this.props.user
+    this.props.dispatch(
+      resendPasswordUser(sendUser, user)
+    )
   }
 
   render() {
@@ -47,7 +60,7 @@ export class UserManagement extends Component {
       data: this.props.activeUsers,
       columns: [
         { dataField: 'email',
-          width: '30%',
+          width: '35%',
           isKey: true,
           title: 'Email',
           isSortable: true,
@@ -61,7 +74,6 @@ export class UserManagement extends Component {
             }
           }
         },
-        { dataField: 'status', width: '15%', title: 'status', isSortable: true },
         { dataField: 'admin',
           width: '10%',
           title: 'Admin',
@@ -71,11 +83,18 @@ export class UserManagement extends Component {
         },
         { isKey: false,
           title: 'Last Online',
+          width: '130px',
           dataFormat: (cell, row) => (
             moment(row.lastOnline).format('MM/DD/YY h:mm a')
           )
         },
-        { width: '176px',
+        { dataField: 'status',
+          width: '10%',
+          title: 'Active',
+          dataFormat: (cell, row) => {
+            return ((row.status === 'active') ? (<div className="activeStatus">Active</div>) : (<div className="disabledStatus">Disabled</div>))
+          } },
+        { width: '140px',
           title: 'Update',
           dataFormat: (cell, row) => {
             const result = () => {
@@ -100,7 +119,7 @@ export class UserManagement extends Component {
         }
       ]
     }
-
+    
     const pendingUsers = {
       data: this.props.pendingUsers,
       columns:[

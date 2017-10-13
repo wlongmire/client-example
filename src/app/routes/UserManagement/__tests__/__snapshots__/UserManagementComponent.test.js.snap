@@ -55,7 +55,6 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
                   Object {
                     "dataField": "email",
                     "isKey": true,
-                    "isSortable": true,
                     "title": "Email",
                     "width": "35%",
                   },
@@ -79,7 +78,37 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
                   },
                 ]
               }
-              options={Object {}}
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "4cbf72a2-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "allison.e.steranko@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "asdasdasd-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "asdasdas.e.asdasd@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 10,
+                }
+              }
               title="Pending invites"
             />
           </Col>
@@ -97,13 +126,7 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
                     "isSortable": true,
                     "sortFunc": [Function],
                     "title": "Email",
-                    "width": "30%",
-                  },
-                  Object {
-                    "dataField": "status",
-                    "isSortable": true,
-                    "title": "status",
-                    "width": "15%",
+                    "width": "35%",
                   },
                   Object {
                     "dataField": "admin",
@@ -115,11 +138,18 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
                     "dataFormat": [Function],
                     "isKey": false,
                     "title": "Last Online",
+                    "width": "130px",
+                  },
+                  Object {
+                    "dataField": "status",
+                    "dataFormat": [Function],
+                    "title": "Active",
+                    "width": "10%",
                   },
                   Object {
                     "dataFormat": [Function],
                     "title": "Update",
-                    "width": "176px",
+                    "width": "140px",
                   },
                 ]
               }
@@ -221,7 +251,6 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
                   Object {
                     "dataField": "email",
                     "isKey": true,
-                    "isSortable": true,
                     "title": "Email",
                     "width": "35%",
                   },
@@ -245,7 +274,37 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
                   },
                 ]
               }
-              options={Object {}}
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "4cbf72a2-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "allison.e.steranko@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "asdasdasd-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "asdasdas.e.asdasd@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 10,
+                }
+              }
               title="Pending invites"
             />
           </Col>
@@ -263,13 +322,7 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
                     "isSortable": true,
                     "sortFunc": [Function],
                     "title": "Email",
-                    "width": "30%",
-                  },
-                  Object {
-                    "dataField": "status",
-                    "isSortable": true,
-                    "title": "status",
-                    "width": "15%",
+                    "width": "35%",
                   },
                   Object {
                     "dataField": "admin",
@@ -281,11 +334,18 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
                     "dataFormat": [Function],
                     "isKey": false,
                     "title": "Last Online",
+                    "width": "130px",
+                  },
+                  Object {
+                    "dataField": "status",
+                    "dataFormat": [Function],
+                    "title": "Active",
+                    "width": "10%",
                   },
                   Object {
                     "dataFormat": [Function],
                     "title": "Update",
-                    "width": "176px",
+                    "width": "140px",
                   },
                 ]
               }
@@ -387,7 +447,6 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
                   Object {
                     "dataField": "email",
                     "isKey": true,
-                    "isSortable": true,
                     "title": "Email",
                     "width": "35%",
                   },
@@ -411,7 +470,37 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
                   },
                 ]
               }
-              options={Object {}}
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "4cbf72a2-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "allison.e.steranko@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "asdasdasd-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "asdasdas.e.asdasd@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 10,
+                }
+              }
               title="Pending invites"
             />
           </Col>
@@ -429,13 +518,7 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
                     "isSortable": true,
                     "sortFunc": [Function],
                     "title": "Email",
-                    "width": "30%",
-                  },
-                  Object {
-                    "dataField": "status",
-                    "isSortable": true,
-                    "title": "status",
-                    "width": "15%",
+                    "width": "35%",
                   },
                   Object {
                     "dataField": "admin",
@@ -447,11 +530,18 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
                     "dataFormat": [Function],
                     "isKey": false,
                     "title": "Last Online",
+                    "width": "130px",
+                  },
+                  Object {
+                    "dataField": "status",
+                    "dataFormat": [Function],
+                    "title": "Active",
+                    "width": "10%",
                   },
                   Object {
                     "dataFormat": [Function],
                     "title": "Update",
-                    "width": "176px",
+                    "width": "140px",
                   },
                 ]
               }
