@@ -46,7 +46,7 @@ export function createNewUser(email, isAdmin, user, successMessage = 'Success: U
     checkTokenExpiration(user).then(() => {
       const body = {
         email,
-        role: isAdmin == 'true' ? 'admin' : 'broker',
+        role: isAdmin == 'true' ? 'admin' : 'user',
         broker_id: user.brokerId
       }
 
@@ -81,10 +81,13 @@ export function deleteUser(id, user) {
       }
 
       apigClient.adminUsersIdDelete({ id }, { id }, {}).then((resp1) => {
-        if (resp1.success === false) {
+        console.log('resp1', resp1)
+
+        if (resp1.success === false) {  
           dispatch(
             setAlert({ show: true, message: `${resp1.data.message}`, bsStyle: 'danger' })
           )
+          
         } else {
           dispatch(
             setAlert({ show: true, message: 'Success: User was successfully removed.', bsStyle: 'success' })

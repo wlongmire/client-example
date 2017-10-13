@@ -3,6 +3,13 @@
    return `$${commifyNumber(onlyNums(value))}`;
  }
 
+ export function isEmptyObject (obj) {
+  return (
+    Object.keys(obj).length === 0 && 
+    obj.constructor === Object
+  )
+}
+
  export function onlyNums(value) {
    const valueToString = value.toString();
    return valueToString.replace(/[^\d]/g, '');

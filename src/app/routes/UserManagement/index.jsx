@@ -182,7 +182,8 @@ UserManagement.propTypes = {
   user: PropTypes.object,
   dispatch: PropTypes.func,
   pendingUsers: PropTypes.array,
-  activeUsers: PropTypes.array
+  activeUsers: PropTypes.array,
+  alertDisplay: PropTypes.object
 }
 
 export default connect((store) => {
