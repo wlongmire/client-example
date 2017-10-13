@@ -25,6 +25,8 @@ export function cognitoPersistUser(callback) {
     cognitoUser.getSession((err, session) => {
       if (err) {
         alert('Error in getting session', err)
+        AWS.config.credentials.clearCachedId()
+        cognitoUser.signOut()
         callback(null)
       }
 
@@ -42,6 +44,13 @@ export function cognitoPersistUser(callback) {
       getUserAttributes(cognitoUser).then(({ error1, result }) => {
         if (error1) {
           console.log('Get User attributes error', error1)
+          cognitoUser.signOut()
+          AWS.config.credentials.clearCachedId()
+          callback(null)
+        }
+
+        if (result === null) {
+          console.log('User Attributes are Empty')
           cognitoUser.signOut()
           AWS.config.credentials.clearCachedId()
           callback(null)

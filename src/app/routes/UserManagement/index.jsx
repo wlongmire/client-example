@@ -5,14 +5,19 @@ import { Row, Col, Button, Alert } from 'react-bootstrap'
 
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-
-import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert } from './../../actions/adminActions'
+import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert, updateUser } from './../../actions/adminActions'
 
 import TableComponent from './../../components/shared/TableComponent'
 import ToggleDisplay from './../../components/shared/ToggleDisplay'
 import NewUser from './NewUser'
 
 export class UserManagement extends Component {
+  constructor() {
+    super()
+
+    this.disableUser = this.disableUser.bind(this)
+    this.enableUser = this.enableUser.bind(this)
+  }
   componentWillMount() {
     if (this.props.user && this.props.user.role !== 'admin') {
       browserHistory.push('/submissions')
@@ -26,6 +31,14 @@ export class UserManagement extends Component {
 
   closeAlert() {
     this.props.dispatch(setAlert({ show: false, message: '', bsStyle: '' }))
+  }
+
+  disableUser(row) {
+    this.props.dispatch(updateUser(row, 'disabled', this.props.user))
+  }
+
+  enableUser(row) {
+    this.props.dispatch(updateUser(row, 'active', this.props.user))
   }
 
   handleDeleteUser(id) {
@@ -47,7 +60,11 @@ export class UserManagement extends Component {
     const activeUsers = {
       data: this.props.activeUsers,
       columns: [
-        { dataField: 'email', width: '35%', isKey: true, title: 'Email', isSortable: true,
+        { dataField: 'email',
+          width: '35%',
+          isKey: true,
+          title: 'Email',
+          isSortable: true,
           sortFunc: (a, b, order) => {
             if (a.id === user.id) {
               return -1
@@ -58,45 +75,72 @@ export class UserManagement extends Component {
             }
           }
         },
-        { dataField: 'admin', width: '20%', title: 'Admin',
+        { dataField: 'admin',
+          width: '10%',
+          title: 'Admin',
           dataFormat: (cell, row) => {
             return ((row.role === 'admin') ? 'Yes' : '')
           }
         },
-        { isKey: false, title: 'Last Online',
+        { isKey: false,
+          title: 'Last Online',
+          width: '130px',
           dataFormat: (cell, row) => (
             moment(row.lastOnline).format('MM/DD/YY h:mm a')
           )
         },
-        { width: '176px', title: 'Update',
+        { dataField: 'status',
+          width: '10%',
+          title: 'Active',
           dataFormat: (cell, row) => {
-            const result = (user.id !== row.id) ? (<div className="updateColumn">
-              <Button>Edit</Button>
-              <Button>Disable</Button>
-            </div>) : <div />
+            return ((row.status === 'active') ? (<div className="activeStatus">Active</div>) : (<div className="disabledStatus">Disabled</div>))
+          } },
+        { width: '140px',
+          title: 'Update',
+          dataFormat: (cell, row) => {
+            const result = () => {
+              if (user.id === row.id) {
+                return (<div />)
+              } else if (row.status === 'active') {
+                return (<div className="updateColumn">
+                  <Button>Edit</Button>
+                  <Button onClick={() => { return this.disableUser(row) }}>Disable</Button>
+                </div>)
+              } else if (row.status === 'disabled') {
+                return (<div className="updateColumn">
+                  <Button>Edit</Button>
+                  <Button onClick={() => { return this.enableUser(row) }}>Enable</Button>
+                </div>)
+              }
+              return (<div />)
+            }
 
-            return result
+            return result()
           }
         }
       ]
     }
 
+    console.log('this.props.pendingUsers', this.props.pendingUsers)
     const pendingUsers = {
       data: this.props.pendingUsers,
       columns:[
         { dataField: 'email', width: '35%', isKey: true, title: 'Email' },
         { dataField: 'admin', width: '20%', isKey: false, title: 'Admin',
           dataFormat: (cell, row) => {
-            return ((row.role === 'admin') ? 'Yes' : '')
+            return ((row.role === 'admin') ? 'Yes':'')
           }
         },
-        { isKey: false, title: 'Invited',
-          dataFormat:(cell, row)=>(
+        { isKey: false,
+          title: 'Invited',
+          dataFormat: (cell, row) => (
             moment(row.invitedOn).format('MM/DD/YY')
           )
         },
-        { width: '176px', isKey: false, title: 'Update',
-          dataFormat:(cell, row) => {
+        { width: '176px',
+          isKey: false,
+          title: 'Update',
+          dataFormat: (cell, row) => {
             return (<div className="updateColumn">
               <Button onClick={
                 ()=>{
@@ -182,7 +226,8 @@ UserManagement.propTypes = {
   user: PropTypes.object,
   dispatch: PropTypes.func,
   pendingUsers: PropTypes.array,
-  activeUsers: PropTypes.array
+  activeUsers: PropTypes.array,
+  alertDisplay: PropTypes.object
 }
 
 export default connect((store) => {
@@ -192,7 +237,7 @@ export default connect((store) => {
     user: store.user,
     alertDisplay,
     pendingUsers: users.filter(user => (user.status === 'pending')),
-    activeUsers: users.filter(user => (user.status === 'active'))
+    activeUsers: users.filter(user => (user.status === 'active' || user.status === 'disabled'))
   }
 })(UserManagement)
 
