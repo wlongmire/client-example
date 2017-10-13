@@ -34,11 +34,11 @@ export class UserManagement extends Component {
   }
 
   disableUser(row) {
-    this.props.dispatch(updateUser(row, 'disabled'))
+    this.props.dispatch(updateUser(row, 'disabled', this.props.user))
   }
 
   enableUser(row) {
-    this.props.dispatch(updateUser(row, 'active'))
+    this.props.dispatch(updateUser(row, 'active', this.props.user))
   }
 
   render() {

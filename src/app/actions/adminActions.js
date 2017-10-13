@@ -48,14 +48,31 @@ export function setAlert(params) {
 }
 
 
-export function updateUser(row, statusType) {
+export function updateUser(row, statusType, user) {
   return ((dispatch) => {
-    apigClient.adminUsersIdPut({ id: row.id },
-      [
-        { fieldName: 'status', fieldValue: statusType },
-      ]).then((response) => {
-        console.log('RESPONSE 123123123', response)
-        dispatch(getUsersByBrokerage(row))
-      })
+    checkTokenExpiration(user).then((resp) => {
+      if (resp.status === 'expired') {
+        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
+      }
+      apigClient.adminUsersIdPut({ id: row.id },
+        [
+          { fieldName: 'status', fieldValue: statusType },
+        ]).then((response) => {
+          console.log('RESPONSE 123123123', response)
+          const message = () => {
+            switch (statusType) {
+              case 'active':
+                return (`You have successefully activated: ${row.username} !`)
+              case 'disabled':
+                return (`You have successefully disabled: ${row.username} !`)
+              default:
+                return ('You have successefully made an update!')
+            }
+          }
+
+          dispatch(setAlert({ show: true, message: message(), bsStyle: 'success' }))
+          dispatch(getUsersByBrokerage(user))
+        })
+    })
   })
 }
