@@ -14,7 +14,6 @@ function generateColumns(columns) {
       },
       col
     )
-
     
     return (<TableHeaderColumn
       key={uuid.v1()}

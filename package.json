@@ -156,6 +156,7 @@
     "extends": "airbnb",
     "rules": {
       "import/no-unresolved": "off",
+      "object-property-newline": "off",
       "import/extensions": "off",
       "import/no-mutable-exports": "off",
       "array-callback-return": "off",

@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux'
 
 import React, { Component, PropTypes } from 'react'
-import * as actions from '../../../actions/userActions'
+import * as actions from '../../../actions/adminActions'
 
 class NewUser extends Component {
   constructor() {

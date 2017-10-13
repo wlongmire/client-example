@@ -218,31 +218,3 @@ export function logout() {
     dispatch(push('/'))
   }
 }
-
-export function createNewUser(email, isAdmin, user) {
-  return ((dispatch) => {
-    checkTokenExpiration(user).then(() => {
-      const body = {
-        email,
-        role: isAdmin == 'true' ? 'admin' : 'broker',
-        broker_id: user.brokerId
-      }
-
-      apigClient.adminUsersPost({}, body, {}).then((resp) => {
-        if (resp.data && resp.data.success === false) {
-          console.log(resp.data)
-          
-          dispatch(
-            setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
-          )
-          
-        } else {
-          dispatch(
-            setAlert({ show: true, message: 'Success: User has been successful created.', bsStyle: 'success' })
-          )
-          dispatch(getUsersByBrokerage(user))
-        }
-      })
-    })
-  })
-}

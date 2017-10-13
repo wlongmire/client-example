@@ -6,7 +6,7 @@ import { Row, Col, Button, Alert } from 'react-bootstrap'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
-import { getUsersByBrokerage, setAlert } from './../../actions/adminActions'
+import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert } from './../../actions/adminActions'
 
 import TableComponent from './../../components/shared/TableComponent'
 import ToggleDisplay from './../../components/shared/ToggleDisplay'
@@ -21,10 +21,25 @@ export class UserManagement extends Component {
     }
 
     this.closeAlert = this.closeAlert.bind(this)
+    this.handleDeleteUser = this.handleDeleteUser.bind(this)
   }
 
   closeAlert() {
     this.props.dispatch(setAlert({ show: false, message: '', bsStyle: '' }))
+  }
+
+  handleDeleteUser(id) {
+    const user = this.props.user
+    this.props.dispatch(
+      deleteUser(id, user)
+    )
+  }
+
+  handleResendUser(sendUser) {
+    const user = this.props.user
+    this.props.dispatch(
+      resendPasswordUser(sendUser, user)
+    )
   }
 
   render() {
@@ -41,15 +56,15 @@ export class UserManagement extends Component {
             } else {
               return b.email.localeCompare(a.email)
             }
-          } 
+          }
         },
         { dataField: 'admin', width: '20%', title: 'Admin',
           dataFormat: (cell, row) => {
-            return ((row.role === 'admin')?'Yes':'')
+            return ((row.role === 'admin') ? 'Yes' : '')
           }
         },
         { isKey: false, title: 'Last Online',
-          dataFormat:(cell, row)=>(
+          dataFormat: (cell, row) => (
             moment(row.lastOnline).format('MM/DD/YY h:mm a')
           )
         },
@@ -69,10 +84,10 @@ export class UserManagement extends Component {
     const pendingUsers = {
       data: this.props.pendingUsers,
       columns:[
-        { dataField: 'email', width: '35%', isKey: true, title: 'Email', isSortable: true },
+        { dataField: 'email', width: '35%', isKey: true, title: 'Email' },
         { dataField: 'admin', width: '20%', isKey: false, title: 'Admin',
           dataFormat: (cell, row) => {
-            return ((row.role === 'admin')?'Yes':'')
+            return ((row.role === 'admin') ? 'Yes' : '')
           }
         },
         { isKey: false, title: 'Invited',
@@ -80,11 +95,19 @@ export class UserManagement extends Component {
             moment(row.invitedOn).format('MM/DD/YY')
           )
         },
-        { width: '176px',  isKey:false, title: 'Update',
+        { width: '176px', isKey: false, title: 'Update',
           dataFormat:(cell, row) => {
             return (<div className="updateColumn">
-              <Button>Resend</Button>
-              <Button>Cancel</Button>
+              <Button onClick={
+                ()=>{
+                  this.handleResendUser(row)
+                }
+            }>Resend</Button>
+              <Button onClick={
+                ()=>{
+                  this.handleDeleteUser(row.id)
+                }
+            }>Cancel</Button>
             </div>)
           },
         }
@@ -120,9 +143,13 @@ export class UserManagement extends Component {
                 <Col xs={12}>
                   <TableComponent
                     title="Pending invites"
-                    data={pendingUsers.data}
+                    data={ pendingUsers.data.sort((a, b) => { return moment.utc(b.dateCreated).diff(moment.utc(a.dateCreated)) })}
                     columns={pendingUsers.columns}
-                    options={{}}
+                    options={{
+                      sizePerPage: 10,
+                      pageStartIndex: 1,
+                      paginationSize: 3
+                    }}
                   />
                 </Col>
                 <Col xs={12}>
@@ -168,3 +195,4 @@ export default connect((store) => {
     activeUsers: users.filter(user => (user.status === 'active'))
   }
 })(UserManagement)
+
