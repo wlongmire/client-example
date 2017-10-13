@@ -47,7 +47,7 @@ export class UserManagement extends Component {
       data: this.props.activeUsers,
       columns: [
         { dataField: 'email',
-          width: '30%',
+          width: '35%',
           isKey: true,
           title: 'Email',
           isSortable: true,
@@ -61,7 +61,6 @@ export class UserManagement extends Component {
             }
           }
         },
-        { dataField: 'status', width: '15%', title: 'status', isSortable: true },
         { dataField: 'admin',
           width: '10%',
           title: 'Admin',
@@ -71,11 +70,19 @@ export class UserManagement extends Component {
         },
         { isKey: false,
           title: 'Last Online',
+          width: '130px',
           dataFormat: (cell, row) => (
             moment(row.lastOnline).format('MM/DD/YY h:mm a')
           )
         },
-        { width: '176px',
+        { dataField: 'status',
+          width: '10%',
+          title: 'Active',
+          isSortable: true,
+          dataFormat: (cell, row) => {
+            return ((row.status === 'active') ? (<div className="activeStatus">Active</div>) : (<div className="disabledStatus">Disabled</div>))
+          } },
+        { width: '140px',
           title: 'Update',
           dataFormat: (cell, row) => {
             const result = () => {
