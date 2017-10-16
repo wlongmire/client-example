@@ -8,7 +8,8 @@ import {
 import { connect } from 'react-redux'
 
 import React, { Component, PropTypes } from 'react'
-import * as actions from '../../../actions/userActions'
+import * as actions from '../../../actions/adminActions'
+import { isEmptyObject } from './../../../utils/utilities'
 
 class NewUser extends Component {
   constructor() {
@@ -36,10 +37,19 @@ class NewUser extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!isEmptyObject(nextProps.admin.alertDisplay) &&  nextProps.admin.alertDisplay.bsStyle === 'success') {
+      this.setState({
+        ...this.state,
+        email: '',
+        isAdmin: 'false'
+      })
+    }
+  }
+
   submitNewUser(event) {
     event.preventDefault()
     this.props.createNewUser(this.state.email, this.state.isAdmin, this.props.user)
-    this.state.email = ''
   }
 
   render() {
@@ -99,12 +109,13 @@ class NewUser extends Component {
 NewUser.propTypes = {
   broker: PropTypes.string.isRequired,
   createNewUser: PropTypes.func.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  admin: PropTypes.object
 }
 
-export default connect((state)=> {
+export default connect((store) => {
   return ({
-    user: state.user,
-    admin: state.admin
+    user: store.user,
+    admin: store.admin
   })
 }, actions)(NewUser)
