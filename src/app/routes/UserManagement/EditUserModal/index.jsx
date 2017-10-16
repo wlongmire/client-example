@@ -8,15 +8,16 @@ import {
   Button
 } from 'react-bootstrap'
 
-import * as actions from '../../../actions/userActions'
+import * as actions from '../../../actions/adminActions'
 
 class EditUserModal extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      isAdmin: 'false'
+      isAdmin: (this.props.selectedUser && (this.props.selectedUser.role === 'admin')) ? 'true' : 'false'
     }
     this.onChangeAdmin = this.onChangeAdmin.bind(this)
+    this.submitEditUser = this.submitEditUser.bind(this)
   }
 
   onChangeAdmin(event) {
@@ -26,16 +27,52 @@ class EditUserModal extends Component {
     })
   }
 
+  submitEditUser(event) {
+    const { id, username } = this.props.selectedUser
+    event.preventDefault()
+    console.log('HITTING THISwerewrwer')
+
+    apigClient.adminUsersIdPut({ id }, [
+      {
+        fieldName: 'role',
+        fieldValue: (this.state.isAdmin === 'true') ? 'admin' : 'user'
+      }
+    ]).then((result2) => {
+      console.log("RESULT oF THIS SHISZNIT", result2)
+      if (result2.data && result2.data.success === true) {     
+        this.props.setAlert({ show: true, message: 'Successfully Updated Record', bsStyle: 'success' })
+        this.props.getUsersByBrokerage(this.props.loggedInUser)
+        return this.props.hideEditModal()
+      } else {
+        this.props.setAlert({ show: false, message: `There was an error editing the user (${username}). Please contact support!`, bsStyle: 'warning' })
+        return this.props.hideEditModal()
+      }
+    })
+  }
+
   render() {
+    console.log('is ADMIN', this.state.isAdmin)
+
+    if ((this.props.selectedUser === null) || !this.props.selectedUser.id) {
+      return (
+        <div className="editUserModal">
+          <h3>There was an error with the Edit Modal. Please contact support for assistance</h3>
+        </div>
+      )
+    }
+
+    const { email } = this.props.selectedUser
+
     return (
       <div className="editUserModal">
         <h3>email</h3>
-        <h4>warrenlongmire@gmail.com</h4>
+        <h4>{email}</h4>
 
         <h3>Is user an admin?</h3>
-        <form onSubmit={this.submitNewUser}>
+        <form onSubmit={this.submitEditUser}>
           <FormGroup>
             <br />
+
             <Radio
               name="radioGroup"
               className="adminInput"
@@ -62,16 +99,21 @@ class EditUserModal extends Component {
           </FormGroup>
 
           <p>Admins can add and remove other users.</p>
+          <Button type="submit">Submit</Button>
+          <Button onClick={() => { return this.props.hideEditModal() }}>Cancel</Button>
         </form>
-
-        <Button type="submit">Send Invite</Button>
       </div>
     )
   }
 }
 
 EditUserModal.propTypes = {
-  user: PropTypes.object
+  // user: PropTypes.object,
+  hideEditModal: PropTypes.func,
+  setAlert: PropTypes.func,
+  getUsersByBrokerage: PropTypes.func,
+  selectedUser: PropTypes.object,
+  loggedInUser: PropTypes.object
 }
 
 export default connect((state) => {

@@ -16,6 +16,9 @@ import NewUser from './NewUser'
 export class UserManagement extends Component {
   constructor() {
     super()
+    this.state = {
+      showEditModal: false
+    }
 
     this.handleDisableUser = this.handleDisableUser.bind(this)
     this.handleEnableUser = this.handleEnableUser.bind(this)
@@ -23,6 +26,8 @@ export class UserManagement extends Component {
     this.handleCreateUser = this.handleCreateUser.bind(this)
     this.handleDeleteUser = this.handleDeleteUser.bind(this)
     this.handleResendUser = this.handleResendUser.bind(this)
+    this.handleEditUser = this.handleEditUser.bind(this)
+    this.hideEditModal = this.hideEditModal.bind(this)
   }
   componentWillMount() {
     if (this.props.user && this.props.user.role !== 'admin') {
@@ -36,6 +41,14 @@ export class UserManagement extends Component {
 
   closeAlert() {
     this.props.dispatch(setAlert({ show: false, message: '', bsStyle: '' }))
+  }
+
+  hideEditModal() {
+    this.setState({
+      ...this.state,
+      showEditModal: false,
+      selectedUser: null
+    })
   }
 
   handleAutoClose() {
@@ -52,9 +65,16 @@ export class UserManagement extends Component {
     this.handleAutoClose()
   }
 
+  handleEditUser(row) {
+    this.setState({
+      ...this.state,
+      showEditModal: true,
+      selectedUser: row
+    })
+  }
+
   handleCreateUser(email, isAdmin) {
     const user = this.props.user
-    
     this.props.dispatch(
       createNewUser(email, isAdmin, user)
     )
@@ -126,12 +146,12 @@ export class UserManagement extends Component {
                 return (<div />)
               } else if (row.status === 'active') {
                 return (<div className="updateColumn">
-                  <Button>Edit</Button>
+                  <Button onClick={() => { return this.handleEditUser(row) }} >Edit</Button>
                   <Button onClick={() => { return this.handleDisableUser(row) }}>Disable</Button>
                 </div>)
               } else if (row.status === 'disabled') {
                 return (<div className="updateColumn">
-                  <Button>Edit</Button>
+                  <Button onClick={() => { return this.handleEditUser(row) }}>Edit</Button>
                   <Button onClick={() => { return this.handleEnableUser(row) }}>Enable</Button>
                 </div>)
               }
@@ -234,9 +254,13 @@ export class UserManagement extends Component {
         </div>
         <DialogBox
           title="Edit User"
-          show={this.props.showEditModal}
+          show={this.state.showEditModal}
         >
-          <EditUserModal />
+          <EditUserModal
+            selectedUser={this.state.selectedUser}
+            loggedInUser={this.props.user}
+            hideEditModal={this.hideEditModal}
+          />
         </DialogBox>
 
       </div>
