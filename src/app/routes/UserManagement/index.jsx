@@ -45,6 +45,11 @@ export class UserManagement extends Component {
     this.props.dispatch(
       deleteUser(id, user)
     )
+
+    setTimeout(
+      this.closeAlert,
+      3000
+    )
   }
 
   handleResendUser(sendUser) {
