@@ -49,7 +49,7 @@ class NewUser extends Component {
 
   submitNewUser(event) {
     event.preventDefault()
-    this.props.createNewUser(this.state.email, this.state.isAdmin, this.props.user)
+    this.props.handleCreateUser(this.state.email, this.state.isAdmin)
   }
 
   render() {
@@ -108,7 +108,7 @@ class NewUser extends Component {
 
 NewUser.propTypes = {
   broker: PropTypes.string.isRequired,
-  createNewUser: PropTypes.func.isRequired,
+  handleCreateUser: PropTypes.func.isRequired,
   user: PropTypes.object,
   admin: PropTypes.object
 }
