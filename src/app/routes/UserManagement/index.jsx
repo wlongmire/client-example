@@ -10,6 +10,7 @@ import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert, updateUs
 import TableComponent from './../../components/shared/TableComponent'
 import ToggleDisplay from './../../components/shared/ToggleDisplay'
 import DialogBox from './../../components/shared/DialogBox'
+import EditUserModal from './EditUserModal'
 import NewUser from './NewUser'
 
 export class UserManagement extends Component {
@@ -258,6 +259,7 @@ export default connect((store) => {
   return {
     user: store.user,
     alertDisplay,
+    showEditModal: true,
     pendingUsers: users.filter(user => (user.status === 'pending')),
     activeUsers: users.filter(user => (user.status === 'active' || user.status === 'disabled'))
   }
