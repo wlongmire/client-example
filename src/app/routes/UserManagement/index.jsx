@@ -9,6 +9,7 @@ import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert, updateUs
 
 import TableComponent from './../../components/shared/TableComponent'
 import ToggleDisplay from './../../components/shared/ToggleDisplay'
+import DialogBox from './../../components/shared/DialogBox'
 import NewUser from './NewUser'
 
 export class UserManagement extends Component {
@@ -230,6 +231,13 @@ export class UserManagement extends Component {
 
           </Row>
         </div>
+        <DialogBox
+          title="Edit User"
+          show={this.props.showEditModal}
+        >
+          <EditUserModal />
+        </DialogBox>
+
       </div>
     )
   }
@@ -240,6 +248,7 @@ UserManagement.propTypes = {
   dispatch: PropTypes.func,
   pendingUsers: PropTypes.array,
   activeUsers: PropTypes.array,
+  showEditModal: PropTypes.bool,
   alertDisplay: PropTypes.object
 }
 
