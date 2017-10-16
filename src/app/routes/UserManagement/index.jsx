@@ -37,7 +37,7 @@ export class UserManagement extends Component {
   }
 
   handleAutoClose() {
-    setTimeout(this.closeAlert, 5000)
+    // setTimeout(this.closeAlert, 5000)
   }
 
   handleDisableUser(row) {
