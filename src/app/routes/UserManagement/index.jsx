@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { Row, Col, Button, Alert } from 'react-bootstrap'
+import { Row, Col, Button, Alert, Fade } from 'react-bootstrap'
 
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert, updateUser } from './../../actions/adminActions'
+import { getUsersByBrokerage, deleteUser, resendPasswordUser, setAlert, updateUser, createNewUser } from './../../actions/adminActions'
 
 import TableComponent from './../../components/shared/TableComponent'
 import ToggleDisplay from './../../components/shared/ToggleDisplay'
@@ -15,8 +15,12 @@ export class UserManagement extends Component {
   constructor() {
     super()
 
-    this.disableUser = this.disableUser.bind(this)
-    this.enableUser = this.enableUser.bind(this)
+    this.handleDisableUser = this.handleDisableUser.bind(this)
+    this.handleEnableUser = this.handleEnableUser.bind(this)
+    this.handleAutoClose = this.handleAutoClose.bind(this)
+    this.handleCreateUser = this.handleCreateUser.bind(this)
+    this.handleDeleteUser = this.handleDeleteUser.bind(this)
+    this.handleResendUser = this.handleResendUser.bind(this)
   }
   componentWillMount() {
     if (this.props.user && this.props.user.role !== 'admin') {
@@ -32,12 +36,28 @@ export class UserManagement extends Component {
     this.props.dispatch(setAlert({ show: false, message: '', bsStyle: '' }))
   }
 
-  disableUser(row) {
-    this.props.dispatch(updateUser(row, 'disabled', this.props.user))
+  handleAutoClose() {
+    // setTimeout(this.closeAlert, 5000)
   }
 
-  enableUser(row) {
+  handleDisableUser(row) {
+    this.props.dispatch(updateUser(row, 'disabled', this.props.user))
+    this.handleAutoClose()
+  }
+
+  handleEnableUser(row) {
     this.props.dispatch(updateUser(row, 'active', this.props.user))
+    this.handleAutoClose()
+  }
+
+  handleCreateUser(email, isAdmin) {
+    const user = this.props.user
+    
+    this.props.dispatch(
+      createNewUser(email, isAdmin, user)
+    )
+
+    this.handleAutoClose()
   }
 
   handleDeleteUser(id) {
@@ -45,6 +65,7 @@ export class UserManagement extends Component {
     this.props.dispatch(
       deleteUser(id, user)
     )
+    this.handleAutoClose()
   }
 
   handleResendUser(sendUser) {
@@ -52,6 +73,7 @@ export class UserManagement extends Component {
     this.props.dispatch(
       resendPasswordUser(sendUser, user)
     )
+    this.handleAutoClose()
   }
 
   render() {
@@ -103,12 +125,12 @@ export class UserManagement extends Component {
               } else if (row.status === 'active') {
                 return (<div className="updateColumn">
                   <Button>Edit</Button>
-                  <Button onClick={() => { return this.disableUser(row) }}>Disable</Button>
+                  <Button onClick={() => { return this.handleDisableUser(row) }}>Disable</Button>
                 </div>)
               } else if (row.status === 'disabled') {
                 return (<div className="updateColumn">
                   <Button>Edit</Button>
-                  <Button onClick={() => { return this.enableUser(row) }}>Enable</Button>
+                  <Button onClick={() => { return this.handleEnableUser(row) }}>Enable</Button>
                 </div>)
               }
               return (<div />)
@@ -140,8 +162,16 @@ export class UserManagement extends Component {
           title: 'Update',
           dataFormat: (cell, row) => {
             return (<div className="updateColumn">
-              <Button>Resend</Button>
-              <Button>Cancel</Button>
+              <Button onClick={
+                ()=>{
+                  this.handleResendUser(row)
+                }
+            }>Resend</Button>
+              <Button onClick={
+                ()=>{
+                  this.handleDeleteUser(row.id)
+                }
+            }>Cancel</Button>
             </div>)
           },
         }
@@ -150,15 +180,11 @@ export class UserManagement extends Component {
 
     return (
       <div className="userManagement routeContainer">
-        <ToggleDisplay
-          show={this.props.alertDisplay.show}
-          render={
-            () => (
-              <Alert bsStyle={this.props.alertDisplay.bsStyle} onDismiss={this.closeAlert}>
-                { this.props.alertDisplay.message }
-              </Alert>)
-          }
-        />
+        <Fade in={this.props.alertDisplay.show} timeout={4000}>
+          <Alert bsStyle={this.props.alertDisplay.bsStyle} onDismiss={this.closeAlert}>
+            { this.props.alertDisplay.message }
+          </Alert>
+        </Fade>
 
         <h3>Manage Users</h3>
         <div>
@@ -168,6 +194,7 @@ export class UserManagement extends Component {
 
                 <NewUser
                   broker={user.brokerName}
+                  handleCreateUser={this.handleCreateUser}
                 />
               </Col>
             </Col>
