@@ -81,19 +81,17 @@ export function deleteUser(id, user) {
       }
 
       apigClient.adminUsersIdDelete({ id }, { id }, {}).then((resp1) => {
-        console.log('resp1', resp1)
-
-        if (resp1.success === false) {  
+        if (!resp1.data.success) {
           dispatch(
             setAlert({ show: true, message: `${resp1.data.message}`, bsStyle: 'danger' })
           )
-          
         } else {
           dispatch(
             setAlert({ show: true, message: 'Success: User was successfully removed.', bsStyle: 'success' })
           )
-          dispatch(getUsersByBrokerage(user))
         }
+        
+        dispatch(getUsersByBrokerage(user))
       })
     })
   }
