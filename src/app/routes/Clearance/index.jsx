@@ -55,7 +55,7 @@ class Clearance extends Component {
 
       if (config.clearanceFailEmail) {
         sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
-        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)      
+        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches) 
       }
 
       mx.customEvent(
@@ -102,7 +102,7 @@ class Clearance extends Component {
       this.props.submission.type === 'ocp'
       ) {
       // if submission for OCP and STATE is NY
-      submission = Object.assign(this.state.input, { clearanceStatus: result.clearanceStatus, status: 'SUBMISSION' })
+      submission = Object.assign(this.state.input, { clearanceStatus: result.clearanceStatus, status: 'SUBMISSION', clearanceMatches: this.state.result.matches })
       submissionFormParams = {
         primaryInsuredName: { disabled: true },
 
@@ -118,7 +118,7 @@ class Clearance extends Component {
       }
     } else if (this.props.submission.type === 'ocp') {
       // if submission is for OCP and state is NOT NY
-      submission = { ...this.state.input, nycha: 'false', clearanceStatus: result.clearanceStatus, status: 'SUBMISSION' }
+      submission = { ...this.state.input, nycha: 'false', clearanceStatus: result.clearanceStatus, status: 'SUBMISSION', clearanceMatches: this.state.result.matches }
       submissionFormParams = {
         primaryInsuredName: { disabled: true },
 
@@ -137,7 +137,7 @@ class Clearance extends Component {
       }
     } else {
       // if submission is for OI
-      submission = { ...this.state.input, clearanceStatus: result.clearanceStatus, status: 'SUBMISSION' }
+      submission = { ...this.state.input, clearanceStatus: result.clearanceStatus, status: 'SUBMISSION', clearanceMatches: this.state.result.matches }
       submissionFormParams = {
         primaryInsuredName: { disabled: true },
 
