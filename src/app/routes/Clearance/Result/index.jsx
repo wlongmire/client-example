@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { LinkContainer } from 'react-router-bootstrap'
-// import mx from './../../../utils/MixpanelInterface'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import config from '../../../../config'
@@ -27,17 +26,17 @@ export class Result extends Component {
     </div>)
 
     const result = (this.props.result.clearanceStatus === 'fail') ? {
-      title: "This Submission Did Not Pass Clearance.",
-      subtitle: "Your business as listed below matches a previously processed submission.",
-      additionalContent: <div className="additionalContent">
+      title: 'This Submission Did Not Pass Clearance.',
+      subtitle: 'Your business as listed below matches a previously processed submission.',
+      additionalContent: <div className='additionalContent'>
         {failClearaceMessage}
       </div>,
-      buttonLabel: "Reenter Clearance Information"
+      buttonLabel: 'Reenter Clearance Information'
     } : {
-      title: "This Submission Has Passed Clearance!",
-      subtitle: "You are the first to submit this insured for review. Now we can enter additional pricing information.",
-      additionalContent: "",
-      buttonLabel: "Fill out Remaining Information"
+      title: 'This Submission Has Passed Clearance!',
+      subtitle: 'You are the first to submit this insured for review. Now we can enter additional pricing information.',
+      additionalContent: '',
+      buttonLabel: 'Fill out Remaining Information'
     }
 
 
