@@ -10,7 +10,7 @@ import {
 
 import * as actions from '../../../actions/adminActions'
 
-class EditUserModal extends Component {
+export class EditUserModal extends Component {
   constructor(props) {
     super(props)
     this.state = {
