@@ -141,7 +141,7 @@ export class UserManagement extends Component {
         }
       ]
     }
-    
+
     const pendingUsers = {
       data: this.props.pendingUsers,
       columns:[
@@ -154,8 +154,13 @@ export class UserManagement extends Component {
         { isKey: false,
           title: 'Invited',
           dataFormat: (cell, row) => (
-            moment(row.invitedOn).format('MM/DD/YY')
+            moment(row.dateCreated).format('MM/DD/YY')
           )
+        },
+        { isKey: false,
+          title: 'invitedHiddenSort',
+          hidden: true,
+          dataField: 'dateCreated'
         },
         { width: '176px',
           isKey: false,
@@ -177,6 +182,8 @@ export class UserManagement extends Component {
         }
       ]
     }
+
+    console.log('this.props.pendingUsers', this.props.pendingUsers)
 
     return (
       <div className="userManagement routeContainer">
@@ -206,7 +213,7 @@ export class UserManagement extends Component {
                     title="Pending invites"
                     data={pendingUsers.data}
                     columns={pendingUsers.columns}
-                    options={{}}
+                    options={{ defaultSortName: 'dateCreated', defaultSortOrder: 'desc' }}
                   />
                 </Col>
                 <Col xs={12}>
