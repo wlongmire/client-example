@@ -254,6 +254,7 @@ export class UserManagement extends Component {
         </div>
         <DialogBox
           title="Edit User"
+          custom_class="editModal"
           show={this.state.showEditModal}
         >
           <EditUserModal

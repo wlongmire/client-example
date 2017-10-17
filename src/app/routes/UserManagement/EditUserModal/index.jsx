@@ -40,7 +40,7 @@ class EditUserModal extends Component {
     ]).then((result2) => {
       console.log("RESULT oF THIS SHISZNIT", result2)
       if (result2.data && result2.data.success === true) {     
-        this.props.setAlert({ show: true, message: 'Successfully Updated Record', bsStyle: 'success' })
+        this.props.setAlert({ show: true, message: 'Successfully Updated User Record!', bsStyle: 'success' })
         this.props.getUsersByBrokerage(this.props.loggedInUser)
         return this.props.hideEditModal()
       } else {
@@ -65,17 +65,17 @@ class EditUserModal extends Component {
 
     return (
       <div className="editUserModal">
-        <h3>email</h3>
+        <h3>Email:</h3>
         <h4>{email}</h4>
 
-        <h3>Is user an admin?</h3>
+        <h3 className="editAminText">Is user an admin?</h3>
         <form onSubmit={this.submitEditUser}>
           <FormGroup>
             <br />
 
             <Radio
               name="radioGroup"
-              className="adminInput"
+              className="editAdminInput"
               inline
               required
               onChange={this.onChangeAdmin}
@@ -87,7 +87,7 @@ class EditUserModal extends Component {
             {' '}
             <Radio
               name="radioGroup"
-              className="adminInput"
+              className="editAdminInput"
               inline
               required
               onChange={this.onChangeAdmin}
@@ -98,9 +98,9 @@ class EditUserModal extends Component {
             </Radio>
           </FormGroup>
 
-          <p>Admins can add and remove other users.</p>
-          <Button type="submit">Submit</Button>
-          <Button onClick={() => { return this.props.hideEditModal() }}>Cancel</Button>
+          <p className="adminEditAddInfo">Admins can add and remove other users.</p>
+          <Button className="saveEditChanges" type="submit">Save Changes</Button>
+          <Button className="cancelEdit" onClick={() => { return this.props.hideEditModal() }}>Cancel</Button>
         </form>
       </div>
     )
