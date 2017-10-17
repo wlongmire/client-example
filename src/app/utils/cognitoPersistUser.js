@@ -3,9 +3,9 @@ import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cogn
 import AWS from 'aws-sdk'
 
 export function getUserAttributes(cognitoUser) {
-  return new Promise((resolve) => {
-    cognitoUser.getUserAttributes((err, result) => {
-      resolve({ err, result })
+  return new Promise((resolve, reject) => {
+    cognitoUser.getUserAttributes((error, result) => {
+      resolve({ error: error, result })
     })
   })
 }
@@ -41,11 +41,11 @@ export function cognitoPersistUser(callback) {
       })
 
       // call refresh method in order to authenticate user and get new temp credentials
-      getUserAttributes(cognitoUser).then(({ error1, result }) => {
-        if (error1) {
-          console.log('Get User attributes error', error1)
-          cognitoUser.signOut()
+      getUserAttributes(cognitoUser).then(({ error, result }) => {
+        if (error) {
+          console.log('Get User attributes error', error)
           AWS.config.credentials.clearCachedId()
+          cognitoUser.signOut()
           callback(null)
         }
 
@@ -57,6 +57,7 @@ export function cognitoPersistUser(callback) {
           AWS.config.credentials.refresh((error) => {
             if (error) {
               console.log('Error refreshing credentials', error)
+
               cognitoUser.signOut()
               AWS.config.credentials.clearCachedId()
               callback(null)
@@ -78,12 +79,12 @@ export function cognitoPersistUser(callback) {
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
                   console.log(`${userTableEntry.errorCode}: ${userTableEntry.message}`)
-                  cognitoUser.signOut()
                   AWS.config.credentials.clearCachedId()
+                  cognitoUser.signOut()
                   callback(null)
                 }
 
-                const { role, brokerId, id  } = userTableEntry.data
+                const { role, brokerId, id } = userTableEntry.data
 
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data

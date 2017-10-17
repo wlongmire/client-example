@@ -56,8 +56,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
             })
 
             // get the current users subId
-            getUserAttributes(cognitoUser).then(({ err, result }) => {
-              if (err) {
+            getUserAttributes(cognitoUser).then(({ error, result }) => {
+              if (error) {
                 onFailure(err)
                 return
               }
