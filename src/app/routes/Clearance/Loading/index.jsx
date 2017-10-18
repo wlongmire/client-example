@@ -31,7 +31,7 @@ export class Loading extends Component {
         return this.props.logout()
       }
       
-      return this.props.handleSubmit(resp1, input)
+      return this.props.handleSubmit(resp, input)
     }).catch((error) => {
       console.log(error)
       this.props.handleSubmit({ success: false })
