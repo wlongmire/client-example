@@ -15,7 +15,7 @@ function generateColumns(columns) {
       col
     )
 
-    
+
     return (<TableHeaderColumn
       key={uuid.v1()}
       dataField={colAttrs.dataField}
@@ -24,6 +24,7 @@ function generateColumns(columns) {
       dataSort={colAttrs.isSortable}
       dataFormat={colAttrs.dataFormat}
       sortFunc={colAttrs.sortFunc}
+      hidden={(colAttrs.hidden || false)}
     >
       {col.title}
     </TableHeaderColumn>)
