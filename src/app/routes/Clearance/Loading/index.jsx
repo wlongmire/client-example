@@ -30,7 +30,7 @@ export class Loading extends Component {
         console.log('THERE WAS AN AUTH ERROR FOR SOME REASON ==>', resp)
         return this.props.logout()
       }
-
+      
       return this.props.handleSubmit(resp, input)
     }).catch((error) => {
       console.log(error)
