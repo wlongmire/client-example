@@ -248,8 +248,7 @@ export class UserManagement extends Component {
                       defaultSortName: 'email',
                       defaultSortOrder: 'asc'
                     }}
-                    data={activeUsers.data.sort((a, b) => { return +(!b.id.localeCompare(user.id)) })
-}
+                    data={activeUsers.data.sort((a, b) => { return +(!b.username.localeCompare(user.username)) })}
                     columns={activeUsers.columns}
                   />
                 </Col>

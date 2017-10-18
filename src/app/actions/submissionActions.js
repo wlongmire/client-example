@@ -208,7 +208,7 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
   })
 }
 
-export function sendClearanceEmail(emailAddress, emailType, user, userInput, clearanceMatches) {
+export function sendClearanceEmail(emailAddress, emailType, user, userInput, matches) {
   checkTokenExpiration(user).then(() => {
     // eslint-disable-next-line no-undef
     return apigClient.apiSendEmailIdPost(
@@ -217,7 +217,7 @@ export function sendClearanceEmail(emailAddress, emailType, user, userInput, cle
         emailAddress,
         emailType,
         input: userInput,
-        matches: clearanceMatches
+        matches
       },
       {})
       .then((resp) => {

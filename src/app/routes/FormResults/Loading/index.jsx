@@ -11,7 +11,7 @@ import config from 'config'
 import {
   saveSubmission,
   sendEmail,
-  getRating 
+  getRating
 } from 'app/actions/submissionActions'
 
 class Loading extends Component {
@@ -98,18 +98,18 @@ class Loading extends Component {
             if (respSave.updated === true) {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
               ]
             // if it is a new submission
             } else {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user)
               ]
             }
           }
 
-          Promise.all(emailPromises).then(() => {
+          Promise.all(emailPromises).then((r) => {
             this.props.handleEmailStatus({ success: true })
           })
         } else {
