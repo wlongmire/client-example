@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> EditUserModal Component (Admin)--- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="editUserModal"
+>
+  <h3>
+    Email:
+  </h3>
+  <h4>
+    andriy123@gmail.com
+  </h4>
+  <h3
+    className="editAminText"
+  >
+    Is user an admin?
+  </h3>
+  <form
+    onSubmit={[Function]}
+  >
+    <FormGroup
+      bsClass="form-group"
+    >
+      <br />
+      <Radio
+        bsClass="radio"
+        checked={true}
+        className="editAdminInput"
+        disabled={false}
+        inline={true}
+        name="radioGroup"
+        onChange={[Function]}
+        required={true}
+        value="true"
+      >
+        Yes
+      </Radio>
+       
+      <Radio
+        bsClass="radio"
+        checked={false}
+        className="editAdminInput"
+        disabled={false}
+        inline={true}
+        name="radioGroup"
+        onChange={[Function]}
+        required={true}
+        value="false"
+      >
+        No
+      </Radio>
+    </FormGroup>
+    <p
+      className="adminEditAddInfo"
+    >
+      Admins can add and remove other users.
+    </p>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="saveEditChanges"
+      disabled={false}
+      type="submit"
+    >
+      Save Changes
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="cancelEdit"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Cancel
+    </Button>
+  </form>
+</div>
+`;
+
+exports[`>>> EditUserModal Component (Non - Admin)--- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="editUserModal"
+>
+  <h3>
+    Email:
+  </h3>
+  <h4>
+    andriy123@gmail.com
+  </h4>
+  <h3
+    className="editAminText"
+  >
+    Is user an admin?
+  </h3>
+  <form
+    onSubmit={[Function]}
+  >
+    <FormGroup
+      bsClass="form-group"
+    >
+      <br />
+      <Radio
+        bsClass="radio"
+        checked={true}
+        className="editAdminInput"
+        disabled={false}
+        inline={true}
+        name="radioGroup"
+        onChange={[Function]}
+        required={true}
+        value="true"
+      >
+        Yes
+      </Radio>
+       
+      <Radio
+        bsClass="radio"
+        checked={false}
+        className="editAdminInput"
+        disabled={false}
+        inline={true}
+        name="radioGroup"
+        onChange={[Function]}
+        required={true}
+        value="false"
+      >
+        No
+      </Radio>
+    </FormGroup>
+    <p
+      className="adminEditAddInfo"
+    >
+      Admins can add and remove other users.
+    </p>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="saveEditChanges"
+      disabled={false}
+      type="submit"
+    >
+      Save Changes
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="cancelEdit"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Cancel
+    </Button>
+  </form>
+</div>
+`;

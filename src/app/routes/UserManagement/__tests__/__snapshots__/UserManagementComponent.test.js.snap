@@ -4,10 +4,22 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
 <div
   className="userManagement routeContainer"
 >
-  <ToggleDisplay
-    render={[Function]}
-    show={false}
-  />
+  <Fade
+    in={false}
+    mountOnEnter={false}
+    timeout={4000}
+    transitionAppear={false}
+    unmountOnExit={false}
+  >
+    <Alert
+      bsClass="alert"
+      bsStyle="info"
+      closeLabel="Close alert"
+      onDismiss={[Function]}
+    >
+      test123
+    </Alert>
+  </Fade>
   <h3>
     Manage Users
   </h3>
@@ -29,7 +41,9 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
           componentClass="div"
           xs={12}
         >
-          <Connect(NewUser) />
+          <Connect(NewUser)
+            handleCreateUser={[Function]}
+          />
         </Col>
       </Col>
       <Col
@@ -55,6 +69,7 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
                   Object {
                     "dataField": "email",
                     "isKey": true,
+                    "isSortable": true,
                     "title": "Email",
                     "width": "35%",
                   },
@@ -69,6 +84,12 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
                     "dataFormat": [Function],
                     "isKey": false,
                     "title": "Invited",
+                  },
+                  Object {
+                    "dataField": "dateCreated",
+                    "hidden": true,
+                    "isKey": false,
+                    "title": "invitedHiddenSort",
                   },
                   Object {
                     "dataFormat": [Function],
@@ -104,9 +125,8 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
               }
               options={
                 Object {
-                  "pageStartIndex": 1,
-                  "paginationSize": 3,
-                  "sizePerPage": 10,
+                  "defaultSortName": "dateCreated",
+                  "defaultSortOrder": "desc",
                 }
               }
               title="Pending invites"
@@ -193,6 +213,20 @@ exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturin
       </Col>
     </Row>
   </div>
+  <DialogBox
+    custom_class="editModal"
+    show={false}
+    title="Edit User"
+  >
+    <Connect(EditUserModal)
+      hideEditModal={[Function]}
+      loggedInUser={
+        Object {
+          "role": "user",
+        }
+      }
+    />
+  </DialogBox>
 </div>
 `;
 
@@ -200,10 +234,22 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
 <div
   className="userManagement routeContainer"
 >
-  <ToggleDisplay
-    render={[Function]}
-    show={false}
-  />
+  <Fade
+    in={false}
+    mountOnEnter={false}
+    timeout={4000}
+    transitionAppear={false}
+    unmountOnExit={false}
+  >
+    <Alert
+      bsClass="alert"
+      bsStyle="info"
+      closeLabel="Close alert"
+      onDismiss={[Function]}
+    >
+      test123
+    </Alert>
+  </Fade>
   <h3>
     Manage Users
   </h3>
@@ -225,7 +271,9 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
           componentClass="div"
           xs={12}
         >
-          <Connect(NewUser) />
+          <Connect(NewUser)
+            handleCreateUser={[Function]}
+          />
         </Col>
       </Col>
       <Col
@@ -251,6 +299,7 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
                   Object {
                     "dataField": "email",
                     "isKey": true,
+                    "isSortable": true,
                     "title": "Email",
                     "width": "35%",
                   },
@@ -265,6 +314,12 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
                     "dataFormat": [Function],
                     "isKey": false,
                     "title": "Invited",
+                  },
+                  Object {
+                    "dataField": "dateCreated",
+                    "hidden": true,
+                    "isKey": false,
+                    "title": "invitedHiddenSort",
                   },
                   Object {
                     "dataFormat": [Function],
@@ -300,9 +355,8 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
               }
               options={
                 Object {
-                  "pageStartIndex": 1,
-                  "paginationSize": 3,
-                  "sizePerPage": 10,
+                  "defaultSortName": "dateCreated",
+                  "defaultSortOrder": "desc",
                 }
               }
               title="Pending invites"
@@ -389,6 +443,20 @@ exports[`>>> UserManagement Component Admin with Active Users & Disabled Users -
       </Col>
     </Row>
   </div>
+  <DialogBox
+    custom_class="editModal"
+    show={false}
+    title="Edit User"
+  >
+    <Connect(EditUserModal)
+      hideEditModal={[Function]}
+      loggedInUser={
+        Object {
+          "role": "admin",
+        }
+      }
+    />
+  </DialogBox>
 </div>
 `;
 
@@ -396,10 +464,22 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
 <div
   className="userManagement routeContainer"
 >
-  <ToggleDisplay
-    render={[Function]}
-    show={false}
-  />
+  <Fade
+    in={false}
+    mountOnEnter={false}
+    timeout={4000}
+    transitionAppear={false}
+    unmountOnExit={false}
+  >
+    <Alert
+      bsClass="alert"
+      bsStyle="info"
+      closeLabel="Close alert"
+      onDismiss={[Function]}
+    >
+      test123
+    </Alert>
+  </Fade>
   <h3>
     Manage Users
   </h3>
@@ -421,7 +501,9 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
           componentClass="div"
           xs={12}
         >
-          <Connect(NewUser) />
+          <Connect(NewUser)
+            handleCreateUser={[Function]}
+          />
         </Col>
       </Col>
       <Col
@@ -447,6 +529,7 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
                   Object {
                     "dataField": "email",
                     "isKey": true,
+                    "isSortable": true,
                     "title": "Email",
                     "width": "35%",
                   },
@@ -461,6 +544,12 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
                     "dataFormat": [Function],
                     "isKey": false,
                     "title": "Invited",
+                  },
+                  Object {
+                    "dataField": "dateCreated",
+                    "hidden": true,
+                    "isKey": false,
+                    "title": "invitedHiddenSort",
                   },
                   Object {
                     "dataFormat": [Function],
@@ -496,9 +585,8 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
               }
               options={
                 Object {
-                  "pageStartIndex": 1,
-                  "paginationSize": 3,
-                  "sizePerPage": 10,
+                  "defaultSortName": "dateCreated",
+                  "defaultSortOrder": "desc",
                 }
               }
               title="Pending invites"
@@ -585,5 +673,19 @@ exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++ca
       </Col>
     </Row>
   </div>
+  <DialogBox
+    custom_class="editModal"
+    show={false}
+    title="Edit User"
+  >
+    <Connect(EditUserModal)
+      hideEditModal={[Function]}
+      loggedInUser={
+        Object {
+          "role": "admin",
+        }
+      }
+    />
+  </DialogBox>
 </div>
 `;
