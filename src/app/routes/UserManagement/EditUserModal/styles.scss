@@ -1,0 +1,56 @@
+.editUserModal {
+  h3 {
+    font-size: 13px !important;
+    letter-spacing: 1px;
+  }
+  
+  h4 {
+    font-size: 13px !important;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 15px;    
+	  font-style: italic;
+	  letter-spacing: 1px;
+	  color: #dcdcdc;
+  }
+
+  &.btn {
+    min-width: 200px !important;
+  }
+}
+
+.editButton {
+  min-width: 200px;
+}
+
+.editAminText {
+  margin-top: 40px;
+  margin-bottom: -10px;
+}
+
+.editAdminInput {
+  padding-right: 10px;
+  font-size: 13px;
+}
+
+.adminEditAddInfo {
+  padding-bottom: 20px;
+}
+
+.editModal {
+  max-width: 400px;
+}
+
+.saveEditChanges {
+  min-width: 95px;
+  font-size: 13px !important;
+}
+.cancelEdit {
+  background-color: white !important;
+  color:black !important;
+  min-width: 95px;
+  font-size: 13px !important;
+}
