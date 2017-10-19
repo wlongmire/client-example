@@ -109,9 +109,9 @@ export class UserManagement extends Component {
           title: 'Email',
           isSortable: true,
           sortFunc: (a, b, order) => {
-            if (a.id === user.id) {
+            if (a.username === user.username) {
               return -1
-            } else if (order === 'desc') {
+            } else if (order === 'asc') {
               return a.email.localeCompare(b.email)
             } else {
               return b.email.localeCompare(a.email)
@@ -205,7 +205,16 @@ export class UserManagement extends Component {
       ]
     }
 
-    console.log('this.props.pendingUsers', this.props.pendingUsers)
+    // console.log('this.props.pendingUsers', this.props.pendingUsers)
+    // console.log('activeUsers.data.', activeUsers.data)
+    // console.log('user.email', user.email)
+    // console.log('user', user)
+
+    // // const activeUsersSorted = () => {
+    // //   activeUsers.data.sort((a, b) => { return +(!b.username.localeCompare(user.username))
+    // // }).sort((a,b) => {
+
+    // // })
 
     return (
       <div className="userManagement routeContainer">
