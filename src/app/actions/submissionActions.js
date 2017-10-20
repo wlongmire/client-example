@@ -198,6 +198,7 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
       { emailAddress, emailType },
       {})
       .then((resp) => {
+        console.log(`email send ${emailAddress}`)
         return (resp)
       })
       .catch((error) => {
