@@ -42,7 +42,7 @@ class Loading extends Component {
     const ratingPromises = typeMap[submission.type]
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
-    const { argoEmail } = config
+    const { argoEmail, ownerEdgeEmail } = config
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
@@ -82,6 +82,7 @@ class Loading extends Component {
                 sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
                 sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
                 sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
+                sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user)
               ]
             // if it is a new submission
             } else {
@@ -89,6 +90,7 @@ class Loading extends Component {
                 sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
                 sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
                 sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
+                sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
               ]
             }
           // if clearance status is pending
@@ -98,12 +100,14 @@ class Loading extends Component {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
                 sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
+                sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
               ]
             // if it is a new submission
             } else {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
                 sendEmail(sgsEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
+                sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
               ]
             }
           }
