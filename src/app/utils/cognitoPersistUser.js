@@ -75,7 +75,6 @@ export function cognitoPersistUser(callback) {
               })
 
               apigClient.profileIdGet({ id: subId }).then((adminUsersIdGetResp) => {
-                console.log(adminUsersIdGetResp)
                 const userTableEntry = adminUsersIdGetResp.data
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
