@@ -30,15 +30,13 @@ export class EditUserModal extends Component {
   submitEditUser(event) {
     const { id, username } = this.props.selectedUser
     event.preventDefault()
-    console.log('HITTING THISwerewrwer')
-
+    
     apigClient.adminUsersIdPut({ id }, [
       {
         fieldName: 'role',
         fieldValue: (this.state.isAdmin === 'true') ? 'admin' : 'user'
       }
     ]).then((result2) => {
-      console.log("RESULT oF THIS SHISZNIT", result2)
       if (result2.data && result2.data.success === true) {     
         this.props.setAlert({ show: true, message: 'Successfully Updated User Record!', bsStyle: 'success' })
         this.props.getUsersByBrokerage(this.props.loggedInUser)
@@ -51,8 +49,6 @@ export class EditUserModal extends Component {
   }
 
   render() {
-    console.log('is ADMIN', this.state.isAdmin)
-
     if ((this.props.selectedUser === null) || !this.props.selectedUser.id) {
       return (
         <div className="editUserModal">
@@ -108,7 +104,6 @@ export class EditUserModal extends Component {
 }
 
 EditUserModal.propTypes = {
-  // user: PropTypes.object,
   hideEditModal: PropTypes.func,
   setAlert: PropTypes.func,
   getUsersByBrokerage: PropTypes.func,
