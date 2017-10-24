@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 
 class ConfirmSignup extends Component {
+  componentDidMount() {
+    return apigClient.apiInviteGet({ urlKey: this.props.location.query.key }, {}).then((response, err) => {
+      console.log("RESPONSE =====> TESTINGWRWERWE", response)
+      console.log("ERROR TESTING ===>", err)
+    })
+  }
   render() {
     console.log('this.props.location.query.key', this.props.location.query.key)
     const test123 = () => {
