@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 import FormBuilder from 'components/shared/FormBuilder'
 import ToggleDisplay from 'app/components/shared/ToggleDisplay'
-import form from '../signupForms/newPassword'
+import form from '../signupForms/completeProfile'
 
-class SetPassword extends Component {
+class CompleteProfile extends Component {
   constructor() {
     super()
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   handleSubmit(values) {
-    console.log("Values from set PASSWORD", values)
+    console.log("Values from set COMPLETE PROFILE", values)
     return this.props.goToNextStep()
   }
 
@@ -29,7 +30,7 @@ class SetPassword extends Component {
             />
             <Button
               className="btn" type="submit"
-            >Set Password</Button>
+            >Complete Profile</Button>
           </div>
         )}
         handleSubmit={this.handleSubmit}
@@ -38,4 +39,4 @@ class SetPassword extends Component {
   }
 }
 
-export default SetPassword
+export default CompleteProfile
