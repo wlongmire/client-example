@@ -1,0 +1,68 @@
+.signupBackground {  
+  background-color: white !important;
+  color: black !important;
+}
+
+.currentHeader {
+  text-align: center;
+
+  h4 {
+    padding-top: 30px;
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 30px;
+    padding-bottom: 10px;
+  }
+}
+
+
+.signupHeader {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 20px;
+  font-family: Raleway;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+  h1 {
+    font-size: 24px;
+    color: #08415c;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}
+
+.currentStep {
+  max-width: 300px;
+  width: 50%;
+  margin: 0 auto;
+  // text-align: center;
+  button {
+    // width: 50%;
+    // padding-left: 100px;
+    // margin: 0 auto;
+  }
+  form {
+    background-color: white !important;
+  }
+  .group {
+    padding: 0px !important;
+
+    background-color: white !important;
+    // color: black !important;
+    border-bottom: 0px !important;
+
+    .control-label {
+      color: black !important;
+    }
+
+    .form-group {
+      input {
+        background-color: white !important
+      }
+    }
+  }
+}
