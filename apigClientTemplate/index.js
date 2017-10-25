@@ -616,6 +616,59 @@ apigClientFactory.newClient = function (config) {
         
         return apiGatewayClient.makeRequest(apiSendEmailIdOptionsRequest, authType, additionalParams, config.apiKey);
     };
+
+    apigClient.apiInviteGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['urlKey'], ['body']);
+        
+        var apiInviteGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/invite').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['urlKey']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(apiInviteGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.apiInviteDelete = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var apiInviteDeleteRequest = {
+            verb: 'delete'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/invite').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(apiInviteDeleteRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.apiInviteOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var apiInviteOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/invite').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(apiInviteOptionsRequest, authType, additionalParams, config.apiKey);
+    };
     
     apigClient.profileIdGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
