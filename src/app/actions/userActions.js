@@ -13,6 +13,7 @@ import mx from 'app/utils/MixpanelInterface'
 import { setAlert, getUsersByBrokerage } from './adminActions'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
+import {isDefined, isNullOrEmpty} from './../utils/utilities'
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
   return (dispatch) => {
@@ -201,7 +202,7 @@ export function logout() {
   }
 }
 
-export function editProfile(user) {
+export function editProfile(user, values) {
   return ((dispatch) => {
     checkTokenExpiration(user).then((resp) => {
       if (resp.status === 'expired') {
@@ -213,11 +214,11 @@ export function editProfile(user) {
       }
 
     const paramsArray = [
-      {fieldName: 'firstName', fieldValue: user.firstName},
-      {fieldName: 'lastName', fieldValue: user.lastName},
-      {fieldName: 'title', fieldValue: user.title},
-      {fieldName: 'phone', fieldValue: user.phone},
-      {fieldName: 'ext', fieldValue: user.ext}
+      {fieldName: 'firstName', fieldValue: values.firstName},
+      {fieldName: 'lastName', fieldValue: values.lastName},
+      {fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ': values.jobTitle},
+      {fieldName: 'phone', fieldValue: values.phone},
+      {fieldName: 'ext', fieldValue: isNullOrEmpty(values.ext) ? ' ': values.ext}
     ]
     apigClient.profileIdPut({id:user.id}, paramsArray)
       .then((resp2, err1) => {
