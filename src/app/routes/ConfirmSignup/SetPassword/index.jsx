@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
-import FormBuilder from 'components/shared/FormBuilder'
-import ToggleDisplay from 'app/components/shared/ToggleDisplay'
+import { connect } from 'react-redux'
 import form from '../signupForms/newPassword'
-import { setNewPassword } from '../../../actions/userActions'
+import { setNewPassword, login } from '../../../actions/userActions'
+
 
 class SetPassword extends Component {
   constructor() {
@@ -26,9 +26,6 @@ class SetPassword extends Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-
-    console.log("Values from set PASSWORD", e.target)
-
     const { pwd, confirmPwd } = this.state
     console.log('pwd', pwd)
     console.log('confirmPwd', confirmPwd)
@@ -50,7 +47,43 @@ class SetPassword extends Component {
           // this.setState({ showResetModal: false })
           // on SUCCESS
           console.log("YOU MADE IT BRO")
-          return this.props.goToNextStep()
+
+          this.props.dispatch(login(
+            this.props.cognitoUser.username,
+            pwd,
+            () => {
+            // this is an on success login function
+              console.log("YOU LOGGED IN BRO !!!!!!!!!!!!!!!")
+              apigClient.apiInviteDelete({ urlKey: this.props.urlKey }, {}).then((response, err) => {
+                console.log("RESPONSE FROM THE DELETE INVITE", response)
+                console.log("ERROR  FROM THE DELETE INVITE", err)
+                return this.props.goToNextStep()
+              })
+            },
+            (err2) => {
+              console.log('ERROR WHEN LOGGING IN:', err2)
+
+              const errorMap = {
+                NotAuthorizedException: `${(err2.message === 'User is disabled') ? `User is disabled.
+                If you believe this is an error, please contact the administrator.` : `${err2.message}`}`,
+                UserNotFoundException: 'This Username is not within our records.',
+                MigrationReset: 'Please contact us to reset your password.',
+                InternalError: 'This Username is not within our records.'
+              }
+              const error = String(err2)
+              const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
+
+              this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType] })
+            },
+            () => {
+              // This is on password reset. this function should never be called here. if it is something is wrong.
+              this.setState({
+                ...this.state,
+                submitError: true,
+                submitErrorMessage: 'There was an error loging in after resetting password. Please contact support'
+              })
+            }
+          ))
         },
         (err) => {
           // on FAILURE
@@ -64,6 +97,8 @@ class SetPassword extends Component {
   }
 
   render() {
+    console.log('URL KEY IN SET PASSWORD', this.props.urlKey)
+
     const validatePassword = (e) => {
       const pwd = e.target.value
       const valid = {}
@@ -140,4 +175,4 @@ class SetPassword extends Component {
   }
 }
 
-export default SetPassword
+export default connect()(SetPassword)

@@ -6,7 +6,6 @@ import CompleteProfile from './CompleteProfile'
 import SignupHeader from './SignupHeader'
 import AllSet from './AllSet'
 import { login } from '../../actions/userActions'
-import Loading from '../../components/shared/Loading'
 
 class ConfirmSignup extends Component {
   constructor(props) {
@@ -45,6 +44,7 @@ class ConfirmSignup extends Component {
           p,
           () => {
             // this is an on success function. it should NEVER be triggered, we are resetting the password
+            
             this.setState({ ...this.state, step: 'error', errorMessage: 'There is an error in resetting password' })
           },
           (err2) => {
@@ -74,6 +74,8 @@ class ConfirmSignup extends Component {
             })
           }
         ))
+      } else {
+        browserHistory.push('/')
       }
     })
   }
@@ -98,9 +100,9 @@ class ConfirmSignup extends Component {
         case 2:
           return (<SignupHeader header1={'ACCOUNT STEP 3 OF 3'} header2={'You are all set!'} />)
         case 'error':
-          return (<SignupHeader header1={'...'} header2={'Something is wrong. Please contact support!'} />)
+          return (<SignupHeader header1={''} header2={`Something is wrong. ${this.state.errorMessage} Please contact support!`} />)
         default:
-          return (<SignupHeader header1={'...'} header2={`Something is wrong. ${this.state.errorMessage}. Please contact support!`} />)
+          return (<SignupHeader header1={''} header2={'Something is wrong. Please contact support!'} />)
       }
     }
 
@@ -118,6 +120,7 @@ class ConfirmSignup extends Component {
               goToNextStep={() => { return goToNextStep(1) }}
               cognitoUser={this.state.cognitoUser}
               userAttributes={this.state.userAttributes}
+              urlKey={this.props.location.query.key}
             />)
         case 1:
           return (<CompleteProfile goToNextStep={() => { return goToNextStep(2) }} />)

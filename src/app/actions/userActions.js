@@ -74,19 +74,18 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 }
 
                 if (userTableEntry.data.status === 'pending') {
-                  apigClient.adminUsersIdPut({ id: subId },
+                  apigClient.profileIdPut({ id: subId },
                     [
                       { fieldName: 'status', fieldValue: 'active' },
                       { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
                     ])
                 } else if (userTableEntry.data.status === 'active') {
-                  apigClient.adminUsersIdPut({ id: subId },
+                  apigClient.profileIdPut({ id: subId },
                     [
                       { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
                     ])
                 }
 
-                onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
                 const { role, brokerId, id } = userTableEntry.data
                 
@@ -126,7 +125,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     }
                   })
 
-                  browserHistory.push('/submissions')
+                  onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
                   FS.identify(cognitoUser.username, {
                     displayName: cognitoUser.username,
@@ -156,6 +155,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     BrokerName: brokerName,
                     first_name: cognitoUser.username
                   })
+
+
                 }, (err) => {
                   console.log('ERROR ================', err)
                 })
