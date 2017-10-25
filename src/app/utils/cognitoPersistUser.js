@@ -74,11 +74,10 @@ export function cognitoPersistUser(callback) {
                 region: config.awsCognito.region
               })
 
-              apigClient.adminUsersIdGet({ id: subId }).then((adminUsersIdGetResp) => {
+              apigClient.profileIdGet({ id: subId }).then((adminUsersIdGetResp) => {
                 const userTableEntry = adminUsersIdGetResp.data
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
-                  console.log(`${userTableEntry.errorCode}: ${userTableEntry.message}`)
                   AWS.config.credentials.clearCachedId()
                   cognitoUser.signOut()
                   callback(null)
@@ -91,7 +90,7 @@ export function cognitoPersistUser(callback) {
                   const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
                   //update lastOnline time
-                  apigClient.adminUsersIdPut({ id: subId }, [
+                  apigClient.profileIdPut({ id: subId }, [
                     {
                       fieldName: 'lastOnline',
                       fieldValue: new Date().toISOString()

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import FormBuilder from 'components/shared/FormBuilder'
 import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import form from '../signupForms/completeProfile'
+import { editProfile } from '../../../actions/userActions'
 
 class CompleteProfile extends Component {
   constructor() {
@@ -12,8 +14,10 @@ class CompleteProfile extends Component {
   }
 
   handleSubmit(values) {
-    console.log("Values from set COMPLETE PROFILE", values)
-    return this.props.goToNextStep()
+    editProfile(user.id, values)
+      .then(() => {
+        return this.props.goToNextStep()
+      })
   }
 
   render() {
@@ -39,4 +43,8 @@ class CompleteProfile extends Component {
   }
 }
 
-export default CompleteProfile
+export default connect((store) => {
+  return ({
+    user: store.user
+  })
+})(CompleteProfile)

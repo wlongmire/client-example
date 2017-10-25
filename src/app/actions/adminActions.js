@@ -24,7 +24,6 @@ export function getUsersByBrokerage(user) {
       apigClient.adminUsersGet({ broker: user.brokerId }, {}, {})
         .then((resp1) => {
           const apiResponse = resp1.data
-          
           if (apiResponse.success) {
             dispatch({ type: FETCH_USERS, payload: apiResponse.data })
           } else {
@@ -55,7 +54,6 @@ export function createNewUser(email, isAdmin, user, successMessage = 'Success: U
           dispatch(
             setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
           )
-          
         } else {
           dispatch(
             setAlert({ show: true, message: successMessage, bsStyle: 'success' })
@@ -67,6 +65,7 @@ export function createNewUser(email, isAdmin, user, successMessage = 'Success: U
     })
   })
 }
+
 
 export function deleteUser(id, user) {
   return (dispatch) => {
@@ -123,13 +122,6 @@ export function resendPasswordUser(sendUser, user) {
   }
 }
 
-export function setAlert(params) {
-  return (dispatch) => {
-    dispatch({ type: USER_ALERT_DISPLAY, payload: params })
-  }
-}
-
-
 export function updateUser(row, statusType, user) {
   return ((dispatch) => {
     checkTokenExpiration(user).then((resp) => {
@@ -165,4 +157,10 @@ export function updateUser(row, statusType, user) {
         })
     })
   })
+}
+
+export function setAlert(params) {
+  return (dispatch) => {
+    dispatch({ type: USER_ALERT_DISPLAY, payload: params })
+  }
 }

@@ -25,9 +25,16 @@ const formData = {
       inputFormat: 'text'
     },
     {
-      questionId: '3',
+      questionId: '4',
       name: 'phone',
       text: 'Phone',
+      inputType: 'text',
+      inputFormat: 'text'
+    },
+    {
+      questionId: '5',
+      name: 'ext',
+      text: 'Ext',
       inputType: 'text',
       inputFormat: 'text'
     }
