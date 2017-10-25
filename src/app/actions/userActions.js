@@ -80,7 +80,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
                 const { role, brokerId, id } = userTableEntry.data
-                
+
                 //get broker information
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data
@@ -100,7 +100,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                     }
                   })
-                  
+
                   //update lastOnline time
                   apigClient.profileIdPut({ id }, [{ fieldName: 'lastOnline', fieldValue: new Date().toISOString() }]
                   ).then((result2) => {
@@ -199,4 +199,28 @@ export function logout() {
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
   }
+}
+
+export function editProfile(user) {
+  return ((dispatch) => {
+    checkTokenExpiration(user).then((resp) => {
+      if (resp.status === 'expired') {
+        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
+      }
+
+      if (resp.status === 'expired') {
+        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
+      }
+
+    const paramsArray = [
+
+    ]
+    apigClient.profileIdPut({id:user.id}, paramsArray)
+      .then((resp2, err1) => {
+        if (resp2) {
+
+        }
+      });
+    });
+  });
 }
