@@ -14,11 +14,11 @@ class SetPassword extends Component {
       pwdNumber: false,
       pwdSpChar: false,
       caseChar: false,
-      passwordMatch: null
+      passwordMatch: null,
+      disabledFlag: true
 
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.disableFlag = this.disableFlag.bind(this)
   }
 
   componentDidMount() {
@@ -27,95 +27,66 @@ class SetPassword extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    // console.log("Values from set PASSWORD", e.target)
+    console.log("Values from set PASSWORD", e.target)
 
-    // const { pwd, confirmPwd } = this.state
-    // console.log('pwd', pwd)
-    // console.log('confirmPwd', confirmPwd)
+    const { pwd, confirmPwd } = this.state
+    console.log('pwd', pwd)
+    console.log('confirmPwd', confirmPwd)
 
-    // if (pwd === '') {
-    //   alert('MISSING PASSWROD')
-    //   // this.setState({ passwordResetError: true, passwordResetErrorMessage: 'Please Enter a Valid Password.' })
-    // } else if (pwd !== confirmPwd) {
-    //   this.setState({ ...this.state, passwordMatch: false })
-    // } else {
-    //   setNewPassword(
-    //     this.props.cognitoUser,
-    //     pwd,
-    //     {
-    //       name: this.state.userAttributes.email,
-    //       preferred_username: this.state.userAttributes.email
-    //     },
-    //     () => {
-    //       // this.setState({ showResetModal: false })
-    //       // on SUCCESS
-    //       return this.props.goToNextStep()
-    //     },
-    //     (err) => {
-    //       // on FAILURE
+    if (pwd === '') {
+      alert('MISSING PASSWROD')
+      // this.setState({ passwordResetError: true, passwordResetErrorMessage: 'Please Enter a Valid Password.' })
+    } else if (pwd !== confirmPwd) {
+      this.setState({ ...this.state, passwordMatch: false, submitError: true, submitErrorMessage: 'Passwords must match!' })
+    } else {
+      setNewPassword(
+        this.props.cognitoUser,
+        pwd,
+        {
+          name: this.props.userAttributes.email,
+          preferred_username: this.props.userAttributes.email
+        },
+        () => {
+          // this.setState({ showResetModal: false })
+          // on SUCCESS
+          console.log("YOU MADE IT BRO")
+          return this.props.goToNextStep()
+        },
+        (err) => {
+          // on FAILURE
 
-    //       const error = String(err)
-    //       const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
-    //       this.setState({ passwordResetError: true, passwordResetErrorMessage: `${errorType}.` })
-    //     })
-    // }
-    return this.props.goToNextStep()
-  }
-
-  disableFlag() {
-    const { pwdNumber, pwdSpChar, caseChar, pwdLength } = this.state
-    if (
-      pwdNumber === true &&
-      pwdSpChar === true &&
-      caseChar === true &&
-      pwdLength === true
-    ) {
-      return this.setState({ ...this.state, disableFlag: false })
-      // return false
+          const error = String(err)
+          const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
+          return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
+        })
     }
-    return this.setState({ ...this.state, disableFlag: true })
-    // return true
-  }
-    // if you want to manually go to the next step
     // return this.props.goToNextStep()
+  }
 
   render() {
     const validatePassword = (e) => {
       const pwd = e.target.value
-      const validation = {}
-      validation.pwdLength = (pwd.length >= 8) || false
+      const valid = {}
+      valid.pwdLength = (pwd.length >= 8) || false
 
       const numberMatches = pwd.match(/\d+/g)
-      validation.pwdNumber = numberMatches != null // single equal sign is important (!=)
-      validation.pwdSpChar = pwd.match(/[\W]/) !== null // double equal sign is important (!==)
-      validation.caseChar = (pwd.match(/[a-z]/) && pwd.match(/[A-Z]/)) !== null
+      valid.pwdNumber = numberMatches != null // single equal sign is important (!=)
+      valid.pwdSpChar = pwd.match(/[\W]/) !== null // double equal sign is important (!==)
+      valid.caseChar = (pwd.match(/[a-z]/) && pwd.match(/[A-Z]/)) !== null
 
-      this.setState({ ...this.state, pwd, ...validation })
+      if (valid.pwdLength === true && valid.pwdNumber === true && valid.pwdSpChar === true && valid.caseChar) {
+        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: false })
+      } else {
+        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: true })
+      }
     }
 
     const validateConfirmPassword = (e) => {
       const confirmPwd = e.target.value
-      this.setState({ ...this.state, confirmPwd, passwordMatch: null })
+      this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: null })
     }
 
-    const disableFlag = () => {
-      const { pwdNumber, pwdSpChar, caseChar, pwdLength } = this.state
-      if (
-        pwdNumber === true &&
-        pwdSpChar === true &&
-        caseChar === true &&
-        pwdLength === true
-      ) {
-        // this.setState({ ...this.state, disableFlag: false })
-        return false
-      }
-      // this.setState({ ...this.state, disableFlag: true })
-      return true
-    }
-
-    console.log("THIS.STATE", this.state)
-    const { error, errorMessage } = this.props
-
+    console.log('THIS.STATE', this.props)
     const checkMark = <i className="fa fa-check pwdCheckmark" aria-hidden="true" />
 
 
@@ -136,8 +107,7 @@ class SetPassword extends Component {
                   label="Text"
                   onChange={validatePassword}
                 />
-                {(this.state.disableFlag === false) && helpBlock('Please conform to password standards.', '')}
-                {(this.state.disableFlag === true) && helpBlock('Please conform to password standards.', 'helpBlockGreen')}
+                {(this.state.disabledFlag === false) ? helpBlock('Password Requirements met!', 'helpBlockGreen') : helpBlock('Please conform to password standards.', '')}
               </FormGroup>
               <FormGroup controlId="confirmPassword">
                 <ControlLabel>Confirm Password</ControlLabel>
@@ -149,22 +119,6 @@ class SetPassword extends Component {
                 />
                 {(this.state.passwordMatch === false) && helpBlock('Passwords must match!', 'helpBlockRed')}
               </FormGroup>
-              {/* <FormBuilder
-                data={form}
-                submitTitle="Password Reset"
-                submissionButtons={() => (
-                  <div>
-                    <ToggleDisplay
-                      show={error}
-                      render={() => <div className="errorMessage">{ errorMessage }</div>}
-                    />
-                    <Button
-                      className="btn" type="submit"
-                    >Set Password</Button>
-                  </div>
-                )}
-                handleSubmit={this.handleSubmit}
-              /> */}
             </Col>
             <Col xs={6} sm={6} md={6} lg={6}>
               <div className="pwdRequirements">
@@ -177,8 +131,8 @@ class SetPassword extends Component {
             </Col>
           </Row>
           <Row className="passwordSetSubmit">
-            <Button type="submit">Set Password</Button>
-            {/* disabled={disableFlag()}  */}
+            <Button disabled={this.state.disabledFlag} type="submit">Set Password</Button>
+            {(this.state.submitError === true) && helpBlock(`There is an error in submission! ${this.state.submitErrorMessage}`, 'helpBlockRed')}
           </Row>
         </form>
       </div>

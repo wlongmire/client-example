@@ -113,7 +113,12 @@ class ConfirmSignup extends Component {
         case 'loading':
           return (<div />)
         case 0:
-          return (<SetPassword goToNextStep={() => { return goToNextStep(1) }} cognitoUser={this.state.cognitoUser} />)
+          return (
+            <SetPassword
+              goToNextStep={() => { return goToNextStep(1) }}
+              cognitoUser={this.state.cognitoUser}
+              userAttributes={this.state.userAttributes}
+            />)
         case 1:
           return (<CompleteProfile goToNextStep={() => { return goToNextStep(2) }} />)
         case 2:
