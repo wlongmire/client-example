@@ -65,7 +65,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
 
               //get user table entry
-              apigClient.adminUsersIdGet({ id: subId }).then((adminUsersIdGetResp) => {
+              apigClient.profileIdGet({ id: subId }).then((adminUsersIdGetResp) => {
                 const userTableEntry = adminUsersIdGetResp.data
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
@@ -74,16 +74,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 }
 
                 if (userTableEntry.data.status === 'pending') {
-                  apigClient.adminUsersIdPut({ id: subId },
-                    [
-                      { fieldName: 'status', fieldValue: 'active' },
-                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
-                    ])
-                } else if (userTableEntry.data.status === 'active') {
-                  apigClient.adminUsersIdPut({ id: subId },
-                    [
-                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
-                    ])
+                  apigClient.profileIdPut({ id: subId }, [{ fieldName: 'status', fieldValue: 'active' }])
                 }
 
                 onSuccess(resp, subId, cognitoUser, credentials.expireTime)
@@ -109,17 +100,12 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                     }
                   })
-
+                  
                   //update lastOnline time
-                  apigClient.adminUsersIdPut({ id }, [
-                    {
-                      fieldName: 'lastOnline',
-                      fieldValue: new Date().toISOString()
-                    }
-                  ]).then((result2) => {
-                    const resp = result2.data
-
-                    if (!resp.success) {
+                  apigClient.profileIdPut({ id }, [{ fieldName: 'lastOnline', fieldValue: new Date().toISOString() }]
+                  ).then((result2) => {
+                    const resp2 = result2.data
+                    if (!resp2.success) {
                       alert('Error on update: ', result.message)
                     } else {
                       console.log('Successfully updated')
@@ -156,19 +142,15 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     BrokerName: brokerName,
                     first_name: cognitoUser.username
                   })
-                }, (err) => {
-                  console.log('ERROR ================', err)
+                }, (err2) => {
+                  console.log('ERROR ================', err2)
                 })
               })
             })
           })
         },
         onFailure: (err) => {
-          if (config.env === 'prod') {
-            migrationLogin(username, password, onSuccess, onFailure, newPasswordRequired, dispatch)
-          } else {
-            onFailure(err)
-          }
+          onFailure(err)
         },
         newPasswordRequired: (userAttributes) => {
           newPasswordRequired(userAttributes, cognitoUser)
@@ -217,32 +199,4 @@ export function logout() {
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
   }
-}
-
-export function createNewUser(email, isAdmin, user) {
-  return ((dispatch) => {
-    checkTokenExpiration(user).then(() => {
-      const body = {
-        email,
-        role: isAdmin == 'true' ? 'admin' : 'broker',
-        broker_id: user.brokerId
-      }
-
-      apigClient.adminUsersPost({}, body, {}).then((resp) => {
-        if (resp.data && resp.data.success === false) {
-          console.log(resp.data)
-          
-          dispatch(
-            setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
-          )
-          
-        } else {
-          dispatch(
-            setAlert({ show: true, message: 'Success: User has been successful created.', bsStyle: 'success' })
-          )
-          dispatch(getUsersByBrokerage(user))
-        }
-      })
-    })
-  })
 }
