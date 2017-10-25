@@ -213,13 +213,18 @@ export function editProfile(user) {
       }
 
     const paramsArray = [
-
+      {fieldName: 'firstName', fieldValue: user.firstName},
+      {fieldName: 'lastName', fieldValue: user.lastName},
+      {fieldName: 'title', fieldValue: user.title},
+      {fieldName: 'phone', fieldValue: user.phone},
+      {fieldName: 'ext', fieldValue: user.ext}
     ]
     apigClient.profileIdPut({id:user.id}, paramsArray)
       .then((resp2, err1) => {
-        if (resp2) {
-
+        if (resp2.data && resp2.data.success === true) {
+          return Promise.resolve(resp2.data);
         }
+        else return Promise.reject(resp2.data);
       });
     });
   });
