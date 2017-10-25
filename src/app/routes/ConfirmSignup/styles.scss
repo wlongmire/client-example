@@ -1,6 +1,7 @@
 .signupBackground {  
   background-color: white !important;
   color: black !important;
+  min-height: 800px;
 }
 
 .currentHeader {
@@ -36,7 +37,7 @@
 }
 
 .currentStep {
-  max-width: 300px;
+  max-width: 600px;
   width: 50%;
   margin: 0 auto;
 
@@ -80,4 +81,55 @@
 
 .body-signup {
   background-color: red !important
+}
+
+.pwdRequirements {
+  background-color: #f0f0f0;
+  padding-left: 20px;
+  padding-bottom: 10px;
+
+  h4 {
+    padding-top: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: underline;
+    padding-left: 10px;
+  }
+  div {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-size: 12px;
+  }
+}
+
+// .setPassword {
+//   .btn {
+//     margin-top: 30px;
+//   }
+
+//   @media (min-width: 1px) {
+//     margin-left: 200px;
+//   }
+// }
+
+.body-signup-grey {
+  background-color: white !important;
+}
+
+.passwordSetSubmit {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.pwdCheckmark {
+  margin-left: -18px;
+  color: green;
+}
+
+.helpBlockRed {
+  color: red;
+}
+
+.helpBlockGreen {
+  color: green;
 }

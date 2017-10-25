@@ -13,14 +13,15 @@ class ConfirmSignup extends Component {
     super(props)
     this.state = {
       step: 'loading',
-      errorMessage: null
+      errorMessage: null,
+      cognitoUser: null
     }
   }
 
   componentDidMount() {
     // console.log("HITTINTTWER#@R#$#$#$R%#$%#$#$#$$##$ ")
     // document.html.style.backgroundColor = 'red !important'
-    // // document.body.className = 'body-signup'
+    document.body.className = 'body-signup-grey'
     // console.log('DOCUMENT BODY', document.body)
     if (!this.props.location.query.key ) {
       return browserHistory.push('/')
@@ -77,6 +78,10 @@ class ConfirmSignup extends Component {
     })
   }
 
+  componentWillUnmount() {
+    document.body.className = ''
+  }
+
   render() {
     const { error, errorMessage } = this.props
 
@@ -85,7 +90,7 @@ class ConfirmSignup extends Component {
     const currentHeader = () => {
       switch (this.state.step) {
         case 'loading':
-          return (<SignupHeader header1={''} header2={'Loading... :-)'} />)
+          return (<div />)
         case 0:
           return (<SignupHeader header1={'ACCOUNT STEP 1 OF 3'} header2={'Choose a new password'} />)
         case 1:
@@ -106,9 +111,9 @@ class ConfirmSignup extends Component {
     const currentStep = () => {
       switch (this.state.step) {
         case 'loading':
-          return (<Loading />)
+          return (<div />)
         case 0:
-          return (<SetPassword goToNextStep={() => { return goToNextStep(1) }} />)
+          return (<SetPassword goToNextStep={() => { return goToNextStep(1) }} cognitoUser={this.state.cognitoUser} />)
         case 1:
           return (<CompleteProfile goToNextStep={() => { return goToNextStep(2) }} />)
         case 2:
