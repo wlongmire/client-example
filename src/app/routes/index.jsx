@@ -17,6 +17,7 @@ import Clearance from 'routes/Clearance'
 import UserManagement from 'routes/UserManagement'
 import SignIn from 'routes/SignIn'
 import Http404 from 'routes/Http404'
+import ConfirmSignup from 'routes/ConfirmSignup'
 
 
 const UserIsAuthenticated = UserAuthWrapper({
@@ -65,6 +66,11 @@ export default (
     <Route
       path="formResults"
       component={UserIsAuthenticated(FormResults)}
+    />
+
+    <Route
+      path="confirmsignup"
+      component={ConfirmSignup}
     />
 
     <Route

@@ -1,0 +1,151 @@
+.signupBackground {  
+  background-color: white !important;
+  color: black !important;
+  min-height: 800px;
+}
+
+.currentHeader {
+  text-align: center;
+
+  h4 {
+    padding-top: 30px;
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 30px;
+    padding-bottom: 10px;
+  }
+}
+
+
+.signupHeader {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 20px;
+  font-family: Raleway;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+  h1 {
+    font-size: 24px;
+    color: #08415c;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}
+
+.currentStep {
+  max-width: 600px;
+  width: 50%;
+  margin: 0 auto;
+
+  form {
+    background-color: white !important;
+  }
+  .group {
+    padding: 0px !important;
+
+    background-color: white !important;
+    // color: black !important;
+    border-bottom: 0px !important;
+
+    .control-label {
+      color: black !important;
+    }
+
+    .form-group {
+      input {
+        background-color: white !important
+      }
+    }
+  }
+}
+
+.allSet {
+  text-align: center;
+
+  .fa-check-circle {
+    padding-bottom: 20px;
+    color: #28ca42;
+    font-size: 48px;
+  }
+
+  p {
+    color: #7d7d7d;
+    font-size: 20px;
+    padding-bottom: 10px;
+  }
+}
+
+.body-signup {
+  background-color: red !important
+}
+
+.pwdRequirements {
+  background-color: #f0f0f0;
+  padding-left: 20px;
+  padding-bottom: 10px;
+
+  h4 {
+    padding-top: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: underline;
+    padding-left: 10px;
+  }
+  div {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-size: 12px;
+  }
+}
+
+// .setPassword {
+//   .btn {
+//     margin-top: 30px;
+//   }
+
+//   @media (min-width: 1px) {
+//     margin-left: 200px;
+//   }
+// }
+
+.body-signup-grey {
+  background-color: white !important;
+}
+
+.passwordSetSubmit {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.pwdCheckmark {
+  margin-left: -18px;
+  color: green;
+}
+
+.helpBlockRed {
+  color: red;
+}
+
+.helpBlockGreen {
+  color: green;
+}
+
+.completeProfile {
+  max-width: 600px;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.completeProfileButton {
+  width: 50%;
+  padding-top: 30px;
+  margin: 0 auto;
+}
+
+.completeSpace {
+  padding-top: 12px;
+}
