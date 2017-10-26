@@ -26,10 +26,10 @@ const config = {
 
     awsCognito:{
         identityPoolId: 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b',
-        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_3SgBuYU4O',
-        userPoolId: 'us-east-1_3SgBuYU4O',
+        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_Yw4miuukc',
+        userPoolId: 'us-east-1_Yw4miuukc',
         region: 'us-east-1',
-        clientId: '76c9vth2qtg841ivles7aurmvv'
+        clientId: '218nqu8kj9o3r0r2ch81ldarnr'
     },
 
     apiGateway: {

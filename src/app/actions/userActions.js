@@ -249,7 +249,6 @@ export function editProfile(user, values) {
 }
 
 export function createAlert(message, bsStyle) {
-  console.log('EVERY TIME THIS IS HITTTTTTTTTTTTTTTTT', message)
   return ((dispatch) => {
     dispatch({
       type: ALERT_DISPLAY,

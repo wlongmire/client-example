@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
-import form from '../signupForms/completeProfile'
 import { editProfile } from '../../../actions/userActions'
 
 class CompleteProfile extends Component {

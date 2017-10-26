@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import form from '../signupForms/newPassword'
 import { setNewPassword, login } from '../../../actions/userActions'
 
-class SetPassword extends Component {
+export class SetPassword extends Component {
   constructor() {
     super()
 
@@ -159,9 +158,9 @@ class SetPassword extends Component {
 }
 
 SetPassword.propTypes = {
-  goToNextStep: PropTypes.func.isRequired,
-  cognitoUser: PropTypes.object.isRequired,
-  userAttributes: PropTypes.object.isRequired,
+  goToNextStep: PropTypes.func,
+  cognitoUser: PropTypes.object,
+  userAttributes: PropTypes.object,
   dispatch: PropTypes.func
 
 }
