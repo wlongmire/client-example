@@ -1,0 +1,1 @@
+export const ALERT_DISPLAY = 'ALERT_DISPLAY'

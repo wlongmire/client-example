@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
-import FormBuilder from 'components/shared/FormBuilder'
-import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import form from '../signupForms/completeProfile'
 import { editProfile } from '../../../actions/userActions'
 
@@ -45,7 +43,6 @@ class CompleteProfile extends Component {
   }
 
   render() {
-
     const validateFirstName = (e) => {
       return this.setState({ ...this.state, errorStatus: false, firstName: e.target.value })
     }
@@ -62,13 +59,7 @@ class CompleteProfile extends Component {
       return this.setState({ ...this.state, errorStatus: false, phoneExt: e.target.value })
     }
 
-    // console.log('this.state in finish setup', this.state)
-    // console.log('this.props.user', this.props.user)
-
-    const { firstName, lastName, jobTitle, phone, phoneExt } = this.state
-    // if (firstName.length !== 0 && lastName.length === 0 && phone.length === 0) {
-    //   return this.setState({ ...this.state, disabledFlag: false })
-    // }
+    const { firstName, lastName, phone, } = this.state
 
     const helpBlock = (text, helpClass) => {
       return (<HelpBlock className={`${helpClass}`} >{text}</HelpBlock>)
@@ -76,22 +67,6 @@ class CompleteProfile extends Component {
 
     return (
       <div className="completeProfile">
-        {/* <FormBuilder
-          data={form}
-          submitTitle="Complete Profile"
-          submissionButtons={() => (
-            <div>
-              <ToggleDisplay
-                show={error}
-                render={() => <div className="errorMessage">{ errorMessage }</div>}
-              />
-              <Button
-                className="btn" type="submit"
-              >Complete Profile</Button>
-            </div>
-          )}
-          handleSubmit={this.handleSubmit}
-        /> */}
         <form>
           <FormGroup controlId="firstName">
             <ControlLabel>First Name</ControlLabel>
@@ -158,6 +133,11 @@ class CompleteProfile extends Component {
       </div>
     )
   }
+}
+
+CompleteProfile.propTypes = {
+  goToNextStep: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default connect((store) => {

@@ -5,7 +5,7 @@ import SetPassword from './SetPassword'
 import CompleteProfile from './CompleteProfile'
 import SignupHeader from './SignupHeader'
 import AllSet from './AllSet'
-import { login, logout } from '../../actions/userActions'
+import { login, logout, createAlert } from '../../actions/userActions'
 
 class ConfirmSignup extends Component {
   constructor(props) {
@@ -20,7 +20,8 @@ class ConfirmSignup extends Component {
   componentDidMount() {
     document.body.className = 'body-signup-grey'
 
-    if (!this.props.location.query.key ) {
+    if (!this.props.location.query.key) {
+      this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
       return browserHistory.push('/')
     }
     const gateway = apigClientFactory.newClient()
@@ -29,16 +30,12 @@ class ConfirmSignup extends Component {
     //   this.props.dispatch(logout())
     // }
     return gateway.apiInviteGet({ urlKey: this.props.location.query.key }, {}).then((response, err) => {
-      console.log("ERROR TESTING ===>", err)
       if (err) {
         return (this.setState({ ...this.state, step: 'error', errorMessage: err.message }))
       }
-      console.log('RESPONSE =====> TESTINGWRWERWE', response)
 
       if (response && response.data && response.data.success === true) {
-        console.log('GETTING HERE', response.data.data)
         const { u, p } = response.data.data
-        console.log("THIS PROPS", this.props)
         this.props.dispatch(login(
           u,
           p,
@@ -63,8 +60,6 @@ class ConfirmSignup extends Component {
             this.setState({ ...this.state, step: 'error', errorMessage: errorMap[errorType] })
           },
           (userAttributes, cognitoUser) => {
-            console.log("GETTING TO RESET PASSWORD", cognitoUser)
-            console.log("GETTING TO RESET userAttributes", userAttributes)
             this.setState({
               ...this.state,
               errorMessage: null,
@@ -75,7 +70,8 @@ class ConfirmSignup extends Component {
           }
         ))
       } else {
-        // AK_TO_DO
+       // AK_TO_DO
+        this.props.dispatch(createAlert('The user is already created. Please login or contact support if you are experiencing issues!', 'info'))
         browserHistory.push('/')
       }
     })
@@ -86,10 +82,6 @@ class ConfirmSignup extends Component {
   }
 
   render() {
-    const { error, errorMessage } = this.props
-
-    console.log('this.props.location.query.key', this.props.location.query.key)
-
     const currentHeader = () => {
       switch (this.state.step) {
         case 'loading':
