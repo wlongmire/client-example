@@ -21,19 +21,13 @@ class SetPassword extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    // this.disableFlag()
-  }
   handleSubmit(e) {
     e.preventDefault()
     const { pwd, confirmPwd } = this.state
     console.log('pwd', pwd)
     console.log('confirmPwd', confirmPwd)
 
-    if (pwd === '') {
-      alert('MISSING PASSWROD')
-      // this.setState({ passwordResetError: true, passwordResetErrorMessage: 'Please Enter a Valid Password.' })
-    } else if (pwd !== confirmPwd) {
+    if (pwd !== confirmPwd) {
       this.setState({ ...this.state, passwordMatch: false, submitError: true, submitErrorMessage: 'Passwords must match!' })
     } else {
       setNewPassword(
@@ -44,7 +38,6 @@ class SetPassword extends Component {
           preferred_username: this.props.userAttributes.email
         },
         () => {
-          // this.setState({ showResetModal: false })
           // on SUCCESS
           console.log("YOU MADE IT BRO")
 
@@ -54,7 +47,7 @@ class SetPassword extends Component {
             () => {
             // this is an on success login function
               console.log("YOU LOGGED IN BRO !!!!!!!!!!!!!!!")
-              apigClient.apiInviteDelete({ urlKey: this.props.urlKey }, {}).then((response, err) => {
+              apigClient.apiInviteDelete({ username: this.props.cognitoUser.username }, {}).then((response, err) => {
                 console.log("RESPONSE FROM THE DELETE INVITE", response)
                 console.log("ERROR  FROM THE DELETE INVITE", err)
                 return this.props.goToNextStep()

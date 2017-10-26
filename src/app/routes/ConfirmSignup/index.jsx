@@ -11,22 +11,19 @@ class ConfirmSignup extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      step: 'loading',
+      step: 0,
       errorMessage: null,
       cognitoUser: null
     }
   }
 
   componentDidMount() {
-    // console.log("HITTINTTWER#@R#$#$#$R%#$%#$#$#$$##$ ")
-    // document.html.style.backgroundColor = 'red !important'
     document.body.className = 'body-signup-grey'
-    // console.log('DOCUMENT BODY', document.body)
+
     if (!this.props.location.query.key ) {
       return browserHistory.push('/')
     }
     const gateway = apigClientFactory.newClient()
-    console.log('test123 ====>', gateway)
 
     return gateway.apiInviteGet({ urlKey: this.props.location.query.key }, {}).then((response, err) => {
       console.log("ERROR TESTING ===>", err)
@@ -44,7 +41,7 @@ class ConfirmSignup extends Component {
           p,
           () => {
             // this is an on success function. it should NEVER be triggered, we are resetting the password
-            
+
             this.setState({ ...this.state, step: 'error', errorMessage: 'There is an error in resetting password' })
           },
           (err2) => {
@@ -75,6 +72,7 @@ class ConfirmSignup extends Component {
           }
         ))
       } else {
+        // AK_TO_DO
         browserHistory.push('/')
       }
     })

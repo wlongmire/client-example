@@ -212,30 +212,31 @@ export function logout() {
 }
 
 export function editProfile(user, values) {
-  return ((dispatch) => {
-    checkTokenExpiration(user).then((resp) => {
-      if (resp.status === 'expired') {
-        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
-      }
+  return new Promise((resolve, reject)=> {
+    checkTokenExpiration(user).then(() => {
+      const paramsArray = [
+        { fieldName: 'firstName', fieldValue: values.firstName },
+        { fieldName: 'lastName', fieldValue: values.lastName },
+        { fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ' : values.jobTitle },
+        { fieldName: 'phone', fieldValue: values.phone },
+        { fieldName: 'phoneExt', fieldValue: isNullOrEmpty(values.phoneExt) ? ' ' : values.ext }
+      ]
 
-      if (resp.status === 'expired') {
-        dispatch({ type: USER_LOGGED_IN, payload: resp.user })
-      }
-
-    const paramsArray = [
-      {fieldName: 'firstName', fieldValue: values.firstName},
-      {fieldName: 'lastName', fieldValue: values.lastName},
-      {fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ': values.jobTitle},
-      {fieldName: 'phone', fieldValue: values.phone},
-      {fieldName: 'ext', fieldValue: isNullOrEmpty(values.ext) ? ' ': values.ext}
-    ]
-    apigClient.profileIdPut({id:user.id}, paramsArray)
+    apigClient.profileIdPut({ id: user.id }, paramsArray)
       .then((resp2, err1) => {
+        console.log('err1', err1)
+        console.log('resp2', resp2)
         if (resp2.data && resp2.data.success === true) {
-          return Promise.resolve(resp2.data);
+          return resolve({
+            success: true,
+            data: resp2.data
+          })
         }
-        else return Promise.reject(resp2.data);
-      });
-    });
-  });
+        return resolve({
+          success: false,
+          message: err1.message
+        })
+      })
+    })
+  })
 }
