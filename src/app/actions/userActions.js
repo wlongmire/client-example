@@ -151,15 +151,9 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     BrokerName: brokerName,
                     first_name: cognitoUser.username
                   })
-<<<<<<< HEAD
 
-
-                }, (err) => {
-                  console.log('ERROR ================', err)
-=======
                 }, (err2) => {
                   console.log('ERROR ================', err2)
->>>>>>> 4efc206334aad72c37ec661daa062fb87aababf2
                 })
               })
             })
