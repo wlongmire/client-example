@@ -12,6 +12,7 @@ import userReducer from '../reducers/userReducer'
 import appReducer from '../reducers/appReducer'
 import submissionsReducer from '../reducers/submissionReducer'
 import adminReducer from '../reducers/adminReducer'
+import alertReducer from '../reducers/alertReducer'
 
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 
@@ -20,7 +21,8 @@ const appReducers = combineReducers({
   submissions: submissionsReducer,
   user: userReducer,
   app: appReducer,
-  admin: adminReducer
+  admin: adminReducer,
+  alerts: alertReducer
 })
 
 let configureStore

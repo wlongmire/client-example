@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import form from '../signupForms/newPassword'
 import { setNewPassword, login } from '../../../actions/userActions'
 
-
-class SetPassword extends Component {
+export class SetPassword extends Component {
   constructor() {
     super()
 
@@ -24,8 +22,6 @@ class SetPassword extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const { pwd, confirmPwd } = this.state
-    console.log('pwd', pwd)
-    console.log('confirmPwd', confirmPwd)
 
     if (pwd !== confirmPwd) {
       this.setState({ ...this.state, passwordMatch: false, submitError: true, submitErrorMessage: 'Passwords must match!' })
@@ -39,17 +35,13 @@ class SetPassword extends Component {
         },
         () => {
           // on SUCCESS
-          console.log("YOU MADE IT BRO")
 
           this.props.dispatch(login(
             this.props.cognitoUser.username,
             pwd,
             () => {
-            // this is an on success login function
-              console.log("YOU LOGGED IN BRO !!!!!!!!!!!!!!!")
+              // this is an on success login function
               apigClient.apiInviteDelete({}, { username: this.props.cognitoUser.username }).then((response, err) => {
-                console.log("RESPONSE FROM THE DELETE INVITE", response)
-                console.log("ERROR  FROM THE DELETE INVITE", err)
                 return this.props.goToNextStep()
               })
             },
@@ -90,8 +82,6 @@ class SetPassword extends Component {
   }
 
   render() {
-    console.log('URL KEY IN SET PASSWORD', this.props.urlKey)
-
     const validatePassword = (e) => {
       const pwd = e.target.value
       const valid = {}
@@ -114,7 +104,6 @@ class SetPassword extends Component {
       this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: null })
     }
 
-    console.log('THIS.STATE', this.props)
     const checkMark = <i className="fa fa-check pwdCheckmark" aria-hidden="true" />
 
 
@@ -166,6 +155,14 @@ class SetPassword extends Component {
       </div>
     )
   }
+}
+
+SetPassword.propTypes = {
+  goToNextStep: PropTypes.func,
+  cognitoUser: PropTypes.object,
+  userAttributes: PropTypes.object,
+  dispatch: PropTypes.func
+
 }
 
 export default connect()(SetPassword)

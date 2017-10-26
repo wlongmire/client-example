@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import { browserHistory } from 'react-router'
 
-function AllSet() {
+export function AllSet() {
   return (
     <div className="allSet">
       <i className="fa fa-check-circle fa-3" aria-hidden="true" />

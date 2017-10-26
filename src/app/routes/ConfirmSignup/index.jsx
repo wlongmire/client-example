@@ -1,44 +1,45 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import SetPassword from './SetPassword'
+import SetPasswordC from './SetPassword'
 import CompleteProfile from './CompleteProfile'
-import SignupHeader from './SignupHeader'
-import AllSet from './AllSet'
-import { login, logout } from '../../actions/userActions'
+import SignupHeaderC from './SignupHeader'
+import AllSetC from './AllSet'
+import { login, logout, createAlert } from '../../actions/userActions'
 
-class ConfirmSignup extends Component {
+export class ConfirmSignup extends Component {
   constructor(props) {
     super(props)
     this.state = {
       step: 0,
       errorMessage: null,
-      cognitoUser: null
+      cognitoUser: null,
+      fade: true
     }
   }
 
   componentDidMount() {
     document.body.className = 'body-signup-grey'
+    console.log('document.body', document.body)
 
-    if (!this.props.location.query.key ) {
+    if (!this.props.location.query.key) {
+      this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
       return browserHistory.push('/')
     }
     const gateway = apigClientFactory.newClient()
 
-    // if (this.props.user) {
-    //   this.props.dispatch(logout())
-    // }
+    if (this.props.user) {
+      this.props.dispatch(logout())
+      browserHistory.push(`/confirmSignup?key=${this.props.location.query.key}`)
+    }
+
     return gateway.apiInviteGet({ urlKey: this.props.location.query.key }, {}).then((response, err) => {
-      console.log("ERROR TESTING ===>", err)
       if (err) {
         return (this.setState({ ...this.state, step: 'error', errorMessage: err.message }))
       }
-      console.log('RESPONSE =====> TESTINGWRWERWE', response)
 
       if (response && response.data && response.data.success === true) {
-        console.log('GETTING HERE', response.data.data)
         const { u, p } = response.data.data
-        console.log("THIS PROPS", this.props)
         this.props.dispatch(login(
           u,
           p,
@@ -63,8 +64,6 @@ class ConfirmSignup extends Component {
             this.setState({ ...this.state, step: 'error', errorMessage: errorMap[errorType] })
           },
           (userAttributes, cognitoUser) => {
-            console.log("GETTING TO RESET PASSWORD", cognitoUser)
-            console.log("GETTING TO RESET userAttributes", userAttributes)
             this.setState({
               ...this.state,
               errorMessage: null,
@@ -75,7 +74,8 @@ class ConfirmSignup extends Component {
           }
         ))
       } else {
-        // AK_TO_DO
+       // AK_TO_DO
+        this.props.dispatch(createAlert('The user is already created. Please contact support if you are experiencing issues!', 'info'))
         browserHistory.push('/')
       }
     })
@@ -86,24 +86,20 @@ class ConfirmSignup extends Component {
   }
 
   render() {
-    const { error, errorMessage } = this.props
-
-    console.log('this.props.location.query.key', this.props.location.query.key)
-
     const currentHeader = () => {
       switch (this.state.step) {
         case 'loading':
           return (<div />)
         case 0:
-          return (<SignupHeader header1={'ACCOUNT STEP 1 OF 3'} header2={'Choose a new password'} />)
+          return (<SignupHeaderC header1={'ACCOUNT STEP 1 OF 3'} header2={'Choose a new password'} />)
         case 1:
-          return (<SignupHeader header1={'ACCOUNT STEP 2 OF 3'} header2={'Complete your profile'} />)
+          return (<SignupHeaderC header1={'ACCOUNT STEP 2 OF 3'} header2={'Complete your profile'} />)
         case 2:
-          return (<SignupHeader header1={'ACCOUNT STEP 3 OF 3'} header2={'You are all set!'} />)
+          return (<SignupHeaderC header1={'ACCOUNT STEP 3 OF 3'} header2={'You are all set!'} />)
         case 'error':
-          return (<SignupHeader header1={''} header2={`Something is wrong. ${this.state.errorMessage} Please contact support!`} />)
+          return (<SignupHeaderC header1={''} header2={`Something is wrong. ${this.state.errorMessage} Please contact support!`} />)
         default:
-          return (<SignupHeader header1={''} header2={'Something is wrong. Please contact support!'} />)
+          return (<SignupHeaderC header1={''} header2={'Something is wrong. Please contact support!'} />)
       }
     }
 
@@ -117,7 +113,7 @@ class ConfirmSignup extends Component {
           return (<div />)
         case 0:
           return (
-            <SetPassword
+            <SetPasswordC
               goToNextStep={() => { return goToNextStep(1) }}
               cognitoUser={this.state.cognitoUser}
               userAttributes={this.state.userAttributes}
@@ -126,23 +122,21 @@ class ConfirmSignup extends Component {
         case 1:
           return (<CompleteProfile goToNextStep={() => { return goToNextStep(2) }} />)
         case 2:
-          return (<AllSet />)
+          return (<AllSetC />)
         default:
           return (<div />)
       }
-    }
-
-    const userDetails = () => {
-      return (
-        this.state.cognitoUser ? this.state.cognitoUser.username : ''
-      )
     }
 
     return (
       <div className="signupBackground">
         <div className="signupHeader">
           <h1>Your Owner&apos;s Edge account</h1>
-          <h3>{userDetails()}</h3>
+          <h3>
+            <b>{this.state.cognitoUser ? this.state.cognitoUser.username : ''}</b>
+            {this.props.user ? ' at: ' : ''}
+            <b>{this.props.user ? `${this.props.user.brokerName}` : ''}</b>
+          </h3>
         </div>
 
         <div className="currentHeader">
@@ -158,8 +152,8 @@ class ConfirmSignup extends Component {
 
 ConfirmSignup.propTypes = {
   location: PropTypes.object,
-  dispatch: PropTypes.func.isRequired
-
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object
 }
 
 export default connect((store) => {

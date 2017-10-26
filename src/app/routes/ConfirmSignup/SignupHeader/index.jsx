@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-function SignupHeader(props) {
+export function SignupHeader(props) {
   return (
     <div>
       <h4>{props.header1}</h4>

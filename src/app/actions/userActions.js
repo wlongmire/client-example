@@ -1,12 +1,13 @@
 import AWS from 'aws-sdk'
 import config from 'config'
-import { migrationLogin } from './migrationActions'
 import { push } from 'react-router-redux'
 import { browserHistory } from 'react-router'
 import {
   USER_LOGGED_OUT,
   USER_LOGGED_IN
 } from 'app/constants/user'
+import { migrationLogin } from './migrationActions'
+import { ALERT_DISPLAY } from '../constants/alert'
 
 import mx from 'app/utils/MixpanelInterface'
 
@@ -225,7 +226,7 @@ export function editProfile(user, values) {
         { fieldName: 'lastName', fieldValue: values.lastName },
         { fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ' : values.jobTitle },
         { fieldName: 'phone', fieldValue: values.phone },
-        { fieldName: 'phoneExt', fieldValue: isNullOrEmpty(values.phoneExt) ? ' ' : values.ext }
+        { fieldName: 'phoneExt', fieldValue: isNullOrEmpty(values.phoneExt) ? ' ' : values.phoneExt }
       ]
 
     apigClient.profileIdPut({ id: user.id }, paramsArray)
@@ -244,5 +245,28 @@ export function editProfile(user, values) {
         })
       })
     })
+  })
+}
+
+export function createAlert(message, bsStyle) {
+  return ((dispatch) => {
+    dispatch({
+      type: ALERT_DISPLAY,
+      payload: {
+        message,
+        bsStyle,
+        show: true
+      }
+    })
+
+    setTimeout(() => {
+      dispatch({
+        type: ALERT_DISPLAY,
+        payload: {
+          message: '',
+          show: false
+        }
+      })
+    }, 6000)
   })
 }
