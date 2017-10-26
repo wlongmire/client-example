@@ -5,7 +5,7 @@ import SetPassword from './SetPassword'
 import CompleteProfile from './CompleteProfile'
 import SignupHeader from './SignupHeader'
 import AllSet from './AllSet'
-import { login } from '../../actions/userActions'
+import { login, logout } from '../../actions/userActions'
 
 class ConfirmSignup extends Component {
   constructor(props) {
@@ -25,6 +25,9 @@ class ConfirmSignup extends Component {
     }
     const gateway = apigClientFactory.newClient()
 
+    // if (this.props.user) {
+    //   this.props.dispatch(logout())
+    // }
     return gateway.apiInviteGet({ urlKey: this.props.location.query.key }, {}).then((response, err) => {
       console.log("ERROR TESTING ===>", err)
       if (err) {

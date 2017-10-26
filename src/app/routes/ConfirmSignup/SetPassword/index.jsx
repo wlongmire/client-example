@@ -47,7 +47,7 @@ class SetPassword extends Component {
             () => {
             // this is an on success login function
               console.log("YOU LOGGED IN BRO !!!!!!!!!!!!!!!")
-              apigClient.apiInviteDelete({ username: this.props.cognitoUser.username }, {}).then((response, err) => {
+              apigClient.apiInviteDelete({}, { username: this.props.cognitoUser.username }).then((response, err) => {
                 console.log("RESPONSE FROM THE DELETE INVITE", response)
                 console.log("ERROR  FROM THE DELETE INVITE", err)
                 return this.props.goToNextStep()

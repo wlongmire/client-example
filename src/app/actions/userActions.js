@@ -200,8 +200,14 @@ export function logout() {
 
     const cognitoUser = userPool.getCurrentUser()
 
-    cognitoUser.signOut()
-    AWS.config.credentials.clearCachedId()
+    if (cognitoUser !== null) {
+      cognitoUser.signOut()
+    }
+
+    if (AWS.config.credentials !== null) {
+      AWS.config.credentials.clearCachedId()
+    }
+
 
     const cognitoCredentials = new AWS.CognitoIdentityCredentials(cognitoParams)
     AWS.config.credentials = cognitoCredentials
