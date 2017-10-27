@@ -104,7 +104,6 @@ export class ConfirmSignup extends Component {
     }
 
     const goToNextStep = (step) => {
-      console.log('STEPPPPPPPPPPPP')
       return (this.setState({ ...this.state, step, fade: !this.state.fade }))
     }
 
