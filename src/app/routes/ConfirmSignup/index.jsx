@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import SetPasswordC from './SetPassword'
 import CompleteProfile from './CompleteProfile'
 import SignupHeaderC from './SignupHeader'
@@ -14,7 +15,7 @@ export class ConfirmSignup extends Component {
       step: 0,
       errorMessage: null,
       cognitoUser: null,
-      fade: true
+      fade: false
     }
   }
 
@@ -74,7 +75,6 @@ export class ConfirmSignup extends Component {
           }
         ))
       } else {
-       // AK_TO_DO
         this.props.dispatch(createAlert('The user is already created. Please contact support if you are experiencing issues!', 'info'))
         browserHistory.push('/')
       }
@@ -104,7 +104,7 @@ export class ConfirmSignup extends Component {
     }
 
     const goToNextStep = (step) => {
-      return (this.setState({ ...this.state, step }))
+      return (this.setState({ ...this.state, step, fade: !this.state.fade }))
     }
 
     const currentStep = () => {
@@ -143,7 +143,14 @@ export class ConfirmSignup extends Component {
           {currentHeader()}
         </div>
         <div className="currentStep">
-          {currentStep()}
+          <CSSTransition
+            timeout={1000}
+            classNames="fade"
+            in={this.state.fade}
+          >
+            {currentStep()}
+          </CSSTransition>
+
         </div>
       </div>
     )
