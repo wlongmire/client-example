@@ -67,8 +67,9 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value
 
               //get user table entry
-              apigClient.profileIdGet({ id: subId }).then((adminUsersIdGetResp) => {
-                const userTableEntry = adminUsersIdGetResp.data
+              apigClient.profileIdGet({ id: subId }).then((usersIdGetResp) => {
+                const userTableEntry = usersIdGetResp.data
+                console.log('usersIdGetResp', usersIdGetResp)
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
                   onFailure(userTableEntry.errorCode)
@@ -89,7 +90,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 }
 
 
-                const { role, brokerId, id } = userTableEntry.data
+                const { role, brokerId, id, firstName, lastName, phone, phoneExt, title, email } = userTableEntry.data
 
                 //get broker information
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
@@ -105,13 +106,17 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                       role,
                       brokerId,
                       brokerName,
-                      email: cognitoUser.username,
+                      email,
+                      title,
+                      phoneExt,
+                      phone,
+                      lastName,
+                      firstName,
                       expiration: credentials.expireTime
-
                     }
                   })
 
-                  //update lastOnline time
+                  // update lastOnline time
                   apigClient.profileIdPut({ id }, [{ fieldName: 'lastOnline', fieldValue: new Date().toISOString() }]
                   ).then((result2) => {
                     const resp2 = result2.data
@@ -122,7 +127,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     }
                   })
 
-                  onSuccess(resp, subId, cognitoUser, credentials.expireTime)
+                  onSuccess(resp, subId, cognitoUser, credentials.expireTime, userTableEntry.data)
 
                   FS.identify(cognitoUser.username, {
                     displayName: cognitoUser.username,
@@ -224,7 +229,7 @@ export function editProfile(user, values) {
       const paramsArray = [
         { fieldName: 'firstName', fieldValue: values.firstName },
         { fieldName: 'lastName', fieldValue: values.lastName },
-        { fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ' : values.jobTitle },
+        { fieldName: 'title', fieldValue: isNullOrEmpty(values.title) ? ' ' : values.title },
         { fieldName: 'phone', fieldValue: values.phone },
         { fieldName: 'phoneExt', fieldValue: isNullOrEmpty(values.phoneExt) ? ' ' : values.phoneExt }
       ]
@@ -244,6 +249,23 @@ export function editProfile(user, values) {
           message: err1.message
         })
       })
+    })
+  })
+}
+
+export function updateUserValues(values) {
+  return ((dispatch, getState) => {
+    const { user } = getState()
+    dispatch({
+      type: USER_LOGGED_IN,
+      payload: {
+        ...user,
+        title: values.title,
+        phoneExt: values.phoneExt,
+        phone: values.phone,
+        lastName: values.lastName,
+        firstName: values.firstName
+      }
     })
   })
 }

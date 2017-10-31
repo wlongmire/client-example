@@ -83,7 +83,7 @@ export function cognitoPersistUser(callback) {
                   callback(null)
                 }
 
-                const { role, brokerId, id } = userTableEntry.data
+                const { role, brokerId, id, phone, phoneExt, email, firstName, lastName, title } = userTableEntry.data
 
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data
@@ -120,9 +120,14 @@ export function cognitoPersistUser(callback) {
                     bundles: brokerInfo.data.bundles,
                     id,
                     brokerId,
+                    phone,
+                    phoneExt,
+                    email,
+                    title,
+                    firstName,
+                    lastName,
                     brokerName,
                     username: cognitoUser.username,
-                    email: cognitoUser.email,
                     role,
                     expiration: AWS.config.credentials.expireTime
                   })

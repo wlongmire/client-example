@@ -14,8 +14,8 @@ export class SetPassword extends Component {
       caseChar: false,
       passwordMatch: null,
       disabledFlag: true
-
     }
+
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -78,7 +78,6 @@ export class SetPassword extends Component {
           return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
         })
     }
-    // return this.props.goToNextStep()
   }
 
   render() {
@@ -101,7 +100,17 @@ export class SetPassword extends Component {
 
     const validateConfirmPassword = (e) => {
       const confirmPwd = e.target.value
-      this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: null })
+
+      console.log('hitting it', confirmPwd)
+      if (confirmPwd && (confirmPwd !== this.state.pwd)) {
+        console.log('are we here', this.state.pwd)
+        this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: false })
+      } else if (confirmPwd && (confirmPwd === this.state.pwd)) {
+        console.log('are we here', this.state.pwd)
+        this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: true })
+      } else {
+        this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: null })
+      }
     }
 
     const checkMark = <i className="fa fa-check pwdCheckmark" aria-hidden="true" />
@@ -135,6 +144,7 @@ export class SetPassword extends Component {
                   onChange={validateConfirmPassword}
                 />
                 {(this.state.passwordMatch === false) && helpBlock('Passwords must match!', 'helpBlockRed')}
+                {(this.state.passwordMatch === true) && helpBlock('Passwords match!', 'helpBlockGreen')}
               </FormGroup>
             </Col>
             <Col xs={6} sm={6} md={6} lg={6}>

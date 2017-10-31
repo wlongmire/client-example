@@ -18,7 +18,7 @@ import UserManagement from 'routes/UserManagement'
 import SignIn from 'routes/SignIn'
 import Http404 from 'routes/Http404'
 import ConfirmSignup from 'routes/ConfirmSignup'
-
+import CompleteProfilePage from 'routes/CompleteProfilePage'
 
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.user,
@@ -71,6 +71,11 @@ export default (
     <Route
       path="confirmsignup"
       component={ConfirmSignup}
+    />
+
+    <Route
+      path="completeprofile"
+      component={CompleteProfilePage}
     />
 
     <Route
