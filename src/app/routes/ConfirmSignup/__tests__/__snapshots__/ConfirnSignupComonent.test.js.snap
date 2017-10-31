@@ -10,7 +10,10 @@ exports[`>>> ConfirmSignup Component Snapshot +++capturing Snapshot with 1`] = `
     <h1>
       Your Owner's Edge account
     </h1>
-    <h3 />
+    <h3>
+      <b />
+      <b />
+    </h3>
   </div>
   <div
     className="currentHeader"
@@ -23,11 +26,17 @@ exports[`>>> ConfirmSignup Component Snapshot +++capturing Snapshot with 1`] = `
   <div
     className="currentStep"
   >
-    <Connect(SetPassword)
-      cognitoUser={null}
-      goToNextStep={[Function]}
-      urlKey="12123123123"
-    />
+    <CSSTransition
+      classNames="fade"
+      in={false}
+      timeout={1000}
+    >
+      <Connect(SetPassword)
+        cognitoUser={null}
+        goToNextStep={[Function]}
+        urlKey="12123123123"
+      />
+    </CSSTransition>
   </div>
 </div>
 `;

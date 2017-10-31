@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
-import SetPasswordC from './SetPassword'
-import CompleteProfile from './CompleteProfile'
-import SignupHeaderC from './SignupHeader'
-import AllSetC from './AllSet'
+import SetPasswordC from '../../components/shared/SetPassword'
+import CompleteProfileC from '../../components/shared/CompleteProfile'
+import SignupHeaderC from '../../components/shared/SignupHeader'
+import AllSetC from '../../components/shared/AllSet'
 import { login, logout, createAlert } from '../../actions/userActions'
 
 export class ConfirmSignup extends Component {
@@ -21,7 +21,6 @@ export class ConfirmSignup extends Component {
 
   componentDidMount() {
     document.body.className = 'body-signup-grey'
-    console.log('document.body', document.body)
 
     if (!this.props.location.query.key) {
       this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
@@ -75,7 +74,7 @@ export class ConfirmSignup extends Component {
           }
         ))
       } else {
-        this.props.dispatch(createAlert('The user is already created. Please contact support if you are experiencing issues!', 'info'))
+        this.props.dispatch(createAlert('Your account has already been activated. Please log in below!', 'info'))
         browserHistory.push('/')
       }
     })
@@ -120,7 +119,7 @@ export class ConfirmSignup extends Component {
               urlKey={this.props.location.query.key}
             />)
         case 1:
-          return (<CompleteProfile goToNextStep={() => { return goToNextStep(2) }} />)
+          return (<CompleteProfileC user={this.props.user} goToNextStep={() => { return goToNextStep(2) }} />)
         case 2:
           return (<AllSetC />)
         default:
