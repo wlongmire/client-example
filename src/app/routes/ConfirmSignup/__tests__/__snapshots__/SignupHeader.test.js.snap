@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> SignupHeader Component Snapshot +++capturing Snapshot with 1`] = `
+<div>
+  <h4>
+    TEst HEadline 1
+  </h4>
+  <h1>
+    TEst HEadline 23123123123123
+  </h1>
+</div>
+`;

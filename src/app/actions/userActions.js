@@ -1,18 +1,20 @@
 import AWS from 'aws-sdk'
 import config from 'config'
-import { migrationLogin } from './migrationActions'
 import { push } from 'react-router-redux'
 import { browserHistory } from 'react-router'
 import {
   USER_LOGGED_OUT,
   USER_LOGGED_IN
 } from 'app/constants/user'
+import { migrationLogin } from './migrationActions'
+import { ALERT_DISPLAY } from '../constants/alert'
 
 import mx from 'app/utils/MixpanelInterface'
 
 import { setAlert, getUsersByBrokerage } from './adminActions'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
+import {isDefined, isNullOrEmpty} from './../utils/utilities'
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
   return (dispatch) => {
@@ -74,13 +76,21 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                 }
 
                 if (userTableEntry.data.status === 'pending') {
-                  apigClient.profileIdPut({ id: subId }, [{ fieldName: 'status', fieldValue: 'active' }])
+                  apigClient.profileIdPut({ id: subId },
+                    [
+                      { fieldName: 'status', fieldValue: 'active' },
+                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
+                    ])
+                } else if (userTableEntry.data.status === 'active') {
+                  apigClient.profileIdPut({ id: subId },
+                    [
+                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
+                    ])
                 }
 
-                onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
                 const { role, brokerId, id } = userTableEntry.data
-                
+
                 //get broker information
                 apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
                   const brokerInfo = brokerResp.data
@@ -100,7 +110,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                     }
                   })
-                  
+
                   //update lastOnline time
                   apigClient.profileIdPut({ id }, [{ fieldName: 'lastOnline', fieldValue: new Date().toISOString() }]
                   ).then((result2) => {
@@ -112,7 +122,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     }
                   })
 
-                  browserHistory.push('/submissions')
+                  onSuccess(resp, subId, cognitoUser, credentials.expireTime)
 
                   FS.identify(cognitoUser.username, {
                     displayName: cognitoUser.username,
@@ -142,6 +152,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     BrokerName: brokerName,
                     first_name: cognitoUser.username
                   })
+
                 }, (err2) => {
                   console.log('ERROR ================', err2)
                 })
@@ -190,8 +201,14 @@ export function logout() {
 
     const cognitoUser = userPool.getCurrentUser()
 
-    cognitoUser.signOut()
-    AWS.config.credentials.clearCachedId()
+    if (cognitoUser !== null) {
+      cognitoUser.signOut()
+    }
+
+    if (AWS.config.credentials !== null) {
+      AWS.config.credentials.clearCachedId()
+    }
+
 
     const cognitoCredentials = new AWS.CognitoIdentityCredentials(cognitoParams)
     AWS.config.credentials = cognitoCredentials
@@ -199,4 +216,57 @@ export function logout() {
     dispatch({ type: USER_LOGGED_OUT })
     dispatch(push('/'))
   }
+}
+
+export function editProfile(user, values) {
+  return new Promise((resolve, reject)=> {
+    checkTokenExpiration(user).then(() => {
+      const paramsArray = [
+        { fieldName: 'firstName', fieldValue: values.firstName },
+        { fieldName: 'lastName', fieldValue: values.lastName },
+        { fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ' : values.jobTitle },
+        { fieldName: 'phone', fieldValue: values.phone },
+        { fieldName: 'phoneExt', fieldValue: isNullOrEmpty(values.phoneExt) ? ' ' : values.phoneExt }
+      ]
+
+    apigClient.profileIdPut({ id: user.id }, paramsArray)
+      .then((resp2, err1) => {
+        console.log('err1', err1)
+        console.log('resp2', resp2)
+        if (resp2.data && resp2.data.success === true) {
+          return resolve({
+            success: true,
+            data: resp2.data
+          })
+        }
+        return resolve({
+          success: false,
+          message: err1.message
+        })
+      })
+    })
+  })
+}
+
+export function createAlert(message, bsStyle) {
+  return ((dispatch) => {
+    dispatch({
+      type: ALERT_DISPLAY,
+      payload: {
+        message,
+        bsStyle,
+        show: true
+      }
+    })
+
+    setTimeout(() => {
+      dispatch({
+        type: ALERT_DISPLAY,
+        payload: {
+          message: '',
+          show: false
+        }
+      })
+    }, 6000)
+  })
 }

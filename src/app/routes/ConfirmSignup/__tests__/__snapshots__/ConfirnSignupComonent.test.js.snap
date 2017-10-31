@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> ConfirmSignup Component Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="signupBackground"
+>
+  <div
+    className="signupHeader"
+  >
+    <h1>
+      Your Owner's Edge account
+    </h1>
+    <h3 />
+  </div>
+  <div
+    className="currentHeader"
+  >
+    <SignupHeader
+      header1="ACCOUNT STEP 1 OF 3"
+      header2="Choose a new password"
+    />
+  </div>
+  <div
+    className="currentStep"
+  >
+    <Connect(SetPassword)
+      cognitoUser={null}
+      goToNextStep={[Function]}
+      urlKey="12123123123"
+    />
+  </div>
+</div>
+`;

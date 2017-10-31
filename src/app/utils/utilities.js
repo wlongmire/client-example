@@ -5,7 +5,7 @@
 
  export function isEmptyObject (obj) {
   return (
-    Object.keys(obj).length === 0 && 
+    Object.keys(obj).length === 0 &&
     obj.constructor === Object
   )
 }
@@ -35,4 +35,11 @@
 
  export function isDefined(value) {
    return typeof value !== 'undefined';
+ }
+
+ export function isNullOrEmpty(string) {
+   if (!isDefined(string) || string.length > 0) {
+     return false
+   }
+   return true
  }

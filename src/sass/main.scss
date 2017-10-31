@@ -30,6 +30,7 @@
 @import '../app/routes/UserManagement/NewUser/styles';
 @import '../app/routes/UserManagement/EditUserModal/styles';
 @import '../app/routes/UserManagement/styles';
+@import '../app/routes/ConfirmSignup/styles';
 
 .app-container {
   position: relative;
@@ -135,3 +136,26 @@
       }
     }
 }
+.AlertMainComp {
+  position: relative;
+  text-align:center;
+}
+
+.mainAlert {
+  @media only screen and (min-width: 650px) {
+    padding-left: 150px;
+  }
+  @media only screen and (min-width: 900px) {
+    padding-left: 350px;
+  }
+  @media only screen and (min-width: 1200px) {
+    padding-left: 450px;
+  }
+
+  @media only screen and (min-width: 1400px) {
+    padding-left: 650px;
+  }
+  
+  position:absolute;
+}
+
