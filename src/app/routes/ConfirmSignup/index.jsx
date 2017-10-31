@@ -12,7 +12,7 @@ export class ConfirmSignup extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      step: 2,
+      step: 0,
       errorMessage: null,
       cognitoUser: null,
       fade: false

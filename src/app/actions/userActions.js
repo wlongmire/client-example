@@ -97,7 +97,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   const brokerInfo = brokerResp.data
                   const brokerName = brokerInfo.data ? brokerInfo.data.name : null
 
-                  console.log('TESTING 123123123')
                   dispatch({
                     type: USER_LOGGED_IN,
                     payload: {
@@ -114,11 +113,10 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                       lastName,
                       firstName,
                       expiration: credentials.expireTime
-
                     }
                   })
 
-                  //update lastOnline time
+                  // update lastOnline time
                   apigClient.profileIdPut({ id }, [{ fieldName: 'lastOnline', fieldValue: new Date().toISOString() }]
                   ).then((result2) => {
                     const resp2 = result2.data
@@ -129,7 +127,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                     }
                   })
 
-                  onSuccess(resp, subId, cognitoUser, credentials.expireTime)
+                  onSuccess(resp, subId, cognitoUser, credentials.expireTime, userTableEntry.data)
 
                   FS.identify(cognitoUser.username, {
                     displayName: cognitoUser.username,

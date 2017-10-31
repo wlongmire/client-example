@@ -85,16 +85,22 @@ class SignInForm extends Component {
       this.props.dispatch(login(
         values.username,
         values.password,
-        (cognito, subId, cognitoUser, tokenExpireTime) => {
+        (cognito, subId, cognitoUser, tokenExpireTime, userData) => {
 
-          console.log('COGNITO USER xxx', cognitoUser)
+          // if user has profile filled out then redirect to submissions
+          // otherwise ask user to fill out profile
+          const { firstName, lastName, phone } = userData
+          if (firstName && lastName && phone) {
+            browserHistory.push('/submissions')
+          } else {
+            browserHistory.push('/completeprofile')
+          }
 
-          browserHistory.push('/submissions')
 
           this.setState({ error: false, errorMessage: '' })
         },
         (err) => {
-          console.log("error: ", err)
+          console.log('error: ', err)
 
           const errorMap = {
             NotAuthorizedException: `${(err.message === 'User is disabled') ? `User is disabled.
