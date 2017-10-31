@@ -1,26 +1,25 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
-import { editProfile } from '../../../actions/userActions'
+import { editProfile, updateUserValues } from '../../../actions/userActions'
 
 export class CompleteProfile extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
 
     this.state = {
       disabledFlag: true,
-      firstName: '',
-      lastName: '',
-      jobTitle: '',
-      phoneExt: '',
-      phone: ''
+      firstName: props.user.firstName || '',
+      lastName: props.user.lastName || '',
+      jobTitle: props.user.title || '',
+      phoneExt: props.user.phoneExt || '',
+      phone: props.user.phone || ''
     }
   }
 
   handleSubmit() {
     const { firstName, lastName, jobTitle, phone, phoneExt } = this.state
-    console.log('getting here')
     if (firstName.length === 0 || lastName.length === 0 || phone.length === 0) {
       return this.setState({ ...this.state, errorStatus: true, errorMessage: '*Not All required fields are filled out!' })
     }
@@ -28,13 +27,14 @@ export class CompleteProfile extends Component {
     const values = {
       firstName,
       lastName,
-      jobTitle,
+      title: jobTitle,
       phone,
       phoneExt
     }
     editProfile(this.props.user, { ...values })
       .then((resp) => {
         if (resp.success === true) {
+          this.props.dispatch(updateUserValues(values))
           return this.props.goToNextStep()
         }
         return this.setState({ ...this.state, errorStatus: true, errorMessage: `There is a problem. ${resp.message}.. Please contact support!` })
@@ -73,6 +73,7 @@ export class CompleteProfile extends Component {
               id="firstName"
               type="text"
               label="Text"
+              value={this.state.firstName}
               onChange={validateFirstName}
             />
             {(firstName.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
@@ -83,6 +84,7 @@ export class CompleteProfile extends Component {
               id="lastName"
               type="text"
               label="Text"
+              value={this.state.lastName}
               onChange={validateLastName}
             />
             {(lastName.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
@@ -94,6 +96,7 @@ export class CompleteProfile extends Component {
               type="text"
               label="Text"
               placeholder="optional"
+              value={this.state.jobTitle}
               onChange={validateJobTitle}
             />
             <div className="completeSpace" />
@@ -106,6 +109,7 @@ export class CompleteProfile extends Component {
                   id="phone"
                   type="text"
                   label="Text"
+                  value={this.state.phone}
                   onChange={validatePhone}
                 />
                 {(phone.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
@@ -119,6 +123,7 @@ export class CompleteProfile extends Component {
                   type="text"
                   label="Text"
                   placeholder="optional"
+                  value={this.state.phoneExt}
                   onChange={validatePhoneExt}
                 />
               </FormGroup>
@@ -136,11 +141,13 @@ export class CompleteProfile extends Component {
 
 CompleteProfile.propTypes = {
   goToNextStep: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
-export default connect((store) => {
-  return ({
-    user: store.user
-  })
-})(CompleteProfile)
+export default connect()(CompleteProfile)
+// export default connect((store) => {
+//   return ({
+//     user: store.user
+//   })
+// })(CompleteProfile)

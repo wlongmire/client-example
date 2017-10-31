@@ -119,7 +119,7 @@ export class ConfirmSignup extends Component {
               urlKey={this.props.location.query.key}
             />)
         case 1:
-          return (<CompleteProfileC goToNextStep={() => { return goToNextStep(2) }} />)
+          return (<CompleteProfileC user={this.props.user} goToNextStep={() => { return goToNextStep(2) }} />)
         case 2:
           return (<AllSetC />)
         default:
