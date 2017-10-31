@@ -75,7 +75,7 @@ export class ConfirmSignup extends Component {
         ))
       } else {
         this.props.dispatch(createAlert('The user is already created. Please contact support if you are experiencing issues!', 'info'))
-        // browserHistory.push('/')
+        browserHistory.push('/')
       }
     })
   }
