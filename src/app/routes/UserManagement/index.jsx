@@ -107,16 +107,17 @@ export class UserManagement extends Component {
           width: '35%',
           isKey: true,
           title: 'Email',
-          isSortable: true,
-          sortFunc: (a, b, order) => {
-            if (a.username === user.username) {
-              return -1
-            } else if (order === 'asc') {
-              return a.email.localeCompare(b.email)
-            } else {
-              return b.email.localeCompare(a.email)
-            }
-          }
+          isSortable: true // ,
+          // *** sorting keeps getting messed up so I am disabling this -AK
+          // sortFunc: (a, b, order) => {
+          //   if (a.username === user.username) {
+          //     return -1
+          //   } else if (order === 'asc') {
+          //     return a.email.localeCompare(b.email)
+          //   } else {
+          //     return b.email.localeCompare(a.email)
+          //   }
+          // }
         },
         { dataField: 'admin',
           width: '10%',
