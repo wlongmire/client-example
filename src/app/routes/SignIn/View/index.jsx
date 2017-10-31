@@ -87,6 +87,8 @@ class SignInForm extends Component {
         values.password,
         (cognito, subId, cognitoUser, tokenExpireTime) => {
 
+          console.log('COGNITO USER xxx', cognitoUser)
+
           browserHistory.push('/submissions')
 
           this.setState({ error: false, errorMessage: '' })

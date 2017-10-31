@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
 import { editProfile } from '../../../actions/userActions'
 
-class CompleteProfile extends Component {
+export class CompleteProfile extends Component {
   constructor() {
     super()
     this.handleSubmit = this.handleSubmit.bind(this)

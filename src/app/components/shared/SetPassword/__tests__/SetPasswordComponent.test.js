@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
-import { SetPassword } from '../SetPassword'
+import { SetPassword } from '../index'
 
 jest.mock('react-router', () => ({ browserHistory: [] }))
 
