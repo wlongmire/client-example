@@ -18,6 +18,24 @@ export class CompleteProfile extends Component {
     }
   }
 
+  ComponentWillMount(){
+
+  }
+
+  ComponentDidMount(){
+    document.addEventListener("keyDown", this.handleKeyPress, false)
+    this.firstName.focus();
+  }
+
+  handleKeyPress(event) {
+    console.log('got to the event handler')
+    console.log("key pressed => ", event.key)
+    if(event.key == 'Enter'){
+      handleSubmit();
+    }
+    else return
+  }
+
   handleSubmit() {
     const { firstName, lastName, jobTitle, phone, phoneExt } = this.state
     if (firstName.length === 0 || lastName.length === 0 || phone.length === 0) {
@@ -75,6 +93,7 @@ export class CompleteProfile extends Component {
               label="Text"
               value={this.state.firstName}
               onChange={validateFirstName}
+              ref="firstName"
             />
             {(firstName.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
           </FormGroup>
