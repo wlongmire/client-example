@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux'
 import * as actions from './../../actions/submissionActions'
-import SubmissionViewC from './View'
+import SubmissionView from './View'
 
 export class Submissions extends Component {
   componentDidMount() {
@@ -11,9 +13,9 @@ export class Submissions extends Component {
 
   render() {
     return (
-      <div className="submissions">
+      <div className="submissions routeContainer">
         {this.props.submissions &&
-          <SubmissionViewC
+          <SubmissionView
             submissions={this.props.submissions}
           />}
       </div>

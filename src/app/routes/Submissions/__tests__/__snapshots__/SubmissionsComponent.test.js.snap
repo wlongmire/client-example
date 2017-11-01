@@ -2,7 +2,7 @@
 
 exports[`>>> Submission Main Component--- Snapshot +++capturing Snapshot with 1`] = `
 <div
-  className="submissions"
+  className="submissions routeContainer"
 >
   <Connect(SubmissionView)
     submissions={

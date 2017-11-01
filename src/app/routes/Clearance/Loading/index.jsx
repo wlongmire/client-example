@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
@@ -29,7 +30,7 @@ export class Loading extends Component {
         console.log('THERE WAS AN AUTH ERROR FOR SOME REASON ==>', resp)
         return this.props.logout()
       }
-
+      
       return this.props.handleSubmit(resp, input)
     }).catch((error) => {
       console.log(error)

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Helmet from 'react-helmet'
 import querystring from 'querystring'
-
+import { connect } from 'react-redux'
 import config from 'config'
 import Header from 'components/Header'
+import { Alert } from 'react-bootstrap'
 
-const query = querystring.parse(window.location.search.slice(1))
 const content = require('content')
 
 class App extends Component {
@@ -33,9 +34,22 @@ class App extends Component {
 
         <Header />
 
+        {this.props.display.show === true ?
+          <div className="AlertMainComp">
+            <div className="mainAlert" >
+              <Alert bsStyle={this.props.display.bsStyle} onDismiss={this.closeAlert}>
+                { this.props.display.message }
+              </Alert>
+            </div>
+          </div> :
+          <div />
+        }
+
         { this.props.children }
+
+
       </div>
-    );
+    )
   }
 
   getChildContext() {
@@ -45,8 +59,18 @@ class App extends Component {
 }
 
 App.childContextTypes = {
-  config: React.PropTypes.object.isRequired,
-  content: React.PropTypes.object.isRequired
+  config: PropTypes.object.isRequired,
+  content: PropTypes.object.isRequired
 }
 
-export default App
+App.propTypes = {
+  display: PropTypes.object
+}
+
+export default connect((store) => {
+  const { display } = store.alerts
+
+  return {
+    display
+  }
+})(App)

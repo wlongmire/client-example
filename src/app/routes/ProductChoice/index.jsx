@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
@@ -29,12 +31,12 @@ export class ProductChoice extends Component {
           type={productType}
           name={ratingProducts[productType].name}
           description={ratingProducts[productType].description}
-          broker={this.props.user.broker}
+          broker={this.props.user.brokerId}
         />)
       })
     }
     return (
-      <div className="page productChoice">
+      <div className="productChoice routeContainer">
         <h3>Select Your Insurance Product.</h3>
         <div className="selectionCards">
           { generateItems() }

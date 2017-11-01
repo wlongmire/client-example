@@ -6,9 +6,7 @@ import {
 } from 'react-router'
 
 import { routerActions } from 'react-router-redux'
-
 import { UserAuthWrapper } from 'redux-auth-wrapper'
-import { browserHistory } from 'react-redux'
 
 import App from 'components/App'
 import Submissions from 'routes/Submissions'
@@ -16,15 +14,17 @@ import Form from 'routes/Form'
 import FormResults from 'routes/FormResults'
 import ProductChoice from 'routes/ProductChoice'
 import Clearance from 'routes/Clearance'
+import UserManagement from 'routes/UserManagement'
 import SignIn from 'routes/SignIn'
 import Http404 from 'routes/Http404'
-
+import ConfirmSignup from 'routes/ConfirmSignup'
+import CompleteProfilePage from 'routes/CompleteProfilePage'
 
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.user,
   redirectAction: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated',
-  failureRedirectPath: '/' // Go back to sign in page at /
+  failureRedirectPath: '/'
 })
 
 
@@ -40,6 +40,11 @@ export default (
     <Route
       path="submissions"
       component={UserIsAuthenticated(Submissions)}
+    />
+
+    <Route
+      path="users"
+      component={UserIsAuthenticated(UserManagement)}
     />
 
     <Route
@@ -61,6 +66,16 @@ export default (
     <Route
       path="formResults"
       component={UserIsAuthenticated(FormResults)}
+    />
+
+    <Route
+      path="confirmsignup"
+      component={ConfirmSignup}
+    />
+
+    <Route
+      path="completeprofile"
+      component={CompleteProfilePage}
     />
 
     <Route

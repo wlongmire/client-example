@@ -3,9 +3,9 @@ import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cogn
 import AWS from 'aws-sdk'
 
 export function getUserAttributes(cognitoUser) {
-  return new Promise((resolve) => {
-    cognitoUser.getUserAttributes((err, result) => {
-      resolve({ err, result })
+  return new Promise((resolve, reject) => {
+    cognitoUser.getUserAttributes((error, result) => {
+      resolve({ error: error, result })
     })
   })
 }
@@ -24,11 +24,11 @@ export function cognitoPersistUser(callback) {
   if (cognitoUser != null) {
     cognitoUser.getSession((err, session) => {
       if (err) {
-        console.log('Error in getting session', err)
-
+        alert('Error in getting session', err)
+        AWS.config.credentials.clearCachedId()
+        cognitoUser.signOut()
         callback(null)
       }
-
 
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: config.awsCognito.identityPoolId, // your identity pool id here
@@ -41,58 +41,101 @@ export function cognitoPersistUser(callback) {
       })
 
       // call refresh method in order to authenticate user and get new temp credentials
-      getUserAttributes(cognitoUser).then(({ error1, result }) => {
-        if (error1) {
-          console.log('get User attributes error', error1)
+      getUserAttributes(cognitoUser).then(({ error, result }) => {
+        if (error) {
+          console.log('Get User attributes error', error)
+          AWS.config.credentials.clearCachedId()
+          cognitoUser.signOut()
           callback(null)
         }
 
-        AWS.config.credentials.refresh((error) => {
-          if (error) {
-            console.log('Error refreshing credentials', error)
-            callback(null)
-          } else {
-            // getting attributes from response for 'getUserAttributes'
-            const brokerIdQuery = result.filter((item) => { return item.Name == 'custom:broker_id' })
-            const subIdQuery = result.filter((item) => { return item.Name == 'sub' })
-            const usernameQuery = result.filter((item) => { return item.Name == 'preferred_username' })
-            const emailQuery = result.filter((item) => { return item.Name == 'email' })
+        if (result === null) {
+          cognitoUser.signOut()
+          AWS.config.credentials.clearCachedId()
+          callback(null)
+        } else {
+          AWS.config.credentials.refresh((error) => {
+            if (error) {
+              console.log('Error refreshing credentials', error)
 
-            // creating a apigClient object which is globally accessible
-            // you can interact with the databse this way
-            // eslint-disable-next-line no-undef
-            window.apigClient = apigClientFactory.newClient({
-              accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
-              secretKey: AWS.config.credentials.data.Credentials.SecretKey,
-              sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
-              region: config.awsCognito.region
-            })
+              cognitoUser.signOut()
+              AWS.config.credentials.clearCachedId()
+              callback(null)
+            } else {
+              const subId = result.filter((item) => { return item.Name == 'sub' })[0].Value;
 
-          apigClient.apiGetBrokerIdGet({ id: brokerIdQuery[0].Value }).then((brokerResp) => {
-            const brokerInfo = brokerResp.data
-            const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+              // creating a apigClient object which is globally accessible
+              // you can interact with the databse this way
+              // eslint-disable-next-line no-undef
+              window.apigClient = apigClientFactory.newClient({
+                accessKey: AWS.config.credentials.data.Credentials.AccessKeyId,
+                secretKey: AWS.config.credentials.data.Credentials.SecretKey,
+                sessionToken: AWS.config.credentials.data.Credentials.SessionToken,
+                region: config.awsCognito.region
+              })
 
-            // registering super properties for mixpanel events
-            mixpanel.register({
-              BrokerName: brokerName,
-              User: usernameQuery[0].Value,
-              Email: emailQuery[0].Value,
-              Broker: brokerIdQuery[0].Value,
-              SubId: subIdQuery[0].Value,
-              Environment: config.env
-            })
+              apigClient.profileIdGet({ id: subId }).then((adminUsersIdGetResp) => {
+                const userTableEntry = adminUsersIdGetResp.data
 
-            callback({
-              bundles: brokerInfo.data.bundles,
-              subId: subIdQuery[0].Value,
-              broker: brokerIdQuery[0].Value,
-              username: usernameQuery[0].Value,
-              email: emailQuery[0].Value,
-              expiration: AWS.config.credentials.expireTime
-            })
+                if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
+                  AWS.config.credentials.clearCachedId()
+                  cognitoUser.signOut()
+                  callback(null)
+                }
+
+                const { role, brokerId, id, phone, phoneExt, email, firstName, lastName, title } = userTableEntry.data
+
+                apigClient.apiGetBrokerIdGet({ id: brokerId }).then((brokerResp) => {
+                  const brokerInfo = brokerResp.data
+                  const brokerName = brokerInfo.data ? brokerInfo.data.name : null
+
+                  //update lastOnline time
+                  apigClient.profileIdPut({ id: subId }, [
+                    {
+                      fieldName: 'lastOnline',
+                      fieldValue: new Date().toISOString()
+                    }
+                  ]).then((result2) => {
+                    const resp = result2.data
+
+                    if (!resp.success) {
+                      alert('Error on update: ', result.message)
+                    } else {
+                      console.log('Successfully updated')
+                    }
+                  })
+
+                  // registering super properties for mixpanel events
+                  mixpanel.register({
+                    BrokerName: brokerName,
+                    User: cognitoUser.username,
+                    Email: cognitoUser.email,
+                    Role: role,
+                    Broker: brokerId,
+                    SubId: id,
+                    Environment: config.env
+                  })
+
+                  callback({
+                    bundles: brokerInfo.data.bundles,
+                    id,
+                    brokerId,
+                    phone,
+                    phoneExt,
+                    email,
+                    title,
+                    firstName,
+                    lastName,
+                    brokerName,
+                    username: cognitoUser.username,
+                    role,
+                    expiration: AWS.config.credentials.expireTime
+                  })
+                })
+              })
+            }
           })
-          }
-        })
+        }
       })
     })
   }

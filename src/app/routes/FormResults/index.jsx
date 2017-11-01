@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
@@ -119,7 +120,7 @@ class FormResults extends Component {
     }
 
     return (
-      <div className="page formResults">
+      <div className="formResults routeContainer">
         {
           subcomponentMap[this.state.quoteStatus]
         }

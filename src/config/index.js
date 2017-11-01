@@ -3,12 +3,12 @@
 const config = {
     env: 'dev',
     name: 'ownersEdge',
-    argoEmail: 'ownersedgesubmissionsdev@gmail.com',
+    argoEmail: 'argoaccessquickquote@gmail.com',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
-    ownerEdgeEmail: 'argoaccessquickquote@gmail.com',
+    ownerEdgeEmail: 'ownersedgesubmissionsdev@gmail.com',
     clearanceFailEmail:'argoaccessquickquote@gmail.com',
-    clearanceFailFlag: 'false',
+    clearanceFailFlag: 'true',
     sendGridKey: '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',
     argoTemplateId: '21b98629-1c78-4de5-81a0-431f6666bc98',
     brokerTemplateId: '365b9c92-9e3d-4699-88ff-d9ea688e769b',
@@ -17,7 +17,7 @@ const config = {
     ownersEdgeQuotationPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL.html',
     ownersBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/owners_bind-order_2.html',
     ocpBindOrderPDFUrl: 'http://assets.ownersedge.us/templates/ocp_bind-order_2.html',
-    assetsURL: 'https://s3.us-east-2.amazonaws.com/ownersedge-dev-assets',
+    assetsURL: 'https://s3.us-east-1.amazonaws.com/ownersedge-dev-assets',
     excessPDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-excess_2.html',
     colonyOwnersInterestQuestionnairePDFUrl: 'http://assets.ownersedge.us/templates/colonyOwnersInterestQuestionnaire2.html',
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
@@ -26,10 +26,10 @@ const config = {
 
     awsCognito:{
         identityPoolId: 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b',
-        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_3SgBuYU4O',
-        userPoolId: 'us-east-1_3SgBuYU4O',
+        identityProvider: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_Yw4miuukc',
+        userPoolId: 'us-east-1_Yw4miuukc',
         region: 'us-east-1',
-        clientId: '76c9vth2qtg841ivles7aurmvv'
+        clientId: '218nqu8kj9o3r0r2ch81ldarnr'
     },
 
     apiGateway: {
@@ -62,7 +62,7 @@ const config = {
     },
 
     server: {
-        url: 'https://c27z16ujzj.execute-api.us-east-1.amazonaws.com/dev',
+        url: 'http://localhost',
         port: null
     },
 
@@ -71,7 +71,7 @@ const config = {
     },
 
     apiserver: {
-        url: 'https://c27z16ujzj.execute-api.us-east-1.amazonaws.com/dev',
+        url: 'http://localhost',
         port:  null
     }
 };

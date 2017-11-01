@@ -26,7 +26,7 @@ export const clearSubmissionStatus = () => {
 export function getSubmissions(user) {
   return ((dispatch) => {
     const body = {
-      brokerId: user.broker
+      brokerId: user.brokerId
     }
     checkTokenExpiration(user).then((resp) => {
       if (resp.status === 'expired') {
@@ -155,20 +155,8 @@ export function getClearance(params, user) {
     insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
   }
 
-  // console.log("REAL USER====>", user)
-  // console.log("USER====> TYPE OF", typeof user.expiration)
-  // const testUser = {
-  //   broker: "test-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
-  //   email: "andkulak@gmail.com",
-  //   expiration: new Date(2016),
-  //   subId:"b4a94152-ef9c-40e6-b3b7-8b38fba6ab96",
-  //   username: "andkulak@gmail.com"
-  // }
-
   // user
   return checkTokenExpiration(user).then(() => {
-    // console.log("RESPONSE DATA ====> CLEARNCE", resp)
-    // eslint-disable-next-line no-undef
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
         return (resp.data)
@@ -210,6 +198,7 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
       { emailAddress, emailType },
       {})
       .then((resp) => {
+        console.log(`email send ${emailAddress}`)
         return (resp)
       })
       .catch((error) => {
@@ -220,7 +209,7 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
   })
 }
 
-export function sendClearanceEmail(emailAddress, emailType, user, userInput, clearanceMatches) {
+export function sendClearanceEmail(emailAddress, emailType, user, userInput, matches) {
   checkTokenExpiration(user).then(() => {
     // eslint-disable-next-line no-undef
     return apigClient.apiSendEmailIdPost(
@@ -229,7 +218,7 @@ export function sendClearanceEmail(emailAddress, emailType, user, userInput, cle
         emailAddress,
         emailType,
         input: userInput,
-        matches: clearanceMatches
+        matches
       },
       {})
       .then((resp) => {

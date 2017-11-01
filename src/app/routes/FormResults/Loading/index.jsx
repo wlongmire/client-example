@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { LinkContainer } from 'react-router-bootstrap'
 import * as actions from 'app/actions/userActions'
@@ -10,7 +11,7 @@ import config from 'config'
 import {
   saveSubmission,
   sendEmail,
-  getRating 
+  getRating
 } from 'app/actions/submissionActions'
 
 class Loading extends Component {
@@ -60,7 +61,7 @@ class Loading extends Component {
 
       const submissionData = Object.assign({}, submission)
       submissionData.rating = ratings // adding rating to submission
-      submissionData.broker = this.props.user.broker // adding broker to  submission
+      submissionData.broker = this.props.user.brokerId // adding broker to  submission
 
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
@@ -82,7 +83,7 @@ class Loading extends Component {
                 sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
                 sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
                 sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
-                sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user)
+                sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
               ]
             // if it is a new submission
             } else {
@@ -90,7 +91,7 @@ class Loading extends Component {
                 sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
                 sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
                 sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
-                sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user)
+                sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
               ]
             }
           // if clearance status is pending
@@ -112,7 +113,7 @@ class Loading extends Component {
             }
           }
 
-          Promise.all(emailPromises).then(() => {
+          Promise.all(emailPromises).then((r) => {
             this.props.handleEmailStatus({ success: true })
           })
         } else {

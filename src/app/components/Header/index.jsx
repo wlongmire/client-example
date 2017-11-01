@@ -23,6 +23,7 @@ export class Header extends Component {
   render() {
     return (
       <Navbar inverse>
+      <div className="">
         <Navbar.Header>
           <Navbar.Brand>
             <a href="/submissions">Owner's Edge</a>
@@ -46,10 +47,16 @@ export class Header extends Component {
                 <NavItem className="nav-link" eventKey={3}>Log In</NavItem>
               </LinkContainer>}
 
+            {this.props.user && this.props.user.role === 'admin' &&
+              <LinkContainer onMouseUp={this.resetEdit} to="/users">
+                <NavItem className="nav-link" eventKey={4}>Manage Users</NavItem>
+              </LinkContainer>}
+
             {this.props.user &&
               <NavItem onClick={this.logout} className="nav-link" eventKey={4}>Log Out</NavItem>}
           </Nav>
         </Navbar.Collapse>
+      </div>
       </Navbar>
     )
   }

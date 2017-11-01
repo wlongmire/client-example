@@ -1,0 +1,691 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> UserManagement Component (with Non - Admin)--- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="userManagement routeContainer"
+>
+  <Fade
+    in={false}
+    mountOnEnter={false}
+    timeout={4000}
+    transitionAppear={false}
+    unmountOnExit={false}
+  >
+    <Alert
+      bsClass="alert"
+      bsStyle="info"
+      closeLabel="Close alert"
+      onDismiss={[Function]}
+    >
+      test123
+    </Alert>
+  </Fade>
+  <h3>
+    Manage Users
+  </h3>
+  <div>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={4}
+        md={4}
+        sm={10}
+        xs={12}
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          xs={12}
+        >
+          <Connect(NewUser)
+            handleCreateUser={[Function]}
+          />
+        </Col>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={8}
+        md={8}
+        sm={10}
+        xs={12}
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Admin",
+                    "width": "20%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Invited",
+                  },
+                  Object {
+                    "dataField": "dateCreated",
+                    "hidden": true,
+                    "isKey": false,
+                    "title": "invitedHiddenSort",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Update",
+                    "width": "176px",
+                  },
+                ]
+              }
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "4cbf72a2-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "allison.e.steranko@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "asdasdasd-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "asdasdas.e.asdasd@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "dateCreated",
+                  "defaultSortOrder": "desc",
+                }
+              }
+              title="Pending invites"
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "sortFunc": [Function],
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "title": "Admin",
+                    "width": "10%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Last Online",
+                    "width": "130px",
+                  },
+                  Object {
+                    "dataField": "status",
+                    "dataFormat": [Function],
+                    "title": "Active",
+                    "width": "10%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "title": "Update",
+                    "width": "140px",
+                  },
+                ]
+              }
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-02T19:00:53.150Z",
+                    "email": "a.ndkulak@gmail.com",
+                    "id": "ebecd339-54db-415b-b738-47b8afce7fde",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "active",
+                    "username": "a.ndkulak@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-02T19:00:53.150Z",
+                    "email": "a.n..dkulak@gmail.com",
+                    "id": "123123-54db-123123-b738-47b8afce7fde",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "active",
+                    "username": "a.n..dkulak@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "email",
+                  "defaultSortOrder": "asc",
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 5,
+                }
+              }
+              title="undefined users"
+            />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  </div>
+  <DialogBox
+    custom_class="editModal"
+    show={false}
+    title="Edit User"
+  >
+    <Connect(EditUserModal)
+      hideEditModal={[Function]}
+      loggedInUser={
+        Object {
+          "role": "user",
+        }
+      }
+    />
+  </DialogBox>
+</div>
+`;
+
+exports[`>>> UserManagement Component Admin with Active Users & Disabled Users --- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="userManagement routeContainer"
+>
+  <Fade
+    in={false}
+    mountOnEnter={false}
+    timeout={4000}
+    transitionAppear={false}
+    unmountOnExit={false}
+  >
+    <Alert
+      bsClass="alert"
+      bsStyle="info"
+      closeLabel="Close alert"
+      onDismiss={[Function]}
+    >
+      test123
+    </Alert>
+  </Fade>
+  <h3>
+    Manage Users
+  </h3>
+  <div>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={4}
+        md={4}
+        sm={10}
+        xs={12}
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          xs={12}
+        >
+          <Connect(NewUser)
+            handleCreateUser={[Function]}
+          />
+        </Col>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={8}
+        md={8}
+        sm={10}
+        xs={12}
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Admin",
+                    "width": "20%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Invited",
+                  },
+                  Object {
+                    "dataField": "dateCreated",
+                    "hidden": true,
+                    "isKey": false,
+                    "title": "invitedHiddenSort",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Update",
+                    "width": "176px",
+                  },
+                ]
+              }
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "4cbf72a2-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "allison.e.steranko@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "asdasdasd-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "asdasdas.e.asdasd@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "dateCreated",
+                  "defaultSortOrder": "desc",
+                }
+              }
+              title="Pending invites"
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "sortFunc": [Function],
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "title": "Admin",
+                    "width": "10%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Last Online",
+                    "width": "130px",
+                  },
+                  Object {
+                    "dataField": "status",
+                    "dataFormat": [Function],
+                    "title": "Active",
+                    "width": "10%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "title": "Update",
+                    "width": "140px",
+                  },
+                ]
+              }
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-02T19:00:53.150Z",
+                    "email": "a.ndkulak@gmail.com",
+                    "id": "ebecd339-54db-415b-b738-47b8afce7fde",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "active",
+                    "username": "a.ndkulak@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-02T19:00:53.150Z",
+                    "email": "a.n..dkulak@gmail.com",
+                    "id": "123123-54db-123123-b738-47b8afce7fde",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "disabled",
+                    "username": "a.n..dkulak@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "email",
+                  "defaultSortOrder": "asc",
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 5,
+                }
+              }
+              title="undefined users"
+            />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  </div>
+  <DialogBox
+    custom_class="editModal"
+    show={false}
+    title="Edit User"
+  >
+    <Connect(EditUserModal)
+      hideEditModal={[Function]}
+      loggedInUser={
+        Object {
+          "role": "admin",
+        }
+      }
+    />
+  </DialogBox>
+</div>
+`;
+
+exports[`>>> UserManagement Component Admin with Active Users --- Snapshot +++capturing Snapshot with 1`] = `
+<div
+  className="userManagement routeContainer"
+>
+  <Fade
+    in={false}
+    mountOnEnter={false}
+    timeout={4000}
+    transitionAppear={false}
+    unmountOnExit={false}
+  >
+    <Alert
+      bsClass="alert"
+      bsStyle="info"
+      closeLabel="Close alert"
+      onDismiss={[Function]}
+    >
+      test123
+    </Alert>
+  </Fade>
+  <h3>
+    Manage Users
+  </h3>
+  <div>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={4}
+        md={4}
+        sm={10}
+        xs={12}
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          xs={12}
+        >
+          <Connect(NewUser)
+            handleCreateUser={[Function]}
+          />
+        </Col>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        lg={8}
+        md={8}
+        sm={10}
+        xs={12}
+      >
+        <Row
+          bsClass="row"
+          componentClass="div"
+        >
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Admin",
+                    "width": "20%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Invited",
+                  },
+                  Object {
+                    "dataField": "dateCreated",
+                    "hidden": true,
+                    "isKey": false,
+                    "title": "invitedHiddenSort",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Update",
+                    "width": "176px",
+                  },
+                ]
+              }
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "4cbf72a2-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "allison.e.steranko@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-11T18:41:14.000Z",
+                    "email": "allison.e.steranko@gmail.com",
+                    "id": "asdasdasd-08db-4c32-aa38-500808819b44",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "pending",
+                    "username": "asdasdas.e.asdasd@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "dateCreated",
+                  "defaultSortOrder": "desc",
+                }
+              }
+              title="Pending invites"
+            />
+          </Col>
+          <Col
+            bsClass="col"
+            componentClass="div"
+            xs={12}
+          >
+            <TableComponent
+              columns={
+                Array [
+                  Object {
+                    "dataField": "email",
+                    "isKey": true,
+                    "isSortable": true,
+                    "sortFunc": [Function],
+                    "title": "Email",
+                    "width": "35%",
+                  },
+                  Object {
+                    "dataField": "admin",
+                    "dataFormat": [Function],
+                    "title": "Admin",
+                    "width": "10%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "isKey": false,
+                    "title": "Last Online",
+                    "width": "130px",
+                  },
+                  Object {
+                    "dataField": "status",
+                    "dataFormat": [Function],
+                    "title": "Active",
+                    "width": "10%",
+                  },
+                  Object {
+                    "dataFormat": [Function],
+                    "title": "Update",
+                    "width": "140px",
+                  },
+                ]
+              }
+              data={
+                Array [
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-02T19:00:53.150Z",
+                    "email": "a.ndkulak@gmail.com",
+                    "id": "ebecd339-54db-415b-b738-47b8afce7fde",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "active",
+                    "username": "a.ndkulak@gmail.com",
+                  },
+                  Object {
+                    "brokerId": "test-2222-7fd-b3ff-4fd3-9fc2-e752b9f5b002",
+                    "dateCreated": "2017-10-02T19:00:53.150Z",
+                    "email": "a.n..dkulak@gmail.com",
+                    "id": "123123-54db-123123-b738-47b8afce7fde",
+                    "lastOnline": "N/A",
+                    "role": "admin",
+                    "status": "active",
+                    "username": "a.n..dkulak@gmail.com",
+                  },
+                ]
+              }
+              options={
+                Object {
+                  "defaultSortName": "email",
+                  "defaultSortOrder": "asc",
+                  "pageStartIndex": 1,
+                  "paginationSize": 3,
+                  "sizePerPage": 5,
+                }
+              }
+              title="undefined users"
+            />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  </div>
+  <DialogBox
+    custom_class="editModal"
+    show={false}
+    title="Edit User"
+  >
+    <Connect(EditUserModal)
+      hideEditModal={[Function]}
+      loggedInUser={
+        Object {
+          "role": "admin",
+        }
+      }
+    />
+  </DialogBox>
+</div>
+`;

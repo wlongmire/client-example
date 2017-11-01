@@ -1,0 +1,19 @@
+.userManagement {
+  .alert {
+    width: 70%;
+    margin: -2em auto;
+    margin-top: -1em;
+    margin-bottom: 2em;
+
+    font-family: 'Lato';
+    font-size: 14px;
+    line-height: 1.2em;
+
+    //Add in for a sticky alert
+    // position: fixed;
+    // z-index: 99999;
+    // opacity: 0.95;
+    // bottom: 0;
+    // left: 19%;
+  }
+}

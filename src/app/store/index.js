@@ -1,17 +1,18 @@
-import createLogger from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
 
 import {
-    applyMiddleware,
-    combineReducers,
-    compose,
-    createStore
-}
-from 'redux'
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore
+} from 'redux'
 
 import userReducer from '../reducers/userReducer'
 import appReducer from '../reducers/appReducer'
 import submissionsReducer from '../reducers/submissionReducer'
+import adminReducer from '../reducers/adminReducer'
+import alertReducer from '../reducers/alertReducer'
 
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 
@@ -19,7 +20,9 @@ const appReducers = combineReducers({
   routing: routerReducer,
   submissions: submissionsReducer,
   user: userReducer,
-  app: appReducer
+  app: appReducer,
+  admin: adminReducer,
+  alerts: alertReducer
 })
 
 let configureStore
@@ -27,13 +30,13 @@ if (process.env.NODE_ENV === 'production') {
     /* PRODUCTION */
   configureStore = (history, initialState) => {
     return createStore(
-            appReducers,
-            initialState,
-            applyMiddleware(
-                routerMiddleware(history),
-                thunkMiddleware
-            )
-        )
+      appReducers,
+      initialState,
+      applyMiddleware(
+        routerMiddleware(history),
+        thunkMiddleware
+      )
+    )
   }
 } else {
   const loggerMiddleware = createLogger()

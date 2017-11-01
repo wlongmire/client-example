@@ -82,6 +82,7 @@
     "react-router-redux": "^4.0.5",
     "react-simple-currency": "^1.0.8",
     "react-tooltip": "^3.2.1",
+    "react-transition-group": "^2.2.1",
     "redux": "^3.3.1",
     "redux-auth-wrapper": "^0.7.0",
     "redux-connect": "^2.4.0",
@@ -155,6 +156,8 @@
     },
     "extends": "airbnb",
     "rules": {
+      "import/no-unresolved": "off",
+      "import/extensions": "off",
       "import/no-mutable-exports": "off",
       "array-callback-return": "off",
       "default-case": "off",

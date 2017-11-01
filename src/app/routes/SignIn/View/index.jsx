@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
@@ -83,17 +85,33 @@ class SignInForm extends Component {
       this.props.dispatch(login(
         values.username,
         values.password,
-        (cognito, subId, cognitoUser, tokenExpireTime) => {
+        (cognito, subId, cognitoUser, tokenExpireTime, userData) => {
+
+          // if user has profile filled out then redirect to submissions
+          // otherwise ask user to fill out profile
+          const { firstName, lastName, phone } = userData
+          if (firstName && lastName && phone) {
+            browserHistory.push('/submissions')
+          } else {
+            browserHistory.push('/completeprofile')
+          }
+
+
           this.setState({ error: false, errorMessage: '' })
         },
         (err) => {
+          console.log('error: ', err)
+
           const errorMap = {
-            NotAuthorizedException: 'Your Username/Password combination does not match our records.',
+            NotAuthorizedException: `${(err.message === 'User is disabled') ? `User is disabled.
+            If you believe this is an error, please contact the administrator.` : `${err.message}`}`,
             UserNotFoundException: 'This Username is not within our records.',
-            MigrationReset: 'Please contact us to reset your password.'
+            MigrationReset: 'Please contact us to reset your password.',
+            InternalError: 'This Username is not within our records.'
           }
           const error = String(err)
-          const errorType = error.slice(0, error.indexOf(':'))
+          const errorType = (error.indexOf(':') !== -1)? error.slice(0, error.indexOf(':')):error
+
           this.setState({ error: true, errorMessage: errorMap[errorType] })
         },
         (userAttributes, cognitoUser) => {

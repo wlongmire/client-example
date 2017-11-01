@@ -2,7 +2,6 @@ import moment from 'moment'
 import { cognitoPersistUser } from './cognitoPersistUser'
 
 export function checkTokenExpiration(user) {
-  // console.log("USER====>", user)
   return new Promise((resolve, reject) => {
     const isExpired = moment().isAfter(user.expiration)
     if (isExpired) {

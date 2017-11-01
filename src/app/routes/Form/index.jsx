@@ -187,7 +187,7 @@ class Form extends Component {
     )
 
     return (
-      <div className="page productChoice">
+      <div className="productChoice routeContainer">
         <h3>Fill out the rest of the details.</h3>
         <div className="formSubHeader">You can submit this application online.</div>
         <br />
