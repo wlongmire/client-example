@@ -131,7 +131,7 @@ export class CompleteProfile extends Component {
           </Row>
         </form>
         <div className="completeProfileButton">
-          <Button onClick={() => { return this.handleSubmit() }}>Complete Profile</Button>
+          <Button bsStyle="primary" onClick={() => { return this.handleSubmit() }}>Complete Profile</Button>
           {(this.state.errorStatus === true) ? helpBlock(this.state.errorMessage, 'helpBlockRed') : <div className="completeSpace" />}
         </div>
       </div>

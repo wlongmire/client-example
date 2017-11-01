@@ -40,7 +40,7 @@ export function getUsersByBrokerage(user) {
   }
 }
 
-export function createNewUser(email, isAdmin, user, successMessage = 'Success: User has been successful created.') {
+export function createNewUser(email, isAdmin, user, successMessage = `Success! An invite as been emailed to ${email}`) {
   return ((dispatch) => {
     checkTokenExpiration(user).then(() => {
       const body = {
@@ -52,7 +52,7 @@ export function createNewUser(email, isAdmin, user, successMessage = 'Success: U
       apigClient.adminUsersPost({}, body, {}).then((resp) => {
         if (resp.data && resp.data.success === false) {
           dispatch(
-            setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'danger' })
+            setAlert({ show: true, message: `${resp.data.message}`, bsStyle: 'warning' })
           )
         } else {
           dispatch(
@@ -136,13 +136,15 @@ export function updateUser(row, statusType, user) {
         [
           { fieldName: 'status', fieldValue: statusType },
         ]).then((resp2, error2) => {
-          if (resp2.data && resp2.data.success === true) {
+          if (resp2.data && resp2.data.success === true && statusType === 'disabled') {
+            dispatch(setAlert({ show: true, message: `Account disabled for: ${row.username}. You will still be able to access their submissions.`, bsStyle: 'warning' }))
+          } else if (resp2.data && resp2.data.success === true && statusType !== 'disabled') {
             const message = () => {
               switch (statusType) {
                 case 'active':
-                  return (`You have successefully activated: ${row.username} !`)
+                  return (`Account reactivated for: ${row.username}. They can log in with their existing credentials.`)
                 case 'disabled':
-                  return (`You have successefully disabled: ${row.username} !`)
+                  return (`Account disabled for: ${row.username}. You will still be able to access their submissions.`)
                 default:
                   return ('You have successefully made an update!')
               }

@@ -167,11 +167,11 @@ export class UserManagement extends Component {
 
     const pendingUsers = {
       data: this.props.pendingUsers,
-      columns:[
+      columns: [
         { dataField: 'email', width: '35%', isKey: true, title: 'Email', isSortable: true },
         { dataField: 'admin', width: '20%', isKey: false, title: 'Admin',
           dataFormat: (cell, row) => {
-            return ((row.role === 'admin') ? 'Yes':'')
+            return ((row.role === 'admin') ? 'Yes' : '')
           }
         },
         { isKey: false,
