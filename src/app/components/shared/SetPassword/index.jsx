@@ -158,7 +158,7 @@ export class SetPassword extends Component {
             </Col>
           </Row>
           <Row className="passwordSetSubmit">
-            <Button disabled={this.state.disabledFlag} type="submit">Set Password</Button>
+            <Button disabled={this.state.disabledFlag} bsStyle="primary" type="submit">Set Password</Button>
             {(this.state.submitError === true) && helpBlock(`There is an error in submission! ${this.state.submitErrorMessage}`, 'helpBlockRed')}
           </Row>
         </form>
