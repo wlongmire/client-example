@@ -38,7 +38,7 @@
  }
 
  export function isNullOrEmpty(string) {
-   if (!isDefined(string) || string.length > 0) {
+   if (isDefined(string) && string.length > 0) {
      return false
    }
    return true
