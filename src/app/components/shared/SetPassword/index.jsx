@@ -101,12 +101,9 @@ export class SetPassword extends Component {
     const validateConfirmPassword = (e) => {
       const confirmPwd = e.target.value
 
-      console.log('hitting it', confirmPwd)
       if (confirmPwd && (confirmPwd !== this.state.pwd)) {
-        console.log('are we here', this.state.pwd)
         this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: false })
       } else if (confirmPwd && (confirmPwd === this.state.pwd)) {
-        console.log('are we here', this.state.pwd)
         this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: true })
       } else {
         this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: null })
@@ -158,7 +155,7 @@ export class SetPassword extends Component {
             </Col>
           </Row>
           <Row className="passwordSetSubmit">
-            <Button disabled={this.state.disabledFlag} type="submit">Set Password</Button>
+            <Button disabled={this.state.disabledFlag} bsStyle="primary" type="submit">Set Password</Button>
             {(this.state.submitError === true) && helpBlock(`There is an error in submission! ${this.state.submitErrorMessage}`, 'helpBlockRed')}
           </Row>
         </form>
