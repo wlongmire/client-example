@@ -138,6 +138,7 @@ export function updateUser(row, statusType, user) {
         ]).then((resp2, error2) => {
           if (resp2.data && resp2.data.success === true && statusType === 'disabled') {
             dispatch(setAlert({ show: true, message: `Account disabled for: ${row.username}. You will still be able to access their submissions.`, bsStyle: 'warning' }))
+            dispatch(getUsersByBrokerage(user))
           } else if (resp2.data && resp2.data.success === true && statusType !== 'disabled') {
             const message = () => {
               switch (statusType) {
