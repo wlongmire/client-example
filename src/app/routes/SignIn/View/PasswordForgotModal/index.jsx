@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button, FormGroup, FormControl, HelpBlock } from 'react-bootstrap'
+import React, { Component, PropTypes } from 'react'
+import { Button } from 'react-bootstrap'
 import FormBuilder from 'components/shared/FormBuilder'
 import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 
@@ -17,21 +17,12 @@ class PasswordForgot extends Component {
   }
 
   handleSubmit(values) {
-    if (values.email === '') {
-      this.setState({
-        ...this.state,
-        error: true,
-        errorMessage: 'Email field is not filled out'
-      })
-      console.log('getting to this state', this.state)
-    } else {
-      this.props.handleOK(values)
-      console.log('values', values)
-    }
+    this.props.handleOK(values)
+    console.log('values', values)
   }
 
   render() {
-    const { error, errorMessage } = this.state
+    const { error, errorMessage } = this.props
 
     console.log('this.props', this.props)
     return (
@@ -43,11 +34,8 @@ class PasswordForgot extends Component {
           submitTitle="Password Reset"
           submissionButtons={() => (
             <div>
-              <Button
-                className="btn" type="submit">Submit</Button>
-
-              <Button
-                className="btn secondary" onClick={this.props.handleCancel}>Cancel</Button>
+              <Button className="btn" type="submit">Submit</Button>
+              <Button className="btn secondary" onClick={this.props.handleCancel}>Cancel</Button>
 
               <br />
               <br />
@@ -59,31 +47,16 @@ class PasswordForgot extends Component {
           )}
           handleSubmit={this.handleSubmit}
         />
-        {/* <form onSubmit={this.handleSubmit}>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <ControlLabel>Working example with validation</ControlLabel>
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length.</HelpBlock>
-        </FormGroup>
-        <Button className="btn" type="submit">Submit</Button>
-        <Button className="btn secondary" onClick={this.props.handleCancel}>Cancel</Button>
-        <ToggleDisplay
-          show={error}
-          render={() => <div className="errorMessage">{ errorMessage }</div>}
-        />
-        </form> */}
       </div>
     )
   }
+}
+
+PasswordForgot.propTypes = {
+  error: PropTypes.string,
+  errorMessage: PropTypes.string,
+  handleOK: PropTypes.func,
+  handleCancel: PropTypes.func
 }
 
 export default PasswordForgot

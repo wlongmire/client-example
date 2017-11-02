@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import FormBuilder from 'components/shared/FormBuilder'
@@ -16,8 +14,7 @@ import PasswordResetModal from './PasswordResetModal'
 import PasswordForgot from './PasswordForgotModal'
 import config from 'config'
 
-import { login, getUserAttributes, setNewPassword } from 'app/actions/userActions'
-import { USER_LOGGED_IN, SET_API_GATEWAY_CLIENT } from 'src/app/constants/user'
+import { login, setNewPassword } from 'app/actions/userActions'
 
 class SignInForm extends Component {
   constructor(props) {
@@ -51,6 +48,7 @@ class SignInForm extends Component {
 
   handleForgotModalSubmit(values) {
     console.log('Testing Modale Values', values)
+    browserHistory.push('/forgotpassword')
   }
   handleForgotModalCancel(values) {
     console.log('handleForgotModalCancel', values)
@@ -104,7 +102,6 @@ class SignInForm extends Component {
         values.username,
         values.password,
         (cognito, subId, cognitoUser, tokenExpireTime, userData) => {
-
           // if user has profile filled out then redirect to submissions
           // otherwise ask user to fill out profile
           const { firstName, lastName, phone } = userData
@@ -128,7 +125,7 @@ class SignInForm extends Component {
             InternalError: 'This Username is not within our records.'
           }
           const error = String(err)
-          const errorType = (error.indexOf(':') !== -1)? error.slice(0, error.indexOf(':')):error
+          const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
 
           this.setState({ error: true, errorMessage: errorMap[errorType] })
         },
@@ -146,10 +143,6 @@ class SignInForm extends Component {
   }
 
   render() {
-    const {
-      handleSubmit
-    } = this.props
-
     const showForgotModal = () => {
       return (this.setState({
         ...this.state,
