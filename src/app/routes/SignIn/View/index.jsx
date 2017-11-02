@@ -13,6 +13,7 @@ import DialogBox from 'components/shared/DialogBox'
 import { Button } from 'react-bootstrap'
 
 import PasswordResetModal from './PasswordResetModal'
+import PasswordForgot from './PasswordForgotModal'
 import config from 'config'
 
 import { login, getUserAttributes, setNewPassword } from 'app/actions/userActions'
@@ -24,7 +25,9 @@ class SignInForm extends Component {
     this.state = {
       error: false,
       errorMessage: '',
-
+      showForgotPassword: false,
+      passwordForgotError: false,
+      passwordForgotMessage: '',
       showResetModal: false,
       passwordResetError: false,
       passwordResetErrorMessage: ''
@@ -33,6 +36,8 @@ class SignInForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResetModalOk = this.handleResetModalOk.bind(this)
     this.handleResetModalCancel = this.handleResetModalCancel.bind(this)
+    this.handleForgotModalCancel = this.handleForgotModalCancel.bind(this)
+    this.handleForgotModalSubmit = this.handleForgotModalSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -42,6 +47,19 @@ class SignInForm extends Component {
     if (this.props.user && this.props.user.username) {
       browserHistory.push('/submissions')
     }
+  }
+
+  handleForgotModalSubmit(values) {
+    console.log('Testing Modale Values', values)
+  }
+  handleForgotModalCancel(values) {
+    console.log('handleForgotModalCancel', values)
+    this.setState({
+      ...this.state,
+      showForgotPassword: false,
+      passwordForgotError: false,
+      passwordForgotMessage: ''
+    })
   }
 
   handleResetModalOk(values) {
@@ -132,6 +150,13 @@ class SignInForm extends Component {
       handleSubmit
     } = this.props
 
+    const showForgotModal = () => {
+      return (this.setState({
+        ...this.state,
+        showForgotPassword: true
+      }))
+    }
+
     return (
       <div className="SignInForm__container">
 
@@ -148,6 +173,9 @@ class SignInForm extends Component {
                 render={() => <div className="errorMessage">{ this.state.errorMessage }</div>}
               />
               <Button bsStyle="primary" type="submit">Sign In</Button>
+              <br />
+              <br />
+              <div className="forgotPassword" onClick={() => { return showForgotModal() }}>Forgot your password?</div>
             </div>
           )}
           handleSubmit={this.handleSubmit}
@@ -163,6 +191,21 @@ class SignInForm extends Component {
             errorMessage={this.state.passwordResetErrorMessage}
             handleOK={this.handleResetModalOk}
             handleCancel={this.handleResetModalCancel}
+          />
+        </DialogBox>
+
+
+        <DialogBox
+          custom_class="resetDialog"
+          title="Reset Your Password"
+          show={this.state.showForgotPassword}
+          /* show={false} */
+        >
+          <PasswordForgot
+            error={this.state.passwordResetError}
+            errorMessage={this.state.passwordResetErrorMessage}
+            handleOK={this.handleForgotModalSubmit}
+            handleCancel={this.handleForgotModalCancel}
           />
         </DialogBox>
 
