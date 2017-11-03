@@ -7,6 +7,9 @@ import CompleteProfileC from '../../components/shared/CompleteProfile'
 import SignupHeaderC from '../../components/shared/SignupHeader'
 import AllSetC from '../../components/shared/AllSet'
 import { login, logout, createAlert } from '../../actions/userActions'
+// import config from 'config'
+// import AWSCognito from 'amazon-cognito-identity-js'
+// import AWS from 'aws-sdk'
 
 export class ForgotPassword extends Component {
   constructor(props) {
@@ -22,59 +25,12 @@ export class ForgotPassword extends Component {
   componentDidMount() {
     document.body.className = 'body-signup-grey'
 
+
     if (!this.props.location.query.key) {
       // Can be triggered after backend is set up... -AK
       // this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
       // return browserHistory.push('/')
     }
-
-    // work that was used to get new user to Set Up Their Password - AK
-    // const gateway = apigClientFactory.newClient()
-    // return gateway.apiInviteGet({ urlKey: this.props.location.query.key }, {}).then((response, err) => {
-    //   if (err) {
-    //     return (this.setState({ ...this.state, step: 'error', errorMessage: err.message }))
-    //   }
-
-    //   if (response && response.data && response.data.success === true) {
-    //     const { u, p } = response.data.data
-    //     this.props.dispatch(login(
-    //       u,
-    //       p,
-    //       () => {
-    //         // this is an on success function. it should NEVER be triggered, we are resetting the password
-
-    //         this.setState({ ...this.state, step: 'error', errorMessage: 'There is an error in resetting password' })
-    //       },
-    //       (err2) => {
-    //         console.log('ERROR:', err2)
-
-    //         const errorMap = {
-    //           NotAuthorizedException: `${(err2.message === 'User is disabled') ? `User is disabled.
-    //           If you believe this is an error, please contact the administrator.` : `${err2.message}`}`,
-    //           UserNotFoundException: 'This Username is not within our records.',
-    //           MigrationReset: 'Please contact us to reset your password.',
-    //           InternalError: 'This Username is not within our records.'
-    //         }
-    //         const error = String(err2)
-    //         const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
-
-    //         this.setState({ ...this.state, step: 'error', errorMessage: errorMap[errorType] })
-    //       },
-    //       (userAttributes, cognitoUser) => {
-    //         this.setState({
-    //           ...this.state,
-    //           errorMessage: null,
-    //           step: 0,
-    //           cognitoUser,
-    //           userAttributes
-    //         })
-    //       }
-    //     ))
-    //   } else {
-    //     this.props.dispatch(createAlert('Your account has already been activated. Please log in below!', 'info'))
-    //     browserHistory.push('/')
-    //   }
-    // })
   }
 
   componentWillUnmount() {
@@ -151,7 +107,6 @@ export class ForgotPassword extends Component {
 
 ForgotPassword.propTypes = {
   location: PropTypes.object,
-  dispatch: PropTypes.func.isRequired,
   user: PropTypes.object
 }
 

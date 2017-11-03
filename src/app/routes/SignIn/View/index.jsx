@@ -48,6 +48,12 @@ class SignInForm extends Component {
 
   handleForgotModalSubmit(values) {
     console.log('Testing Modale Values', values)
+    this.setState({
+      ...this.state,
+      showForgotPassword: false,
+      passwordForgotError: false,
+      passwordForgotMessage: ''
+    })
     browserHistory.push('/forgotpassword')
   }
   handleForgotModalCancel(values) {
