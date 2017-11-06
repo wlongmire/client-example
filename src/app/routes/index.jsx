@@ -19,6 +19,7 @@ import SignIn from 'routes/SignIn'
 import Http404 from 'routes/Http404'
 import ConfirmSignup from 'routes/ConfirmSignup'
 import CompleteProfilePage from 'routes/CompleteProfilePage'
+import ForgotPassword from 'routes/ForgotPassword'
 
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.user,
@@ -76,6 +77,11 @@ export default (
     <Route
       path="completeprofile"
       component={CompleteProfilePage}
+    />
+
+    <Route
+      path="forgotpassword"
+      component={ForgotPassword}
     />
 
     <Route

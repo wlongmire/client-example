@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import FormBuilder from 'components/shared/FormBuilder'
@@ -13,10 +11,10 @@ import DialogBox from 'components/shared/DialogBox'
 import { Button } from 'react-bootstrap'
 
 import PasswordResetModal from './PasswordResetModal'
+import PasswordForgot from './PasswordForgotModal'
 import config from 'config'
 
-import { login, getUserAttributes, setNewPassword } from 'app/actions/userActions'
-import { USER_LOGGED_IN, SET_API_GATEWAY_CLIENT } from 'src/app/constants/user'
+import { login, setNewPassword } from 'app/actions/userActions'
 
 class SignInForm extends Component {
   constructor(props) {
@@ -24,7 +22,9 @@ class SignInForm extends Component {
     this.state = {
       error: false,
       errorMessage: '',
-
+      showForgotPassword: false,
+      passwordForgotError: false,
+      passwordForgotMessage: '',
       showResetModal: false,
       passwordResetError: false,
       passwordResetErrorMessage: ''
@@ -33,6 +33,8 @@ class SignInForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResetModalOk = this.handleResetModalOk.bind(this)
     this.handleResetModalCancel = this.handleResetModalCancel.bind(this)
+    this.handleForgotModalCancel = this.handleForgotModalCancel.bind(this)
+    this.handleForgotModalSubmit = this.handleForgotModalSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -42,6 +44,26 @@ class SignInForm extends Component {
     if (this.props.user && this.props.user.username) {
       browserHistory.push('/submissions')
     }
+  }
+
+  handleForgotModalSubmit(values) {
+    console.log('Testing Modale Values', values)
+    this.setState({
+      ...this.state,
+      showForgotPassword: false,
+      passwordForgotError: false,
+      passwordForgotMessage: ''
+    })
+    browserHistory.push('/forgotpassword')
+  }
+  handleForgotModalCancel(values) {
+    console.log('handleForgotModalCancel', values)
+    this.setState({
+      ...this.state,
+      showForgotPassword: false,
+      passwordForgotError: false,
+      passwordForgotMessage: ''
+    })
   }
 
   handleResetModalOk(values) {
@@ -86,7 +108,6 @@ class SignInForm extends Component {
         values.username,
         values.password,
         (cognito, subId, cognitoUser, tokenExpireTime, userData) => {
-
           // if user has profile filled out then redirect to submissions
           // otherwise ask user to fill out profile
           const { firstName, lastName, phone } = userData
@@ -110,7 +131,7 @@ class SignInForm extends Component {
             InternalError: 'This Username is not within our records.'
           }
           const error = String(err)
-          const errorType = (error.indexOf(':') !== -1)? error.slice(0, error.indexOf(':')):error
+          const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
 
           this.setState({ error: true, errorMessage: errorMap[errorType] })
         },
@@ -128,9 +149,12 @@ class SignInForm extends Component {
   }
 
   render() {
-    const {
-      handleSubmit
-    } = this.props
+    const showForgotModal = () => {
+      return (this.setState({
+        ...this.state,
+        showForgotPassword: true
+      }))
+    }
 
     return (
       <div className="SignInForm__container">
@@ -148,6 +172,9 @@ class SignInForm extends Component {
                 render={() => <div className="errorMessage">{ this.state.errorMessage }</div>}
               />
               <Button bsStyle="primary" type="submit">Sign In</Button>
+              <br />
+              <br />
+              <div className="forgotPassword" onClick={() => { return showForgotModal() }}>Forgot your password?</div>
             </div>
           )}
           handleSubmit={this.handleSubmit}
@@ -163,6 +190,21 @@ class SignInForm extends Component {
             errorMessage={this.state.passwordResetErrorMessage}
             handleOK={this.handleResetModalOk}
             handleCancel={this.handleResetModalCancel}
+          />
+        </DialogBox>
+
+
+        <DialogBox
+          custom_class="resetDialog"
+          title="Reset Your Password"
+          show={this.state.showForgotPassword}
+          /* show={false} */
+        >
+          <PasswordForgot
+            error={this.state.passwordResetError}
+            errorMessage={this.state.passwordResetErrorMessage}
+            handleOK={this.handleForgotModalSubmit}
+            handleCancel={this.handleForgotModalCancel}
           />
         </DialogBox>
 

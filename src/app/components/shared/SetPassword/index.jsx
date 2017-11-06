@@ -26,6 +26,10 @@ export class SetPassword extends Component {
     if (pwd !== confirmPwd) {
       this.setState({ ...this.state, passwordMatch: false, submitError: true, submitErrorMessage: 'Passwords must match!' })
     } else {
+      // -AK YOu might WANT TO ADD AN ELSE STATEMENT HERE FOR forgot Password
+      // cognitoUser.confirmPassword ... onSuccess
+      // Use case #12 in https://github.com/aws/amazon-cognito-identity-js
+
       setNewPassword(
         this.props.cognitoUser,
         pwd,
