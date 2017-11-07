@@ -26,11 +26,12 @@ export class ForgotPassword extends Component {
     document.body.className = 'body-signup-grey'
 
 
-    if (!this.props.location.query.key) {
+    if (!this.props.location.query.confirmationCode) {
       // Can be triggered after backend is set up... -AK
       // this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
       // return browserHistory.push('/')
     }
+
   }
 
   componentWillUnmount() {
@@ -67,7 +68,9 @@ export class ForgotPassword extends Component {
               goToNextStep={() => { return goToNextStep(1) }}
               cognitoUser={this.state.cognitoUser}
               userAttributes={this.state.userAttributes}
-              urlKey={this.props.location.query.key}
+              confirmationCode={this.props.location.query.confirmationCode}
+              request={this.props.location.query.request}
+              path={this.props.location.pathname}
             />)
         case 1:
           return (<AllSetC />)

@@ -4,17 +4,16 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import FormBuilder from 'components/shared/FormBuilder'
 import form from './form.js'
+import { Row, Col, Button, Alert, Fade } from 'react-bootstrap'
 
 import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import DialogBox from 'components/shared/DialogBox'
-
-import { Button } from 'react-bootstrap'
 
 import PasswordResetModal from './PasswordResetModal'
 import PasswordForgot from './PasswordForgotModal'
 import config from 'config'
 
-import { login, setNewPassword } from 'app/actions/userActions'
+import { login, setNewPassword, userForgotPassword, createAlert } from 'app/actions/userActions'
 
 class SignInForm extends Component {
   constructor(props) {
@@ -46,6 +45,14 @@ class SignInForm extends Component {
     }
   }
 
+  componentWillMount() {
+    this.closeAlert = this.closeAlert.bind(this)
+  }
+
+  closeAlert() {
+    this.props.dispatch(setAlert({ show: false, message: '', bsStyle: '' }))
+  }
+
   handleForgotModalSubmit(values) {
     console.log('Testing Modale Values', values)
     this.setState({
@@ -54,7 +61,8 @@ class SignInForm extends Component {
       passwordForgotError: false,
       passwordForgotMessage: ''
     })
-    browserHistory.push('/forgotpassword')
+    this.props.dispatch(createAlert(`Check your email for password reset instructions for ${values.email}. <br/> If you don't receive an email, please make sure the submitted email address matches your Owner's Edge account. Contact support if you need help`, 'success'))
+    userForgotPassword(values.email)
   }
   handleForgotModalCancel(values) {
     console.log('handleForgotModalCancel', values)
@@ -157,8 +165,13 @@ class SignInForm extends Component {
     }
 
     return (
+      <div>
+      <Fade in={this.props.display.show} timeout={4000}>
+      <Alert bsStyle={this.props.display.bsStyle} onDismiss={this.closeAlert}>
+        {this.props.display.message}
+      </Alert>
+    </Fade>
       <div className="SignInForm__container">
-
         <h1>Welcome</h1>
         <h3>Please Sign In</h3>
 
@@ -169,7 +182,7 @@ class SignInForm extends Component {
             <div>
               <ToggleDisplay
                 show={this.state.error}
-                render={() => <div className="errorMessage">{ this.state.errorMessage }</div>}
+                render={() => <div className="errorMessage">{this.state.errorMessage}</div>}
               />
               <Button bsStyle="primary" type="submit">Sign In</Button>
               <br />
@@ -198,7 +211,7 @@ class SignInForm extends Component {
           custom_class="resetDialog"
           title="Reset Your Password"
           show={this.state.showForgotPassword}
-          /* show={false} */
+        /* show={false} */
         >
           <PasswordForgot
             error={this.state.passwordResetError}
@@ -208,7 +221,8 @@ class SignInForm extends Component {
           />
         </DialogBox>
 
-      </div>)
+      </div>
+    </div>)
   }
 }
 
@@ -218,7 +232,9 @@ SignInForm.propTypes = {
 }
 
 export default connect((store) => {
+  const {display} = store.alerts
   return {
-    user: store.user
+    user: store.user,
+    display
   }
 })(SignInForm)

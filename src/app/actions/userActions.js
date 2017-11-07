@@ -223,6 +223,48 @@ export function logout() {
   }
 }
 
+export function userForgotPassword(email, onSuccess, onFailure) {
+  const userPool = new CognitoUserPool({
+    UserPoolId: config.awsCognito.userPoolId,
+    ClientId: config.awsCognito.clientId
+  })
+
+  const cognitoUser = new CognitoUser({
+    Username: email,
+    Pool: userPool
+  });
+
+  cognitoUser.forgotPassword({
+    onSuccess: () => { onSuccess() },
+    onFailure: (err) => { onFailure(err) }
+  });
+}
+
+export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuccess, onFailure) {
+  const userPool = new CognitoUserPool({
+    UserPoolId: config.awsCognito.userPoolId,
+    ClientId: config.awsCognito.clientId
+  })
+  getUserFromRequestCode(requestCode)
+    .then(resp => {
+      const cognitoUser = new CognitoUser({
+        Username: resp.data.username,
+        Pool: userPool
+      });
+
+      cognitoUser.confirmPassword(confirmationCode, newPwd, {
+        onSuccess: () => { onSuccess() },
+        onFailure: (err) => { onFailure(err) }
+      });
+    })
+}
+
+function getUserFromRequestCode(requestCode){
+  return new Promise((resolve, reject) => {
+
+  })
+}
+
 export function editProfile(user, values) {
   return new Promise((resolve, reject)=> {
     checkTokenExpiration(user).then(() => {

@@ -19,7 +19,7 @@ import SignIn from 'routes/SignIn'
 import Http404 from 'routes/Http404'
 import ConfirmSignup from 'routes/ConfirmSignup'
 import CompleteProfilePage from 'routes/CompleteProfilePage'
-import ForgotPassword from 'routes/ForgotPassword'
+import ResetPassword from 'routes/ResetPassword'
 
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.user,
@@ -80,8 +80,8 @@ export default (
     />
 
     <Route
-      path="forgotpassword"
-      component={ForgotPassword}
+      path="resetpassword"
+      component={ResetPassword}
     />
 
     <Route

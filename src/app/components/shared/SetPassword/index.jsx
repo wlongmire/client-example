@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { setNewPassword, login } from '../../../actions/userActions'
+import { setNewPassword, login, userConfirmPassword } from '../../../actions/userActions'
 
 export class SetPassword extends Component {
   constructor() {
@@ -29,7 +29,39 @@ export class SetPassword extends Component {
       // -AK YOu might WANT TO ADD AN ELSE STATEMENT HERE FOR forgot Password
       // cognitoUser.confirmPassword ... onSuccess
       // Use case #12 in https://github.com/aws/amazon-cognito-identity-js
+      if (this.props.path === '/resetpassword') {
+        userConfirmPassword(this.props.confirmationCode, this.props.request, pwd,
+          () => {
+            this.props.dispatch(login(
+              this.props.cognitoUser.username,
+              pwd,
+              () => {
+                return this.props.goToNextStep()
+              },
+              (err2) => {
+                console.log('ERROR WHEN LOGGING IN:', err2)
 
+                const errorMap = {
+                  NotAuthorizedException: `${(err2.message === 'User is disabled') ? `User is disabled.
+                  If you believe this is an error, please contact the administrator.` : `${err2.message}`}`,
+                  UserNotFoundException: 'This Username is not within our records.',
+                  MigrationReset: 'Please contact us to reset your password.',
+                  InternalError: 'This Username is not within our records.'
+                }
+                const error = String(err2)
+                const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
+
+                this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType] })
+              }))
+            },
+          (err) => {
+            // on FAILURE
+
+            const error = String(err)
+            const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
+            return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
+          })
+      } else {
       setNewPassword(
         this.props.cognitoUser,
         pwd,
@@ -81,6 +113,7 @@ export class SetPassword extends Component {
           const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
           return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
         })
+      }
     }
   }
 
