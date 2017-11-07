@@ -29,14 +29,17 @@ export class SetPassword extends Component {
       // -AK YOu might WANT TO ADD AN ELSE STATEMENT HERE FOR forgot Password
       // cognitoUser.confirmPassword ... onSuccess
       // Use case #12 in https://github.com/aws/amazon-cognito-identity-js
-      if (this.props.path === '/resetpassword') {
+      if (this.props.path.toLowerCase() === '/resetpassword') {
         userConfirmPassword(this.props.confirmationCode, this.props.request, pwd,
-          () => {
+          (email) => {
+            console.log('got to here, this is the email: ', email)
             this.props.dispatch(login(
-              this.props.cognitoUser.username,
+              email,
               pwd,
               () => {
-                return this.props.goToNextStep()
+                apigClient.apiResetcodeCodeDelete({code: this.props.confirmationCode}, { code: this.props.confirmationCode }).then((response, err) => {
+                  return this.props.goToNextStep()
+                })
               },
               (err2) => {
                 console.log('ERROR WHEN LOGGING IN:', err2)

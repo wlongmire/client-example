@@ -61,7 +61,7 @@ class SignInForm extends Component {
       passwordForgotError: false,
       passwordForgotMessage: ''
     })
-    this.props.dispatch(createAlert(`Check your email for password reset instructions for ${values.email}. <br/> If you don't receive an email, please make sure the submitted email address matches your Owner's Edge account. Contact support if you need help`, 'success'))
+    this.props.dispatch(createAlert(`Check your email for password reset instructions for ${values.email}.<br/><br/>If you don't receive an email, please make sure the submitted email address matches your Owner's Edge account. Contact support if you need help`, 'success'))
     userForgotPassword(values.email)
   }
   handleForgotModalCancel(values) {
@@ -166,62 +166,58 @@ class SignInForm extends Component {
 
     return (
       <div>
-      <Fade in={this.props.display.show} timeout={4000}>
-      <Alert bsStyle={this.props.display.bsStyle} onDismiss={this.closeAlert}>
-        {this.props.display.message}
-      </Alert>
-    </Fade>
-      <div className="SignInForm__container">
-        <h1>Welcome</h1>
-        <h3>Please Sign In</h3>
 
-        <FormBuilder
-          data={form}
-          submitTitle="Sign In"
-          submissionButtons={() => (
-            <div>
-              <ToggleDisplay
-                show={this.state.error}
-                render={() => <div className="errorMessage">{this.state.errorMessage}</div>}
-              />
-              <Button bsStyle="primary" type="submit">Sign In</Button>
-              <br />
-              <br />
-              <div className="forgotPassword" onClick={() => { return showForgotModal() }}>Forgot your password?</div>
-            </div>
-          )}
-          handleSubmit={this.handleSubmit}
-        />
+        <div className="SignInForm__container">
+          <h1>Welcome</h1>
+          <h3>Please Sign In</h3>
 
-        <DialogBox
-          custom_class="resetDialog"
-          title="Reset Password"
-          show={this.state.showResetModal}
-        >
-          <PasswordResetModal
-            error={this.state.passwordResetError}
-            errorMessage={this.state.passwordResetErrorMessage}
-            handleOK={this.handleResetModalOk}
-            handleCancel={this.handleResetModalCancel}
+          <FormBuilder
+            data={form}
+            submitTitle="Sign In"
+            submissionButtons={() => (
+              <div>
+                <ToggleDisplay
+                  show={this.state.error}
+                  render={() => <div className="errorMessage">{this.state.errorMessage}</div>}
+                />
+                <Button bsStyle="primary" type="submit">Sign In</Button>
+                <br />
+                <br />
+                <div className="forgotPassword" onClick={() => { return showForgotModal() }}>Forgot your password?</div>
+              </div>
+            )}
+            handleSubmit={this.handleSubmit}
           />
-        </DialogBox>
+
+          <DialogBox
+            custom_class="resetDialog"
+            title="Reset Password"
+            show={this.state.showResetModal}
+          >
+            <PasswordResetModal
+              error={this.state.passwordResetError}
+              errorMessage={this.state.passwordResetErrorMessage}
+              handleOK={this.handleResetModalOk}
+              handleCancel={this.handleResetModalCancel}
+            />
+          </DialogBox>
 
 
-        <DialogBox
-          custom_class="resetDialog"
-          title="Reset Your Password"
-          show={this.state.showForgotPassword}
-        /* show={false} */
-        >
-          <PasswordForgot
-            error={this.state.passwordResetError}
-            errorMessage={this.state.passwordResetErrorMessage}
-            handleOK={this.handleForgotModalSubmit}
-            handleCancel={this.handleForgotModalCancel}
-          />
-        </DialogBox>
+          <DialogBox
+            custom_class="resetDialog"
+            title="Reset Your Password"
+            show={this.state.showForgotPassword}
+          /* show={false} */
+          >
+            <PasswordForgot
+              error={this.state.passwordResetError}
+              errorMessage={this.state.passwordResetErrorMessage}
+              handleOK={this.handleForgotModalSubmit}
+              handleCancel={this.handleForgotModalCancel}
+            />
+          </DialogBox>
 
-      </div>
+        </div>
     </div>)
   }
 }

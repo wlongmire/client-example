@@ -245,15 +245,19 @@ export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuc
     UserPoolId: config.awsCognito.userPoolId,
     ClientId: config.awsCognito.clientId
   })
+
   getUserFromRequestCode(requestCode)
     .then(resp => {
+      console.log('GOT TO HERE')
+      console.log(resp)
       const cognitoUser = new CognitoUser({
-        Username: resp.data.username,
+        Username: resp.username,
         Pool: userPool
       });
 
+      console.log('got a valid user')
       cognitoUser.confirmPassword(confirmationCode, newPwd, {
-        onSuccess: () => { onSuccess() },
+        onSuccess: () => { onSuccess(resp.username) },
         onFailure: (err) => { onFailure(err) }
       });
     })
@@ -261,7 +265,13 @@ export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuc
 
 function getUserFromRequestCode(requestCode){
   return new Promise((resolve, reject) => {
-
+    const apigClient = apigClientFactory.newClient()
+    apigClient.apiResetcodeCodeGet({code: requestCode}, {})
+      .then((resp, err) => {
+        if (resp.data.success) {
+          return resolve({username: resp.data.data.username})
+        }
+      })
   })
 }
 
@@ -331,6 +341,6 @@ export function createAlert(message, bsStyle) {
           show: false
         }
       })
-    }, 6000)
+    }, 7000)
   })
 }

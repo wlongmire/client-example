@@ -6,7 +6,7 @@ import querystring from 'querystring'
 import { connect } from 'react-redux'
 import config from 'config'
 import Header from 'components/Header'
-import { Alert } from 'react-bootstrap'
+import { Alert, Fade } from 'react-bootstrap'
 
 const content = require('content')
 
@@ -38,7 +38,7 @@ class App extends Component {
           <div className="AlertMainComp">
             <div className="mainAlert" >
               <Alert bsStyle={this.props.display.bsStyle} onDismiss={this.closeAlert}>
-                { this.props.display.message }
+              <div dangerouslySetInnerHTML={ {__html:this.props.display.message}}></div>
               </Alert>
             </div>
           </div> :
