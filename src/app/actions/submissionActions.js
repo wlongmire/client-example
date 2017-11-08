@@ -56,9 +56,9 @@ export function getSubmissions(user) {
 
 export function saveSubmission(submission, user) {
   return checkTokenExpiration(user).then(() => {
-    const paramsId = submission._id ? { id: submission._id } : {}
+    const paramsId = submission.id ? { id: submission.id } : {}
 
-    if (submission._id) {
+    if (submission.id) {
       return apigClient.apiSaveIdPost(paramsId, submission, {})
       .then((resp) => {
         return ({
@@ -97,9 +97,11 @@ export function editSubmission(submission, user) {
   return ((dispatch) => {
     return checkTokenExpiration(user).then(() => {
       // eslint-disable-next-line no-undef
-    return apigClient.apiGetSubmissionIdGet({ id: submission._id })
+    
+    return apigClient.apiGetSubmissionIdGet({ id: submission.id })
       .then((resp) => {
         const data = resp.data
+
         if (data.success) {
           // add the entire submission in store in -> app.submission
           // dispatch({ type: EDIT_SUBMISSION, payload: data.submission })
@@ -116,6 +118,7 @@ export function editSubmission(submission, user) {
             projectState: { disabled: true },
             projectZipcode: { disabled: true },
           }
+          
           dispatch({
             type: CHANGE_SUBMISSION,
             payload: {
@@ -126,7 +129,7 @@ export function editSubmission(submission, user) {
 
           // changes app.status to: EDIT
           dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
-
+          
         // push the user to the form
           dispatch(push('/form'))
         } else {

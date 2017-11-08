@@ -69,7 +69,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               //get user table entry
               apigClient.profileIdGet({ id: subId }).then((usersIdGetResp) => {
                 const userTableEntry = usersIdGetResp.data
-                console.log('usersIdGetResp', usersIdGetResp)
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
                   onFailure(userTableEntry.errorCode)
