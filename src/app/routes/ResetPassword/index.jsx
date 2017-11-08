@@ -6,7 +6,7 @@ import SetPasswordC from '../../components/shared/SetPassword'
 import CompleteProfileC from '../../components/shared/CompleteProfile'
 import SignupHeaderC from '../../components/shared/SignupHeader'
 import AllSetC from '../../components/shared/AllSet'
-import { login, logout, createAlert } from '../../actions/userActions'
+import { login, logout, createAlert, getUserFromRequestCode } from '../../actions/userActions'
 // import config from 'config'
 // import AWSCognito from 'amazon-cognito-identity-js'
 // import AWS from 'aws-sdk'
@@ -26,11 +26,22 @@ export class ForgotPassword extends Component {
     document.body.className = 'body-signup-grey'
 
 
-    if (!this.props.location.query.confirmationCode) {
+    if (!this.props.location.query.confirmationCode || !this.props.location.query.request) {
       // Can be triggered after backend is set up... -AK
-      // this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
+      this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
       // return browserHistory.push('/')
     }
+
+    getUserFromRequestCode(this.props.location.query.request)
+      .then((resp, err) => {
+        console.log('this is what the component is getting', resp)
+        if (!resp.success) {
+          this.props.dispatch(createAlert('This password link is no longer valid. Please log in or request another reset.', 'danger'))
+          return browserHistory.push('/')
+        }
+      })
+
+
 
   }
 

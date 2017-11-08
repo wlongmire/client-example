@@ -251,7 +251,7 @@ export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuc
       console.log('GOT TO HERE')
       console.log(resp)
       const cognitoUser = new CognitoUser({
-        Username: resp.username,
+        Username: resp.data.username,
         Pool: userPool
       });
 
@@ -263,13 +263,13 @@ export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuc
     })
 }
 
-function getUserFromRequestCode(requestCode){
+export function getUserFromRequestCode(requestCode){
   return new Promise((resolve, reject) => {
     const apigClient = apigClientFactory.newClient()
     apigClient.apiResetcodeCodeGet({code: requestCode}, {})
       .then((resp, err) => {
-        if (resp.data.success) {
-          return resolve({username: resp.data.data.username})
+        if (isDefined(resp.data)) {
+          return resolve(resp.data)
         }
       })
   })
@@ -322,7 +322,7 @@ export function updateUserValues(values) {
   })
 }
 
-export function createAlert(message, bsStyle) {
+export function createAlert(message, bsStyle, timeout=null) {
   return ((dispatch) => {
     dispatch({
       type: ALERT_DISPLAY,
@@ -332,15 +332,16 @@ export function createAlert(message, bsStyle) {
         show: true
       }
     })
-
-    setTimeout(() => {
-      dispatch({
-        type: ALERT_DISPLAY,
-        payload: {
-          message: '',
-          show: false
-        }
-      })
-    }, 7000)
+    if (timeout !== null){
+      setTimeout(() => {
+        dispatch({
+          type: ALERT_DISPLAY,
+          payload: {
+            message: '',
+            show: false
+          }
+        })
+      }, timeout)
+    }
   })
 }

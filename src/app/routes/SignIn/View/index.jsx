@@ -61,7 +61,7 @@ class SignInForm extends Component {
       passwordForgotError: false,
       passwordForgotMessage: ''
     })
-    this.props.dispatch(createAlert(`Check your email for password reset instructions for ${values.email}.<br/><br/>If you don't receive an email, please make sure the submitted email address matches your Owner's Edge account. Contact support if you need help`, 'success'))
+    this.props.dispatch(createAlert(`Check your email for password reset instructions for ${values.email}.<br/><br/>If you don't receive an email, please make sure the submitted email address matches your Owner's Edge account. Contact support if you need help`, 'success', 8000))
     userForgotPassword(values.email)
   }
   handleForgotModalCancel(values) {

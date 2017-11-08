@@ -37,9 +37,11 @@ class App extends Component {
         {this.props.display.show === true ?
           <div className="AlertMainComp">
             <div className="mainAlert" >
-              <Alert bsStyle={this.props.display.bsStyle} onDismiss={this.closeAlert}>
-              <div dangerouslySetInnerHTML={ {__html:this.props.display.message}}></div>
-              </Alert>
+              <Fade in={this.props.display.show} timeout={4000}>
+                <Alert bsStyle={this.props.display.bsStyle} onDismiss={this.closeAlert}>
+                <div dangerouslySetInnerHTML={ {__html:this.props.display.message}}></div>
+                </Alert>
+              </Fade>
             </div>
           </div> :
           <div />
