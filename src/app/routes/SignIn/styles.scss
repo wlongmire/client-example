@@ -31,7 +31,7 @@
 }
 
 
-.SignInForm__container, .PasswordReset {
+.SignInForm__container, .PasswordReset, .pawsswordForgotModal {
   .formBuilderElement {
 
     .group {
@@ -51,4 +51,24 @@
     color:red;
     padding: 0 1em 1em 1em;
   }
+}
+
+.pawsswordForgotModal {
+  p {
+    font-size: 12px;
+  }
+
+  .group {
+    max-width: 250px;
+  }
+
+  .btn {
+    min-width: 90px;
+    font-size: 12px;
+  }
+}
+
+.forgotPassword {
+  cursor: pointer;
+  color: #32a4d8;
 }
