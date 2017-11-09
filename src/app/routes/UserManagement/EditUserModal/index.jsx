@@ -34,6 +34,7 @@ export class EditUserModal extends Component {
     const { id, username } = this.props.selectedUser
     event.preventDefault()
     if (this.state.errorStatus) return;
+    if (isNullOrEmpty(this.state.firstName)||isNullOrEmpty(this.state.lastName)||isNullOrEmpty(this.state.phone)) return;
     const paramsArray = [
       { fieldName: 'firstName', fieldValue: this.state.firstName },
       { fieldName: 'lastName', fieldValue: this.state.lastName },
