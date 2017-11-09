@@ -52,7 +52,7 @@ export class EditUserModal extends Component {
     ]).then((result2) => {
       if (result2.data && result2.data.success === true) {
         this.props.dispatch(actions.setAlert({ show: true, message: `The profile for ${this.props.selectedUser.username} has been updated`, bsStyle: 'success' }))
-        this.props.getUsersByBrokerage(this.props.loggedInUser)
+        this.props.dispatch(actions.getUsersByBrokerage(this.props.loggedInUser))
         return this.props.hideEditModal()
       } else {
         this.props.setAlert({ show: false, message: `There was an error editing the user (${username}). Please contact support!`, bsStyle: 'warning' })
@@ -79,7 +79,7 @@ export class EditUserModal extends Component {
       return this.setState({ ...this.state, errorStatus: false, jobTitle: e.target.value })
     }
     const validatePhone = (e) => {
-      return this.setState({ ...this.state, errorStatus: falisNullOrEmpty(e.target.value)? true: falsese, phone: e.target.value })
+      return this.setState({ ...this.state, errorStatus: isNullOrEmpty(e.target.value)? true: false, phone: e.target.value })
     }
     const validatePhoneExt = (e) => {
       return this.setState({ ...this.state, errorStatus: false, phoneExt: e.target.value })
@@ -214,4 +214,4 @@ export default connect((state) => {
   return ({
     user: state.user
   })
-}, actions)(EditUserModal)
+})(EditUserModal)
