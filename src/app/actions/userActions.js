@@ -281,7 +281,7 @@ export function editProfile(user, values) {
       const paramsArray = [
         { fieldName: 'firstName', fieldValue: values.firstName },
         { fieldName: 'lastName', fieldValue: values.lastName },
-        { fieldName: 'title', fieldValue: isNullOrEmpty(values.title) ? ' ' : values.title },
+        { fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ' : values.jobTitle },
         { fieldName: 'phone', fieldValue: values.phone },
         { fieldName: 'phoneExt', fieldValue: isNullOrEmpty(values.phoneExt) ? ' ' : values.phoneExt }
       ]
@@ -312,7 +312,7 @@ export function updateUserValues(values) {
       type: USER_LOGGED_IN,
       payload: {
         ...user,
-        title: values.title,
+        title: values.jobTitle,
         phoneExt: values.phoneExt,
         phone: values.phone,
         lastName: values.lastName,
