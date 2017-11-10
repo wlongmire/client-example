@@ -27,7 +27,7 @@ export class ProductChoice extends Component {
     const generateItems = () => {
       return Object.keys(ratingProducts).map((productType, idx) => {
         return (
-          <Col lg={2} md={3} sm={6} xs={12}>
+          <Col lg={3} md={4} sm={6} xs={12}>
           <ProductChoiceItemC
           key={idx}
           type={productType}

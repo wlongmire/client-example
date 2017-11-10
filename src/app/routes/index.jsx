@@ -12,7 +12,6 @@ import App from 'components/App'
 import Submissions from 'routes/Submissions'
 import Form from 'routes/Form'
 import FormResults from 'routes/FormResults'
-import ProductChoice from 'routes/ProductChoice'
 import Clearance from 'routes/Clearance'
 import UserManagement from 'routes/UserManagement'
 import SignIn from 'routes/SignIn'
@@ -46,11 +45,6 @@ export default (
     <Route
       path="users"
       component={UserIsAuthenticated(UserManagement)}
-    />
-
-    <Route
-      path="productChoice"
-      component={UserIsAuthenticated(ProductChoice)}
     />
 
     <Route

@@ -29,7 +29,7 @@ export function ProductChoiceItem(props) {
     <div data-type={type}>
         <div className="productContainer">
           <h4>{name}</h4>
-          <span>{subtitle}</span>
+          <span>{subtitle}&nbsp;</span>
           <Button onClick={() => {
             props.dispatch({
               type: CHANGE_SUBMISSION,
