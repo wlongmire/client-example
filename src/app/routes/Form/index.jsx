@@ -25,6 +25,7 @@ class Form extends Component {
     super(props)
 
     console.log('constructing')
+
     this.state = {
       confirmation: false,
       submission: this.props.submission,
@@ -185,6 +186,10 @@ class Form extends Component {
         </ul>
       </div>
     )
+
+    console.log(ratingProduct)
+    console.log(submission)
+    console.log(submissionFormParams)
 
     return (
       <div className="productChoice routeContainer">
