@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> ProductChoiceItem Component --- Snapshot +++ OCP in product choice page 1`] = `
+<div
+  className="selectionCard"
+  data-type="ocp"
+  onClick={[Function]}
+>
+  <h1>
+    Owners and Contractors Protective
+  </h1>
+  <p>
+    Random Description text
+  </p>
+</div>
+`;
+
+exports[`>>> ProductChoiceItem Component --- Snapshot +++ OI in product choice page 1`] = `
+<div
+  className="selectionCard"
+  data-type="oi"
+  onClick={[Function]}
+>
+  <h1>
+    Owners Interest
+  </h1>
+  <p>
+    Random Description text
+  </p>
+</div>
+`;

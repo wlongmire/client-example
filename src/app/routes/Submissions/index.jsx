@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import * as actions from './../../actions/submissionActions'
-import SubmissionView from './View'
+import SubmissionView from './SubmissionsView'
+import ProductChoice from './ProductChoice'
+import {Row, Col} from 'react-bootstrap'
 
 export class Submissions extends Component {
   componentDidMount() {
@@ -13,11 +15,20 @@ export class Submissions extends Component {
 
   render() {
     return (
-      <div className="submissions routeContainer">
-        {this.props.submissions &&
-          <SubmissionView
-            submissions={this.props.submissions}
-          />}
+      <div>
+      <Row>
+          <div className="productChoiceContainer">
+            <ProductChoice />
+          </div>
+      </Row>
+      <Row>
+          <div className="submissions routeContainer">
+          {this.props.submissions &&
+            <SubmissionView
+              submissions={this.props.submissions}
+            />}
+          </div>
+      </Row>
       </div>
     )
   }

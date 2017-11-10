@@ -37,11 +37,6 @@ export class Header extends Component {
                 <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
               </IndexLinkContainer>}
 
-            {this.props.user &&
-              <LinkContainer onMouseUp={this.resetEdit} to="/productchoice">
-                <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
-              </LinkContainer>}
-
             {!this.props.user &&
               <LinkContainer to="/">
                 <NavItem className="nav-link" eventKey={3}>Log In</NavItem>
