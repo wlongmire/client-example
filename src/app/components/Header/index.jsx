@@ -22,7 +22,7 @@ export class Header extends Component {
 
   render() {
     return (
-      <Navbar inverse>
+      <Navbar inverse fluid>
       <div className="">
         <Navbar.Header>
           <Navbar.Brand>
