@@ -22,7 +22,7 @@ export class Header extends Component {
 
   render() {
     return (
-      <Navbar inverse>
+      <Navbar inverse fluid>
       <div className="">
         <Navbar.Header>
           <Navbar.Brand>
@@ -36,11 +36,6 @@ export class Header extends Component {
               <IndexLinkContainer to="/submissions">
                 <NavItem className="nav-link" eventKey={1}>Submissions</NavItem>
               </IndexLinkContainer>}
-
-            {this.props.user &&
-              <LinkContainer onMouseUp={this.resetEdit} to="/productchoice">
-                <NavItem className="nav-link" eventKey={2}>Submit New</NavItem>
-              </LinkContainer>}
 
             {!this.props.user &&
               <LinkContainer to="/">

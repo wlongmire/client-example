@@ -25,7 +25,6 @@
 @import '../app/routes/Form/styles';
 @import '../app/routes/FormResults/styles';
 @import '../app/routes/Clearance/styles';
-@import '../app/routes/ProductChoice/styles';
 @import '../app/routes/SignIn/styles';
 @import '../app/routes/UserManagement/NewUser/styles';
 @import '../app/routes/UserManagement/EditUserModal/styles';
@@ -62,6 +61,30 @@
     color: #71b1ce;
   }
 
+}
+.productContainer {
+  h4 {
+    color:#CFD2CD;
+    font-size: 18px;
+  }
+  span {
+    font-style: italic;
+    font-size:12px;
+  }
+  width: 100%;
+  position: relative;
+  min-height: 122px;
+  .btn {
+    position: absolute;
+    bottom: 0px
+  }
+};
+
+.homepageContainer{
+  .row {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
 }
 
 .btn {
