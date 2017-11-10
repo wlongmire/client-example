@@ -176,7 +176,6 @@ const ocpData = {
       "inputType": "text",
       "inputFormat": "date"
     },
-
     {
       "questionId": "13",
       "text": "What is the scope of the work for this project?",
@@ -224,7 +223,6 @@ const ocpData = {
       "inputFormat": "text"
     },
     {
-
       "questionId": "9",
       "text": "What are the excess limits of the Contractor's Primary Policy?",
       "name": "generalContractorAmount",

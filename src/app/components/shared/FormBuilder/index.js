@@ -21,9 +21,15 @@ class FormBuilder extends React.Component {
     this.state = this.props.data
 
     this.controlGroups = getControlGroups(this.state.questions)
-    this.initialValues = flatten(this.props.initialValues || {})
     this.initialParams = (this.props.initialParams || {})
-
+    this.initialValues = flatten(this.props.initialValues || {})
+    
+    Object.keys(this.initialValues).forEach((name) => {
+      if (typeof this.initialValues[name] === 'string') {
+        this.initialValues[name] = this.initialValues[name].trim()
+      }
+    })
+    
     this.onSubmit = this.onSubmit.bind(this)
     this.onFormChange = this.onFormChange.bind(this)
     this.loadOptions = this.loadOptions.bind(this)

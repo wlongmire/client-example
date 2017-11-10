@@ -13,20 +13,27 @@ import {
   OverlayTrigger
 } from 'react-bootstrap'
 import isDefined from '../utils/isDefined'
+import isEmptyString from '../utils/isEmptyString'
 import AdditionalInfoComponentC from './AdditionalInfoComponent'
 
 export class InputContainer extends React.PureComponent {
   constructor(props) {
     super(props)
     const name = this.props.data.name
+    const initialValue = this.props.initialValues[name]
+    
     this.state = {
-      value: isDefined(this.props.initialValues[name]) ? this.props.initialValues[name] : '',
+      value: isDefined(initialValue) ? initialValue : '',
       disabled: (this.props.initialParams[name] && this.props.initialParams[name].disabled)
       ? this.props.initialParams[name].disabled : false,
       isValid: null,
       validationMessage: ''
     }
 
+    if (isDefined(initialValue) && this.props.data.inputFormat === 'date') {
+      this.state.value = moment(this.state.value).format('MM-DD-YYYY').toString()
+    }
+    
     this.handleChange = this.handleChange.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
@@ -122,8 +129,8 @@ export class InputContainer extends React.PureComponent {
           id={this.props.data.name}
           className={classNames('form-control', 'number-control', 'input-numeral', { filled: this.state.value }, { disabled: this.state.disabled })}
           autoComplete={false}
-          value={moment(this.state.value).format('MM-DD-YYYY')}
-          placeholder="mm/dd/yyyy"
+          value= {this.state.value}
+          placeholder="mm-dd-yyyy"
           options={{
             date: true,
             datePattern: ['m', 'd', 'Y']

@@ -187,10 +187,6 @@ class Form extends Component {
       </div>
     )
 
-    console.log(ratingProduct)
-    console.log(submission)
-    console.log(submissionFormParams)
-
     return (
       <div className="productChoice routeContainer">
         <h3>Fill out the rest of the details.</h3>
