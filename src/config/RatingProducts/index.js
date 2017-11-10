@@ -14,18 +14,20 @@ const ratingProducts = {
         "ratingEngine":`${config.ratingsUrl}/api/calcrating/oi`,
         "formJSON": OIForm,
         "Validation":OIValidation,
-        "checkClearance":true
+        "checkClearance":true,
+        "subtitle": `*with optional excess coverage`
     },
 
     "ocp":{
         "type": "ocp",
         "name":"Owners and Contractors Protective",
         "description":"The Owners and Contractors Protective policy responds to liability arising out of the insured's own acts or omissions in connection with its general supervision of the contractor's operations.",
-        
+
         "ratingEngine":`${config.ratingsUrl}/api/calcrating/oi`,
         "formJSON": OCPForm,
         "Validation":OCPValidation,
-        "checkClearance":true
+        "checkClearance":true,
+        "subtitle": ``
     }
 }
 
