@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button } from 'react-bootstrap'
 
-import ProductChoiceItemC from './ProductChoiceItem'
+import ProductChoiceItem from './ProductChoiceItem'
 
 import ratingProducts from '../../../config/RatingProducts'
 import {
@@ -26,12 +26,12 @@ export class ProductChoice extends Component {
   render() {
     const generateItems = () => {
       return Object.keys(ratingProducts).map((productType, idx) => {
-        return (<ProductChoiceItemC
+        return (<ProductChoiceItem
           key={idx}
           type={productType}
           name={ratingProducts[productType].name}
           description={ratingProducts[productType].description}
-          broker={this.props.user.brokerId}
+          brokerId={this.props.user.brokerId}
         />)
       })
     }

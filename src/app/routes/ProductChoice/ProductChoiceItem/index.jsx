@@ -17,7 +17,7 @@ export function ProductChoiceItem(props) {
     type,
     name,
     description,
-    broker
+    brokerId
   } = props
 
   return (
@@ -53,7 +53,7 @@ ProductChoiceItem.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
-  broker: PropTypes.string
+  brokerId: PropTypes.string
 }
 
 

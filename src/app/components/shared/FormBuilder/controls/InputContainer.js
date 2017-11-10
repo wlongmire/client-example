@@ -77,6 +77,7 @@ export class InputContainer extends React.PureComponent {
       default:
         value = event.target.value
     }
+
     this.setState({ value })
     this.props.handleFormChange()
   }
