@@ -46,8 +46,9 @@ export class SubmissionView extends Component {
 
     return (
       <div>
-      <Col lg={10} md={12}>
+
         <h3>Submissions</h3>
+        <Col lg={10} md={12}>
         <BootstrapTable
           data={this.props.submissions}
           condensed={true}

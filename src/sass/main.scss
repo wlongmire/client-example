@@ -73,11 +73,19 @@
   }
   width: 100%;
   position: relative;
-  // .btn {
-  //   position: absolute;
-  //   bottom: 0px
-  // }
+  min-height: 122px;
+  .btn {
+    position: absolute;
+    bottom: 0px
+  }
 };
+
+.homepageContainer{
+  .row {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+}
 
 .btn {
   background-color: #32A4D8;

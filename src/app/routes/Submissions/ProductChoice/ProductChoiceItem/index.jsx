@@ -30,6 +30,7 @@ export function ProductChoiceItem(props) {
         <div className="productContainer">
           <h4>{name}</h4>
           <span>{subtitle}&nbsp;</span>
+          <div>
           <Button onClick={() => {
             props.dispatch({
               type: CHANGE_SUBMISSION,
@@ -50,6 +51,7 @@ export function ProductChoiceItem(props) {
             /* props.dispatch(push("/form")) */
           }}
           >Start Submission</Button>
+          </div>
         </div>
     </div>)
 }

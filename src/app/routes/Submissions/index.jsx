@@ -15,7 +15,7 @@ export class Submissions extends Component {
 
   render() {
     return (
-      <div>
+      <div className="homepageContainer">
       <Row>
           <div className="productChoiceContainer">
             <ProductChoice />
