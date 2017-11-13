@@ -50,19 +50,21 @@ class Loading extends Component {
     ))).then((resp) => {
       const ratings = {}
 
-      ratingPromises.map((ratingSubmission, idx) => {
+      ratingPromises.forEach((ratingSubmission, idx) => {
         if (resp[idx].status === 'authError') {
           return this.props.logout()
         }
-        const responseRatings = JSON.parse(resp[idx].data)
+        
+        const responseRatings = resp[idx].data
         const ratingType = ratingSubmission.bundleId ? ratingSubmission.bundleId : ratingSubmission.type
+        
         ratings[ratingType] = responseRatings.results
       })
 
       const submissionData = Object.assign({}, submission)
       submissionData.rating = ratings // adding rating to submission
-      submissionData.broker = this.props.user.brokerId // adding broker to  submission
-
+      submissionData.brokerId = this.props.user.brokerId // adding broker to submission
+      
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
           this.props.logout()

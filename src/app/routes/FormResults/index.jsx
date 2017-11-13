@@ -71,7 +71,7 @@ class FormResults extends Component {
       mx.customEvent(
           'submission',
           'quoted', {
-            SubmissionStatus: submission._id ? 'update' : 'new',
+            SubmissionStatus: submission.id ? 'update' : 'new',
             ClearanceStatus: submission.clearanceStatus,
             Type: type,
             Premium: ratings[type].premium,
@@ -86,7 +86,7 @@ class FormResults extends Component {
       mx.customEvent(
           'submission',
           'knockout', {
-            SubmissionStatus: submission._id ? 'update' : 'new',
+            SubmissionStatus: submission.id ? 'update' : 'new',
             ClearanceStatus: submission.clearanceStatus,
             Type: type,
             Reasons: ratings[type].reason,

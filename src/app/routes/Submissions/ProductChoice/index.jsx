@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button, Col, Row } from 'react-bootstrap'
 
-import ProductChoiceItemC from './ProductChoiceItem'
+import ProductChoiceItem from './ProductChoiceItem'
 
 import ratingProducts from '../../../../config/RatingProducts'
 import {
@@ -28,14 +28,15 @@ export class ProductChoice extends Component {
       return Object.keys(ratingProducts).map((productType, idx) => {
         return (
           <Col lg={4} md={4} sm={6} xs={12}>
-          <ProductChoiceItemC
-          key={idx}
-          type={productType}
-          name={ratingProducts[productType].name}
-          subtitle={ratingProducts[productType].subtitle}
-          description={ratingProducts[productType].description}
-          broker={this.props.user.brokerId}
-        /></Col>)
+          <ProductChoiceItem
+            key={idx}
+            type={productType}
+            name={ratingProducts[productType].name}
+            subtitle={ratingProducts[productType].subtitle}
+            description={ratingProducts[productType].description}
+            brokerId={this.props.user.brokerId}
+          />
+        </Col>)
       })
     }
     return (
