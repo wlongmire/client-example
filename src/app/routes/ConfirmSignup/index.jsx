@@ -117,6 +117,7 @@ export class ConfirmSignup extends Component {
               cognitoUser={this.state.cognitoUser}
               userAttributes={this.state.userAttributes}
               urlKey={this.props.location.query.key}
+              path={this.props.location.pathname}
             />)
         case 1:
           return (<CompleteProfileC user={this.props.user} goToNextStep={() => { return goToNextStep(2) }} />)

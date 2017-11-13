@@ -104,7 +104,7 @@ export class UserManagement extends Component {
       data: this.props.activeUsers,
       columns: [
         { dataField: 'email',
-          width: '35%',
+          width: '22%',
           isKey: true,
           title: 'Email',
           isSortable: true // ,
@@ -119,8 +119,20 @@ export class UserManagement extends Component {
           //   }
           // }
         },
+        {
+          dataField: 'lastName',
+          title: 'Last Name',
+          isSortable: true,
+          width: '11%'
+        },
+        {
+          dataField: 'firstName',
+          title: 'First Name',
+          isSortable: true,
+          width: '11%'
+        },
         { dataField: 'admin',
-          width: '10%',
+          width: '7.5%',
           title: 'Admin',
           dataFormat: (cell, row) => {
             return ((row.role === 'admin') ? 'Yes' : '')
@@ -128,13 +140,13 @@ export class UserManagement extends Component {
         },
         { isKey: false,
           title: 'Last Online',
-          width: '130px',
+          width: '120px',
           dataFormat: (cell, row) => (
             moment(row.lastOnline).format('MM/DD/YY h:mm a')
           )
         },
         { dataField: 'status',
-          width: '10%',
+          width: '7.5%',
           title: 'Active',
           dataFormat: (cell, row) => {
             return ((row.status === 'active') ? (<div className="activeStatus">Active</div>) : (<div className="disabledStatus">Disabled</div>))
@@ -144,7 +156,8 @@ export class UserManagement extends Component {
           dataFormat: (cell, row) => {
             const result = () => {
               if (user.id === row.id) {
-                return (<div />)
+                return (<div className="updateColumn">
+                <Button onClick={() => { return this.handleEditUser(row) }} >Edit</Button></div>)
               } else if (row.status === 'active') {
                 return (<div className="updateColumn">
                   <Button onClick={() => { return this.handleEditUser(row) }} >Edit</Button>
@@ -245,28 +258,30 @@ export class UserManagement extends Component {
                     title="Pending invites"
                     data={pendingUsers.data}
                     columns={pendingUsers.columns}
-                    options={{ defaultSortName: 'dateCreated', defaultSortOrder: 'desc' }}
-                  />
-                </Col>
-                <Col xs={12}>
-                  <TableComponent
-                    title={`${user.brokerName} users`}
-                    options={{
-                      sizePerPage: 5,
-                      pageStartIndex: 1,
-                      paginationSize: 3,
-                      defaultSortName: 'email',
-                      defaultSortOrder: 'asc'
-                    }}
-                    data={activeUsers.data.sort((a, b) => { return +(!b.username.localeCompare(user.username)) })}
-                    columns={activeUsers.columns}
+                    options={{ defaultSortName: 'dateCreated', defaultSortOrder: 'desc',               sizePerPage: 5,
+                    pageStartIndex: 1,
+                    paginationSize: 3,}}
                   />
                 </Col>
               </Row>
-
             </Col>
-
           </Row>
+          <Row>
+          <Col lg={12}>
+          <TableComponent
+            title={`${user.brokerName} users`}
+            options={{
+              sizePerPage: 5,
+              pageStartIndex: 1,
+              paginationSize: 3,
+              defaultSortName: 'email',
+              defaultSortOrder: 'asc'
+            }}
+            data={activeUsers.data.sort((a, b) => { return +(!b.username.localeCompare(user.username)) })}
+            columns={activeUsers.columns}
+          />
+        </Col>
+        </Row>
         </div>
         <DialogBox
           title="Edit User"

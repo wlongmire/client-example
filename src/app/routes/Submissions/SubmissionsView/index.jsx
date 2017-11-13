@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from './../../../actions/submissionActions'
 import mx from './../../../utils/MixpanelInterface'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import { Button } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 
 
 export class SubmissionView extends Component {
@@ -41,12 +41,15 @@ export class SubmissionView extends Component {
 
     const options = {
       defaultSortName: 'updatedAt',  // default sort column name
-      defaultSortOrder: 'desc'  // default sort order,
+      defaultSortOrder: 'desc',  // default sort order,
+      noDataText: `${this.props.user.brokerName} hasn't completed any submissions. Be the first!`
     }
 
     return (
       <div>
-        <h3>Your Submissions</h3>
+
+        <h3>Submissions</h3>
+        <Col lg={10} md={12}>
         <BootstrapTable
           data={this.props.submissions}
           condensed={true}
@@ -113,6 +116,7 @@ export class SubmissionView extends Component {
             dataFormat={selectFormatter}
           >Edit</TableHeaderColumn>
         </BootstrapTable>
+        </Col>
       </div>
     )
   }

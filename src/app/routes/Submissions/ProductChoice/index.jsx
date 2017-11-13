@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import { Button } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 
 import ProductChoiceItem from './ProductChoiceItem'
 
-import ratingProducts from '../../../config/RatingProducts'
+import ratingProducts from '../../../../config/RatingProducts'
 import {
   CHANGE_SUBMISSION_STATUS,
   CLEAR_SUBMISSION,
@@ -26,24 +26,28 @@ export class ProductChoice extends Component {
   render() {
     const generateItems = () => {
       return Object.keys(ratingProducts).map((productType, idx) => {
-        return (<ProductChoiceItem
-          key={idx}
-          type={productType}
-          name={ratingProducts[productType].name}
-          description={ratingProducts[productType].description}
-          brokerId={this.props.user.brokerId}
-        />)
+        return (
+          <Col lg={4} md={4} sm={6} xs={12}>
+          <ProductChoiceItem
+            key={idx}
+            type={productType}
+            name={ratingProducts[productType].name}
+            subtitle={ratingProducts[productType].subtitle}
+            description={ratingProducts[productType].description}
+            brokerId={this.props.user.brokerId}
+          />
+        </Col>)
       })
     }
     return (
       <div className="productChoice routeContainer">
-        <h3>Select Your Insurance Product.</h3>
-        <div className="selectionCards">
+      <Col lg={8} md={10} sm={12} xs={12}>
+        <h3>Get a quote</h3>
+        <Row><div className="selectionCards">
           { generateItems() }
         </div>
-        <LinkContainer to="/submissions">
-          <Button className="btn">Return to Submissions</Button>
-        </LinkContainer>
+        </Row>
+        </Col>
       </div>
     )
   }
