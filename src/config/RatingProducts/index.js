@@ -15,7 +15,7 @@ const ratingProducts = {
         "formJSON": OIForm,
         "Validation":OIValidation,
         "checkClearance":true,
-        "subtitle": `*with optional excess coverage`
+        "subtitle": `with optional Excess Coverage`
     },
 
     "ocp":{
