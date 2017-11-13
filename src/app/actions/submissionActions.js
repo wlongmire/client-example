@@ -77,7 +77,6 @@ export function saveSubmission(submission, user) {
       })
     }
 
-    console.log(submission)
     // eslint-disable-next-line no-undef
     return apigClient.apiSavePost({}, submission, {})
       .then((resp) => {
