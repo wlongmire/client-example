@@ -120,14 +120,14 @@ export class UserManagement extends Component {
           // }
         },
         {
-          dataField: 'lastName',
-          title: 'Last Name',
+          dataField: 'firstName',
+          title: 'First Name',
           isSortable: true,
           width: '11%'
         },
         {
-          dataField: 'firstName',
-          title: 'First Name',
+          dataField: 'lastName',
+          title: 'Last Name',
           isSortable: true,
           width: '11%'
         },
