@@ -257,7 +257,7 @@ export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuc
 
       console.log('got a valid user')
       cognitoUser.confirmPassword(confirmationCode, newPwd, {
-        onSuccess: () => { onSuccess(resp.username) },
+        onSuccess: () => { onSuccess(resp.data.username) },
         onFailure: (err) => { onFailure(err) }
       });
     })
