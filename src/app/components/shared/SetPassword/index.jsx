@@ -39,7 +39,7 @@ export class SetPassword extends Component {
               email,
               pwd,
               () => {
-                apigClient.apiResetcodeCodeDelete({code: this.props.confirmationCode}, { code: this.props.confirmationCode }).then((response, err) => {
+                apigClient.apiResetcodeCodeDelete({code: this.props.request}, { code: this.props.request }).then((response, err) => {
                   return this.props.goToNextStep()
                 })
               },
