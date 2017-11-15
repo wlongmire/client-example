@@ -21,6 +21,7 @@ export class SetPassword extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    this.setState({...this.state, disabledFlag:true})
     const { pwd, confirmPwd } = this.state
 
     if (pwd !== confirmPwd) {
@@ -53,7 +54,7 @@ export class SetPassword extends Component {
                 const error = String(err2)
                 const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
 
-                this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType] })
+                this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType], disabledFlag:false })
               }))
             },
           (err) => {
@@ -61,7 +62,7 @@ export class SetPassword extends Component {
 
             const error = String(err)
             const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
-            return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
+            return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.`, disabledFlag:false })
           })
       } else {
       setNewPassword(
@@ -96,7 +97,7 @@ export class SetPassword extends Component {
               const error = String(err2)
               const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
 
-              this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType] })
+              this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType], disabledFlag:false })
             },
             () => {
               // This is on password reset. this function should never be called here. if it is something is wrong.
@@ -113,7 +114,7 @@ export class SetPassword extends Component {
 
           const error = String(err)
           const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
-          return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
+          return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.`, disabledFlag:false })
         })
       }
     }
