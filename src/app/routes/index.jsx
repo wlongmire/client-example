@@ -12,13 +12,13 @@ import App from 'components/App'
 import Submissions from 'routes/Submissions'
 import Form from 'routes/Form'
 import FormResults from 'routes/FormResults'
-import ProductChoice from 'routes/ProductChoice'
 import Clearance from 'routes/Clearance'
 import UserManagement from 'routes/UserManagement'
 import SignIn from 'routes/SignIn'
 import Http404 from 'routes/Http404'
 import ConfirmSignup from 'routes/ConfirmSignup'
 import CompleteProfilePage from 'routes/CompleteProfilePage'
+import ResetPassword from 'routes/ResetPassword'
 
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.user,
@@ -48,11 +48,6 @@ export default (
     />
 
     <Route
-      path="productChoice"
-      component={UserIsAuthenticated(ProductChoice)}
-    />
-
-    <Route
       path="clearance"
       component={UserIsAuthenticated(Clearance)}
     />
@@ -76,6 +71,11 @@ export default (
     <Route
       path="completeprofile"
       component={CompleteProfilePage}
+    />
+
+    <Route
+      path="resetpassword"
+      component={ResetPassword}
     />
 
     <Route

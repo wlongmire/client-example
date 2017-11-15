@@ -69,7 +69,6 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
               //get user table entry
               apigClient.profileIdGet({ id: subId }).then((usersIdGetResp) => {
                 const userTableEntry = usersIdGetResp.data
-                console.log('usersIdGetResp', usersIdGetResp)
 
                 if (!userTableEntry.success || (userTableEntry.success && !userTableEntry.data)) {
                   onFailure(userTableEntry.errorCode)
@@ -223,13 +222,63 @@ export function logout() {
   }
 }
 
+export function userForgotPassword(email, onSuccess, onFailure) {
+  const userPool = new CognitoUserPool({
+    UserPoolId: config.awsCognito.userPoolId,
+    ClientId: config.awsCognito.clientId
+  })
+
+  const cognitoUser = new CognitoUser({
+    Username: email,
+    Pool: userPool
+  });
+
+  cognitoUser.forgotPassword({
+    onSuccess: () => { onSuccess() },
+    onFailure: (err) => { onFailure(err) }
+  });
+}
+
+export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuccess, onFailure) {
+  const userPool = new CognitoUserPool({
+    UserPoolId: config.awsCognito.userPoolId,
+    ClientId: config.awsCognito.clientId
+  })
+
+  getUserFromRequestCode(requestCode)
+    .then(resp => {
+      const cognitoUser = new CognitoUser({
+        Username: resp.data.username,
+        Pool: userPool
+      });
+
+      console.log('got a valid user')
+      cognitoUser.confirmPassword(confirmationCode, newPwd, {
+        onSuccess: () => { onSuccess(resp.data.username) },
+        onFailure: (err) => { onFailure(err) }
+      });
+    })
+}
+
+export function getUserFromRequestCode(requestCode){
+  return new Promise((resolve, reject) => {
+    const apigClient = apigClientFactory.newClient()
+    apigClient.apiResetcodeCodeGet({code: requestCode}, {})
+      .then((resp, err) => {
+        if (isDefined(resp.data)) {
+          return resolve(resp.data)
+        }
+      })
+  })
+}
+
 export function editProfile(user, values) {
   return new Promise((resolve, reject)=> {
     checkTokenExpiration(user).then(() => {
       const paramsArray = [
         { fieldName: 'firstName', fieldValue: values.firstName },
         { fieldName: 'lastName', fieldValue: values.lastName },
-        { fieldName: 'title', fieldValue: isNullOrEmpty(values.title) ? ' ' : values.title },
+        { fieldName: 'title', fieldValue: isNullOrEmpty(values.jobTitle) ? ' ' : values.jobTitle },
         { fieldName: 'phone', fieldValue: values.phone },
         { fieldName: 'phoneExt', fieldValue: isNullOrEmpty(values.phoneExt) ? ' ' : values.phoneExt }
       ]
@@ -260,7 +309,7 @@ export function updateUserValues(values) {
       type: USER_LOGGED_IN,
       payload: {
         ...user,
-        title: values.title,
+        title: values.jobTitle,
         phoneExt: values.phoneExt,
         phone: values.phone,
         lastName: values.lastName,
@@ -270,7 +319,7 @@ export function updateUserValues(values) {
   })
 }
 
-export function createAlert(message, bsStyle) {
+export function createAlert(message, bsStyle, timeout=null) {
   return ((dispatch) => {
     dispatch({
       type: ALERT_DISPLAY,
@@ -280,15 +329,16 @@ export function createAlert(message, bsStyle) {
         show: true
       }
     })
-
-    setTimeout(() => {
-      dispatch({
-        type: ALERT_DISPLAY,
-        payload: {
-          message: '',
-          show: false
-        }
-      })
-    }, 6000)
+    if (timeout !== null){
+      setTimeout(() => {
+        dispatch({
+          type: ALERT_DISPLAY,
+          payload: {
+            message: '',
+            show: false
+          }
+        })
+      }, timeout)
+    }
   })
 }
