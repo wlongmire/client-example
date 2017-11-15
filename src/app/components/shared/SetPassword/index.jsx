@@ -32,7 +32,6 @@ export class SetPassword extends Component {
       if (this.props.path.toLowerCase() === '/resetpassword') {
         userConfirmPassword(this.props.confirmationCode, this.props.request, pwd,
           (email) => {
-            console.log('got to here, this is the email: ', email)
             this.props.dispatch(login(
               email,
               pwd,
