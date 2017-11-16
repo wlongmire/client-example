@@ -247,8 +247,6 @@ export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuc
 
   getUserFromRequestCode(requestCode)
     .then(resp => {
-      console.log('GOT TO HERE')
-      console.log(resp)
       const cognitoUser = new CognitoUser({
         Username: resp.data.username,
         Pool: userPool
@@ -256,7 +254,7 @@ export function userConfirmPassword(confirmationCode, requestCode, newPwd, onSuc
 
       console.log('got a valid user')
       cognitoUser.confirmPassword(confirmationCode, newPwd, {
-        onSuccess: () => { onSuccess(resp.username) },
+        onSuccess: () => { onSuccess(resp.data.username) },
         onFailure: (err) => { onFailure(err) }
       });
     })

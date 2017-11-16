@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { setNewPassword, login, userConfirmPassword } from '../../../actions/userActions'
+import ToggleDisplay from './../ToggleDisplay'
 
 export class SetPassword extends Component {
   constructor() {
@@ -13,7 +14,8 @@ export class SetPassword extends Component {
       pwdSpChar: false,
       caseChar: false,
       passwordMatch: null,
-      disabledFlag: true
+      disabledFlag: true,
+      submitted:false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,6 +23,7 @@ export class SetPassword extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    this.setState({...this.state, disabledFlag:true, submitted:true})
     const { pwd, confirmPwd } = this.state
 
     if (pwd !== confirmPwd) {
@@ -32,12 +35,11 @@ export class SetPassword extends Component {
       if (this.props.path.toLowerCase() === '/resetpassword') {
         userConfirmPassword(this.props.confirmationCode, this.props.request, pwd,
           (email) => {
-            console.log('got to here, this is the email: ', email)
             this.props.dispatch(login(
               email,
               pwd,
               () => {
-                apigClient.apiResetcodeCodeDelete({code: this.props.confirmationCode}, { code: this.props.confirmationCode }).then((response, err) => {
+                apigClient.apiResetcodeCodeDelete({code: this.props.request}, { code: this.props.request }).then((response, err) => {
                   return this.props.goToNextStep()
                 })
               },
@@ -54,7 +56,7 @@ export class SetPassword extends Component {
                 const error = String(err2)
                 const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
 
-                this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType] })
+                this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType], disabledFlag:false, submitted:false })
               }))
             },
           (err) => {
@@ -62,7 +64,7 @@ export class SetPassword extends Component {
 
             const error = String(err)
             const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
-            return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
+            return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.`, disabledFlag:false,submitted:false })
           })
       } else {
       setNewPassword(
@@ -97,7 +99,7 @@ export class SetPassword extends Component {
               const error = String(err2)
               const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error
 
-              this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType] })
+              this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMap[errorType], disabledFlag:false,submitted:false })
             },
             () => {
               // This is on password reset. this function should never be called here. if it is something is wrong.
@@ -114,7 +116,7 @@ export class SetPassword extends Component {
 
           const error = String(err)
           const errorType = error.slice(error.indexOf('policy:') + 7, error.length)
-          return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.` })
+          return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.`, disabledFlag:false,submitted:false })
         })
       }
     }
@@ -197,6 +199,14 @@ export class SetPassword extends Component {
           <Row className="passwordSetSubmit">
             <Button disabled={this.state.disabledFlag} bsStyle="primary" type="submit">Set Password</Button>
             {(this.state.submitError === true) && helpBlock(`There is an error in submission! ${this.state.submitErrorMessage}`, 'helpBlockRed')}
+            <br/>
+            <br/>
+            <ToggleDisplay
+            show={this.state.submitted}
+            render={() => (
+              <div>
+                <span>Setting your password...</span>
+              </div>)} />
           </Row>
         </form>
       </div>

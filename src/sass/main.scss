@@ -65,16 +65,19 @@
 .productContainer {
   h4 {
     color:#08415C;
-    font-size: 18px;
+    font-size: 22px;
+    line-height: 1.2em;
+    font-weight: bold
   }
   span {
-    font-style: italic;
-    font-size:12px;
+    font-family: "Lato";
+    font-size:18px;
+    line-height: 1.2em;
     color:#08415C;
   }
   width: 100%;
   position: relative;
-  min-height: 122px;
+  min-height: 140px;
   background-color: #fff;
   box-shadow: 2px 2px 4px 0px #000000;
   .btn {

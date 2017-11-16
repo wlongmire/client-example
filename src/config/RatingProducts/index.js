@@ -7,16 +7,16 @@ import OCPForm from './ocp/form.js'
 import config from 'config'
 
 const ratingProducts = {
-  'oi':{
-    'type': 'oi',
-    'name':"Owner's Interest",
-    'description':"Owners of construction projects should have their own liability coverage. The Owner's Interest policy closes the gaps in the owner's liability insurance program and assure more adequate protection.",
-    'ratingEngine':`${config.ratingsUrl}/api/calcrating/oi`,
-    'formJSON': OIForm,
-    'Validation':OIValidation,
-    'checkClearance':true,
-    'subtitle': `*with optional excess coverage`
-  },
+    "oi":{
+        "type": "oi",
+        "name":"Owner's Interest",
+        "description":"Owners of construction projects should have their own liability coverage. The Owner's Interest policy closes the gaps in the owner's liability insurance program and assure more adequate protection.",
+        "ratingEngine":`${config.ratingsUrl}/api/calcrating/oi`,
+        "formJSON": OIForm,
+        "Validation":OIValidation,
+        "checkClearance":true,
+        "subtitle": `with optional Excess Coverage`
+    },
 
   'ocp':{
     'type': 'ocp',
