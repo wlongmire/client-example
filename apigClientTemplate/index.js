@@ -369,13 +369,13 @@ apigClientFactory.newClient = function (config) {
     apigClient.apiGetClearanceGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
 
-        apiGateway.core.utils.assertParametersDefined(params, ['projectState', 'projectZipcode', 'insuredCity', 'insuredZipcode', 'insuredAddress', 'projectCity', 'name', 'insuredState', 'projectAddress'], ['body']);
-
+        apiGateway.core.utils.assertParametersDefined(params, ['projectState', 'projectZipcode', 'userProductName', 'insuredCity', 'insuredZipcode', 'insuredAddress', 'projectCity', 'name', 'insuredState', 'projectAddress'], ['body']);
+        
         var apiGetClearanceGetRequest = {
             verb: 'get'.toUpperCase(),
             path: pathComponent + uritemplate('/api/getClearance').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['projectState', 'projectZipcode', 'insuredCity', 'insuredZipcode', 'insuredAddress', 'projectCity', 'name', 'insuredState', 'projectAddress']),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['projectState', 'projectZipcode', 'userProductName', 'insuredCity', 'insuredZipcode', 'insuredAddress', 'projectCity', 'name', 'insuredState', 'projectAddress']),
             body: body
         };
 

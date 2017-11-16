@@ -164,11 +164,11 @@ export function getClearance(params, user) {
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
         
+        console.log(resp)
+
         if (!resp.data.success) {
           throw({ message: 'Internal Error', errorCode: 'InternalError' })
         }
-
-        resp.data.clearanceStatus = 'pass'
 
         return ( resp.data )
       })
