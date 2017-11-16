@@ -28,6 +28,7 @@ export function ProductChoiceItem(props) {
   return (
     <div data-type={type}>
         <div className="productContainer">
+          <div className="textContainer">
           <h4>{name}</h4>
           <span>{subtitle}&nbsp;</span>
           <div>
@@ -52,6 +53,7 @@ export function ProductChoiceItem(props) {
           }}
           >Start Submission</Button>
           </div>
+        </div>
         </div>
     </div>)
 }

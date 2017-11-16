@@ -7,7 +7,7 @@ import uuid from 'uuid'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button, Col, Row } from 'react-bootstrap'
 
-import ProductChoiceItem from './ProductChoiceItem'
+import ProductChoiceItemC from './ProductChoiceItem'
 
 import ratingProducts from '../../../../config/RatingProducts'
 import {
@@ -28,15 +28,15 @@ export class ProductChoice extends Component {
     const generateItems = () => {
       return Object.keys(ratingProducts).map((productType, idx) => {
         return (
-          <Col key={uuid.v1()} lg={4} md={4} sm={6} xs={12}>
-          <ProductChoiceItem
-            type={productType}
-            name={ratingProducts[productType].name}
-            subtitle={ratingProducts[productType].subtitle}
-            description={ratingProducts[productType].description}
-            brokerId={this.props.user.brokerId}
-          />
-        </Col>)
+          <Col lg={5} md={6} sm={6} xs={12}>
+          <ProductChoiceItemC
+          key={idx}
+          type={productType}
+          name={ratingProducts[productType].name}
+          subtitle={ratingProducts[productType].subtitle}
+          description={ratingProducts[productType].description}
+          broker={this.props.user.brokerId}
+        /></Col>)
       })
     }
     return (
