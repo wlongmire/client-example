@@ -22,7 +22,8 @@ export class Loading extends Component {
         this.props.input.projectAddress,
         this.props.input.insuredAddress
       ],
-      user: this.props.user
+      user: this.props.user,
+      type: this.props.submission.type
     }
 
     getClearance(input, this.props.user).then((resp) => {
@@ -33,7 +34,6 @@ export class Loading extends Component {
       
       return this.props.handleSubmit(resp, input)
     }).catch((error) => {
-      console.log(error)
       this.props.handleSubmit({ success: false })
     })
   }
@@ -56,11 +56,13 @@ Loading.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   input: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  submission: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
 }
 
 export default connect((store) => {
   return ({
-    user: store.user
+    user: store.user,
+    submission: store.app.submission
   })
 }, actions)(Loading)

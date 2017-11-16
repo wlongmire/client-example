@@ -156,19 +156,25 @@ export function getClearance(params, user) {
     insuredAddress: trim(params.addresses[1].primaryInsuredAddress.replace('#', '')),
     insuredState: trim(params.addresses[1].primaryInsuredState),
     insuredCity: trim(params.addresses[1].primaryInsuredCity),
-    insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
+    insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode),
+    userProductName: params.type.toUpperCase()
   }
 
   return checkTokenExpiration(user).then(() => {
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
+        
+        if (!resp.data.success) {
+          throw({ message: 'Internal Error', errorCode: 'InternalError' })
+        }
+
         resp.data.clearanceStatus = 'pass'
-        return (resp.data)
+
+        return ( resp.data )
       })
       .catch((error) => {
-        console.log('THERE IS AN ERROR in THE CLEARNCE RESPONSE', error)
         if (error.status === 0 || error.status === 403) {
-          return Promise.resolve({ status: 'authError' })
+          return Promise.resolve({ success: false, status: 'authError' })
         }
         return Promise.reject({ error })
       })
