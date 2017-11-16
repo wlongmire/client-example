@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
+import uuid from 'uuid'
 
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button, Col, Row } from 'react-bootstrap'

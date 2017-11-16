@@ -20,7 +20,7 @@ export function transformSubmissionData(submissionsArray) {
         }
 
         return ({
-          _id: item._id,
+          id: item.id,
           clearanceStatus: item.clearanceStatus,
           primaryInsuredName: item.primaryInsuredName,
           totalCost: item.totalCost ? formatDollars(item.totalCost) : 'n/a',

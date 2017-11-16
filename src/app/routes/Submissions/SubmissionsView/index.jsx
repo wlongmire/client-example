@@ -21,6 +21,7 @@ export class SubmissionView extends Component {
         Type: submission.type
       }
     )
+
     this.props.editSubmission(submission, this.props.user)
   }
 

@@ -1,5 +1,13 @@
+import moment from 'moment'
+
 export default function(state) {
   let names = state.questions.map(question => question.name)
+  let formats = {}
+
+  state.questions.forEach((q)=>{
+    formats[q.name] = q.inputFormat
+  })
+
   let controlGroups = state.questions.map(question=> (question.attributes && question.attributes.controlGroup))
   let supplementalQuestions = state.supplementalQuestions.map(question => question.name)
 
@@ -16,6 +24,7 @@ export default function(state) {
       
       let option = document.querySelector(`.${name} input:checked`)
       if (!option) return obj
+      
       val = option.value
     } else if (document.getElementById(name).classList.contains('dropdown')) {
       val = document.getElementById(name).value;
@@ -23,7 +32,6 @@ export default function(state) {
     } else {
     //Else read form elements by id
       val = document.getElementById(name).value
-
 
       if (document.getElementById(name).classList.contains('number-control')) {
         val = val.replace(/[,$]/g, '')
@@ -35,7 +43,9 @@ export default function(state) {
                     .filter(child => child.selected)
                     .map(child => child.value)
       }
-      
+
+      if (val !== '' && formats[name] === 'date')
+        val = moment(val).format('YYYY-MM-DD')
     }
 
     const controlGroup = state.questions[idx] && state.questions[idx].attributes && state.questions[idx].attributes.controlGroup

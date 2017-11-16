@@ -56,9 +56,9 @@ export function getSubmissions(user) {
 
 export function saveSubmission(submission, user) {
   return checkTokenExpiration(user).then(() => {
-    const paramsId = submission._id ? { id: submission._id } : {}
-
-    if (submission._id) {
+    const paramsId = submission.id ? { id: submission.id } : {}
+    
+    if (submission.id) {
       return apigClient.apiSaveIdPost(paramsId, submission, {})
       .then((resp) => {
         return ({
@@ -67,6 +67,7 @@ export function saveSubmission(submission, user) {
         })
       })
       .catch((error) => {
+        console.log(error)
         if (error.status === 0 || error.status === 403) {
           return Promise.resolve({ status: 'authError' })
         }
@@ -97,9 +98,11 @@ export function editSubmission(submission, user) {
   return ((dispatch) => {
     return checkTokenExpiration(user).then(() => {
       // eslint-disable-next-line no-undef
-    return apigClient.apiGetSubmissionIdGet({ id: submission._id })
+    
+    return apigClient.apiGetSubmissionIdGet({ id: submission.id })
       .then((resp) => {
         const data = resp.data
+
         if (data.success) {
           // add the entire submission in store in -> app.submission
           // dispatch({ type: EDIT_SUBMISSION, payload: data.submission })
@@ -116,6 +119,7 @@ export function editSubmission(submission, user) {
             projectState: { disabled: true },
             projectZipcode: { disabled: true },
           }
+          
           dispatch({
             type: CHANGE_SUBMISSION,
             payload: {
@@ -126,7 +130,7 @@ export function editSubmission(submission, user) {
 
           // changes app.status to: EDIT
           dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
-
+          
         // push the user to the form
           dispatch(push('/form'))
         } else {
@@ -152,19 +156,25 @@ export function getClearance(params, user) {
     insuredAddress: trim(params.addresses[1].primaryInsuredAddress.replace('#', '')),
     insuredState: trim(params.addresses[1].primaryInsuredState),
     insuredCity: trim(params.addresses[1].primaryInsuredCity),
-    insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode)
+    insuredZipcode: trim(params.addresses[1].primaryInsuredZipcode),
+    userProductName: params.type.toUpperCase()
   }
 
-  // user
   return checkTokenExpiration(user).then(() => {
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
-        return (resp.data)
+        
+        console.log(resp)
+
+        if (!resp.data.success) {
+          throw({ message: 'Internal Error', errorCode: 'InternalError' })
+        }
+
+        return ( resp.data )
       })
       .catch((error) => {
-        console.log('THERE IS AN ERROR in THE CLEARNCE RESPONSE', error)
         if (error.status === 0 || error.status === 403) {
-          return Promise.resolve({ status: 'authError' })
+          return Promise.resolve({ success: false, status: 'authError' })
         }
         return Promise.reject({ error })
       })

@@ -72,7 +72,6 @@ const updatedData =  {
         "controlGroup":"insuredAddress"
       }
     },
-
     {
       "questionId": "4",
       "text": "Is there a secondary named insured?",
@@ -104,7 +103,6 @@ const updatedData =  {
           }
         ]
       }
-
     },
     {
       "questionId": "5",
@@ -135,7 +133,6 @@ const updatedData =  {
         ]
       }
     },
-
     {
       "questionId": "6",
       "name": "projectAddressLabel",

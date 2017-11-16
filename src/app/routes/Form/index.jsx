@@ -25,6 +25,7 @@ class Form extends Component {
     super(props)
 
     console.log('constructing')
+
     this.state = {
       confirmation: false,
       submission: this.props.submission,

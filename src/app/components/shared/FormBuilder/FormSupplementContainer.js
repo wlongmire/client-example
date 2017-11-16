@@ -6,7 +6,7 @@ class FormSupplementContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: ""
+      text: ''
     }
   }
 
@@ -15,7 +15,7 @@ class FormSupplementContainer extends React.Component {
 
     return (
       <div>
-        <Control data={this.props.data}/>
+        <Control data={this.props.data} />
       </div>
     )
   }
