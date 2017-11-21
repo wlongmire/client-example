@@ -13,7 +13,7 @@
   export function trimAssetLink (assetsURL) {
     console.log("assetsURL: ", assetsURL)
     return (
-      (assetsURL.endsWith('/')) ? assetsURL.substr(0, assetsURL.length() - 1) : assetsURL
+      (assetsURL.endsWith('/')) ? assetsURL.substr(0, assetsURL.length - 1) : assetsURL
     )
   }
 
