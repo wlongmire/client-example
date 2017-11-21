@@ -163,8 +163,6 @@ export function getClearance(params, user) {
   return checkTokenExpiration(user).then(() => {
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
-        
-        console.log(resp)
 
         if (!resp.data.success) {
           throw({ message: 'Internal Error', errorCode: 'InternalError' })

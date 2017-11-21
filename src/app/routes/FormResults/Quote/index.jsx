@@ -8,6 +8,7 @@ import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import classNames from 'classnames'
 import * as actions from '../../../actions/submissionActions'
 import PendingStatus from '../pendingStatus'
+import { trimAssetLink } from './../../../utils/utilities'
 
 import ratingProducts from '../../../../config/RatingProducts'
 import config from '../../../../config'
@@ -29,9 +30,11 @@ export class Quote extends Component {
     const rating = ratings[submission.type]
     const ratingProduct = ratingProducts[submission.type]
 
+    const assetsURL = trimAssetLink(config.assetsURL)
+
     const emailStatusMap = {
       LOADING: <div className="emailStatus">
-        <img alt="loading" src={`${config.assetsURL}/images/ajax-loader.gif`} />
+        <img alt="loading" src={`${assetsURL}/images/ajax-loader.gif`} />
         <p>Emails/Submission Forms Currently Being Processed</p>
         <span>From there, all forms needed will be sent to argo and your inbox.</span>
       </div>,
@@ -40,7 +43,7 @@ export class Quote extends Component {
         <span>Please contact us to complete this transaction.</span>
       </div>,
       SUCCESS: <div className="emailStatus success">
-        <img alt="thumbs up" src={`${config.assetsURL}/images/thumbs-up.png`} />
+        <img alt="thumbs up" src={`${assetsURL}/images/thumbs-up.png`} />
         <p>Your submission forms have been successfully processed.</p>
         <span>The appropriate forms should appear in your inbox within the next minute.
           Thank you for using Argo Limited.</span>

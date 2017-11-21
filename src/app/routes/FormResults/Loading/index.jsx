@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import * as actions from 'app/actions/userActions'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
+import { trimAssetLink } from './../../../utils/utilities'
 
 import config from 'config'
 
@@ -132,13 +133,15 @@ class Loading extends Component {
   }
 
   render() {
+    const assetsURL = trimAssetLink(config.assetsURL)
+
     return (
       <form>
         <h3>Calculating Quote</h3>
         <h4>Please wait while we calculate.</h4>
 
         <div className="loadingImg">
-          <img alt="loading" src={`${config.assetsURL}/images/ajax-loader.gif`} />
+          <img alt="loading" src={`${assetsURL}/images/ajax-loader.gif`} />
         </div>
 
         <ButtonGroup>

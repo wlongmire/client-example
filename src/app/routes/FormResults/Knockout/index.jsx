@@ -7,15 +7,19 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 import config from '../../../../config'
 import PendingStatus from '../pendingStatus'
 import * as actions from '../../../actions/submissionActions'
+import { trimAssetLink } from './../../../utils/utilities'
 
 export class Knockout extends Component {
   componentDidMount() {
     this.props.clearSubmissionStatus()
   }
   render() {
+    
+    const assetsURL = trimAssetLink(config.assetsURL)
+
     const emailStatusMap = {
       LOADING: <div className="emailStatus">
-        <img alt="loader" src={`${config.assetsURL}/images/ajax-loader.gif`} />
+        <img alt="loader" src={`${assetsURL}/images/ajax-loader.gif`} />
         <p>Emails Currently Being Processed</p>
         <span>From there, all forms needed will be sent to argo and your inbox.</span>
       </div>,
@@ -24,7 +28,7 @@ export class Knockout extends Component {
         <span>Please contact us to complete this transaction.</span>
       </div>,
       SUCCESS: <div className="emailStatus success">
-        <img alt="thubms up" src={`${config.assetsURL}/images/thumbs-up.png`} />
+        <img alt="thubms up" src={`${assetsURL}/images/thumbs-up.png`} />
         <p>Your submission forms have been successfully processed.</p>
         <span>Please check your your inbox. Thank you for using Argo Limited.</span>
       </div>

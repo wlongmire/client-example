@@ -5,9 +5,13 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import config from '../../../../config'
+import { trimAssetLink } from './../../../utils/utilities'
 
 export class Result extends Component {
+  
   render() {
+    const assetsURL = trimAssetLink(config.assetsURL)
+
     const failClearaceMessage = (config.clearanceFailFlag === 'true') ?
     (<div className="matchMessage">
       <h3>Sent to an underwriter for review</h3>
@@ -20,7 +24,7 @@ export class Result extends Component {
       <h3>Blocked in Error?</h3>
       <h5>
         If we have blocked clearance in error, please message us through the
-          <img src={`${config.assetsURL}/images/chatIcon.png`} />
+          <img src={`${assetsURL}/images/chatIcon.png`} />
           icon below or contact Jessica Buelow (<a href="mailto:jbuelow@colonyspecialty.com">jbuelow@colonyspecialty.com</a>).
       </h5>
     </div>)
@@ -55,7 +59,6 @@ export class Result extends Component {
     return (
       <form>
         <h3>{result.title}</h3>
-        
         
         <div>
           <h4>{result.subtitle}</h4>
