@@ -71,14 +71,14 @@ export class Result extends Component {
             className="btn clearanceButton"
             onClick={
                 () => {
-                  this.props.handleSubmit(this.props.result);
+                  this.props.handleSubmit(this.props.result)
                 }
             }
           >
             {result.buttonLabel}
           </Button>
 
-          <LinkContainer to="/productChoice">
+          <LinkContainer to="/">
             <Button className="btn secondary"> Return to Product Selection</Button>
           </LinkContainer>
         </ButtonGroup>
