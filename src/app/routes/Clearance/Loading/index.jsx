@@ -9,6 +9,8 @@ import {
   getClearance 
 } from './../../../actions/submissionActions'
 
+import { trimAssetLink } from './../../../utils/utilities'
+
 export class Loading extends Component {
   constructor(props) {
     super(props)
@@ -39,15 +41,14 @@ export class Loading extends Component {
   }
 
   render() {
-    console.log('assetsURL: ', config.assetsURL)
-    
+    const assetsURL = trimAssetLink(config.assetsURL)
     return (
       <form>
         <h3>Checking Prior Submissions</h3>
         <h4>Please Wait while we scan for matches.</h4>
 
         <div className="loadingImg">
-          <img src={`${config.assetsURL}/images/ajax-loader.gif`} />
+          <img src={`${assetsURL}/images/ajax-loader.gif`} />
         </div>
       </form>
     )

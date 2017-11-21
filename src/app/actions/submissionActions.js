@@ -61,10 +61,14 @@ export function saveSubmission(submission, user) {
     if (submission.id) {
       return apigClient.apiSaveIdPost(paramsId, submission, {})
       .then((resp) => {
-        return ({
-          ...resp,
-          updated: true
-        })
+        
+        setTimeout(()=>{
+          return ({
+            ...resp,
+            updated: true
+          })
+        }, 3000)
+        
       })
       .catch((error) => {
         console.log(error)
