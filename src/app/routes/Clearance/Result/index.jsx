@@ -79,7 +79,7 @@ export class Result extends Component {
           </Button>
 
           <LinkContainer to="/">
-            <Button className="btn secondary"> Return to Product Selection</Button>
+            <Button className="btn secondary"> Return to Submissions</Button>
           </LinkContainer>
         </ButtonGroup>
       </form>
