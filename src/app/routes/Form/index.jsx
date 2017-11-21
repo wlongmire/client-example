@@ -187,6 +187,10 @@ class Form extends Component {
       </div>
     )
 
+    // removing matches from formbuilder to allow for projectAddress
+    const formBuildSubmission = Object.assign({}, submission)
+    delete formBuildSubmission['clearanceMatches']
+
     return (
       <div className="productChoice routeContainer">
         <h3>Fill out the rest of the details.</h3>
@@ -201,7 +205,7 @@ class Form extends Component {
         <FormBuilder
           data={ratingProduct.formJSON}
           Validation={ratingProduct.Validation}
-          initialValues={submission}
+          initialValues={formBuildSubmission}
           initialParams={submissionFormParams}
           submitTitle="Review Submission"
           handleSubmit={this.handleSubmitForReview}
