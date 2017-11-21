@@ -8,7 +8,13 @@
     Object.keys(obj).length === 0 &&
     obj.constructor === Object
   )
-}
+  }
+
+  export function trimAssetLink (assetsURL) {
+    return (
+      (assetsURL.endsWith('/')) ? assetsURL.substr(0, assetsURL.length() - 1) : assetsURL
+    )
+  }
 
  export function onlyNums(value) {
    const valueToString = value.toString();
