@@ -39,6 +39,8 @@ export class Loading extends Component {
   }
 
   render() {
+    console.log('assetsURL: ', config.assetsURL)
+    
     return (
       <form>
         <h3>Checking Prior Submissions</h3>
