@@ -68,6 +68,7 @@ class Loading extends Component {
       
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
+          console.log('Save Sub error: ', resp)
           this.props.logout()
         }
 
@@ -118,12 +119,14 @@ class Loading extends Component {
 
           Promise.all(emailPromises).then((r) => {
             this.props.handleEmailStatus({ success: true })
+          }).catch((e)=>{
+            console.log('Email error: ', e)
           })
         } else {
           alert('Submission save not successful. Please contact support!')
         }
       }).catch((error1) => {
-        console.log('ERROR IN SAVE SUBMISSION xx22', error1)
+        console.log('save sub error 2', error1)
       })
 
       this.props.handleSubmit(!(resp[0].status === 200), ratings)
