@@ -43,7 +43,7 @@ The site will be built in `/dist`.
 use gulp:transform:[dev/prod/local] to change config variables
 
 #### Linter Rules:
-We are using airbnb linter. All the rules can be found in package.json under 'eslintConfig'
+We are using airbnb linter, so all the rules can be found in package.json under 'eslintConfig'
 
 To set up proper linting in VScode, all you need to do is install the ESLint plugin and restart the editor. If you are using VScode, make sure you tab settings are configured to 2 spaces. You can see what your space/tab config is at the bottom right of the editor
 

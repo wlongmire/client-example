@@ -45,7 +45,7 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
           credentials.get((err) => {
             if (err) {
-              alert(err)
+              dispatch(setAlert({ show: true, message: `There has been an error setting your user session. Please make sure you are not logged in from another window or tab and try again. If this persists, please contact your administrator for further support`, bsStyle: 'danger' }))
               return
             }
 
