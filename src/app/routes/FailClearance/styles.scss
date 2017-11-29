@@ -1,0 +1,50 @@
+.body-clearance-fail {
+  background-color: white !important;
+
+  .navbar {
+    display: none !important;
+  }
+}
+.clearanceFailContainer {
+  background-color: rgba(208, 2, 27, 0.05) !important;
+  color: rgba(0,0,0,1) !important;
+  min-height: 900px;
+  padding: 10px;
+  text-align: center;
+  h3 {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4a4a4a;
+  }
+  h2 {
+    font-family: Lato;
+    font-size: 32px;
+    font-weight: bold;
+    color: #d0011b;
+  }
+  .infoContainer {
+    padding: 10px;
+    text-align: left;
+    max-width: 75%;
+    margin: auto;
+    h4{
+      font-family: Lato;
+      font-size: 16px;
+      text-align: left;
+      color: #000000;
+    }
+  }
+  .failPrimary{
+    background-color: #d0011b;
+    border-radius: 1px;
+    font-size: 24px;
+    font-weight: bold;
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+
+  }
+  .failPrimary:hover{
+    background-color: rgb(99, 0, 0);
+  }
+}

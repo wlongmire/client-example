@@ -7,7 +7,7 @@ import { createAlert } from '../../actions/userActions'
 import { getClearanceInfo, setClearance } from '../../actions/submissionActions';
 import ToggleDisplay from '../../components/shared/ToggleDisplay'
 import TableComponent from './../../components/shared/TableComponent'
-import {isDefined} from '../../utils/utilities'
+import { isDefined } from '../../utils/utilities'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 
 export class FailClearance extends Component {
@@ -17,45 +17,45 @@ export class FailClearance extends Component {
       step: 0,
       submission: null
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 
 
   componentDidMount() {
 
-    document.body.className = 'body-clearance-pass'
+    document.body.className = 'body-clearance-fail'
     if (!this.props.location.query.s) {
       this.props.dispatch(createAlert('This submission cannot be found. Please double check the link and try again. If you are having issues, please contact support', 'info'))
       return browserHistory.push('/')
     }
     getClearanceInfo(this.props.location.query.s)
       .then(submission => {
-        if (submission === null || !isDefined(submission.clearanceStatus) ) {
+        if (submission === null || !isDefined(submission.clearanceStatus)) {
           this.props.dispatch(createAlert('This submission cannot be found. Please double check the link and try again. If you are having issues, please contact support', 'info'))
         }
-        if (submission.clearanceStatus !== 'pending'){
+        if (submission.clearanceStatus !== 'pending') {
           this.props.dispatch(createAlert('This submission has already been reviewed', 'info'))
         } else {
-          this.setState({...this.state, step: 1, submission: submission})
+          this.setState({ ...this.state, step: 1, submission: submission })
         }
       })
   }
 
-  handleSubmit(e){
-    e.preventDefault()
+  handleSubmit() {
     const status = 'fail'
     setClearance(this.state.submission.id, status)
       .then(() => {
-        this.setState({...this.state, step:2})
-    })
+        this.setState({ ...this.state, step: 2 })
+      })
   }
 
   render() {
     const clearanceMatches = this.state.submission === null ? {} : {
       data: this.state.submission.clearanceMatches,
       columns: [
-        {dataField: 'name', title: 'Name', isKey: true},
-        {dataField: 'projectAddress', title: 'Address'}
+        { dataField: 'name', title: 'Name', isKey: true },
+        { dataField: 'projectAddress', title: 'Address' }
       ]
     }
 
@@ -88,52 +88,56 @@ export class FailClearance extends Component {
     }
 
     return (
-      <div className="clearancePassContainer">
+      <div className="clearanceFailContainer">
 
         <ToggleDisplay
           show={this.state.step === 1}
-          render={() => (<div>
+          render={() => (
+          <div>
             <h3>Owners Edge: Review and Confirm</h3>
-            <h2>Pass clearance for this submission?</h2>
-            <Col lg={6} md={6} sm={12}>
-              <p>SUBMITTED INFORMATION</p>
+            <h2>Fail clearance for this submission?</h2>
+            <div className="infoContainer">
               <Row>
-              Name:
-              <br/>
-              {this.state.submission.primaryInsuredName}
+                <Col lg={6} md={6} sm={12}>
+                  <h4>SUBMITTED INFORMATION</h4>
+                  <Row>
+                    Name:
+                    {this.state.submission.primaryInsuredName}
+                  </Row>
+                  <Row>
+                    Project Address:
+                    {this.state.submission.projectAddress.projectAddress}
+                    {this.state.submission.projectAddress.projectCity}, {this.state.submission.projectAddress.projectState}         {this.state.submission.projectAddress.projectZip}
+                  </Row>
+                  <Row>
+                    Insured Address:
+                    {this.state.submission.insuredAddress.primaryInsuredAddress}
+                    {this.state.submission.insuredAddress.primaryInsuredCity}, {this.state.submission.insuredAddress.primaryInsuredState}         {this.state.submission.insuredAddress.primaryInsuredZip}
+                  </Row>
+                </Col>
+
+                <Col lg={6} md={6} sm={12}>
+                  <h4>POSSIBLE MATCHES</h4>
+                  <BootstrapTable
+                    data={clearanceMatches.data}
+                    bordered={false}
+                  >
+                    {generateColumns(clearanceMatches.columns)}
+                  </BootstrapTable>
+                </Col>
+
               </Row>
-              <Row>
-              Project Address:
-              <br/>
-              {this.state.submission.projectAddress.projectAddress}
-              <br/>
-              {this.state.submission.projectAddress.projectCity}, {this.state.submission.projectAddress.projectState}         {this.state.submission.projectAddress.projectZip}
-              </Row>
-              <Row>
-              Insured Address:
-              <br/>
-              {this.state.submission.insuredAddress.primaryInsuredAddress}
-              <br/>
-              {this.state.submission.insuredAddress.primaryInsuredCity}, {this.state.submission.insuredAddress.primaryInsuredState}         {this.state.submission.insuredAddress.primaryInsuredZip}
-              </Row>
-            </Col>
-            <Col lg={6} md={6} sm={12}>
-              <p>POSSIBLE MATCHES</p>
-              <BootstrapTable
-              data={clearanceMatches.data}
-              bordered={false}
-            >
-              { generateColumns(clearanceMatches.columns) }
-            </BootstrapTable>
-            </Col>
-            <Button onClick={() => { return this.handleSubmit() }}>Fail</Button>
-            </div>)}
+              </div>
+
+              <Button className="failPrimary" onClick={() => { return this.handleSubmit() }}>Confirm and Fail</Button>
+
+          </div>)}
         />
         <ToggleDisplay
-        show={this.state.step === 2}
-        render={() => (<div></div>)}
+          show={this.state.step === 2}
+          render={() => (<div></div>)}
         />
-    </div>
+      </div>
     )
   }
 }
