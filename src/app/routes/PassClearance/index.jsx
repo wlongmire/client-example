@@ -18,6 +18,7 @@ export class PassClearance extends Component {
       submission: null
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
   }
 
 
@@ -34,9 +35,10 @@ export class PassClearance extends Component {
         if (submission === null || !isDefined(submission.clearanceStatus)) {
           this.props.dispatch(createAlert('This submission cannot be found. Please double check the link and try again. If you are having issues, please contact support', 'info'))
         }
-        if (submission.clearanceStatus !== 'pending') {
-          this.props.dispatch(createAlert('This submission has already been reviewed', 'info'))
-        } else {
+        // else if (submission.clearanceStatus !== 'pending') {
+        //   this.props.dispatch(createAlert('This submission has already been reviewed', 'info'))
+        //}
+        else {
           this.setState({ ...this.state, step: 1, submission: submission })
         }
       })
@@ -44,10 +46,14 @@ export class PassClearance extends Component {
 
   handleSubmit() {
     const status = 'pass'
-    setClearance(this.state.submission.id, status)
+    setClearance(this.props.location.query.s, status)
       .then(() => {
         this.setState({ ...this.state, step: 2 })
       })
+  }
+
+  handleCancel(){
+    window.open(location, '_self').close();
   }
 
   render() {
@@ -88,13 +94,13 @@ export class PassClearance extends Component {
     }
 
     return (
-      <div className="clearancePassContainer">
+      <div>
 
         <ToggleDisplay
           show={this.state.step === 1}
           render={() => (
-          <div>
-            <h3>Owners Edge: Review and Confirm</h3>
+          <div className="clearancePassContainer">
+            <h3>Owner's Edge: Review and Confirm</h3>
             <h2>Pass clearance for this submission?</h2>
             <div className="infoContainer">
               <Row>
@@ -129,13 +135,19 @@ export class PassClearance extends Component {
               </Row>
               </div>
 
-              <Button className="passPrimary" onClick={() => { return this.handleSubmit() }}>Confirm and Pass</Button>
-
+              <div><Button className="passPrimary" onClick={() => { return this.handleSubmit() }}>Confirm and Pass</Button></div>
           </div>)}
         />
         <ToggleDisplay
           show={this.state.step === 2}
-          render={() => (<div></div>)}
+          render={() => (<div className="clearanceConfirmation">
+          <h3>Owner's Edge</h3>
+          <h2>Clearance Passed</h2>
+          <div className="infoContainer">
+            <p>You have passed clearance for this project. An update will be automatically sent to the broker.</p>
+            <p className="footer">You may close this window</p>
+          </div>
+          </div>)}
         />
       </div>
     )

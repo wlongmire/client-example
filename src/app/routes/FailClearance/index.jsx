@@ -135,7 +135,14 @@ export class FailClearance extends Component {
         />
         <ToggleDisplay
           show={this.state.step === 2}
-          render={() => (<div></div>)}
+          render={() => (<div className="clearanceConfirmation">
+          <h3>Owner's Edge</h3>
+          <h2>Clearance Failed</h2>
+          <div className="infoContainer">
+            <p>You have failed clearance for this project. An update will be automatically sent to the broker.</p>
+            <p className="footer">You may close this window</p>
+          </div>
+          </div>)}
         />
       </div>
     )
