@@ -15,7 +15,8 @@ export class PassClearance extends Component {
     super(props)
     this.state = {
       step: 0,
-      submission: null
+      submission: null,
+      submitting: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
@@ -45,6 +46,7 @@ export class PassClearance extends Component {
   }
 
   handleSubmit() {
+    this.setState({...this.state, submitting:true});
     const status = 'pass'
     setClearance(this.props.location.query.s, status)
       .then(() => {
@@ -136,6 +138,7 @@ export class PassClearance extends Component {
               </div>
 
               <div><Button className="passPrimary" onClick={() => { return this.handleSubmit() }}>Confirm and Pass</Button></div>
+              <ToggleDisplay show={this.state.submitting} render={()=>(<div className="confirmationLoader">Confirming...</div>)} />
           </div>)}
         />
         <ToggleDisplay

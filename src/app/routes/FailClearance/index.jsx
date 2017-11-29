@@ -15,7 +15,8 @@ export class FailClearance extends Component {
     super(props)
     this.state = {
       step: 0,
-      submission: null
+      submission: null,
+      submitting: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -34,17 +35,19 @@ export class FailClearance extends Component {
         if (submission === null || !isDefined(submission.clearanceStatus)) {
           this.props.dispatch(createAlert('This submission cannot be found. Please double check the link and try again. If you are having issues, please contact support', 'info'))
         }
-        if (submission.clearanceStatus !== 'pending') {
-          this.props.dispatch(createAlert('This submission has already been reviewed', 'info'))
-        } else {
+        // else if (submission.clearanceStatus !== 'pending') {
+        //   this.props.dispatch(createAlert('This submission has already been reviewed', 'info'))
+        // }
+        else {
           this.setState({ ...this.state, step: 1, submission: submission })
         }
       })
   }
 
   handleSubmit() {
+    this.setState({...this.state, submitting:true});
     const status = 'fail'
-    setClearance(this.state.submission.id, status)
+    setClearance(this.props.location.query.s, status)
       .then(() => {
         this.setState({ ...this.state, step: 2 })
       })
@@ -88,12 +91,12 @@ export class FailClearance extends Component {
     }
 
     return (
-      <div className="clearanceFailContainer">
+      <div>
 
         <ToggleDisplay
           show={this.state.step === 1}
           render={() => (
-          <div>
+          <div className="clearanceFailContainer">
             <h3>Owners Edge: Review and Confirm</h3>
             <h2>Fail clearance for this submission?</h2>
             <div className="infoContainer">
@@ -130,7 +133,7 @@ export class FailClearance extends Component {
               </div>
 
               <Button className="failPrimary" onClick={() => { return this.handleSubmit() }}>Confirm and Fail</Button>
-
+              <ToggleDisplay show={this.state.submitting} render={()=>(<div className="confirmationLoader">Confirming...</div>)} />
           </div>)}
         />
         <ToggleDisplay
