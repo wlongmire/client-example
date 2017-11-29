@@ -29,8 +29,8 @@ const apiGatewayUrl = process.env.apiGatewayUrl || 'https://c27z16ujzj.execute-a
 const assetsUrl = process.env.assetsUrl || 'https://s3.amazonaws.com/ownersedge-dev-assets'
 const identityPoolId = process.env.identityPoolId || 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b'
 const awsRegion = process.env.awsRegion || 'us-east-1'
-const userPoolId = process.env.userPoolId || 'us-east-1_3SgBuYU4O'
-const clientId = process.env.clientId || '76c9vth2qtg841ivles7aurmvv'
+const userPoolId = process.env.userPoolId || 'us-east-1_DW29C7XbE'
+const clientId = process.env.clientId || '274tc1iamgvrik4rnogpe0cb89'
 const clearanceFailEmail = process.env.clearanceFailEmail || 'argoaccessquickquote@gmail.com'
 const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false
 const stage = env[userPoolId]

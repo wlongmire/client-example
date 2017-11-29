@@ -1,0 +1,50 @@
+.body-clearance-pass {
+  background-color: white !important;
+
+  .navbar {
+    display: none !important;
+  }
+}
+.clearancePassContainer {
+  background-color: rgba(65, 117, 5, 0.17) !important;
+  color: rgba(0,0,0,1) !important;
+  min-height: 900px;
+  padding: 10px;
+  text-align: center;
+  h3 {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4a4a4a;
+  }
+  h2 {
+    font-family: Lato;
+    font-size: 32px;
+    font-weight: bold;
+    color: rgba(65, 117, 5, 0.73);
+  }
+  .infoContainer {
+    padding: 10px;
+    text-align: left;
+    max-width: 75%;
+    margin: auto;
+    h4{
+      font-family: Lato;
+      font-size: 16px;
+      text-align: left;
+      color: #000000;
+    }
+  }
+  .passPrimary{
+    background-color: #417505;
+    border-radius: 1px;
+    font-size: 24px;
+    font-weight: bold;
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+
+  }
+  .passPrimary:hover{
+    background-color: rgb(40, 71, 0);
+  }
+}
