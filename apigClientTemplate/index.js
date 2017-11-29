@@ -370,7 +370,7 @@ apigClientFactory.newClient = function (config) {
         if(additionalParams === undefined) { additionalParams = {}; }
 
         apiGateway.core.utils.assertParametersDefined(params, ['projectState', 'projectZipcode', 'userProductName', 'insuredCity', 'insuredZipcode', 'insuredAddress', 'projectCity', 'name', 'insuredState', 'projectAddress'], ['body']);
-        
+
         var apiGetClearanceGetRequest = {
             verb: 'get'.toUpperCase(),
             path: pathComponent + uritemplate('/api/getClearance').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
@@ -399,6 +399,41 @@ apigClientFactory.newClient = function (config) {
 
 
         return apiGatewayClient.makeRequest(apiGetClearanceOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+
+    apigClient.apiGetClearanceInfoIdGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+
+        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+
+        var apiGetClearanceInfoIdGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/getClearanceInfo/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+
+
+        return apiGatewayClient.makeRequest(apiGetClearanceInfoIdGetRequest, authType, additionalParams, config.apiKey);
+    };
+
+
+    apigClient.apiGetClearanceInfoIdOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+
+        var apiGetClearanceInfoIdOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/getClearanceInfo/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+
+
+        return apiGatewayClient.makeRequest(apiGetClearanceInfoIdOptionsRequest, authType, additionalParams, config.apiKey);
     };
 
 
@@ -721,6 +756,42 @@ apigClientFactory.newClient = function (config) {
 
 
         return apiGatewayClient.makeRequest(apiInviteOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+
+
+    apigClient.apiSetClearanceIdPost = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+
+        apiGateway.core.utils.assertParametersDefined(params, ['id'], ['body']);
+
+        var apiSetClearanceIdPostRequest = {
+            verb: 'post'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/setClearance/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+
+
+        return apiGatewayClient.makeRequest(apiSetClearanceIdPostRequest, authType, additionalParams, config.apiKey);
+    };
+
+
+    apigClient.apiSetClearanceIdOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+
+        var apiSetClearanceIdOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/api/setClearance/{id}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+
+
+        return apiGatewayClient.makeRequest(apiSetClearanceIdOptionsRequest, authType, additionalParams, config.apiKey);
     };
 
     apigClient.profileIdGet = function (params, body, additionalParams) {
