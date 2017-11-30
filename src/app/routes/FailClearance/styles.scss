@@ -5,6 +5,18 @@
     display: none !important;
   }
 }
+
+.clearanceAlertContainer {
+  background-color: white !important;
+  min-height: 900px;
+  h3 {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4a4a4a;
+  }
+  text-align: center;
+}
 .clearanceFailContainer {
   background-color: rgba(208, 2, 27, 0.05) !important;
   color: rgba(0,0,0,1) !important;
@@ -53,5 +65,35 @@
     margin-top: 15px;
     clear: both;
     color: #4a4a4a;
+  }
+  .tableElement {
+    padding-top: 10px;
+
+    .react-bs-table{
+      border-style: solid;
+      border-width: 1px;
+      border-color: #000000;
+    }
+    td {
+      border-color: #000000
+    }
+    th {
+      font-weight: bold
+    }
+  }
+  label{
+    margin-bottom: 2px;
+    font-weight:900;
+    font-size: 14px;
+  }
+  .form-control-static{
+    min-height: 0px;
+    font-size: 13px;
+    font-weight: normal
+
+  }
+  .form-group{
+    margin-top: 10px;
+    margin-bottom:5px;
   }
 }

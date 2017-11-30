@@ -24,7 +24,7 @@
   }
   .infoContainer {
     padding: 10px;
-    max-width: 40%;
+    max-width: 30%;
     margin: auto;
     h4{
       font-family: Lato;
@@ -47,6 +47,7 @@
   color: rgba(0,0,0,1) !important;
   min-height: 900px;
   padding: 10px;
+  font-family: Lato;
   text-align: center;
   h3 {
     font-family: Lato;
@@ -90,5 +91,35 @@
     margin-top: 15px;
     clear: both;
     color: #4a4a4a;
+  }
+  .tableElement {
+    padding-top: 10px;
+
+    .react-bs-table{
+      border-style: solid;
+      border-width: 1px;
+      border-color: #000000;
+    }
+    td {
+      border-color: #000000
+    }
+    th {
+      font-weight: bold
+    }
+  }
+  label{
+    margin-bottom: 2px;
+    font-weight:900;
+    font-size: 14px;
+  }
+  .form-control-static{
+    min-height: 0px;
+    font-size: 13px;
+    font-weight: normal
+
+  }
+  .form-group{
+    margin-top: 10px;
+    margin-bottom:5px;
   }
 }

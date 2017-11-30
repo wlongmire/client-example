@@ -36,9 +36,9 @@ export class PassClearance extends Component {
         if (submission === null || !isDefined(submission.clearanceStatus)) {
           this.props.dispatch(createAlert('This submission cannot be found. Please double check the link and try again. If you are having issues, please contact support', 'info'))
         }
-        // else if (submission.clearanceStatus !== 'pending') {
-        //   this.props.dispatch(createAlert('This submission has already been reviewed', 'info'))
-        //}
+        else if (submission.clearanceStatus !== 'pending') {
+          this.props.dispatch(createAlert('This submission has already been reviewed', 'info'))
+        }
         else {
           this.setState({ ...this.state, step: 1, submission: submission })
         }
@@ -97,7 +97,12 @@ export class PassClearance extends Component {
 
     return (
       <div>
-
+      <ToggleDisplay
+      show={this.state.step === 0}
+      render={()=> <div className="clearanceAlertContainer">
+      <h3>Owners Edge: Review and Confirm</h3>
+      </div>}
+    />
         <ToggleDisplay
           show={this.state.step === 1}
           render={() => (
@@ -109,29 +114,45 @@ export class PassClearance extends Component {
                 <Col lg={6} md={6} sm={12}>
                   <h4>SUBMITTED INFORMATION</h4>
                   <Row>
-                    Name:
+                    <FormGroup>
+                    <ControlLabel>Name:</ControlLabel>
+                    <FormControl.Static>
                     {this.state.submission.primaryInsuredName}
+                    </FormControl.Static>
+                    </FormGroup>
                   </Row>
                   <Row>
-                    Project Address:
+                  <FormGroup>
+                  <ControlLabel>Project Address:</ControlLabel>
+                  <FormControl.Static>
                     {this.state.submission.projectAddress.projectAddress}
+                    <br/>
                     {this.state.submission.projectAddress.projectCity}, {this.state.submission.projectAddress.projectState}         {this.state.submission.projectAddress.projectZip}
+                    </FormControl.Static>
+                    </FormGroup>
                   </Row>
                   <Row>
-                    Insured Address:
+                  <FormGroup>
+                  <ControlLabel>Insured Address:</ControlLabel>
+                  <FormControl.Static>
                     {this.state.submission.insuredAddress.primaryInsuredAddress}
+                    <br/>
                     {this.state.submission.insuredAddress.primaryInsuredCity}, {this.state.submission.insuredAddress.primaryInsuredState}         {this.state.submission.insuredAddress.primaryInsuredZip}
+                    </FormControl.Static>
+                    </FormGroup>
                   </Row>
                 </Col>
 
                 <Col lg={6} md={6} sm={12}>
                   <h4>POSSIBLE MATCHES</h4>
+                  <div className="tableElement">
                   <BootstrapTable
                     data={clearanceMatches.data}
                     bordered={false}
                   >
                     {generateColumns(clearanceMatches.columns)}
                   </BootstrapTable>
+                  </div>
                 </Col>
 
               </Row>
@@ -157,4 +178,4 @@ export class PassClearance extends Component {
   }
 }
 
-export default PassClearance
+export default connect()(PassClearance)
