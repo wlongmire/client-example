@@ -55,17 +55,20 @@ class Loading extends Component {
         if (resp[idx].status === 'authError') {
           return this.props.logout()
         }
-        
+
         const responseRatings = resp[idx].data
         const ratingType = ratingSubmission.bundleId ? ratingSubmission.bundleId : ratingSubmission.type
-        
+
         ratings[ratingType] = responseRatings.results
       })
 
       const submissionData = Object.assign({}, submission)
       submissionData.rating = ratings // adding rating to submission
       submissionData.brokerId = this.props.user.brokerId // adding broker to submission
-      
+      const mainRating = ratings[submission.type]
+      const { instantQuote } = mainRating
+      submissionData.pricingSatus = instantQuote ? 'priced': 'referred';
+
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
           console.log('Save Sub error: ', resp)
@@ -74,8 +77,7 @@ class Loading extends Component {
 
         if (respSave.data && respSave.data.success === true) {
           const { submissionId } = respSave.data
-          const mainRating = ratings[submission.type]
-          const { instantQuote } = mainRating
+
 
           let emailPromises
 

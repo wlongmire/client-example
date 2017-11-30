@@ -3,6 +3,7 @@ import trim from 'lodash/trim'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { transformSubmissionData } from '../utils/transformSubmissionData'
 import { logout } from './userActions'
+import {isDefined} from '../utils/utilities'
 
 import {
   FETCH_SUBMISSIONS,
@@ -57,7 +58,7 @@ export function getSubmissions(user) {
 export function saveSubmission(submission, user) {
   return checkTokenExpiration(user).then(() => {
     const paramsId = submission.id ? { id: submission.id } : {}
-    
+
     if (submission.id) {
       return apigClient.apiSaveIdPost(paramsId, submission, {})
       .then((resp) => {
@@ -98,7 +99,7 @@ export function editSubmission(submission, user) {
   return ((dispatch) => {
     return checkTokenExpiration(user).then(() => {
       // eslint-disable-next-line no-undef
-    
+
     return apigClient.apiGetSubmissionIdGet({ id: submission.id })
       .then((resp) => {
         const data = resp.data
@@ -119,7 +120,7 @@ export function editSubmission(submission, user) {
             projectState: { disabled: true },
             projectZipcode: { disabled: true },
           }
-          
+
           dispatch({
             type: CHANGE_SUBMISSION,
             payload: {
@@ -130,7 +131,7 @@ export function editSubmission(submission, user) {
 
           // changes app.status to: EDIT
           dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
-          
+
         // push the user to the form
           dispatch(push('/form'))
         } else {
@@ -196,6 +197,26 @@ export function getRating(params, user) {
         })
       })
   })
+}
+
+export function getClearanceInfo(id){
+  const gateway = apigClientFactory.newClient()
+  return gateway.apiGetClearanceInfoIdGet({id:id}, {},{})
+    .then(resp => {
+      console.log(`response`, resp)
+      if (resp.data !== null && isDefined(resp.data.sgsResult)){
+      return Promise.resolve(resp.data.sgsResult)
+      }
+      else return Promise.resolve(null)
+    })
+}
+
+export function setClearance(id, status){
+  const gateway = apigClientFactory.newClient()
+  return gateway.apiSetClearanceIdPost({id: id}, [{fieldName: 'clearanceStatus', fieldValue: status}])
+    .then(resp => {
+      return Promise.resolve(resp)
+    })
 }
 
 export function sendEmail(emailAddress, emailType, submissionId, user) {

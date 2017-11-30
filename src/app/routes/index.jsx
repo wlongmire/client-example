@@ -19,6 +19,8 @@ import Http404 from 'routes/Http404'
 import ConfirmSignup from 'routes/ConfirmSignup'
 import CompleteProfilePage from 'routes/CompleteProfilePage'
 import ResetPassword from 'routes/ResetPassword'
+import PassClearance from 'routes/PassClearance'
+import FailClearance from 'routes/FailClearance'
 
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.user,
@@ -76,6 +78,16 @@ export default (
     <Route
       path="resetpassword"
       component={ResetPassword}
+    />
+
+    <Route
+      path="failclearance"
+      component={FailClearance}
+    />
+
+    <Route
+    path="passclearance"
+    component={PassClearance}
     />
 
     <Route
