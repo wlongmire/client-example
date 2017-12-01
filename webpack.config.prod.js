@@ -3,7 +3,7 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  entry: [
+  entry: ["babel-polyfill",
     './src/app/index.jsx'
   ],
   output: {
@@ -18,7 +18,9 @@ module.exports = {
       useBuiltIns: true,
       exclude: /node_modules/,
       query: {
-        presets: ['es2015', 'react']
+        presets: [
+          ["env", {targets: ['> 4%', "latest 2 versions", "ie >=9", 'safari >= 8']}]
+        ]
       }
     },
     {

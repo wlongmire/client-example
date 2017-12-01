@@ -1,4 +1,4 @@
-.signupBackground {  
+.signupBackground {
   background-color: white !important;
   color: black !important;
   min-height: 800px;
@@ -117,7 +117,12 @@
 
 .pwdCheckmark {
   margin-left: -18px;
-  color: green;
+  color: #9b9b9b
+}
+
+.pwdArrow {
+  margin-left: -18px;
+  color: #e5991c
 }
 
 .helpBlockRed {
