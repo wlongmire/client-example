@@ -163,7 +163,7 @@ export class FailClearance extends Component {
           <h3>Owner's Edge</h3>
           <h2>Clearance Failed</h2>
           <div className="infoContainer">
-            <p>You have failed clearance for this project. An update will be automatically sent to the broker.</p>
+            <p>You have failed clearance for this project. Please notify the broker.</p>
             <p className="footer">You may close this window</p>
           </div>
           </div>)}
