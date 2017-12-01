@@ -29,7 +29,7 @@ export class SetPassword extends Component {
     const { pwd, confirmPwd, pwdLength, caseChar, pwdSpChar, pwdNumber } = this.state
     let errorMsg = ''
     if (pwd !== confirmPwd) errorMsg += 'Passwords Must Match! <br/>'
-    if (!pwdLength || !pwdNumber || !pwdNumber || !!caseChar) errorMsg += `Sorry, your passwords are missing the following requirement(s):`
+    if (!pwdLength || !pwdNumber || !pwdNumber || !caseChar) errorMsg += `Sorry, your passwords are missing the following requirement(s):`
     if (!pwdLength) errorMsg += 'Use at least 8 characters <br/>'
     if (!pwdNumber) errorMsg += `Use at least one number <br/>`
     if (!pwdNumber) errorMsg += `Use at least one special character (!@#$%^&*).<br/>`
