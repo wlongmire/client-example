@@ -28,15 +28,15 @@ export class SetPassword extends Component {
     this.setState({...this.state, submitted:true})
     const { pwd, confirmPwd, pwdLength, caseChar, pwdSpChar, pwdNumber } = this.state
     let errorMsg = ''
-    if (pwd !== confirmPwd) errorMsg += 'Passwords Must Match! <br/>'
     if (!pwdLength || !pwdNumber || !pwdSpChar || !caseChar) errorMsg += `Sorry, your passwords are missing the following requirement(s):`
+    if (pwd !== confirmPwd) errorMsg += 'Passwords Must Match! <br/>'
     if (!pwdLength) errorMsg += 'Use at least 8 characters <br/>'
     if (!pwdNumber) errorMsg += `Use at least one number <br/>`
     if (!pwdSpChar) errorMsg += `Use at least one special character (!@#$%^&*).<br/>`
     if (!caseChar) errorMsg += `Use at least one uppercase and one lowercase character <br/>`
 
     if (errorMsg.length > 0) {
-      this.setState({ ...this.state, passwordMatch: false, submitError: true, submitErrorMessage: errorMsg })
+      this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMsg })
     } else {
       // -AK YOu might WANT TO ADD AN ELSE STATEMENT HERE FOR forgot Password
       // cognitoUser.confirmPassword ... onSuccess
