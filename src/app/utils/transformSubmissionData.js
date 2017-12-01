@@ -13,10 +13,12 @@ export function transformSubmissionData(submissionsArray) {
         let quoteStatus
         if ((premiumType && premiumType.premium) && (item.clearanceStatus === 'pass')) {
           quoteStatus = 'Priced'
-        } else if (!premiumType || !premiumType.premium) {
+        } else if (!premiumType || !premiumType.premium && item.clearanceStatus === 'pass') {
           quoteStatus = 'Referred'
-        } else if ((premiumType && premiumType.premium) && (item.clearanceStatus === 'pending')) {
+        } else if (item.clearanceStatus === 'pending') {
           quoteStatus = 'Pending Clearance'
+        } else if (item.clearanceStatus === 'fail') {
+          quoteStatus = 'Failed Clearance'
         }
 
         return ({
@@ -30,7 +32,7 @@ export function transformSubmissionData(submissionsArray) {
           updatedAt: item.updatedAt,
           dateCreated: item.createdAt ? Moment(item.createdAt).format('MM-DD-YY hh:mma') : null,
           dateUpdated: item.updatedAt ? Moment(item.updatedAt).format('MM-DD-YY hh:mma') : null,
-          ableToEdit: (premiumType && premiumType.premium) ? 'Yes' : 'No',
+          ableToEdit: (premiumType && premiumType.premium && !(item.clearanceStatus === 'fail')) ? 'Yes' : 'No',
           quoteStatus
         })
       })
