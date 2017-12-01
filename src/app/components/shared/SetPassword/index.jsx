@@ -15,8 +15,9 @@ export class SetPassword extends Component {
       caseChar: false,
       passwordMatch: null,
       disabledFlag: true,
-      submitted:false,
-      confirmPwdReqs: null
+      submitted: false,
+      confirmPwdReqs: null,
+      badPassConfFocus: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -157,8 +158,8 @@ export class SetPassword extends Component {
 
     const validatePasswordReqs = () => {
       if (!this.state.caseChar || !this.state.pwdLength || !this.state.pwdSpChar || !this.state.pwdNumber) {
-        this.setState({...state, confirmPwdReqs:false})
-      }
+        this.setState({...this.state, badPassConfFocus: true})
+      } else {this.setState({...this.state, badPassConfFocus: null})}
     }
 
     const validateConfirmPassword = (e) => {
@@ -204,9 +205,9 @@ export class SetPassword extends Component {
                   type="password"
                   label="Text"
                   onChange={validateConfirmPassword}
-                  inputRef={confirmPassInput => { this.input = confirmPassInput}}
+                  onFocus={validatePasswordReqs}
                 />
-                {(this.state.confirmPwdReqs === false)&& helpBlock(`Wait! The above password doesn't meet requirements.`, 'helpBlockRed')}
+                {(this.state.badPassConfFocus === true)&& helpBlock(`Wait! The above password doesn't meet requirements.`, 'helpBlockRed')}
                 {(this.state.passwordMatch === false) && helpBlock('Passwords must match!', 'helpBlockRed')}
                 {(this.state.passwordMatch === true) && helpBlock('Passwords match!', 'helpBlockGreen')}
               </FormGroup>
