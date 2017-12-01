@@ -28,9 +28,10 @@ export class SetPassword extends Component {
     const { pwd, confirmPwd, pwdLength, caseChar, pwdSpChar, pwdNumber } = this.state
     let errorMsg = ''
     if (pwd !== confirmPwd) errorMsg += 'Passwords Must Match! <br/>'
+    if (!pwdLength || !pwdNumber || !pwdNumber || !!caseChar) errorMsg += `Sorry, your passwords are missing the following requirement(s):`
     if (!pwdLength) errorMsg += 'Use at least 8 characters <br/>'
     if (!pwdNumber) errorMsg += `Use at least one number <br/>`
-    if (!pwdSpChar) errorMsg += `Use at least one special character <br/>`
+    if (!pwdNumber) errorMsg += `Use at least one special character (!@#$%^&*).<br/>`
     if (!caseChar) errorMsg += `Use at least one uppercase and one lowercase character <br/>`
 
     if (errorMsg.length > 0) {
@@ -222,7 +223,7 @@ export class SetPassword extends Component {
           </Row>
           <Row className="passwordSetSubmit">
             <Button bsStyle="primary" type="submit">Set Password</Button>
-            {(this.state.submitError === true) && helpBlock(`There is an error in submission! <br/> ${this.state.submitErrorMessage}`, 'helpBlockRed')}
+            {(this.state.submitError === true) && helpBlock(`${this.state.submitErrorMessage}`, 'helpBlockRed')}
             <br/>
             <br/>
             <ToggleDisplay
