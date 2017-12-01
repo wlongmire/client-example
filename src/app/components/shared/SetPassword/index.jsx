@@ -230,7 +230,7 @@ export class SetPassword extends Component {
             show={this.state.submitted}
             render={() => (
               <div>
-                <span>Setting your password...</span>
+                <span>Updating your password...</span>
               </div>)} />
           </Row>
         </form>
