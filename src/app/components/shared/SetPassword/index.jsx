@@ -15,7 +15,8 @@ export class SetPassword extends Component {
       caseChar: false,
       passwordMatch: null,
       disabledFlag: true,
-      submitted:false
+      submitted:false,
+      confirmPwdReqs: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,11 +24,17 @@ export class SetPassword extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.setState({...this.state, disabledFlag:true, submitted:true})
-    const { pwd, confirmPwd } = this.state
+    this.setState({...this.state, submitted:true})
+    const { pwd, confirmPwd, pwdLength, caseChar, pwdSpChar, pwdNumber } = this.state
+    let errorMsg = ''
+    if (pwd !== confirmPwd) errorMsg += 'Passwords Must Match! <br/>'
+    if (!pwdLength) errorMsg += 'Use at least 8 characters <br/>'
+    if (!pwdNumber) errorMsg += `Use at least one number <br/>`
+    if (!pwdSpChar) errorMsg += `Use at least one special character <br/>`
+    if (!caseChar) errorMsg += `Use at least one uppercase and one lowercase character <br/>`
 
-    if (pwd !== confirmPwd) {
-      this.setState({ ...this.state, passwordMatch: false, submitError: true, submitErrorMessage: 'Passwords must match!' })
+    if (errorMsg.length > 0) {
+      this.setState({ ...this.state, passwordMatch: false, submitError: true, submitErrorMessage: errorMsg })
     } else {
       // -AK YOu might WANT TO ADD AN ELSE STATEMENT HERE FOR forgot Password
       // cognitoUser.confirmPassword ... onSuccess
@@ -106,7 +113,7 @@ export class SetPassword extends Component {
               this.setState({
                 ...this.state,
                 submitError: true,
-                submitErrorMessage: 'There was an error loging in after resetting password. Please contact support'
+                submitErrorMessage: 'There was an error logging in after resetting password. Please contact support'
               })
             }
           ))
@@ -123,6 +130,13 @@ export class SetPassword extends Component {
   }
 
   render() {
+    const fullStyle = {
+      opacity: 1
+    }
+    const dimmedStyle = {
+      opacity: 0.4
+    }
+
     const validatePassword = (e) => {
       const pwd = e.target.value
       const valid = {}
@@ -134,9 +148,15 @@ export class SetPassword extends Component {
       valid.caseChar = (pwd.match(/[a-z]/) && pwd.match(/[A-Z]/)) !== null
 
       if (valid.pwdLength === true && valid.pwdNumber === true && valid.pwdSpChar === true && valid.caseChar) {
-        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: false })
+        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: false, confirmPwdReqs: true })
       } else {
-        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: true })
+        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: true, confirmPwdReqs: false })
+      }
+    }
+
+    const validatePasswordReqs = () => {
+      if (!this.state.caseChar || !this.state.pwdLength || !this.state.pwdSpChar || !this.state.pwdNumber) {
+        this.setState({...state, confirmPwdReqs:false})
       }
     }
 
@@ -153,10 +173,11 @@ export class SetPassword extends Component {
     }
 
     const checkMark = <i className="fa fa-check pwdCheckmark" aria-hidden="true" />
+    const arrow = <i className="fa fa-arrow-right pwdArrow" aria-hidden="true" />
 
 
     const helpBlock = (text, helpClass) => {
-      return (<HelpBlock className={`${helpClass}`} >{text}</HelpBlock>)
+      return (<HelpBlock className={`${helpClass}`} dangerouslySetInnerHTML={{__html:text}} ></HelpBlock>)
     }
 
     return (
@@ -172,7 +193,8 @@ export class SetPassword extends Component {
                   label="Text"
                   onChange={validatePassword}
                 />
-                {(this.state.disabledFlag === false) ? helpBlock('Password Requirements met!', 'helpBlockGreen') : helpBlock('Please conform to password standards.', '')}
+                {(this.state.confirmPwdReqs === true) && helpBlock('Password Requirements met!', 'helpBlockGreen')}
+                {(this.state.confirmPwdReqs === false) && helpBlock(`Password doesn't meet requirements.`, '')}
               </FormGroup>
               <FormGroup controlId="confirmPassword">
                 <ControlLabel>Confirm Password</ControlLabel>
@@ -181,7 +203,9 @@ export class SetPassword extends Component {
                   type="password"
                   label="Text"
                   onChange={validateConfirmPassword}
+                  inputRef={confirmPassInput => { this.input = confirmPassInput}}
                 />
+                {(this.state.confirmPwdReqs === false)&& helpBlock(`Wait! The above password doesn't meet requirements.`, 'helpBlockRed')}
                 {(this.state.passwordMatch === false) && helpBlock('Passwords must match!', 'helpBlockRed')}
                 {(this.state.passwordMatch === true) && helpBlock('Passwords match!', 'helpBlockGreen')}
               </FormGroup>
@@ -189,16 +213,16 @@ export class SetPassword extends Component {
             <Col xs={6} sm={6} md={6} lg={6}>
               <div className="pwdRequirements">
                 <h4>Must contain:</h4>
-                <div>{(this.state.pwdLength === true ? checkMark : <div />)} At least 8 characters</div>
-                <div>{(this.state.pwdNumber === true ? checkMark : <div />)} A number</div>
-                <div>{(this.state.pwdSpChar === true ? checkMark : <div />)} A special character</div>
-                <div>{(this.state.caseChar === true ? checkMark : <div />)} Both upper & lowercase letters</div>
+                <div style={this.state.pwdLength === true ? dimmedStyle:fullStyle}>{(this.state.pwdLength === true ? checkMark : arrow)} At least 8 characters</div>
+                <div style={this.state.pwdNumber === true ? dimmedStyle:fullStyle}>{(this.state.pwdNumber === true ? checkMark : arrow)} A number</div>
+                <div style={this.state.pwdSpChar === true ? dimmedStyle:fullStyle}>{(this.state.pwdSpChar === true ? checkMark : arrow)} A special character</div>
+                <div style={this.state.caseChar === true ? dimmedStyle:fullStyle}>{(this.state.caseChar === true ? checkMark : arrow)} Both upper & lowercase letters</div>
               </div>
             </Col>
           </Row>
           <Row className="passwordSetSubmit">
-            <Button disabled={this.state.disabledFlag} bsStyle="primary" type="submit">Set Password</Button>
-            {(this.state.submitError === true) && helpBlock(`There is an error in submission! ${this.state.submitErrorMessage}`, 'helpBlockRed')}
+            <Button bsStyle="primary" type="submit">Set Password</Button>
+            {(this.state.submitError === true) && helpBlock(`There is an error in submission! <br/> ${this.state.submitErrorMessage}`, 'helpBlockRed')}
             <br/>
             <br/>
             <ToggleDisplay
