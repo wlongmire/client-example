@@ -48,6 +48,8 @@ export class SetPassword extends Component {
               email,
               pwd,
               () => {
+                apigClient.profileIdPut({ id }, [
+                  { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }]);
                 apigClient.apiResetcodeCodeDelete({code: this.props.request}, { code: this.props.request }).then((response, err) => {
                   return this.props.goToNextStep()
                 })
@@ -90,7 +92,10 @@ export class SetPassword extends Component {
             this.props.cognitoUser.username,
             pwd,
             () => {
-              // this is an on success login function
+              apigClient.profileIdPut({ id }, [
+                                              { fieldName: 'lastOnline', fieldValue: new Date().toISOString() },
+                                              { fieldName: 'firstLogin', fieldValue: new Date().toISOString() }
+                                              ]);
               apigClient.apiInviteDelete({}, { username: this.props.cognitoUser.username }).then((response, err) => {
                 return this.props.goToNextStep()
               })
