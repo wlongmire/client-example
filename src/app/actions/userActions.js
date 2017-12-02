@@ -79,7 +79,8 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
                   apigClient.profileIdPut({ id: subId },
                     [
                       { fieldName: 'status', fieldValue: 'active' },
-                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() }
+                      { fieldName: 'lastOnline', fieldValue: new Date().toISOString() },
+                      { fieldName: 'firstLogin', fieldValue: new Date().toISOString() }
                     ])
                 } else if (userTableEntry.data.status === 'active') {
                   apigClient.profileIdPut({ id: subId },

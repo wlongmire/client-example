@@ -46,9 +46,10 @@ export function createNewUser(email, isAdmin, user, successMessage = `Success! A
       const body = {
         email,
         role: isAdmin == 'true' ? 'admin' : 'user',
-        broker_id: user.brokerId
+        broker_id: user.brokerId,
+        invite_user_id: user.id
       }
-
+      console.log("here is the user post body => ",body);
       apigClient.adminUsersPost({}, body, {}).then((resp) => {
         if (resp.data && resp.data.success === false) {
           dispatch(
@@ -61,7 +62,7 @@ export function createNewUser(email, isAdmin, user, successMessage = `Success! A
           dispatch(getUsersByBrokerage(user))
         }
       })
-      
+
     })
   })
 }
@@ -89,7 +90,7 @@ export function deleteUser(id, user) {
             setAlert({ show: true, message: 'Success: User was successfully removed.', bsStyle: 'success' })
           )
         }
-        
+
         dispatch(getUsersByBrokerage(user))
       })
     })
@@ -107,7 +108,7 @@ export function resendPasswordUser(sendUser, user) {
         alert('You do not have required permissions to perform this action')
         return
       }
-      
+
       apigClient.adminUsersIdDelete({ id: sendUser.id }, { id: sendUser.id }, {}).then((resp1) => {
         if (resp1.success === false) {
           dispatch(
