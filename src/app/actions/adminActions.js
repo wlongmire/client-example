@@ -49,7 +49,7 @@ export function createNewUser(email, isAdmin, user, successMessage = `Success! A
         broker_id: user.brokerId,
         invite_user_id: user.id
       }
-
+      console.log("here is the user post body => ",body);
       apigClient.adminUsersPost({}, body, {}).then((resp) => {
         if (resp.data && resp.data.success === false) {
           dispatch(
