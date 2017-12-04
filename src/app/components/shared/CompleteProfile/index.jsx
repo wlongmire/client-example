@@ -14,10 +14,7 @@ export class CompleteProfile extends Component {
       lastName: props.user.lastName || '',
       jobTitle: props.user.title || '',
       phoneExt: props.user.phoneExt || '',
-      phone: props.user.phone || '',
-      firstNameErr: null,
-      lastNameErr: null,
-      phoneErr: null
+      phone: props.user.phone || ''
     }
   }
 
@@ -64,25 +61,16 @@ export class CompleteProfile extends Component {
 
   render() {
     const validateFirstName = (e) => {
-      if (!this.state.firstName.length > 0){
-        this.setState({ ...this.state, firstNameErr:true, errorStatus: false, firstName: e.target.value })
-      } else {
-      return this.setState({ ...this.state, firstNameErr:null, errorStatus: false, firstName: e.target.value }) }
+      return this.setState({ ...this.state, errorStatus: false, firstName: e.target.value })
     }
     const validateLastName = (e) => {
-      if (!this.state.lastName.length > 0){
-        this.setState({ ...this.state, lastNameErr:true, errorStatus: false, firstName: e.target.value })
-      } else {
-      return this.setState({ ...this.state, lastNameErr:null, errorStatus: false, firstName: e.target.value }) }
+      return this.setState({ ...this.state, errorStatus: false, lastName: e.target.value })
     }
     const validateJobTitle = (e) => {
       return this.setState({ ...this.state, errorStatus: false, jobTitle: e.target.value })
     }
     const validatePhone = (e) => {
-      if (!this.state.phone.length > 0){
-        this.setState({ ...this.state, phoneErr:true, errorStatus: false, firstName: e.target.value })
-      } else {
-      return this.setState({ ...this.state, phoneErr:null, errorStatus: false, firstName: e.target.value }) }
+      return this.setState({ ...this.state, errorStatus: false, phone: e.target.value })
     }
     const validatePhoneExt = (e) => {
       return this.setState({ ...this.state, errorStatus: false, phoneExt: e.target.value })
@@ -104,10 +92,10 @@ export class CompleteProfile extends Component {
               type="text"
               label="Text"
               value={this.state.firstName}
-              onBlur={validateFirstName}
+              onChange={validateFirstName}
               ref="firstName"
             />
-            {(this.state.firstNameErr === true) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
+            {(firstName.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
           </FormGroup>
           <FormGroup controlId="lastName">
             <ControlLabel>Last Name</ControlLabel>
@@ -116,9 +104,9 @@ export class CompleteProfile extends Component {
               type="text"
               label="Text"
               value={this.state.lastName}
-              onBlur={validateLastName}
+              onChange={validateLastName}
             />
-            {(this.state.lastNameErr === true) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
+            {(lastName.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
           </FormGroup>
           <FormGroup controlId="jobTitle">
             <ControlLabel>Job Title</ControlLabel>
@@ -141,9 +129,9 @@ export class CompleteProfile extends Component {
                   type="text"
                   label="Text"
                   value={this.state.phone}
-                  onBlur={validatePhone}
+                  onChange={validatePhone}
                 />
-                {(this.state.phoneErr === true) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
+                {(phone.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
               </FormGroup>
             </Col>
             <Col xs={4} sm={4} md={4} lg={4}>
