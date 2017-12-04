@@ -6,6 +6,7 @@ import querystring from 'querystring'
 import { connect } from 'react-redux'
 import config from 'config'
 import Header from 'components/Header'
+import UnsupportedBrowser from 'components/UnsupportedBrowser'
 import { Alert, Fade } from 'react-bootstrap'
 
 const content = require('content')
@@ -31,6 +32,8 @@ class App extends Component {
           titleTemplate={titleTemplate}
           meta={baseMeta}
         />
+
+        <UnsupportedBrowser />
 
         <Header />
 
