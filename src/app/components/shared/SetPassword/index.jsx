@@ -28,12 +28,13 @@ export class SetPassword extends Component {
     this.setState({...this.state, submitted:true})
     const { pwd, confirmPwd, pwdLength, caseChar, pwdSpChar, pwdNumber } = this.state
     let errorMsg = ''
-    if (!pwdLength || !pwdNumber || !pwdSpChar || !caseChar) errorMsg += `Sorry, your passwords are missing the following requirement(s):<br/>`
-    if (pwd !== confirmPwd) errorMsg += 'Passwords Must Match! <br/>'
-    if (!pwdLength) errorMsg += 'Use at least 8 characters <br/>'
-    if (!pwdNumber) errorMsg += `Use at least one number <br/>`
-    if (!pwdSpChar) errorMsg += `Use at least one special character (!@#$%^&*).<br/>`
-    if (!caseChar) errorMsg += `Use at least one uppercase and one lowercase character <br/>`
+    if (!pwdLength || !pwdNumber || !pwdSpChar || !caseChar || pwd !== confirmPwd) errorMsg += `Sorry, you need to include the following:<br/><br/>`
+
+    if (!pwdLength) errorMsg += 'At least 8 characters <br/><br/>'
+    if (!pwdNumber) errorMsg += `A number <br/><br/>`
+    if (!pwdSpChar) errorMsg += `A special character (!@#$%^&*).<br/><br/>`
+    if (!caseChar) errorMsg += `Both upper and lowercase characters <br/><br/>`
+    if (pwd !== confirmPwd) errorMsg += 'Your passwords must match <br/>'
 
     if (errorMsg.length > 0) {
       this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMsg })
@@ -136,10 +137,11 @@ export class SetPassword extends Component {
       opacity: 1
     }
     const dimmedStyle = {
-      opacity: 0.4
+      opacity: 0.6
     }
 
     const validatePassword = (e) => {
+
       const pwd = e.target.value
       const valid = {}
       valid.pwdLength = (pwd.length >= 8) || false
@@ -149,6 +151,22 @@ export class SetPassword extends Component {
       valid.pwdSpChar = pwd.match(/[\W]/) !== null // double equal sign is important (!==)
       valid.caseChar = (pwd.match(/[a-z]/) && pwd.match(/[A-Z]/)) !== null
 
+      if (valid.pwdLength === true && valid.pwdNumber === true && valid.pwdSpChar === true && valid.caseChar) {
+        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: false })
+      } else {
+        this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: true })
+      }
+    }
+
+    const validatePasswordHelpText = (e) => {
+      const pwd = e.target.value
+      const valid = {}
+      valid.pwdLength = (pwd.length >= 8) || false
+
+      const numberMatches = pwd.match(/\d+/g)
+      valid.pwdNumber = numberMatches != null // single equal sign is important (!=)
+      valid.pwdSpChar = pwd.match(/[\W]/) !== null // double equal sign is important (!==)
+      valid.caseChar = (pwd.match(/[a-z]/) && pwd.match(/[A-Z]/)) !== null
       if (valid.pwdLength === true && valid.pwdNumber === true && valid.pwdSpChar === true && valid.caseChar) {
         this.setState({ ...this.state, pwd, ...valid, submitError: false, disabledFlag: false, confirmPwdReqs: true })
       } else {
@@ -164,6 +182,9 @@ export class SetPassword extends Component {
 
     const validateConfirmPassword = (e) => {
       const confirmPwd = e.target.value
+      if (this.state.badPassConfFocus === true) {
+        return
+      }
 
       if (confirmPwd && (confirmPwd !== this.state.pwd)) {
         this.setState({ ...this.state, confirmPwd, submitError: false, passwordMatch: false })
@@ -193,10 +214,11 @@ export class SetPassword extends Component {
                   id="password"
                   type="password"
                   label="Text"
+                  onBlur={validatePasswordHelpText}
                   onChange={validatePassword}
                 />
                 {(this.state.confirmPwdReqs === true) && helpBlock('Password Requirements met!', 'helpBlockGreen')}
-                {(this.state.confirmPwdReqs === false) && helpBlock(`Password doesn't meet requirements.`, '')}
+                {(this.state.confirmPwdReqs === false) && helpBlock(`Password doesn't meet requirements.`, 'helpBlockRed')}
               </FormGroup>
               <FormGroup controlId="confirmPassword">
                 <ControlLabel>Confirm Password</ControlLabel>
@@ -204,11 +226,11 @@ export class SetPassword extends Component {
                   id="confirmPassword"
                   type="password"
                   label="Text"
-                  onChange={validateConfirmPassword}
+                  onBlur={validateConfirmPassword}
                   onFocus={validatePasswordReqs}
                 />
                 {(this.state.badPassConfFocus === true)&& helpBlock(`Wait! The above password doesn't meet requirements.`, 'helpBlockRed')}
-                {(this.state.passwordMatch === false) && helpBlock('Passwords must match!', 'helpBlockRed')}
+                {(this.state.passwordMatch === false) && helpBlock('Your Passwords must match!', 'helpBlockRed')}
                 {(this.state.passwordMatch === true) && helpBlock('Passwords match!', 'helpBlockGreen')}
               </FormGroup>
             </Col>
@@ -224,7 +246,7 @@ export class SetPassword extends Component {
           </Row>
           <Row className="passwordSetSubmit">
             <Button bsStyle="primary" type="submit">Set Password</Button>
-            {(this.state.submitError === true) && helpBlock(`${this.state.submitErrorMessage}`, 'helpBlockRed')}
+            {(this.state.submitError === true) && helpBlock(`<br/> ${this.state.submitErrorMessage}`, 'helpBlockRed')}
             <br/>
             <br/>
             <ToggleDisplay

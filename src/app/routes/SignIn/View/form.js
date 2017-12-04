@@ -8,7 +8,7 @@ const formData = {
     name: 'username',
     inputType: 'text',
     inputFormat: 'text',
-    placeholder: 'Username',
+    placeholder: 'Email Address',
     required: 'true',
     attributes: {
       validationFunc: 'usernameValFunc'
