@@ -78,7 +78,7 @@ class SignInForm extends Component {
     const { newPassword, rePassword } = values
 
     if (newPassword === '') {
-      this.setState({ passwordResetError: true, passwordResetErrorMessage: 'Please Enter a Valid Username.' })
+      this.setState({ passwordResetError: true, passwordResetErrorMessage: 'Please Enter a Valid Email Address.' })
     } else if (rePassword === '') {
       this.setState({ passwordResetError: true, passwordResetErrorMessage: 'Please reenter your Password.' })
     } else if (newPassword !== rePassword) {
@@ -108,7 +108,7 @@ class SignInForm extends Component {
 
   handleSubmit(values) {
     if (values.username === '') {
-      this.setState({ error: true, errorMessage: 'Please Enter a Valid Username.' })
+      this.setState({ error: true, errorMessage: 'Please Enter a Valid Email Address.' })
     } else if (values.password === '') {
       this.setState({ error: true, errorMessage: 'Please Enter a Valid Password.' })
     } else {
@@ -134,9 +134,9 @@ class SignInForm extends Component {
           const errorMap = {
             NotAuthorizedException: `${(err.message === 'User is disabled') ? `User is disabled.
             If you believe this is an error, please contact the administrator.` : `${err.message}`}`,
-            UserNotFoundException: 'This Username is not within our records.',
+            UserNotFoundException: 'This Email Address is not within our records.',
             MigrationReset: 'Please contact us to reset your password.',
-            InternalError: 'This Username is not within our records.'
+            InternalError: 'This Email Address is not within our records.'
           }
           const error = String(err)
           const errorType = (error.indexOf(':') !== -1) ? error.slice(0, error.indexOf(':')) : error

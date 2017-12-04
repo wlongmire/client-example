@@ -90,11 +90,11 @@ export class ConfirmSignup extends Component {
         case 'loading':
           return (<div />)
         case 0:
-          return (<SignupHeaderC header1={'ACCOUNT STEP 1 OF 3'} header2={'Choose a new password'} />)
+          return (<SignupHeaderC header1={'ACCOUNT SETUP 1 OF 3'} header2={'Choose a new password'} />)
         case 1:
-          return (<SignupHeaderC header1={'ACCOUNT STEP 2 OF 3'} header2={'Complete your profile'} />)
+          return (<SignupHeaderC header1={'ACCOUNT SETUP 2 OF 3'} header2={'Complete your profile'} />)
         case 2:
-          return (<SignupHeaderC header1={'ACCOUNT STEP 3 OF 3'} header2={'You are all set!'} />)
+          return (<SignupHeaderC header1={'ACCOUNT SETUP 3 OF 3'} header2={`You're all set!`} />)
         case 'error':
           return (<SignupHeaderC header1={''} header2={`Something is wrong. ${this.state.errorMessage} Please contact support!`} />)
         default:

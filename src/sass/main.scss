@@ -40,7 +40,9 @@
 .links a{
   cursor: pointer;
 }
-
+body,html{
+  font-family: 'Lato'
+}
 .routeContainer {
   margin: 0 auto;
   width: 90%;

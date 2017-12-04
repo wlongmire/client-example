@@ -29,7 +29,7 @@ class CompleteProfilePage extends Component {
         case 0:
           return (<SignupHeaderC header1={''} header2={'Update Your Profile'} />)
         case 1:
-          return (<SignupHeaderC header1={''} header2={'You are all set!'} />)
+          return (<SignupHeaderC header1={''} header2={`You're all set!`} />)
         default:
           return (<SignupHeaderC header1={''} header2={'Something is wrong. Please contact support!'} />)
       }
