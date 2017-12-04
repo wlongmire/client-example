@@ -57,7 +57,7 @@ export class ForgotPassword extends Component {
         case 0:
           return (<SignupHeaderC header1={''} header2={'Choose a new password'} />)
         case 1:
-          return (<SignupHeaderC header1={''} header2={'You are all set!'} />)
+          return (<SignupHeaderC header1={''} header2={`You're all set!`} />)
         case 'error':
           return (<SignupHeaderC header1={''} header2={`Something is wrong. ${this.state.errorMessage} Please contact support!`} />)
         default:
