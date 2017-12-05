@@ -26,7 +26,9 @@ export class Header extends Component {
       <div className="">
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="/submissions">Owner's Edge</a>
+            <LinkContainer to="/submissions">
+              <a>Owner's Edge</a>
+            </LinkContainer>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
