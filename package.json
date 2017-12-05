@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "For developing new ventures at Argo.",
   "dependencies": {
-    "babel-preset-env":"^1.6.1",
+    "babel-preset-env": "^1.6.1",
     "amazon-cognito-identity-js": "^1.18.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.2.4",
@@ -106,7 +106,8 @@
     "uuid": "^2.0.2",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1",
-    "webpack-stream": "^3.1.0"
+    "webpack-stream": "^3.1.0",
+    "snyk": "^1.53.0"
   },
   "engines": {
     "node": "5.4.1",
@@ -121,7 +122,9 @@
     "start": "NODE_ENV='production' node dist/server/index.js",
     "e2e": "node_modules/.bin/nightwatch --config ./e2e/nightwatch.conf.js",
     "test": "gulp transform:dev; NODE_PATH='./src' NODE_ENV='development' jest",
-    "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand"
+    "coverage-test": "NODE_PATH='./src' NODE_ENV='development' jest --config jest.config.json --runInBand",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -188,5 +191,6 @@
       ],
       "import/no-extraneous-dependencies": "off"
     }
-  }
+  },
+  "snyk": true
 }
