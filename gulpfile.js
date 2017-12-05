@@ -16,8 +16,8 @@ const config = require('./src/config')
 const es = require('event-stream')
 
 const env = {
-  'us-east-1_3SgBuYU4O': 'dev',
-  'us-east-1_2VIwRSQBm': 'qa',
+  'us-east-1_DW29C7XbE': 'dev',
+  'us-east-1_VOtz6TOY3': 'qa',
   'us-east-1_SpwOWoqHA': 'prod'
 }
 
