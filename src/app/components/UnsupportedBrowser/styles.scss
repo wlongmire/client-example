@@ -5,15 +5,13 @@
   h1,
   p {
     margin : 0;
-    font-size : 12px;
+    font-size : 15px;
+    line-height : 1.6em;
+    padding : 0.6em 0;
   }
 
   a:hover {
     text-decoration : none;
-  }
-
-  h1 {
-    padding : 10px 0;
   }
 
   a {
@@ -35,6 +33,7 @@
 
   p:last-child {
     padding-bottom : 10px;
+    font-size : 12px;
 
     a {
       text-transform : uppercase;
