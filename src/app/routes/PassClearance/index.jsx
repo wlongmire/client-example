@@ -62,8 +62,9 @@ export class PassClearance extends Component {
     const clearanceMatches = this.state.submission === null ? {} : {
       data: this.state.submission.clearanceMatches,
       columns: [
-        { dataField: 'name', title: 'Name', isKey: true },
-        { dataField: 'projectAddress', title: 'Address' }
+        { dataField: 'primaryInsured', title: 'Name', isKey: true },
+        { dataField: 'projectAddress', title: 'Project Address' },
+        { dataField: 'mailingAddress', title: 'Mailing Address' }
       ]
     }
 

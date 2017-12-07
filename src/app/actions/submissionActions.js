@@ -164,12 +164,10 @@ export function getClearance(params, user) {
   return checkTokenExpiration(user).then(() => {
     return apigClient.apiGetClearanceGet(apiparams, {}, {})
       .then((resp) => {
-
         if (!resp.data.success) {
-          throw({ message: 'Internal Error', errorCode: 'InternalError' })
+          throw ({ message: 'Internal Error', errorCode: 'InternalError' })
         }
-
-        return ( resp.data )
+        return (resp.data)
       })
       .catch((error) => {
         if (error.status === 0 || error.status === 403) {
@@ -240,6 +238,7 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
 
 export function sendClearanceEmail(emailAddress, emailType, user, userInput, matches) {
   checkTokenExpiration(user).then(() => {
+
     // eslint-disable-next-line no-undef
     return apigClient.apiSendEmailIdPost(
       { id: '12312' },
