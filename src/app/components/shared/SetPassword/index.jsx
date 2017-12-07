@@ -43,12 +43,17 @@ export class SetPassword extends Component {
       // cognitoUser.confirmPassword ... onSuccess
       // Use case #12 in https://github.com/aws/amazon-cognito-identity-js
       if (this.props.path.toLowerCase() === '/resetpassword') {
+        const t0 = performance.now()
         userConfirmPassword(this.props.confirmationCode, this.props.request, pwd,
           (email) => {
+            const t1 = performance.now()
+            console.log(`the setNewPassowrdFunction took ${t1 - t0} milliseconds`)
             this.props.dispatch(login(
               email,
               pwd,
               () => {
+                const t2 = performance.now();
+                console.log(`the login took ${t2 - t1} milliseconds`)
                 apigClient.apiResetcodeCodeDelete({code: this.props.request}, { code: this.props.request }).then((response, err) => {
                   return this.props.goToNextStep()
                 })
@@ -77,6 +82,7 @@ export class SetPassword extends Component {
             return this.setState({ ...this.state, submitError: true, submitErrorMessage: `${errorType}.`, disabledFlag:false,submitted:false })
           })
       } else {
+      const t0 = performance.now();
       setNewPassword(
         this.props.cognitoUser,
         pwd,
@@ -86,12 +92,15 @@ export class SetPassword extends Component {
         },
         () => {
           // on SUCCESS
-
+          const t1 = performance.now();
+          console.log(`the setNewPassowrdFunction took ${t1 - t0} milliseconds`)
           this.props.dispatch(login(
             this.props.cognitoUser.username,
             pwd,
             () => {
               // this is an on success login function
+              const t2 = performance.now();
+              console.log(`the login took ${t2 - t1} milliseconds`)
               apigClient.apiInviteDelete({}, { username: this.props.cognitoUser.username }).then((response, err) => {
                 return this.props.goToNextStep()
               })
@@ -245,7 +254,7 @@ export class SetPassword extends Component {
             </Col>
           </Row>
           <Row className="passwordSetSubmit">
-            <Button bsStyle="primary" type="submit">Set Password</Button>
+            <Button disabled={this.state.submitted} bsStyle="primary" type="submit">Set Password</Button>
             {(this.state.submitError === true) && helpBlock(`<br/> ${this.state.submitErrorMessage}`, 'helpBlockRed')}
             <br/>
             <br/>

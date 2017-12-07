@@ -4,7 +4,7 @@
   "description": "For developing new ventures at Argo.",
   "dependencies": {
     "babel-preset-env": "^1.6.1",
-    "amazon-cognito-identity-js": "^1.18.0",
+    "amazon-cognito-identity-js": "^1.28.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-runtime": "^6.9.0",
@@ -115,7 +115,6 @@
   },
   "scripts": {
     "gulp": "gulp",
-    "postinstall": "node ./e2e/nightwatch.conf.js; gulp build;",
     "serve:development": "NODE_ENV='development' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "serve:debug": "NODE_ENV='debug' nodemon --watch src/server --watch src/config --debug src/server/index.js --exec babel-node",
     "build": "babel src/config -d dist/public/config --copy-files; cp -R src/apigClient/ dist/public/apigClient;",
