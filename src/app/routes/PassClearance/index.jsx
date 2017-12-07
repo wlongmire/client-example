@@ -63,7 +63,8 @@ export class PassClearance extends Component {
       data: this.state.submission.clearanceMatches,
       columns: [
         { dataField: 'name', title: 'Name', isKey: true },
-        { dataField: 'projectAddress', title: 'Address' }
+        { dataField: 'projectAddress', title: 'Project Address' },
+        { dataField: 'mailingAddress', title: 'Mailing Address' }
       ]
     }
 
