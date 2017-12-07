@@ -13,3 +13,20 @@ patch:
         patched: '2017-12-04T02:46:46.241Z'
     - gulp-eslint > bufferstreams > debug > ms:
         patched: '2017-12-04T02:46:46.241Z'
+  'npm:minimatch:20160620':
+    - gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
+    - gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
+    - gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
+    - gulp-nodemon > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-12-07T21:04:23.700Z'
