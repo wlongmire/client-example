@@ -235,7 +235,7 @@ export class SetPassword extends Component {
                   id="confirmPassword"
                   type="password"
                   label="Text"
-                  onBlur={validateConfirmPassword}
+                  onChange={validateConfirmPassword}
                   onFocus={validatePasswordReqs}
                 />
                 {(this.state.badPassConfFocus === true)&& helpBlock(`Wait! The above password doesn't meet requirements.`, 'helpBlockRed')}
