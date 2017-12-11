@@ -49,8 +49,8 @@ export function ProductChoiceItem(props) {
               }
             )
 
+            //Underwriter Access: changes route for underwriter
             const route = (broker === config.underwriterBrokerId) ? '/clearanceunderwriter' : '/clearance'
-
             props.dispatch(push(route))
           }}
           >Start Submission</Button>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from './../../actions/submissionActions'
 import SubmissionView from './SubmissionsView'
 import ProductChoice from './ProductChoice'
-import {Row, Col} from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 
 export class Submissions extends Component {
   componentDidMount() {
