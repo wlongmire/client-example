@@ -33,7 +33,7 @@ const userPoolId = process.env.userPoolId || 'us-east-1_DW29C7XbE'
 const clientId = process.env.clientId || '274tc1iamgvrik4rnogpe0cb89'
 const clearanceFailEmail = process.env.clearanceFailEmail || 'argoaccessquickquote@gmail.com'
 const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false
-const stage = env[userPoolId]
+const stage = env[userPoolId] || 'dev'
 
 gulp.task('transform', ['apiTransform'], () => {
   gulp.src('configTemplate/*')
