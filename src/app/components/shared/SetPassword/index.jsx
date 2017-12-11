@@ -34,7 +34,9 @@ export class SetPassword extends Component {
     if (!pwdNumber) errorMsg += `A number <br/><br/>`
     if (!pwdSpChar) errorMsg += `A special character (!@#$%^&*).<br/><br/>`
     if (!caseChar) errorMsg += `Both upper and lowercase characters <br/><br/>`
-    if (pwd !== confirmPwd) errorMsg += 'Your passwords must match <br/>'
+    if (pwd !== confirmPwd) errorMsg += 'Your passwords must match <br/><br/>'
+
+    if (pwd.indexOf('+') > -1 || pwd.indexOf('=') > -1 || pwd.indexOf(' ') > -1) errorMsg += `Sorry, your password includes a special character we can't process. Please start over and avoid the following: +, =, or spaces`
 
     if (errorMsg.length > 0) {
       this.setState({ ...this.state, submitError: true, submitErrorMessage: errorMsg })
