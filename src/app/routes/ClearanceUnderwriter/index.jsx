@@ -22,7 +22,7 @@ import {
   STATUS
 } from 'app/constants'
 
-class Clearance extends Component {
+class ClearanceUnderwrtier extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -188,7 +188,7 @@ class Clearance extends Component {
   }
 }
 
-Clearance.propTypes = {
+ClearanceUnderwrtier.propTypes = {
   dispatch: PropTypes.func.isRequired,
   submission: PropTypes.object.isRequired,
   user: PropTypes.object
@@ -199,4 +199,4 @@ export default connect((store) => {
     submission: store.app.submission,
     user: store.user
   })
-})(Clearance)
+})(ClearanceUnderwrtier)

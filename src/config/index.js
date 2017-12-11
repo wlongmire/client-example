@@ -4,6 +4,7 @@ const config = {
     env: ',',
     name: 'ownersEdge',
     argoEmail: 'ownersedgesubmissionsdev@gmail.com',
+    underwriterBrokerId: '220bcd0c-bf6e-4189-98b6-fada97d30633',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
     ownerEdgeEmail: 'argoaccessquickquote@gmail.com',

@@ -6,10 +6,10 @@ import FormBuilder from './../../../components/shared/FormBuilder'
 import form from './form.js'
 
 const STATUS = {
-  INPUT: "INPUT",
-  LOADING: "LOADING",
-  ERROR: "ERROR",
-  RESULT: "RESULT"
+  INPUT: 'INPUT',
+  LOADING: 'LOADING',
+  ERROR: 'ERROR',
+  RESULT: 'RESULT'
 }
 
 export default class Input extends Component {
@@ -57,7 +57,7 @@ export default class Input extends Component {
 
       return (
         <div>
-            <h3>First Let's Check for Clearance.</h3>
+            <h3>First Let's Check for Clearance Underwriter.</h3>
             <h4>Enter the following information to clear against previous submissions.</h4>
 
             <FormBuilder

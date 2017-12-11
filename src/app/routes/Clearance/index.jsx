@@ -55,7 +55,7 @@ class Clearance extends Component {
 
       if (config.clearanceFailEmail) {
         sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
-        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches) 
+        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
       }
 
       mx.customEvent(

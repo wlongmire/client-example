@@ -8,6 +8,7 @@ import { push } from 'react-router-redux'
 import { Row, Col, Button } from 'react-bootstrap'
 
 import {isNullOrEmpty} from '../../../../utils/utilities'
+import config from 'config'
 
 import {
   CHANGE_SUBMISSION,
@@ -48,8 +49,9 @@ export function ProductChoiceItem(props) {
               }
             )
 
-            props.dispatch(push('/clearance'))
-            /* props.dispatch(push("/form")) */
+            const route = (broker === config.underwriterBrokerId) ? '/clearanceunderwriter' : '/clearance'
+
+            props.dispatch(push(route))
           }}
           >Start Submission</Button>
           </div>
