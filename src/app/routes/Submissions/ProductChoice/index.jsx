@@ -41,12 +41,13 @@ export class ProductChoice extends Component {
     }
     return (
       <div className="productChoice routeContainer">
-      <Col lg={8} md={10} sm={12} xs={12}>
-        <h3>Get a quote</h3>
-        <Row><div className="selectionCards">
-          { generateItems() }
-        </div>
-        </Row>
+        <Col lg={8} md={10} sm={12} xs={12}>
+          <h3>Get a quote</h3>
+          <Row>
+            <div className="selectionCards">
+              { generateItems() }
+            </div>
+          </Row>
         </Col>
       </div>
     )

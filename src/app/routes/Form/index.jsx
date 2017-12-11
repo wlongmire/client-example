@@ -47,7 +47,7 @@ class Form extends Component {
 
   componentWillMount() {
     if (!this.props.submission.type) {
-      this.props.dispatch(push('/productChoice'))
+      this.props.dispatch(push('/'))
     }
   }
 

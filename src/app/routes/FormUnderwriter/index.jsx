@@ -46,7 +46,7 @@ class FormUnderwriter extends Component {
 
   componentWillMount() {
     if (!this.props.submission.type) {
-      this.props.dispatch(push('/productChoice'))
+      this.props.dispatch(push('/'))
     }
   }
 
@@ -164,28 +164,6 @@ class FormUnderwriter extends Component {
       return <div />
     }
 
-    const passedDiv = (
-      <div>
-        <div className={'sub-header-firstRow clearance-pass'}>CLEARANCE PASSED</div>
-        <div className="sub-header-secondRow clearance-pass">Submission is available to quote</div>
-        <div className="sub-header-Complete">
-          Complete this application for a quick pricing indication
-        </div>
-      </div>
-    )
-
-    const underReviewDiv = (
-      <div>
-        <div className={'sub-header-firstRow clearance-review'}>CLEARANCE NEEDS REVIEW</div>
-        <div className={'sub-header-secondRow clearance-review'}>A similar submission has been found</div>
-        <div className="sub-header-thirdRow">How to get a quote</div>
-        <ul className="sub-header-bullets">
-          <li>Complete the below application</li>
-          <li>We&apos;ll email the prices after a manual check is conducted.</li>
-        </ul>
-      </div>
-    )
-
     // removing matches from formbuilder to allow for projectAddress
     const formBuildSubmission = Object.assign({}, submission)
     delete formBuildSubmission['clearanceMatches']
@@ -194,10 +172,6 @@ class FormUnderwriter extends Component {
       <div className="productChoice routeContainer">
         <h3>Fill out the rest of the details Underwriter.</h3>
         <div className="formSubHeader">You can submit this application online.</div>
-        <br />
-        <div className="submission-status-div">
-          {(this.props.submission.clearanceStatus == 'pass') ? passedDiv : underReviewDiv }
-        </div>
         <br />
         <div className="formHeader">{ratingProduct.name} Application</div>
 

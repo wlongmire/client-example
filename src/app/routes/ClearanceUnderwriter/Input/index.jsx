@@ -57,16 +57,15 @@ export default class Input extends Component {
 
       return (
         <div>
-            <h3>First Let's Check for Clearance Underwriter.</h3>
-            <h4>Enter the following information to clear against previous submissions.</h4>
+            <h3>First Enter Basic Submission Information.</h3>
+            <h4>Enter the primary insured name and related addresses of the submission below.</h4>
 
             <FormBuilder
-                data={form}
-                initialValues={this.props.input}
-                submitTitle="Check For Clearance"
-                handleSubmit={this.handleSubmit}
+              data={form}
+              initialValues={this.props.input}
+              submitTitle="Continue to Submission"
+              handleSubmit={this.handleSubmit}
             />
-
 
           <DialogBox
             custom_class="confirmationDialog"
