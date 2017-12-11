@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
+import config from 'config'
 
 import {
   CHANGE_SUBMISSION_STATUS,
@@ -29,6 +30,11 @@ class ClearanceUnderwrtier extends Component {
   }
 
   componentWillMount() {
+    //redirect if user is not an underwriter
+    if (this.props.user.brokerId !== config.underwriterBrokerId) {
+      this.props.dispatch(push('/'))
+    }
+
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CLEARANCE })
   }
 

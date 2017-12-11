@@ -1,7 +1,7 @@
 'use strict'
 
 const config = {
-    env: ',',
+    env: 'dev',
     name: 'ownersEdge',
     argoEmail: 'ownersedgesubmissionsdev@gmail.com',
     underwriterBrokerId: '220bcd0c-bf6e-4189-98b6-fada97d30633',

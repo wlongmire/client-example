@@ -8,6 +8,8 @@ import { Button, ButtonGroup } from 'react-bootstrap'
 import FormBuilder from 'components/shared/FormBuilder'
 import DialogBox from 'components/shared/DialogBox'
 
+import config from 'config'
+
 import {
   CHANGE_SUBMISSION_STATUS,
   SUBMISSION_STATUS,
@@ -45,6 +47,11 @@ class FormUnderwriter extends Component {
   }
 
   componentWillMount() {
+    //redirect if user is not an underwriter
+    if (this.props.user.brokerId !== config.underwriterBrokerId) {
+      this.props.dispatch(push('/'))
+    }
+
     if (!this.props.submission.type) {
       this.props.dispatch(push('/'))
     }
@@ -170,8 +177,8 @@ class FormUnderwriter extends Component {
 
     return (
       <div className="productChoice routeContainer">
-        <h3>Fill out the rest of the details Underwriter.</h3>
-        <div className="formSubHeader">You can submit this application online.</div>
+        <h3>Enter the remaining submission details.</h3>
+        <div className="formSubHeader">Once completed, a quote will be calculated based on your responses.</div>
         <br />
         <div className="formHeader">{ratingProduct.name} Application</div>
 
@@ -280,6 +287,7 @@ export default connect((store) => {
   const submission = store.app.submission
 
   return ({
+    user: store.user,
     submission,
     submissionFormParams: store.app.submissionFormParams,
     ratingProduct: ratingProducts[submission.type]
