@@ -9,8 +9,12 @@ import Input from './Input'
 import Loading from './Loading'
 import Error from './Error'
 import Result from './Result'
-import mx from '../../utils/MixpanelInterface'
-import { sendClearanceEmail } from 'app/actions/submissionActions'
+import { 
+  sendClearanceEmail,
+  submissionClearancePassed,
+  submissionClearanceFailed,
+  submissionClearancePending
+} from 'app/actions/submissionActions'
 
 import {
   CHANGE_SUBMISSION_STATUS,
@@ -27,7 +31,7 @@ class Clearance extends Component {
     super(props)
     this.state = {
       status: STATUS.INPUT,
-      input: {},
+      input: {},  
       result: {}
     }
 
@@ -56,34 +60,17 @@ class Clearance extends Component {
       if (config.clearanceFailEmail) {
         sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
         sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches) 
-      }
-
-      mx.customEvent(
-        'submission',
-        'failClearance', {
-          Type: this.props.submission.type,
-          Matches: result.matches
-        })
+      }      
+      this.props.dispatch(submissionClearanceFailed(this.props.submission.type, result.matches))
     } else {
       this.setState({ status: STATUS.CREATING, result })
       this.handleClearance(result)
 
       // mixpanel event
       if (result.clearanceStatus == 'pass') {
-        mx.customEvent(
-          'submission',
-          'passClearance',
-          {
-            Type: this.props.submission.type
-          })
+        this.props.dispatch(submissionClearancePassed(this.props.submission.type))
       } else if (result.clearanceStatus == 'pending') {
-        mx.customEvent(
-          'submission',
-          'pendingClearance',
-          {
-            Type: this.props.submission.type,
-            Matches: result.matches
-          })
+        this.props.dispatch(submissionClearancePending(this.props.submission.type, result.matches))
       }
     }
   }

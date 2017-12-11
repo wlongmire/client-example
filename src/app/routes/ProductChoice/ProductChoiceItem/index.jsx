@@ -10,7 +10,7 @@ import {
   SUBMISSION_STATUS
 } from 'app/constants/submission'
 
-import mx from 'app/utils/MixpanelInterface'
+import { submissionCreate } from 'app/actions/submissionActions'
 
 export function ProductChoiceItem(props) {
   const {
@@ -32,13 +32,7 @@ export function ProductChoiceItem(props) {
           }
         })
 
-        mx.customEvent(
-          'submission',
-          'create',
-          {
-            Type: type
-          }
-        )
+        props.dispatch(submissionCreate({ Type: type }))       
 
         props.dispatch(push('/clearance'))
         /* props.dispatch(push("/form")) */

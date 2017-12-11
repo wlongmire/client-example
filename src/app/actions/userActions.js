@@ -129,33 +129,12 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                   onSuccess(resp, subId, cognitoUser, credentials.expireTime, userTableEntry.data)
 
+                  // full story setup (todo: move to its own saga)
                   FS.identify(cognitoUser.username, {
                     displayName: cognitoUser.username,
                     email_str: cognitoUser.username,
                     broker_str: brokerName,
                     subId_str: id
-                  })
-
-                  mixpanel.register({
-                    BrokerName: brokerName,
-                    User: cognitoUser.username,
-                    Email: cognitoUser.username,
-                    Broker: brokerId,
-                    SubId: id,
-                    Environment: config.env
-                  })
-
-                  mx.customEvent(
-                    'auth',
-                    'login')
-
-                  // adding identity and attributes to
-                  // mixpanel user profile
-                  mixpanel.identify(cognitoUser.username)
-                  mixpanel.people.set({ // eslint-disable-line
-                    Broker: brokerId,
-                    BrokerName: brokerName,
-                    first_name: cognitoUser.username
                   })
 
                 }, (err2) => {

@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import * as actions from './../../../actions/submissionActions'
-import mx from './../../../utils/MixpanelInterface'
+import { editSubmission, submissionEdit } from './../../../actions/submissionActions'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { Button, Col, Row } from 'react-bootstrap'
 
@@ -11,18 +10,13 @@ import { Button, Col, Row } from 'react-bootstrap'
 export class SubmissionView extends Component {
 
   goToPage(submission) {
-    mx.customEvent(
-      'submission',
-      'edit',
-      {
-        'Named Insured': submission.primaryNamedInsured,
-        Quoted: submission.instantQuote,
-        ClearanceStatus: submission.clearanceStatus,
-        Type: submission.type
-      }
-    )
-
     this.props.editSubmission(submission, this.props.user)
+    this.props.submissionEdit({
+      'Named Insured': submission.primaryNamedInsured,
+      Quoted: submission.instantQuote,
+      ClearanceStatus: submission.clearanceStatus,
+      Type: submission.type
+    })
   }
 
   render() {
@@ -125,11 +119,12 @@ export class SubmissionView extends Component {
 SubmissionView.propTypes = {
   editSubmission: PropTypes.func.isRequired,
   submissions: PropTypes.array.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  submissionEdit: PropTypes.func.isRequired
 }
 
 export default connect((store) => {
   return ({
     user: store.user
   })
-}, actions)(SubmissionView)
+}, { editSubmission, submissionEdit })(SubmissionView)

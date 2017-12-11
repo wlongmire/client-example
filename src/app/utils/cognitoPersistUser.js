@@ -105,17 +105,6 @@ export function cognitoPersistUser(callback) {
                     }
                   })
 
-                  // registering super properties for mixpanel events
-                  mixpanel.register({
-                    BrokerName: brokerName,
-                    User: cognitoUser.username,
-                    Email: cognitoUser.email,
-                    Role: role,
-                    Broker: brokerId,
-                    SubId: id,
-                    Environment: config.env
-                  })
-
                   callback({
                     bundles: brokerInfo.data.bundles,
                     id,

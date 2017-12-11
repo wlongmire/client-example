@@ -1,5 +1,7 @@
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from '../sagas'
 
 import {
   applyMiddleware,
@@ -25,18 +27,24 @@ const appReducers = combineReducers({
   alerts: alertReducer
 })
 
+const sagaMiddleware = createSagaMiddleware()
 let configureStore
+
 if (process.env.NODE_ENV === 'production') {
+  
     /* PRODUCTION */
   configureStore = (history, initialState) => {
-    return createStore(
+    const store = createStore(
       appReducers,
       initialState,
       applyMiddleware(
         routerMiddleware(history),
-        thunkMiddleware
+        thunkMiddleware,
+        sagaMiddleware
       )
     )
+    sagaMiddleware.run(rootSaga, initialState)
+    return store
   }
 } else {
   const loggerMiddleware = createLogger()
@@ -45,18 +53,21 @@ if (process.env.NODE_ENV === 'production') {
   configureStore = (history, initialState) => {
     const enhancer = compose(
       applyMiddleware(
-        // loggerMiddleware,
+        loggerMiddleware,
         routerMiddleware(history),
-        thunkMiddleware
+        thunkMiddleware,
+        sagaMiddleware
       ),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
 
-    return createStore(
+    const store = createStore(
       appReducers,
       initialState,
       enhancer
     )
+    sagaMiddleware.run(rootSaga, initialState)
+    return store
   }
 }
 
