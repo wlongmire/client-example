@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1`] = `
+<form>
+  <h3>
+    Checking Prior Submissions
+  </h3>
+  <h4>
+    Please Wait while we scan for matches.
+  </h4>
+  <div
+    className="loadingImg"
+  >
+    <img
+      src="undefined/images/ajax-loader.gif"
+    />
+  </div>
+</form>
+`;

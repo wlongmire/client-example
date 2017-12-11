@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Clearance Result Component--- Snapshot +++capturing Snapshot with 1`] = `
+<form>
+  <h3>
+    This Submission Has Passed Clearance!
+  </h3>
+  <div>
+    <h4>
+      You are the first to submit this insured for review. Now we can enter additional pricing information.
+    </h4>
+    <div
+      className="matchContainer"
+    >
+      <div
+        className="match"
+      >
+        <h4>
+          First Named Insured:
+        </h4>
+        <h5>
+          Test 999
+        </h5>
+        <h4>
+          Project Address:
+        </h4>
+        <h5>
+          Test 999
+          <br />
+          Test 999
+           
+          California
+           
+          Test 999
+        </h5>
+      </div>
+    </div>
+  </div>
+  <ButtonGroup
+    block={false}
+    bsClass="btn-group"
+    justified={false}
+    vertical={false}
+  >
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="btn clearanceButton"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Fill out Remaining Information
+    </Button>
+    <LinkContainer
+      action="push"
+      onlyActiveOnIndex={false}
+      to="/productChoice"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="default"
+        className="btn secondary"
+        disabled={false}
+      >
+         Return to Product Selection
+      </Button>
+    </LinkContainer>
+  </ButtonGroup>
+</form>
+`;

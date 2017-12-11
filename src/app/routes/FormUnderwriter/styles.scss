@@ -1,0 +1,237 @@
+.backButton {
+    background-color: #32A4D8;
+    color: #fff;
+    padding: 1em;
+    margin-left: 1em;
+    margin-top: 1em;
+    border: none !important;
+
+    font-size: 1em;
+    transition: background-color 0.3s;
+    border-radius:3px;
+
+    &:hover {
+        border: none;
+        color:#fff;
+        background-color: #286090;
+    }
+}
+
+.cancelLink {
+    padding: 1em;
+    display: inline-block;
+    color: white;
+    cursor: pointer;
+}
+
+.selectionCards {
+    width:100%;
+
+    .selectionCard {
+        height:200px;
+        overflow: hidden;
+        font-size:13px;
+        position:relative;
+        width: 45%;
+        display: inline-block;
+        margin-right: 1.3em;
+        margin-bottom: 1em;
+        cursor: pointer;
+        vertical-align: bottom;
+        
+        background-color:rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        padding:1.3em;
+        border: solid 1px #979797;
+        border-radius: 2px;
+        transition: background-color 0.3s, transform 0.3s;
+
+        &:hover {
+            background-color: white;
+            transform: scale(1.01);
+        }
+
+        h1 {
+            font-size: 1.9em;
+            color: #32a4d8;
+            text-align: left;
+            padding: 0 0 0.5em 0;
+            margin: 0px !important;
+        }
+
+        p {
+            font-size: 1em !important;
+            color:black;
+        }
+    }
+}
+
+.confirmationDialog, .cancelDialog {
+  .modal-header {
+    padding: 1em 3em;
+    background-color: white;
+    color: dimgrey;
+
+    .modal-title {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+  }
+
+  .modal-body {
+    padding:3em;
+  }
+
+  .questionBlocks {
+    margin-bottom: 1em;
+  }
+
+  .questionSet {
+    
+    .question {
+        display:block;
+        font-size: 1em;
+        font-weight: 100;
+        text-transform: capitalize;
+        font-family: 'Lato';
+        color: #62a6e0;
+        border-bottom: 2px solid;
+        padding-top: 1em;
+
+        &.supplemental {
+            color: #5b91bf !important;
+            font-size:1em;
+            color:#b5b7b4;
+            margin-left: 3px;
+        }
+    }
+
+    .answer {
+        display:block;
+        font-size: 1.3em;
+        font-family: 'Lato';
+
+        &.supplemental {
+            font-size:1em;
+            color:#b5b7b4;
+            margin-left: 3px;
+        }
+    }
+  }
+  
+  .modal-content {
+    border-radius: 0px;
+    background-color: rgba(8, 65, 92, 0.98);
+
+    .item {
+      padding: 0.3em 0px;
+
+      .left {
+        font-weight: normal;
+        font-size: 0.7em;
+        padding: 0px;
+        float:none;
+        text-decoration: underline;
+      }
+
+      .text {
+        display: inline-block;
+        color: white;
+        padding: 0px;
+        font-size: 1em;
+      }
+
+    }
+
+  }
+
+}
+
+.confirmationDialog, .cancelDialog {
+    .section {
+        padding: 1em;
+    }
+
+    .required {
+        border-bottom: 2px solid #e22929
+    }
+
+    .remainingField {
+        color: #e22929;
+    }
+}
+
+.submission-status-div {
+    background-color: white;
+    color: #08415c;
+    padding-left: 20px;
+    padding-top: 15px;
+    border-radius: 2px;
+    padding-left: 15px;
+    font-family: Lato;
+    border: 3px solid white;
+    line-height: 1.2em;
+}
+
+.clearance-pass{
+    color: #0fb129
+}
+
+.clearance-review{
+    color: #e65100
+}
+
+.sub-header-firstRow {
+    font-size: 14px;
+    padding-bottom: 15px;
+    padding-top: 0px;
+    margin-top: 0px !important;
+}
+
+.sub-header-secondRow {
+    font-size: 27px;
+    padding-bottom: 20px;
+    font-weight: bold;
+}
+
+.sub-header-thirdRow {
+    font-size: 15px;
+    font-weight: bold !important;
+}
+
+.sub-header-Complete {
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    font-weight: bold !important;
+}
+
+.sub-header-bullets {
+    padding-top: 5px;
+    line-height: 17px;
+    padding-left: 30px;
+    padding-bottom: 20px;
+    font-size: 15px;
+    font-weight: normal !important;
+    font-family: 'Lato' !important;
+}
+
+.formHeader {
+    padding: 15px 15px 15px 0px;
+    font-family: Lato;
+    font-size: 28px;
+    color: #32a4d8;
+}
+
+.formSubHeader {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-family: Lato;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    text-align: left;
+    color: #71b1ce;
+}
