@@ -49,7 +49,8 @@ export function ProductChoiceItem(props) {
               }
             )
 
-            //Underwriter Access: changes route for underwriter
+            //Underwriter Access: 
+            //Changes route for underwriter
             const route = (broker === config.underwriterBrokerId) ? '/clearanceunderwriter' : '/clearance'
             props.dispatch(push(route))
           }}

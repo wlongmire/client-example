@@ -16,6 +16,9 @@ import {
 import { connect } from 'react-redux'
 import Input from './Input'
 
+//Underwriter Access:
+//Updated "Clearance" page for underwriters
+//Bypasses clearance all together and passes basic submissions data to formUnderwriter
 class ClearanceUnderwrtier extends Component {
   constructor(props) {
     super(props)

@@ -20,8 +20,9 @@ import ratingProducts from 'config/RatingProducts'
 
 import ConfirmationModal from './ConfirmationModal'
 
-// for testing purposes only
-// import exampleSubmission from 'config/exampleSubmission'
+//Underwriter Access:
+//Updated "Clearance" page for underwriters
+//Bypasses clearance all together and passes basic submissions data to formUnderwriter
 
 class FormUnderwriter extends Component {
   constructor(props) {

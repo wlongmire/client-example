@@ -135,7 +135,8 @@ export function editSubmission(submission, user) {
 
           // push the user to the form
 
-          //Underwriter Access: changes route for underwriter
+          //Underwriter Access: 
+          //Changes route for underwriter
           const route = (user.brokerId === config.underwriterBrokerId) ? '/formunderwriter' : '/form'
           dispatch(push(route))
         } else {
