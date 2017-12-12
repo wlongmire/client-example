@@ -135,7 +135,7 @@ export function editSubmission(submission, user) {
 
           // push the user to the form
 
-          //Underwriter Access: 
+          //Underwriter Access:
           //Changes route for underwriter
           const route = (user.brokerId === config.underwriterBrokerId) ? '/formunderwriter' : '/form'
           dispatch(push(route))
@@ -227,7 +227,7 @@ export function sendEmail(emailAddress, emailType, submissionId, user) {
     // eslint-disable-next-line no-undef
     return apigClient.apiSendEmailIdPost(
       { id: submissionId },
-      { emailAddress, emailType },
+      { emailAddress, emailType, user },
       {})
       .then((resp) => {
         console.log(`email send ${emailAddress}`)
