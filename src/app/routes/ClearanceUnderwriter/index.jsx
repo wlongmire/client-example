@@ -1,16 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { browserHistory } from 'react-router'
 import config from 'config'
-import Input from './Input'
-import Loading from './Loading'
-import Error from './Error'
-import Result from './Result'
-import mx from '../../utils/MixpanelInterface'
-import { sendClearanceEmail } from 'app/actions/submissionActions'
 
 import {
   CHANGE_SUBMISSION_STATUS,
@@ -22,7 +13,13 @@ import {
   STATUS
 } from 'app/constants'
 
-class Clearance extends Component {
+import { connect } from 'react-redux'
+import Input from './Input'
+
+//Underwriter Access:
+//Updated "Clearance" page for underwriters
+//Bypasses clearance all together and passes basic submissions data to formUnderwriter
+class ClearanceUnderwrtier extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -32,77 +29,33 @@ class Clearance extends Component {
     }
 
     this.handleInputSubmit = this.handleInputSubmit.bind(this)
-    this.handleLoadComplete = this.handleLoadComplete.bind(this)
-    this.handleReturnToInput = this.handleReturnToInput.bind(this)
-    this.handleClearance = this.handleClearance.bind(this)
+    this.handleSubmission = this.handleSubmission.bind(this)
   }
 
   componentWillMount() {
+    //redirect if user is not an underwriter
+    if (this.props.user.brokerId !== config.underwriterBrokerId) {
+      this.props.dispatch(push('/'))
+    }
+
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CLEARANCE })
   }
 
-  handleInputSubmit(input) {
-    this.setState({ status: STATUS.LOADING, input })
+  handleInputSubmit(result) {
+    this.handleSubmission(result)
   }
 
-  handleLoadComplete(result, input) {
-    if (!result.success) {
-      return this.setState({ status: STATUS.ERROR, result })
-    }
-
-    if (result.clearanceStatus === 'fail') {
-      this.setState({ status: STATUS.RESULT, result })
-
-      if (config.clearanceFailEmail) {
-        sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
-        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
-      }
-
-      mx.customEvent(
-        'submission',
-        'failClearance', {
-          Type: this.props.submission.type,
-          Matches: result.matches
-        })
-    } else {
-      this.setState({ status: STATUS.CREATING, result })
-      this.handleClearance(result)
-
-      // mixpanel event
-      if (result.clearanceStatus == 'pass') {
-        mx.customEvent(
-          'submission',
-          'passClearance',
-          {
-            Type: this.props.submission.type
-          })
-      } else if (result.clearanceStatus == 'pending') {
-        mx.customEvent(
-          'submission',
-          'pendingClearance',
-          {
-            Type: this.props.submission.type,
-            Matches: result.matches
-          })
-      }
-    }
-  }
-
-  handleReturnToInput() {
-    this.setState({ status: STATUS.INPUT })
-  }
-
-  handleClearance(result) {
+  handleSubmission(result) {
     let submission
     let submissionFormParams
 
     if (
-      this.state.input.projectAddress &&
-      this.state.input.projectAddress.projectState === 'New York' &&
+      result.projectAddress &&
+      result.projectAddress.projectState === 'New York' &&
       this.props.submission.type === 'ocp'
       ) {
       // if submission for OCP and STATE is NY
-      submission = Object.assign(this.state.input, { clearanceStatus: result.clearanceStatus, status: 'SUBMISSION', clearanceMatches:this.state.result.matches })
+      submission = Object.assign(result, { clearanceStatus: 'pass', status: 'SUBMISSION', clearanceMatches: [] })
       submissionFormParams = {
         primaryInsuredName: { disabled: true },
 
@@ -118,7 +71,7 @@ class Clearance extends Component {
       }
     } else if (this.props.submission.type === 'ocp') {
       // if submission is for OCP and state is NOT NY
-      submission = { ...this.state.input, nycha: 'false', clearanceStatus: result.clearanceStatus, status: 'SUBMISSION', clearanceMatches:this.state.result.matches }
+      submission = { ...result, nycha: 'false', clearanceStatus: 'pass', status: 'SUBMISSION', clearanceMatches: [] }
       submissionFormParams = {
         primaryInsuredName: { disabled: true },
 
@@ -137,7 +90,7 @@ class Clearance extends Component {
       }
     } else {
       // if submission is for OI
-      submission = { ...this.state.input, clearanceStatus: result.clearanceStatus, status: 'SUBMISSION', clearanceMatches:this.state.result.matches }
+      submission = { ...result, clearanceStatus: 'pass', status: 'SUBMISSION', clearanceMatches: [] }
       submissionFormParams = {
         primaryInsuredName: { disabled: true },
 
@@ -161,20 +114,14 @@ class Clearance extends Component {
     })
 
     this.props.dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.CREATING })
-    this.props.dispatch(push('/form'))
+    this.props.dispatch(push('/formunderwriter'))
   }
 
   render() {
     const subcomponentMap = {
-      INPUT: <Input input={this.state.input} handleSubmit={this.handleInputSubmit} />,
-      LOADING: <Loading
-        handleSubmit={this.handleLoadComplete}
+      INPUT: <Input 
         input={this.state.input}
-      />,
-      ERROR: <Error />,
-      RESULT: <Result
-        handleSubmit={this.handleReturnToInput}
-        input={this.state.input} result={this.state.result}
+        handleSubmit={this.handleInputSubmit}
       />
     }
 
@@ -188,7 +135,7 @@ class Clearance extends Component {
   }
 }
 
-Clearance.propTypes = {
+ClearanceUnderwrtier.propTypes = {
   dispatch: PropTypes.func.isRequired,
   submission: PropTypes.object.isRequired,
   user: PropTypes.object
@@ -199,4 +146,4 @@ export default connect((store) => {
     submission: store.app.submission,
     user: store.user
   })
-})(Clearance)
+})(ClearanceUnderwrtier)

@@ -6,6 +6,7 @@ const config = {
     argoEmail: '@argoEmail',
     sgsOIEmail: '@sgsOIEmail',
     sgsOCPEmail: '@sgsOCPEmail',
+    underwriterBrokerId: '220bcd0c-bf6e-4189-98b6-fada97d30633',
     ownerEdgeEmail: '@ownerEdgeEmail',
     clearanceFailEmail:'@clearanceFailEmail',
     clearanceFailFlag: '@clearanceFailFlag',

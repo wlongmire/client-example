@@ -22,13 +22,17 @@ import ResetPassword from 'routes/ResetPassword'
 import PassClearance from 'routes/PassClearance'
 import FailClearance from 'routes/FailClearance'
 
+import ClearanceUnderwriter from 'routes/ClearanceUnderwriter'
+import FormUnderwriter from 'routes/FormUnderwriter'
+
+import config from 'config'
+
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.user,
   redirectAction: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated',
   failureRedirectPath: '/'
 })
-
 
 export default (
   <Route
@@ -53,7 +57,6 @@ export default (
       path="clearance"
       component={UserIsAuthenticated(Clearance)}
     />
-
 
     <Route
       path="form"
@@ -86,8 +89,18 @@ export default (
     />
 
     <Route
-    path="passclearance"
-    component={PassClearance}
+      path="passclearance"
+      component={PassClearance}
+    />
+
+    <Route
+      path="clearanceunderwriter"
+      component={UserIsAuthenticated(ClearanceUnderwriter)}
+    />
+
+    <Route
+      path="formunderwriter"
+      component={UserIsAuthenticated(FormUnderwriter)}
     />
 
     <Route
