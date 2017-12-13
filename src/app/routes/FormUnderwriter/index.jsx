@@ -116,8 +116,6 @@ class FormUnderwriter extends Component {
 
       this.props.dispatch({ type: CHANGE_SUBMISSION, payload: { submission } })
       
-      console.log(submission)
-
       this.setState({
         ...this.state,
         requiredFields: [],

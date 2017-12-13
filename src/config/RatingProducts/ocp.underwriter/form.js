@@ -412,7 +412,7 @@ const ocpData = {
     {
       "questionId": "21",
       "name": "nameInsuredAddressLabel",
-      "text": "Please provide broker contact information:",
+      "text": "Please provide broker contact info attached to the submission and to receive the pricing indication:",
       "inputFormat": "label",
 
       "attributes":{
@@ -425,7 +425,7 @@ const ocpData = {
       "inputType": "text",
       "inputFormat": "email",
       "required": true,
-      "placeholder": "Email",
+      "placeholder": "Broker email",
       "attributes":{
         "controlGroup":"contactInfo"
       }
@@ -436,7 +436,7 @@ const ocpData = {
       "inputType": "text",
       "inputFormat": "text",
       "required": true,
-      "placeholder": "Phone",
+      "placeholder": "Broker phone",
       "attributes":{
         "controlGroup":"contactInfo"
       }
