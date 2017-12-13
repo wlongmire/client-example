@@ -225,6 +225,7 @@ export function setClearance(id, status){
 export function sendEmail(emailAddress, emailType, submissionId, user) {
   checkTokenExpiration(user).then(() => {
     // eslint-disable-next-line no-undef
+    console.log(user);
     return apigClient.apiSendEmailIdPost(
       { id: submissionId },
       { emailAddress, emailType, user },
