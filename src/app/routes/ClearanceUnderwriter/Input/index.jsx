@@ -57,8 +57,8 @@ export default class Input extends Component {
 
       return (
         <div>
-            <h3>First Enter Basic Submission Information.</h3>
-            <h4>Enter the primary insured name and related addresses of the submission below.</h4>
+            <h3>First Enter Insured Details.</h3>
+            <h4>Enter the primary insured name and addresses of the submission below.</h4>
 
             <FormBuilder
               data={form}

@@ -179,8 +179,8 @@ class FormUnderwriter extends Component {
 
     return (
       <div className="productChoice routeContainer">
-        <h3>Enter the remaining submission details.</h3>
-        <div className="formSubHeader">Once completed, a quote will be calculated based on your responses.</div>
+        <h3>Fill out the rest of the details.</h3>
+        <div className="formSubHeader">You can submit this application online</div>
         <br />
         <div className="formHeader">{ratingProduct.name} Application</div>
 
