@@ -1,8 +1,8 @@
 import statesArray from './../states';
 
 const updatedData =  {
-  "questionSetId": "OIFORM",
-  "name": "OIFORM",
+  "questionSetId": "OIUNDERWRITERFORM",
+  "name": "OIUNDERWRITERFORM",
   "questions": [
     {
       "questionId": "1",
@@ -12,6 +12,15 @@ const updatedData =  {
       "inputType": "text",
       "inputFormat": "text",
       "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor"
+    },
+    {
+      "questionId": "1a",
+      "text": "What brokerage is this submission associated with?",
+      "name": "associatedBrokerage",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "text",
+      "tooltiptext": "As an underwriter, we need for you to supply the name of the brokerage assosated with this submission."
     },
     {
       "questionId": "2",
@@ -454,7 +463,7 @@ const updatedData =  {
     {
       "questionId": "17",
       "name": "generalComments",
-      "text": "General Comments",
+      "text": "General Comments:",
       "inputFormat": "text",
       "inputType": "freeform",
       "required": false
@@ -462,7 +471,7 @@ const updatedData =  {
     {
       "questionId": "18",
       "name": "nameInsuredAddressLabel",
-      "text": "Please provide your contact info to receive your indication:",
+      "text": "Please provide broker contact information:",
       "inputFormat": "label",
 
       "attributes":{

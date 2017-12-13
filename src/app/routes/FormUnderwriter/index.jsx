@@ -16,7 +16,7 @@ import {
   CHANGE_SUBMISSION
 } from 'app/constants/submission'
 
-import ratingProducts from 'config/RatingProducts'
+import ratingProducts from 'config/RatingProducts/underwriterProducts'
 
 import ConfirmationModal from './ConfirmationModal'
 
@@ -115,6 +115,9 @@ class FormUnderwriter extends Component {
       const submission = Object.assign(this.state.submission, sub)
 
       this.props.dispatch({ type: CHANGE_SUBMISSION, payload: { submission } })
+      
+      console.log(submission)
+
       this.setState({
         ...this.state,
         requiredFields: [],
@@ -285,7 +288,7 @@ FormUnderwriter.propTypes = {
 }
 
 export default connect((store) => {
-  const submission = store.app.submission
+  const submission = store.app.submission;
 
   return ({
     user: store.user,
