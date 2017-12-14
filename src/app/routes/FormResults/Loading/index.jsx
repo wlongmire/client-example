@@ -67,7 +67,7 @@ class Loading extends Component {
       submissionData.brokerId = this.props.user.brokerId // adding broker to submission
       const mainRating = ratings[submission.type]
       const { instantQuote } = mainRating
-      submissionData.pricingSatus = instantQuote ? 'priced': 'referred';
+      submissionData.pricingSatus = instantQuote ? 'priced' : 'referred'
 
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
