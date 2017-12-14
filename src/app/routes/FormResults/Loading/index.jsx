@@ -67,7 +67,7 @@ class Loading extends Component {
       submissionData.brokerId = this.props.user.brokerId // adding broker to submission
       const mainRating = ratings[submission.type]
       const { instantQuote } = mainRating
-      submissionData.pricingSatus = instantQuote ? 'priced': 'referred';
+      submissionData.pricingSatus = instantQuote ? 'priced' : 'referred'
 
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
@@ -87,7 +87,7 @@ class Loading extends Component {
             if (respSave.updated === true) {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedSGS' : 'updatedNonQuoteSGS', submissionId, user),
                 sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
                 sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
               ]
@@ -95,7 +95,7 @@ class Loading extends Component {
             } else {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'quotedSGS' : 'nonQuoteSGS', submissionId, user),
                 sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
                 sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
               ]
@@ -106,14 +106,14 @@ class Loading extends Component {
             if (respSave.updated === true) {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedSGS' : 'pendingUpdatedNonQuoteSGS', submissionId, user),
                 sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
               ]
             // if it is a new submission
             } else {
               emailPromises = [
                 sendEmail(argoEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
+                sendEmail(sgsEmail, (instantQuote) ? 'pendingSGS' : 'pendingNonQuoteSGS', submissionId, user),
                 sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
               ]
             }

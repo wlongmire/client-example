@@ -16,7 +16,7 @@ import {
   CHANGE_SUBMISSION
 } from 'app/constants/submission'
 
-import ratingProducts from 'config/RatingProducts'
+import ratingProducts from 'config/RatingProducts/underwriterProducts'
 
 import ConfirmationModal from './ConfirmationModal'
 
@@ -115,6 +115,7 @@ class FormUnderwriter extends Component {
       const submission = Object.assign(this.state.submission, sub)
 
       this.props.dispatch({ type: CHANGE_SUBMISSION, payload: { submission } })
+      
       this.setState({
         ...this.state,
         requiredFields: [],
@@ -178,8 +179,8 @@ class FormUnderwriter extends Component {
 
     return (
       <div className="productChoice routeContainer">
-        <h3>Enter the remaining submission details.</h3>
-        <div className="formSubHeader">Once completed, a quote will be calculated based on your responses.</div>
+        <h3>Fill out the rest of the details.</h3>
+        <div className="formSubHeader">You can submit this application online</div>
         <br />
         <div className="formHeader">{ratingProduct.name} Application</div>
 
@@ -285,7 +286,7 @@ FormUnderwriter.propTypes = {
 }
 
 export default connect((store) => {
-  const submission = store.app.submission
+  const submission = store.app.submission;
 
   return ({
     user: store.user,
