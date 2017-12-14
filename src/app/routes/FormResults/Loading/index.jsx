@@ -89,7 +89,7 @@ class Loading extends Component {
                 sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
                 sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedSGS' : 'updatedNonQuoteSGS', submissionId, user),
                 sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
-                sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
+                sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
               ]
             // if it is a new submission
             } else {

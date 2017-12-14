@@ -14,15 +14,6 @@ const updatedData =  {
       "tooltiptext": "This entity must be named as the Owner in the contract receiving hold harmless, indemnification and additional insured status from the hired General Contractor"
     },
     {
-      "questionId": "1a",
-      "text": "What brokerage is this submission associated with?",
-      "name": "associatedBrokerage",
-      "required": true,
-      "inputType": "text",
-      "inputFormat": "text",
-      "tooltiptext": "As an underwriter, we need for you to supply the name of the brokerage assosated with this submission."
-    },
-    {
       "questionId": "2",
       "name": "primaryInsuredAddressLabel",
       "text": "What is the Named Insured's address?",
@@ -473,13 +464,26 @@ const updatedData =  {
       "name": "nameInsuredAddressLabel",
       "text": "Please provide broker contact info attached to the submission and to receive the pricing indication:",
       "inputFormat": "label",
-
+      
       "attributes":{
         "controlGroup":"contactInfo"
       }
     },
     {
       "questionId": "18a",
+      "text": "Brokerage name",
+      "name": "associatedBrokerage",
+      "required": true,
+      "inputType": "text",
+      "inputFormat": "text",
+      "tooltiptext": "As an underwriter, we need for you to supply the name of the brokerage assosated with this submission.",
+      "placeholder": "Brokerage name",
+      "attributes":{
+        "controlGroup":"contactInfo"
+      }
+    },
+    {
+      "questionId": "18b",
       "name": "email",
       "inputType": "text",
       "inputFormat": "email",
@@ -490,7 +494,7 @@ const updatedData =  {
       }
     },
     {
-      "questionId": "18b",
+      "questionId": "18c",
       "name": "phone",
       "inputType": "text",
       "inputFormat": "text",
