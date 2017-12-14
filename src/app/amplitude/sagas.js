@@ -113,7 +113,7 @@ function* watchSubmissionClearancePending() {
 }
 
 function* watchUserLogin() {
-    yield(takeEvery(USER_LOGGED_IN, action => {
+    yield takeEvery(USER_LOGGED_IN, action => {
         configureAmplitude(action.payload)
         const { email } = action.payload
         const eventData = { Email: email }
@@ -131,6 +131,7 @@ function* watchUserLogout() {
 /**
  * Transforms submission data into an amplitude submission event
  * @param {*} submission The submission to transform
+ * @returns {object} 
  */
 const getSubmissionEventData = submission => {
     if (!submission) 
@@ -173,12 +174,14 @@ const getSubmissionEventData = submission => {
 }
 
 /**
- * Amplitude only supports non-object primitives as nested items in arrays.
+ * Amplitude only supports primitive types as nested items in arrays.
+ * 
  * As a workaround, this function converts the matches to an object with the index
  * of the match being the key:
  * 
  * ex: [{name: '', address: '', ...}] => { '0': {name: '', address: ''}, '1': {...}}
  * @param {*} matches 
+ * @returns {array} array of transformed matches
  */
 function transformMatches(matches) {
     return matches.reduce((prev, curr, idx) => {
