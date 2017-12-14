@@ -59,9 +59,21 @@ class Clearance extends Component {
 
       if (config.clearanceFailEmail) {
         sendClearanceEmail(config.clearanceFailEmail, 'clearanceFail', this.props.user, input, result.matches)
+<<<<<<< HEAD
         sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches) 
       }      
       this.props.dispatch(submissionClearanceFailed(this.props.submission.type, result.matches))
+=======
+        sendClearanceEmail(config.ownerEdgeEmail, 'clearanceFail', this.props.user, input, result.matches)
+      }
+
+      mx.customEvent(
+        'submission',
+        'failClearance', {
+          Type: this.props.submission.type,
+          Matches: result.matches
+        })
+>>>>>>> origin/master
     } else {
       this.setState({ status: STATUS.CREATING, result })
       this.handleClearance(result)

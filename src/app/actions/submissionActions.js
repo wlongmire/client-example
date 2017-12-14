@@ -1,9 +1,10 @@
 import { push } from 'react-router-redux'
+import config from 'config'
 import trim from 'lodash/trim'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { transformSubmissionData } from '../utils/transformSubmissionData'
 import { logout } from './userActions'
-import {isDefined} from '../utils/utilities'
+import { isDefined } from '../utils/utilities'
 
 import {
   FETCH_SUBMISSIONS,
@@ -239,8 +240,12 @@ export function editSubmission(submission, user) {
           // changes app.status to: EDIT
           dispatch({ type: CHANGE_SUBMISSION_STATUS, status: SUBMISSION_STATUS.EDIT })
 
-        // push the user to the form
-          dispatch(push('/form'))
+          // push the user to the form
+
+          //Underwriter Access: 
+          //Changes route for underwriter
+          const route = (user.brokerId === config.underwriterBrokerId) ? '/formunderwriter' : '/form'
+          dispatch(push(route))
         } else {
           alert('Error While Accessing Submissions DB.')
         }
