@@ -3,10 +3,7 @@ import { APP_INITIALIZED } from '../constants/app'
 import config from 'config'
 import capitalize from 'lodash/capitalize'
 
-import {
-    USER_LOGGED_IN,
-    USER_LOGGED_OUT
-} from '../constants/user'
+import { USER_LOGGED_IN } from '../constants/user'
 
 import {
     SUBMISSION_CLEARANCE_PASSED,
@@ -61,23 +58,21 @@ const configureAmplitude = ({
     amplitude.getInstance().setUserProperties(userProperties)
 }
 
-function* watchSubmissionCreateSuccess() {
+function* watchForSubmissionCreateSuccess() {
     yield takeEvery(SUBMISSION_CREATE_SUCCESS, action => {
-        const submission = action.value
-        const eventData = getSubmissionEventData(submission)
+        const eventData = transformSubmissionToEventData(action.value)
         amplitude.getInstance().logEvent(events.submission.new, eventData)
     })
 }
 
-function* watchSubmissionEditSuccess() {
+function* watchForSubmissionEditSuccess() {
     yield takeEvery(SUBMISSION_EDIT_SUCCESS, action => {
-        const submission = action.value
-        const eventData = getSubmissionEventData(submission)
+        const eventData = transformSubmissionToEventData(action.value)
         amplitude.getInstance().logEvent(events.submission.edit, eventData)
     })
 }
 
-function* watchSubmissionClearancePassed() {
+function* watchForSubmissionClearancePassed() {
     yield takeEvery(SUBMISSION_CLEARANCE_PASSED, action => {
         const { submissionType } = action.value
         const eventData = {
@@ -88,7 +83,7 @@ function* watchSubmissionClearancePassed() {
     })
 }
 
-function* watchSubmissionClearanceFailed() {
+function* watchForSubmissionClearanceFailed() {
     yield takeEvery(SUBMISSION_CLEARANCE_FAILED, action => {
         const { submissionType, matches } = action.value
         const eventData = {
@@ -100,7 +95,7 @@ function* watchSubmissionClearanceFailed() {
     })
 }
 
-function* watchSubmissionClearancePending() {
+function* watchForSubmissionClearancePending() {
     yield takeEvery(SUBMISSION_CLEARANCE_PENDING, action => {
         const { submissionType, matches } = action.value
         const eventData = {
@@ -112,20 +107,12 @@ function* watchSubmissionClearancePending() {
     })
 }
 
-function* watchUserLogin() {
+function* watchForUserLogin() {
     yield takeEvery(USER_LOGGED_IN, action => {
         configureAmplitude(action.payload)
-        const { email } = action.payload
-        const eventData = { Email: email }
-        console.log(`${events.auth.login}:`, eventData)
+        const eventData = { Email: action.payload.email }
         amplitude.getInstance().logEvent(events.auth.login, eventData)
-    }))
-}
-
-function* watchUserLogout() {
-    yield(takeEvery(USER_LOGGED_OUT, action => {
-        console.log(`${events.auth.logout}`)
-    }))
+    })
 }
 
 /**
@@ -133,7 +120,7 @@ function* watchUserLogout() {
  * @param {*} submission The submission to transform
  * @returns {object} 
  */
-const getSubmissionEventData = submission => {
+const transformSubmissionToEventData = submission => {
     if (!submission) 
         return {}
 
@@ -192,12 +179,11 @@ function transformMatches(matches) {
 
 export default function* root() {
     yield all([
-        fork(watchUserLogin),
-        fork(watchUserLogout),
-        fork(watchSubmissionCreateSuccess),
-        fork(watchSubmissionEditSuccess),
-        fork(watchSubmissionClearancePassed),
-        fork(watchSubmissionClearanceFailed),
-        fork(watchSubmissionClearancePending)
+        fork(watchForUserLogin),
+        fork(watchForSubmissionCreateSuccess),
+        fork(watchForSubmissionEditSuccess),
+        fork(watchForSubmissionClearancePassed),
+        fork(watchForSubmissionClearanceFailed),
+        fork(watchForSubmissionClearancePending)
     ])
 }

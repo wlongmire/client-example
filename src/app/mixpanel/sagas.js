@@ -18,16 +18,30 @@ import {
     SUBMISSION_EDIT
 } from '../constants/submission'
 
-const LOGIN_EVENT = 'Authentication: Logged in'
-const LOGOUT_EVENT = 'Authentication: Logged out'
-const SUBMISSION_CLEARANCE_PASS_EVENT = 'Submission: Pass Clearance'
-const SUBMISSION_CLEARANCE_FAIL_EVENT = 'Submission: Fail Clearance'
-const SUBMISSION_CLEARANCE_PENDING_EVENT = 'Submission: Pending Clearance'
-const SUBMISSION_QUOTE_EVENT = 'Submission: Quote'
-const SUBMISSION_NON_QUOTE_EVENT = 'Submission: Non Quote'
-const SUBMISSION_ERROR_EVENT = 'Submission: Error Quote/Knockout'
-const SUBMISSION_CREATE_EVENT = 'Submission: Created'
-const SUBMISSION_EDIT_EVENT = 'Submission: Editing'
+const events = {
+    auth: {
+        login: 'Authentication: Logged in',
+        logout: 'Authentication: Logged out'
+    },
+    submission: {
+        new: 'Submission: New',
+        clearance: {
+            pass: 'Submission: Pass Clearance',
+            fail: 'Submission: Fail Clearance',
+            pending: 'Submission: Pending Clearance'
+        },
+        quote: 'Submission: Quote',
+        nonQuote: 'Submission: Non Quote',
+        error: 'Submission: Error Quote/Knockout',
+        create: 'Submission: Created',
+        edit: 'Submission: Editing'
+    },
+    onboarding: {
+        referralInvite: 'Referral: Invite',
+        referralInviteAccept: 'Referral: Invite Accept',
+        referralInviteCancel: 'Referral: Invite Cancel'
+    }
+}
 
 const configureMixPanel = ({
     brokerName,
@@ -54,90 +68,80 @@ const configureMixPanel = ({
     })
 }
 
-function* watchUserLogin() {
+function* watchForUserLogin() {
     yield takeEvery(USER_LOGGED_IN, action => {
         configureMixPanel(action.payload)
-        mixpanel.track(LOGIN_EVENT)
+        mixpanel.track(events.auth.login)
     })
 }
 
-function* watchUserLogout() {
+function* watchForUserLogout() {
     yield takeEvery(USER_LOGGED_OUT, action => {})
 }
 
-function* watchAppInitialized() {
+function* watchForAppInitialized() {
     yield takeEvery(APP_INITIALIZED, action => configureMixPanel(action.value))
 }
 
-function* watchSubmissionClearancePassed() {
+function* watchForSubmissionClearancePassed() {
     yield takeEvery(SUBMISSION_CLEARANCE_PASSED, action => {
         const { submissionType } = action.value
-        mixpanel.track(SUBMISSION_CLEARANCE_PASS_EVENT, {
+        mixpanel.track(events.submission.clearance.pass, {
             Type: action.value.submisionType
         })
     })
 }
 
-function* watchSubmissionClearanceFailed() {
+function* watchForSubmissionClearanceFailed() {
     yield takeEvery(SUBMISSION_CLEARANCE_FAILED, action => {
         const { submissionType, matches } = action.value
-        mixpanel.track(SUBMISSION_CLEARANCE_FAIL_EVENT, {
+        mixpanel.track(events.submission.clearance.fail, {
             Type: submissionType,
             Matches: matches
         })
     })
 }
 
-function* watchSubmissionClearancePending() {
+function* watchForSubmissionClearancePending() {
     yield takeEvery(SUBMISSION_CLEARANCE_PENDING, action => {
         const { submissionType, matches } = action.value
-        mixpanel.track(SUBMISSION_CLEARANCE_PENDING_EVENT, {
+        mixpanel.track(events.submission.clearance.pending, {
             Type: submissionType,
             Matches: matches
         })
     })
 }
 
-function* watchSubmissionQuoted() {
-    yield takeEvery(SUBMISSION_QUOTED, action => {
-        mixpanel.track(SUBMISSION_QUOTE_EVENT, action.value)
-    })
+function* watchForSubmissionQuoted() {
+    yield takeEvery(events.submission.quote, action => mixpanel.track(SUBMISSION_QUOTE_EVENT, action.value))
 }
 
-function* watchSubmissionKnockedOut() { 
-    yield takeEvery(SUBMISSION_KNOCKED_OUT, action => {
-        mixpanel.track(SUBMISSION_NON_QUOTE_EVENT, action.value)
-    })
+function* watchForSubmissionKnockedOut() { 
+    yield takeEvery(events.submission.nonQuote, action => mixpanel.track(SUBMISSION_NON_QUOTE_EVENT, action.value))
 }
 
-function* watchSubmissionFailed() {
-    yield takeEvery(SUBMISSION_CLEARANCE_FAILED, action => {
-        mixpanel.track(SUBMISSION_ERROR_EVENT, action.value)
-    })
+function* watchForSubmissionFailed() {
+    yield takeEvery(events.submission.clearance.fail, action => mixpanel.track(SUBMISSION_ERROR_EVENT, action.value))
 }
 
-function* watchSubmissionCreate() {
-    yield takeEvery(SUBMISSION_CREATE, action => {
-        mixpanel.track(SUBMISSION_CREATE_EVENT, action.value)
-    })
+function* watchForSubmissionCreate() {
+    yield takeEvery(events.submission.create, action => mixpanel.track(SUBMISSION_CREATE_EVENT, action.value))
 }
 
-function* watchSubmissionEdit() {
-    yield takeEvery(SUBMISSION_EDIT, action => {
-        mixpanel.track(SUBMISSION_EDIT_EVENT, action.value)
-    })
+function* watchForSubmissionEdit() {
+    yield takeEvery(events.submission.edit, action => mixpanel.track(SUBMISSION_EDIT_EVENT, action.value))
 }
 
 export default function* root() {
     yield all([
-        fork(watchAppInitialized),
-        fork(watchSubmissionClearancePassed),
-        fork(watchSubmissionClearanceFailed),
-        fork(watchSubmissionClearancePending),
-        fork(watchSubmissionFailed),
-        fork(watchSubmissionKnockedOut),
-        fork(watchSubmissionQuoted),
-        fork(watchUserLogin),
-        fork(watchUserLogout)
+        fork(watchForAppInitialized),
+        fork(watchForSubmissionClearancePassed),
+        fork(watchForSubmissionClearanceFailed),
+        fork(watchForSubmissionClearancePending),
+        fork(watchForSubmissionFailed),
+        fork(watchForSubmissionKnockedOut),
+        fork(watchForSubmissionQuoted),
+        fork(watchForUserLogin),
+        fork(watchForUserLogout)
     ])
 }
