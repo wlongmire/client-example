@@ -6,11 +6,13 @@ import {
   CLEAR_SUBMISSION
 } from './../constants/submission'
 
-export default function (state = {
+const initialState = {
   status: SUBMISSION_STATUS.NONE,
   submission: {},
   submissionFormParams: {}
-}, action) {
+}
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case CHANGE_SUBMISSION:
       return Object.assign(state, {

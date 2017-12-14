@@ -8,13 +8,10 @@ import {
 } from 'app/constants/user'
 import { migrationLogin } from './migrationActions'
 import { ALERT_DISPLAY } from '../constants/alert'
-
-import mx from 'app/utils/MixpanelInterface'
-
 import { setAlert, getUsersByBrokerage } from './adminActions'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
-import {isDefined, isNullOrEmpty} from './../utils/utilities'
+import { isDefined, isNullOrEmpty } from './../utils/utilities'
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
   return (dispatch) => {

@@ -63,31 +63,11 @@ class FormResults extends Component {
       ratings
     })
 
-    // mixpanel events
     if (error) {
       this.props.dispatch(submissionFailed({
         Type: this.props.submission
       }))
-    } else if (ratings[submission.type].instantQuote) {
-      this.props.dispatch(submissionQuoted({
-        SubmissionStatus: submission.id ? 'update' : 'new',
-        ClearanceStatus: submission.clearanceStatus,
-        Type: type,
-        Premium: ratings[type].premium,
-        TerrorPremium: ratings[type].terrorPremium,
-        TotalPremium: ratings[type].totalPremium,
-        ExcessPremium: ratings[type].excessPremium,
-        ExcessTerrorPremium: ratings[type].excessTerrorPremium,
-        TotalExcessPremium: ratings[type].totalExcessPremium
-      }))      
-    } else {
-      this.props.dispatch(submissionKnockedOut({
-        SubmissionStatus: submission.id ? 'update' : 'new',
-        ClearanceStatus: submission.clearanceStatus,
-        Type: type,
-        Reasons: ratings[type].reason,
-      }))      
-    }
+    } 
   }
 
   render() {
@@ -128,7 +108,6 @@ FormResults.propTypes = {
   submission: PropTypes.object,
   dispatch: PropTypes.func
 }
-
 
 export default connect((store) => {
   return ({

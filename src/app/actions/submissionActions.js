@@ -18,7 +18,11 @@ import {
   SUBMISSION_KNOCKED_OUT,
   SUBMISSION_FAILED,
   SUBMISSION_CREATE,
-  SUBMISSION_EDIT
+  SUBMISSION_CREATE_SUCCESS,
+  SUBMISSION_CREATE_FAILED,
+  SUBMISSION_EDIT,
+  SUBMISSION_EDIT_SUCCESS,
+  SUBMISSION_EDIT_FAILED
 } from './../constants/submission'
 
 import {
@@ -85,10 +89,38 @@ export const submissionCreate = (submissionInfo) => {
   }
 }
 
+export const submissionCreateFailed = (error) => {
+  return {
+    type: SUBMISSION_CREATE_FAILED,
+    value: submissionInfo
+  }
+}
+
+export const submissionCreateSuccess = (submission) => {
+  return {
+    type: SUBMISSION_CREATE_SUCCESS,
+    value: submission
+  }
+}
+
 export const submissionEdit = (submissionInfo) => {
   return {
     type: SUBMISSION_EDIT,
     value: submissionInfo
+  }
+}
+
+export const submissionEditFailed = (error) => {
+  return {
+    type: SUBMISSION_EDIT_FAILED,
+    value: error
+  }
+}
+
+export const submissionEditSuccess = (submission) => {
+  return {
+    type: SUBMISSION_EDIT_SUCCESS,
+    value: submission
   }
 }
 

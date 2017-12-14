@@ -1,12 +1,11 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
-import { APP_INITIALIZED } from '../../constants/app'
+import { APP_INITIALIZED } from '../constants/app'
 import config from 'config'
-import events from './events'
 
 import {
     USER_LOGGED_IN,
     USER_LOGGED_OUT
-} from '../../constants/user'
+} from '../constants/user'
 
 import {
     SUBMISSION_CLEARANCE_PASSED,
@@ -17,7 +16,18 @@ import {
     SUBMISSION_FAILED,
     SUBMISSION_CREATE,
     SUBMISSION_EDIT
-} from '../../constants/submission'
+} from '../constants/submission'
+
+const LOGIN_EVENT = 'Authentication: Logged in'
+const LOGOUT_EVENT = 'Authentication: Logged out'
+const SUBMISSION_CLEARANCE_PASS_EVENT = 'Submission: Pass Clearance'
+const SUBMISSION_CLEARANCE_FAIL_EVENT = 'Submission: Fail Clearance'
+const SUBMISSION_CLEARANCE_PENDING_EVENT = 'Submission: Pending Clearance'
+const SUBMISSION_QUOTE_EVENT = 'Submission: Quote'
+const SUBMISSION_NON_QUOTE_EVENT = 'Submission: Non Quote'
+const SUBMISSION_ERROR_EVENT = 'Submission: Error Quote/Knockout'
+const SUBMISSION_CREATE_EVENT = 'Submission: Created'
+const SUBMISSION_EDIT_EVENT = 'Submission: Editing'
 
 const configureMixPanel = ({
     brokerName,
@@ -46,8 +56,8 @@ const configureMixPanel = ({
 
 function* watchUserLogin() {
     yield takeEvery(USER_LOGGED_IN, action => {
-        configureMixPanel(action.value)
-        mixpanel.track(events.auth.login.eventName)
+        configureMixPanel(action.payload)
+        mixpanel.track(LOGIN_EVENT)
     })
 }
 
@@ -62,7 +72,7 @@ function* watchAppInitialized() {
 function* watchSubmissionClearancePassed() {
     yield takeEvery(SUBMISSION_CLEARANCE_PASSED, action => {
         const { submissionType } = action.value
-        mixpanel.track(events.submission.passClearance.eventName, {
+        mixpanel.track(SUBMISSION_CLEARANCE_PASS_EVENT, {
             Type: action.value.submisionType
         })
     })
@@ -71,7 +81,7 @@ function* watchSubmissionClearancePassed() {
 function* watchSubmissionClearanceFailed() {
     yield takeEvery(SUBMISSION_CLEARANCE_FAILED, action => {
         const { submissionType, matches } = action.value
-        mixpanel.track(events.submission.failClearance.eventName, {
+        mixpanel.track(SUBMISSION_CLEARANCE_FAIL_EVENT, {
             Type: submissionType,
             Matches: matches
         })
@@ -81,7 +91,7 @@ function* watchSubmissionClearanceFailed() {
 function* watchSubmissionClearancePending() {
     yield takeEvery(SUBMISSION_CLEARANCE_PENDING, action => {
         const { submissionType, matches } = action.value
-        mixpanel.track(events.submission.pendingClearance.eventName, {
+        mixpanel.track(SUBMISSION_CLEARANCE_PENDING_EVENT, {
             Type: submissionType,
             Matches: matches
         })
@@ -90,31 +100,31 @@ function* watchSubmissionClearancePending() {
 
 function* watchSubmissionQuoted() {
     yield takeEvery(SUBMISSION_QUOTED, action => {
-        mixpanel.track(events.submission.quoted.eventName, action.value)
+        mixpanel.track(SUBMISSION_QUOTE_EVENT, action.value)
     })
 }
 
-function* watchSubmissionKnockedOut() {
+function* watchSubmissionKnockedOut() { 
     yield takeEvery(SUBMISSION_KNOCKED_OUT, action => {
-        mixpanel.track(events.submission.knockout.eventName, action.value)
+        mixpanel.track(SUBMISSION_NON_QUOTE_EVENT, action.value)
     })
 }
 
 function* watchSubmissionFailed() {
     yield takeEvery(SUBMISSION_CLEARANCE_FAILED, action => {
-        mixpanel.track(events.submission.error.eventName, action.value)
+        mixpanel.track(SUBMISSION_ERROR_EVENT, action.value)
     })
 }
 
 function* watchSubmissionCreate() {
     yield takeEvery(SUBMISSION_CREATE, action => {
-        mixpanel.track(events.submission.create.eventName, action.value)
+        mixpanel.track(SUBMISSION_CREATE_EVENT, action.value)
     })
 }
 
 function* watchSubmissionEdit() {
     yield takeEvery(SUBMISSION_EDIT, action => {
-        mixpanel.track(events.submission.edit.eventName, action.value)
+        mixpanel.track(SUBMISSION_EDIT_EVENT, action.value)
     })
 }
 
@@ -128,6 +138,6 @@ export default function* root() {
         fork(watchSubmissionKnockedOut),
         fork(watchSubmissionQuoted),
         fork(watchUserLogin),
-        fork(watchUserLogout),
+        fork(watchUserLogout)
     ])
 }

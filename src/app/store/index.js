@@ -1,7 +1,7 @@
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import createSagaMiddleware from 'redux-saga'
-import rootSaga from '../sagas'
+import rootSaga from '../rootSaga'
 
 import {
   applyMiddleware,
@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'production') {
   configureStore = (history, initialState) => {
     const enhancer = compose(
       applyMiddleware(
-        loggerMiddleware,
+        // loggerMiddleware,
         routerMiddleware(history),
         thunkMiddleware,
         sagaMiddleware
