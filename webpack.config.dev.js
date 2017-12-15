@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
@@ -55,11 +56,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
-    }),
+    new Dotenv(),
     new webpack.HotModuleReplacementPlugin()
     // for production minification TO_DO_AK
     // new webpack.optimize.UglifyJsPlugin({

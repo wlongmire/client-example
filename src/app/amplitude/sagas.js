@@ -1,10 +1,9 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
-import { APP_INITIALIZED } from '../constants/app'
+import amplitude from 'amplitude-js'
 import config from 'config'
 import capitalize from 'lodash/capitalize'
-
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
+import { APP_INITIALIZED } from '../constants/app'
 import { USER_LOGGED_IN } from '../constants/user'
-
 import {
     SUBMISSION_CLEARANCE_PASSED,
     SUBMISSION_CLEARANCE_FAILED,
@@ -16,6 +15,11 @@ import {
     SUBMISSION_CREATE_SUCCESS,
     SUBMISSION_EDIT_SUCCESS
 } from '../constants/submission'
+
+// NOTE: Need to create this in param store and add to 
+// aall other deployment configs
+amplitude.getInstance().init(process.env.AMPLITUDE_TOKEN)
+console.log(process.env.NODE_ENV)
 
 const events = {
     auth: {
@@ -52,7 +56,7 @@ const configureAmplitude = ({
             Role: role
         },
         Session: {
-            Environment: config.env // TODO: change to env variable
+            Environment: process.env.NODE_ENV
         }        
     }
     amplitude.getInstance().setUserProperties(userProperties)

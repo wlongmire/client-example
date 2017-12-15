@@ -1,12 +1,7 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
 import { APP_INITIALIZED } from '../constants/app'
 import config from 'config'
-
-import {
-    USER_LOGGED_IN,
-    USER_LOGGED_OUT
-} from '../constants/user'
-
+import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../constants/user'
 import {
     SUBMISSION_CLEARANCE_PASSED,
     SUBMISSION_CLEARANCE_FAILED,

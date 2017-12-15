@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
@@ -53,11 +54,7 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
+    new Dotenv(),
     // for production minification TO_DO_AK
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }

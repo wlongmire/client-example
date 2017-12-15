@@ -11,20 +11,10 @@ import Knockout from './Knockout'
 
 import { isEmpty } from 'lodash'
 
-import {
-  CHANGE_SUBMISSION_STATUS,
-  SUBMISSION_STATUS
-} from 'app/constants/submission'
+import { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } from 'app/constants/submission'
+import { submissionQuoted, submissionKnockedOut, submissionFailed } from 'app/actions/submissionActions'
 
-import { 
-  submissionQuoted,
-  submissionKnockedOut,
-  submissionFailed
-} from 'app/actions/submissionActions'
-
-import {
-  STATUS
-} from 'app/constants'
+import { STATUS } from 'app/constants'
 
 class FormResults extends Component {
   constructor(props) {

@@ -31,7 +31,7 @@ class Clearance extends Component {
     super(props)
     this.state = {
       status: STATUS.INPUT,
-      input: {},  
+      input: {},
       result: {}
     }
 

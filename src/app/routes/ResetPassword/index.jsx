@@ -7,9 +7,6 @@ import CompleteProfileC from '../../components/shared/CompleteProfile'
 import SignupHeaderC from '../../components/shared/SignupHeader'
 import AllSetC from '../../components/shared/AllSet'
 import { login, logout, createAlert, getUserFromRequestCode } from '../../actions/userActions'
-// import config from 'config'
-// import AWSCognito from 'amazon-cognito-identity-js'
-// import AWS from 'aws-sdk'
 
 export class ForgotPassword extends Component {
   constructor(props) {
@@ -25,7 +22,6 @@ export class ForgotPassword extends Component {
   componentDidMount() {
     document.body.className = 'body-signup-grey'
 
-
     if (!this.props.location.query.confirmationCode || !this.props.location.query.request) {
       // Can be triggered after backend is set up... -AK
       this.props.dispatch(createAlert('The Key your provided is incorrect. Please login or contact support if you are experiencing issues!', 'info'))
@@ -40,9 +36,6 @@ export class ForgotPassword extends Component {
           return browserHistory.push('/')
         }
       })
-
-
-
   }
 
   componentWillUnmount() {

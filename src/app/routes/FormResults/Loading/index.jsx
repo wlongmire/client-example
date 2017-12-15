@@ -25,7 +25,6 @@ class Loading extends Component {
   }
 
   componentDidMount() {
-    const props = this.props
     const { submission, user } = this.props
 
     const bundleArray = []
@@ -74,11 +73,11 @@ class Loading extends Component {
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
           const error = new Error('Auth Error')
-            if (submission.id) {
-              this.props.dispatch(submissionEditFailed(error))
-            } else {
-              this.props.dispatch(submissionCreateFailed(error))
-            }
+          if (submission.id) {
+            this.props.dispatch(submissionEditFailed(error))
+          } else {
+            this.props.dispatch(submissionCreateFailed(error))
+          }
           this.props.logout()
         }
 
@@ -141,7 +140,7 @@ class Loading extends Component {
 
       this.props.handleSubmit(!(resp[0].status === 200), ratings)
     }, (err) => {
-      // TODO: find better way to handle (get rid of console.log or remove handler...)
+      // TODO: actually handle the error or remove this handler altogether
       console.log('CONSOLE LOG ERR', err)
     })
   }
