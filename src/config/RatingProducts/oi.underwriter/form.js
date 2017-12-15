@@ -471,7 +471,6 @@ const updatedData =  {
     },
     {
       "questionId": "18a",
-      "text": "Brokerage name",
       "name": "associatedBrokerage",
       "required": true,
       "inputType": "text",
