@@ -44,7 +44,11 @@ class Loading extends Component {
     const ratingPromises = typeMap[submission.type]
     const sgsEmail = submission.type === 'oi' ? config.sgsOIEmail : config.sgsOCPEmail
     const brokerEmail = submission.contactInfo.email
-    const { argoEmail, ownerEdgeEmail } = config
+    let { argoEmail, ownerEdgeEmail } = config
+
+    if (argoEmail.indexOf('[') > -1) {
+      argoEmail = JSON.parse(argoEmail);
+    }
 
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
