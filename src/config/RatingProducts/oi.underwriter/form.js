@@ -1,8 +1,8 @@
 import statesArray from './../states';
 
 const updatedData =  {
-  "questionSetId": "OIFORM",
-  "name": "OIFORM",
+  "questionSetId": "OIUNDERWRITERFORM",
+  "name": "OIUNDERWRITERFORM",
   "questions": [
     {
       "questionId": "1",
@@ -454,7 +454,7 @@ const updatedData =  {
     {
       "questionId": "17",
       "name": "generalComments",
-      "text": "General Comments",
+      "text": "General Comments:",
       "inputFormat": "text",
       "inputType": "freeform",
       "required": false
@@ -462,31 +462,44 @@ const updatedData =  {
     {
       "questionId": "18",
       "name": "nameInsuredAddressLabel",
-      "text": "Please provide your contact info to receive your indication:",
+      "text": "Please provide broker contact info attached to the submission and to receive the pricing indication:",
       "inputFormat": "label",
-
+      
       "attributes":{
         "controlGroup":"contactInfo"
       }
     },
     {
       "questionId": "18a",
-      "name": "email",
-      "inputType": "text",
-      "inputFormat": "email",
+      "text": "Brokerage name",
+      "name": "associatedBrokerage",
       "required": true,
-      "placeholder": "Email",
+      "inputType": "text",
+      "inputFormat": "text",
+      "tooltiptext": "As an underwriter, we need for you to supply the name of the brokerage assosated with this submission.",
+      "placeholder": "Brokerage name",
       "attributes":{
         "controlGroup":"contactInfo"
       }
     },
     {
       "questionId": "18b",
+      "name": "email",
+      "inputType": "text",
+      "inputFormat": "email",
+      "required": true,
+      "placeholder": "Broker email",
+      "attributes":{
+        "controlGroup":"contactInfo"
+      }
+    },
+    {
+      "questionId": "18c",
       "name": "phone",
       "inputType": "text",
       "inputFormat": "text",
       "required": true,
-      "placeholder": "Phone",
+      "placeholder": "Broker phone",
       "attributes":{
         "controlGroup":"contactInfo"
       }
