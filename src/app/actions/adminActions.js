@@ -45,7 +45,7 @@ export function createNewUser(
     checkTokenExpiration(user).then(() => {
       const body = {
         email,
-        role,
+        role: isAdmin == 'true' ? 'admin' : 'user',
         broker_id: user.brokerId,
         invite_user_id: user.id
       }
