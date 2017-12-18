@@ -76,7 +76,7 @@ export class UserManagement extends Component {
   handleCreateUser(email, isAdmin) {
     const user = this.props.user
     this.props.dispatch(
-      createNewUser(email, isAdmin, user)
+      createNewUser(email, isAdmin, user, 'Manage Users')
     )
 
     this.handleAutoClose()
@@ -85,7 +85,7 @@ export class UserManagement extends Component {
   handleDeleteUser(id) {
     const user = this.props.user
     this.props.dispatch(
-      deleteUser(id, user)
+      deleteUser(id, user, 'Manage Users')
     )
     this.handleAutoClose()
   }
@@ -93,7 +93,7 @@ export class UserManagement extends Component {
   handleResendUser(sendUser) {
     const user = this.props.user
     this.props.dispatch(
-      resendPasswordUser(sendUser, user)
+      resendPasswordUser(sendUser, user, 'Manage Users')
     )
     this.handleAutoClose()
   }

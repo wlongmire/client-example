@@ -3,7 +3,7 @@ import config from 'config'
 import capitalize from 'lodash/capitalize'
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
 import { APP_INITIALIZED } from '../constants/app'
-import { USER_LOGGED_IN } from '../constants/user'
+import { USER_LOGGED_IN, USER_INVITE, USER_INVITE_RESEND, USER_INVITE_CANCEL } from '../constants/user'
 import {
     SUBMISSION_CLEARANCE_PASSED,
     SUBMISSION_CLEARANCE_FAILED,
@@ -38,9 +38,10 @@ const events = {
         profileCompleted: 'Onboarding: Profile Completed', // --> email
     },
     referral: {
-        referralInvite: 'Referral: Invite',
-        referralInviteAccept: 'Referral: Invite Accept',
-        referralInviteCancel: 'Referral: Invite Cancel'
+        create: 'Referral: Invite',
+        accept: 'Referral: Invite Accept',
+        resend: 'Referral: Invite Resend',
+        cancel: 'Referral: Invite Cancel'
     },
     submission: {
         clearance: 'Submission: Clearance',
@@ -161,6 +162,30 @@ function* watchForProfileSaved() {
     })
 }
 
+function* watchForUserInvite() {
+    yield takeEvery(USER_INVITE, action => {
+        const { email, role, referrerUserType, eventSource } = action.value
+        const eventData = { Email: email , Role: role, ReferrerUserType: referrerUserType, Page: eventSource }
+        amplitude.getInstance().logEvent(events.referral.create, eventData)
+    })
+}
+
+function* watchForUserInviteResend() {
+    yield takeEvery(USER_INVITE_RESEND, action => {
+        const { email } = action.value
+        const eventData = { Email: email }
+        amplitude.getInstance().logEvent(events.referral.resend, eventData)
+    })
+}
+
+function* watchForUserInviteCancel() {
+    yield takeEvery(USER_INVITE_CANCEL, action => {
+        const { email, role, referrerUserType, eventSource } = action.value
+        const eventData = { Email: email , Role: role, ReferrerUserType: referrerUserType }
+        amplitude.getInstance().logEvent(events.referral.cancel, eventData)
+    })
+}
+
 /**
  * Transforms submission data into an amplitude submission event
  * @param {*} submission The submission to transform
@@ -234,6 +259,9 @@ export default function* root() {
         fork(watchForNewPasswordInitialized),
         fork(watchForNewPasswordSaved),
         fork(watchForProfileInitialized),
-        fork(watchForProfileSaved)
+        fork(watchForProfileSaved),
+        fork(watchForUserInvite),
+        fork(watchForUserInviteResend),
+        fork(watchForUserInviteCancel)
     ])
 }
