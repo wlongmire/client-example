@@ -50,6 +50,7 @@ class Loading extends Component {
       argoEmail = JSON.parse(argoEmail);
     }
 
+
     Promise.all(ratingPromises.map(s => (
       getRating({ submission: s }, user)
     ))).then((resp) => {
@@ -85,47 +86,64 @@ class Loading extends Component {
 
           let emailPromises
 
-          // if clearance status is passing
-          if (submissionData.clearanceStatus === 'pass') {
-            // if submission request is an update
-            if (respSave.updated === true) {
-              emailPromises = [
-                sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedSGS' : 'updatedNonQuoteSGS', submissionId, user),
-                sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
-                sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
-              ]
-            // if it is a new submission
-            } else {
-              emailPromises = [
-                sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'quotedSGS' : 'nonQuoteSGS', submissionId, user),
-                sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
-                sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
-              ]
-            }
-          // if clearance status is pending
-          } else if (submissionData.clearanceStatus === 'pending') {
-            // if submission request is an update
-            if (respSave.updated === true) {
-              emailPromises = [
-                sendEmail(argoEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedSGS' : 'pendingUpdatedNonQuoteSGS', submissionId, user),
-                sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
-              ]
-            // if it is a new submission
-            } else {
-              emailPromises = [
-                sendEmail(argoEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
-                sendEmail(sgsEmail, (instantQuote) ? 'pendingSGS' : 'pendingNonQuoteSGS', submissionId, user),
-                sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
-              ]
+          if (user.brokerId === config.underwriterBrokerId) {
+            switch (instantQuote) {
+              case true:
+                emailPromises = [
+                  sendEmail(user.username, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgp', submissionId, user),
+                  sendEmail(sgsEmail, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgp', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgp', submissionId, user)
+                ]
+                break;
+              case false:
+                emailPromises = [
+                  sendEmail(user.username, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgp', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgp', submissionId, user)
+                ]
             }
           }
-
+          else {
+            // if clearance status is passing
+            if (submissionData.clearanceStatus === 'pass') {
+              // if submission request is an update
+              if (respSave.updated === true) {
+                emailPromises = [
+                  sendEmail(argoEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
+                  sendEmail(sgsEmail, (instantQuote) ? 'updatedQuotedSGS' : 'updatedNonQuoteSGS', submissionId, user),
+                  sendEmail(brokerEmail, (instantQuote) ? 'updatedQuotedBroker' : 'updatedNonQuoteBroker', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (instantQuote) ? 'updatedQuotedArgo' : 'updatedNonQuoteArgo', submissionId, user),
+                ]
+                // if it is a new submission
+              } else {
+                emailPromises = [
+                  sendEmail(argoEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user),
+                  sendEmail(sgsEmail, (instantQuote) ? 'quotedSGS' : 'nonQuoteSGS', submissionId, user),
+                  sendEmail(brokerEmail, (instantQuote) ? 'quotedBroker' : 'nonQuoteBroker', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (instantQuote) ? 'quotedArgo' : 'nonQuoteArgo', submissionId, user)
+                ]
+              }
+              // if clearance status is pending
+            } else if (submissionData.clearanceStatus === 'pending') {
+              // if submission request is an update
+              if (respSave.updated === true) {
+                emailPromises = [
+                  sendEmail(argoEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user),
+                  sendEmail(sgsEmail, (instantQuote) ? 'pendingUpdatedSGS' : 'pendingUpdatedNonQuoteSGS', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
+                ]
+                // if it is a new submission
+              } else {
+                emailPromises = [
+                  sendEmail(argoEmail, (instantQuote) ? 'pendingArgo' : 'pendingNonQuoteArgo', submissionId, user),
+                  sendEmail(sgsEmail, (instantQuote) ? 'pendingSGS' : 'pendingNonQuoteSGS', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (instantQuote) ? 'pendingUpdatedArgo' : 'pendingUpdatedNonQuoteArgo', submissionId, user)
+                ]
+              }
+            }
+          }
           Promise.all(emailPromises).then((r) => {
             this.props.handleEmailStatus({ success: true })
-          }).catch((e)=>{
+          }).catch((e) => {
             console.log('Email error: ', e)
           })
         } else {
