@@ -20,6 +20,7 @@ export class ConfirmSignup extends Component {
   }
 
   componentDidMount() {
+
     document.body.className = 'body-signup-grey'
 
     if (!this.props.location.query.key) {

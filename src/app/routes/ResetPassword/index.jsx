@@ -30,7 +30,6 @@ export class ForgotPassword extends Component {
 
     getUserFromRequestCode(this.props.location.query.request)
       .then((resp, err) => {
-        console.log('this is what the component is getting', resp)
         if (!resp.success) {
           this.props.dispatch(createAlert('This password link is no longer valid. Please log in or request another reset.', 'danger'))
           return browserHistory.push('/')
@@ -105,7 +104,6 @@ export class ForgotPassword extends Component {
           >
             {currentStep()}
           </CSSTransition>
-
         </div>
       </div>
     )

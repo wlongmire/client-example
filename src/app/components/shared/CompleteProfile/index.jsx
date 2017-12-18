@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
 import { editProfile, updateUserValues } from '../../../actions/userActions'
+import { profileInitialized, profileSaved } from '../../../actions/signupActions'
 
 export class CompleteProfile extends Component {
   constructor(props) {
@@ -18,18 +19,15 @@ export class CompleteProfile extends Component {
     }
   }
 
-  ComponentWillMount(){
-
-  }
-
-  ComponentDidMount(){
-    document.addEventListener("keyDown", this.handleKeyPress, false)
-    this.firstName.focus();
+  componentDidMount(){
+    const { email } = this.props.user
+    this.props.dispatch(profileInitialized(email))
+    if (this.firstNameField) {
+      this.firstNameField.focus()
+    }
   }
 
   handleKeyPress(event) {
-    console.log('got to the event handler')
-    console.log("key pressed => ", event.key)
     if(event.key == 'Enter'){
       handleSubmit();
     }
@@ -49,13 +47,20 @@ export class CompleteProfile extends Component {
       phone,
       phoneExt
     }
+
     editProfile(this.props.user, { ...values })
       .then((resp) => {
         if (resp.success === true) {
           this.props.dispatch(updateUserValues(values))
+          const { email } = this.props.user
+          this.props.dispatch(profileSaved(email))
           return this.props.goToNextStep()
         }
-        return this.setState({ ...this.state, errorStatus: true, errorMessage: `There is a problem. ${resp.message}.. Please contact support!` })
+        return this.setState({ 
+          ...this.state, 
+          errorStatus: true, 
+          errorMessage: `There is a problem. ${resp.message}.. Please contact support!` 
+        })
       })
   }
 
@@ -93,7 +98,7 @@ export class CompleteProfile extends Component {
               label="Text"
               value={this.state.firstName}
               onChange={validateFirstName}
-              ref="firstName"
+              inputRef={ref => this.firstNameField = ref}
             />
             {(firstName.length === 0) ? helpBlock('*Required', 'helpBlockRed') : <div className="completeSpace" />}
           </FormGroup>
@@ -165,8 +170,3 @@ CompleteProfile.propTypes = {
 }
 
 export default connect()(CompleteProfile)
-// export default connect((store) => {
-//   return ({
-//     user: store.user
-//   })
-// })(CompleteProfile)

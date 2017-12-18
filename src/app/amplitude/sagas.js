@@ -16,10 +16,14 @@ import {
     SUBMISSION_EDIT_SUCCESS
 } from '../constants/submission'
 
+import { 
+    SIGNUP_NEW_PASSWORD_INITIALIZED, SIGNUP_NEW_PASSWORD_SAVED, 
+    SIGNUP_PROFILE_INITIALIZED, SIGNUP_PROFILE_SAVED
+ } from '../constants/signup'
+
 // NOTE: Need to create this in param store and add to 
 // aall other deployment configs
 amplitude.getInstance().init(process.env.AMPLITUDE_TOKEN)
-console.log(process.env.NODE_ENV)
 
 const events = {
     auth: {
@@ -27,16 +31,22 @@ const events = {
         logout: 'Authentication: Logout',
         resetPassword: 'Authentication: Reset Password'
     },
-    submission: {
-        new: 'Submission: New',
-        clearance: 'Submission: Clearance',
-        submit: 'Submission: Submit',
-        edit: 'Submission: Edit'
-    },
     onboarding: {
+        initialized: 'Onboarding: New Password Opened', // --> email
+        newPasswordSet: 'Onboarding: New Password Created', // --> email
+        profileInitialized: 'Onboarding: Profile Opened', // --> email
+        profileCompleted: 'Onboarding: Profile Completed', // --> email
+    },
+    referral: {
         referralInvite: 'Referral: Invite',
         referralInviteAccept: 'Referral: Invite Accept',
         referralInviteCancel: 'Referral: Invite Cancel'
+    },
+    submission: {
+        clearance: 'Submission: Clearance',
+        edit: 'Submission: Edit',
+        new: 'Submission: New',
+        submit: 'Submission: Submit',
     }
 }
 
@@ -119,6 +129,38 @@ function* watchForUserLogin() {
     })
 }
 
+function* watchForNewPasswordInitialized() {
+    yield takeEvery(SIGNUP_NEW_PASSWORD_INITIALIZED, action => {
+        const email = action.value
+        const eventData = { Email: action.value }
+        amplitude.getInstance().logEvent(events.onboarding.initialized, eventData)
+    })
+}
+
+function* watchForNewPasswordSaved() {
+    yield takeEvery(SIGNUP_NEW_PASSWORD_SAVED, action => {
+        const email = action.value
+        const eventData = { Email: action.value }
+        amplitude.getInstance().logEvent(events.onboarding.newPasswordSet, eventData)
+    })
+}
+
+function* watchForProfileInitialized() {
+    yield takeEvery(SIGNUP_PROFILE_INITIALIZED, action => {
+        const email = action.value
+        const eventData = { Email: action.value }
+        amplitude.getInstance().logEvent(events.onboarding.profileInitialized, eventData)
+    })
+}
+
+function* watchForProfileSaved() {
+    yield takeEvery(SIGNUP_PROFILE_SAVED, action => {
+        const email = action.value
+        const eventData = { Email: action.value }
+        amplitude.getInstance().logEvent(events.onboarding.profileCompleted, eventData)
+    })
+}
+
 /**
  * Transforms submission data into an amplitude submission event
  * @param {*} submission The submission to transform
@@ -188,6 +230,10 @@ export default function* root() {
         fork(watchForSubmissionEditSuccess),
         fork(watchForSubmissionClearancePassed),
         fork(watchForSubmissionClearanceFailed),
-        fork(watchForSubmissionClearancePending)
+        fork(watchForSubmissionClearancePending),
+        fork(watchForNewPasswordInitialized),
+        fork(watchForNewPasswordSaved),
+        fork(watchForProfileInitialized),
+        fork(watchForProfileSaved)
     ])
 }

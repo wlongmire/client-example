@@ -262,8 +262,6 @@ export function editProfile(user, values) {
 
     apigClient.profileIdPut({ id: user.id }, paramsArray)
       .then((resp2, err1) => {
-        console.log('err1', err1)
-        console.log('resp2', resp2)
         if (resp2.data && resp2.data.success === true) {
           return resolve({
             success: true,
