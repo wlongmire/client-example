@@ -45,11 +45,11 @@ export function createNewUser(
     checkTokenExpiration(user).then(() => {
       const body = {
         email,
-        role: isAdmin == 'true' ? 'admin' : 'user',
+        role,
         broker_id: user.brokerId,
         invite_user_id: user.id
       }
-      console.log("here is the user post body => ",body);
+      
       apigClient.adminUsersPost({}, body, {}).then((resp) => {
         if (resp.data && resp.data.success === false) {
           dispatch(
