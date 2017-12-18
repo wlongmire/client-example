@@ -144,7 +144,7 @@ class Loading extends Component {
 
       this.props.handleSubmit(!(resp[0].status === 200), ratings)
     }, (err) => {
-      // TODO: actually handle the error or remove this handler altogether
+      // TODO: actually handle the error or remove this handler
       console.log('CONSOLE LOG ERR', err)
     })
   }

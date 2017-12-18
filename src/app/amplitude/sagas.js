@@ -21,8 +21,6 @@ import {
     SIGNUP_PROFILE_INITIALIZED, SIGNUP_PROFILE_SAVED
  } from '../constants/signup'
 
-// NOTE: Need to create this in param store and add to 
-// aall other deployment configs
 amplitude.getInstance().init(process.env.AMPLITUDE_TOKEN)
 
 const events = {
@@ -32,10 +30,10 @@ const events = {
         resetPassword: 'Authentication: Reset Password'
     },
     onboarding: {
-        initialized: 'Onboarding: New Password Opened', // --> email
-        newPasswordSet: 'Onboarding: New Password Created', // --> email
-        profileInitialized: 'Onboarding: Profile Opened', // --> email
-        profileCompleted: 'Onboarding: Profile Completed', // --> email
+        initialized: 'Onboarding: New Password Opened',
+        newPasswordSet: 'Onboarding: New Password Created',
+        profileInitialized: 'Onboarding: Profile Opened',
+        profileCompleted: 'Onboarding: Profile Completed',
     },
     referral: {
         create: 'Referral: Invite',

@@ -85,7 +85,7 @@ export class UserManagement extends Component {
   handleDeleteUser(id) {
     const user = this.props.user
     this.props.dispatch(
-      deleteUser(id, user, 'Manage Users')
+      deleteUser(id, user)
     )
     this.handleAutoClose()
   }

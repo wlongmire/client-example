@@ -68,7 +68,7 @@ export function createNewUser(
 
 }
 
-export function deleteUser(id, user, eventSource = null) {
+export function deleteUser(id, user) {
   return (dispatch) => {
     checkTokenExpiration(user).then((resp) => {
       if (resp.status === 'expired') {
