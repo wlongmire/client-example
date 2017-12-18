@@ -100,6 +100,7 @@ class Loading extends Component {
                   sendEmail(user.username, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgp', submissionId, user),
                   sendEmail(ownerEdgeEmail, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgp', submissionId, user)
                 ]
+                break;
             }
           }
           else {
