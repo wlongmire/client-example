@@ -8,13 +8,10 @@ import {
 } from 'app/constants/user'
 import { migrationLogin } from './migrationActions'
 import { ALERT_DISPLAY } from '../constants/alert'
-
-import mx from 'app/utils/MixpanelInterface'
-
 import { setAlert, getUsersByBrokerage } from './adminActions'
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js'
-import {isDefined, isNullOrEmpty} from './../utils/utilities'
+import { isDefined, isNullOrEmpty } from './../utils/utilities'
 
 export function login(username, password, onSuccess, onFailure, newPasswordRequired) {
   return (dispatch) => {
@@ -129,33 +126,12 @@ export function login(username, password, onSuccess, onFailure, newPasswordRequi
 
                   onSuccess(resp, subId, cognitoUser, credentials.expireTime, userTableEntry.data)
 
+                  // full story setup (todo: move to its own saga)
                   FS.identify(cognitoUser.username, {
                     displayName: cognitoUser.username,
                     email_str: cognitoUser.username,
                     broker_str: brokerName,
                     subId_str: id
-                  })
-
-                  mixpanel.register({
-                    BrokerName: brokerName,
-                    User: cognitoUser.username,
-                    Email: cognitoUser.username,
-                    Broker: brokerId,
-                    SubId: id,
-                    Environment: config.env
-                  })
-
-                  mx.customEvent(
-                    'auth',
-                    'login')
-
-                  // adding identity and attributes to
-                  // mixpanel user profile
-                  mixpanel.identify(cognitoUser.username)
-                  mixpanel.people.set({ // eslint-disable-line
-                    Broker: brokerId,
-                    BrokerName: brokerName,
-                    first_name: cognitoUser.username
                   })
 
                 }, (err2) => {
@@ -286,8 +262,6 @@ export function editProfile(user, values) {
 
     apigClient.profileIdPut({ id: user.id }, paramsArray)
       .then((resp2, err1) => {
-        console.log('err1', err1)
-        console.log('resp2', resp2)
         if (resp2.data && resp2.data.success === true) {
           return resolve({
             success: true,

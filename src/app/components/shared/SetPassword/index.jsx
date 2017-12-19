@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { setNewPassword, login, userConfirmPassword } from '../../../actions/userActions'
+import { newPasswordInitialized, newPasswordSaved } from '../../../actions/signupActions'
 import ToggleDisplay from './../ToggleDisplay'
 
 export class SetPassword extends Component {
@@ -17,10 +18,21 @@ export class SetPassword extends Component {
       disabledFlag: true,
       submitted: false,
       confirmPwdReqs: null,
-      badPassConfFocus: null
+      badPassConfFocus: null,
+      userEmail: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentWillReceiveProps(props) {
+    if (!this.state.userEmail && props.userAttributes && props.userAttributes.email) {
+      this.setState({
+        userEmail: props.userAttributes.email
+      }, () => {
+        this.props.dispatch(newPasswordInitialized(this.state.userEmail))
+      })
+    }
   }
 
   handleSubmit(e) {
@@ -96,6 +108,7 @@ export class SetPassword extends Component {
           // on SUCCESS
           const t1 = performance.now();
           console.log(`the setNewPassowrdFunction took ${t1 - t0} milliseconds`)
+          this.props.dispatch(newPasswordSaved(this.props.userAttributes.email))
           this.props.dispatch(login(
             this.props.cognitoUser.username,
             pwd,

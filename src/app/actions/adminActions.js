@@ -1,13 +1,6 @@
 import { checkTokenExpiration } from '../utils/checkTokenExpiration'
-
-import {
-  FETCH_USERS,
-  USER_ALERT_DISPLAY
-} from './../constants/admin'
-
-import {
-  USER_LOGGED_IN,
-} from './../constants/user'
+import { FETCH_USERS, USER_ALERT_DISPLAY} from './../constants/admin'
+import { USER_LOGGED_IN, USER_INVITE, USER_INVITE_RESEND, USER_INVITE_CANCEL } from './../constants/user'
 
 export function getUsersByBrokerage(user) {
   return (dispatch) => {
@@ -40,16 +33,23 @@ export function getUsersByBrokerage(user) {
   }
 }
 
-export function createNewUser(email, isAdmin, user, successMessage = `Success! An invite as been emailed to ${email}`) {
-  return ((dispatch) => {
+export function createNewUser(
+  email, 
+  isAdmin, 
+  user, 
+  eventSource = null, 
+  successMessage = `Success! An invite as been emailed to ${email}`) {
+  
+    return ((dispatch) => {
+    const role = isAdmin == 'true' ? 'admin' : 'user'
     checkTokenExpiration(user).then(() => {
       const body = {
         email,
-        role: isAdmin == 'true' ? 'admin' : 'user',
+        role,
         broker_id: user.brokerId,
         invite_user_id: user.id
       }
-      console.log("here is the user post body => ",body);
+      
       apigClient.adminUsersPost({}, body, {}).then((resp) => {
         if (resp.data && resp.data.success === false) {
           dispatch(
@@ -59,14 +59,14 @@ export function createNewUser(email, isAdmin, user, successMessage = `Success! A
           dispatch(
             setAlert({ show: true, message: successMessage, bsStyle: 'success' })
           )
+          dispatch(invite(email, role, 'unknown', eventSource))
           dispatch(getUsersByBrokerage(user))
         }
       })
-
     })
   })
-}
 
+}
 
 export function deleteUser(id, user) {
   return (dispatch) => {
@@ -86,6 +86,7 @@ export function deleteUser(id, user) {
             setAlert({ show: true, message: `${resp1.data.message}`, bsStyle: 'danger' })
           )
         } else {
+          dispatch(inviteCancel(user.email))
           dispatch(
             setAlert({ show: true, message: 'Success: User was successfully removed.', bsStyle: 'success' })
           )
@@ -97,7 +98,7 @@ export function deleteUser(id, user) {
   }
 }
 
-export function resendPasswordUser(sendUser, user) {
+export function resendPasswordUser(sendUser, user, eventSource = null) {
   return (dispatch) => {
     checkTokenExpiration(user).then((resp) => {
       if (resp.status === 'expired') {
@@ -115,7 +116,8 @@ export function resendPasswordUser(sendUser, user) {
             setAlert({ show: true, message: `${resp1.data.message}`, bsStyle: 'danger' })
           )
         } else {
-          dispatch(createNewUser(sendUser.email, sendUser.role === 'admin', user, 'Success: User password has been resent.'))
+          dispatch(inviteResend(sendUser.email))
+          dispatch(createNewUser(sendUser.email, sendUser.role === 'admin', user, eventSource, 'Success: User password has been resent.'))
         }
       })
 
@@ -161,6 +163,36 @@ export function updateUser(row, statusType, user) {
         })
     })
   })
+}
+
+export function invite(email, role, referrerUserType = null, eventSource = null) {
+  return {
+    type: USER_INVITE,
+    value: {
+      email,
+      role,
+      referrerUserType,
+      eventSource
+    }
+  }
+}
+
+export function inviteResend(email) {
+  return {
+    type: USER_INVITE_RESEND,
+    value: email
+  }
+}
+
+export function inviteCancel(email, role = null, referrerUserType = null) {
+  return {
+    type: USER_INVITE_CANCEL,
+    value: {
+      email,
+      role,
+      referrerUserType
+    }
+  }
 }
 
 export function setAlert(params) {

@@ -11,12 +11,119 @@ import {
   CHANGE_SUBMISSION,
   CHANGE_SUBMISSION_STATUS,
   SUBMISSION_STATUS,
-  CLEAR_SUBMISSION
+  CLEAR_SUBMISSION,
+  SUBMISSION_CLEARANCE_PASSED,
+  SUBMISSION_CLEARANCE_FAILED,
+  SUBMISSION_CLEARANCE_PENDING,
+  SUBMISSION_QUOTED,
+  SUBMISSION_KNOCKED_OUT,
+  SUBMISSION_FAILED,
+  SUBMISSION_CREATE,
+  SUBMISSION_CREATE_SUCCESS,
+  SUBMISSION_CREATE_FAILED,
+  SUBMISSION_EDIT,
+  SUBMISSION_EDIT_SUCCESS,
+  SUBMISSION_EDIT_FAILED
 } from './../constants/submission'
 
 import {
   USER_LOGGED_IN,
 } from './../constants/user'
+
+// note on action generators - if possible, try to make
+// state change action creators explicit as
+// it makes for an easier time reasoning about the actions in redux
+export const submissionClearancePassed = (submissionType) => {
+  return {
+    type: SUBMISSION_CLEARANCE_PASSED,
+    value: {
+      submissionType
+    }
+  }
+}
+
+export const submissionClearanceFailed = (submissionType, matches) => {
+  return {
+    type: SUBMISSION_CLEARANCE_FAILED,
+    value: {
+      submissionType,
+      matches
+    }
+  }
+}
+
+export const submissionClearancePending = (submissionType, matches) => {
+  return {
+    type: SUBMISSION_CLEARANCE_PENDING,
+    value: {
+      submissionType,
+      matches
+    }
+  }
+}
+
+export const submissionQuoted = (submissionInfo) => {
+  return {
+    type: SUBMISSION_QUOTED,
+    value: submissionInfo
+  }
+}
+
+export const submissionKnockedOut = (submissionInfo) => {
+  return {
+    type: SUBMISSION_KNOCKED_OUT,
+    value: submissionInfo
+  }
+}
+
+export const submissionFailed = (submissionInfo) => {
+  return {
+    type: SUBMISSION_FAILED,
+    value: submissionInfo
+  }
+}
+
+export const submissionCreate = (submissionInfo) => {
+  return {
+    type: SUBMISSION_CREATE,
+    value: submissionInfo
+  }
+}
+
+export const submissionCreateFailed = (error) => {
+  return {
+    type: SUBMISSION_CREATE_FAILED,
+    value: submissionInfo
+  }
+}
+
+export const submissionCreateSuccess = (submission) => {
+  return {
+    type: SUBMISSION_CREATE_SUCCESS,
+    value: submission
+  }
+}
+
+export const submissionEdit = (submissionInfo) => {
+  return {
+    type: SUBMISSION_EDIT,
+    value: submissionInfo
+  }
+}
+
+export const submissionEditFailed = (error) => {
+  return {
+    type: SUBMISSION_EDIT_FAILED,
+    value: error
+  }
+}
+
+export const submissionEditSuccess = (submission) => {
+  return {
+    type: SUBMISSION_EDIT_SUCCESS,
+    value: submission
+  }
+}
 
 export const clearSubmissionStatus = () => {
   return ((dispatch) => {

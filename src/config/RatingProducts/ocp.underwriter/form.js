@@ -412,7 +412,6 @@ const ocpData = {
     },
     {
       "questionId": "21a",
-      "text": "What brokerage is this submission associated with?",
       "name": "associatedBrokerage",
       "required": true,
       "inputType": "text",
