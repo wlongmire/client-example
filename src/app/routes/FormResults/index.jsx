@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import mx from 'app/utils/MixpanelInterface'
 
 import Loading from './Loading'
 import Error from './Error'
@@ -12,14 +11,10 @@ import Knockout from './Knockout'
 
 import { isEmpty } from 'lodash'
 
-import {
-  CHANGE_SUBMISSION_STATUS,
-  SUBMISSION_STATUS
-} from 'app/constants/submission'
+import { CHANGE_SUBMISSION_STATUS, SUBMISSION_STATUS } from 'app/constants/submission'
+import { submissionQuoted, submissionKnockedOut, submissionFailed } from 'app/actions/submissionActions'
 
-import {
-  STATUS
-} from 'app/constants'
+import { STATUS } from 'app/constants'
 
 class FormResults extends Component {
   constructor(props) {
@@ -58,41 +53,11 @@ class FormResults extends Component {
       ratings
     })
 
-    // mixpanel events
     if (error) {
-      mx.customEvent(
-        'submission',
-        'error',
-        {
-          Type: this.props.submission
-        }
-        )
-    } else if (ratings[submission.type].instantQuote) {
-      mx.customEvent(
-          'submission',
-          'quoted', {
-            SubmissionStatus: submission.id ? 'update' : 'new',
-            ClearanceStatus: submission.clearanceStatus,
-            Type: type,
-            Premium: ratings[type].premium,
-            TerrorPremium: ratings[type].terrorPremium,
-            TotalPremium: ratings[type].totalPremium,
-            ExcessPremium: ratings[type].excessPremium,
-            ExcessTerrorPremium: ratings[type].excessTerrorPremium,
-            TotalExcessPremium: ratings[type].totalExcessPremium
-          }
-        )
-    } else {
-      mx.customEvent(
-          'submission',
-          'knockout', {
-            SubmissionStatus: submission.id ? 'update' : 'new',
-            ClearanceStatus: submission.clearanceStatus,
-            Type: type,
-            Reasons: ratings[type].reason,
-          }
-        )
-    }
+      this.props.dispatch(submissionFailed({
+        Type: this.props.submission
+      }))
+    } 
   }
 
   render() {
@@ -133,7 +98,6 @@ FormResults.propTypes = {
   submission: PropTypes.object,
   dispatch: PropTypes.func
 }
-
 
 export default connect((store) => {
   return ({

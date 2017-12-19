@@ -18,13 +18,10 @@ class PasswordForgot extends Component {
 
   handleSubmit(values) {
     this.props.handleOK(values)
-    console.log('values', values)
   }
 
   render() {
     const { error, errorMessage } = this.props
-
-    console.log('this.props', this.props)
     return (
       <div className="pawsswordForgotModal">
         <p>Provide the email address you used to set up your account.</p>

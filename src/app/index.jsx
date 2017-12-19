@@ -33,9 +33,7 @@ cognitoPersistUser((user) => {
 
   history.listen(() => {
     window.scrollTo(0, 0)
-
     const route = window.location.pathname
-    console.log('route change:', route)
   })
 
   // Initialize the app

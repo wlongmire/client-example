@@ -28,15 +28,15 @@ export class ProductChoice extends Component {
     const generateItems = () => {
       return Object.keys(ratingProducts).map((productType, idx) => {
         return (
-          <Col lg={5} md={6} sm={6} xs={12}>
-          <ProductChoiceItemC
-          key={idx}
-          type={productType}
-          name={ratingProducts[productType].name}
-          subtitle={ratingProducts[productType].subtitle}
-          description={ratingProducts[productType].description}
-          broker={this.props.user.brokerId}
-        /></Col>)
+          <Col key={idx} lg={5} md={6} sm={6} xs={12}>
+            <ProductChoiceItemC
+              type={productType}
+              name={ratingProducts[productType].name}
+              subtitle={ratingProducts[productType].subtitle}
+              description={ratingProducts[productType].description}
+              broker={this.props.user.brokerId}
+            />
+          </Col>)
       })
     }
     return (

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { LinkContainer } from 'react-router-bootstrap'
-import * as actions from 'app/actions/userActions'
 import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import { trimAssetLink } from './../../../utils/utilities'
@@ -11,6 +10,10 @@ import config from 'config'
 
 import {
   saveSubmission,
+  submissionCreateSuccess,
+  submissionCreateFailed,
+  submissionEditSuccess,
+  submissionEditFailed,
   sendEmail,
   getRating
 } from 'app/actions/submissionActions'
@@ -59,10 +62,8 @@ class Loading extends Component {
         if (resp[idx].status === 'authError') {
           return this.props.logout()
         }
-
         const responseRatings = resp[idx].data
         const ratingType = ratingSubmission.bundleId ? ratingSubmission.bundleId : ratingSubmission.type
-
         ratings[ratingType] = responseRatings.results
       })
 
@@ -75,14 +76,24 @@ class Loading extends Component {
 
       saveSubmission(submissionData, user).then((respSave) => {
         if (respSave.status === 'authError') {
-          console.log('Save Sub error: ', resp)
+          const error = new Error('Auth Error')
+          if (submission.id) {
+            this.props.dispatch(submissionEditFailed(error))
+          } else {
+            this.props.dispatch(submissionCreateFailed(error))
+          }
           this.props.logout()
         }
 
         if (respSave.data && respSave.data.success === true) {
+          if (submission.id) {
+            this.props.dispatch(submissionEditSuccess(Object.assign({}, submission, { rating: ratings })))
+          } else {
+            const { submissionId } = respSave.data
+            this.props.dispatch(submissionCreateSuccess(Object.assign({}, submission, { id: submissionId, rating: ratings })))
+          }
+          
           const { submissionId } = respSave.data
-
-
           let emailPromises
 
           // if clearance status is passing
@@ -125,18 +136,15 @@ class Loading extends Component {
 
           Promise.all(emailPromises).then((r) => {
             this.props.handleEmailStatus({ success: true })
-          }).catch((e)=>{
-            console.log('Email error: ', e)
           })
         } else {
           alert('Submission save not successful. Please contact support!')
         }
-      }).catch((error1) => {
-        console.log('save sub error 2', error1)
       })
 
       this.props.handleSubmit(!(resp[0].status === 200), ratings)
     }, (err) => {
+      // TODO: actually handle the error or remove this handler
       console.log('CONSOLE LOG ERR', err)
     })
   }
@@ -168,12 +176,12 @@ Loading.propTypes = {
   handleEmailStatus: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  submission: PropTypes.object
+  submission: PropTypes.object,
+  dispatch: PropTypes.func
 }
-
 
 export default connect((store) => {
   return ({
     user: store.user
   })
-}, actions)(Loading)
+})(Loading)
