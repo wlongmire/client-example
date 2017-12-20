@@ -101,13 +101,22 @@ export class Quote extends Component {
           })}
         </div>
 
-        <div className="content">
-          <p>One of the following underwriters will be in contact with you
+        <ToggleDisplay
+          hide={this.props.user.brokerId === config.underwriterBrokerId}
+          render={() => (<div className="content">
+            <p>One of the following underwriters will be in contact with you
             to finalize your coverage options and assist you with purchase.</p>
-          <ul>{underwriters}</ul>
-        </div>
+            <ul>{underwriters}</ul>
+          </div>)}
+        />
+        <ToggleDisplay
+          show={this.props.user.brokerId === config.underwriterBrokerId}
+          render={() => (<div className="content">
+            <p>No emails have been sent to the broker. The Bind Order and Pricing Indication has been sent through to your email and SGS, please forward this on to the broker at your convenience.</p>
+          </div>)}
+        />
 
-        { emailStatusMap[this.props.emailStatus] }
+        {emailStatusMap[this.props.emailStatus]}
 
         <div className="legalText">
           The &quot;pricing indication&quot; is issued as a matter of information only

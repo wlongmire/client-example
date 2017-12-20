@@ -14,7 +14,7 @@ export class Knockout extends Component {
     this.props.clearSubmissionStatus()
   }
   render() {
-    
+
     const assetsURL = trimAssetLink(config.assetsURL)
 
     const emailStatusMap = {
@@ -59,12 +59,19 @@ export class Knockout extends Component {
             { reasonDisplay }
           </div>
 
-          <p>One of our underwriters will be in contact with you to
-            finalize your coverage options and assist you with purchase.</p>
-
-          <ul>
-            {underwriters}
-          </ul>
+          <ToggleDisplay
+          hide={this.props.user.brokerId === config.underwriterBrokerId}
+          render={() => (<div className="content">
+            <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+            <ul>{underwriters}</ul>
+          </div>)}
+        />
+        <ToggleDisplay
+          show={this.props.user.brokerId === config.underwriterBrokerId}
+          render={() => (<div className="content">
+            <p>No emails have been sent to the broker or SGS. The Bind Order and Pricing Indication has been sent through to your email, please forward and review these with the Owner's Unit before sending onto the broker and SGS.</p>
+          </div>)}
+        />
         </div>
 
         { emailStatusMap[this.props.emailStatus] }
