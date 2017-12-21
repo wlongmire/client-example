@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import config from '../../../../config'
 import PendingStatus from '../pendingStatus'
+import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import * as actions from '../../../actions/submissionActions'
 import { trimAssetLink } from './../../../utils/utilities'
 
