@@ -170,8 +170,7 @@ function* watchForUserInvite() {
 
 function* watchForUserInviteResend() {
     yield takeEvery(USER_INVITE_RESEND, action => {
-        const { email } = action.value
-        const eventData = { Email: email }
+        const eventData = { Email: action.value }
         amplitude.getInstance().logEvent(events.referral.resend, eventData)
     })
 }

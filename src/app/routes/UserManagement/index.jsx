@@ -82,18 +82,18 @@ export class UserManagement extends Component {
     this.handleAutoClose()
   }
 
-  handleDeleteUser(id) {
+  handleDeleteUser(userToDelete) {
     const user = this.props.user
     this.props.dispatch(
-      deleteUser(id, user)
+      deleteUser(userToDelete, user)
     )
     this.handleAutoClose()
   }
 
-  handleResendUser(sendUser) {
+  handleResendUser(userToResendTo) {
     const user = this.props.user
     this.props.dispatch(
-      resendPasswordUser(sendUser, user, 'Manage Users')
+      resendPasswordUser(userToResendTo, user, 'Manage Users')
     )
     this.handleAutoClose()
   }
@@ -210,7 +210,7 @@ export class UserManagement extends Component {
             }>Resend</Button>
               <Button onClick={
                 ()=>{
-                  this.handleDeleteUser(row.id)
+                  this.handleDeleteUser(row)
                 }
             }>Cancel</Button>
             </div>)

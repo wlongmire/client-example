@@ -33,6 +33,7 @@ const userPoolId = process.env.userPoolId || 'us-east-1_DW29C7XbE'
 const clientId = process.env.clientId || '274tc1iamgvrik4rnogpe0cb89'
 const clearanceFailEmail = process.env.clearanceFailEmail || 'argoaccessquickquote@gmail.com'
 const clearanceFailFlag = process.env.clearanceFailFlag === 'true' || false
+const amplitudeToken = process.env.AMPLITUDE_TOKEN || '1ca53d42ce7bfbdcbdbaca4df93cce2b'
 const stage = env[userPoolId] || 'dev'
 
 gulp.task('transform', ['apiTransform'], () => {
@@ -51,6 +52,7 @@ gulp.task('transform', ['apiTransform'], () => {
   .pipe(replace('@clearanceFailEmail', clearanceFailEmail))
   .pipe(replace('@clearanceFailFlag', clearanceFailFlag))
   .pipe(replace('@stageEnv', stage))
+  .pipe(replace('@amplitudeToken', amplitudeToken))
   .pipe(gulp.dest('src/config/'))
 })
 
@@ -71,6 +73,7 @@ gulp.task('transform:local', ['apiTransform:local'], () => {
   .pipe(replace('@clearanceFailEmail', 'argoaccessquickquote@gmail.com'))
   .pipe(replace('@clearanceFailFlag', true))
   .pipe(replace('@stageEnv', 'dev'))
+  .pipe(replace('@amplitudeToken', '1ca53d42ce7bfbdcbdbaca4df93cce2b'))
   .pipe(gulp.dest('src/config/'))
 })
 

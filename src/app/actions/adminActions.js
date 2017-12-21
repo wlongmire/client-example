@@ -68,7 +68,7 @@ export function createNewUser(
 
 }
 
-export function deleteUser(id, user) {
+export function deleteUser(userToDelete, user) {
   return (dispatch) => {
     checkTokenExpiration(user).then((resp) => {
       if (resp.status === 'expired') {
@@ -80,13 +80,15 @@ export function deleteUser(id, user) {
         return
       }
 
+      const { id } = userToDelete
+
       apigClient.adminUsersIdDelete({ id }, { id }, {}).then((resp1) => {
         if (!resp1.data.success) {
           dispatch(
             setAlert({ show: true, message: `${resp1.data.message}`, bsStyle: 'danger' })
           )
         } else {
-          dispatch(inviteCancel(user.email))
+          dispatch(inviteCancel(userToDelete.email))
           dispatch(
             setAlert({ show: true, message: 'Success: User was successfully removed.', bsStyle: 'success' })
           )
@@ -98,7 +100,7 @@ export function deleteUser(id, user) {
   }
 }
 
-export function resendPasswordUser(sendUser, user, eventSource = null) {
+export function resendPasswordUser(userToResendTo, user, eventSource = null) {
   return (dispatch) => {
     checkTokenExpiration(user).then((resp) => {
       if (resp.status === 'expired') {
@@ -110,14 +112,14 @@ export function resendPasswordUser(sendUser, user, eventSource = null) {
         return
       }
 
-      apigClient.adminUsersIdDelete({ id: sendUser.id }, { id: sendUser.id }, {}).then((resp1) => {
+      apigClient.adminUsersIdDelete({ id: userToResendTo.id }, { id: userToResendTo.id }, {}).then((resp1) => {
         if (resp1.success === false) {
           dispatch(
             setAlert({ show: true, message: `${resp1.data.message}`, bsStyle: 'danger' })
           )
         } else {
-          dispatch(inviteResend(sendUser.email))
-          dispatch(createNewUser(sendUser.email, sendUser.role === 'admin', user, eventSource, 'Success: User password has been resent.'))
+          dispatch(inviteResend(userToResendTo.email))
+          dispatch(createNewUser(userToResendTo.email, userToResendTo.role === 'admin', user, eventSource, 'Success: User password has been resent.'))
         }
       })
 

@@ -4,9 +4,9 @@ const config = {
     env: 'dev',
     name: 'ownersEdge',
     argoEmail: 'ownersedgesubmissionsdev@gmail.com',
-    underwriterBrokerId: '220bcd0c-bf6e-4189-98b6-fada97d30633',
     sgsOIEmail: 'colonyspecialtyquickquote@gmail.com',
     sgsOCPEmail: 'colonyspecialtyquickquote@gmail.com',
+    underwriterBrokerId: '220bcd0c-bf6e-4189-98b6-fada97d30633',
     ownerEdgeEmail: 'argoaccessquickquote@gmail.com',
     clearanceFailEmail:'argoaccessquickquote@gmail.com',
     clearanceFailFlag: 'false',
@@ -24,6 +24,7 @@ const config = {
     ownersContractorsProtectivePDFUrl: 'http://assets.ownersedge.us/templates/owners_edge-GL-OCP.html',
     formSetUrl:'https://7xipl8fsz2.execute-api.us-east-1.amazonaws.com/dev/ownersedge/',
     formSetAPIKey:'TvNEPSgZQC9ZQivUv5JMZ3gi2iHFZtOA3imfivUL',
+    amplitudeToken: '1ca53d42ce7bfbdcbdbaca4df93cce2b',
 
     awsCognito:{
         identityPoolId: 'us-east-1:0f2ab670-06b8-4f06-88bd-2b3708c8435b',
@@ -34,7 +35,7 @@ const config = {
     },
 
     apiGateway: {
-        stage: ','
+        stage: 'dev'
     },
 
     underwriters:[{
