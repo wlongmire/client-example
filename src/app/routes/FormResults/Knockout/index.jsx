@@ -11,6 +11,10 @@ import * as actions from '../../../actions/submissionActions'
 import { trimAssetLink } from './../../../utils/utilities'
 
 export class Knockout extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
   componentDidMount() {
     this.props.clearSubmissionStatus()
   }
