@@ -101,15 +101,15 @@ class Loading extends Component {
             switch (instantQuote) {
               case true:
                 emailPromises = [
-                  sendEmail(user.username, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgp', submissionId, user),
-                  sendEmail(sgsEmail, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgp', submissionId, user),
-                  sendEmail(ownerEdgeEmail, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgp', submissionId, user)
+                  sendEmail(user.username, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgo', submissionId, user),
+                  sendEmail(sgsEmail, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgo', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (respSave.updated) ? 'updatedQuotedArgo': 'quotedArgo', submissionId, user)
                 ]
                 break;
               case false:
                 emailPromises = [
-                  sendEmail(user.username, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgp', submissionId, user),
-                  sendEmail(ownerEdgeEmail, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgp', submissionId, user)
+                  sendEmail(user.username, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgo', submissionId, user),
+                  sendEmail(ownerEdgeEmail, (respSave.updated) ? 'updatedNonQuoteArgo': 'nonQuoteArgo', submissionId, user)
                 ]
                 break;
             }
