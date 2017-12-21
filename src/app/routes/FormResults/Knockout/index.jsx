@@ -96,7 +96,12 @@ Knockout.propTypes = {
   clearSubmissionStatus: PropTypes.func,
   emailStatus: PropTypes.string,
   submission: PropTypes.object,
-  ratings: PropTypes.object
+  ratings: PropTypes.object,
+  user: PropTypes.isRequired
 }
 
-export default connect(null, actions)(Knockout)
+export default connect((store) => {
+  return ({
+    user: store.user
+  })
+}, actions)(Knockout)
