@@ -460,9 +460,9 @@ const updatedData =  {
       "required": false
     },
     {
-      "questionId": "18",
+      "questionId": "18aLabel",
       "name": "nameInsuredAddressLabel",
-      "text": "Please provide broker contact info attached to the submission and to receive the pricing indication:",
+      "text": "Enter the Brokerage Office of the submission, including the location:",
       "inputFormat": "label",
       
       "attributes":{
@@ -471,13 +471,22 @@ const updatedData =  {
     },
     {
       "questionId": "18a",
-      "text": "Brokerage name",
       "name": "associatedBrokerage",
       "required": true,
       "inputType": "text",
       "inputFormat": "text",
       "tooltiptext": "As an underwriter, we need for you to supply the name of the brokerage assosated with this submission.",
       "placeholder": "Brokerage name",
+      "attributes":{
+        "controlGroup":"contactInfo"
+      }
+    },
+    {
+      "questionId": "18bLabel",
+      "name": "nameInsuredAddressLabel",
+      "text": "Please provide broker contact info attached to the submission and to receive the pricing indication:",
+      "inputFormat": "label",
+      
       "attributes":{
         "controlGroup":"contactInfo"
       }
