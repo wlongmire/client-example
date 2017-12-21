@@ -6,15 +6,20 @@ import { connect } from 'react-redux'
 import { ButtonGroup, Button } from 'react-bootstrap'
 import config from '../../../../config'
 import PendingStatus from '../pendingStatus'
+import ToggleDisplay from 'app/components/shared/ToggleDisplay'
 import * as actions from '../../../actions/submissionActions'
 import { trimAssetLink } from './../../../utils/utilities'
 
 export class Knockout extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
   componentDidMount() {
     this.props.clearSubmissionStatus()
   }
   render() {
-    
+
     const assetsURL = trimAssetLink(config.assetsURL)
 
     const emailStatusMap = {
@@ -59,12 +64,19 @@ export class Knockout extends Component {
             { reasonDisplay }
           </div>
 
-          <p>One of our underwriters will be in contact with you to
-            finalize your coverage options and assist you with purchase.</p>
-
-          <ul>
-            {underwriters}
-          </ul>
+          <ToggleDisplay
+          hide={this.props.user.brokerId === config.underwriterBrokerId}
+          render={() => (<div className="content">
+            <p>One of our underwriters will be in contact with you to finalize your coverage options and assist you with purchase.</p>
+            <ul>{underwriters}</ul>
+          </div>)}
+        />
+        <ToggleDisplay
+          show={this.props.user.brokerId === config.underwriterBrokerId}
+          render={() => (<div className="content">
+            <p>No emails have been sent to the broker or SGS. The Bind Order and Pricing Indication has been sent through to your email, please forward and review these with the Owner's Unit before sending onto the broker and SGS.</p>
+          </div>)}
+        />
         </div>
 
         { emailStatusMap[this.props.emailStatus] }
@@ -84,7 +96,12 @@ Knockout.propTypes = {
   clearSubmissionStatus: PropTypes.func,
   emailStatus: PropTypes.string,
   submission: PropTypes.object,
-  ratings: PropTypes.object
+  ratings: PropTypes.object,
+  user: PropTypes.isRequired
 }
 
-export default connect(null, actions)(Knockout)
+export default connect((store) => {
+  return ({
+    user: store.user
+  })
+}, actions)(Knockout)
